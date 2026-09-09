@@ -1,0 +1,114 @@
+[
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-500-latin-ext.woff2",
+    "peso": "500",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-500-latin.woff2",
+    "peso": "500",
+    "estilo": "normal",
+    "subset": "latin"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-700-latin-ext.woff2",
+    "peso": "700",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-700-latin.woff2",
+    "peso": "700",
+    "estilo": "normal",
+    "subset": "latin"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-800-latin-ext.woff2",
+    "peso": "800",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-800-latin.woff2",
+    "peso": "800",
+    "estilo": "normal",
+    "subset": "latin"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-900-latin-ext.woff2",
+    "peso": "900",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Montserrat",
+    "arquivo": "fonts/Montserrat-900-latin.woff2",
+    "peso": "900",
+    "estilo": "normal",
+    "subset": "latin"
+  },
+  {
+    "familia": "Playfair Display",
+    "arquivo": "fonts/PlayfairDisplay-500-latin-ext.woff2",
+    "peso": "500",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Playfair Display",
+    "arquivo": "fonts/PlayfairDisplay-500-latin.woff2",
+    "peso": "500",
+    "estilo": "normal",
+    "subset": "latin"
+  },
+  {
+    "familia": "Playfair Display",
+    "arquivo": "fonts/PlayfairDisplay-800-latin-ext.woff2",
+    "peso": "800",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Playfair Display",
+    "arquivo": "fonts/PlayfairDisplay-800-latin.woff2",
+    "peso": "800",
+    "estilo": "normal",
+    "subset": "latin"
+  },
+  {
+    "familia": "Lora",
+    "arquivo": "fonts/Lora-500-italic-latin-ext.woff2",
+    "peso": "500",
+    "estilo": "italic",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Lora",
+    "arquivo": "fonts/Lora-500-italic-latin.woff2",
+    "peso": "500",
+    "estilo": "italic",
+    "subset": "latin"
+  },
+  {
+    "familia": "Lora",
+    "arquivo": "fonts/Lora-500-latin-ext.woff2",
+    "peso": "500",
+    "estilo": "normal",
+    "subset": "latin-ext"
+  },
+  {
+    "familia": "Lora",
+    "arquivo": "fonts/Lora-500-latin.woff2",
+    "peso": "500",
+    "estilo": "normal",
+    "subset": "latin"
+  }
+]

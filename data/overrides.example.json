@@ -1,0 +1,19 @@
+{
+  "_comentario": "Decisoes editoriais que voce quer tomar a mao. Tudo e opcional: sem este arquivo o pipeline decide sozinho. Copie para data/overrides.json.",
+
+  "nome": "Dra. Fulana de Tal",
+  "titulo": "OAB/SP 123.456",
+  "logoSrc": "logo.png",
+
+  "themePreset": "autoridade",
+  "duracaoMaxSegundos": 90,
+  "maxEnfase": 4,
+
+  "perguntaQa": "Meu chefe grita comigo na frente de todo mundo. Isso e assedio?",
+
+  "_edl": "Fixa a decupagem a mao, em segundos do bruto. Substitui TODA a decupagem automatica.",
+  "edl": [
+    {"start": 2.5, "end": 6.2, "papeis": ["gancho"]},
+    {"start": 17.8, "end": 22.4, "papeis": ["categorica"]}
+  ]
+}

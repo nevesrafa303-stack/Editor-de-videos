@@ -1,0 +1,36 @@
+{
+  "name": "editor-de-videos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pipeline reprodutivel de edicao de video talking head -> Reels/TikTok 9:16 (FFmpeg + Whisper + Remotion)",
+  "type": "module",
+  "scripts": {
+    "fonts": "node scripts/00_fonts.mjs",
+    "analyze": "bash scripts/01_analyze.sh",
+    "transcribe": "bash scripts/02_transcribe.sh",
+    "mezzanine": "bash scripts/03_mezzanine.sh",
+    "edl": "node scripts/04_build_edl.mjs",
+    "audio": "node scripts/05_audio.mjs",
+    "sfx": "node scripts/06_sfx.mjs",
+    "render": "bash scripts/07_render.sh",
+    "qc": "node scripts/08_qc.mjs",
+    "all": "bash scripts/run_all.sh",
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit",
+    "fixture": "node scripts/dev/make_fixture.mjs",
+    "verify": "bash scripts/dev/verify.sh"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.523",
+    "@remotion/fonts": "^4.0.523",
+    "@remotion/google-fonts": "4.0.523",
+    "@remotion/media": "4.0.523",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.523"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.8.3"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 105,
+  "videoSrc": "mezzanine.mp4",
+  "audioSrc": null,
+  "musicSrc": null,
+  "segments": [],
+  "captions": [],
+  "keywordGroups": [],
+  "inserts": [],
+  "motions": [],
+  "qaCard": null,
+  "endCard": {"from": 0, "durationInFrames": 105},
+  "sfx": [],
+  "flashes": [],
+  "themePreset": "autoridade",
+  "assinatura": {"nome": "Seu Nome", "titulo": "Seu Titulo", "logoSrc": null}
+}
