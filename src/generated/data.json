@@ -2,19 +2,541 @@
   "fps": 30,
   "width": 1080,
   "height": 1920,
-  "durationInFrames": 105,
+  "durationInFrames": 1487,
   "videoSrc": "mezzanine.mp4",
-  "audioSrc": null,
+  "audioSrc": "audio_final.wav",
   "musicSrc": null,
-  "segments": [],
-  "captions": [],
-  "keywordGroups": [],
-  "inserts": [],
-  "motions": [],
+  "segments": [
+    {
+      "srcStart": 2.5,
+      "srcEnd": 6.228,
+      "from": 0,
+      "durationInFrames": 112,
+      "text": "o seu chefe grita com voce na frente de todo mundo",
+      "scale": 1.18,
+      "translateX": 0.015,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 6,
+      "srcEnd": 9.306,
+      "from": 112,
+      "durationInFrames": 99,
+      "text": "ele humilha ele ameaca e voce acha que e normal",
+      "scale": 1,
+      "translateX": -0.012,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 17.7,
+      "srcEnd": 22.396,
+      "from": 211,
+      "durationInFrames": 141,
+      "text": "isso nao e normal isso e assedio moral e a lei protege voce sempre",
+      "scale": 1.28,
+      "translateX": 0,
+      "creep": 0,
+      "emphasis": true
+    },
+    {
+      "srcStart": 23.3,
+      "srcEnd": 26.706,
+      "from": 352,
+      "durationInFrames": 102,
+      "text": "existem tres provas que o juiz sempre aceita no processo",
+      "scale": 1,
+      "translateX": -0.009,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 27.5,
+      "srcEnd": 31.228,
+      "from": 454,
+      "durationInFrames": 112,
+      "text": "mensagens de whatsapp, e-mails do trabalho, e o depoimento de colegas",
+      "scale": 1.18,
+      "translateX": 0.02,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 33.1,
+      "srcEnd": 37.796,
+      "from": 566,
+      "durationInFrames": 141,
+      "text": "na pratica isso significa que a sua palavra deixa de ser a unica prova",
+      "scale": 1,
+      "translateX": -0.015,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 41.9,
+      "srcEnd": 45.306,
+      "from": 707,
+      "durationInFrames": 102,
+      "text": "mas atencao existe um prazo e ele corre contra voce",
+      "scale": 1.28,
+      "translateX": 0,
+      "creep": 0,
+      "emphasis": true
+    },
+    {
+      "srcStart": 46.3,
+      "srcEnd": 48.415,
+      "from": 809,
+      "durationInFrames": 63,
+      "text": "nao assine nenhum documento sem ler",
+      "scale": 1,
+      "translateX": -0.012,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 49.5,
+      "srcEnd": 51.615,
+      "from": 872,
+      "durationInFrames": 63,
+      "text": "nao apague as conversas do celular",
+      "scale": 1.18,
+      "translateX": 0.025,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 52.7,
+      "srcEnd": 54.815,
+      "from": 935,
+      "durationInFrames": 63,
+      "text": "nao converse sobre o caso publicamente",
+      "scale": 1,
+      "translateX": -0.009,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 56.1,
+      "srcEnd": 59.828,
+      "from": 998,
+      "durationInFrames": 112,
+      "text": "com essas provas em maos a indenizacao sai muito mais rapido",
+      "scale": 1.18,
+      "translateX": 0.02,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 62.9,
+      "srcEnd": 67.274,
+      "from": 1110,
+      "durationInFrames": 131,
+      "text": "se voce esta passando por isso salve este video e clica aqui embaixo",
+      "scale": 1,
+      "translateX": -0.015,
+      "creep": 0,
+      "emphasis": false
+    },
+    {
+      "srcStart": 68.3,
+      "srcEnd": 72.996,
+      "from": 1241,
+      "durationInFrames": 141,
+      "text": "o link para agendamento esta na bio e eu te espero do outro lado",
+      "scale": 1.18,
+      "translateX": 0.015,
+      "creep": 0,
+      "emphasis": false
+    }
+  ],
+  "captions": [
+    {
+      "from": 3,
+      "durationInFrames": 48,
+      "text": "o seu chefe grita com",
+      "highlightIndex": null
+    },
+    {
+      "from": 51,
+      "durationInFrames": 48,
+      "text": "voce na frente de todo",
+      "highlightIndex": null
+    },
+    {
+      "from": 100,
+      "durationInFrames": 9,
+      "text": "mundo",
+      "highlightIndex": null
+    },
+    {
+      "from": 112,
+      "durationInFrames": 48,
+      "text": "ele humilha ele ameaca e",
+      "highlightIndex": null
+    },
+    {
+      "from": 160,
+      "durationInFrames": 48,
+      "text": "voce acha que e normal",
+      "highlightIndex": null
+    },
+    {
+      "from": 214,
+      "durationInFrames": 48,
+      "text": "isso nao e normal isso",
+      "highlightIndex": null
+    },
+    {
+      "from": 262,
+      "durationInFrames": 48,
+      "text": "e assedio moral e a",
+      "highlightIndex": null
+    },
+    {
+      "from": 311,
+      "durationInFrames": 38,
+      "text": "lei protege voce sempre",
+      "highlightIndex": null
+    },
+    {
+      "from": 355,
+      "durationInFrames": 48,
+      "text": "existem tres provas que o",
+      "highlightIndex": null
+    },
+    {
+      "from": 403,
+      "durationInFrames": 48,
+      "text": "juiz sempre aceita no processo",
+      "highlightIndex": null
+    },
+    {
+      "from": 457,
+      "durationInFrames": 28,
+      "text": "mensagens de whatsapp,",
+      "highlightIndex": null
+    },
+    {
+      "from": 486,
+      "durationInFrames": 28,
+      "text": "e-mails do trabalho,",
+      "highlightIndex": null
+    },
+    {
+      "from": 515,
+      "durationInFrames": 48,
+      "text": "e o depoimento de colegas",
+      "highlightIndex": null
+    },
+    {
+      "from": 569,
+      "durationInFrames": 48,
+      "text": "na pratica isso significa que",
+      "highlightIndex": null
+    },
+    {
+      "from": 617,
+      "durationInFrames": 48,
+      "text": "a sua palavra deixa de",
+      "highlightIndex": null
+    },
+    {
+      "from": 666,
+      "durationInFrames": 38,
+      "text": "ser a unica prova",
+      "highlightIndex": null
+    },
+    {
+      "from": 710,
+      "durationInFrames": 48,
+      "text": "mas atencao existe um prazo",
+      "highlightIndex": null
+    },
+    {
+      "from": 758,
+      "durationInFrames": 48,
+      "text": "e ele corre contra voce",
+      "highlightIndex": null
+    },
+    {
+      "from": 812,
+      "durationInFrames": 48,
+      "text": "nao assine nenhum documento sem",
+      "highlightIndex": null
+    },
+    {
+      "from": 860,
+      "durationInFrames": 9,
+      "text": "ler",
+      "highlightIndex": null
+    },
+    {
+      "from": 875,
+      "durationInFrames": 48,
+      "text": "nao apague as conversas do",
+      "highlightIndex": null
+    },
+    {
+      "from": 923,
+      "durationInFrames": 9,
+      "text": "celular",
+      "highlightIndex": null
+    },
+    {
+      "from": 938,
+      "durationInFrames": 48,
+      "text": "nao converse sobre o caso",
+      "highlightIndex": null
+    },
+    {
+      "from": 986,
+      "durationInFrames": 9,
+      "text": "publicamente",
+      "highlightIndex": null
+    },
+    {
+      "from": 1001,
+      "durationInFrames": 48,
+      "text": "com essas provas em maos",
+      "highlightIndex": null
+    },
+    {
+      "from": 1049,
+      "durationInFrames": 48,
+      "text": "a indenizacao sai muito mais",
+      "highlightIndex": null
+    },
+    {
+      "from": 1098,
+      "durationInFrames": 9,
+      "text": "rapido",
+      "highlightIndex": null
+    },
+    {
+      "from": 1113,
+      "durationInFrames": 48,
+      "text": "se voce esta passando por",
+      "highlightIndex": null
+    },
+    {
+      "from": 1161,
+      "durationInFrames": 48,
+      "text": "isso salve este video e",
+      "highlightIndex": null
+    },
+    {
+      "from": 1210,
+      "durationInFrames": 28,
+      "text": "clica aqui embaixo",
+      "highlightIndex": null
+    },
+    {
+      "from": 1244,
+      "durationInFrames": 48,
+      "text": "o link para agendamento esta",
+      "highlightIndex": null
+    },
+    {
+      "from": 1292,
+      "durationInFrames": 48,
+      "text": "na bio e eu te",
+      "highlightIndex": null
+    },
+    {
+      "from": 1341,
+      "durationInFrames": 38,
+      "text": "espero do outro lado",
+      "highlightIndex": null
+    }
+  ],
+  "keywordGroups": [
+    {
+      "from": 32,
+      "durationInFrames": 179,
+      "items": [
+        {
+          "text": "GRITA",
+          "at": 32
+        },
+        {
+          "text": "HUMILHA",
+          "at": 122
+        },
+        {
+          "text": "AMEACA",
+          "at": 141
+        }
+      ],
+      "mode": "hook"
+    },
+    {
+      "from": 809,
+      "durationInFrames": 189,
+      "items": [
+        {
+          "text": "NAO ASSINE NENHUM DOCUMENTO",
+          "at": 811
+        },
+        {
+          "text": "NAO APAGUE AS CONVERSAS",
+          "at": 874
+        },
+        {
+          "text": "NAO CONVERSE SOBRE O CASO",
+          "at": 937
+        }
+      ],
+      "mode": "commands"
+    }
+  ],
+  "inserts": [
+    {
+      "kind": "list-panel",
+      "layout": "lower-panel",
+      "from": 453,
+      "durationInFrames": 113,
+      "items": [
+        {
+          "text": "mensagens de whatsapp",
+          "at": 457
+        },
+        {
+          "text": "e-mails do trabalho",
+          "at": 486
+        },
+        {
+          "text": "e o depoimento de colegas",
+          "at": 515
+        }
+      ]
+    }
+  ],
+  "motions": [
+    {
+      "kind": "kinetic",
+      "from": 575,
+      "durationInFrames": 132,
+      "items": [
+        {
+          "text": "pratica",
+          "at": 579,
+          "accent": false
+        },
+        {
+          "text": "significa",
+          "at": 598,
+          "accent": false
+        },
+        {
+          "text": "palavra",
+          "at": 637,
+          "accent": true
+        }
+      ]
+    }
+  ],
   "qaCard": null,
-  "endCard": {"from": 0, "durationInFrames": 105},
-  "sfx": [],
-  "flashes": [],
+  "endCard": {
+    "from": 1382,
+    "durationInFrames": 105
+  },
+  "sfx": [
+    {
+      "kind": "riser",
+      "at": 14,
+      "gain": 0.065
+    },
+    {
+      "kind": "hit",
+      "at": 32,
+      "gain": 1.324
+    },
+    {
+      "kind": "hit",
+      "at": 122,
+      "gain": 1.324
+    },
+    {
+      "kind": "hit",
+      "at": 141,
+      "gain": 1.324
+    },
+    {
+      "kind": "whoosh",
+      "at": 211,
+      "gain": 1.639
+    },
+    {
+      "kind": "whoosh",
+      "at": 453,
+      "gain": 1.639
+    },
+    {
+      "kind": "pop",
+      "at": 457,
+      "gain": 0.698
+    },
+    {
+      "kind": "pop",
+      "at": 486,
+      "gain": 0.698
+    },
+    {
+      "kind": "pop",
+      "at": 515,
+      "gain": 0.698
+    },
+    {
+      "kind": "whoosh",
+      "at": 575,
+      "gain": 1.639
+    },
+    {
+      "kind": "pop",
+      "at": 579,
+      "gain": 0.698
+    },
+    {
+      "kind": "pop",
+      "at": 598,
+      "gain": 0.698
+    },
+    {
+      "kind": "pop",
+      "at": 637,
+      "gain": 0.698
+    },
+    {
+      "kind": "whoosh",
+      "at": 707,
+      "gain": 1.639
+    },
+    {
+      "kind": "hit",
+      "at": 811,
+      "gain": 1.324
+    },
+    {
+      "kind": "hit",
+      "at": 874,
+      "gain": 1.324
+    },
+    {
+      "kind": "hit",
+      "at": 937,
+      "gain": 1.324
+    }
+  ],
+  "flashes": [
+    564,
+    705
+  ],
   "themePreset": "autoridade",
-  "assinatura": {"nome": "Seu Nome", "titulo": "Seu Titulo", "logoSrc": null}
+  "assinatura": {
+    "nome": "SEU NOME",
+    "titulo": "ESPECIALISTA",
+    "logoSrc": null
+  }
 }

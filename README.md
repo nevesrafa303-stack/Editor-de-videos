@@ -57,7 +57,10 @@ plano de áudio, a segunda incorpora os ganhos calibrados e a faixa final.
 
 - **FFmpeg/ffprobe** — `brew install ffmpeg` (macOS) ou `apt install ffmpeg`
 - **Node 18+**
-- **Whisper** — `pip install -U openai-whisper` (só para `npm run transcribe`)
+- **Whisper** — `pip install -U openai-whisper` (só para `npm run transcribe`).
+  Na primeira execução ele baixa os pesos do modelo. Se a sua rede bloquear
+  esse download, baixe numa máquina com acesso e aponte a pasta:
+  `WHISPER_MODEL_DIR=~/.cache/whisper npm run transcribe`
 - **Chrome/Chromium** para o render. O Remotion baixa o seu; se a rede
   bloquear, aponte um binário existente:
   `REMOTION_BROWSER=/caminho/para/chrome npm run render`
