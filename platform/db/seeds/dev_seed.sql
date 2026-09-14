@@ -35,14 +35,16 @@ insert into unit (id, tenant_id, code, name, city, state_code) values
   ('b1111111-1111-7111-8111-111111111111', '22222222-2222-7222-8222-222222222222',
    'MATRIZ', 'Bella Vita', 'Campinas', 'SP');
 
--- Senha de todos: "senha123" (hash bcrypt fixo, so para desenvolvimento).
+-- Senha de todos: "senha-de-teste-123".
+-- Hash bcrypt real (custo 12), fixo para o seed ser reproduzivel. Vale so para
+-- desenvolvimento e teste; producao nunca recebe este arquivo.
 insert into app_user (id, email, full_name, password_hash) values
-  ('c1111111-1111-7111-8111-111111111111', 'ana@sorriso.com.br',      'Ana Souza',    '$2b$12$devdevdevdevdevdevdevuKqvJ0mWQ0mGQ0mGQ0mGQ0mGQ0mGQ0m'),
-  ('c2222222-2222-7222-8222-222222222222', 'bruno@sorriso.com.br',    'Bruno Lima',   '$2b$12$devdevdevdevdevdevdevuKqvJ0mWQ0mGQ0mGQ0mGQ0mGQ0mGQ0m'),
-  ('c3333333-3333-7333-8333-333333333333', 'carla@sorriso.com.br',    'Carla Mendes', '$2b$12$devdevdevdevdevdevdevuKqvJ0mWQ0mGQ0mGQ0mGQ0mGQ0mGQ0m'),
-  ('c4444444-4444-7444-8444-444444444444', 'recepcao@sorriso.com.br', 'Juliana Rocha','$2b$12$devdevdevdevdevdevdevuKqvJ0mWQ0mGQ0mGQ0mGQ0mGQ0mGQ0m'),
-  ('c5555555-5555-7555-8555-555555555555', 'financeiro@sorriso.com.br','Marcos Dias', '$2b$12$devdevdevdevdevdevdevuKqvJ0mWQ0mGQ0mGQ0mGQ0mGQ0mGQ0m'),
-  ('c6666666-6666-7666-8666-666666666666', 'helena@bellavita.com.br', 'Helena Martins','$2b$12$devdevdevdevdevdevdevuKqvJ0mWQ0mGQ0mGQ0mGQ0mGQ0mGQ0m');
+  ('c1111111-1111-7111-8111-111111111111', 'ana@sorriso.com.br',      'Ana Souza',    '$2b$12$ekMg/cgknKkLyWGLKf9SG.JHM94tfYvjnJKVbSs0AuGocGqdVRwU6'),
+  ('c2222222-2222-7222-8222-222222222222', 'bruno@sorriso.com.br',    'Bruno Lima',   '$2b$12$ekMg/cgknKkLyWGLKf9SG.JHM94tfYvjnJKVbSs0AuGocGqdVRwU6'),
+  ('c3333333-3333-7333-8333-333333333333', 'carla@sorriso.com.br',    'Carla Mendes', '$2b$12$ekMg/cgknKkLyWGLKf9SG.JHM94tfYvjnJKVbSs0AuGocGqdVRwU6'),
+  ('c4444444-4444-7444-8444-444444444444', 'recepcao@sorriso.com.br', 'Juliana Rocha','$2b$12$ekMg/cgknKkLyWGLKf9SG.JHM94tfYvjnJKVbSs0AuGocGqdVRwU6'),
+  ('c5555555-5555-7555-8555-555555555555', 'financeiro@sorriso.com.br','Marcos Dias', '$2b$12$ekMg/cgknKkLyWGLKf9SG.JHM94tfYvjnJKVbSs0AuGocGqdVRwU6'),
+  ('c6666666-6666-7666-8666-666666666666', 'helena@bellavita.com.br', 'Helena Martins','$2b$12$ekMg/cgknKkLyWGLKf9SG.JHM94tfYvjnJKVbSs0AuGocGqdVRwU6');
 
 insert into membership (id, tenant_id, user_id, role_id, is_provider, council_type, council_number, council_state, specialty, agenda_color)
 select

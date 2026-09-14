@@ -5,6 +5,7 @@
 set -euo pipefail
 
 DB=${DB:-crm_v2_test}
+export DB
 HOST=${PGHOST:-127.0.0.1}
 ADMIN_USER=${ADMIN_USER:-crm}
 ADMIN_PASS=${ADMIN_PASS:-crm}
@@ -15,26 +16,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export PGPASSWORD="$ADMIN_PASS"
 admin() { psql -q -v ON_ERROR_STOP=1 -h "$HOST" -U "$ADMIN_USER" -d "$1" "${@:2}"; }
 
-echo "==> recriando $DB"
-admin postgres -c "drop database if exists $DB;" -c "create database $DB owner $ADMIN_USER;" >/dev/null
-
-echo "==> migrations"
-for f in "$HERE"/../migrations/0*.sql; do
-  admin "$DB" -f "$f" >/dev/null
-  printf '    %s\n' "$(basename "$f")"
-done
-
-echo "==> seed"
-admin "$DB" -f "$HERE/../seeds/dev_seed.sql" >/dev/null
-
-echo "==> papel de aplicacao"
-admin "$DB" \
-  -c "do \$\$ begin
-        if not exists (select 1 from pg_roles where rolname = '$APP_USER') then
-          create role $APP_USER login password '$APP_PASS';
-        end if;
-      end \$\$;" \
-  -c "grant crm_app to $APP_USER;" >/dev/null
+"$HERE/../reset.sh"
 admin "$DB" -f "$HERE/_helpers.sql" >/dev/null
 
 echo "==> testes"

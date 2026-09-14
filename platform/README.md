@@ -9,9 +9,11 @@ aguente o produto inteiro antes de a primeira tela existir.
 ## O que tem aqui
 
 ```
-db/migrations/   17 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   18 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
 db/tests/        78 testes de invariante, rodando contra PostgreSQL de verdade
+db/reset.sh      recria o banco do zero (usado pelas duas suítes)
+app/             camada de acesso: withTenant, tipos gerados, sessão, RBAC
 docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 ```
 
@@ -22,7 +24,8 @@ createdb crm
 psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0017
 psql -d crm -f db/seeds/dev_seed.sql
 
-./db/tests/run_tests.sh                             # 78 testes
+./db/tests/run_tests.sh                             # 78 testes de invariante
+(cd app && npm install && npm test)                 # 26 testes da camada de acesso
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
 
@@ -42,7 +45,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Enums | 63 |
 | Transições de estado declaradas | 74 |
 | Permissões no catálogo | 66 |
-| Testes | 78, todos passando |
+| Testes | 78 no banco + 26 na camada de acesso, todos passando |
 
 ## Por onde começar a ler
 
@@ -51,6 +54,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 3. [`docs/invariants.md`](docs/invariants.md) — o que o sistema nunca pode violar.
 4. [`docs/roadmap.md`](docs/roadmap.md) — o que é MVP e onde o escopo está torto.
 5. [`db/migrations/`](db/migrations/) — o schema em si.
+6. [`app/README.md`](app/README.md) — como uma feature fala com o banco.
 
 ## Três coisas que este projeto assume
 

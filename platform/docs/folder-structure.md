@@ -38,9 +38,9 @@ platform/
 │   ├── roadmap.md
 │   └── folder-structure.md
 │
-└── app/                         # Next.js — a construir na próxima etapa
+└── app/                         # Camada de acesso (construída) + Next.js (a seguir)
     ├── src/
-    │   ├── app/                 # SÓ roteamento e composição de tela
+    │   ├── app/                 # SÓ roteamento e composição de tela (a seguir)
     │   │   ├── (auth)/
     │   │   ├── (app)/
     │   │   │   ├── painel/
@@ -73,11 +73,12 @@ platform/
     │   │   ├── inventory/
     │   │   └── automation/
     │   │
-    │   ├── server/
-    │   │   ├── db.ts            # pool + tipos gerados do banco
-    │   │   ├── tenant-context.ts# abre transação e aplica SET LOCAL app.*
-    │   │   ├── auth/
-    │   │   └── rbac.ts
+    │   ├── server/              # PRONTO
+    │   │   ├── db.ts            # pool, parsers e guarda contra papel que ignora RLS
+    │   │   ├── db-types.ts      # gerado por introspecção
+    │   │   ├── context.ts       # withTenant: transação + SET LOCAL app.*
+    │   │   ├── session.ts       # sessão opaca no banco, revogável na hora
+    │   │   └── auth.ts          # login, escolha de rede, logout
     │   │
     │   ├── jobs/                # workers: outbox, automação, snapshot
     │   ├── shared/              # money, datas, BR (CPF/CNPJ), erros
@@ -102,9 +103,11 @@ linhas de domínio puro e 64 testes que rodam em 1,5s.
 
 **4. Acesso ao banco passa pelo contexto de tenant.** Ninguém pega conexão
 solta: `withTenant(session, fn)` abre a transação, aplica
-`SET LOCAL app.tenant_id/user_id/membership_id/unit_ids` e entrega o cliente. Sem
+`set_config('app.tenant_id', ..., is_local => true)` e entrega o cliente. Sem
 isso, RLS não vê contexto e a consulta volta vazia — o erro aparece na primeira
-execução, não em produção.
+execução, não em produção. Implementado em
+[`app/src/server/context.ts`](../app/src/server/context.ts), com teste de que o
+contexto não sobrevive à transação nem contamina a conexão seguinte.
 
 ## Dependência permitida entre módulos
 
