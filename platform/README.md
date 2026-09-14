@@ -57,8 +57,10 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 2. [`docs/erd.md`](docs/erd.md) — um diagrama por domínio.
 3. [`docs/invariants.md`](docs/invariants.md) — o que o sistema nunca pode violar.
 4. [`docs/roadmap.md`](docs/roadmap.md) — o que é MVP e onde o escopo está torto.
-5. [`db/migrations/`](db/migrations/) — o schema em si.
-6. [`app/README.md`](app/README.md) — como uma feature fala com o banco, e as
+5. [`docs/decisoes-produto.md`](docs/decisoes-produto.md) — as decisões de
+   produto já tomadas, com o custo de cada uma.
+6. [`db/migrations/`](db/migrations/) — o schema em si.
+7. [`app/README.md`](app/README.md) — como uma feature fala com o banco, e as
    telas que já existem.
 
 ## Três coisas que este projeto assume
