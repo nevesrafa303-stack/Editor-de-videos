@@ -18,3 +18,5 @@ public/
 *.log
 .DS_Store
 data/silences.txt
+__pycache__/
+*.pyc

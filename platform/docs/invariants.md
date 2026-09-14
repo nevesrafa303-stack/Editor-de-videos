@@ -1,0 +1,123 @@
+# Invariantes de negócio
+
+Regras que o sistema nunca pode violar — e onde cada uma é garantida.
+
+A coluna **Onde** importa mais que a regra: invariante que só vive na aplicação
+não alcança importador de base, script de correção, integração futura nem duas
+pessoas clicando ao mesmo tempo.
+
+Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
+(78 testes, `./db/tests/run_tests.sh`).
+
+## Isolamento e acesso
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 1 | Nenhuma consulta retorna linha de outra rede | RLS `tenant_isolation` em 109 tabelas | ✅ |
+| 2 | Escrita com `tenant_id` de outra rede é recusada | `WITH CHECK` da policy | ✅ |
+| 3 | Tabela de junção não liga entidades de redes diferentes | policy derivada dos dois pais | ✅ |
+| 4 | Sessão sem contexto de tenant não enxerga nada (falha fechado) | `current_tenant_id()` nulo | ✅ |
+| 5 | Usuário restrito a uma unidade não vê dado de outra | `current_unit_ids()` na policy | ✅ |
+| 6 | Com política restritiva, profissional só abre prontuário de quem atende | policy restritiva + `patient_provider_link` | ✅ |
+| 7 | A aplicação não tem `DELETE` físico em tabela de negócio | `GRANT` | ✅ |
+| 8 | Toda tabela de negócio tem RLS e policy | `assert_rls_coverage()` no CI | ✅ |
+
+## Prontuário e LGPD
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 9 | Evolução clínica não pode ser apagada | trigger + `GRANT` | ✅ |
+| 10 | Evolução fechada não pode ser reescrita; correção é aditamento | trigger (janela de 30 min) | ✅ |
+| 11 | Aditamento exige motivo | `CHECK` | ✅ |
+| 12 | Registro clínico exige profissional ativo com registro de conselho | trigger | ✅ |
+| 13 | Foto clínica exige consentimento de imagem **vigente** | trigger + `has_active_consent()` | ✅ |
+| 14 | Revogação de consentimento vale imediatamente | função, sem cache | ✅ |
+| 15 | Consentimento aponta para a **versão do termo** que a pessoa assinou | FK para `consent_document` versionado | ✅ |
+| 16 | Leitura de prontuário deixa rastro | `phi_access_log` append-only | ✅ |
+| 17 | Trilha de auditoria não pode ser alterada nem apagada | `REVOKE` + trigger | ✅ |
+| 18 | Alteração de permissão de papel é auditada | trigger com resolução pelo pai | ✅ |
+
+## Rastreabilidade sanitária
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 19 | Aplicação de injetável exige lote rastreado (configurável por rede) | trigger + `tenant_policy` | ✅ |
+| 20 | Lote vencido não pode ser aplicado | trigger | ✅ |
+| 21 | Lote bloqueado por recall não pode ser aplicado | trigger | ✅ |
+| 22 | Lote informado tem de pertencer ao produto informado | trigger | ✅ |
+| 23 | Número e validade do lote são congelados no registro clínico | trigger de congelamento | ✅ |
+| 24 | Dado um lote recolhido, o sistema lista quem recebeu | índice `injectable_application_lot_idx` | ✅ |
+| 25 | Produto com controle de lote exige lote na movimentação | trigger | ✅ |
+| 26 | Lote vencido sai como perda, nunca como consumo | trigger | ✅ |
+| 27 | Perda e ajuste exigem motivo registrado | `CHECK` | ✅ |
+| 28 | Movimentação de estoque é append-only; saldo é derivado | trigger + `REVOKE` | ✅ |
+
+## Agenda
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 29 | Profissional não tem dois atendimentos sobrepostos | `EXCLUDE USING gist` | ✅ |
+| 30 | Cadeira/sala não recebe dois atendimentos sobrepostos | `EXCLUDE USING gist` | ✅ |
+| 31 | Cancelamento e falta liberam a janela | cláusula `WHERE` da exclusion | ✅ |
+| 32 | Agendamento não pula etapas (ex.: `scheduled` → `completed`) | `state_transition` + trigger | ✅ |
+| 33 | Cancelamento exige motivo | `CHECK` | ✅ |
+| 34 | Toda mudança de status entra no histórico | trigger | ✅ |
+| 35 | Fim do atendimento é posterior ao início | `CHECK` | ✅ |
+
+## Comercial e orçamento
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 36 | Orçamento sem item não pode ser enviado nem aprovado | trigger | ✅ |
+| 37 | Total do orçamento é sempre subtotal − desconto | coluna gerada | ✅ |
+| 38 | Desconto acima do teto da tabela exige aprovação nominal | trigger | ✅ |
+| 39 | Desconto não excede o subtotal | `CHECK` | ✅ |
+| 40 | Aceite exige evidência de assinatura | `CHECK` | ✅ |
+| 41 | Preço e custo do item ficam congelados na emissão | cópia no `quote_item` | ✅ |
+| 42 | Item exige "onde" compatível com o procedimento (dente, face ou região) | trigger lendo `procedure.scope` | ✅ |
+| 43 | Não existem duas tabelas de preço ativas para o mesmo público | `EXCLUDE` com `daterange` | — |
+| 44 | Oportunidade perdida exige motivo | `CHECK` | — |
+
+## Financeiro
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 45 | Pagamento confirmado é imutável; correção é estorno | trigger | ✅ |
+| 46 | Pagamento não pode ser apagado | trigger + `GRANT` | ✅ |
+| 47 | Estorno exige motivo e data | `CHECK` | ✅ |
+| 48 | Saldo da parcela é a soma dos pagamentos confirmados | trigger de recálculo | ✅ |
+| 49 | Recebível acompanha o saldo das parcelas | trigger de recálculo | ✅ |
+| 50 | Parcela quitada não muda de valor nem de vencimento | trigger | ✅ |
+| 51 | Pago nunca excede o valor da parcela | `CHECK` | ✅ |
+| 52 | Caixa fechado não aceita movimentação nova | trigger | ✅ |
+| 53 | Um caixa aberto por operador e unidade | índice único parcial | — |
+| 54 | Um pagamento só é estornado uma vez | índice único parcial | — |
+| 55 | Cobrança no gateway não duplica sob retry | `UNIQUE (tenant, provider, idempotency_key)` | — |
+| 56 | Webhook repetido não vira segundo pagamento | `UNIQUE (source, external_id)` | — |
+
+## Automação
+
+| # | Invariante | Onde | Teste |
+|---|---|---|---|
+| 57 | A mesma automação não dispara duas vezes para o mesmo alvo | `UNIQUE (rule_id, target_entity, target_id)` | — |
+| 58 | Efeito externo só sai depois do commit | `outbox_message` na mesma transação | — |
+| 59 | Mensagem fora da janela de 24h exige template aprovado | `conversation.window_expires_at` + regra de envio | — |
+| 60 | Envio respeita janela de horário e teto por paciente/dia | `automation_rule` | — |
+
+---
+
+## Invariantes que **não** estão no banco (e por quê)
+
+Honestidade sobre os limites do que foi construído:
+
+- **"Não executar procedimento sem baixa de insumo"** — está como política
+  (`tenant_policy.block_execution_without_stock`), não como trigger. Bloquear no
+  banco significa impedir o dentista de fechar o atendimento porque o estoque
+  estava desatualizado, o que na prática faz a clínica registrar errado para
+  conseguir trabalhar. O caminho correto é baixa automática pela ficha técnica +
+  alerta de divergência, com bloqueio opcional por rede.
+- **Cálculo de comissão** — a regra (`commission_rule`) é dado, mas a aplicação
+  dela é serviço da aplicação, não trigger: envolve precedência, rateio entre
+  profissionais e reprocessamento de mês fechado.
+- **Risco de no-show e sinais de oportunidade** — job, não trigger. São
+  aproximações que mudam de fórmula; não devem travar escrita.
