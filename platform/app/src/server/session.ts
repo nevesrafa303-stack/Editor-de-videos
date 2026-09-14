@@ -86,6 +86,7 @@ type ResolvedRow = {
   active_unit_id: string | null;
   unit_ids: string[];
   permissions: string[];
+  timezone: string;
   mfa_enabled_at: Date | null;
   mfa_satisfied_at: Date | null;
   expires_at: Date;
@@ -129,6 +130,7 @@ export async function resolveSession(token: string): Promise<TenantSession | nul
     activeUnitId: row.active_unit_id,
     unitIds: row.unit_ids,
     permissions,
+    timezone: row.timezone,
     mfaEnabledAt: row.mfa_enabled_at,
     mfaSatisfiedAt: row.mfa_satisfied_at,
     expiresAt: row.expires_at,

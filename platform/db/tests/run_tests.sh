@@ -20,11 +20,15 @@ admin() { psql -q -v ON_ERROR_STOP=1 -h "$HOST" -U "$ADMIN_USER" -d "$1" "${@:2}
 admin "$DB" -f "$HERE/_helpers.sql" >/dev/null
 
 echo "==> testes"
+
+# Descoberta por glob, nao lista a mao: suite nova que ninguem lembrou de
+# registrar no runner e suite que nao roda — e ninguem percebe, porque o
+# resumo continua verde.
+SUITES=()
+for f in "$HERE"/0*.sql; do SUITES+=(-f "$f"); done
+
 PGPASSWORD="$APP_PASS" psql -q -v ON_ERROR_STOP=1 -h "$HOST" -U "$APP_USER" -d "$DB" \
-  -f "$HERE/01_tenant_isolation.sql" \
-  -f "$HERE/02_state_and_scheduling.sql" \
-  -f "$HERE/03_clinical_and_traceability.sql" \
-  -f "$HERE/04_finance_and_audit.sql" 2>&1 \
+  "${SUITES[@]}" 2>&1 \
   | sed -E 's/^psql:[^:]+:[0-9]+: //' \
   | grep -E '^(NOTICE|ERROR|DETAIL)' \
   | sed -E 's/^NOTICE:  //'

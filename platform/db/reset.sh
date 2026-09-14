@@ -19,6 +19,16 @@ admin() { psql -q -v ON_ERROR_STOP=1 -h "$HOST" -U "$ADMIN_USER" -d "$1" "${@:2}
 say() { [ "$QUIET" = "1" ] || echo "$@"; }
 
 say "==> recriando $DB"
+
+# Derruba conexoes abertas antes de dropar. Sem isto, um `next dev` esquecido
+# em outra aba faz o reset falhar em silencio e a suite seguinte roda contra o
+# banco velho — que e pior do que falhar.
+admin postgres -c "
+  select pg_terminate_backend(pid)
+    from pg_stat_activity
+   where datname = '$DB' and pid <> pg_backend_pid();
+" >/dev/null
+
 admin postgres -c "drop database if exists $DB;" -c "create database $DB owner $ADMIN_USER;" >/dev/null
 
 say "==> migrations"

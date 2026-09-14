@@ -20,14 +20,18 @@ export default async function PacientesPage({
   const pagina = Math.max(1, Number(params.pagina) || 1);
   const incluirInativos = params.inativos === "1";
 
-  const { items, total, podeCadastrar } = await withPage(async (ctx) => {
+  const { items, total, podeCadastrar, fuso } = await withPage(async (ctx) => {
     const resultado = await listPatients(ctx, {
       search: busca,
       includeInactive: incluirInativos,
       limit: POR_PAGINA,
       offset: (pagina - 1) * POR_PAGINA,
     });
-    return { ...resultado, podeCadastrar: ctx.can("patient.write") };
+    return {
+      ...resultado,
+      podeCadastrar: ctx.can("patient.write"),
+      fuso: ctx.session.timezone,
+    };
   }, "patient.read");
 
   const paginas = Math.max(1, Math.ceil(total / POR_PAGINA));
@@ -116,7 +120,7 @@ export default async function PacientesPage({
               </thead>
               <tbody>
                 {items.map((paciente) => {
-                  const idade = ageFrom(paciente.birthDate);
+                  const idade = ageFrom(paciente.birthDate, fuso);
 
                   return (
                     <tr key={paciente.id}>
@@ -140,7 +144,7 @@ export default async function PacientesPage({
                       <td>
                         {paciente.nextAppointmentAt ? (
                           <Badge tone="structure">
-                            {formatDateTime(paciente.nextAppointmentAt)}
+                            {formatDateTime(paciente.nextAppointmentAt, fuso)}
                           </Badge>
                         ) : (
                           <span className="text-muted">—</span>

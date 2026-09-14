@@ -49,13 +49,16 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
       throw error;
     });
 
-    return overview ? { ...overview, podeVerProntuario: ctx.can("chart.read") } : null;
+    return overview
+      ? { ...overview, podeVerProntuario: ctx.can("chart.read"), fuso: ctx.session.timezone }
+      : null;
   }, "patient.read");
 
   if (!dados) notFound();
 
   const { patient, consultas, parcelas, orcamentos, pendentes, sinais, alertas, totais } = dados;
-  const idade = ageFrom(patient.birth_date);
+  const fuso = dados.fuso;
+  const idade = ageFrom(patient.birth_date, fuso);
   const proxima = consultas.find(
     (c) => c.starts_at >= new Date() && (c.status === "scheduled" || c.status === "confirmed"),
   );
@@ -106,8 +109,8 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
         />
         <Metric
           label="Próxima consulta"
-          value={proxima ? formatDateTime(proxima.starts_at) : "Sem agendamento"}
-          hint={proxima ? `${relativeDays(proxima.starts_at)} · ${proxima.profissional}` : undefined}
+          value={proxima ? formatDateTime(proxima.starts_at, fuso) : "Sem agendamento"}
+          hint={proxima ? `${relativeDays(proxima.starts_at, fuso)} · ${proxima.profissional}` : undefined}
           tone={proxima ? "structure" : "neutral"}
         />
         <Metric
@@ -145,7 +148,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
                         <p className="text-sm text-ink-soft">{sinal.reason}</p>
                         {sinal.due_on ? (
                           <p className="mt-0.5 text-xs text-muted">
-                            {relativeDays(new Date(`${sinal.due_on}T12:00:00`))}
+                            {relativeDays(new Date(`${sinal.due_on}T12:00:00Z`), fuso)}
                           </p>
                         ) : null}
                       </div>
@@ -190,7 +193,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
           </Panel>
 
           <Panel>
-            <PanelHead title="Atendimentos" hint={`${consultas.length} mais recentes`} />
+            <PanelHead title="Atendimentos" hint={`${consultas.length} entre os próximos e os últimos`} />
             {consultas.length === 0 ? (
               <Empty title="Nenhum atendimento registrado" />
             ) : (
@@ -209,7 +212,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
                         style={{ backgroundColor: consulta.cor }}
                       />
                       <span className="num w-32 shrink-0 text-sm text-ink-soft">
-                        {formatDateTime(consulta.starts_at)}
+                        {formatDateTime(consulta.starts_at, fuso)}
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm text-ink">
@@ -236,7 +239,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
             ) : (
               <ul className="divide-y divide-line">
                 {parcelas.map((parcela) => {
-                  const vencida = new Date(`${parcela.due_on}T12:00:00`) < new Date();
+                  const vencida = new Date(`${parcela.due_on}T12:00:00Z`) < new Date();
                   const saldo = parcela.amount_cents - parcela.paid_cents;
 
                   return (
@@ -277,7 +280,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
                       </span>
                     </div>
                     <p className="mt-0.5 text-xs text-muted">
-                      {orcamento.sent_at ? `Enviado ${relativeDays(orcamento.sent_at)}` : "Não enviado"}
+                      {orcamento.sent_at ? `Enviado ${relativeDays(orcamento.sent_at, fuso)}` : "Não enviado"}
                       {orcamento.valid_until
                         ? ` · vale até ${formatDateOnly(orcamento.valid_until)}`
                         : ""}
@@ -303,7 +306,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
                   <p className="text-sm text-ink-soft">
                     Última evolução em{" "}
                     <strong className="font-medium text-ink">
-                      {formatDateTime(dados.ultimaEvolucao.created_at)}
+                      {formatDateTime(dados.ultimaEvolucao.created_at, fuso)}
                     </strong>
                     {dados.ultimaEvolucao.profissional
                       ? `, por ${dados.ultimaEvolucao.profissional}.`

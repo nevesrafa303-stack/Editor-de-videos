@@ -16,9 +16,12 @@ begin
   perform test.check('isolamento', 'toda tabela de negocio tem RLS e policy', v_count = 0,
     format('%s tabelas descobertas', v_count));
 
-  select count(*) into v_count from patient;
-  perform test.check('isolamento', 'rede A ve apenas os proprios pacientes', v_count = 2,
-    format('viu %s', v_count));
+  -- Conta nao entra na assercao: o seed cresce, e teste de isolamento que
+  -- quebra porque alguem cadastrou paciente novo vira ruido.
+  select count(*) into v_count from patient
+   where tenant_id <> '11111111-1111-7111-8111-111111111111';
+  perform test.check('isolamento', 'rede A ve apenas os proprios pacientes', v_count = 0,
+    format('viu %s de outra rede', v_count));
 
   select count(*) into v_count from patient
    where id = '0a333333-3333-7333-8333-333333333333';

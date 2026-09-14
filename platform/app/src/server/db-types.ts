@@ -1878,15 +1878,6 @@ export interface TenantPolicy {
   updated_at: Generated<Timestamp>;
 }
 
-export interface TestResult {
-  description: string;
-  detail: string | null;
-  id: Generated<number>;
-  passed: boolean;
-  ran_at: Generated<Timestamp>;
-  suite: string;
-}
-
 export interface Tooth {
   arch: string;
   code: string;
@@ -2136,7 +2127,6 @@ export interface DB {
   tenant: Tenant;
   tenant_feature_override: TenantFeatureOverride;
   tenant_policy: TenantPolicy;
-  "test.result": TestResult;
   tooth: Tooth;
   treatment_plan: TreatmentPlan;
   treatment_plan_item: TreatmentPlanItem;

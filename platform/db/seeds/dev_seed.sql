@@ -98,14 +98,14 @@ insert into procedure_category (id, tenant_id, code, name, vertical) values
   ('02222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'HOF',    'Harmonizacao facial', 'estetica');
 
 insert into procedure (id, tenant_id, category_id, code, name, vertical, scope, pricing_unit, default_duration_minutes, requires_lot, requires_consent_kind) values
-  ('03111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'REST_RESINA', 'Restauracao em resina', 'odontologia', 'surface', 'face',   60, false, null),
-  ('03222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'IMPLANTE',    'Implante unitario',     'odontologia', 'tooth',   'dente',  120, true,  'procedimento'),
-  ('03333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'TOXINA',      'Toxina botulinica',     'estetica',    'region',  'U',      60, true,  'procedimento'),
-  ('03444444-4444-7444-8444-444444444444', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'PREENCH',     'Preenchimento com acido hialuronico', 'estetica', 'region', 'ml', 60, true, 'procedimento');
+  ('03111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'REST_RESINA', 'Restauração em resina', 'odontologia', 'surface', 'face',   60, false, null),
+  ('03222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'IMPLANTE',    'Implante unitário',     'odontologia', 'tooth',   'dente',  120, true,  'procedimento'),
+  ('03333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'TOXINA',      'Toxina botulínica',     'estetica',    'region',  'U',      60, true,  'procedimento'),
+  ('03444444-4444-7444-8444-444444444444', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'PREENCH',     'Preenchimento com ácido hialurônico', 'estetica', 'region', 'ml', 60, true, 'procedimento');
 
 -- Insumos com controle de lote.
 insert into product (id, tenant_id, kind, code, name, brand, stock_unit, usage_unit, conversion_factor, requires_lot, requires_refrigeration, min_temperature, max_temperature, min_quantity, default_cost_cents) values
-  ('04111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'injectable', 'TOX100', 'Toxina botulinica 100U', 'Generico', 'frasco', 'U',  100, true, true,  2, 8, 2, 90000),
+  ('04111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'injectable', 'TOX100', 'Toxina botulínica 100U', 'Generico', 'frasco', 'U',  100, true, true,  2, 8, 2, 90000),
   ('04222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'injectable', 'AH1ML',  'Acido hialuronico 1ml',  'Generico', 'seringa','ml', 1,   true, true,  2, 25, 3, 55000),
   ('04333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', 'consumable', 'RESINA', 'Resina composta A2',     'Generico', 'tubo',   'g',  4,   false, false, null, null, 5, 12000);
 
@@ -180,12 +180,14 @@ insert into appointment (id, tenant_id, unit_id, patient_id, provider_id, proced
   ('0c111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
    'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
    'd1111111-1111-7111-8111-111111111111', '03111111-1111-7111-8111-111111111111',
-   date_trunc('hour', now()) - interval '9 days', date_trunc('hour', now()) - interval '9 days' + interval '1 hour',
+   (date_trunc('day', now() at time zone 'America/Sao_Paulo') - interval '9 days' + interval '17 hours') at time zone 'America/Sao_Paulo',
+   (date_trunc('day', now() at time zone 'America/Sao_Paulo') - interval '9 days' + interval '18 hours') at time zone 'America/Sao_Paulo',
    'completed', 'Paciente relatou sensibilidade no 26.'),
   ('0c222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
    'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
    'd1111111-1111-7111-8111-111111111111', '03222222-2222-7222-8222-222222222222',
-   date_trunc('day', now()) + interval '1 day 14 hours', date_trunc('day', now()) + interval '1 day 16 hours',
+   (date_trunc('day', now() at time zone 'America/Sao_Paulo') + interval '1 day 14 hours') at time zone 'America/Sao_Paulo',
+   (date_trunc('day', now() at time zone 'America/Sao_Paulo') + interval '1 day 16 hours') at time zone 'America/Sao_Paulo',
    'confirmed', 'Instalação do implante no 46.');
 
 -- Anamnese com alerta: é o que aparece em vermelho no topo do prontuário.
@@ -276,8 +278,99 @@ insert into patient_signal (tenant_id, unit_id, patient_id, kind, severity, valu
    '0a111111-1111-7111-8111-111111111111', 'cooling_quote', 4, 330000,
    'Orçamento enviado há 10 dias sem resposta; validade vence em 5 dias.', 'quote', current_date + 5);
 
--- Denormalizações que o job noturno manteria.
-update patient set last_visit_at = now() - interval '9 days', visit_count = 3,
-                   next_appointment_at = date_trunc('day', now()) + interval '1 day 14 hours',
-                   open_balance_cents = 261000
- where id = '0a222222-2222-7222-8222-222222222222';
+
+-- ---------------------------------------------------------------------------
+-- Um dia de agenda de verdade.
+--
+-- Sem isto a tela da agenda abre vazia, e agenda vazia nao mostra nada do que
+-- a agenda resolve: conflito de horario, confirmacao pendente, falta, encaixe.
+-- Todos os horarios sao ancorados em "hoje" no fuso da unidade.
+-- ---------------------------------------------------------------------------
+
+-- Mais pacientes: um dia com dois pacientes nao parece um dia.
+insert into patient (id, tenant_id, origin_unit_id, full_name, tax_id, birth_date, phone, email, status) values
+  ('0a444444-4444-7444-8444-444444444444', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'Camila Duarte',   '39053344705', '1993-05-22', '11987650004', 'camila@exemplo.com',  'active'),
+  ('0a555555-5555-7555-8555-555555555555', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'Paulo Henrique',  '16899535009', '1978-01-09', '11987650005', null,                  'active'),
+  ('0a666666-6666-7666-8666-666666666666', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'Luiza Prado',     '71428793860', '2001-09-30', '11987650006', 'luiza@exemplo.com',   'active'),
+  ('0a777777-7777-7777-8777-777777777777', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'Sergio Tavares',  '05893784094', '1965-12-03', '11987650007', null,                  'active');
+
+-- Expediente: e o que desenha a grade e o que define ocupacao.
+insert into provider_availability (tenant_id, unit_id, membership_id, weekday, starts_at, ends_at, slot_minutes)
+select '11111111-1111-7111-8111-111111111111'::uuid, 'a1111111-1111-7111-8111-111111111111'::uuid,
+       'd1111111-1111-7111-8111-111111111111'::uuid, d, time '08:00', time '18:00', 30
+from generate_series(1, 5) as d
+union all
+select '11111111-1111-7111-8111-111111111111'::uuid, 'a1111111-1111-7111-8111-111111111111'::uuid,
+       'd2222222-2222-7222-8222-222222222222'::uuid, d, time '09:00', time '17:00', 30
+from generate_series(1, 5) as d
+union all
+select '11111111-1111-7111-8111-111111111111'::uuid, 'a2222222-2222-7222-8222-222222222222'::uuid,
+       'd3333333-3333-7333-8333-333333333333'::uuid, d, time '10:00', time '19:00', 60
+from generate_series(1, 5) as d;
+
+-- Almoco da Ana: a grade tem que mostrar por que aquele buraco existe.
+insert into schedule_block (tenant_id, unit_id, membership_id, reason, notes, starts_at, ends_at)
+values (
+  '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+  'd1111111-1111-7111-8111-111111111111', 'lunch', 'Almoço',
+  (date_trunc('day', now() at time zone 'America/Sao_Paulo') + interval '12 hours') at time zone 'America/Sao_Paulo',
+  (date_trunc('day', now() at time zone 'America/Sao_Paulo') + interval '13 hours') at time zone 'America/Sao_Paulo'
+);
+
+-- O dia: cada status que a recepcao ve de manha ate a noite.
+insert into appointment (tenant_id, unit_id, patient_id, provider_id, procedure_id,
+                         starts_at, ends_at, status, cancel_reason, canceled_by, notes)
+select
+  '11111111-1111-7111-8111-111111111111'::uuid,
+  'a1111111-1111-7111-8111-111111111111'::uuid,
+  d.patient_id::uuid,
+  d.provider_id::uuid,
+  d.procedure_id::uuid,
+  (date_trunc('day', now() at time zone 'America/Sao_Paulo') + d.inicio) at time zone 'America/Sao_Paulo',
+  (date_trunc('day', now() at time zone 'America/Sao_Paulo') + d.fim)    at time zone 'America/Sao_Paulo',
+  d.status::appointment_status,
+  d.cancel_reason,
+  d.canceled_by,
+  d.notes
+from (values
+  ('0a444444-4444-7444-8444-444444444444', 'd1111111-1111-7111-8111-111111111111', '03111111-1111-7111-8111-111111111111',
+   interval '8 hours',                 interval '9 hours',
+   'completed', null, null, 'Restauração no 36 concluída.'),
+  ('0a555555-5555-7555-8555-555555555555', 'd1111111-1111-7111-8111-111111111111', '03222222-2222-7222-8222-222222222222',
+   interval '9 hours',                  interval '10 hours 30 minutes',
+   'completed', null, null, null),
+  ('0a666666-6666-7666-8666-666666666666', 'd1111111-1111-7111-8111-111111111111', '03111111-1111-7111-8111-111111111111',
+   interval '10 hours 30 minutes',      interval '11 hours 30 minutes',
+   'arrived', null, null, 'Chegou 10 minutos antes.'),
+  ('0a111111-1111-7111-8111-111111111111', 'd1111111-1111-7111-8111-111111111111', '03222222-2222-7222-8222-222222222222',
+   interval '14 hours',                 interval '15 hours',
+   'confirmed', null, null, 'Confirmou por WhatsApp.'),
+  ('0a777777-7777-7777-8777-777777777777', 'd1111111-1111-7111-8111-111111111111', '03111111-1111-7111-8111-111111111111',
+   interval '15 hours 30 minutes',      interval '16 hours 30 minutes',
+   'scheduled', null, null, null),
+  ('0a444444-4444-7444-8444-444444444444', 'd2222222-2222-7222-8222-222222222222', '03333333-3333-7333-8333-333333333333',
+   interval '9 hours 30 minutes',       interval '10 hours 30 minutes',
+   'no_show', null, null, 'Não atendeu as duas ligações.'),
+  ('0a666666-6666-7666-8666-666666666666', 'd2222222-2222-7222-8222-222222222222', '03333333-3333-7333-8333-333333333333',
+   interval '11 hours',                 interval '12 hours',
+   'confirmed', null, null, null),
+  ('0a555555-5555-7555-8555-555555555555', 'd2222222-2222-7222-8222-222222222222', '03222222-2222-7222-8222-222222222222',
+   interval '14 hours 30 minutes',      interval '16 hours',
+   'scheduled', null, null, 'Encaixe pedido pelo paciente.'),
+  ('0a777777-7777-7777-8777-777777777777', 'd2222222-2222-7222-8222-222222222222', '03111111-1111-7111-8111-111111111111',
+   interval '16 hours',                 interval '17 hours',
+   'canceled', 'Paciente remarcou para a proxima semana.', 'patient', null)
+) as d(patient_id, provider_id, procedure_id, inicio, fim, status, cancel_reason, canceled_by, notes);
+
+-- Alguem esperando vaga: e o contraponto da falta e do cancelamento.
+insert into waitlist_entry (tenant_id, unit_id, patient_id, procedure_id, provider_id, notes)
+values (
+  '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+  '0a666666-6666-7666-8666-666666666666', '03222222-2222-7222-8222-222222222222',
+  'd1111111-1111-7111-8111-111111111111', 'Aceita qualquer horário da tarde.'
+);
+
+-- Denormalizações do paciente, recalculadas depois de tudo entrar.
+-- Os triggers de 0019 ja mantiveram a maior parte; esta chamada cobre o que
+-- foi inserido antes deles existirem e serve de conferencia.
+select refresh_patient_rollups();

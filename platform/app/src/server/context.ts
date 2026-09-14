@@ -33,6 +33,12 @@ export type TenantSession = {
   /** Unidades visiveis. Lista VAZIA significa "todas as unidades da rede". */
   unitIds: string[];
   permissions: ReadonlySet<Permission>;
+  /**
+   * Fuso da unidade ativa (ou da rede). Toda data mostrada na tela e formatada
+   * nele: `timestamptz` guarda o instante, e o instante so vira "14:00" depois
+   * de escolher o fuso. O do servidor nunca e a resposta certa.
+   */
+  timezone: string;
   mfaEnabledAt: Date | null;
   mfaSatisfiedAt: Date | null;
   expiresAt: Date;

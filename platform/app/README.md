@@ -1,7 +1,7 @@
 # Aplicação
 
-A camada de acesso ao banco e a primeira fatia vertical de interface em cima
-dela: entrar, listar pacientes, abrir a visão de um paciente, cadastrar.
+A camada de acesso ao banco e os dois módulos que a clínica usa o dia inteiro:
+**pacientes** e **agenda**.
 
 ```
 src/
@@ -19,6 +19,7 @@ src/
   modules/
     auth/            ações de login e logout
     patient/         consultas, comandos e a porta única em index.ts
+    scheduling/      grade do dia, máquina de estados do atendimento, encaixe
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
@@ -28,8 +29,9 @@ src/
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               28 testes de integração contra PostgreSQL de verdade
-e2e/                 12 testes de navegador sobre o build de produção
+tests/               46 testes (integração contra PostgreSQL + formatação)
+e2e/                 20 testes de navegador sobre o build de produção
+scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
 
 ## A regra que organiza tudo
@@ -90,6 +92,7 @@ navegador — o `next build` reprova, e com razão.
 | Dinheiro é número, não string | parser `int8` + tipo gerado |
 | Data de vencimento não atravessa o dia | parser `date` -> `'YYYY-MM-DD'` |
 | Redirecionar não desfaz o que foi escrito | sinal de controle comita a transação |
+| Hora na tela é a da clínica, não a do servidor | fuso vem na sessão; formatação exige ele |
 
 ## As telas
 
@@ -99,9 +102,11 @@ navegador — o `next build` reprova, e com razão.
 | `/pacientes` | busca por nome, telefone ou CPF; próxima consulta e saldo em aberto na mesma linha |
 | `/pacientes/[id]` | dinheiro, agenda, tratamento pendente e alerta clínico numa tela só |
 | `/pacientes/novo` | nome e telefone bastam; o resto pode vir depois |
+| `/agenda` | grade do dia por profissional, ocupação, e a fila com as transições |
+| `/agenda/novo` | encaixe; conflito de horário é recusado pelo banco |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
-Os módulos ainda sem tela (agenda, funil, orçamento, financeiro, estoque)
+Os módulos ainda sem tela (funil, orçamento, financeiro, estoque)
 aparecem no menu marcados como **breve**, inativos. Sumir esconderia a forma do
 produto de quem usa e o que falta de quem constrói.
 
@@ -124,9 +129,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 28 testes de integração (a suíte recria o banco antes)
-npm run test:e2e      # 12 testes de navegador sobre o build de produção
-npm run test:all      # os 78 testes SQL + os dois acima
+npm test              # 46 testes (a suíte recria o banco antes)
+npm run test:e2e      # 20 testes de navegador sobre o build de produção
+npm run test:all      # os 89 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -144,7 +149,23 @@ Conectar como dono das tabelas ou superusuário faz o PostgreSQL ignorar toda
 policy — por isso `assertNotBypassingRls()` existe e derruba o processo em vez
 de logar um aviso.
 
-## Três coisas que os testes acharam
+## A agenda
+
+A grade é desenhada a partir de `provider_availability`; cada atendimento é
+posicionado pelo **minuto local**, calculado no banco a partir do fuso da
+unidade. Bloqueio aparece hachurado porque um buraco sem explicação faz a
+recepção remarcar em cima do almoço de alguém.
+
+A fila abaixo da grade opera a máquina de estados — confirmar, receber,
+iniciar, concluir, faltar, cancelar. A lista de botões espelha
+`state_transition`, mas **não é a autoridade**: quem recusa transição inválida
+é o trigger. A tela existe só para não oferecer um botão que vai dar erro.
+
+Encaixe em horário ocupado não é validado na tela: a `exclusion constraint`
+recusa, e a mensagem do Postgres vira português na borda. Duas abas abertas ao
+mesmo tempo não conseguem furar isso.
+
+## Cinco coisas que os testes acharam
 
 **Logout não deslogava.** `revokeSession` fazia `UPDATE user_session` sem
 contexto de usuário aplicado. A policy é `user_id = current_user_id()`, então o
@@ -164,11 +185,28 @@ para a ficha dele, e a ficha não existia — 404. `withTenant` agora reconhece 
 sinal, **comita** e só então o deixa seguir. Erro de verdade continua desfazendo
 tudo; há um teste para cada um dos dois casos.
 
-Nenhuma das três apareceria em revisão de código. Apareceram porque a suíte roda
-contra PostgreSQL de verdade e contra o build de produção de verdade.
+**A lista mostrava "sem próxima consulta" para quem tinha consulta marcada.**
+`patient.next_appointment_at` estava documentada como "mantida por job noturno",
+e o job não existia. Cache que só um job atualiza é cache que mente o dia
+inteiro: a denormalização passou a ser mantida **na escrita**, por trigger, na
+mesma transação que marca a consulta. O job continua fazendo sentido como
+reparo — uma consulta que passou deixa de ser a próxima sem que ninguém escreva
+nada. A auditoria ignora esse recálculo: sem isso, cada confirmação viraria uma
+linha na trilha e a trilha clínica ficaria ilegível.
+
+**A consulta das 14:00 aparecia às 17:00.** O banco estava certo — `timestamptz`
+guarda o instante. Quem errava era a formatação, que usava o fuso do processo
+(UTC no servidor). Fuso não é preferência de quem olha: é propriedade da unidade
+onde o atendimento acontece. Agora ele vem com a sessão, e nenhuma função de
+data tem valor padrão — passar o fuso é obrigatório, ou não compila.
+
+Nenhuma das cinco apareceria em revisão de código. Apareceram porque a suíte
+roda contra PostgreSQL de verdade, contra o build de produção de verdade — e
+porque alguém olhou as telas.
 
 ## Próximo passo
 
-Agenda: é a tela que a clínica abre de manhã e fecha à noite. O banco já tem
-`exclusion constraint` de horário, disponibilidade por profissional, bloqueio e
-lista de espera — falta a interface.
+Prontuário e odontograma: é onde mora a política restritiva de acesso
+(`chart_scope`), a que decide se um profissional vê a ficha de paciente alheio.
+O banco já a aplica; falta a tela — e o registro de leitura que a LGPD exige já
+está na camada (`ctx.recordChartAccess`).

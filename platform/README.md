@@ -4,16 +4,15 @@ Modelagem de dados, decisões de arquitetura e regras de negócio de um **CRM/ER
 multi-rede para clínicas de odontologia e harmonização facial**.
 
 A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
-produto inteiro antes de a primeira tela existir. A primeira fatia vertical de
-interface já está em pé sobre ela — entrar, listar pacientes, abrir a visão de
-um paciente, cadastrar.
+produto inteiro antes de a primeira tela existir. Sobre ela já estão de pé os
+dois módulos que a clínica usa o dia inteiro — **pacientes** e **agenda**.
 
 ## O que tem aqui
 
 ```
-db/migrations/   18 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   20 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
-db/tests/        78 testes de invariante, rodando contra PostgreSQL de verdade
+db/tests/        89 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
 app/             camada de acesso (withTenant, tipos gerados, sessão, RBAC)
                  e a primeira fatia de interface
@@ -24,11 +23,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0017
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0020
 psql -d crm -f db/seeds/dev_seed.sql
 
-./db/tests/run_tests.sh                             # 78 testes de invariante
-(cd app && npm install && npm run test:all)         # + 28 de integração + 12 de navegador
+./db/tests/run_tests.sh                             # 89 testes de invariante
+(cd app && npm install && npm run test:all)         # + 46 de integração + 20 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -45,11 +44,11 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Policies de RLS | 119 |
 | Chaves estrangeiras | 410 |
 | Constraints `check` | 230 |
-| Triggers | 90 |
+| Triggers | 92 |
 | Enums | 63 |
 | Transições de estado declaradas | 74 |
 | Permissões no catálogo | 66 |
-| Testes | 78 no banco + 28 na camada de acesso + 12 no navegador, todos passando |
+| Testes | 89 no banco + 46 na camada de acesso + 20 no navegador, todos passando |
 
 ## Por onde começar a ler
 

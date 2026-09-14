@@ -106,9 +106,12 @@ describe("isolamento atraves da camada", () => {
     const daRede = await withTenant(dona, (ctx) => listPatients(ctx));
     const daOutra = await withTenant(outraRede, (ctx) => listPatients(ctx));
 
-    expect(daRede.total).toBe(2);
-    expect(daOutra.total).toBe(1);
+    // Conta nao entra na assercao de proposito: o seed cresce, e um teste de
+    // isolamento que quebra porque alguem cadastrou paciente novo vira ruido.
+    expect(daRede.items.map((p) => p.id)).toContain(SEED.pacienteMariana);
     expect(daRede.items.map((p) => p.id)).not.toContain(SEED.pacienteBella);
+
+    expect(daOutra.items.map((p) => p.id)).toEqual([SEED.pacienteBella]);
   });
 
   it("consulta crua sem filtro de tenant ainda volta escopada", async () => {
