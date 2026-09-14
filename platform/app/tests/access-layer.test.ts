@@ -414,6 +414,62 @@ describe("tipos vindos do banco", () => {
   });
 });
 
+/** Paciente minimo: so o que o cadastro exige de verdade. */
+const VAZIO = (fullName: string, phone: string) => ({
+  fullName,
+  phone,
+  email: null,
+  taxId: null,
+  birthDate: null,
+  notes: null,
+});
+
+describe("sinal de controle dentro da transacao", () => {
+  it("redirecionamento comita o que ja foi escrito", async () => {
+    const nome = `Regressao Redirect ${Date.now()}`;
+    const sinal = Object.assign(new Error("NEXT_REDIRECT"), {
+      digest: "NEXT_REDIRECT;replace;/pacientes;307;",
+    });
+
+    // O framework sinaliza redirecionamento LANCANDO. Se a transacao tratasse
+    // isso como erro, o paciente seria desfeito e o navegador cairia numa
+    // ficha inexistente — foi exatamente o que aconteceu antes desta correcao.
+    await expect(
+      withTenant(dona, async (ctx) => {
+        await createPatient(ctx, VAZIO(nome, "11988887777"));
+        throw sinal;
+      }),
+    ).rejects.toBe(sinal);
+
+    const row = await admin
+      .selectFrom("patient")
+      .select("id")
+      .where("full_name", "=", nome)
+      .executeTakeFirst();
+
+    expect(row).toBeDefined();
+  });
+
+  it("erro de verdade continua desfazendo tudo", async () => {
+    const nome = `Regressao Rollback ${Date.now()}`;
+
+    await expect(
+      withTenant(dona, async (ctx) => {
+        await createPatient(ctx, VAZIO(nome, "11988886666"));
+        throw new Error("falha de verdade");
+      }),
+    ).rejects.toThrow("falha de verdade");
+
+    const row = await admin
+      .selectFrom("patient")
+      .select("id")
+      .where("full_name", "=", nome)
+      .executeTakeFirst();
+
+    expect(row).toBeUndefined();
+  });
+});
+
 async function contarAcessos(patientId: string): Promise<number> {
   const row = await admin
     .selectFrom("phi_access_log")

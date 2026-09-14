@@ -7,7 +7,7 @@
  */
 export {
   listPatients,
-  getPatientSummary,
+  getPatientOverview,
   getPatientChart,
   type PatientListItem,
 } from "@/modules/patient/queries";

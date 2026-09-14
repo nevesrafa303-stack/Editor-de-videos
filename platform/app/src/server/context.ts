@@ -152,16 +152,51 @@ export async function withTenant<T>(
     throw new NotAuthenticated();
   }
 
+  let signal: unknown;
+
   try {
-    return await getDb()
+    const result = await getDb()
       .transaction()
       .execute(async (trx) => {
         await applyContext(trx, session, request);
-        return fn(buildContext(trx, session, request));
+
+        try {
+          return await fn(buildContext(trx, session, request));
+        } catch (error) {
+          // Sinal de controle nao e falha: guardar e sair normalmente deixa a
+          // transacao COMITAR antes de o sinal seguir viagem.
+          if (!isControlFlowSignal(error)) throw error;
+          signal = error;
+          return undefined as T;
+        }
       });
+
+    if (signal) throw signal;
+    return result;
   } catch (error) {
     throw translatePgError(error) ?? error;
   }
+}
+
+/**
+ * Distingue "deu errado" de "acabou aqui".
+ *
+ * Frameworks de UI sinalizam redirecionamento LANCANDO. Dentro de uma
+ * transacao isso e indistinguivel de erro, e o banco desfaz tudo: o paciente
+ * seria cadastrado, o navegador seria mandado para a ficha dele — e a ficha
+ * nao existiria. Custou um teste de navegador para aparecer.
+ *
+ * A checagem e uma comparacao de string em `digest`, nao um import: o nucleo
+ * continua sem depender de framework nenhum.
+ */
+function isControlFlowSignal(error: unknown): boolean {
+  if (typeof error !== "object" || error === null || !("digest" in error)) return false;
+
+  const digest = (error as { digest: unknown }).digest;
+
+  // `NEXT_REDIRECT`, `NEXT_HTTP_ERROR_FALLBACK;404` e afins. Erro de verdade
+  // do servidor recebe um digest numerico, entao o prefixo nao colide.
+  return typeof digest === "string" && digest.startsWith("NEXT_");
 }
 
 async function applyContext(

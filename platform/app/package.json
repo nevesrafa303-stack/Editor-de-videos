@@ -11,19 +11,32 @@
     "db:reset": "../db/reset.sh",
     "gen:permissions": "node scripts/gen-permissions.mjs",
     "test:db": "../db/tests/run_tests.sh",
-    "test:all": "npm run test:db && npm test"
+    "test:all": "npm run test:db && npm test && npm run test:e2e",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
     "kysely": "0.29.5",
+    "next": "16.3.5",
     "pg": "8.23.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "0.0.1",
     "zod": "4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "22.18.1",
     "@types/pg": "8.15.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "dotenv": "17.4.2",
     "kysely-codegen": "0.19.0",
+    "tailwindcss": "4.3.3",
     "tsx": "4.23.13",
     "typescript": "5.9.3",
     "vitest": "5.0.0"

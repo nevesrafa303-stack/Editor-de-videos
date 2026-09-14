@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/*
+ * Identidade: porcelana fria de viés verde, tinta grafite, âmbar de frasco de
+ * medicamento como acento de ação, teal cirúrgico como tom estrutural.
+ * A mesma família do documento de arquitetura — produto e documentação são a
+ * mesma coisa vista de dois lugares.
+ */
+@theme {
+  --color-ground: #f2f4f3;
+  --color-surface: #ffffff;
+  --color-sunken: #e9edeb;
+  --color-ink: #14201d;
+  --color-ink-soft: #3d4b46;
+  --color-muted: #66736e;
+  --color-line: #d5dcd8;
+  --color-line-strong: #b9c4bf;
+
+  --color-accent: #a8500d;
+  --color-accent-soft: #f6e9dc;
+  --color-structure: #0b6b5e;
+  --color-structure-soft: #dcebe8;
+
+  --color-positive: #166534;
+  --color-positive-soft: #dcfce7;
+  --color-warning: #92400e;
+  --color-warning-soft: #fef3c7;
+  --color-critical: #9f1239;
+  --color-critical-soft: #ffe4e6;
+
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ground text-ink antialiased;
+    font-family: var(--font-sans);
+  }
+
+  /* Recepção opera isto o dia inteiro, boa parte pelo teclado. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer components {
+  .label {
+    @apply mb-1.5 block text-[11px] font-semibold tracking-[0.08em] text-muted uppercase;
+  }
+
+  .field {
+    @apply w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-ink
+      shadow-xs transition
+      placeholder:text-muted/70
+      focus:border-structure focus:ring-2 focus:ring-structure-soft focus:outline-none
+      disabled:cursor-not-allowed disabled:bg-sunken;
+  }
+
+  .grid-table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .grid-table th {
+    @apply border-b border-line-strong bg-sunken px-4 py-2.5 text-left text-[11px]
+      font-semibold tracking-[0.07em] text-muted uppercase whitespace-nowrap;
+  }
+
+  .grid-table td {
+    @apply border-b border-line px-4 py-3 align-middle text-ink-soft;
+  }
+
+  .grid-table tbody tr:hover td {
+    @apply bg-sunken/60;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}

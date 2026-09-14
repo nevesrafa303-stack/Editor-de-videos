@@ -168,3 +168,116 @@ insert into stock_movement (tenant_id, unit_id, product_id, lot_id, location_id,
   ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04111111-1111-7111-8111-111111111111', '06111111-1111-7111-8111-111111111111', '05111111-1111-7111-8111-111111111111', 'purchase', 500, 880, 'd1111111-1111-7111-8111-111111111111', null),
   ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', '06333333-3333-7333-8333-333333333333', '05111111-1111-7111-8111-111111111111', 'purchase', 10,  52000,'d1111111-1111-7111-8111-111111111111', null),
   ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04333333-3333-7333-8333-333333333333', null, '05111111-1111-7111-8111-111111111111', 'purchase', 20, 12000, 'd1111111-1111-7111-8111-111111111111', null);
+
+-- ---------------------------------------------------------------------------
+-- Movimento suficiente para a tela de resumo do paciente mostrar o que ela é.
+-- Sem isto, a tela-promessa do produto abre vazia na demonstração.
+-- ---------------------------------------------------------------------------
+
+-- Consultas do Roberto: uma feita, uma marcada para amanhã.
+insert into appointment (id, tenant_id, unit_id, patient_id, provider_id, procedure_id,
+                         starts_at, ends_at, status, notes) values
+  ('0c111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   'd1111111-1111-7111-8111-111111111111', '03111111-1111-7111-8111-111111111111',
+   date_trunc('hour', now()) - interval '9 days', date_trunc('hour', now()) - interval '9 days' + interval '1 hour',
+   'completed', 'Paciente relatou sensibilidade no 26.'),
+  ('0c222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   'd1111111-1111-7111-8111-111111111111', '03222222-2222-7222-8222-222222222222',
+   date_trunc('day', now()) + interval '1 day 14 hours', date_trunc('day', now()) + interval '1 day 16 hours',
+   'confirmed', 'Instalação do implante no 46.');
+
+-- Anamnese com alerta: é o que aparece em vermelho no topo do prontuário.
+insert into form_template (id, tenant_id, kind, code, name, version, schema, published_at) values
+  ('0d111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'anamnesis',
+   'ANAMNESE_GERAL', 'Anamnese geral', 1,
+   '[{"key":"alergia","label":"Tem alergia a algum medicamento?","type":"boolean"},
+     {"key":"hipertensao","label":"Tem pressão alta?","type":"boolean"},
+     {"key":"anticoagulante","label":"Usa anticoagulante?","type":"boolean"}]'::jsonb,
+   now());
+
+insert into form_response (tenant_id, patient_id, form_template_id, answers, alerts, filled_by) values
+  ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   '0d111111-1111-7111-8111-111111111111',
+   '{"alergia": true, "hipertensao": true, "anticoagulante": false}'::jsonb,
+   array['Alergia a penicilina', 'Hipertensão controlada'],
+   'd1111111-1111-7111-8111-111111111111');
+
+insert into clinical_note (tenant_id, unit_id, patient_id, provider_id, appointment_id, content, created_at) values
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '0a222222-2222-7222-8222-222222222222', 'd1111111-1111-7111-8111-111111111111',
+   '0c111111-1111-7111-8111-111111111111',
+   'Restauração em resina no 16 (face oclusal). Anestesia infiltrativa, isolamento absoluto. Orientado sobre sensibilidade nas primeiras 48h.',
+   now() - interval '9 days');
+
+-- Plano de tratamento com item pendente: alimenta "tratamentos pendentes".
+insert into treatment_plan (id, tenant_id, unit_id, patient_id, provider_id, code, title, status, started_at) values
+  ('0e111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   'd1111111-1111-7111-8111-111111111111', 1, 'Reabilitação inferior direita', 'active', now() - interval '20 days');
+
+insert into treatment_plan_item (tenant_id, treatment_plan_id, procedure_id, description, tooth_code,
+                                 quantity, status, unit_price_cents, sort_order) values
+  ('11111111-1111-7111-8111-111111111111', '0e111111-1111-7111-8111-111111111111',
+   '03222222-2222-7222-8222-222222222222', 'Implante unitário', '46', 1, 'planned', 320000, 1),
+  ('11111111-1111-7111-8111-111111111111', '0e111111-1111-7111-8111-111111111111',
+   '03111111-1111-7111-8111-111111111111', 'Restauração em resina', '36', 1, 'planned', 28000, 2);
+
+-- Orçamento aberto da Mariana: esfriando há dez dias.
+insert into quote (id, tenant_id, unit_id, patient_id, provider_id, price_list_id, number,
+                   status, valid_until, installment_count, sent_at, last_interaction_at, created_at) values
+  ('0f111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', '0a111111-1111-7111-8111-111111111111',
+   'd3333333-3333-7333-8333-333333333333', '07111111-1111-7111-8111-111111111111', 1,
+   'sent', current_date + 5, 3, now() - interval '10 days', now() - interval '10 days', now() - interval '10 days');
+
+insert into quote_item (tenant_id, quote_id, procedure_id, description, region_code,
+                        quantity, quantity_unit, unit_price_cents, unit_cost_cents) values
+  ('11111111-1111-7111-8111-111111111111', '0f111111-1111-7111-8111-111111111111',
+   '03333333-3333-7333-8333-333333333333', 'Toxina botulínica — terço superior', 'glabela',
+   1, 'sessao', 150000, 29040),
+  ('11111111-1111-7111-8111-111111111111', '0f111111-1111-7111-8111-111111111111',
+   '03444444-4444-7444-8444-444444444444', 'Preenchimento labial', 'labio_superior',
+   1, 'ml', 180000, 54600);
+
+-- Recebível do Roberto, com uma parcela vencida: a situação financeira real.
+insert into receivable (id, tenant_id, unit_id, patient_id, origin, treatment_plan_id, code,
+                        total_cents, description, issued_on) values
+  ('10111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   'treatment_plan', '0e111111-1111-7111-8111-111111111111', 1,
+   348000, 'Reabilitação inferior direita em 4x', current_date - 40);
+
+insert into installment (tenant_id, unit_id, receivable_id, patient_id, number, total_count,
+                         due_on, amount_cents, paid_cents, status, payment_method_id) values
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '10111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222', 1, 4,
+   current_date - 40, 87000, 87000, 'paid', '08111111-1111-7111-8111-111111111111'),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '10111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222', 2, 4,
+   current_date - 9, 87000, 0, 'open', '08111111-1111-7111-8111-111111111111'),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '10111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222', 3, 4,
+   current_date + 21, 87000, 0, 'open', '08111111-1111-7111-8111-111111111111'),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '10111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222', 4, 4,
+   current_date + 51, 87000, 0, 'open', '08111111-1111-7111-8111-111111111111');
+
+-- Sinais de oportunidade, como o job noturno os deixaria.
+insert into patient_signal (tenant_id, unit_id, patient_id, kind, severity, value_cents, reason, entity, due_on) values
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '0a222222-2222-7222-8222-222222222222', 'overdue_installment', 4, 87000,
+   'Parcela 2/4 venceu há 9 dias e não foi paga.', 'installment', current_date - 9),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '0a222222-2222-7222-8222-222222222222', 'pending_treatment', 3, 348000,
+   'Dois procedimentos do plano ainda não foram executados.', 'treatment_plan', null),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '0a111111-1111-7111-8111-111111111111', 'cooling_quote', 4, 330000,
+   'Orçamento enviado há 10 dias sem resposta; validade vence em 5 dias.', 'quote', current_date + 5);
+
+-- Denormalizações que o job noturno manteria.
+update patient set last_visit_at = now() - interval '9 days', visit_count = 3,
+                   next_appointment_at = date_trunc('day', now()) + interval '1 day 14 hours',
+                   open_balance_cents = 261000
+ where id = '0a222222-2222-7222-8222-222222222222';

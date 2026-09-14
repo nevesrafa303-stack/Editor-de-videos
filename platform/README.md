@@ -3,8 +3,10 @@
 Modelagem de dados, decisões de arquitetura e regras de negócio de um **CRM/ERP
 multi-rede para clínicas de odontologia e harmonização facial**.
 
-Esta etapa é **schema e regra**, não interface: o objetivo é ter uma base que
-aguente o produto inteiro antes de a primeira tela existir.
+A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
+produto inteiro antes de a primeira tela existir. A primeira fatia vertical de
+interface já está em pé sobre ela — entrar, listar pacientes, abrir a visão de
+um paciente, cadastrar.
 
 ## O que tem aqui
 
@@ -13,7 +15,8 @@ db/migrations/   18 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
 db/tests/        78 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
-app/             camada de acesso: withTenant, tipos gerados, sessão, RBAC
+app/             camada de acesso (withTenant, tipos gerados, sessão, RBAC)
+                 e a primeira fatia de interface
 docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 ```
 
@@ -25,7 +28,8 @@ psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0017
 psql -d crm -f db/seeds/dev_seed.sql
 
 ./db/tests/run_tests.sh                             # 78 testes de invariante
-(cd app && npm install && npm test)                 # 26 testes da camada de acesso
+(cd app && npm install && npm run test:all)         # + 28 de integração + 12 de navegador
+(cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
 
@@ -45,7 +49,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Enums | 63 |
 | Transições de estado declaradas | 74 |
 | Permissões no catálogo | 66 |
-| Testes | 78 no banco + 26 na camada de acesso, todos passando |
+| Testes | 78 no banco + 28 na camada de acesso + 12 no navegador, todos passando |
 
 ## Por onde começar a ler
 
@@ -54,7 +58,8 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 3. [`docs/invariants.md`](docs/invariants.md) — o que o sistema nunca pode violar.
 4. [`docs/roadmap.md`](docs/roadmap.md) — o que é MVP e onde o escopo está torto.
 5. [`db/migrations/`](db/migrations/) — o schema em si.
-6. [`app/README.md`](app/README.md) — como uma feature fala com o banco.
+6. [`app/README.md`](app/README.md) — como uma feature fala com o banco, e as
+   telas que já existem.
 
 ## Três coisas que este projeto assume
 
