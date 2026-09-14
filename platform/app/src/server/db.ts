@@ -37,6 +37,73 @@ types.setTypeParser(types.builtins.DATE, (value) => value);
 // numeric continua string: percentual de comissao e quantidade de insumo nao
 // podem passar por float.
 
+/**
+ * Array de ENUM chega como texto cru do driver.
+ *
+ * O `pg` traz parser para os arrays nativos (text[], uuid[], int[]), mas nao
+ * para array de tipo definido por nos: `tooth_surface[]` chega como a string
+ * `"{O,M}"`. O tipo gerado dizia `ToothSurface[]`, e o TypeScript acreditou.
+ *
+ * O erro e do tipo pior que existe: `"{O,M}".includes("M")` e `true`, e
+ * `.length > 0` tambem — entao teste de integracao passa e a tela quebra em
+ * `.join()`. Foi exatamente o que aconteceu com o odontograma.
+ *
+ * Os OIDs desses tipos sao criados junto com o banco, entao nao da para
+ * escrever a lista aqui: sao descobertos no catalogo, uma vez por processo.
+ */
+function parseEnumArray(raw: string): string[] {
+  if (raw === "{}") return [];
+
+  const corpo = raw.slice(1, -1);
+  const itens: string[] = [];
+  let atual = "";
+  let entreAspas = false;
+  let escapando = false;
+
+  for (const ch of corpo) {
+    if (escapando) {
+      atual += ch;
+      escapando = false;
+    } else if (ch === "\\") {
+      escapando = true;
+    } else if (ch === '"') {
+      entreAspas = !entreAspas;
+    } else if (ch === "," && !entreAspas) {
+      itens.push(atual);
+      atual = "";
+    } else {
+      atual += ch;
+    }
+  }
+
+  itens.push(atual);
+  return itens;
+}
+
+let parsersProntos: Promise<void> | undefined;
+
+/**
+ * Registra os parsers que dependem do catalogo. Idempotente, uma consulta por
+ * processo. Toda porta de acesso ao banco espera por isto antes da primeira
+ * consulta — e sao so tres (`withTenant`, `withUser`, `withoutContext`).
+ */
+export function ensureTypeParsers(): Promise<void> {
+  parsersProntos ??= (async () => {
+    const { rows } = await sql<{ oid: number }>`
+      select t.oid::int as oid
+      from pg_type t
+      join pg_type e on e.oid = t.typelem
+      where t.typcategory = 'A' and e.typtype = 'e'
+    `.execute(getDb());
+
+    for (const { oid } of rows) {
+      types.setTypeParser(oid, parseEnumArray);
+    }
+  })();
+
+  return parsersProntos;
+}
+
 let pool: pg.Pool | undefined;
 let database: Kysely<DB> | undefined;
 
@@ -134,6 +201,7 @@ export async function closeDb(): Promise<void> {
   await database?.destroy();
   database = undefined;
   pool = undefined;
+  parsersProntos = undefined;
 }
 
 export type { DB };

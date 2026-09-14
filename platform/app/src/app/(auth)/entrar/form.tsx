@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { entrarAction, escolherClinicaAction, type LoginState } from "@/modules/auth/actions";
-import { Button, Field, Input, Notice } from "@/ui";
+import { Button, Field, Input, Notice, FormError } from "@/ui";
 
 const EMPTY: LoginState = {};
 
@@ -16,7 +16,7 @@ export function EntrarForm() {
 
   return (
     <form action={action} className="space-y-4">
-      {state.error ? <Notice>{state.error}</Notice> : null}
+      <FormError error={state.error} fieldErrors={state.fieldErrors} />
 
       <Field label="E-mail">
         <Input
@@ -53,7 +53,7 @@ function EscolherClinica({ options }: { options: NonNullable<LoginState["options
 
   return (
     <form action={action} className="space-y-4">
-      {state.error ? <Notice>{state.error}</Notice> : null}
+      <FormError error={state.error} fieldErrors={state.fieldErrors} />
 
       <div>
         <h2 className="text-sm font-semibold text-ink">Em qual clínica você vai trabalhar?</h2>

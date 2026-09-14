@@ -13,7 +13,7 @@
  * clinica errada. A transacao e o que torna o pool seguro.
  */
 import { sql, type Transaction } from "kysely";
-import { getDb, type DB } from "@/server/db";
+import { ensureTypeParsers, getDb, type DB } from "@/server/db";
 import { Forbidden, NotAuthenticated } from "@/shared/errors";
 import { translatePgError } from "@/shared/postgres-errors";
 import { isPhiPermission, type Permission } from "@/shared/permissions";
@@ -158,6 +158,8 @@ export async function withTenant<T>(
     throw new NotAuthenticated();
   }
 
+  await ensureTypeParsers();
+
   let signal: unknown;
 
   try {
@@ -236,6 +238,8 @@ export async function withUser<T>(
   userId: string,
   fn: (trx: Transaction<DB>) => Promise<T>,
 ): Promise<T> {
+  await ensureTypeParsers();
+
   try {
     return await getDb()
       .transaction()
@@ -253,6 +257,8 @@ export async function withUser<T>(
  * (`auth_*`, SECURITY DEFINER) e para health check.
  */
 export async function withoutContext<T>(fn: (db: ReturnType<typeof getDb>) => Promise<T>): Promise<T> {
+  await ensureTypeParsers();
+
   try {
     return await fn(getDb());
   } catch (error) {

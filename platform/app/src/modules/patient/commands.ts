@@ -7,6 +7,7 @@
  */
 import type { TenantContext } from "@/server/context";
 import { Conflict, NotFound, ValidationError } from "@/shared/errors";
+import { toValidationError } from "@/shared/zod";
 import { createPatientSchema, type CreatePatientInput } from "@/modules/patient/schema";
 
 export type CreatedPatient = { id: string; code: number; fullName: string };
@@ -18,7 +19,7 @@ export async function createPatient(
   ctx.assert("patient.write");
 
   const parsed = createPatientSchema.safeParse(input);
-  if (!parsed.success) throw toValidationError(parsed.error);
+  if (!parsed.success) throw toValidationError(parsed.error, "Confira os campos destacados.");
   const data = parsed.data;
 
   if (data.taxId) {
@@ -62,7 +63,7 @@ export async function updatePatient(
   ctx.assert("patient.write");
 
   const parsed = createPatientSchema.safeParse(input);
-  if (!parsed.success) throw toValidationError(parsed.error);
+  if (!parsed.success) throw toValidationError(parsed.error, "Confira os campos destacados.");
   const data = parsed.data;
 
   const result = await ctx.db
@@ -103,11 +104,3 @@ export async function deactivatePatient(
   if (Number(result.numUpdatedRows) === 0) throw new NotFound("Paciente");
 }
 
-function toValidationError(error: { issues: { path: PropertyKey[]; message: string }[] }) {
-  const details: Record<string, string[]> = {};
-  for (const issue of error.issues) {
-    const key = issue.path.map(String).join(".") || "_";
-    details[key] = [...(details[key] ?? []), issue.message];
-  }
-  return new ValidationError(details);
-}

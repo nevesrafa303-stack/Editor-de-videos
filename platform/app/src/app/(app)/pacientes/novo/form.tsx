@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { cadastrarPacienteAction } from "@/modules/patient/server-actions";
 import { EMPTY_STATE } from "@/shared/action-state";
-import { Button, Field, Input, Notice, Panel, Select, Textarea } from "@/ui";
+import { Button, Field, Input, Notice, Panel, Select, Textarea, FormError } from "@/ui";
 
 export function NovoPacienteForm() {
   const [state, action, pending] = useActionState(cadastrarPacienteAction, EMPTY_STATE);
@@ -11,7 +11,7 @@ export function NovoPacienteForm() {
 
   return (
     <form action={action} className="space-y-5">
-      {state.error ? <Notice>{state.error}</Notice> : null}
+      <FormError error={state.error} fieldErrors={state.fieldErrors} />
 
       <Panel className="grid gap-4 p-5 sm:grid-cols-2">
         <Field label="Nome completo" className="sm:col-span-2" error={erro("fullName")}>

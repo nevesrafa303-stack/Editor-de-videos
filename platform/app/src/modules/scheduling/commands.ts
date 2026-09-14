@@ -9,6 +9,7 @@
 import { sql } from "kysely";
 import type { TenantContext } from "@/server/context";
 import { NotFound, ValidationError } from "@/shared/errors";
+import { toValidationError } from "@/shared/zod";
 import {
   changeStatusSchema,
   createAppointmentSchema,
@@ -31,7 +32,7 @@ export async function changeAppointmentStatus(
   input: ChangeStatusInput,
 ): Promise<{ id: string; status: string }> {
   const parsed = changeStatusSchema.safeParse(input);
-  if (!parsed.success) throw toValidationError(parsed.error);
+  if (!parsed.success) throw toValidationError(parsed.error, "Confira os dados do agendamento.");
   const data = parsed.data;
 
   ctx.assert(PERMISSAO_POR_DESTINO[data.to]);
@@ -67,7 +68,7 @@ export async function createAppointment(
   ctx.assert("appointment.write");
 
   const parsed = createAppointmentSchema.safeParse(input);
-  if (!parsed.success) throw toValidationError(parsed.error);
+  if (!parsed.success) throw toValidationError(parsed.error, "Confira os dados do agendamento.");
   const data = parsed.data;
 
   const unitId = ctx.unitId();
@@ -113,13 +114,3 @@ export async function createAppointment(
   return { id: row.id as string };
 }
 
-function toValidationError(error: { issues: { path: PropertyKey[]; message: string }[] }) {
-  const fieldErrors: Record<string, string[]> = {};
-
-  for (const issue of error.issues) {
-    const campo = String(issue.path[0] ?? "_");
-    (fieldErrors[campo] ??= []).push(issue.message);
-  }
-
-  return new ValidationError(fieldErrors, "Confira os dados do agendamento.");
-}

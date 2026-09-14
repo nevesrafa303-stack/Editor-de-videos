@@ -28,6 +28,12 @@ const TELAS = [
   { nome: "04-paciente-novo", url: "/pacientes/novo", espera: "Cadastrar paciente" },
   { nome: "05-agenda", url: `/agenda?data=${hoje}`, espera: "Grade do dia", altura: 1500 },
   { nome: "06-agenda-encaixe", url: `/agenda/novo?data=${hoje}`, espera: "Agendar" },
+  {
+    nome: "07-prontuario",
+    url: "/pacientes/0a222222-2222-7222-8222-222222222222/prontuario",
+    espera: "Odontograma",
+    altura: 1500,
+  },
 ];
 
 const destino = path.resolve(DESTINO);

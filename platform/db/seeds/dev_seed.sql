@@ -191,27 +191,50 @@ insert into appointment (id, tenant_id, unit_id, patient_id, provider_id, proced
    'confirmed', 'Instalação do implante no 46.');
 
 -- Anamnese com alerta: é o que aparece em vermelho no topo do prontuário.
+-- `alert_if` e o que transforma resposta em alerta vermelho no topo da ficha.
+-- `equals`: alerta se a resposta for aquilo. `filled`: alerta se houver texto,
+-- e `{valor}` no texto e substituido pela resposta.
 insert into form_template (id, tenant_id, kind, code, name, version, schema, published_at) values
   ('0d111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'anamnesis',
    'ANAMNESE_GERAL', 'Anamnese geral', 1,
-   '[{"key":"alergia","label":"Tem alergia a algum medicamento?","type":"boolean"},
-     {"key":"hipertensao","label":"Tem pressão alta?","type":"boolean"},
-     {"key":"anticoagulante","label":"Usa anticoagulante?","type":"boolean"}]'::jsonb,
+   '[{"key":"alergia","label":"Tem alergia a algum medicamento?","type":"boolean","required":true,
+      "alert_if":{"equals":true,"text":"Alergia medicamentosa"}},
+     {"key":"alergia_qual","label":"Qual alergia?","type":"text",
+      "alert_if":{"filled":true,"text":"Alergia: {valor}"}},
+     {"key":"hipertensao","label":"Tem pressão alta?","type":"boolean","required":true,
+      "alert_if":{"equals":true,"text":"Hipertensão"}},
+     {"key":"diabetes","label":"Tem diabetes?","type":"boolean","required":true,
+      "alert_if":{"equals":true,"text":"Diabetes"}},
+     {"key":"anticoagulante","label":"Usa anticoagulante?","type":"boolean","required":true,
+      "alert_if":{"equals":true,"text":"Usa anticoagulante"}},
+     {"key":"gestante","label":"Está grávida?","type":"boolean",
+      "alert_if":{"equals":true,"text":"Gestante"}},
+     {"key":"fumante","label":"Fuma?","type":"boolean"},
+     {"key":"medicamentos","label":"Medicamentos em uso","type":"textarea"},
+     {"key":"cirurgias","label":"Cirurgias anteriores","type":"textarea"}]'::jsonb,
    now());
 
 insert into form_response (tenant_id, patient_id, form_template_id, answers, alerts, filled_by) values
   ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
    '0d111111-1111-7111-8111-111111111111',
-   '{"alergia": true, "hipertensao": true, "anticoagulante": false}'::jsonb,
-   array['Alergia a penicilina', 'Hipertensão controlada'],
+   '{"alergia": true, "alergia_qual": "penicilina", "hipertensao": true, "diabetes": false,
+     "anticoagulante": false, "gestante": false, "fumante": true,
+     "medicamentos": "Losartana 50mg, 1x ao dia.", "cirurgias": "Extração dos sisos em 2018."}'::jsonb,
+   array['Alergia medicamentosa', 'Alergia: penicilina', 'Hipertensão'],
+   'd1111111-1111-7111-8111-111111111111'),
+  ('11111111-1111-7111-8111-111111111111', '0a111111-1111-7111-8111-111111111111',
+   '0d111111-1111-7111-8111-111111111111',
+   '{"alergia": false, "hipertensao": false, "diabetes": false, "anticoagulante": false,
+     "gestante": false, "fumante": false, "medicamentos": "Nenhum."}'::jsonb,
+   array[]::text[],
    'd1111111-1111-7111-8111-111111111111');
 
-insert into clinical_note (tenant_id, unit_id, patient_id, provider_id, appointment_id, content, created_at) values
+insert into clinical_note (tenant_id, unit_id, patient_id, provider_id, appointment_id, content, signed_at, signature_hash, created_at) values
   ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
    '0a222222-2222-7222-8222-222222222222', 'd1111111-1111-7111-8111-111111111111',
    '0c111111-1111-7111-8111-111111111111',
    'Restauração em resina no 16 (face oclusal). Anestesia infiltrativa, isolamento absoluto. Orientado sobre sensibilidade nas primeiras 48h.',
-   now() - interval '9 days');
+   now() - interval '9 days', md5('restauracao-16'), now() - interval '9 days');
 
 -- Plano de tratamento com item pendente: alimenta "tratamentos pendentes".
 insert into treatment_plan (id, tenant_id, unit_id, patient_id, provider_id, code, title, status, started_at) values
@@ -373,4 +396,63 @@ values (
 -- Denormalizações do paciente, recalculadas depois de tudo entrar.
 -- Os triggers de 0019 ja mantiveram a maior parte; esta chamada cobre o que
 -- foi inserido antes deles existirem e serve de conferencia.
+select refresh_patient_rollups();
+
+-- ---------------------------------------------------------------------------
+-- Odontograma e evoluções.
+--
+-- Prontuário vazio não mostra nada do que o prontuário resolve: o que o dente
+-- tinha antes, o que foi feito, quem assinou e quando fechou.
+-- ---------------------------------------------------------------------------
+
+-- Roberto: boca com histórico. Cárie na oclusal do 36, restauração no 16,
+-- ausente o 46 (motivo do implante planejado) e canal no 26.
+insert into odontogram_entry (tenant_id, patient_id, tooth_code, surfaces, condition, status, source, provider_id, notes, recorded_at)
+values
+  ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   '16', array['O']::tooth_surface[], 'restoration', 'executed', 'execution',
+   'd1111111-1111-7111-8111-111111111111', 'Resina composta.', now() - interval '9 days'),
+  ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   '36', array['O','M']::tooth_surface[], 'caries', 'existing', 'exam',
+   'd1111111-1111-7111-8111-111111111111', 'Cárie ativa, dentina.', now() - interval '9 days'),
+  ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   '46', array[]::tooth_surface[], 'missing', 'existing', 'exam',
+   'd1111111-1111-7111-8111-111111111111', 'Extraído há cerca de dois anos.', now() - interval '9 days'),
+  ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   '26', array[]::tooth_surface[], 'root_canal', 'executed', 'execution',
+   'd1111111-1111-7111-8111-111111111111', null, now() - interval '2 years'),
+  ('11111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
+   '11', array['V']::tooth_surface[], 'fractured', 'existing', 'exam',
+   'd1111111-1111-7111-8111-111111111111', 'Fratura de esmalte, sem exposição.', now() - interval '9 days');
+
+-- Mariana: boca saudável, só uma restauração antiga.
+insert into odontogram_entry (tenant_id, patient_id, tooth_code, surfaces, condition, status, source, provider_id, recorded_at)
+values
+  ('11111111-1111-7111-8111-111111111111', '0a111111-1111-7111-8111-111111111111',
+   '37', array['O']::tooth_surface[], 'restoration', 'executed', 'execution',
+   'd1111111-1111-7111-8111-111111111111', now() - interval '1 year');
+
+-- Evolução mais antiga, já fechada, com o aditamento que a corrige.
+-- É o caso que o produto precisa mostrar bem: o erro não some, ele fica ao
+-- lado da correção.
+insert into clinical_note (id, tenant_id, unit_id, patient_id, provider_id, content, signed_at, signature_hash, locked_at, created_at)
+values (
+  '0e111111-1111-7111-8111-111111111111',
+  '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+  '0a222222-2222-7222-8222-222222222222', 'd1111111-1111-7111-8111-111111111111',
+  'Avaliação inicial. Paciente relata dor ao mastigar do lado esquerdo. Exame clínico: cárie oclusal no 37.',
+  now() - interval '30 days', md5('avaliacao-inicial'), now() - interval '29 days',
+  now() - interval '30 days'
+);
+
+insert into clinical_note (tenant_id, unit_id, patient_id, provider_id, content, amends_note_id, amendment_reason, signed_at, signature_hash, created_at)
+values (
+  '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+  '0a222222-2222-7222-8222-222222222222', 'd1111111-1111-7111-8111-111111111111',
+  'Correção: a cárie oclusal é no 36, não no 37. O 37 está hígido. Radiografia interproximal anexada ao caso.',
+  '0e111111-1111-7111-8111-111111111111',
+  'Dente anotado errado na avaliação inicial.',
+  now() - interval '29 days', md5('aditamento-1'), now() - interval '29 days'
+);
+
 select refresh_patient_rollups();

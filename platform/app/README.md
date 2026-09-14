@@ -1,7 +1,7 @@
 # Aplicação
 
-A camada de acesso ao banco e os dois módulos que a clínica usa o dia inteiro:
-**pacientes** e **agenda**.
+A camada de acesso ao banco e os três módulos que a clínica usa o dia inteiro:
+**pacientes**, **agenda** e **prontuário**.
 
 ```
 src/
@@ -20,6 +20,7 @@ src/
     auth/            ações de login e logout
     patient/         consultas, comandos e a porta única em index.ts
     scheduling/      grade do dia, máquina de estados do atendimento, encaixe
+    chart/           odontograma, anamnese, evolução assinada e aditamento
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
@@ -29,8 +30,8 @@ src/
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               46 testes (integração contra PostgreSQL + formatação)
-e2e/                 20 testes de navegador sobre o build de produção
+tests/               69 testes (integração contra PostgreSQL + formatação)
+e2e/                 32 testes de navegador sobre o build de produção
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
 
@@ -93,6 +94,8 @@ navegador — o `next build` reprova, e com razão.
 | Data de vencimento não atravessa o dia | parser `date` -> `'YYYY-MM-DD'` |
 | Redirecionar não desfaz o que foi escrito | sinal de controle comita a transação |
 | Hora na tela é a da clínica, não a do servidor | fuso vem na sessão; formatação exige ele |
+| Abrir prontuário deixa rastro, na mesma transação | `ctx.recordChartAccess()` |
+| Registro clínico não se apaga nem se reescreve | `REVOKE` + trigger; correção é aditamento |
 
 ## As telas
 
@@ -104,6 +107,7 @@ navegador — o `next build` reprova, e com razão.
 | `/pacientes/novo` | nome e telefone bastam; o resto pode vir depois |
 | `/agenda` | grade do dia por profissional, ocupação, e a fila com as transições |
 | `/agenda/novo` | encaixe; conflito de horário é recusado pelo banco |
+| `/pacientes/[id]/prontuario` | odontograma, anamnese, evoluções e a trilha de quem abriu |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
 Os módulos ainda sem tela (funil, orçamento, financeiro, estoque)
@@ -129,8 +133,8 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 46 testes (a suíte recria o banco antes)
-npm run test:e2e      # 20 testes de navegador sobre o build de produção
+npm test              # 69 testes (a suíte recria o banco antes)
+npm run test:e2e      # 32 testes de navegador sobre o build de produção
 npm run test:all      # os 89 testes SQL + os dois acima
 ```
 
@@ -165,7 +169,32 @@ Encaixe em horário ocupado não é validado na tela: a `exclusion constraint`
 recusa, e a mensagem do Postgres vira português na borda. Duas abas abertas ao
 mesmo tempo não conseguem furar isso.
 
-## Cinco coisas que os testes acharam
+## O prontuário
+
+Três regras mandam neste módulo, e nenhuma delas mora no TypeScript:
+
+**Nada se apaga.** `crm_app` não tem `DELETE` em `clinical_note` — o `GRANT` é a
+primeira linha, a trigger é a segunda. Evolução fechada também não se reescreve:
+corrige-se com **aditamento**, e a original fica ao lado da correção, fechada.
+
+**Abrir a ficha deixa rastro.** `ctx.recordChartAccess()` grava na mesma
+transação da leitura — se a transação volta atrás, o log volta junto. A tela diz
+isso a quem abre, e quem tem `audit.read` vê a lista. Trilha que ninguém
+consegue ler é custo de armazenamento com aparência de conformidade.
+
+**Quem não pode ver o prontuário não descobre que ele existe.** A política
+restritiva da rede (`restrict_chart_to_own_patients`) é aplicada pelo banco nas
+tabelas clínicas. O módulo pergunta ao banco — `can_view_patient_chart()`, a
+mesma função que as policies usam — antes de montar a ficha, e responde
+"paciente não encontrado". Reimplementar a regra aqui criaria duas versões dela.
+
+No odontograma, o que um registro **substitui** é regra de produto, não do
+banco: condição de dente inteiro (ausente, canal, coroa) substitui tudo daquele
+dente; condição de face substitui só o que disputa a mesma face. Cárie na
+oclusal e restauração na mesial convivem — e o registro substituído continua
+existindo, apontando para quem o substituiu.
+
+## Sete coisas que os testes acharam
 
 **Logout não deslogava.** `revokeSession` fazia `UPDATE user_session` sem
 contexto de usuário aplicado. A policy é `user_id = current_user_id()`, então o
@@ -200,13 +229,35 @@ guarda o instante. Quem errava era a formatação, que usava o fuso do processo
 onde o atendimento acontece. Agora ele vem com a sessão, e nenhuma função de
 data tem valor padrão — passar o fuso é obrigatório, ou não compila.
 
-Nenhuma das cinco apareceria em revisão de código. Apareceram porque a suíte
-roda contra PostgreSQL de verdade, contra o build de produção de verdade — e
-porque alguém olhou as telas.
+**Array de enum chegava como texto, e o teste de integração passou assim.** O
+`pg` traz parser para `text[]` e `uuid[]`, mas não para `tooth_surface[]`: a
+coluna chegava como a string `"{O,M}"` enquanto o tipo gerado dizia
+`ToothSurface[]`. O erro é do pior tipo — `"{O,M}".includes("M")` é `true` e
+`.length > 0` também, então o teste de integração passou e a **tela** quebrou no
+`.join()`. Os parsers agora são descobertos no catálogo do banco, uma vez por
+processo, e as três portas de acesso esperam por eles.
+
+**Com a política restritiva ligada, o prontuário abria vazio.** A tabela
+`patient` não carrega a policy de prontuário — quem carrega são as tabelas
+clínicas. Um profissional barrado via a ficha abrir com odontograma vazio e
+nenhuma evolução: parecia paciente sem histórico, e era acesso negado. Pior, a
+abertura entrava na trilha como se tivesse acontecido.
+
+Nenhuma das sete apareceria em revisão de código. Apareceram porque a suíte roda
+contra PostgreSQL de verdade, contra o build de produção de verdade — e porque
+alguém olhou as telas.
+
+## O que o prontuário ainda não tem
+
+Documentos (receituário, atestado, encaminhamento), anexos de imagem e
+prescrição estão modelados no banco (`clinical_document`, `clinical_file`,
+`prescription_item`) e ainda não têm tela. Foram deixados de fora desta fatia de
+propósito: anexo exige decisão de armazenamento (bucket, retenção, expurgo por
+LGPD) que ainda não foi tomada.
 
 ## Próximo passo
 
-Prontuário e odontograma: é onde mora a política restritiva de acesso
-(`chart_scope`), a que decide se um profissional vê a ficha de paciente alheio.
-O banco já a aplica; falta a tela — e o registro de leitura que a LGPD exige já
-está na camada (`ctx.recordChartAccess`).
+Orçamento e financeiro: é o par que fecha o ciclo comercial — o plano de
+tratamento vira proposta, a proposta aceita vira parcela, e a parcela paga vira
+caixa. O banco já tem preço versionado, máquina de estados do orçamento e
+imutabilidade de pagamento; falta a tela.

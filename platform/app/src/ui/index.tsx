@@ -173,6 +173,28 @@ export function Notice({ tone = "critical", children }: { tone?: Tone; children:
   );
 }
 
+/**
+ * Aviso de erro do formulario.
+ *
+ * Nao repete o que ja esta no campo. Quando a validacao tem um problema so, a
+ * mensagem especifica vai para o campo — e mostra-la tambem no topo faz o
+ * leitor procurar dois erros onde ha um.
+ */
+export function FormError({
+  error,
+  fieldErrors,
+}: {
+  error?: string | undefined;
+  fieldErrors?: Record<string, string[]> | undefined;
+}) {
+  if (!error) return null;
+
+  const nosCampos = Object.values(fieldErrors ?? {}).some((msgs) => msgs.includes(error));
+  if (nosCampos) return null;
+
+  return <Notice>{error}</Notice>;
+}
+
 export function Empty({
   title,
   hint,

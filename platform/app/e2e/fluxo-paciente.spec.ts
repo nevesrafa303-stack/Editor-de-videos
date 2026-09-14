@@ -84,7 +84,7 @@ test.describe("visao do paciente", () => {
 
     // O alerta de anamnese e a razao da tela existir: nao pode ficar escondido.
     await expect(page.getByText(/Atenção clínica/)).toBeVisible();
-    await expect(page.getByText("Alergia a penicilina")).toBeVisible();
+    await expect(page.getByText("Alergia: penicilina")).toBeVisible();
 
     const resumo = page.getByRole("region", { name: "Resumo do paciente" });
     for (const rotulo of ["Em aberto", "Próxima consulta", "Tratamento pendente", "Orçamento em aberto"]) {

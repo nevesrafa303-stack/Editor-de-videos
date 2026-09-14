@@ -3,7 +3,7 @@
 import { useActionState, useState } from "react";
 import { agendarAction } from "@/modules/scheduling/server-actions";
 import { EMPTY_STATE } from "@/shared/action-state";
-import { Button, Field, Input, Notice, Panel, Select, Textarea } from "@/ui";
+import { Button, Field, Input, Notice, Panel, Select, Textarea, FormError } from "@/ui";
 
 type Opcao = { id: string; nome: string };
 type Procedimento = Opcao & { duracao: number };
@@ -27,7 +27,7 @@ export function EncaixarForm({
 
   return (
     <form action={action} className="space-y-5">
-      {state.error ? <Notice>{state.error}</Notice> : null}
+      <FormError error={state.error} fieldErrors={state.fieldErrors} />
 
       <Panel className="grid gap-4 p-5 sm:grid-cols-2">
         <Field label="Paciente" className="sm:col-span-2" error={erro("patientId")}>

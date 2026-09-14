@@ -79,8 +79,27 @@ export function translatePgError(error: unknown): AppError | null {
 
   // Violacao de RLS: o banco recusou uma escrita fora do tenant da sessao.
   // Nunca deveria acontecer; quando acontece, e bug nosso, nao do usuario.
-  if (pg.code === "42501" || /row-level security/i.test(message)) {
+  //
+  // So a MENSAGEM identifica esse caso. O codigo 42501 sozinho nao serve: as
+  // nossas proprias triggers de protecao o usam de proposito, com uma frase
+  // que explica o que aconteceu ("evolucao nao pode ser apagada"). Tratar o
+  // codigo como "tenant errado" jogava essa frase fora e dizia ao dentista
+  // que o registro era de outra clinica — que nao e verdade, e assusta.
+  if (/row-level security/i.test(message)) {
     return new TenantViolation();
+  }
+
+  // "permission denied for table X": o GRANT recusou antes de qualquer
+  // trigger. E assim que apagar evolucao clinica, log de auditoria e
+  // movimentacao de estoque e barrado — a trigger e a segunda linha, nao a
+  // primeira. Nao e tenant errado; e uma operacao que nao existe neste
+  // registro.
+  if (/permission denied/i.test(message)) {
+    return new BusinessRuleError(
+      "Este registro nao pode ser apagado nem alterado por aqui. " +
+        "Registro clinico se corrige por aditamento, e lancamento financeiro por estorno.",
+      error,
+    );
   }
 
   const friendly = BY_CONSTRAINT[constraint];
@@ -105,6 +124,10 @@ export function translatePgError(error: unknown): AppError | null {
       return new BusinessRuleError("A operacao viola uma regra do sistema.", error);
     case "23502":
       return new BusinessRuleError("Um campo obrigatorio nao foi preenchido.", error);
+    case "42501":
+      // Trigger de protecao nossa (prontuario, pagamento, estoque). A frase ja
+      // vem escrita para quem usa; repassar e melhor do que generalizar.
+      return new BusinessRuleError(message || "Operacao nao permitida.", error);
     default:
       return null;
   }

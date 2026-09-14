@@ -76,9 +76,14 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
           </span>
         }
         action={
-          <LinkButton href="/pacientes" variant="secondary">
-            Voltar
-          </LinkButton>
+          <span className="flex gap-2">
+            {dados.podeVerProntuario ? (
+              <LinkButton href={`/pacientes/${patient.id}/prontuario`}>Prontuário</LinkButton>
+            ) : null}
+            <LinkButton href="/pacientes" variant="secondary">
+              Voltar
+            </LinkButton>
+          </span>
         }
       />
 
