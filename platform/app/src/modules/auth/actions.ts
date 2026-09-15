@@ -1,13 +1,16 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { login, loadMemberships, logout, selectTenant, type MembershipOption } from "@/server/auth";
 import {
   clearSessionCookie,
   currentRequestInfo,
   readSessionToken,
+  requireSession,
   setSessionCookie,
 } from "@/server/next/session";
+import { setActiveUnit } from "@/server/session";
 import {
   clearPendingLogin,
   readPendingLogin,
@@ -92,6 +95,25 @@ export async function escolherClinicaAction(
   }
 
   redirect("/pacientes");
+}
+
+/**
+ * Troca a unidade ativa da sessao.
+ *
+ * Nao e preferencia de tela: a unidade decide o que a agenda mostra, em que
+ * caixa o dinheiro entra e qual fuso formata a hora. Por isso vive na SESSAO,
+ * no banco, e nao num cookie que o navegador poderia perder no meio do dia.
+ */
+export async function trocarUnidadeAction(formData: FormData): Promise<void> {
+  const session = await requireSession();
+  const unidade = String(formData.get("unitId") ?? "").trim();
+
+  await setActiveUnit(session, unidade || null);
+
+  // Tudo que a tela mostra depende da unidade — inclusive o fuso, que vem da
+  // sessao. Revalidar so a rota atual deixaria o resto do app mentindo.
+  revalidatePath("/", "layout");
+  redirect(String(formData.get("de") ?? "/pacientes"));
 }
 
 export async function sairAction(): Promise<void> {

@@ -83,22 +83,41 @@ export function Odontograma({
 }) {
   const porQuadrante = (q: number) => teeth.filter((d) => d.quadrant === q);
 
-  // Ordem de leitura: do siso ate o incisivo central, e de volta.
+  // Permanentes ocupam os quadrantes 1–4; decíduos, 5–8. Desenhar os dois
+  // juntos é a dentição mista — a boca de quem tem entre 6 e 12 anos.
   const superior = [
     ...porQuadrante(1).slice().sort((a, b) => b.position - a.position),
+    ...porQuadrante(5).slice().sort((a, b) => b.position - a.position),
+    ...porQuadrante(6).slice().sort((a, b) => a.position - b.position),
     ...porQuadrante(2).slice().sort((a, b) => a.position - b.position),
   ];
   const inferior = [
     ...porQuadrante(4).slice().sort((a, b) => b.position - a.position),
+    ...porQuadrante(8).slice().sort((a, b) => b.position - a.position),
+    ...porQuadrante(7).slice().sort((a, b) => a.position - b.position),
     ...porQuadrante(3).slice().sort((a, b) => a.position - b.position),
   ];
 
+  // Mais de 32 dentes e denticao mista: os dentes encolhem para a boca inteira
+  // caber sem rolagem. Ler metade do odontograma por vez nao serve.
+  const compacto = teeth.length > 32;
+
   return (
     <div className="overflow-x-auto px-5 py-4">
-      <div className="min-w-[680px] space-y-1">
-        <Arcada dentes={superior} selecionado={selecionado} onSelecionar={onSelecionar} />
+      <div className={cn("space-y-1", compacto ? "min-w-[900px]" : "min-w-[680px]")}>
+        <Arcada
+          dentes={superior}
+          selecionado={selecionado}
+          onSelecionar={onSelecionar}
+          compacto={compacto}
+        />
         <div className="h-px bg-line-strong" />
-        <Arcada dentes={inferior} selecionado={selecionado} onSelecionar={onSelecionar} />
+        <Arcada
+          dentes={inferior}
+          selecionado={selecionado}
+          onSelecionar={onSelecionar}
+          compacto={compacto}
+        />
       </div>
     </div>
   );
@@ -108,19 +127,22 @@ function Arcada({
   dentes,
   selecionado,
   onSelecionar,
+  compacto,
 }: {
   dentes: ToothState[];
   selecionado: string | null;
   onSelecionar: (code: string) => void;
+  compacto: boolean;
 }) {
   return (
     <div className="flex justify-center gap-1">
       {dentes.map((dente, i) => (
-        <div key={dente.code} className={cn(i === 7 && "mr-3")}>
+        <div key={dente.code} className={cn(i === Math.floor(dentes.length / 2) - 1 && "mr-3")}>
           <Dente
             dente={dente}
             selecionado={selecionado === dente.code}
             onSelecionar={onSelecionar}
+            compacto={compacto}
           />
         </div>
       ))}
@@ -132,10 +154,12 @@ function Dente({
   dente,
   selecionado,
   onSelecionar,
+  compacto,
 }: {
   dente: ToothState;
   selecionado: boolean;
   onSelecionar: (code: string) => void;
+  compacto: boolean;
 }) {
   const centro: Surface = dente.position <= 3 ? "I" : "O";
   const interna: Surface = dente.arch === "upper" ? "P" : "L";
@@ -179,16 +203,24 @@ function Dente({
       aria-label={rotulo}
       aria-pressed={selecionado}
       className={cn(
-        "flex w-11 flex-col items-center gap-0.5 rounded p-0.5 transition",
+        "flex flex-col items-center gap-0.5 rounded p-0.5 transition",
+        compacto ? "w-8" : "w-11",
         selecionado ? "bg-structure-soft ring-2 ring-structure" : "hover:bg-sunken",
       )}
     >
       {dente.arch === "lower" ? (
-        <span className="num text-[11px] leading-none text-muted">{dente.code}</span>
+        <span className={cn("num leading-none text-muted", compacto ? "text-[9px]" : "text-[11px]")}>
+          {dente.code}
+        </span>
       ) : null}
 
       <span
-        className="relative grid size-10 grid-cols-[8px_1fr_8px] grid-rows-[8px_1fr_8px] rounded-sm"
+        className={cn(
+          "relative grid rounded-sm",
+          compacto
+            ? "size-7 grid-cols-[6px_1fr_6px] grid-rows-[6px_1fr_6px]"
+            : "size-10 grid-cols-[8px_1fr_8px] grid-rows-[8px_1fr_8px]",
+        )}
         // Condicao de dente inteiro pinta a caixa toda, inclusive os cantos:
         // um dente com canal tratado tem que ser reconhecivel de relance, sem
         // o leitor precisar reparar em quais celulas estao coloridas.
@@ -219,7 +251,9 @@ function Dente({
       </span>
 
       {dente.arch === "upper" ? (
-        <span className="num text-[11px] leading-none text-muted">{dente.code}</span>
+        <span className={cn("num leading-none text-muted", compacto ? "text-[9px]" : "text-[11px]")}>
+          {dente.code}
+        </span>
       ) : null}
     </button>
   );

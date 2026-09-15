@@ -15,6 +15,8 @@ import {
   IconTooth,
 } from "@/ui/icons";
 
+export type UnitChoice = { id: string; name: string; city: string | null };
+
 export type RailItem = {
   href: string;
   label: string;
@@ -37,15 +39,25 @@ export function Rail({
   clinicName,
   userName,
   roleName,
+  units,
+  activeUnitId,
+  trocarUnidade,
   sair,
 }: {
   items: RailItem[];
   clinicName: string;
   userName: string;
   roleName: string;
+  units: UnitChoice[];
+  activeUnitId: string | null;
+  trocarUnidade: (formData: FormData) => Promise<void>;
   sair: () => Promise<void>;
 }) {
   const pathname = usePathname();
+
+  // Cidade só quando ela distingue: numa rede toda em São Paulo, repetir "São
+  // Paulo" em cada opção só rouba espaço do nome da unidade.
+  const mostrarCidade = new Set(units.map((u) => u.city)).size > 1;
 
   return (
     <nav className="flex h-full flex-col gap-6 border-r border-line bg-surface px-3 py-5">
@@ -60,6 +72,40 @@ export function Rail({
           </span>
         </span>
       </div>
+
+      {units.length > 1 ? (
+        <form action={trocarUnidade} className="px-2">
+          <label htmlFor="unitId" className="label">
+            Unidade
+          </label>
+          <input type="hidden" name="de" value={pathname} />
+          <select
+            id="unitId"
+            name="unitId"
+            defaultValue={activeUnitId ?? ""}
+            onChange={(e) => e.currentTarget.form?.requestSubmit()}
+            className="field"
+          >
+            {units.map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.name}
+                {mostrarCidade && u.city ? ` · ${u.city}` : ""}
+              </option>
+            ))}
+          </select>
+          {/* Sem JavaScript o select nao dispara sozinho; o botao garante. */}
+          <noscript>
+            <button type="submit" className="mt-1 text-xs text-structure underline">
+              Trocar
+            </button>
+          </noscript>
+        </form>
+      ) : units.length === 1 ? (
+        <p className="px-2">
+          <span className="label">Unidade</span>
+          <span className="block truncate text-sm text-ink-soft">{units[0]?.name}</span>
+        </p>
+      ) : null}
 
       <ul className="flex-1 space-y-0.5">
         {items.map((item) => {

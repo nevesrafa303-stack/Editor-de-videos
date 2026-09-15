@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { requireSession } from "@/server/next/session";
-import { sairAction } from "@/modules/auth/actions";
+import { withPage } from "@/server/next/page";
+import { sairAction, trocarUnidadeAction } from "@/modules/auth/actions";
+import { listReachableUnits } from "@/modules/auth/units";
 import { Rail, type RailItem } from "@/ui/rail";
 import type { Permission } from "@/shared/permissions";
 
@@ -20,6 +22,7 @@ const NAV: (RailItem & { permission?: Permission })[] = [
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const session = await requireSession();
+  const units = await withPage((ctx) => listReachableUnits(ctx));
 
   const items = NAV.filter(
     (item) => !item.permission || session.permissions.has(item.permission),
@@ -38,6 +41,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
           clinicName={session.tenantName}
           userName={session.userName}
           roleName={session.roleCode}
+          units={units}
+          activeUnitId={session.activeUnitId}
+          trocarUnidade={trocarUnidadeAction}
           sair={sairAction}
         />
       </div>

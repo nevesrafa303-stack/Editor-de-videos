@@ -41,6 +41,13 @@ const TELAS = [
     altura: 1200,
   },
   {
+    nome: "12-prontuario-decidua",
+    url: "/pacientes/0a222222-2222-7222-8222-222222222222/prontuario",
+    clicarBotao: "Mista",
+    espera: "como na troca",
+    altura: 900,
+  },
+  {
     nome: "07-prontuario",
     url: "/pacientes/0a222222-2222-7222-8222-222222222222/prontuario",
     espera: "Odontograma",
@@ -78,6 +85,10 @@ for (const tela of TELAS) {
 
   await alvo.setViewportSize({ width: 1360, height: tela.altura ?? 1000 });
   await alvo.goto(`${BASE}${tela.url}`);
+
+  if (tela.clicarBotao) {
+    await alvo.getByRole("button", { name: tela.clicarBotao, exact: true }).first().click();
+  }
 
   if (tela.clicar) {
     await alvo.getByRole("link", { name: tela.clicar }).first().click();

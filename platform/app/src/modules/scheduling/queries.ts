@@ -64,7 +64,10 @@ export type DayAgenda = {
     faltas: number;
     cancelados: number;
     minutosOcupados: number;
+    /** Expediente cadastrado, sem descontar nada. */
     minutosDisponiveis: number;
+    /** Expediente menos almoço, férias e bloqueios: o tempo que dá para vender. */
+    minutosVendaveis: number;
     receitaPrevistaCents: number;
   };
 };
@@ -234,7 +237,7 @@ export async function getDayAgenda(ctx: TenantContext, input: AgendaFilter): Pro
     appointments,
     blocks,
     waitlist: Number(espera?.total ?? 0),
-    totals: totalizar(providers, appointments),
+    totals: totalizar(providers, appointments, blocks),
   };
 }
 
@@ -270,7 +273,11 @@ function calcularJanela(
   return { startMinute: Math.max(0, inicio), endMinute: Math.min(24 * 60, Math.max(fim, inicio + 60)) };
 }
 
-function totalizar(providers: AgendaProvider[], appointments: AgendaAppointment[]) {
+function totalizar(
+  providers: AgendaProvider[],
+  appointments: AgendaAppointment[],
+  blocks: AgendaBlock[],
+) {
   const conta = (status: string) => appointments.filter((a) => a.status === status).length;
 
   // Cancelado e falta nao ocupam cadeira: a janela volta a ser vendavel.
@@ -282,6 +289,24 @@ function totalizar(providers: AgendaProvider[], appointments: AgendaAppointment[
     0,
   );
 
+  // Bloqueio dentro do expediente nao e horario vago: e horario que nao
+  // existe. Contar almoco como capacidade ociosa pune o profissional pelo
+  // proprio almoco e faz a ocupacao parecer pior do que e.
+  const minutosBloqueados = providers.reduce((soma, p) => {
+    if (p.startMinute === null || p.endMinute === null) return soma;
+
+    const doProfissional = blocks.filter((b) => b.providerId === p.membershipId);
+
+    return (
+      soma +
+      doProfissional.reduce((parcial, b) => {
+        const inicio = Math.max(b.startMinute, p.startMinute as number);
+        const fim = Math.min(b.endMinute, p.endMinute as number);
+        return parcial + Math.max(fim - inicio, 0);
+      }, 0)
+    );
+  }, 0);
+
   return {
     total: appointments.length,
     confirmados: conta("confirmed"),
@@ -292,6 +317,7 @@ function totalizar(providers: AgendaProvider[], appointments: AgendaAppointment[
     cancelados: conta("canceled"),
     minutosOcupados: ocupando.reduce((soma, a) => soma + (a.endMinute - a.startMinute), 0),
     minutosDisponiveis,
+    minutosVendaveis: Math.max(minutosDisponiveis - minutosBloqueados, 0),
     receitaPrevistaCents: ocupando.reduce((soma, a) => soma + (a.priceCents ?? 0), 0),
   };
 }

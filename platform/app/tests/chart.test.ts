@@ -48,7 +48,11 @@ describe("leitura", () => {
     const chart = await withTenant(dona, (ctx) => getPatientChart(ctx, ROBERTO));
 
     expect(chart.patient.fullName).toBe("Roberto Carvalho");
-    expect(chart.teeth).toHaveLength(32);
+    // 32 permanentes e 20 decíduos: a ficha traz as duas dentições, e a tela
+    // escolhe qual desenhar.
+    expect(chart.teeth).toHaveLength(52);
+    expect(chart.teeth.filter((d) => d.dentition === "permanent")).toHaveLength(32);
+    expect(chart.teeth.filter((d) => d.dentition === "deciduous")).toHaveLength(20);
     expect(chart.alerts).toContain("Alergia: penicilina");
 
     const dente36 = chart.teeth.find((d) => d.code === "36");

@@ -28,7 +28,7 @@ psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0024
 psql -d crm -f db/seeds/dev_seed.sql
 
 ./db/tests/run_tests.sh                             # 118 testes de invariante
-(cd app && npm install && npm run test:all)         # + 111 de integração + 48 de navegador
+(cd app && npm install && npm run test:all)         # + 111 de integração + 53 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -49,7 +49,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Enums | 63 |
 | Transições de estado declaradas | 74 |
 | Permissões no catálogo | 66 |
-| Testes | 118 no banco + 111 na camada de acesso + 48 no navegador, todos passando |
+| Testes | 118 no banco + 111 na camada de acesso + 53 no navegador, todos passando |
 
 ## Por onde começar a ler
 

@@ -20,6 +20,7 @@ export type ToothState = {
   namePt: string;
   arch: "upper" | "lower";
   side: "right" | "left";
+  dentition: "permanent" | "deciduous";
   entries: {
     id: string;
     condition: ToothCondition;
@@ -155,10 +156,11 @@ export async function getPatientChart(
       .orderBy("n.created_at", "asc")
       .execute(),
 
+    // As duas denticoes vem juntas: quem decide qual desenhar e a tela, porque
+    // criança em troca de dentes tem as duas na boca ao mesmo tempo.
     ctx.db
       .selectFrom("tooth")
-      .select(["code", "quadrant", "position", "name_pt", "arch", "side"])
-      .where("dentition", "=", "permanent")
+      .select(["code", "quadrant", "position", "name_pt", "arch", "side", "dentition"])
       .orderBy("quadrant", "asc")
       .orderBy("position", "asc")
       .execute(),
@@ -252,6 +254,7 @@ export async function getPatientChart(
       namePt: d.name_pt,
       arch: d.arch as "upper" | "lower",
       side: d.side as "right" | "left",
+      dentition: d.dentition as "permanent" | "deciduous",
       entries: porDente.get(d.code) ?? [],
     })),
     can: { write: ctx.can("chart.write"), amend: ctx.can("chart.amend") },

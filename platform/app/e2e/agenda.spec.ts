@@ -21,7 +21,9 @@ test.describe("grade do dia", () => {
     await page.getByRole("link", { name: "Agenda" }).click();
 
     await expect(page.getByRole("heading", { name: "Agenda", level: 1 })).toBeVisible();
-    await expect(page.getByText("Sorriso Centro")).toBeVisible();
+    // O seletor de unidade no menu também traz o nome; a asserção é sobre a
+    // página.
+    await expect(page.locator("main").getByText("Sorriso Centro")).toBeVisible();
 
     const grade = page.getByRole("region", { name: "Grade do dia" }).or(page.locator("body"));
     await expect(grade.getByText("Ana Souza").first()).toBeVisible();

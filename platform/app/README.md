@@ -37,7 +37,8 @@ src/
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
 tests/               111 testes (integração contra PostgreSQL + unidade)
-e2e/                 48 testes de navegador sobre o build de produção
+e2e/                 53 testes de navegador sobre o build de produção
+scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
 
@@ -107,6 +108,7 @@ navegador — o `next build` reprova, e com razão.
 | Aceitar orçamento gera o a receber | trigger, na mesma transação |
 | Multa e juros nunca são gravados | `installment_charges()`, calculado na hora |
 | Dinheiro em espécie exige caixa aberto | `payment_method.affects_cash_session` |
+| Trocar de unidade muda agenda, caixa e fuso | unidade ativa vive na sessão, no banco |
 
 ## As telas
 
@@ -150,7 +152,7 @@ npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
 npm test              # 111 testes (a suíte recria o banco antes)
-npm run test:e2e      # 48 testes de navegador sobre o build de produção
+npm run test:e2e      # 53 testes de navegador sobre o build de produção
 npm run test:all      # os 118 testes SQL + os dois acima
 ```
 
@@ -257,6 +259,25 @@ que a gaveta tem que ter no fim do dia — quem decide é
 `payment_method.affects_cash_session`. Receber em espécie sem caixa aberto é
 recusado, porque sem isso não há o que conferir no fechamento.
 
+## Três acabamentos que faltavam
+
+**Seletor de unidade.** Quem atende em mais de uma escolhe no menu, e a tela
+inteira acompanha — agenda, caixa e o fuso que formata a hora. A escolha vive na
+**sessão, no banco**, não num cookie: é ela que decide em que caixa o dinheiro
+entra, e isso não pode depender do navegador lembrar. Quem atende em uma
+unidade só não vê seletor nenhum.
+
+**Ocupação com os dois números.** O principal desconta almoço e bloqueios — é o
+tempo que dá para vender. Ao lado, o percentual sobre o expediente cheio, que é
+a referência de quem combinou o horário com o profissional. Contar o almoço
+como capacidade ociosa punia o profissional pelo próprio almoço.
+
+**Dentição alternável.** Permanente, decídua e mista, escolhidas à mão. Não é
+deduzido da idade de propósito: criança de 11 anos está em plena troca, e
+adivinhar erra justamente em quem mais aparece na odontopediatria. Na mista os
+dentes encolhem para os 52 caberem sem rolagem — ler metade do odontograma por
+vez não serve.
+
 ## Onze coisas que os testes acharam
 
 **Logout não deslogava.** `revokeSession` fazia `UPDATE user_session` sem
@@ -350,12 +371,11 @@ LGPD) que ainda não foi tomada.
 
 ## Próximo passo
 
-O ciclo comercial está fechado: o plano vira proposta, a proposta aceita vira
-parcela, a parcela paga vira caixa e comissão. Faltam, em ordem de valor:
+O ciclo comercial está fechado e os acabamentos decididos entraram. Faltam, em
+ordem de valor:
 
-1. **Seletor de unidade** e os dois números de ocupação — pequenos, decididos e
-   pendentes.
-2. **Convênio**: tabela de preço por convênio (reembolso), depois faturamento
-   por guia com lote, repasse e glosa.
-3. **Funil de vendas** — a ponta de captação que o CRM ainda não tem.
-4. **Importador de planilha** — quando houver cliente definido.
+1. **Convênio**: tabela de preço por convênio (reembolso), depois faturamento
+   por guia com lote, repasse e glosa. É o maior item de escopo que resta.
+2. **Funil de vendas** — a ponta de captação que o CRM ainda não tem.
+3. **Importador de planilha** — quando houver cliente definido.
+4. **Documentos e anexos** — esperando a decisão de armazenamento.

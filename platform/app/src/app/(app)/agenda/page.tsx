@@ -39,8 +39,12 @@ export default async function AgendaPage({
   const { agenda, hoje, podeAgendar, agoraMinuto } = dados;
   const { totals: t } = agenda;
 
-  const ocupacao =
-    t.minutosDisponiveis > 0 ? Math.round((t.minutosOcupados / t.minutosDisponiveis) * 100) : 0;
+  // Dois números de propósito: o que dá para vender (desconta almoço e
+  // bloqueio) é o que mede o dia; o expediente cheio é a referência de quem
+  // combinou o horário com o profissional.
+  const percentual = (base: number) => (base > 0 ? Math.round((t.minutosOcupados / base) * 100) : 0);
+  const ocupacao = percentual(t.minutosVendaveis);
+  const sobreExpediente = percentual(t.minutosDisponiveis);
 
   return (
     <>
@@ -116,7 +120,7 @@ export default async function AgendaPage({
         <Metric
           label="Ocupação"
           value={`${ocupacao}%`}
-          hint={`${Math.round(t.minutosOcupados / 60)}h de ${Math.round(t.minutosDisponiveis / 60)}h de expediente`}
+          hint={`${horas(t.minutosOcupados)} de ${horas(t.minutosVendaveis)} vendáveis · ${sobreExpediente}% do expediente de ${horas(t.minutosDisponiveis)}`}
           tone={ocupacao >= 70 ? "positive" : ocupacao >= 40 ? "warning" : "critical"}
         />
         <Metric
@@ -171,6 +175,13 @@ export default async function AgendaPage({
       </Panel>
     </>
   );
+}
+
+/** "2h30" lê melhor que "2,5h" para quem pensa em agenda. */
+function horas(minutos: number): string {
+  const h = Math.floor(minutos / 60);
+  const m = minutos % 60;
+  return m === 0 ? `${h}h` : `${h}h${String(m).padStart(2, "0")}`;
 }
 
 /** `YYYY-MM-DD` no fuso pedido, sem biblioteca: `sv-SE` ja e ISO. */

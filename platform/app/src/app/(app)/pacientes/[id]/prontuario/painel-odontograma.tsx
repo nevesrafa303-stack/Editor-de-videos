@@ -8,6 +8,21 @@ import { EMPTY_STATE } from "@/shared/action-state";
 import { Badge, Button, Field, Input, Notice, Select, cn, FormError } from "@/ui";
 import { CONDICAO, FACE, Odontograma, facesDoDente } from "./odontograma";
 
+const DENTICOES = ["permanente", "decidua", "mista"] as const;
+type Denticao = (typeof DENTICOES)[number];
+
+const ROTULO: Record<Denticao, string> = {
+  permanente: "Permanente",
+  decidua: "Decídua",
+  mista: "Mista",
+};
+
+const MAPA: Record<Denticao, "permanent" | "deciduous"> = {
+  permanente: "permanent",
+  decidua: "deciduous",
+  mista: "permanent",
+};
+
 export function PainelOdontograma({
   patientId,
   teeth,
@@ -20,13 +35,55 @@ export function PainelOdontograma({
   fuso: string;
 }) {
   const [selecionado, setSelecionado] = useState<string | null>(null);
-  const dente = teeth.find((d) => d.code === selecionado) ?? null;
 
-  const comRegistro = teeth.filter((d) => d.entries.length > 0);
+  // A dentição é escolhida à mão, não deduzida da idade: criança de 11 anos
+  // está em plena troca, e adivinhar erra justamente em quem mais aparece na
+  // odontopediatria.
+  const [denticao, setDenticao] = useState<Denticao>(() =>
+    teeth.some((d) => d.dentition === "deciduous" && d.entries.length > 0)
+      ? "mista"
+      : "permanente",
+  );
+
+  const visiveis = teeth.filter((d) =>
+    denticao === "mista" ? true : d.dentition === MAPA[denticao],
+  );
+
+  const dente = visiveis.find((d) => d.code === selecionado) ?? null;
+  const comRegistro = visiveis.filter((d) => d.entries.length > 0);
 
   return (
     <div>
-      <Odontograma teeth={teeth} selecionado={selecionado} onSelecionar={setSelecionado} />
+      <div className="flex flex-wrap items-center gap-1.5 px-5 pt-4">
+        {DENTICOES.map((opcao) => (
+          <button
+            key={opcao}
+            type="button"
+            aria-pressed={denticao === opcao}
+            onClick={() => {
+              setDenticao(opcao);
+              setSelecionado(null);
+            }}
+            className={cn(
+              "rounded-md border px-2.5 py-1 text-xs font-medium transition",
+              denticao === opcao
+                ? "border-structure bg-structure-soft text-structure"
+                : "border-line bg-surface text-ink-soft hover:bg-sunken",
+            )}
+          >
+            {ROTULO[opcao]}
+          </button>
+        ))}
+        <span className="text-xs text-muted">
+          {denticao === "mista"
+            ? "Permanentes e decíduos juntos, como na troca."
+            : denticao === "decidua"
+              ? "Numeração 51–85."
+              : "Numeração 11–48."}
+        </span>
+      </div>
+
+      <Odontograma teeth={visiveis} selecionado={selecionado} onSelecionar={setSelecionado} />
 
       <div className="flex flex-wrap gap-1.5 border-t border-line px-5 py-3">
         {TOOTH_CONDITIONS.filter((c) => c !== "healthy").map((c) => (

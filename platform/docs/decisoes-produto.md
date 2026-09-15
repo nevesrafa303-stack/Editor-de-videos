@@ -178,6 +178,25 @@ cria o incentivo perverso de compartilhar login para economizar.
 
 ---
 
+## O que já está construído
+
+| Decisão | Estado |
+|---|---|
+| 1 · Orçamento + financeiro | pronto, com telas e testes |
+| 2 · Recebimento manual | pronto; gateway segue para a fase 2 |
+| 5 · Teto de desconto por papel | pronto, cobrado pelo banco |
+| 6 · Multa 2% + juros 1% ao mês | pronto, calculado na hora |
+| 7 · Caixa por unidade | pronto, com conferência e diferença |
+| 8 · Seletor de unidade | pronto |
+| 9 · Prontuário sem restrição | pronto (a política existe e está desligada) |
+| 10 · Ocupação com os dois números | pronto |
+| 11 · Dentição alternada à mão | pronto |
+| 12 · Marca | **Áurea** |
+| 14 · Retenção configurável | política gravada; expurgo ainda não |
+| 16 · Comissão no recebimento | pronto, e cancelada pelo estorno |
+
+Os demais seguem pendentes, na ordem abaixo.
+
 ## O que estas decisões mudam na ordem de construção
 
 1. **Orçamento** — proposta a partir do plano de tratamento, desconto com teto
