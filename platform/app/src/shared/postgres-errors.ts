@@ -118,6 +118,19 @@ export function translatePgError(error: unknown): AppError | null {
   }
 
   switch (pg.code) {
+    // P0001 e o codigo padrao de RAISE em PL/pgSQL, e o Postgres NUNCA o emite
+    // sozinho: constraint violada e 23514, chave estrangeira e 23503, tipo
+    // errado e 22P02. Encontrar P0001 significa que alguem escreveu aquela
+    // frase para ser lida — entao repassar e melhor do que traduzir.
+    //
+    // E a alternativa a lista BY_MESSAGE acima, que rescreve mensagem de
+    // constraint em portugues. As duas convivem porque fazem coisas
+    // diferentes: aquela TRADUZ o que o banco diz sozinho, esta REPASSA o que
+    // nos dissemos de proposito. Mensagem nova nossa nao precisa entrar em
+    // lista nenhuma.
+    case "P0001":
+      return new BusinessRuleError(message || "Operacao nao permitida.", error);
+
     case "23505":
       return new Conflict("Ja existe um registro com estes dados.");
     case "23503":

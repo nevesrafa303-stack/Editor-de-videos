@@ -42,8 +42,8 @@ export default async function ConveniosPage() {
         <Metric
           label="Faturados por guia"
           value={String(faturados)}
-          hint="Aceite recusado até existir faturamento"
-          tone={faturados > 0 ? "warning" : "neutral"}
+          hint="Emitem guia e esperam repasse"
+          tone={faturados > 0 ? "accent" : "neutral"}
         />
       </Panel>
 
@@ -138,6 +138,11 @@ export default async function ConveniosPage() {
                 A tela de cada convênio mostra a{" "}
                 <strong className="text-ink">diferença para o particular</strong>: é o que a clínica
                 abre mão por atendê-lo.
+              </li>
+              <li>
+                Em convênio <strong className="text-ink">faturado por guia</strong>, a
+                co-participação é a parte do paciente: o aceite cobra o convênio pelo resto, e o
+                desconto só pode sair do lado dele.
               </li>
             </ul>
           </Panel>

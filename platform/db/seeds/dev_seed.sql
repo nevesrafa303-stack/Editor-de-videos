@@ -137,14 +137,14 @@ insert into price_list_item (tenant_id, price_list_id, procedure_id, price_cents
   ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03444444-4444-7444-8444-444444444444', 180000, 150000, 54600, 15, 35);
 
 -- Convênios: um de reembolso (o paciente paga e pede de volta) e um faturado
--- por guia, que o sistema ainda recusa de propósito.
-insert into payer (id, tenant_id, kind, code, name, billing_mode, settlement_days, admin_fee_percent, notes) values
+-- por guia, que emite guia, entra em lote e espera o repasse.
+insert into payer (id, tenant_id, kind, code, name, billing_mode, settlement_days, admin_fee_percent, appeal_days, notes) values
   ('09111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
-   'insurance', 'ODONTO_SAUDE', 'Odonto Saúde', 'reimbursement', 0, 0,
+   'insurance', 'ODONTO_SAUDE', 'Odonto Saúde', 'reimbursement', 0, 0, 30,
    'Paciente paga a clínica e solicita reembolso com o recibo.'),
   ('09222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
-   'insurance', 'DENTAL_MAIS', 'Dental Mais', 'invoiced', 45, 8,
-   'Faturado por guia, com repasse em 45 dias.');
+   'insurance', 'DENTAL_MAIS', 'Dental Mais', 'invoiced', 45, 8, 30,
+   'Faturado por guia, com repasse em 45 dias e 30 para recorrer de glosa.');
 
 -- Tabela do Odonto Saúde: mais barata que a particular, como convênio costuma
 -- ser. `resolve_price` prefere a tabela do convênio quando há uma.
@@ -156,6 +156,18 @@ insert into price_list (id, tenant_id, payer_id, code, name, status, valid_from,
 insert into price_list_item (tenant_id, price_list_id, procedure_id, price_cents, floor_price_cents, expected_cost_cents, max_discount_percent, commission_percent) values
   ('11111111-1111-7111-8111-111111111111', '07222222-2222-7222-8222-222222222222', '03111111-1111-7111-8111-111111111111',  18000,  16000,  1800,  5, 20),
   ('11111111-1111-7111-8111-111111111111', '07222222-2222-7222-8222-222222222222', '03222222-2222-7222-8222-222222222222', 240000, 220000, 90000,  5, 25);
+
+-- Tabela do Dental Mais, com co-participação: a resina tem R$ 60,00 de parte do
+-- paciente e o implante R$ 900,00 (30%). A toxina não está aqui — convênio
+-- odontológico não cobre harmonização, e "não cobre" é a ausência da linha.
+insert into price_list (id, tenant_id, payer_id, code, name, status, valid_from, activated_at) values
+  ('07333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111',
+   '09222222-2222-7222-8222-222222222222', 'DENTAL_MAIS_2026', 'Dental Mais 2026',
+   'active', current_date - 30, now());
+
+insert into price_list_item (tenant_id, price_list_id, procedure_id, price_cents, floor_price_cents, expected_cost_cents, max_discount_percent, commission_percent, patient_share_cents) values
+  ('11111111-1111-7111-8111-111111111111', '07333333-3333-7333-8333-333333333333', '03111111-1111-7111-8111-111111111111',  26000,  24000,  1800,  5, 20,   6000),
+  ('11111111-1111-7111-8111-111111111111', '07333333-3333-7333-8333-333333333333', '03222222-2222-7222-8222-222222222222', 300000, 280000, 90000,  5, 25,  90000);
 
 insert into payment_method (id, tenant_id, kind, name, fee_percent, settlement_days, max_installments, affects_cash_session) values
   ('08111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'pix',    'PIX',            0.99, 0,  1,  false),

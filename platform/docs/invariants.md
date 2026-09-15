@@ -104,6 +104,27 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 59 | Mensagem fora da janela de 24h exige template aprovado | `conversation.window_expires_at` + regra de envio | — |
 | 60 | Envio respeita janela de horário e teto por paciente/dia | `automation_rule` | — |
 
+### Faturamento por guia
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 61 | Aceite de convênio faturado cria guia, e o paciente deve só a co-participação | `build_receivable_from_quote()` | `08_claims` |
+| 62 | Faturar o mesmo orçamento duas vezes não cobra o convênio duas vezes | `build_claim_from_quote()`, idempotente | `08_claims` |
+| 63 | Desconto não pode passar da co-participação do paciente | `build_receivable_from_quote()` | `08_claims` |
+| 64 | Co-participação é congelada na emissão, como o preço | `quote_item.patient_share_cents` | `claim.test.ts` |
+| 65 | Um lote aberto por convênio, unidade e competência | `claim_batch_open_uk` (índice parcial) | `08_claims` |
+| 66 | Lote sem guia não pode ser enviado | `submit_claim_batch()` | `08_claims` |
+| 67 | Guia só é conferida depois de enviada | `settle_claim_item()` | `08_claims` |
+| 68 | O convênio não pode ter pago mais do que foi faturado na linha | `settle_claim_item()` + `claim_item_paid_bound` | `08_claims` |
+| 69 | Glosa exige motivo: sem ele não há o que recorrer | `settle_claim_item()` | `08_claims` |
+| 70 | O prazo de recurso conta do demonstrativo, não de hoje | `settle_claim_item()` + `claim_batch.remittance_date` | `08_claims` |
+| 71 | Lote não fecha com linha sem conferência | `settle_claim_batch()` | `08_claims` |
+| 72 | Glosa recuperada devolve o valor para a LINHA, não só para o total | `resolve_claim_denial()` | `08_claims` |
+| 73 | Totais de guia e de lote não discordam das partes | triggers `refresh_claim_totals` e `refresh_claim_batch_totals` | `08_claims` |
+| 74 | Linha de guia enviada não pode ser removida | `protect_sent_claim_item()` | `08_claims` |
+| 75 | Glosa com andamento não pode ser apagada | `protect_touched_denial()` | `08_claims` |
+| 76 | Glosa sem recurso vence sozinha, pela passagem do tempo | `expire_claim_denials()` (job noturno) | `08_claims` |
+
 ---
 
 ## Invariantes que **não** estão no banco (e por quê)

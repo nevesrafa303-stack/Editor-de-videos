@@ -141,12 +141,13 @@ test.describe("orçar por convênio", () => {
 });
 
 test.describe("faturado por guia", () => {
-  test("o aceite é recusado com uma frase que explica o que fazer", async ({ page }) => {
+  test("o aceite emite guia, e o paciente só deve a co-participação", async ({ page }) => {
     await entrar(page, DONA);
     await orcamento(page, "Proposta por guia", "Dental Mais");
 
-    await page.getByLabel("Descrição").fill("Procedimento");
-    await page.getByLabel("Unitário (R$)").fill("400,00");
+    await escolher(page, "procedureId", "Restauração em resina");
+    await page.getByLabel("Dente").fill("36");
+    await page.getByRole("checkbox", { name: "O", exact: true }).check();
     await page.getByRole("button", { name: "Adicionar", exact: true }).click();
     await expect(page.getByText("Item adicionado.")).toBeVisible();
 
@@ -156,22 +157,15 @@ test.describe("faturado por guia", () => {
     await page.getByRole("button", { name: "Registrar aceite do paciente" }).click();
     await page.getByLabel("Quem está aceitando").fill("Mariana Alves");
     await page.getByRole("button", { name: "Confirmar aceite" }).click();
+    await expect(page.getByText("Aceite registrado e assinado.")).toBeVisible();
 
-    // A recusa vem do banco e chega INTEIRA: com o nome do convênio e a saída.
-    // Sem o repasse da mensagem, isto viraria "A operação viola uma regra do
-    // sistema" — verdade que não diz a ninguém o que fazer em seguida.
-    const aviso = page.getByRole("status").filter({ hasText: "Dental Mais" });
-    await expect(aviso).toContainText(/faturado por guia/i);
-    await expect(aviso).toContainText(/Emita a guia por fora/);
-
-    // E o orçamento continua ENVIADO, não fechado: o aceite foi desfeito
-    // inteiro, e nenhuma parcela nasceu no nome do paciente.
-    await page.goto("/orcamentos?busca=Proposta por guia");
-    await expect(
-      page.getByRole("row", { name: /Proposta por guia/ }).getByText("Enviado"),
-    ).toBeVisible();
+    // A guia cobra o convênio por R$ 200,00 — R$ 260,00 menos a
+    // co-participação de R$ 60,00, que vira cobrança do paciente.
+    await page.goto("/faturamento");
+    const fila = page.locator("li").filter({ hasText: "Mariana Alves" }).first();
+    await expect(fila.getByText(/R\$\s*200,00/)).toBeVisible();
 
     await page.goto("/financeiro?recorte=abertas&busca=Mariana");
-    await expect(page.getByText("Proposta por guia")).toHaveCount(0);
+    await expect(page.getByText(/Co-participacao/).first()).toBeVisible();
   });
 });

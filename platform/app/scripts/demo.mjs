@@ -76,6 +76,71 @@ await page.getByRole("button", { name: "Adicionar" }).click();
 await page.getByText("Item adicionado.").waitFor();
 console.log("orçamento por convênio · item precificado pela tabela do pagador");
 
+// ---------------------------------------------------------- faturamento --
+// O ciclo inteiro do convênio faturado por guia, pela tela: aceitar, faturar
+// no lote, enviar, conferir o repasse com glosa, e recorrer.
+await page.goto(`${BASE}/orcamentos/novo?paciente=${MARIANA}`);
+await page.getByLabel("Título").fill("Implante pelo convênio faturado");
+await escolher(page, "payerId", "Dental Mais");
+await page.getByRole("button", { name: "Criar orçamento" }).click();
+await page.waitForURL(/orcamentos\/[0-9a-f-]{36}$/);
+
+await escolher(page, "procedureId", "Implante unitário");
+await page.getByLabel("Dente").fill("46");
+await page.getByRole("button", { name: "Adicionar", exact: true }).click();
+await page.getByText("Item adicionado.").waitFor();
+
+await page.getByRole("button", { name: "Enviar ao paciente" }).click();
+await page.getByText("Orçamento enviado ao paciente.").waitFor();
+await page.getByRole("button", { name: "Registrar aceite do paciente" }).click();
+await page.getByLabel("Quem está aceitando").fill("Mariana Alves");
+await page.getByRole("button", { name: "Confirmar aceite" }).click();
+await page.getByText("Aceite registrado e assinado.").waitFor();
+console.log("guia emitida · co-participação virou cobrança do paciente");
+
+// Fatura a guia no lote da competência.
+await page.goto(`${BASE}/faturamento`);
+const guia = page.locator("li").filter({ hasText: "Mariana Alves" }).first();
+await guia.getByRole("checkbox").check();
+await page.getByRole("button", { name: "Faturar no lote" }).click();
+await page.getByText(/guia faturada|guias faturadas/).waitFor();
+
+await page.getByRole("link", { name: "Dental Mais" }).first().click();
+await page.waitForURL(/faturamento\/lotes\/[0-9a-f-]{36}$/);
+const lote = page.url();
+
+await page.getByRole("button", { name: "Enviar lote" }).click();
+await page.getByText(/Lote enviado/).waitFor();
+console.log("lote enviado ao convênio");
+
+// O demonstrativo chega datado de cinco dias atrás: o prazo conta de lá.
+const cincoDiasAtras = new Date(Date.now() - 5 * 86400000).toISOString().slice(0, 10);
+await page.goto(lote);
+await page.getByLabel("Data do demonstrativo").fill(cincoDiasAtras);
+await page.getByRole("button", { name: "Registrar" }).click();
+await page.getByText(/prazo de recurso conta dela/).waitFor();
+
+// E o convênio pagou R$ 1.600,00 dos R$ 2.100,00 faturados.
+await page.goto(lote);
+const linhaDaGuia = page.locator("tr").filter({ hasText: "Implante unitário" }).first();
+await linhaDaGuia.getByLabel(/^Pago em/).fill("1600,00");
+await linhaDaGuia.getByLabel("Código da glosa").fill("1707");
+await linhaDaGuia.getByLabel("Motivo da glosa").fill("Procedimento não coberto pelo plano contratado");
+await linhaDaGuia.getByRole("button", { name: "Conferir" }).click();
+await page.getByText(/R\$\s*500,00 glosado/).waitFor();
+console.log("repasse conferido · glosa de R$ 500,00 com prazo");
+
+// Recorre da glosa: é onde está o dinheiro que a clínica perde por silêncio.
+await page.goto(`${BASE}/faturamento/glosas`);
+await escolher(page, "status", "Recorri");
+await page
+  .getByLabel("Observações do recurso")
+  .first()
+  .fill("Enviado o comprovante de autorização prévia.");
+await page.getByRole("button", { name: "Registrar" }).first().click();
+await page.getByText(/Recurso registrado/).waitFor();
+console.log("recurso registrado · a glosa continua contando até o convênio responder");
+
 // ------------------------------------------------------------------- caixa --
 await page.goto(`${BASE}/financeiro/caixa`);
 await page.getByLabel("Abertura (R$)").fill("200,00");

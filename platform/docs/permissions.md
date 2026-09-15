@@ -27,6 +27,11 @@ Legenda: **●** tem a permissão · **·** não tem · 🔒 dá acesso a dado d
 | `chart` | `read_all` 🔒 | Abrir prontuario de qualquer paciente | ● | ● | · | · | · |
 | `chart` | `sign` 🔒 | Assinar receituario e atestado | ● | ● | ● | · | · |
 | `chart` | `write` 🔒 | Registrar evolucao, anamnese e odontograma | ● | ● | ● | · | · |
+| `claim` | `appeal` | Recorrer de glosa e dar desfecho | ● | ● | · | · | ● |
+| `claim` | `read` | Ver guias, lotes e glosas | ● | ● | ● | ● | ● |
+| `claim` | `settle` | Conferir repasse e registrar glosa | ● | ● | · | · | ● |
+| `claim` | `submit` | Enviar lote ao convenio | ● | ● | · | · | ● |
+| `claim` | `write` | Emitir e montar guia e lote | ● | ● | · | ● | ● |
 | `commission` | `approve` | Aprovar comissao para pagamento | ● | ● | · | · | ● |
 | `commission` | `read` | Ver a propria comissao | ● | ● | ● | · | · |
 | `commission` | `read_all` | Ver comissao de toda a equipe | ● | ● | · | · | ● |
@@ -77,7 +82,7 @@ Legenda: **●** tem a permissão · **·** não tem · 🔒 dá acesso a dado d
 | `user` | `read` | Ver equipe | ● | ● | · | · | · |
 | `user` | `write` | Convidar, editar e desativar membros | ● | ● | · | · | · |
 
-**Total: 66 permissões.** Dono 66 · Gestor 64 · Profissional 26 · Recepção 24 · Financeiro 20.
+**Total: 71 permissões.** Dono 71 · Gestor 69 · Profissional 27 · Recepção 26 · Financeiro 25.
 
 ## Decisões de recorte que valem discussão
 

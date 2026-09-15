@@ -17,9 +17,9 @@ export const MODO: Record<BillingMode, { rotulo: string; tom: Tone; explica: str
   },
   invoiced: {
     rotulo: "Faturado por guia",
-    tom: "warning",
+    tom: "accent",
     explica:
-      "O convênio paga a clínica por guia. O aceite é recusado até existir faturamento por lote — emita a guia por fora.",
+      "O convênio paga a clínica por guia. O aceite emite a guia, que entra em lote e espera o repasse; o paciente só deve a co-participação.",
   },
 };
 

@@ -23,6 +23,11 @@ export type Permission =
   | "chart.read_all"
   | "chart.sign"
   | "chart.write"
+  | "claim.appeal"
+  | "claim.read"
+  | "claim.settle"
+  | "claim.submit"
+  | "claim.write"
   | "commission.approve"
   | "commission.read"
   | "commission.read_all"
@@ -111,6 +116,11 @@ export const PERMISSION_META: Record<
   "chart.read_all": { resource: "chart", action: "read_all", isPhi: true, description: "Abrir prontuario de qualquer paciente" },
   "chart.sign": { resource: "chart", action: "sign", isPhi: true, description: "Assinar receituario e atestado" },
   "chart.write": { resource: "chart", action: "write", isPhi: true, description: "Registrar evolucao, anamnese e odontograma" },
+  "claim.appeal": { resource: "claim", action: "appeal", isPhi: false, description: "Recorrer de glosa e dar desfecho" },
+  "claim.read": { resource: "claim", action: "read", isPhi: false, description: "Ver guias, lotes e glosas" },
+  "claim.settle": { resource: "claim", action: "settle", isPhi: false, description: "Conferir repasse e registrar glosa" },
+  "claim.submit": { resource: "claim", action: "submit", isPhi: false, description: "Enviar lote ao convenio" },
+  "claim.write": { resource: "claim", action: "write", isPhi: false, description: "Emitir e montar guia e lote" },
   "commission.approve": { resource: "commission", action: "approve", isPhi: false, description: "Aprovar comissao para pagamento" },
   "commission.read": { resource: "commission", action: "read", isPhi: false, description: "Ver a propria comissao" },
   "commission.read_all": { resource: "commission", action: "read_all", isPhi: false, description: "Ver comissao de toda a equipe" },
@@ -181,6 +191,11 @@ export const DEFAULT_ROLE_PERMISSIONS: Partial<Record<Permission, SystemRoleCode
   "chart.read_all": ["manager", "owner"],
   "chart.sign": ["manager", "owner", "professional"],
   "chart.write": ["manager", "owner", "professional"],
+  "claim.appeal": ["finance", "manager", "owner"],
+  "claim.read": ["finance", "manager", "owner", "professional", "reception"],
+  "claim.settle": ["finance", "manager", "owner"],
+  "claim.submit": ["finance", "manager", "owner"],
+  "claim.write": ["finance", "manager", "owner", "reception"],
   "commission.approve": ["finance", "manager", "owner"],
   "commission.read": ["manager", "owner", "professional"],
   "commission.read_all": ["finance", "manager", "owner"],

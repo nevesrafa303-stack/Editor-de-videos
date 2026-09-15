@@ -17,6 +17,9 @@ export const SEED = {
   drAna: "d1111111-1111-7111-8111-111111111111",
   drBruno: "d2222222-2222-7222-8222-222222222222",
   procedimentoResina: "03111111-1111-7111-8111-111111111111",
+  procedimentoImplante: "03222222-2222-7222-8222-222222222222",
+  convenioReembolso: "09111111-1111-7111-8111-111111111111",
+  convenioFaturado: "09222222-2222-7222-8222-222222222222",
 } as const;
 
 export const SENHA = "senha-de-teste-123";

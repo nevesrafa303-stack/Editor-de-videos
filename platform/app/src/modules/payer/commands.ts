@@ -121,12 +121,14 @@ export async function setPayerPrice(ctx: TenantContext, input: SetPriceInput): P
       price_cents: data.priceCents,
       expected_cost_cents: custo?.expected_cost_cents ?? 0,
       max_discount_percent: String(data.maxDiscountPercent),
+      patient_share_cents: data.patientShareCents,
     })
     .onConflict((oc) =>
       oc.columns(["price_list_id", "procedure_id"]).doUpdateSet({
         price_cents: data.priceCents,
         max_discount_percent: String(data.maxDiscountPercent),
         expected_cost_cents: custo?.expected_cost_cents ?? 0,
+        patient_share_cents: data.patientShareCents,
       }),
     )
     .execute();

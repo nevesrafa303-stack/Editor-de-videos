@@ -50,6 +50,7 @@ const precificar = formAction(async (ctx, formData) => {
     procedureId: String(formData.get("procedureId") ?? ""),
     priceCents: centavosDeTexto(formData.get("price")),
     maxDiscountPercent: Number(String(formData.get("maxDiscountPercent") ?? "0").replace(",", ".")),
+    patientShareCents: centavosDeTexto(formData.get("patientShare")),
   });
 
   revalidatePath(`/convenios/${payerId}`);

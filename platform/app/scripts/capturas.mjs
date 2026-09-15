@@ -55,6 +55,15 @@ const TELAS = [
     espera: "Tabela de preços",
     altura: 1300,
   },
+  { nome: "16-faturamento", url: "/faturamento", espera: "A faturar", altura: 1100 },
+  {
+    nome: "17-lote",
+    url: "/faturamento",
+    clicar: "Dental Mais",
+    espera: "Data do demonstrativo",
+    altura: 1100,
+  },
+  { nome: "18-glosas", url: "/faturamento/glosas", espera: "Em aberto", altura: 900 },
   {
     nome: "12-prontuario-decidua",
     url: "/pacientes/0a222222-2222-7222-8222-222222222222/prontuario",

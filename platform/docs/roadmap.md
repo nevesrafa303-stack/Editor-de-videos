@@ -77,15 +77,18 @@ Dito com franqueza, porque é mais barato agora:
    — que é o que a vigilância cobra hoje.
 2. **Conciliação bancária automática.** Exige Open Finance ou OFX por banco. Na
    fase 1, conciliação é tela de conferência com importação de CSV.
-3. **Convênio/TUSS.** Está no schema (`payer`, `tuss_code`). Faturamento de
-   convênio é um produto inteiro — guias, glosa, remessa. Se a primeira clínica
-   for particular, não construa; se for de convênio, isso vira fase 1 e o resto
-   escorrega.
+3. ~~**Convênio/TUSS.**~~ Este aviso estava certo e foi cobrado: faturamento de
+   convênio é um produto inteiro, e saiu em duas fatias — reembolso primeiro
+   (financeiramente igual ao particular), guia/lote/glosa depois. A segunda
+   custou o que este parágrafo previa: quatro tabelas, três máquinas de estado e
+   um ciclo de vida paralelo ao do recebimento. **O que continua fora:**
+   autorização prévia com fluxo (só o campo da senha existe), remessa em arquivo
+   no padrão da ANS, e `tuss_code` como catálogo mantido.
 4. **Formulário dinâmico com construtor visual.** O schema versionado está certo.
    O construtor arrastar-e-soltar não: comece com dois ou três formulários fixos
    bem-feitos, editáveis por JSON.
 5. **Cinco papéis configuráveis com permissão granular na fase 1.** A matriz de
-   66 permissões existe e está certa. A *tela* de edição de papel pode esperar:
+   71 permissões existe e está certa. A *tela* de edição de papel pode esperar:
    entregue os cinco papéis prontos e edite no banco enquanto ninguém pede.
 
 ## Onde você está simplificando demais e vai pagar caro

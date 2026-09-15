@@ -83,7 +83,12 @@ export default async function ConvenioPage({ params }: { params: Promise<{ id: s
       </div>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-        <TabelaDePrecos payerId={payer.id} precos={precos} editavel={podeEscrever} />
+        <TabelaDePrecos
+          payerId={payer.id}
+          precos={precos}
+          editavel={podeEscrever}
+          faturado={payer.billingMode === "invoiced"}
+        />
 
         <div className="space-y-5">
           {podeEscrever ? (

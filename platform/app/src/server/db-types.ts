@@ -33,6 +33,12 @@ export type CashMovementKind = "adjustment" | "payment" | "refund" | "supply" | 
 
 export type CashSessionStatus = "audited" | "closed" | "open";
 
+export type ClaimBatchStatus = "canceled" | "open" | "settled" | "submitted";
+
+export type ClaimDenialStatus = "appealed" | "expired" | "open" | "recovered" | "written_off";
+
+export type ClaimStatus = "batched" | "canceled" | "open" | "settled" | "submitted";
+
 export type ClinicalDocumentKind = "certificate" | "consent_term" | "other" | "prescription" | "referral_letter" | "treatment_report";
 
 export type ClinicalFileKind = "document" | "exam_report" | "other" | "photo_after" | "photo_before" | "photo_clinical" | "radiograph" | "scan_3d";
@@ -450,6 +456,92 @@ export interface CashSession {
   status: Generated<CashSessionStatus>;
   tenant_id: string;
   unit_id: string;
+}
+
+export interface Claim {
+  authorization_code: string | null;
+  authorization_valid_until: DateOnly | null;
+  batch_id: string | null;
+  billed_cents: Generated<Int8>;
+  cancel_reason: string | null;
+  canceled_at: Timestamp | null;
+  created_at: Generated<Timestamp>;
+  created_by: string | null;
+  denied_cents: Generated<Int8>;
+  id: Generated<string>;
+  issued_on: Generated<DateOnly>;
+  notes: string | null;
+  number: Int8 | null;
+  paid_cents: Generated<Int8>;
+  patient_id: string;
+  payer_id: string;
+  provider_id: string | null;
+  quote_id: string | null;
+  status: Generated<ClaimStatus>;
+  tenant_id: string;
+  unit_id: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface ClaimBatch {
+  billed_cents: Generated<Int8>;
+  cancel_reason: string | null;
+  canceled_at: Timestamp | null;
+  code: string | null;
+  competence: DateOnly;
+  created_at: Generated<Timestamp>;
+  created_by: string | null;
+  id: Generated<string>;
+  notes: string | null;
+  paid_cents: Generated<Int8>;
+  payer_id: string;
+  remittance_date: DateOnly | null;
+  status: Generated<ClaimBatchStatus>;
+  submitted_at: Timestamp | null;
+  submitted_by: string | null;
+  tenant_id: string;
+  unit_id: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface ClaimDenial {
+  amount_cents: Int8;
+  appeal_deadline: DateOnly | null;
+  appeal_notes: string | null;
+  appealed_at: Timestamp | null;
+  claim_id: string;
+  claim_item_id: string;
+  created_at: Generated<Timestamp>;
+  created_by: string | null;
+  id: Generated<string>;
+  reason: string;
+  reason_code: string | null;
+  recovered_cents: Generated<Int8>;
+  resolution_notes: string | null;
+  resolved_at: Timestamp | null;
+  status: Generated<ClaimDenialStatus>;
+  tenant_id: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface ClaimItem {
+  billed_cents: Int8;
+  claim_id: string;
+  created_at: Generated<Timestamp>;
+  denied_cents: Generated<Int8 | null>;
+  description: string;
+  id: Generated<string>;
+  paid_cents: Int8 | null;
+  procedure_id: string | null;
+  quantity: Generated<Numeric>;
+  quote_item_id: string | null;
+  region_code: string | null;
+  settled_at: Timestamp | null;
+  sort_order: Generated<number>;
+  surfaces: Generated<ArrayType<ToothSurface>>;
+  tenant_id: string;
+  tooth_code: string | null;
+  updated_at: Generated<Timestamp>;
 }
 
 export interface ClinicalDocument {
@@ -1224,6 +1316,10 @@ export interface Payer {
   admin_fee_percent: Generated<Numeric>;
   ans_code: string | null;
   /**
+   * Prazo para recorrer de glosa, contado da data do demonstrativo de repasse.
+   */
+  appeal_days: Generated<number>;
+  /**
    * Decide quem deve o dinheiro. Muda o financeiro inteiro, nao so a tabela de preco.
    */
   billing_mode: Generated<PayerBillingMode>;
@@ -1410,6 +1506,10 @@ export interface PriceListItem {
   floor_price_cents: Int8 | null;
   id: Generated<string>;
   max_discount_percent: Generated<Numeric>;
+  /**
+   * Co-participacao: a parte do paciente. O convenio paga price_cents - patient_share_cents.
+   */
+  patient_share_cents: Generated<Int8>;
   price_cents: Int8;
   price_list_id: string;
   procedure_id: string;
@@ -1585,6 +1685,10 @@ export interface QuoteItem {
   description: string;
   discount_cents: Generated<Int8>;
   id: Generated<string>;
+  /**
+   * Co-participacao congelada na emissao. Unitaria, como unit_price_cents.
+   */
+  patient_share_cents: Generated<Int8>;
   phase_label: string | null;
   phase_order: Generated<number>;
   price_list_item_id: string | null;
@@ -1919,6 +2023,15 @@ export interface TenantPolicy {
   updated_at: Generated<Timestamp>;
 }
 
+export interface TestResult {
+  description: string;
+  detail: string | null;
+  id: Generated<number>;
+  passed: boolean;
+  ran_at: Generated<Timestamp>;
+  suite: string;
+}
+
 export interface Tooth {
   arch: string;
   code: string;
@@ -2077,6 +2190,10 @@ export interface DB {
   campaign: Campaign;
   cash_movement: CashMovement;
   cash_session: CashSession;
+  claim: Claim;
+  claim_batch: ClaimBatch;
+  claim_denial: ClaimDenial;
+  claim_item: ClaimItem;
   clinical_document: ClinicalDocument;
   clinical_file: ClinicalFile;
   clinical_note: ClinicalNote;
@@ -2168,6 +2285,7 @@ export interface DB {
   tenant: Tenant;
   tenant_feature_override: TenantFeatureOverride;
   tenant_policy: TenantPolicy;
+  "test.result": TestResult;
   tooth: Tooth;
   treatment_plan: TreatmentPlan;
   treatment_plan_item: TreatmentPlanItem;

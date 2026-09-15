@@ -46,6 +46,11 @@ export const setPriceSchema = z.object({
   procedureId: z.uuid(),
   priceCents: z.coerce.number().int().min(0),
   maxDiscountPercent: z.coerce.number().min(0).max(100).default(0),
+  /**
+   * Parte do paciente. O convênio paga `priceCents - patientShareCents`, e o
+   * banco recusa uma co-participação maior que o próprio preço.
+   */
+  patientShareCents: z.coerce.number().int().min(0).default(0),
 });
 
 export type SetPriceInput = z.input<typeof setPriceSchema>;

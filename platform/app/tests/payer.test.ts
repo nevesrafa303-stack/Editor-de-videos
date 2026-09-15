@@ -1,9 +1,11 @@
 /**
  * Testes de integracao de convenio.
  *
- * O que travam: a tabela do convenio vence a particular na hora de orcar,
- * trocar o convenio REPRECIFICA a proposta, e convenio faturado por guia e
- * recusado em vez de virar divida no nome do paciente.
+ * O que travam: a tabela do convenio vence a particular na hora de orcar, e
+ * trocar o convenio REPRECIFICA a proposta.
+ *
+ * O aceite de convenio faturado mora em `claim.test.ts`: ele deixou de ser uma
+ * recusa e virou um fluxo, e o fluxo tem suite propria.
  */
 process.env.DB_POOL_MAX = "1";
 
@@ -53,7 +55,7 @@ describe("cadastro", () => {
 
     const dental = convenios.find((c) => c.id === DENTAL_MAIS);
     expect(dental?.billingMode).toBe("invoiced");
-    expect(dental?.precos).toBe(0);
+    expect(dental?.precos).toBe(2);
   });
 
   it("codigo repetido e recusado com o nome de quem ja usa", async () => {
@@ -207,29 +209,44 @@ describe("orcamento com convenio", () => {
 });
 
 describe("faturado por guia", () => {
-  it("o aceite e recusado, com uma frase que explica o que fazer", async () => {
+  it("o aceite emite guia para o convenio, nao divida para o paciente", async () => {
     const { id } = await withTenant(dona, (ctx) =>
       createQuote(ctx, { patientId: MARIANA, title: "Faturado", payerId: DENTAL_MAIS }),
     );
 
     await withTenant(dona, (ctx) =>
-      addQuoteItem(ctx, { quoteId: id, description: "Procedimento", unitPriceCents: 40000 }),
+      addQuoteItem(ctx, {
+        quoteId: id,
+        procedureId: RESINA,
+        description: "Restauração em resina",
+        toothCode: "36",
+        surfaces: ["O"],
+        unitPriceCents: 26000,
+      }),
     );
 
     await withTenant(dona, (ctx) => changeQuoteStatus(ctx, { quoteId: id, to: "sent" }));
+    await withTenant(dona, (ctx) => acceptQuote(ctx, { quoteId: id, signedBy: "Mariana Alves" }));
 
-    await expect(
-      withTenant(dona, (ctx) => acceptQuote(ctx, { quoteId: id, signedBy: "Mariana Alves" })),
-    ).rejects.toThrow(/faturado por guia/i);
+    // A guia cobra do convenio o que nao e co-participacao: 260,00 − 60,00.
+    const guia = await admin
+      .selectFrom("claim")
+      .select(["id", "billed_cents", "status"])
+      .where("quote_id", "=", id)
+      .executeTakeFirstOrThrow();
 
-    // E nao deixou divida nenhuma no nome do paciente.
+    expect(Number(guia.billed_cents)).toBe(20000);
+    expect(guia.status).toBe("open");
+
+    // E o paciente deve so a parte dele, nem um centavo a mais.
     const recebiveis = await admin
       .selectFrom("receivable")
-      .select("id")
+      .select("total_cents")
       .where("quote_id", "=", id)
       .execute();
 
-    expect(recebiveis).toHaveLength(0);
+    expect(recebiveis).toHaveLength(1);
+    expect(Number(recebiveis[0]?.total_cents)).toBe(6000);
   });
 
   it("convenio de reembolso fecha normalmente", async () => {

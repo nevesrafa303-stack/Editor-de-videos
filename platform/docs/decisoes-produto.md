@@ -44,6 +44,35 @@ reembolso — que é financeiramente idêntico ao particular —, depois faturam
 por guia. A primeira fatia entrega uma clínica operando; a segunda entrega a
 clínica que vive de convênio.
 
+### Como a segunda fatia ficou, e o que ela custou
+
+O que foi decidido junto com ela, e por quê:
+
+**Co-participação varia por procedimento.** Um percentual único no cadastro do
+convênio não descreve um plano que isenta prevenção e cobra 30% em prótese. O
+preço da parte do paciente mora na linha da tabela e é congelado no item do
+orçamento. Custo: uma coluna a mais na tabela de preço e no item, e uma coluna a
+mais para preencher em cada procedimento coberto.
+
+**Desconto sai da parte do paciente.** A clínica não reduz por conta própria o
+que fatura ao convênio — o valor está no contrato, e reduzir é subfaturar. O que
+ela negocia é a co-participação. Custo: desconto grande num orçamento de convênio
+é recusado, e a frase precisa explicar por quê, senão parece bug.
+
+**Conferência por procedimento.** É o único nível em que se responde "qual
+procedimento este convênio glosa sempre?". Custo: a conferência é linha a linha,
+mais trabalhosa que digitar o total do lote — e é o trabalho que produz o
+argumento na renegociação do contrato.
+
+**Glosa é entidade, não coluna.** Tem motivo obrigatório, prazo contado do
+demonstrativo e desfecho. Custo: mais uma máquina de estados. Em troca, glosa não
+recorrida deixa de ser prejuízo invisível: ela aparece numa fila ordenada por
+prazo, e o que venceu não some — vira a linha mais importante da lista.
+
+**Autorização prévia ficou de fora.** A guia guarda o número da senha e a
+validade, preenchidos à mão. O fluxo de pedir, aguardar e receber autorização
+depende do portal do convênio, e é uma fatia do mesmo tamanho desta.
+
 ## 5 · Desconto: teto por papel, configurável
 
 Cada papel tem um limite (profissional, gestor, dono), guardado na política da
@@ -195,7 +224,11 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 14 · Retenção configurável | política gravada; expurgo ainda não |
 | 16 · Comissão no recebimento | pronto, e cancelada pelo estorno |
 | 3 · Particular **e** convênio | pronto na fatia de reembolso |
-| 4 · Os dois modelos de convênio | reembolso pronto; faturado por guia **recusa o aceite, com explicação** |
+| 4 · Os dois modelos de convênio | **os dois prontos**: reembolso e faturado por guia |
+| 17 · Co-participação por procedimento | pronto; mora na linha da tabela de preço |
+| 18 · Glosa com prazo de recurso | pronto, com fila ordenada por prazo |
+| 19 · Conferência por procedimento | pronto; é o nível que responde "o que este convênio glosa sempre" |
+| 20 · Autorização prévia | só o campo da senha; o fluxo de pedir é outra fatia |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -209,10 +242,10 @@ Os demais seguem pendentes, na ordem abaixo.
 4. ~~**Convênio por reembolso**~~ — feito. Tabela de preço por convênio, escolha
    do pagador no orçamento, reprecificação ao trocar. O financeiro não mudou: o
    recebível guarda de qual convênio veio, e nada mais.
-5. **Faturamento por guia** — guia, lote, repasse e glosa. Fatia própria. Até
-   ela existir, aceitar um orçamento de convênio faturado é **recusado pelo
-   banco**, com uma frase que diz o que fazer no lugar. A alternativa seria
-   deixar o aceite passar e cobrar do paciente uma conta que é do convênio.
+5. ~~**Faturamento por guia**~~ — feito. Guia, lote, conferência do repasse por
+   procedimento, glosa com prazo e recurso. O aceite passou de recusa a
+   roteamento: cobra o convênio pelo contrato e o paciente pela
+   co-participação.
 6. **Importador de planilha** — quando houver cliente definido.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos

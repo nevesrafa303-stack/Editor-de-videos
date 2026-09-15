@@ -18,10 +18,13 @@ export function TabelaDePrecos({
   payerId,
   precos,
   editavel,
+  faturado,
 }: {
   payerId: string;
   precos: PayerPriceRow[];
   editavel: boolean;
+  /** Convênio faturado por guia: aí a co-participação tem sentido. */
+  faturado: boolean;
 }) {
   const [state, action, pending] = useActionState(precificarAction, EMPTY_STATE);
   const [soCobertos, setSoCobertos] = useState(false);
@@ -69,6 +72,7 @@ export function TabelaDePrecos({
                 <th>Procedimento</th>
                 <th className="text-right">Particular</th>
                 <th className="text-right">Convênio</th>
+                {faturado ? <th className="text-right">Paciente</th> : null}
                 {editavel ? <th className="text-right">Alterar</th> : null}
               </tr>
             </thead>
@@ -117,6 +121,24 @@ export function TabelaDePrecos({
                         </span>
                       ) : null}
                     </td>
+                    {faturado ? (
+                      <td className="num text-right">
+                        {cobre ? (
+                          <>
+                            <span className="text-ink-soft">
+                              {formatBRL(p.patientShareCents)}
+                            </span>
+                            <span className="block text-xs text-muted">
+                              convênio paga{" "}
+                              {formatBRL((p.convenioCents ?? 0) - p.patientShareCents)}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-muted">—</span>
+                        )}
+                      </td>
+                    ) : null}
+
                     {editavel ? (
                       <td className="text-right">
                         <form action={action} className="flex items-center justify-end gap-2">
@@ -131,6 +153,17 @@ export function TabelaDePrecos({
                             aria-label={`Preço de ${p.procedureName}`}
                             className="num h-8 w-24 text-right"
                           />
+                          {faturado ? (
+                            <Input
+                              name="patientShare"
+                              defaultValue={
+                                cobre ? (p.patientShareCents / 100).toFixed(2).replace(".", ",") : ""
+                              }
+                              placeholder="co-part."
+                              aria-label={`Co-participação de ${p.procedureName}`}
+                              className="num h-8 w-24 text-right"
+                            />
+                          ) : null}
                           <Button
                             type="submit"
                             size="sm"
@@ -156,6 +189,12 @@ export function TabelaDePrecos({
           <Notice tone="neutral">
             Preço zero remove a linha: o procedimento volta a sair pelo particular no orçamento, em
             vez de aparecer como gratuito na proposta.
+            {faturado ? (
+              <>
+                {" "}
+                A co-participação é a parte do paciente — o convênio é faturado pelo resto.
+              </>
+            ) : null}
           </Notice>
         </div>
       ) : null}

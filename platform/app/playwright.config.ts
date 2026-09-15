@@ -10,7 +10,6 @@ const CHROMIUM = process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium-1194/ch
 
 export default defineConfig({
   testDir: "./e2e",
-  globalSetup: "./e2e/global-setup.ts",
   fullyParallel: false,
   workers: 1,
   reporter: [["list"]],
@@ -31,9 +30,17 @@ export default defineConfig({
     },
   ],
   webServer: {
+    // O reset vem AQUI, e nao em `globalSetup`, porque o Playwright sobe o
+    // webServer ANTES do globalSetup. Recriar o banco sob um servidor ja de pe
+    // deixava o processo com os OIDs dos enums do banco anterior — e OID de
+    // tipo e por banco. O sintoma era `surfaces.join is not a function` numa
+    // tela so, de vez em quando, conforme o servidor tivesse ou nao servido
+    // algum request antes do reset. Teste que falha por isso nao esta medindo
+    // regressao nenhuma.
+    //
     // Roda o build de producao: e o mesmo artefato que iria pro ar, e e onde
     // um vazamento de modulo de servidor pro bundle do navegador aparece.
-    command: `npx next build && npx next start --port ${PORT}`,
+    command: `../db/reset.sh && npx next build && npx next start --port ${PORT}`,
     url: `http://127.0.0.1:${PORT}/entrar`,
     reuseExistingServer: false,
     timeout: 180_000,

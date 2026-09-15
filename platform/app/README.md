@@ -2,8 +2,8 @@
 
 **Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
 facial. A camada de acesso ao banco e os cinco módulos que fecham o ciclo:
-**pacientes**, **agenda**, **prontuário**, **orçamento**, **financeiro** e
-**convênios**.
+**pacientes**, **agenda**, **prontuário**, **orçamento**, **financeiro**,
+**convênios** e **faturamento por guia**.
 
 ```
 src/
@@ -26,6 +26,7 @@ src/
     quote/           proposta a partir do plano, alçada de desconto, aceite
     finance/         parcelas, mora, recebimento, caixa e comissão
     payer/           convênio, tabela de preço própria e modo de faturamento
+    claim/           guia, lote, conferência do repasse e recurso de glosa
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
@@ -38,8 +39,8 @@ src/
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               129 testes (integração contra PostgreSQL + unidade)
-e2e/                 60 testes de navegador sobre o build de produção
+tests/               145 testes (integração contra PostgreSQL + unidade)
+e2e/                 66 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -112,7 +113,10 @@ navegador — o `next build` reprova, e com razão.
 | Dinheiro em espécie exige caixa aberto | `payment_method.affects_cash_session` |
 | Trocar de unidade muda agenda, caixa e fuso | unidade ativa vive na sessão, no banco |
 | Preço de convênio vence o particular | `resolve_price`, uma vez, no banco |
-| Convênio faturado por guia não vira dívida do paciente | trigger recusa o aceite, com a saída na frase |
+| Convênio faturado por guia cobra o convênio, não o paciente | o aceite emite a guia; o paciente deve só a co-participação |
+| Desconto em convênio faturado sai da parte do paciente | o que o convênio paga é o que está no contrato |
+| Glosa nasce com prazo, sem ninguém abrir | `settle_claim_item` cria junto com a conferência |
+| Mensagem escrita por nós chega inteira ao usuário | `P0001` é repassado; o Postgres nunca o emite sozinho |
 
 ## As telas
 
@@ -132,6 +136,10 @@ navegador — o `next build` reprova, e com razão.
 | `/financeiro/caixa` | abertura, sangria, e o fechamento que expõe a diferença |
 | `/convenios` | quem paga, como fatura, e quantos preços cada um tem |
 | `/convenios/[id]` | a tabela do convênio ao lado da particular, e o que a clínica abre mão |
+| `/faturamento` | o que executei, o que enviei, o que recusaram — as três filas |
+| `/faturamento/lotes/[id]` | o lote, e a conferência do repasse linha a linha |
+| `/faturamento/guias/[id]` | a guia, seus procedimentos, a senha e as glosas dela |
+| `/faturamento/glosas` | a fila de recurso, ordenada por prazo |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
 Os módulos ainda sem tela (funil, estoque)
@@ -157,9 +165,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 129 testes (a suíte recria o banco antes)
-npm run test:e2e      # 60 testes de navegador sobre o build de produção
-npm run test:all      # os 118 testes SQL + os dois acima
+npm test              # 145 testes (a suíte recria o banco antes)
+npm run test:e2e      # 66 testes de navegador sobre o build de produção
+npm run test:all      # os 156 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -259,6 +267,41 @@ lote não existir, aceitar um orçamento de convênio faturado é recusado **pel
 banco**, com uma frase que nomeia o convênio e diz o que fazer no lugar. A
 alternativa — deixar o aceite passar — geraria parcelas no nome do paciente para
 uma conta que é do convênio, e a clínica só descobriria na cobrança.
+
+## O faturamento por guia
+
+Convênio de reembolso é financeiramente igual ao particular: o paciente paga e
+pede de volta. **Faturado por guia é outro ciclo de vida inteiro**, paralelo ao
+do recebimento, e é o que separa uma clínica que aceita convênio de uma que vive
+dele.
+
+**O aceite separa quem deve o quê.** A guia cobra do convênio o que o contrato
+diz; o paciente deve a **co-participação**, e só ela. Os dois documentos nascem
+na mesma transação, do mesmo aceite. A co-participação varia por procedimento —
+um plano isenta prevenção e cobra 30% em prótese —, então ela mora na linha da
+tabela de preço e é congelada no item como o resto.
+
+**Desconto sai da parte do paciente, nunca da do convênio.** A clínica não pode
+reduzir por conta própria o que fatura ao convênio: isso é subfaturamento, e o
+valor está no contrato. O que ela negocia é a co-participação. Desconto maior que
+ela é recusado, com essa frase.
+
+**A conferência é por procedimento, não por guia nem por lote.** É o único nível
+em que se responde *"qual procedimento este convênio glosa sempre?"* — que é a
+informação que muda a negociação do contrato. Conferir só o total do lote guarda
+o prejuízo sem guardar a causa.
+
+**Glosa nasce com prazo, sozinha.** Pagar menos do que foi faturado cria a glosa
+dentro da própria conferência, com motivo obrigatório e uma data de vencimento do
+recurso contada do **demonstrativo** — não de hoje. Depender de alguém lembrar de
+abrir a glosa é como se perde o prazo, e glosa não recorrida a tempo vira
+prejuízo silencioso. Por isso a fila é ordenada por prazo, não por valor: a glosa
+de R$ 80,00 que vence amanhã custa mais que a de R$ 5.000,00 que vence em trinta
+dias.
+
+**O que não está aqui:** autorização prévia tem lugar para o número da senha, mas
+não o fluxo de pedir e aguardar — isso depende do portal do convênio e é outra
+fatia.
 
 ## O financeiro
 

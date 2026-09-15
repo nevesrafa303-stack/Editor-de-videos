@@ -50,6 +50,13 @@ types.setTypeParser(types.builtins.DATE, (value) => value);
  *
  * Os OIDs desses tipos sao criados junto com o banco, entao nao da para
  * escrever a lista aqui: sao descobertos no catalogo, uma vez por processo.
+ *
+ * CONSEQUENCIA: se o banco for TROCADO debaixo do processo — restore, failover
+ * para uma replica construida a parte —, os OIDs em memoria passam a apontar
+ * para o nada e o array volta a chegar como texto. O processo precisa ser
+ * reiniciado junto. Nao e hipotese: a suite de navegador recriava o banco com
+ * o servidor ja de pe, e o odontograma quebrava de forma intermitente por
+ * exatamente isso (ver o comentario em playwright.config.ts).
  */
 function parseEnumArray(raw: string): string[] {
   if (raw === "{}") return [];

@@ -67,6 +67,8 @@ export type PayerPriceRow = {
   convenioCents: number | null;
   maxDiscountPercent: number;
   custoCents: number;
+  /** Parte do paciente. Só faz sentido em convênio faturado por guia. */
+  patientShareCents: number;
 };
 
 export type PayerDetail = {
@@ -93,6 +95,7 @@ export async function getPayer(ctx: TenantContext, payerId: string): Promise<Pay
     convenio_cents: number | null;
     max_discount_percent: number | null;
     custo_cents: number | null;
+    patient_share_cents: number | null;
   }>`
     select
       pr.id as procedure_id,
@@ -103,7 +106,8 @@ export async function getPayer(ctx: TenantContext, payerId: string): Promise<Pay
       ) as particular_cents,
       pli.price_cents as convenio_cents,
       pli.max_discount_percent,
-      pli.expected_cost_cents as custo_cents
+      pli.expected_cost_cents as custo_cents,
+      pli.patient_share_cents
     from procedure pr
     left join procedure_category pc on pc.id = pr.category_id
     left join price_list pl
@@ -122,6 +126,7 @@ export async function getPayer(ctx: TenantContext, payerId: string): Promise<Pay
     convenioCents: r.convenio_cents === null ? null : Number(r.convenio_cents),
     maxDiscountPercent: Number(r.max_discount_percent ?? 0),
     custoCents: Number(r.custo_cents ?? 0),
+    patientShareCents: Number(r.patient_share_cents ?? 0),
   }));
 
   const diferencaCents = precos.reduce(

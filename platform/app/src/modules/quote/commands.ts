@@ -124,6 +124,7 @@ async function trazerDoPlano(
         quantity: String(item.quantity),
         unit_price_cents: preco?.priceCents ?? item.unit_price_cents,
         unit_cost_cents: preco?.costCents ?? 0,
+        patient_share_cents: preco?.patientShareCents ?? 0,
         price_list_item_id: preco?.itemId ?? null,
         sort_order: ordem++,
       })
@@ -170,7 +171,12 @@ async function resolverPreco(
   ctx: TenantContext,
   procedureId: string,
   payerId: string | null,
-): Promise<{ itemId: string; priceCents: number; costCents: number } | null> {
+): Promise<{
+  itemId: string;
+  priceCents: number;
+  costCents: number;
+  patientShareCents: number;
+} | null> {
   const resultado = await sql<{
     price_list_item_id: string;
     price_cents: number;
@@ -188,10 +194,20 @@ async function resolverPreco(
   const row = resultado.rows[0];
   if (!row) return null;
 
+  // `resolve_price` devolve o preco; a co-participacao vem da linha que ele
+  // escolheu. Buscar aqui, e nao na funcao, mantem `resolve_price` com uma
+  // responsabilidade so — e ela ja e usada por quem nao se importa com convenio.
+  const share = await ctx.db
+    .selectFrom("price_list_item")
+    .select("patient_share_cents")
+    .where("id", "=", row.price_list_item_id)
+    .executeTakeFirst();
+
   return {
     itemId: row.price_list_item_id,
     priceCents: Number(row.price_cents),
     costCents: Number(row.expected_cost_cents),
+    patientShareCents: Number(share?.patient_share_cents ?? 0),
   };
 }
 
@@ -230,6 +246,7 @@ export async function addQuoteItem(
       // avulso, sem procedimento, continua valendo o que foi combinado.
       unit_price_cents: preco?.priceCents ?? data.unitPriceCents,
       unit_cost_cents: preco?.costCents ?? 0,
+      patient_share_cents: preco?.patientShareCents ?? 0,
       discount_cents: data.discountCents,
       price_list_item_id: preco?.itemId ?? null,
     })
@@ -288,6 +305,9 @@ export async function setQuotePayer(
       .set({
         unit_price_cents: preco.priceCents,
         unit_cost_cents: preco.costCents,
+        // A co-participacao e do convenio, entao ela troca junto. Deixar a
+        // antiga faria o paciente dever a parte de um plano que nao e o dele.
+        patient_share_cents: preco.patientShareCents,
         price_list_item_id: preco.itemId,
       })
       .where("id", "=", item.id)
