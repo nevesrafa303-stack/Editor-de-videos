@@ -63,6 +63,14 @@ const TELAS = [
     espera: "Linha a linha",
     altura: 1000,
   },
+  {
+    // Janela larga de propósito: o histórico do seed cobre três meses, e o mês
+    // corrente sozinho não tem gente suficiente para o funil mostrar degrau.
+    nome: "24-relatorios",
+    url: "/relatorios?de=2020-01-01&ate=2099-12-31",
+    espera: "Faturamento por profissional",
+    altura: 1900,
+  },
   { nome: "19-funil", url: "/funil", espera: "No funil", altura: 1100 },
   { nome: "20-pendencias", url: "/funil/pendencias", espera: "Abertas", altura: 900 },
   {

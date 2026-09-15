@@ -32,7 +32,7 @@ admin postgres -c "
 admin postgres -c "drop database if exists $DB;" -c "create database $DB owner $ADMIN_USER;" >/dev/null
 
 say "==> migrations"
-for f in "$HERE"/migrations/0*.sql; do
+for f in "$HERE"/migrations/[0-9]*.sql; do
   admin "$DB" -f "$f" >/dev/null
   say "    $(basename "$f")"
 done

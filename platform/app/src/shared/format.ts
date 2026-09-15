@@ -43,7 +43,7 @@ function fmtHora(timeZone: string): Intl.DateTimeFormat {
 }
 
 /** `YYYY-MM-DD` do instante no fuso pedido. `sv-SE` já é ISO. */
-function diaLocal(date: Date, timeZone: string): string {
+export function diaLocal(date: Date, timeZone: string): string {
   let f = cachePartes.get(timeZone);
   if (!f) {
     f = new Intl.DateTimeFormat("sv-SE", {

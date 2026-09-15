@@ -7,7 +7,7 @@ não alcança importador de base, script de correção, integração futura nem 
 pessoas clicando ao mesmo tempo.
 
 Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
-(78 testes, `./db/tests/run_tests.sh`).
+(205 testes, `./db/tests/run_tests.sh`).
 
 ## Isolamento e acesso
 
@@ -151,6 +151,30 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 91 | Duas linhas com o mesmo número são recusadas | `import_row_line_uk` | `10_import` |
 | 92 | O que veio na planilha fica guardado como veio | `import_row.raw` (jsonb) | `10_import` |
 | 93 | Quem trouxe a planilha fica na auditoria | trigger `import_job_audit` | `10_import` |
+
+### Relatórios
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 94 | O período fechado inclui o último dia inteiro, no fuso da clínica | `(data + 1)::timestamp at time zone` | `11_relatorios` |
+| 95 | Pagamento estornado e seu par não entram no faturamento | `status`/`reverses_payment_id` na consulta | `11_relatorios` |
+| 96 | Abrir um negócio já escreve histórico de etapa | trigger `opportunity_log_stage` | `11_relatorios` |
+| 97 | Os índices de leitura do painel existem e são parciais | `payment_confirmed_idx` e os cinco de 0031 | `11_relatorios` |
+
+Três regras de relatório NÃO são invariantes de banco, e ficam registradas aqui
+porque são decisões, não descuido — vivem em `modules/report/queries.ts`, com
+teste em `app/tests/report.test.ts`:
+
+- **Nada é materializado.** Todo número do painel sai dos fatos que a operação
+  já escreveu. Não existe tabela de totais mantida por trigger: no dia em que
+  ela discordasse do extrato, ninguém mais confiaria na tela.
+- **Quem atendeu é `quote.provider_id`** — a mesma regra que o banco já usa para
+  decidir de quem é a comissão (`build_commission_from_payment`). Duas
+  definições de "quem atendeu" seria uma a mais.
+- **O desconto do orçamento é rateado entre os itens**, com a sobra de
+  arredondamento inteira para o item mais caro. O desconto vive no cabeçalho;
+  somar os itens crus mostraria receita bruta na mesma tela em que o resumo
+  mostra a líquida.
 
 ---
 

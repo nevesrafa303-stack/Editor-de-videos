@@ -582,3 +582,228 @@ insert into installment (tenant_id, unit_id, receivable_id, patient_id, number, 
    current_date - 25, 45000);
 
 select refresh_patient_rollups();
+
+
+-- ---------------------------------------------------------------------------
+-- Histórico dos últimos meses.
+--
+-- Sem isto o painel gerencial abre com cinco zeros, e uma tela de zeros não
+-- prova nada: não mostra o produto, não pega bug de agregação e não deixa
+-- ninguém conferir a conta. O que falta ao seed não é volume, é PASSADO —
+-- negócio fechado, dinheiro que entrou, contato que virou paciente e contato
+-- que se perdeu, espalhados por três meses para o filtro de período ter o que
+-- filtrar.
+--
+-- Estes orçamentos passam pela máquina de estado de verdade (draft → sent →
+-- accepted), e não nascem "aceitos" por insert direto. É mais trabalho e é o
+-- ponto: quem monta o seed a mão acaba criando estados que o sistema nunca
+-- produziria, e o relatório fica bonito em cima de um banco impossível. Aqui o
+-- recebível, as parcelas e a comissão saem das mesmas triggers que a tela usa.
+-- ---------------------------------------------------------------------------
+do $$
+declare
+  TENANT   constant uuid := '11111111-1111-7111-8111-111111111111';
+  TABELA   constant uuid := '07111111-1111-7111-8111-111111111111';  -- Particular
+  PIX      constant uuid := '08111111-1111-7111-8111-111111111111';
+  v        record;
+  v_quote  uuid;
+  v_recv   uuid;
+  v_aceito timestamptz;
+  v_parc   record;
+  v_pagas  int;
+begin
+  for v in
+    select * from (values
+      -- Camila, com a Ana, no Centro: fechado há 20 dias e quitado.
+      ('0a444444-4444-7444-8444-444444444444'::uuid, 'd1111111-1111-7111-8111-111111111111'::uuid,
+       'a1111111-1111-7111-8111-111111111111'::uuid, '03555555-5555-7555-8555-555555555555'::uuid,
+       'Clareamento de consultório', null::char(2), array[]::tooth_surface[], null::text,
+       90000::bigint, 18000::bigint, 20, 2, 2),
+      -- Paulo, com o Bruno, no Centro: fechado no mês passado, metade paga.
+      ('0a555555-5555-7555-8555-555555555555'::uuid, 'd2222222-2222-7222-8222-222222222222'::uuid,
+       'a1111111-1111-7111-8111-111111111111'::uuid, '03222222-2222-7222-8222-222222222222'::uuid,
+       'Implante unitário', '46'::char(2), array[]::tooth_surface[], null::text,
+       320000::bigint, 96000::bigint, 45, 4, 2),
+      -- Luiza, com a Carla, na Zona Sul: fechado há oito dias, entrada paga.
+      ('0a666666-6666-7666-8666-666666666666'::uuid, 'd3333333-3333-7333-8333-333333333333'::uuid,
+       'a2222222-2222-7222-8222-222222222222'::uuid, '03333333-3333-7333-8333-333333333333'::uuid,
+       'Toxina botulínica — terço superior', null::char(2), array[]::tooth_surface[], 'glabela'::text,
+       150000::bigint, 29040::bigint, 8, 3, 1),
+      -- Sérgio, com a Ana, na Zona Sul: o mais antigo, quitado.
+      ('0a777777-7777-7777-8777-777777777777'::uuid, 'd1111111-1111-7111-8111-111111111111'::uuid,
+       'a2222222-2222-7222-8222-222222222222'::uuid, '03111111-1111-7111-8111-111111111111'::uuid,
+       'Restauração em resina', '26'::char(2), array['O','M']::tooth_surface[], null::text,
+       28000::bigint, 5200::bigint, 70, 1, 1),
+      -- Mariana, com a Carla, na Zona Sul: fechado esta semana, nada pago ainda.
+      ('0a111111-1111-7111-8111-111111111111'::uuid, 'd3333333-3333-7333-8333-333333333333'::uuid,
+       'a2222222-2222-7222-8222-222222222222'::uuid, '03444444-4444-7444-8444-444444444444'::uuid,
+       'Preenchimento labial', null::char(2), array[]::tooth_surface[], 'labio_superior'::text,
+       180000::bigint, 54600::bigint, 3, 2, 0)
+    ) as t(patient_id, provider_id, unit_id, procedure_id, descricao,
+           tooth_code, surfaces, region_code, preco, custo, dias, parcelas, pagas)
+  loop
+    v_aceito := now() - (v.dias || ' days')::interval;
+
+    insert into quote (tenant_id, unit_id, patient_id, provider_id, price_list_id,
+                       status, valid_until, installment_count, created_at, sent_at,
+                       last_interaction_at)
+    values (TENANT, v.unit_id, v.patient_id, v.provider_id, TABELA,
+            'draft', (v_aceito + interval '30 days')::date, v.parcelas,
+            v_aceito - interval '6 days', v_aceito - interval '6 days', v_aceito)
+    returning id into v_quote;
+
+    insert into quote_item (tenant_id, quote_id, procedure_id, description,
+                            tooth_code, surfaces, region_code,
+                            quantity, quantity_unit, unit_price_cents, unit_cost_cents)
+    values (TENANT, v_quote, v.procedure_id, v.descricao,
+            v.tooth_code, v.surfaces, v.region_code,
+            1, 'procedimento', v.preco, v.custo);
+
+    update quote set status = 'sent' where id = v_quote;
+
+    -- Aceitar exige assinatura: o banco recusa `accepted` sem ela, e é por isso
+    -- que o seed assina em vez de contornar. Hash de seed, não de gente.
+    update quote
+       set status = 'accepted',
+           accepted_at = v_aceito,
+           signed_hash = md5(v_quote::text || v_aceito::text),
+           signed_user_agent = 'Seed de desenvolvimento'
+     where id = v_quote;
+
+    select id into v_recv from receivable where quote_id = v_quote;
+    update receivable set issued_on = v_aceito::date where id = v_recv;
+    update installment
+       set due_on = v_aceito::date + ((number - 1) * 30)
+     where receivable_id = v_recv;
+
+    -- Pagamento de verdade em cada parcela quitada: é o insert que recalcula o
+    -- saldo e gera a comissão. Marcar `paid_cents` a mão daria o mesmo número
+    -- na tela e nenhum dos dois efeitos.
+    v_pagas := v.pagas;
+    for v_parc in
+      select * from installment where receivable_id = v_recv order by number limit v_pagas
+    loop
+      insert into payment (tenant_id, unit_id, installment_id, patient_id,
+                           payment_method_id, amount_cents, paid_at)
+      values (TENANT, v.unit_id, v_parc.id, v.patient_id, PIX,
+              v_parc.amount_cents, (v_parc.due_on + interval '1 day')::timestamptz);
+    end loop;
+  end loop;
+end;
+$$;
+
+-- Contatos dos últimos meses, com desfecho: sem ganho E perda no mesmo período
+-- a taxa de conversão não tem denominador, e o relatório de origem não separa
+-- canal que traz gente de canal que traz gente que fecha.
+do $$
+declare
+  TENANT   constant uuid := '11111111-1111-7111-8111-111111111111';
+  FUNIL    constant uuid := 'f1111111-1111-7111-8111-111111111111';
+  CENTRO   constant uuid := 'a1111111-1111-7111-8111-111111111111';
+  ZONASUL  constant uuid := 'a2222222-2222-7222-8222-222222222222';
+  v        record;
+  v_lead   uuid;
+  v_opp    uuid;
+  v_etapa  uuid;
+  v_ganho  uuid;
+  v_perda  uuid;
+begin
+  select id into v_ganho from pipeline_stage where pipeline_id = FUNIL and code = 'GANHO';
+  select id into v_perda from pipeline_stage where pipeline_id = FUNIL and code = 'PERDIDO';
+
+  for v in
+    select * from (values
+      -- As duas unidades aparecem: com tudo no Centro, o filtro por unidade
+      -- nunca seria exercido, e a profissional da Zona Sul abriria um painel
+      -- vazio sem que isso fosse bug nenhum — que e o pior tipo de tela boa.
+      ('Vanessa Correia',  '11987661111', 'INSTAGRAM', 38, 'won',  420000::bigint, null::text,           'CENTRO'),
+      ('Gustavo Pinheiro', '11987662222', 'TRAFEGO',   33, 'won',  280000::bigint, null::text,           'ZONASUL'),
+      ('Débora Nunes',     '11987663333', 'TRAFEGO',   30, 'lost', 150000::bigint, 'PRECO'::text,        'CENTRO'),
+      ('Ricardo Salles',   '11987664444', 'TRAFEGO',   26, 'lost', 200000::bigint, 'SEM_RESPOSTA'::text, 'ZONASUL'),
+      ('Patrícia Gomes',   '11987665555', 'INDICACAO', 22, 'won',  600000::bigint, null::text,           'ZONASUL'),
+      ('Fábio Toledo',     '11987666666', 'INSTAGRAM', 18, 'lost', 90000::bigint,  'ADIOU'::text,        'CENTRO'),
+      ('Simone Aguiar',    '11987667777', 'INDICACAO', 14, 'won',  340000::bigint, null::text,           'CENTRO'),
+      ('Leandro Bastos',   '11987668888', 'INSTAGRAM',  9, 'lost', 120000::bigint, 'CONCORRENTE'::text,  'ZONASUL'),
+      ('Tatiana Freire',   '11987669999', 'TRAFEGO',    5, 'open', 260000::bigint, null::text,           'ZONASUL')
+    ) as t(nome, telefone, origem, dias, desfecho, valor, motivo, unidade)
+  loop
+    insert into lead (tenant_id, unit_id, full_name, phone, source_id, status,
+                      owner_id, created_at)
+    values (TENANT, case v.unidade when 'ZONASUL' then ZONASUL else CENTRO end,
+            v.nome, v.telefone,
+            (select id from acquisition_source where tenant_id = TENANT and code = v.origem),
+            (case v.desfecho when 'won' then 'qualified'
+                             when 'lost' then 'disqualified'
+                             else 'working' end)::lead_status,
+            'd1111111-1111-7111-8111-111111111111',
+            now() - (v.dias || ' days')::interval)
+    returning id into v_lead;
+
+    insert into opportunity (tenant_id, unit_id, pipeline_id, stage_id, lead_id,
+                             title, amount_cents, owner_id, source_id, created_at)
+    values (TENANT, case v.unidade when 'ZONASUL' then ZONASUL else CENTRO end, FUNIL,
+            (select id from pipeline_stage where pipeline_id = FUNIL and code = 'NOVO'),
+            v_lead, 'Avaliação — ' || v.nome, v.valor,
+            'd1111111-1111-7111-8111-111111111111',
+            (select id from acquisition_source where tenant_id = TENANT and code = v.origem),
+            now() - (v.dias || ' days')::interval)
+    returning id into v_opp;
+
+    -- Caminho pelas etapas, uma a uma: é o histórico que o funil de conversão
+    -- lê. Quem pula direto para "Ganho" cria um relatório que diz que ninguém
+    -- passou pela proposta.
+    foreach v_etapa in array (
+      select array_agg(id order by sort_order)
+        from pipeline_stage
+       where pipeline_id = FUNIL
+         and sort_order between 2 and (case v.desfecho when 'open' then 3 else 4 end)
+    )
+    loop
+      update opportunity set stage_id = v_etapa where id = v_opp;
+    end loop;
+
+    if v.desfecho = 'won' then
+      update opportunity
+         set stage_id = v_ganho, status = 'won',
+             closed_at = now() - ((v.dias - 2) || ' days')::interval
+       where id = v_opp;
+    elsif v.desfecho = 'lost' then
+      update opportunity
+         set stage_id = v_perda, status = 'lost',
+             loss_reason_id = (select id from loss_reason where tenant_id = TENANT and code = v.motivo),
+             closed_at = now() - ((v.dias - 2) || ' days')::interval
+       where id = v_opp;
+    end if;
+
+    -- O histórico de etapa nasce com `now()`: sem recuar, todo negócio dos
+    -- últimos três meses teria passado pelo funil hoje de manhã. E não basta
+    -- recuar todas para a mesma data — a ficha do negócio mostra a passagem
+    -- etapa a etapa, e quatro movimentos no mesmo segundo é uma história que
+    -- não aconteceu. Um dia entre cada um.
+    update opportunity_stage_history h
+       set changed_at = now() - ((v.dias - passo.n + 1) || ' days')::interval
+      from (
+        select id, row_number() over (order by changed_at, id) as n
+          from opportunity_stage_history
+         where opportunity_id = v_opp
+      ) as passo
+     where h.id = passo.id;
+
+    -- Data da última etapa e data de fechamento saem do PRÓPRIO histórico, não
+    -- de aritmética paralela. Contadas à mão elas divergiam: o negócio
+    -- aparecia fechado dois dias antes do movimento que o fechou.
+    update opportunity o
+       set created_at = now() - (v.dias || ' days')::interval,
+           stage_changed_at = h.ultimo,
+           closed_at = case when o.closed_at is not null then h.ultimo end
+      from (
+        select max(changed_at) as ultimo
+          from opportunity_stage_history
+         where opportunity_id = v_opp
+      ) as h
+     where o.id = v_opp;
+  end loop;
+end;
+$$;
+
+select refresh_patient_rollups();

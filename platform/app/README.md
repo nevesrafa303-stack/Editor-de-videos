@@ -1,9 +1,10 @@
 # Aplicação
 
 **Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
-facial. A camada de acesso ao banco e os cinco módulos que fecham o ciclo:
+facial. A camada de acesso ao banco e os módulos que fecham o ciclo:
 **funil**, **pacientes**, **agenda**, **prontuário**, **orçamento**,
-**financeiro**, **convênios** e **faturamento por guia**.
+**financeiro**, **convênios**, **faturamento por guia** e o **painel
+gerencial** que lê tudo isso de volta.
 
 ```
 src/
@@ -29,6 +30,7 @@ src/
     finance/         parcelas, mora, recebimento, caixa e comissão
     payer/           convênio, tabela de preço própria e modo de faturamento
     claim/           guia, lote, conferência do repasse e recurso de glosa
+    report/          o painel: cinco perguntas, nenhuma tabela de totais
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
@@ -41,9 +43,10 @@ src/
     csv.ts           leitor de CSV que aguenta planilha de verdade
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
+  ui/barras.tsx      barras horizontais comparativas, em CSS — sem biblioteca
   app/               rotas (App Router)
-tests/               208 testes (integração contra PostgreSQL + unidade)
-e2e/                 80 testes de navegador sobre o build de produção
+tests/               241 testes (integração contra PostgreSQL + unidade)
+e2e/                 89 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -127,6 +130,9 @@ navegador — o `next build` reprova, e com razão.
 | Importar confere antes de criar | dois passos, e o primeiro não escreve nada |
 | Importar nunca sobrescreve quem já existe | duplicado é pulado, com o nome de quem é |
 | A planilha fica guardada linha a linha | `import_row.raw`, com o que veio e o que aconteceu |
+| Relatório não guarda total | tudo sai dos fatos; não há tabela que possa discordar do extrato |
+| O período do relatório está no endereço | dá para mandar o link; captura de tela ninguém confere |
+| O último dia do período entra inteiro | janela em fuso local, aberta só no fim |
 
 ## As telas
 
@@ -156,6 +162,7 @@ navegador — o `next build` reprova, e com razão.
 | `/faturamento/lotes/[id]` | o lote, e a conferência do repasse linha a linha |
 | `/faturamento/guias/[id]` | a guia, seus procedimentos, a senha e as glosas dela |
 | `/faturamento/glosas` | a fila de recurso, ordenada por prazo |
+| `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem por procedimento e de onde vem quem fecha |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
 O módulo ainda sem tela (estoque)
@@ -181,9 +188,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 208 testes (a suíte recria o banco antes)
-npm run test:e2e      # 80 testes de navegador sobre o build de produção
-npm run test:all      # os 195 testes SQL + os dois acima
+npm test              # 241 testes (a suíte recria o banco antes)
+npm run test:e2e      # 89 testes de navegador sobre o build de produção
+npm run test:all      # os 205 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -408,6 +415,62 @@ que a gaveta tem que ter no fim do dia — quem decide é
 `payment_method.affects_cash_session`. Receber em espécie sem caixa aberto é
 recusado, porque sem isso não há o que conferir no fechamento.
 
+## O painel gerencial
+
+**Nenhuma tabela de totais.** A tentação em todo ERP é materializar o relatório:
+uma `report_daily` alimentada por trigger, um total por profissional guardado em
+coluna. Toda vez que isso é feito nasce uma segunda versão do número, e a partir
+daí existe um dia em que o relatório e o extrato discordam — e não há conserto
+bom para esse dia. Aqui o painel são cinco consultas sobre os fatos que a
+operação já escreve. Quando ficar lento, o remédio é índice, não cópia.
+
+**Vendido e recebido ficam lado a lado.** São números diferentes de propósito:
+vendido é o orçamento aceito no período, recebido é o dinheiro que entrou nele,
+e entre os dois está o parcelamento. Clínica que só olha o primeiro comemora um
+mês que ainda não aconteceu; a que só olha o segundo não vê a venda parando.
+
+**Quem atendeu é o profissional do orçamento** — a mesma regra que o banco já
+usa para decidir de quem é a comissão. Duas definições de "quem atendeu" seria
+uma a mais. Recebimento sem orçamento por trás existe e é legítimo (cobrança
+avulsa, acordo): aparece com nome próprio, porque somá-lo a alguém seria mentira
+e escondê-lo faria o painel não bater com o caixa.
+
+**A coorte do funil é por abertura, não por movimento.** "Dos negócios que
+entraram neste período, até onde cada um chegou" é a única definição em que o
+denominador não se mexe embaixo do numerador. Contar "quem passou pela etapa X
+no mês" mistura negócio de março com negócio de setembro e produz taxa acima de
+100% num mês de faxina no funil. O preço está escrito na tela: negócio aberto
+há três dias ainda vai andar.
+
+**O vencido não obedece ao período.** Inadimplência é foto de hoje. Recortá-la
+por mês responderia "o que venceu em setembro e não foi pago", que esconde o de
+agosto — justamente o que mais dói.
+
+**O desconto do orçamento é rateado entre os itens**, com a sobra de
+arredondamento inteira para o item mais caro. O desconto vive no cabeçalho;
+somar as linhas cruas mostraria receita bruta na tabela e líquida no resumo, na
+mesma tela. Dois números que não fecham lado a lado custam mais credibilidade do
+que o relatório inteiro ganha.
+
+**Quatro números por linha viram tabela, não barra.** Margem por procedimento
+tem quantidade, receita, custo, margem e percentual: comparar isso se faz lendo
+a coluna, não medindo comprimento de barra a olho. As barras ficam onde a
+pergunta é de tamanho relativo — quem vendeu mais, onde o funil afunila, qual
+unidade deve mais.
+
+**As barras são CSS, não SVG, e não vem biblioteca nenhuma junto.** A primeira
+versão foi SVG inline, e SVG obriga a decidir a largura antes de saber quanto
+espaço existe: nome de procedimento longo em tela de 13" passava por cima da
+barra, porque texto dentro de `viewBox` não reflui. O par de cores foi conferido
+por script, não a olho — o teal da identidade **reprova** no piso de croma para
+marca: num texto de 13px lê como teal, numa barra de 8px lê como cinza.
+
+**O período mora no endereço.** Relatório que não dá para mandar pronto vira
+captura de tela no WhatsApp, e ninguém confere uma captura de tela. Período
+inválido na URL não derruba o painel: volta para o mês corrente e **diz** que
+voltou — cair em silêncio seria pior, a pessoa leria setembro achando que pediu
+março.
+
 ## Três acabamentos que faltavam
 
 **Seletor de unidade.** Quem atende em mais de uma escolhe no menu, e a tela
@@ -523,8 +586,15 @@ LGPD) que ainda não foi tomada.
 O ciclo comercial está fechado e os acabamentos decididos entraram. Faltam, em
 ordem de valor:
 
-1. **Convênio**: tabela de preço por convênio (reembolso), depois faturamento
-   por guia com lote, repasse e glosa. É o maior item de escopo que resta.
-2. **Funil de vendas** — a ponta de captação que o CRM ainda não tem.
-3. **Importador de planilha** — quando houver cliente definido.
-4. **Documentos e anexos** — esperando a decisão de armazenamento.
+1. ~~**Convênio**~~, ~~**funil de vendas**~~, ~~**importador de planilha**~~ e
+   ~~**painel gerencial**~~ — feitos, nesta ordem.
+2. **Documentos e anexos** — esperando a decisão de armazenamento. É o único
+   item bloqueado por algo que não é trabalho: bucket, retenção e expurgo por
+   LGPD são escolha de quem paga a conta.
+3. **Estoque com tela** — está modelado desde a 0012 e aparece no menu como
+   *breve*. É o que falta para a margem por **consumo real** existir: hoje a
+   margem é a do orçamento, e a diferença entre ela e o consumo é onde mora o
+   desperdício.
+4. **Exportar o relatório** (CSV) e **comparar com o mês anterior** — o painel
+   responde as cinco perguntas, mas ainda não substitui a planilha de quem
+   presta contas para fora.

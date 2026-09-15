@@ -191,3 +191,44 @@ antes/depois é dado de saúde; segurança por obscuridade não é base legal.
 
 **Consequência.** Nenhuma imagem clínica é servida por CDN pública. Galeria carrega
 mais devagar; é o custo correto.
+
+---
+
+## ADR-009 · Relatório é consulta, nunca total guardado
+
+**Contexto.** Todo ERP chega neste ponto: o painel gerencial fica lento, ou
+parece que vai ficar, e nasce uma tabela de agregados — `report_daily`,
+`faturamento_mensal`, um total por profissional mantido por trigger. A partir
+dali existem **duas versões de cada número**: o fato e a cópia. Elas concordam
+no começo. Depois vem o estorno lançado fora da trigger, a correção manual, o
+importador, o mês fechado reprocessado — e um dia a clínica confere o relatório
+contra o extrato e eles não batem. Aquele dia não tem conserto: o número volta a
+ser conferido em planilha, e o painel vira enfeite.
+
+**Decisão.** O painel são **consultas** sobre os fatos que a operação já
+escreve — `payment`, `quote`, `installment`, `opportunity_stage_history`,
+`lead`. Nenhuma tabela de totais, nenhum job noturno, nenhum gatilho de
+agregação. Quando a leitura ficar lenta, o remédio é **índice** (a `0031` abre
+seis, parciais, casados com a cláusula de cada relatório), depois *materialized
+view* com refresh explícito e data do refresh na tela — nunca coluna mantida
+por trigger.
+
+Duas regras derivadas, e as duas já custaram bug:
+
+- **Uma definição por pergunta.** "Quem atendeu" é `quote.provider_id`, que é a
+  mesma coisa que o banco usa para decidir de quem é a comissão. Se o relatório
+  tivesse a própria definição, comissão e faturamento divergiriam sem ninguém
+  errar nada.
+- **Números da mesma tela têm de fechar entre si.** O desconto vive no
+  cabeçalho do orçamento; somar as linhas cruas dava receita bruta na tabela e
+  líquida no resumo, na mesma tela. O desconto passou a ser rateado entre os
+  itens, com a sobra de arredondamento inteira para o item mais caro.
+
+**Rejeitado.** *Tabela de agregados desde o começo* — otimização sem medida,
+pagando com a confiança no número. *Data warehouse separado* — segundo banco,
+segunda verdade e atraso de replicação, para uma rede com dezenas de milhares de
+linhas por mês.
+
+**Consequência.** O painel custa uma consulta por seção a cada abertura, e esse
+é o teto conhecido. Em compensação não existe estado que possa discordar do
+extrato — e o relatório que a dona da clínica confere a mão bate.

@@ -31,7 +31,7 @@ platform/
 │       └── 0*.sql
 │
 ├── docs/
-│   ├── adr.md                   # as 8 decisões estruturais
+│   ├── adr.md                   # as 9 decisões estruturais
 │   ├── erd.md                   # diagramas por domínio
 │   ├── permissions.md           # gerado do banco
 │   ├── invariants.md
@@ -50,6 +50,7 @@ platform/
     │   │   │   ├── orcamentos/
     │   │   │   ├── financeiro/
     │   │   │   ├── estoque/
+    │   │   │   ├── relatorios/
     │   │   │   └── configuracoes/
     │   │   └── api/
     │   │       └── webhooks/{pagamento,whatsapp}/
@@ -71,6 +72,7 @@ platform/
     │   │   ├── quote/
     │   │   ├── finance/
     │   │   ├── inventory/
+    │   │   ├── report/          # só leitura: relatório não escreve nada
     │   │   └── automation/
     │   │
     │   ├── server/              # PRONTO

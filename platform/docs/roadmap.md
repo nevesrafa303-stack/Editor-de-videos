@@ -31,7 +31,22 @@ lote. Se um desses três continuar fora do sistema, a clínica não migra.
 | Painel | Resumo do paciente em uma tela; agenda do dia; a receber |
 
 **Fora da fase 1, de propósito:** WhatsApp automático, gateway de pagamento,
-contas a pagar, comissão, relatório gerencial de rede, portal do paciente.
+contas a pagar, comissão, ~~relatório gerencial de rede~~, portal do paciente.
+
+> **O painel gerencial saiu antes da hora, e por um motivo bom.** Ele estava
+> aqui como "fase 2 ou 3", e a razão era custo: relatório costuma exigir
+> agregação materializada, job noturno e um segundo modelo de dados. Não
+> exigiu. Depois do funil e do faturamento por guia, os fatos que o painel
+> precisa ler já estavam todos escritos — pagamento, orçamento aceito,
+> histórico de etapa, origem do contato — e a fatia inteira coube em **cinco
+> consultas, seis índices e nenhuma tabela nova**. Entregar o que já está
+> pago é diferente de antecipar escopo.
+>
+> Com ele veio, de quebra, a **margem por procedimento** que a fase 3 listava
+> como diferencial: preço e custo já ficam congelados no item do orçamento
+> desde a fase 1, então a conta era subtração. O que a fase 3 ainda deve é a
+> margem sobre o **consumo real** de insumo (ficha técnica × baixa de estoque),
+> que é outra pergunta e depende do estoque operando.
 
 **Critério de pronto:** uma clínica opera uma semana inteira sem planilha
 paralela.
@@ -57,8 +72,8 @@ paralela.
 
 | Entrega | Por que é diferencial |
 |---|---|
-| **Custo real e margem por atendimento** | Ficha técnica × consumo × preço congelado. Praticamente ninguém entrega margem por procedimento — só faturamento |
-| **Consolidação de rede** | Comparar unidades, ranking de profissional, previsão de caixa consolidada |
+| **Custo real e margem por atendimento** | Ficha técnica × **consumo real** × preço congelado. A margem *orçada* já saiu na fase 1; o que falta é confrontá-la com a baixa de estoque — a diferença entre as duas é onde mora o desperdício |
+| ~~**Consolidação de rede**~~ | Saiu parcial com o painel: comparação entre unidades (vencido, recebido) e por profissional já existem. **Continua faltando:** previsão de caixa consolidada |
 | **Alertas preditivos** | No-show, paciente inativo, orçamento esfriando, lote que vence antes de ser consumido no ritmo atual |
 | **Rastreabilidade sanitária completa** | Recall reverso, log de temperatura, relatório para fiscalização |
 | **LGPD operacional** | Exportação e anonimização do titular, relatório de acesso ao prontuário, RoPA |

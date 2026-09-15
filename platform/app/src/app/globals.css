@@ -21,6 +21,26 @@
   --color-structure: #0b6b5e;
   --color-structure-soft: #dcebe8;
 
+  /*
+   * Cores de gráfico, separadas das de interface de propósito.
+   *
+   * A tentação era pintar as barras com `--color-structure` e `--color-accent`,
+   * que já são a identidade. O teal estrutural REPROVA no piso de croma para
+   * marca (0,083 contra 0,1 exigido): num texto de 13px ele lê como teal, numa
+   * barra de 8px lê como cinza — e duas séries em que uma parece cinza não são
+   * duas séries. `--color-chart-1` é o mesmo teal empurrado até passar; é ele
+   * que vai para a barra, e `--color-structure` segue sendo tom de estrutura.
+   *
+   * O par foi conferido por script, não a olho: separação sob protanopia e
+   * deuteranopia ΔE 11,3 (piso 8), visão normal 21,7 (piso 15), contraste
+   * contra o branco acima de 3:1 nas duas. Ordem FIXA — a primeira série é
+   * sempre a 1. Série que muda de cor quando um filtro muda a lista vira um
+   * gráfico que só quem montou sabe ler.
+   */
+  --color-chart-1: #068a74;
+  --color-chart-2: #a8500d;
+  --color-chart-track: #e9edeb;
+
   --color-positive: #166534;
   --color-positive-soft: #dcfce7;
   --color-warning: #92400e;

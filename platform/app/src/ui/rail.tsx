@@ -8,6 +8,7 @@ import {
   IconBox,
   IconCalendar,
   IconCard,
+  IconChart,
   IconClipboard,
   IconDocument,
   IconExit,
@@ -38,6 +39,7 @@ const ICONS: Record<string, (props: { className?: string }) => ReactElement> = {
   card: IconCard,
   clipboard: IconClipboard,
   upload: IconUpload,
+  chart: IconChart,
 };
 
 export function Rail({

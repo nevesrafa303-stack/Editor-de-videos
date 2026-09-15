@@ -7,15 +7,15 @@ A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
 produto inteiro antes de a primeira tela existir. Sobre ela já estão de pé os
 oito módulos que fecham o ciclo — **funil**, **pacientes**, **agenda**,
 **prontuário**, **orçamento**, **financeiro**, **convênios** e **faturamento por
-guia** —, mais o **importador** que traz a base de quem troca de sistema. O
-produto se chama **Áurea**.
+guia** —, mais o **importador** que traz a base de quem troca de sistema e o
+**painel gerencial** que lê tudo isso de volta. O produto se chama **Áurea**.
 
 ## O que tem aqui
 
 ```
-db/migrations/   30 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   31 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
-db/tests/        195 testes de invariante, rodando contra PostgreSQL de verdade
+db/tests/        205 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
 app/             camada de acesso (withTenant, tipos gerados, sessão, RBAC)
                  e a primeira fatia de interface
@@ -26,11 +26,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0030
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0031
 psql -d crm -f db/seeds/dev_seed.sql
 
-./db/tests/run_tests.sh                             # 195 testes de invariante
-(cd app && npm install && npm run test:all)         # + 208 de integração + 80 de navegador
+./db/tests/run_tests.sh                             # 205 testes de invariante
+(cd app && npm install && npm run test:all)         # + 241 de integração + 89 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -51,11 +51,11 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Enums | 70 |
 | Transições de estado declaradas | 100 |
 | Permissões no catálogo | 75 |
-| Testes | 195 no banco + 208 na camada de acesso + 80 no navegador, todos passando |
+| Testes | 205 no banco + 241 na camada de acesso + 89 no navegador, todos passando |
 
 ## Por onde começar a ler
 
-1. [`docs/adr.md`](docs/adr.md) — as 8 decisões que o resto assume.
+1. [`docs/adr.md`](docs/adr.md) — as 9 decisões que o resto assume.
 2. [`docs/erd.md`](docs/erd.md) — um diagrama por domínio.
 3. [`docs/invariants.md`](docs/invariants.md) — o que o sistema nunca pode violar.
 4. [`docs/roadmap.md`](docs/roadmap.md) — o que é MVP e onde o escopo está torto.

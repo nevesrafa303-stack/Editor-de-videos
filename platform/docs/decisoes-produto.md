@@ -234,6 +234,9 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 23 · Próxima ação com data e responsável | pronto, com fila de pendências |
 | 24 · Entrada só por lead cadastrado à mão | pronto; oportunidade a partir de paciente antigo fica para depois |
 | 18 · Importador de planilha | pronto: dois passos, duplicado pulado, saldo vira dívida |
+| 25 · Painel gerencial sem tabela de totais | pronto; todo número sai dos fatos, nada materializado |
+| 26 · Quem atendeu é o profissional do orçamento | pronto; é a mesma regra da comissão |
+| 27 · Coorte do funil por abertura, não por movimento | pronto; é a única em que o denominador não se mexe |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -261,6 +264,14 @@ Os demais seguem pendentes, na ordem abaixo.
    `manual`. **O que ficou de fora**, como previsto: prontuário e histórico
    financeiro de outro sistema, e importação de leads, convênios ou tabela de
    preço.
+
+8. ~~**Relatórios gerenciais**~~ — feito. Faturamento por profissional (vendido
+   × recebido), conversão do funil por etapa, vencido por unidade, margem por
+   procedimento e origem de captação, com período na URL e recorte por unidade.
+   Nenhuma tabela nova: cinco consultas e seis índices sobre o que a operação já
+   escreve. **O que ficou de fora:** exportação (CSV/PDF), comparação com o mês
+   anterior, meta por profissional, e o relatório de acesso ao prontuário — este
+   último é LGPD, não gestão, e merece a própria fatia.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por
