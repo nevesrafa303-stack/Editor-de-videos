@@ -176,22 +176,23 @@ export function Notice({ tone = "critical", children }: { tone?: Tone; children:
 /**
  * Aviso de erro do formulario.
  *
- * Nao repete o que ja esta no campo. Quando a validacao tem um problema so, a
- * mensagem especifica vai para o campo — e mostra-la tambem no topo faz o
- * leitor procurar dois erros onde ha um.
+ * Sempre aparece quando ha erro. A versao anterior tentava ser esperta e se
+ * calava quando a mesma frase ja estava num campo — mas nao tinha como saber
+ * se a tela DESENHA aquele campo. No formulario de item do orcamento nao
+ * desenhava: o botao nao fazia nada e nao dizia por que. Silencio e pior que
+ * repeticao.
+ *
+ * Quem evita a repeticao e `toValidationError`: quando o problema tem campo,
+ * a frase especifica vai para o campo e o topo fica com o resumo.
  */
 export function FormError({
   error,
-  fieldErrors,
 }: {
   error?: string | undefined;
+  /** Aceito para o formulario nao precisar saber desta regra. Nao usado. */
   fieldErrors?: Record<string, string[]> | undefined;
 }) {
   if (!error) return null;
-
-  const nosCampos = Object.values(fieldErrors ?? {}).some((msgs) => msgs.includes(error));
-  if (nosCampos) return null;
-
   return <Notice>{error}</Notice>;
 }
 

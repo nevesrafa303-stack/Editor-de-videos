@@ -322,7 +322,10 @@ describe("odontograma", () => {
       withTenant(profissional, (ctx) =>
         recordTooth(ctx, { patientId: MARIANA, toothCode: "27", condition: "caries", surfaces: [] }),
       ),
-    ).rejects.toThrow(/face/i);
+      // A frase especifica fica no campo; o topo traz o resumo.
+    ).rejects.toMatchObject({
+      details: { surfaces: ["Escolha ao menos uma face."] },
+    });
   });
 });
 

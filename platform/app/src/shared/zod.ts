@@ -18,7 +18,11 @@ export function toValidationError(error: ZodLike, fallback: string): ValidationE
     (fieldErrors[campo] ??= []).push(issue.message);
   }
 
-  const unica = error.issues.length === 1 ? error.issues[0]?.message : undefined;
+  // Um problema so, e sem campo onde encostar: a frase vai para o topo, senao
+  // ela nao aparece em lugar nenhum. Tendo campo, o topo fica com o resumo e o
+  // campo com a frase — sem repetir.
+  const unica = error.issues[0];
+  const semCampo = error.issues.length === 1 && (unica?.path.length ?? 0) === 0;
 
-  return new ValidationError(fieldErrors, unica ?? fallback);
+  return new ValidationError(fieldErrors, semCampo ? (unica?.message ?? fallback) : fallback);
 }

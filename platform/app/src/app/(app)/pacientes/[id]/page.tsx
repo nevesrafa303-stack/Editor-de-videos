@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { withPage } from "@/server/next/page";
 import { getPatientOverview } from "@/modules/patient";
@@ -50,7 +51,12 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
     });
 
     return overview
-      ? { ...overview, podeVerProntuario: ctx.can("chart.read"), fuso: ctx.session.timezone }
+      ? {
+          ...overview,
+          podeVerProntuario: ctx.can("chart.read"),
+          podeOrcar: ctx.can("quote.write"),
+          fuso: ctx.session.timezone,
+        }
       : null;
   }, "patient.read");
 
@@ -269,17 +275,50 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
           </Panel>
 
           <Panel>
-            <PanelHead title="Orçamentos em aberto" />
+            <PanelHead
+              title="Orçamentos em aberto"
+              action={
+                dados.podeOrcar ? (
+                  <LinkButton
+                    href={`/orcamentos/novo?paciente=${patient.id}`}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    Novo
+                  </LinkButton>
+                ) : null
+              }
+            />
             {orcamentos.length === 0 ? (
-              <Empty title="Nenhum orçamento aguardando resposta" />
+              <Empty
+                title="Nenhum orçamento aguardando resposta"
+                hint={
+                  pendentes.length > 0
+                    ? "Há tratamento planejado esperando virar proposta."
+                    : undefined
+                }
+                action={
+                  dados.podeOrcar ? (
+                    <LinkButton
+                      href={`/orcamentos/novo?paciente=${patient.id}`}
+                      variant="secondary"
+                    >
+                      Montar orçamento
+                    </LinkButton>
+                  ) : null
+                }
+              />
             ) : (
               <ul className="divide-y divide-line">
                 {orcamentos.map((orcamento) => (
                   <li key={orcamento.id} className="px-5 py-3">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="num text-sm font-medium text-ink">
+                      <Link
+                        href={`/orcamentos/${orcamento.id}`}
+                        className="num text-sm font-medium text-ink hover:text-structure"
+                      >
                         ORC-{String(orcamento.number).padStart(4, "0")}
-                      </span>
+                      </Link>
                       <span className="num text-sm font-semibold text-ink">
                         {formatBRL(orcamento.total_cents ?? 0)}
                       </span>

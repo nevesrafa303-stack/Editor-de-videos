@@ -1,7 +1,8 @@
 # Aplicação
 
-A camada de acesso ao banco e os três módulos que a clínica usa o dia inteiro:
-**pacientes**, **agenda** e **prontuário**.
+**Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
+facial. A camada de acesso ao banco e os quatro módulos que a clínica usa o dia
+inteiro: **pacientes**, **agenda**, **prontuário** e **orçamento**.
 
 ```
 src/
@@ -21,17 +22,20 @@ src/
     patient/         consultas, comandos e a porta única em index.ts
     scheduling/      grade do dia, máquina de estados do atendimento, encaixe
     chart/           odontograma, anamnese, evolução assinada e aditamento
+    quote/           proposta a partir do plano, alçada de desconto, aceite
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
     permissions.ts   GERADO do banco (npm run gen:permissions)
     action-state.ts  contrato de formulário, sem framework e sem banco
+    brand.ts         o nome do produto, em um lugar só
+    money.ts         divisão de dinheiro que soma exatamente
     br.ts            CPF, telefone
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               69 testes (integração contra PostgreSQL + formatação)
-e2e/                 32 testes de navegador sobre o build de produção
+tests/               91 testes (integração contra PostgreSQL + unidade)
+e2e/                 41 testes de navegador sobre o build de produção
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
 
@@ -96,6 +100,8 @@ navegador — o `next build` reprova, e com razão.
 | Hora na tela é a da clínica, não a do servidor | fuso vem na sessão; formatação exige ele |
 | Abrir prontuário deixa rastro, na mesma transação | `ctx.recordChartAccess()` |
 | Registro clínico não se apaga nem se reescreve | `REVOKE` + trigger; correção é aditamento |
+| Desconto respeita alçada e tabela, o menor manda | trigger `check_quote_discount` |
+| Parcelas somam exatamente o total | `parcelar()`, resto na primeira |
 
 ## As telas
 
@@ -108,9 +114,12 @@ navegador — o `next build` reprova, e com razão.
 | `/agenda` | grade do dia por profissional, ocupação, e a fila com as transições |
 | `/agenda/novo` | encaixe; conflito de horário é recusado pelo banco |
 | `/pacientes/[id]/prontuario` | odontograma, anamnese, evoluções e a trilha de quem abriu |
+| `/orcamentos` | quanto está parado em cada estágio, e onde |
+| `/orcamentos/[id]` | itens congelados, desconto com alçada, aceite assinado, margem |
+| `/orcamentos/novo` | nasce do plano de tratamento, sem duplicar procedimento |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
-Os módulos ainda sem tela (funil, orçamento, financeiro, estoque)
+Os módulos ainda sem tela (funil, financeiro, estoque)
 aparecem no menu marcados como **breve**, inativos. Sumir esconderia a forma do
 produto de quem usa e o que falta de quem constrói.
 
@@ -133,9 +142,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 69 testes (a suíte recria o banco antes)
-npm run test:e2e      # 32 testes de navegador sobre o build de produção
-npm run test:all      # os 89 testes SQL + os dois acima
+npm test              # 91 testes (a suíte recria o banco antes)
+npm run test:e2e      # 41 testes de navegador sobre o build de produção
+npm run test:all      # os 98 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -194,7 +203,25 @@ dente; condição de face substitui só o que disputa a mesma face. Cárie na
 oclusal e restauração na mesial convivem — e o registro substituído continua
 existindo, apontando para quem o substituiu.
 
-## Sete coisas que os testes acharam
+## O orçamento
+
+Nasce do plano de tratamento: o item planejado vira linha da proposta, com o
+preço resolvido pela tabela vigente e **congelado** ali. Reajustar a tabela
+amanhã não altera a proposta que o paciente recebeu — que é a razão de a tabela
+de preços ser versionada. O vínculo é nos dois sentidos, então o mesmo
+procedimento não entra em dois orçamentos e a clínica não cobra duas vezes.
+
+**Desconto tem dono.** Dois tetos valem juntos e o menor manda: o da tabela de
+preços (por procedimento, protege margem) e a **alçada do papel** — recepção 5%,
+profissional 10%, gestor 20%, dono sem teto. A tela mostra o teto de quem está
+olhando *antes* de digitar; o banco recusa depois. Aprovar não é carimbo que
+libera qualquer valor: troca o teto pelo de quem aprovou.
+
+**O aceite fecha.** Assinatura eletrônica simples — hash do conteúdo, de quem
+assinou, de quando, mais o IP — e o `quote_accepted_signature` do banco recusa
+aceite sem ela. Depois de aceito, o orçamento para de aceitar edição.
+
+## Nove coisas que os testes acharam
 
 **Logout não deslogava.** `revokeSession` fazia `UPDATE user_session` sem
 contexto de usuário aplicado. A policy é `user_id = current_user_id()`, então o
@@ -243,7 +270,19 @@ clínicas. Um profissional barrado via a ficha abrir com odontograma vazio e
 nenhuma evolução: parecia paciente sem histórico, e era acesso negado. Pior, a
 abertura entrava na trilha como se tivesse acontecido.
 
-Nenhuma das sete apareceria em revisão de código. Apareceram porque a suíte roda
+**O botão não fazia nada e não dizia por quê.** O campo "Dente", em branco,
+virava string vazia e falhava a validação — e a mensagem não tinha onde
+aparecer, porque o aviso de topo se calava quando a frase já estava em algum
+campo, e aquele campo não desenhava erro. O aviso passou a nunca se calar:
+silêncio é pior que repetição. A frase específica só sobe para o topo quando
+não tem campo onde encostar.
+
+**As parcelas não somavam o total.** R$ 2.380,00 em 6 vezes aparecia como
+"6x de R$ 396,67" — que dá R$ 2.380,02. `parcelar()` divide em centavos
+inteiros e joga o resto na primeira parcela; as demais ficam idênticas. Há um
+teste que soma as parcelas de dezenas de combinações e exige o total exato.
+
+Nenhuma das nove apareceria em revisão de código. Apareceram porque a suíte roda
 contra PostgreSQL de verdade, contra o build de produção de verdade — e porque
 alguém olhou as telas.
 
@@ -257,7 +296,8 @@ LGPD) que ainda não foi tomada.
 
 ## Próximo passo
 
-Orçamento e financeiro: é o par que fecha o ciclo comercial — o plano de
-tratamento vira proposta, a proposta aceita vira parcela, e a parcela paga vira
-caixa. O banco já tem preço versionado, máquina de estados do orçamento e
-imutabilidade de pagamento; falta a tela.
+Financeiro: o aceite do orçamento precisa virar parcela a receber na mesma
+transação, com multa de 2% e juros de 1% ao mês sobre o atraso, caixa aberto e
+fechado por unidade, e comissão gerada **no recebimento** — não na execução. O
+banco já tem tudo isso modelado, incluindo a imutabilidade do pagamento e a
+trava de lançar em caixa fechado.

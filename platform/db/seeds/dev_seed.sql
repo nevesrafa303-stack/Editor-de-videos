@@ -242,12 +242,16 @@ insert into treatment_plan (id, tenant_id, unit_id, patient_id, provider_id, cod
    'a1111111-1111-7111-8111-111111111111', '0a222222-2222-7222-8222-222222222222',
    'd1111111-1111-7111-8111-111111111111', 1, 'Reabilitação inferior direita', 'active', now() - interval '20 days');
 
+-- A resina precisa das faces: o procedimento tem escopo de superfície, e o
+-- banco recusa orçar sem elas. Plano incompleto vira orçamento impossível.
 insert into treatment_plan_item (tenant_id, treatment_plan_id, procedure_id, description, tooth_code,
-                                 quantity, status, unit_price_cents, sort_order) values
+                                 surfaces, quantity, status, unit_price_cents, sort_order) values
   ('11111111-1111-7111-8111-111111111111', '0e111111-1111-7111-8111-111111111111',
-   '03222222-2222-7222-8222-222222222222', 'Implante unitário', '46', 1, 'planned', 320000, 1),
+   '03222222-2222-7222-8222-222222222222', 'Implante unitário', '46',
+   array[]::tooth_surface[], 1, 'planned', 320000, 1),
   ('11111111-1111-7111-8111-111111111111', '0e111111-1111-7111-8111-111111111111',
-   '03111111-1111-7111-8111-111111111111', 'Restauração em resina', '36', 1, 'planned', 28000, 2);
+   '03111111-1111-7111-8111-111111111111', 'Restauração em resina', '36',
+   array['O','M']::tooth_surface[], 1, 'planned', 28000, 2);
 
 -- Orçamento aberto da Mariana: esfriando há dez dias.
 insert into quote (id, tenant_id, unit_id, patient_id, provider_id, price_list_id, number,
@@ -437,7 +441,7 @@ values
 -- lado da correção.
 insert into clinical_note (id, tenant_id, unit_id, patient_id, provider_id, content, signed_at, signature_hash, locked_at, created_at)
 values (
-  '0e111111-1111-7111-8111-111111111111',
+  '0e999999-9999-7999-8999-999999999999',
   '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
   '0a222222-2222-7222-8222-222222222222', 'd1111111-1111-7111-8111-111111111111',
   'Avaliação inicial. Paciente relata dor ao mastigar do lado esquerdo. Exame clínico: cárie oclusal no 37.',
@@ -450,7 +454,7 @@ values (
   '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
   '0a222222-2222-7222-8222-222222222222', 'd1111111-1111-7111-8111-111111111111',
   'Correção: a cárie oclusal é no 36, não no 37. O 37 está hígido. Radiografia interproximal anexada ao caso.',
-  '0e111111-1111-7111-8111-111111111111',
+  '0e999999-9999-7999-8999-999999999999',
   'Dente anotado errado na avaliação inicial.',
   now() - interval '29 days', md5('aditamento-1'), now() - interval '29 days'
 );

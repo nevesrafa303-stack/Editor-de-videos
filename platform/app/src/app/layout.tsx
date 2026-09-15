@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { BRAND } from "@/shared/brand";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "Plataforma Clínica", template: "%s · Plataforma Clínica" },
-  description: "CRM e prontuário para clínicas de odontologia e harmonização facial.",
+  title: { default: BRAND.name, template: `%s · ${BRAND.name}` },
+  description: BRAND.description,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

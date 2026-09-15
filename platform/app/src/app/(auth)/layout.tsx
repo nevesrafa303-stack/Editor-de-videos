@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BRAND } from "@/shared/brand";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -8,13 +9,11 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       </main>
 
       <aside className="hidden flex-col justify-between bg-ink px-12 py-14 lg:flex">
-        <p className="font-mono text-[11px] tracking-[0.16em] text-structure uppercase">
-          Plataforma clínica
-        </p>
+        <p className="text-2xl font-bold tracking-tight text-white">{BRAND.name}</p>
 
         <div>
           <p className="max-w-md text-3xl leading-[1.15] font-bold text-white text-balance">
-            O prontuário, a agenda e o caixa da clínica no mesmo lugar.
+            {BRAND.tagline}
           </p>
           <ul className="mt-8 max-w-md space-y-3 text-sm text-white/70">
             {[

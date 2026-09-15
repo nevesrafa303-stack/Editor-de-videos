@@ -61,6 +61,12 @@ export type TenantContext = {
   /** Cliente escopado. Toda consulta dentro dele passa por RLS. */
   db: Transaction<DB>;
   session: TenantSession;
+  /**
+   * De onde veio a requisicao. Exposto porque assinatura eletronica e trilha
+   * de acesso precisam do IP: passar por um segundo parametro em cada comando
+   * garante que um dia alguem esqueca, e a evidencia nasca vazia.
+   */
+  request: RequestInfo;
   /** Unidade de escrita. Lanca se a sessao nao tiver unidade ativa. */
   unitId(): string;
   can(permission: Permission): boolean;
@@ -90,6 +96,7 @@ function buildContext(
   return {
     db: trx,
     session,
+    request,
 
     unitId() {
       if (session.activeUnitId) return session.activeUnitId;

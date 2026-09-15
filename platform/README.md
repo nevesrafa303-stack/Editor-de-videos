@@ -5,15 +5,15 @@ multi-rede para clínicas de odontologia e harmonização facial**.
 
 A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
 produto inteiro antes de a primeira tela existir. Sobre ela já estão de pé os
-três módulos que a clínica usa o dia inteiro — **pacientes**, **agenda** e
-**prontuário**.
+quatro módulos que a clínica usa o dia inteiro — **pacientes**, **agenda**,
+**prontuário** e **orçamento**. O produto se chama **Áurea**.
 
 ## O que tem aqui
 
 ```
-db/migrations/   20 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   22 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
-db/tests/        89 testes de invariante, rodando contra PostgreSQL de verdade
+db/tests/        98 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
 app/             camada de acesso (withTenant, tipos gerados, sessão, RBAC)
                  e a primeira fatia de interface
@@ -24,11 +24,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0020
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0022
 psql -d crm -f db/seeds/dev_seed.sql
 
-./db/tests/run_tests.sh                             # 89 testes de invariante
-(cd app && npm install && npm run test:all)         # + 69 de integração + 32 de navegador
+./db/tests/run_tests.sh                             # 98 testes de invariante
+(cd app && npm install && npm run test:all)         # + 91 de integração + 41 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -49,7 +49,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Enums | 63 |
 | Transições de estado declaradas | 74 |
 | Permissões no catálogo | 66 |
-| Testes | 89 no banco + 69 na camada de acesso + 32 no navegador, todos passando |
+| Testes | 98 no banco + 91 na camada de acesso + 41 no navegador, todos passando |
 
 ## Por onde começar a ler
 
