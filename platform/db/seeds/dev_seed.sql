@@ -460,3 +460,25 @@ values (
 );
 
 select refresh_patient_rollups();
+
+-- ---------------------------------------------------------------------------
+-- Uma segunda parcela vencida, da Camila.
+--
+-- A do Roberto conta a história dele no resumo do paciente. Esta existe para o
+-- financeiro ter o que receber sem consumir aquela — duas suítes de teste
+-- disputando a mesma linha do seed passam ou falham conforme a ordem.
+-- ---------------------------------------------------------------------------
+insert into receivable (id, tenant_id, unit_id, patient_id, origin, total_cents, description, issued_on)
+values (
+  '10222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
+  'a1111111-1111-7111-8111-111111111111', '0a444444-4444-7444-8444-444444444444',
+  'manual', 45000, 'Clareamento de consultório', current_date - 40
+);
+
+insert into installment (tenant_id, unit_id, receivable_id, patient_id, number, total_count,
+                         due_on, amount_cents) values
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '10222222-2222-7222-8222-222222222222', '0a444444-4444-7444-8444-444444444444', 1, 1,
+   current_date - 25, 45000);
+
+select refresh_patient_rollups();

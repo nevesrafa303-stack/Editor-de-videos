@@ -1233,14 +1233,32 @@ export interface Payer {
 }
 
 export interface Payment {
+  /**
+   * Principal: abate a parcela. Nunca inclui multa nem juros.
+   */
   amount_cents: Int8;
   cash_session_id: string | null;
   created_at: Generated<Timestamp>;
   created_by: string | null;
   fee_cents: Generated<Int8>;
+  /**
+   * Multa de mora recebida junto. Nao abate a parcela.
+   */
+  fine_cents: Generated<Int8>;
   gateway_charge_id: string | null;
+  /**
+   * O que o paciente entregou: principal + multa + juros.
+   */
+  gross_cents: Generated<Int8 | null>;
   id: Generated<string>;
   installment_id: string;
+  /**
+   * Juros de mora recebidos junto. Nao abatem a parcela.
+   */
+  interest_cents: Generated<Int8>;
+  /**
+   * O que sobra para a clinica depois da taxa do meio de pagamento.
+   */
   net_cents: Generated<Int8 | null>;
   notes: string | null;
   paid_at: Generated<Timestamp>;
@@ -1693,6 +1711,10 @@ export interface Role {
   description: string | null;
   id: Generated<string>;
   is_system: Generated<boolean>;
+  /**
+   * Teto de desconto que este papel concede sozinho, em % do subtotal do orcamento.
+   */
+  max_discount_percent: Generated<Numeric>;
   name: string;
   tenant_id: string;
   updated_at: Generated<Timestamp>;
@@ -1868,7 +1890,19 @@ export interface TenantFeatureOverride {
 
 export interface TenantPolicy {
   block_execution_without_stock: Generated<boolean>;
+  /**
+   * Anos de guarda do prontuario apos o ultimo atendimento. Registra a politica; o expurgo nao e automatico.
+   */
+  chart_retention_years: Generated<number>;
   inactive_patient_months: Generated<number>;
+  /**
+   * Multa de mora, uma vez sobre o saldo vencido. Padrao 2% (CDC).
+   */
+  late_fine_percent: Generated<Numeric>;
+  /**
+   * Juros de mora ao mes, pro rata die sobre o saldo vencido. Padrao 1% (CDC).
+   */
+  late_interest_percent_month: Generated<Numeric>;
   no_show_risk_threshold: Generated<Numeric>;
   quote_cooling_days: Generated<number>;
   require_image_consent_for_photo: Generated<boolean>;

@@ -1,8 +1,8 @@
 # Aplicação
 
 **Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
-facial. A camada de acesso ao banco e os quatro módulos que a clínica usa o dia
-inteiro: **pacientes**, **agenda**, **prontuário** e **orçamento**.
+facial. A camada de acesso ao banco e os cinco módulos que fecham o ciclo:
+**pacientes**, **agenda**, **prontuário**, **orçamento** e **financeiro**.
 
 ```
 src/
@@ -23,6 +23,7 @@ src/
     scheduling/      grade do dia, máquina de estados do atendimento, encaixe
     chart/           odontograma, anamnese, evolução assinada e aditamento
     quote/           proposta a partir do plano, alçada de desconto, aceite
+    finance/         parcelas, mora, recebimento, caixa e comissão
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
@@ -30,12 +31,13 @@ src/
     action-state.ts  contrato de formulário, sem framework e sem banco
     brand.ts         o nome do produto, em um lugar só
     money.ts         divisão de dinheiro que soma exatamente
+    flash.ts         recado que sobrevive ao recarregamento
     br.ts            CPF, telefone
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               91 testes (integração contra PostgreSQL + unidade)
-e2e/                 41 testes de navegador sobre o build de produção
+tests/               111 testes (integração contra PostgreSQL + unidade)
+e2e/                 48 testes de navegador sobre o build de produção
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
 
@@ -101,7 +103,10 @@ navegador — o `next build` reprova, e com razão.
 | Abrir prontuário deixa rastro, na mesma transação | `ctx.recordChartAccess()` |
 | Registro clínico não se apaga nem se reescreve | `REVOKE` + trigger; correção é aditamento |
 | Desconto respeita alçada e tabela, o menor manda | trigger `check_quote_discount` |
-| Parcelas somam exatamente o total | `parcelar()`, resto na primeira |
+| Parcelas somam exatamente o total | `parcelar()` e `split_amount()`, resto na primeira |
+| Aceitar orçamento gera o a receber | trigger, na mesma transação |
+| Multa e juros nunca são gravados | `installment_charges()`, calculado na hora |
+| Dinheiro em espécie exige caixa aberto | `payment_method.affects_cash_session` |
 
 ## As telas
 
@@ -117,9 +122,11 @@ navegador — o `next build` reprova, e com razão.
 | `/orcamentos` | quanto está parado em cada estágio, e onde |
 | `/orcamentos/[id]` | itens congelados, desconto com alçada, aceite assinado, margem |
 | `/orcamentos/novo` | nasce do plano de tratamento, sem duplicar procedimento |
+| `/financeiro` | o que venceu, o que vence, o que entrou — e o recebimento |
+| `/financeiro/caixa` | abertura, sangria, e o fechamento que expõe a diferença |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
-Os módulos ainda sem tela (funil, financeiro, estoque)
+Os módulos ainda sem tela (funil, estoque)
 aparecem no menu marcados como **breve**, inativos. Sumir esconderia a forma do
 produto de quem usa e o que falta de quem constrói.
 
@@ -142,9 +149,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 91 testes (a suíte recria o banco antes)
-npm run test:e2e      # 41 testes de navegador sobre o build de produção
-npm run test:all      # os 98 testes SQL + os dois acima
+npm test              # 111 testes (a suíte recria o banco antes)
+npm run test:e2e      # 48 testes de navegador sobre o build de produção
+npm run test:all      # os 118 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -221,7 +228,36 @@ libera qualquer valor: troca o teto pelo de quem aprovou.
 assinou, de quando, mais o IP — e o `quote_accepted_signature` do banco recusa
 aceite sem ela. Depois de aceito, o orçamento para de aceitar edição.
 
-## Nove coisas que os testes acharam
+## O financeiro
+
+**Aceitar o orçamento gera as parcelas — no banco, por trigger, na mesma
+transação.** Não é a aplicação que lembra de chamar: se fosse, um importador,
+um script de correção ou um retry pela metade deixaria orçamento fechado sem
+nada a receber, e a clínica descobriria no fechamento do mês. A entrada vira a
+primeira parcela, vencendo hoje; o restante se divide em parcelas mensais que
+somam exatamente o total.
+
+**Multa e juros nunca são gravados.** Parcela vencida vale um número diferente
+a cada dia — congelar isso numa coluna seria mentir amanhã. `installment_charges()`
+calcula na hora, com os percentuais da política da rede (2% de multa, 1% ao mês
+*pro rata die*), e arredonda **para baixo**: numa cobrança contra o paciente, o
+centavo da fração fica com ele. A mesma função alimenta a tela e o recebimento,
+então os dois nunca discordam.
+
+**O pagamento separa principal de mora.** A parcela só enxerga o principal — é
+o que `installment_paid_bound` exige, e está certo. Multa e juros vão em colunas
+próprias, entram na gaveta e ficam de fora da comissão: quem financiou o atraso
+foi a clínica, não o profissional.
+
+**Comissão nasce do recebimento e morre com o estorno.** Paciente que parcelou
+em 10x e parou na 3ª não gera comissão sobre as 7 restantes.
+
+**O caixa é só para dinheiro vivo.** PIX e cartão caem na conta e não mudam o
+que a gaveta tem que ter no fim do dia — quem decide é
+`payment_method.affects_cash_session`. Receber em espécie sem caixa aberto é
+recusado, porque sem isso não há o que conferir no fechamento.
+
+## Onze coisas que os testes acharam
 
 **Logout não deslogava.** `revokeSession` fazia `UPDATE user_session` sem
 contexto de usuário aplicado. A policy é `user_id = current_user_id()`, então o
@@ -282,7 +318,25 @@ não tem campo onde encostar.
 inteiros e joga o resto na primeira parcela; as demais ficam idênticas. Há um
 teste que soma as parcelas de dezenas de combinações e exige o total exato.
 
-Nenhuma das nove apareceria em revisão de código. Apareceram porque a suíte roda
+**Cada rede só podia ter um recebível sem número.** `receivable_code_uk` era
+`unique nulls not distinct (tenant_id, code)` com `code` anulável — e em NULLS
+NOT DISTINCT dois nulos colidem. O segundo recebível manual da rede era
+recusado com um erro de chave duplicada que não explica nada. Virou índice
+parcial, e o número passa a ser atribuído sempre.
+
+**Multa e juros não tinham onde ser registrados.** A parcela não aceita receber
+mais do que vale, o que está certo; mas o paciente atrasado entrega mais do que
+a parcela. O recebimento era recusado com "o valor excede o saldo" e a recepção
+ficava com o dinheiro na mão. O pagamento passou a separar principal de
+encargo.
+
+**A confirmação sumia junto com a linha.** Parcela quitada sai do recorte "em
+aberto" e leva a mensagem de sucesso embora; caixa recém-aberto troca o
+formulário pela gaveta. A pessoa clicava, tudo mudava, e nada confirmava o que
+tinha acontecido. O recado passou a viajar na URL e a ser desenhado pela
+página, que continua existindo depois da ação.
+
+Nenhuma das onze apareceria em revisão de código. Apareceram porque a suíte roda
 contra PostgreSQL de verdade, contra o build de produção de verdade — e porque
 alguém olhou as telas.
 
@@ -296,8 +350,12 @@ LGPD) que ainda não foi tomada.
 
 ## Próximo passo
 
-Financeiro: o aceite do orçamento precisa virar parcela a receber na mesma
-transação, com multa de 2% e juros de 1% ao mês sobre o atraso, caixa aberto e
-fechado por unidade, e comissão gerada **no recebimento** — não na execução. O
-banco já tem tudo isso modelado, incluindo a imutabilidade do pagamento e a
-trava de lançar em caixa fechado.
+O ciclo comercial está fechado: o plano vira proposta, a proposta aceita vira
+parcela, a parcela paga vira caixa e comissão. Faltam, em ordem de valor:
+
+1. **Seletor de unidade** e os dois números de ocupação — pequenos, decididos e
+   pendentes.
+2. **Convênio**: tabela de preço por convênio (reembolso), depois faturamento
+   por guia com lote, repasse e glosa.
+3. **Funil de vendas** — a ponta de captação que o CRM ainda não tem.
+4. **Importador de planilha** — quando houver cliente definido.

@@ -45,13 +45,22 @@ export async function createQuote(
   const validade = new Date();
   validade.setDate(validade.getDate() + data.validDays);
 
+  // Sem profissional no orcamento nao ha a quem comissionar, e a comissao
+  // nasce do recebimento deste documento. O padrao segue o plano de
+  // tratamento que originou a proposta; na falta dele, quem esta criando —
+  // desde que atenda.
+  const profissional =
+    data.providerId ??
+    (await profissionalDoPlano(ctx, data.planItemIds)) ??
+    (ctx.session.isProvider ? ctx.session.membershipId : null);
+
   const quote = await ctx.db
     .insertInto("quote")
     .values({
       tenant_id: ctx.session.tenantId,
       unit_id: ctx.unitId(),
       patient_id: data.patientId,
-      provider_id: data.providerId ?? null,
+      provider_id: profissional,
       payer_id: data.payerId ?? null,
       created_by: ctx.session.membershipId,
       title: data.title,
@@ -128,6 +137,23 @@ async function trazerDoPlano(
       .where("id", "=", item.id)
       .execute();
   }
+}
+
+/** O profissional responsavel pelo plano de onde vieram os itens. */
+async function profissionalDoPlano(
+  ctx: TenantContext,
+  planItemIds: string[],
+): Promise<string | null> {
+  if (planItemIds.length === 0) return null;
+
+  const row = await ctx.db
+    .selectFrom("treatment_plan_item as i")
+    .innerJoin("treatment_plan as p", "p.id", "i.treatment_plan_id")
+    .select("p.provider_id")
+    .where("i.id", "in", planItemIds)
+    .executeTakeFirst();
+
+  return row?.provider_id ?? null;
 }
 
 async function resolverPreco(

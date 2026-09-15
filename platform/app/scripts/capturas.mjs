@@ -29,9 +29,14 @@ const TELAS = [
   { nome: "05-agenda", url: `/agenda?data=${hoje}`, espera: "Grade do dia", altura: 1500 },
   { nome: "06-agenda-encaixe", url: `/agenda/novo?data=${hoje}`, espera: "Agendar" },
   { nome: "08-orcamentos", url: "/orcamentos", espera: "Esperando resposta" },
+  { nome: "10-financeiro", url: "/financeiro?recorte=abertas", espera: "A receber", altura: 1300 },
+  { nome: "11-caixa", url: "/financeiro/caixa", espera: "Na gaveta" },
+  // Abre o primeiro orcamento da lista: assim o script nao depende de alguem
+  // descobrir o id e passar por variavel de ambiente.
   {
     nome: "09-orcamento",
-    url: process.env.ORCAMENTO_URL ?? "/orcamentos",
+    url: "/orcamentos",
+    clicar: "Reabilitação inferior direita",
     espera: "Condições comerciais",
     altura: 1200,
   },
@@ -73,6 +78,12 @@ for (const tela of TELAS) {
 
   await alvo.setViewportSize({ width: 1360, height: tela.altura ?? 1000 });
   await alvo.goto(`${BASE}${tela.url}`);
+
+  if (tela.clicar) {
+    await alvo.getByRole("link", { name: tela.clicar }).first().click();
+    await alvo.waitForLoadState("networkidle");
+  }
+
   await alvo.getByText(tela.espera).first().waitFor({ state: "visible" });
   await alvo.waitForTimeout(250);
 
