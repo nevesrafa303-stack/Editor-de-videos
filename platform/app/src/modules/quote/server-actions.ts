@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { formAction } from "@/server/next/action";
+import { centavosDeTexto as reais } from "@/shared/money";
 import type { ActionState } from "@/shared/action-state";
 import {
   acceptQuote,
@@ -11,13 +12,16 @@ import {
   createQuote,
   removeQuoteItem,
   setQuoteDiscount,
+  setQuotePayer,
   setQuoteTerms,
 } from "@/modules/quote/commands";
 import { QUOTE_ACTIONS, type QuoteAction } from "@/modules/quote/schema";
+import type { Surface } from "@/modules/chart/schema";
 
 const criar = formAction(async (ctx, formData) => {
   const { id } = await createQuote(ctx, {
     patientId: String(formData.get("patientId") ?? ""),
+    payerId: String(formData.get("payerId") ?? "") || null,
     title: String(formData.get("title") ?? ""),
     validDays: Number(formData.get("validDays") ?? 15),
     planItemIds: formData.getAll("planItemIds").map(String),
@@ -39,8 +43,10 @@ const adicionar = formAction(async (ctx, formData) => {
 
   await addQuoteItem(ctx, {
     quoteId,
+    procedureId: String(formData.get("procedureId") ?? "") || null,
     description: String(formData.get("description") ?? ""),
     toothCode: String(formData.get("toothCode") ?? "") || null,
+    surfaces: formData.getAll("surfaces").map(String) as Surface[],
     quantity: Number(formData.get("quantity") ?? 1),
     unitPriceCents: reais(formData.get("unitPrice")),
   });
@@ -54,6 +60,43 @@ export async function adicionarItemAction(
   formData: FormData,
 ): Promise<ActionState> {
   return adicionar(previous, formData);
+}
+
+/**
+ * Trocar o convenio REPRECIFICA a proposta.
+ *
+ * A tela diz quantos itens mudaram de preco, porque o numero na frente do
+ * paciente acabou de mudar e quem trocou precisa ver isso acontecer — nao
+ * descobrir depois, quando o total nao bate com o que foi falado.
+ */
+const trocarConvenio = formAction(async (ctx, formData) => {
+  const quoteId = String(formData.get("quoteId") ?? "");
+  const payerId = String(formData.get("payerId") ?? "") || null;
+
+  const { reprecificados } = await setQuotePayer(ctx, quoteId, payerId);
+
+  revalidatePath(`/orcamentos/${quoteId}`);
+
+  if (reprecificados === 0) {
+    return {
+      success: payerId
+        ? "Convênio aplicado. Nenhum item tinha preço de tabela para reprecificar."
+        : "Voltou para particular.",
+    };
+  }
+
+  return {
+    success: `Convênio aplicado. ${reprecificados} ${
+      reprecificados === 1 ? "item reprecificado" : "itens reprecificados"
+    }.`,
+  };
+}, "quote.write");
+
+export async function trocarConvenioAction(
+  previous: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  return trocarConvenio(previous, formData);
 }
 
 const remover = formAction(async (ctx, formData) => {
@@ -159,22 +202,6 @@ export async function aceitarAction(
   return aceitar(previous, formData);
 }
 
-/**
- * "1.234,56" -> 123456. Aceita o que a recepcao realmente digita: com ponto,
- * sem ponto, com virgula, so o inteiro.
- */
-function reais(valor: FormDataEntryValue | null): number {
-  const texto = String(valor ?? "").trim();
-  if (!texto) return 0;
-
-  const limpo = texto.replace(/[^\d,.-]/g, "");
-  const normalizado = limpo.includes(",")
-    ? limpo.replace(/\./g, "").replace(",", ".")
-    : limpo;
-
-  const numero = Number(normalizado);
-  return Number.isFinite(numero) ? Math.round(numero * 100) : 0;
-}
 
 const ROTULO: Record<string, string> = {
   sent: "Orçamento enviado ao paciente.",

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { SURFACES } from "@/modules/chart/schema";
 
 export const QUOTE_STATUS = [
   "draft",
@@ -63,6 +64,11 @@ export const addItemSchema = z
     toothCode: z
       .union([z.literal(""), z.string().regex(/^\d{2}$/, "Dente inválido.")])
       .nullish(),
+    // Procedimento de escopo `surface` exige face — quem diz nao e o banco
+    // (`check_quote_item_scope`), e a proposta precisa carregar a mesma
+    // informacao que o plano de tratamento carrega, senao orcar pela tela e
+    // orcar pelo plano geram linhas diferentes para o mesmo dente.
+    surfaces: z.array(z.enum(SURFACES)).max(8).default([]),
     regionCode: z.string().trim().max(40).nullish(),
     quantity: z.coerce.number().min(0.001).max(9999).default(1),
     unitPriceCents: z.coerce.number().int().min(0),

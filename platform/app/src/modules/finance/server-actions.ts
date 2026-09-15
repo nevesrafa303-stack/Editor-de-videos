@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { formAction } from "@/server/next/action";
+import { centavosDeTexto as reais } from "@/shared/money";
 import type { ActionState } from "@/shared/action-state";
 import {
   addCashMovement,
@@ -147,14 +148,3 @@ export async function movimentarCaixaAction(
   return movimentar(previous, formData);
 }
 
-/** "1.234,56" -> 123456. Aceita o que a recepcao digita de verdade. */
-function reais(valor: FormDataEntryValue | null): number {
-  const texto = String(valor ?? "").trim();
-  if (!texto) return 0;
-
-  const limpo = texto.replace(/[^\d,.-]/g, "");
-  const normalizado = limpo.includes(",") ? limpo.replace(/\./g, "").replace(",", ".") : limpo;
-  const numero = Number(normalizado);
-
-  return Number.isFinite(numero) ? Math.round(numero * 100) : 0;
-}

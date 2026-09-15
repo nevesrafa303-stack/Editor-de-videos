@@ -116,6 +116,8 @@ export type QuoteDetail = {
   title: string | null;
   notes: string | null;
   patient: { id: string; name: string; phone: string };
+  /** Convenio que paga. `null` e particular. */
+  payer: { id: string; name: string; billingMode: string } | null;
   provider: string | null;
   createdBy: string | null;
   subtotalCents: number;
@@ -157,6 +159,7 @@ export async function getQuote(ctx: TenantContext, quoteId: string): Promise<Quo
     .leftJoin("app_user as uc", "uc.id", "mc.user_id")
     .leftJoin("membership as ma", "ma.id", "q.discount_approved_by")
     .leftJoin("app_user as ua", "ua.id", "ma.user_id")
+    .leftJoin("payer as pay", "pay.id", "q.payer_id")
     .select([
       "q.id", "q.number", "q.status", "q.title", "q.notes",
       "q.subtotal_cents", "q.discount_cents", "q.total_cents", "q.expected_cost_cents",
@@ -165,6 +168,7 @@ export async function getQuote(ctx: TenantContext, quoteId: string): Promise<Quo
       "p.id as patient_id", "p.full_name as patient_name", "p.phone as patient_phone",
       "up.full_name as provider", "uc.full_name as created_by",
       "ua.full_name as approved_by",
+      "pay.id as payer_id", "pay.name as payer_name", "pay.billing_mode as payer_billing_mode",
     ])
     .where("q.id", "=", quoteId)
     .where("q.deleted_at", "is", null)
@@ -229,6 +233,13 @@ export async function getQuote(ctx: TenantContext, quoteId: string): Promise<Quo
       name: quote.patient_name,
       phone: quote.patient_phone,
     },
+    payer: quote.payer_id
+      ? {
+          id: quote.payer_id as string,
+          name: quote.payer_name as string,
+          billingMode: quote.payer_billing_mode as string,
+        }
+      : null,
     provider: quote.provider,
     createdBy: quote.created_by,
     subtotalCents: quote.subtotal_cents,
@@ -291,4 +302,60 @@ export async function getPlanItemsForQuote(ctx: TenantContext, patientId: string
     .where("i.quote_item_id", "is", null)
     .orderBy("i.sort_order", "asc")
     .execute();
+}
+
+export type QuotableProcedure = {
+  id: string;
+  name: string;
+  categoria: string | null;
+  /** `tooth` e `surface` exigem dente; `surface` exige tambem as faces. */
+  scope: string;
+  priceCents: number | null;
+};
+
+/**
+ * Procedimentos que a tela de orcamento pode oferecer, ja com o preco do
+ * pagador deste documento.
+ *
+ * Existe porque, sem ela, a unica forma de colocar um procedimento de catalogo
+ * numa proposta era trazendo do plano de tratamento: tudo digitado na tela
+ * entrava como item avulso, sem `price_list_item_id`. Isso tinha duas
+ * consequencias silenciosas — a tabela do convenio nao era aplicada, e o teto
+ * de desconto da tabela virava 100%, porque nao havia tabela por tras.
+ */
+export async function listQuotableProcedures(
+  ctx: TenantContext,
+  payerId: string | null,
+): Promise<QuotableProcedure[]> {
+  ctx.assert("quote.read");
+
+  const linhas = await sql<{
+    id: string;
+    name: string;
+    categoria: string | null;
+    scope: string;
+    price_cents: number | null;
+  }>`
+    select
+      pr.id,
+      pr.name,
+      pc.name as categoria,
+      pr.scope::text as scope,
+      (select rp.price_cents from resolve_price(
+        ${ctx.session.tenantId}::uuid, pr.id,
+        ${ctx.session.activeUnitId}::uuid, ${payerId}::uuid) rp
+      ) as price_cents
+    from procedure pr
+    left join procedure_category pc on pc.id = pr.category_id
+    where pr.is_active
+    order by pc.name nulls last, pr.name
+  `.execute(ctx.db);
+
+  return linhas.rows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    categoria: r.categoria,
+    scope: r.scope,
+    priceCents: r.price_cents === null ? null : Number(r.price_cents),
+  }));
 }

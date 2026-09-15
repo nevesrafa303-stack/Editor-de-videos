@@ -40,6 +40,21 @@ const TELAS = [
     espera: "Condições comerciais",
     altura: 1200,
   },
+  { nome: "13-convenios", url: "/convenios", espera: "Odonto Saúde" },
+  {
+    nome: "15-orcamento-convenio",
+    url: "/orcamentos",
+    clicar: "Restauração pelo convênio",
+    espera: "Quem paga",
+    altura: 1300,
+  },
+  {
+    nome: "14-convenio",
+    url: "/convenios",
+    clicar: "Odonto Saúde",
+    espera: "Tabela de preços",
+    altura: 1300,
+  },
   {
     nome: "12-prontuario-decidua",
     url: "/pacientes/0a222222-2222-7222-8222-222222222222/prontuario",

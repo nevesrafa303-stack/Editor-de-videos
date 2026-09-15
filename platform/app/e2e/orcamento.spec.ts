@@ -20,7 +20,7 @@ async function orcamentoCom(page: Page, valor: string): Promise<string> {
   await page.getByRole("button", { name: "Criar orçamento" }).click();
   await page.waitForURL(/\/orcamentos\/[0-9a-f-]{36}$/);
 
-  await page.getByLabel("Item avulso").fill("Procedimento de teste");
+  await page.getByLabel("Descrição").fill("Procedimento de teste");
   await page.getByLabel("Unitário (R$)").fill(valor);
   await page.getByRole("button", { name: "Adicionar", exact: true }).click();
   await expect(page.getByText("Item adicionado.")).toBeVisible();
@@ -170,7 +170,7 @@ test.describe("ciclo de vida", () => {
     await page.reload();
     await expect(page.getByText("Fechado").first()).toBeVisible();
     // Fechado não mostra mais o formulário de item.
-    await expect(page.getByLabel("Item avulso")).toHaveCount(0);
+    await expect(page.getByLabel("Descrição")).toHaveCount(0);
   });
 });
 

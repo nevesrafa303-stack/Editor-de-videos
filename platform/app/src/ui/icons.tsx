@@ -64,6 +64,13 @@ export const IconBox = (props: IconProps) => (
   </Icon>
 );
 
+export const IconCard = (props: IconProps) => (
+  <Icon {...props}>
+    <rect x="2.5" y="5" width="19" height="14" rx="2" />
+    <path d="M2.5 9.5h19M6 14.5h4" />
+  </Icon>
+);
+
 export const IconTooth = (props: IconProps) => (
   <Icon {...props}>
     <path d="M12 5.5C10.6 4.5 9.4 4 8 4a4 4 0 0 0-4 4.2c0 2.2.9 3.4 1.5 5.3.5 1.6.6 3.3.9 4.8.2 1.2.7 2 1.6 2s1.3-.8 1.6-2.2c.3-1.6.5-3.1 1.4-3.1s1.1 1.5 1.4 3.1c.3 1.4.7 2.2 1.6 2.2s1.4-.8 1.6-2c.3-1.5.4-3.2.9-4.8C21.1 11.6 22 10.4 22 8.2A4 4 0 0 0 18 4c-1.4 0-2.6.5-4 1.5" />

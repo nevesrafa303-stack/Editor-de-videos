@@ -2,7 +2,8 @@
 
 **Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
 facial. A camada de acesso ao banco e os cinco módulos que fecham o ciclo:
-**pacientes**, **agenda**, **prontuário**, **orçamento** e **financeiro**.
+**pacientes**, **agenda**, **prontuário**, **orçamento**, **financeiro** e
+**convênios**.
 
 ```
 src/
@@ -24,20 +25,21 @@ src/
     chart/           odontograma, anamnese, evolução assinada e aditamento
     quote/           proposta a partir do plano, alçada de desconto, aceite
     finance/         parcelas, mora, recebimento, caixa e comissão
+    payer/           convênio, tabela de preço própria e modo de faturamento
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
     permissions.ts   GERADO do banco (npm run gen:permissions)
     action-state.ts  contrato de formulário, sem framework e sem banco
     brand.ts         o nome do produto, em um lugar só
-    money.ts         divisão de dinheiro que soma exatamente
+    money.ts         divisão de dinheiro que soma exatamente, e "1.234,56" -> 123456
     flash.ts         recado que sobrevive ao recarregamento
     br.ts            CPF, telefone
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               111 testes (integração contra PostgreSQL + unidade)
-e2e/                 53 testes de navegador sobre o build de produção
+tests/               129 testes (integração contra PostgreSQL + unidade)
+e2e/                 60 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -109,6 +111,8 @@ navegador — o `next build` reprova, e com razão.
 | Multa e juros nunca são gravados | `installment_charges()`, calculado na hora |
 | Dinheiro em espécie exige caixa aberto | `payment_method.affects_cash_session` |
 | Trocar de unidade muda agenda, caixa e fuso | unidade ativa vive na sessão, no banco |
+| Preço de convênio vence o particular | `resolve_price`, uma vez, no banco |
+| Convênio faturado por guia não vira dívida do paciente | trigger recusa o aceite, com a saída na frase |
 
 ## As telas
 
@@ -126,6 +130,8 @@ navegador — o `next build` reprova, e com razão.
 | `/orcamentos/novo` | nasce do plano de tratamento, sem duplicar procedimento |
 | `/financeiro` | o que venceu, o que vence, o que entrou — e o recebimento |
 | `/financeiro/caixa` | abertura, sangria, e o fechamento que expõe a diferença |
+| `/convenios` | quem paga, como fatura, e quantos preços cada um tem |
+| `/convenios/[id]` | a tabela do convênio ao lado da particular, e o que a clínica abre mão |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
 Os módulos ainda sem tela (funil, estoque)
@@ -151,8 +157,8 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 111 testes (a suíte recria o banco antes)
-npm run test:e2e      # 53 testes de navegador sobre o build de produção
+npm test              # 129 testes (a suíte recria o banco antes)
+npm run test:e2e      # 60 testes de navegador sobre o build de produção
 npm run test:all      # os 118 testes SQL + os dois acima
 ```
 
@@ -229,6 +235,30 @@ libera qualquer valor: troca o teto pelo de quem aprovou.
 **O aceite fecha.** Assinatura eletrônica simples — hash do conteúdo, de quem
 assinou, de quando, mais o IP — e o `quote_accepted_signature` do banco recusa
 aceite sem ela. Depois de aceito, o orçamento para de aceitar edição.
+
+## O convênio
+
+**A tabela do convênio vence a particular, e quem decide é o banco.** Uma função
+só — `resolve_price` — resolve a precedência (unidade sobre rede, convênio sobre
+particular) e é chamada tanto pelo plano de tratamento quanto pela tela de item.
+Reimplementar essa ordem na aplicação daria dois lugares para o preço sair
+diferente, e preço errado numa proposta é um desconto que ninguém autorizou.
+
+**Procedimento sem preço na tabela do convênio não é gratuito, é não coberto.**
+Definir preço zero REMOVE a linha, e o orçamento volta a usar a particular.
+Guardar um zero faria o procedimento aparecer valendo nada na proposta — que é
+pior do que não aparecer.
+
+**Trocar o convênio reprecifica a proposta inteira**, e a tela diz quantos itens
+mudaram. Trocar o pagador sem mexer no preço deixaria valor de particular com
+carimbo de convênio: o pior dos dois mundos, e um erro que só aparece quando o
+paciente questiona a diferença.
+
+**Faturado por guia é recusado, não improvisado.** Enquanto o faturamento por
+lote não existir, aceitar um orçamento de convênio faturado é recusado **pelo
+banco**, com uma frase que nomeia o convênio e diz o que fazer no lugar. A
+alternativa — deixar o aceite passar — geraria parcelas no nome do paciente para
+uma conta que é do convênio, e a clínica só descobriria na cobrança.
 
 ## O financeiro
 

@@ -28,7 +28,7 @@ async function orcamentoAceito(page: Page, valor: string, parcelas: string): Pro
   await page.getByRole("button", { name: "Criar orçamento" }).click();
   await page.waitForURL(/\/orcamentos\/[0-9a-f-]{36}$/);
 
-  await page.getByLabel("Item avulso").fill("Tratamento");
+  await page.getByLabel("Descrição").fill("Tratamento");
   await page.getByLabel("Unitário (R$)").fill(valor);
   await page.getByRole("button", { name: "Adicionar", exact: true }).click();
   await expect(page.getByText("Item adicionado.")).toBeVisible();

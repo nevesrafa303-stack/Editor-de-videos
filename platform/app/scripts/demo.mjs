@@ -14,9 +14,21 @@ import { chromium } from "@playwright/test";
 const BASE = process.env.DEMO_URL ?? "http://127.0.0.1:3200";
 const SENHA = "senha-de-teste-123";
 const ROBERTO = "0a222222-2222-7222-8222-222222222222";
+const MARIANA = "0a111111-1111-7111-8111-111111111111";
 
 const CHROMIUM =
   process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome";
+
+/**
+ * Escolhe a opcao pelo TRECHO do texto, nao pelo rotulo inteiro.
+ *
+ * O rotulo carrega o preco formatado, e "R$ 180,00" em pt-BR usa espaco
+ * inquebravel — comparar a string inteira quebra por um caractere invisivel.
+ */
+async function escolher(page, campo, trecho) {
+  const opcao = page.locator(`select[name="${campo}"] option`, { hasText: trecho }).first();
+  await page.locator(`select[name="${campo}"]`).selectOption(await opcao.getAttribute("value"));
+}
 
 const browser = await chromium.launch({ executablePath: CHROMIUM });
 const context = await browser.newContext({ locale: "pt-BR", timezoneId: "America/Sao_Paulo" });
@@ -47,6 +59,22 @@ await page.getByLabel("Quem está aceitando").fill("Roberto Carvalho");
 await page.getByRole("button", { name: "Confirmar aceite" }).click();
 await page.getByText("Aceite registrado e assinado.").waitFor();
 console.log("orçamento aceito · parcelas geradas");
+
+// --------------------------------------------------------------- convênio --
+// A mesma resina, pela tabela do convênio: R$ 280,00 particular contra
+// R$ 180,00. Passa pelo seletor da tela, não por insert no banco.
+await page.goto(`${BASE}/orcamentos/novo?paciente=${MARIANA}`);
+await page.getByLabel("Título").fill("Restauração pelo convênio");
+await escolher(page, "payerId", "Odonto Saúde");
+await page.getByRole("button", { name: "Criar orçamento" }).click();
+await page.waitForURL(/orcamentos\/[0-9a-f-]{36}$/);
+
+await escolher(page, "procedureId", "Restauração em resina");
+await page.getByLabel("Dente").fill("36");
+await page.getByRole("checkbox", { name: "O", exact: true }).check();
+await page.getByRole("button", { name: "Adicionar" }).click();
+await page.getByText("Item adicionado.").waitFor();
+console.log("orçamento por convênio · item precificado pela tabela do pagador");
 
 // ------------------------------------------------------------------- caixa --
 await page.goto(`${BASE}/financeiro/caixa`);

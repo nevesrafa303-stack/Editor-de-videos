@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { withPage } from "@/server/next/page";
-import { getQuote } from "@/modules/quote";
+import { getQuote, listQuotableProcedures } from "@/modules/quote";
+import { listActivePayers } from "@/modules/payer";
 import { NotFound } from "@/shared/errors";
 import { Badge, LinkButton, PageHead, Panel, PanelHead } from "@/ui";
 import { formatBRL, formatDateOnly, formatDateTime, formatPhone } from "@/shared/format";
 import { STATUS } from "../status";
-import { Acoes, Comercial, Itens } from "./editor";
+import { Acoes, Comercial, Convenio, Itens } from "./editor";
 
 export const metadata: Metadata = { title: "Orçamento" };
 
@@ -22,6 +23,11 @@ export default async function OrcamentoPage({ params }: { params: Promise<{ id: 
 
     if (!quote) return null;
 
+    const [convenios, procedimentos] = await Promise.all([
+      listActivePayers(ctx),
+      listQuotableProcedures(ctx, quote.payer?.id ?? null),
+    ]);
+
     const motivos = await ctx.db
       .selectFrom("loss_reason")
       .select(["id", "name"])
@@ -31,6 +37,8 @@ export default async function OrcamentoPage({ params }: { params: Promise<{ id: 
 
     return {
       quote,
+      convenios,
+      procedimentos,
       motivos: motivos.map((m) => ({ id: m.id as string, name: m.name })),
       fuso: ctx.session.timezone,
     };
@@ -38,7 +46,7 @@ export default async function OrcamentoPage({ params }: { params: Promise<{ id: 
 
   if (!dados) notFound();
 
-  const { quote, motivos, fuso } = dados;
+  const { quote, convenios, procedimentos, motivos, fuso } = dados;
   const margem = quote.totalCents - quote.expectedCostCents;
 
   return (
@@ -64,7 +72,7 @@ export default async function OrcamentoPage({ params }: { params: Promise<{ id: 
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="space-y-5">
-          <Itens quote={quote} />
+          <Itens quote={quote} procedimentos={procedimentos} />
 
           {quote.notes ? (
             <Panel className="overflow-hidden">
@@ -105,6 +113,7 @@ export default async function OrcamentoPage({ params }: { params: Promise<{ id: 
 
         <div className="space-y-5">
           <Acoes quote={quote} motivos={motivos} />
+          <Convenio quote={quote} opcoes={convenios} />
           <Comercial quote={quote} />
 
           <Panel className="overflow-hidden">

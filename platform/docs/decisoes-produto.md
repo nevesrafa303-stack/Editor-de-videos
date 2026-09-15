@@ -194,6 +194,8 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 12 · Marca | **Áurea** |
 | 14 · Retenção configurável | política gravada; expurgo ainda não |
 | 16 · Comissão no recebimento | pronto, e cancelada pelo estorno |
+| 3 · Particular **e** convênio | pronto na fatia de reembolso |
+| 4 · Os dois modelos de convênio | reembolso pronto; faturado por guia **recusa o aceite, com explicação** |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -204,9 +206,13 @@ Os demais seguem pendentes, na ordem abaixo.
 2. **Financeiro particular** — parcelas, recebimento manual com multa e juros,
    caixa por unidade, comissão gerada no recebimento.
 3. **Seletor de unidade** e os dois números de ocupação — pequenos, entram junto.
-4. **Convênio por reembolso** — tabela de preço por convênio; o financeiro não
-   muda.
-5. **Faturamento por guia** — guia, lote, repasse e glosa. Fatia própria.
+4. ~~**Convênio por reembolso**~~ — feito. Tabela de preço por convênio, escolha
+   do pagador no orçamento, reprecificação ao trocar. O financeiro não mudou: o
+   recebível guarda de qual convênio veio, e nada mais.
+5. **Faturamento por guia** — guia, lote, repasse e glosa. Fatia própria. Até
+   ela existir, aceitar um orçamento de convênio faturado é **recusado pelo
+   banco**, com uma frase que diz o que fazer no lugar. A alternativa seria
+   deixar o aceite passar e cobrar do paciente uma conta que é do convênio.
 6. **Importador de planilha** — quando houver cliente definido.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos

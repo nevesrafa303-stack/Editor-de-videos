@@ -37,17 +37,25 @@ begin
           'Orcamento do teste de alcada')
   returning id into v_quote;
 
+  -- Filtrar pela tabela, nao so pelo procedimento: desde que existe tabela de
+  -- convenio, o mesmo procedimento tem mais de uma linha de preco, e um select
+  -- sem `price_list_id` insere o item duas vezes. Este teste passava assim —
+  -- com o dobro do valor que o comentario abaixo descreve.
   insert into quote_item (tenant_id, quote_id, procedure_id, description, tooth_code, surfaces,
                           quantity, unit_price_cents, price_list_item_id)
   select '11111111-1111-7111-8111-111111111111', v_quote, '03111111-1111-7111-8111-111111111111',
          'Restauracao em resina', '16', array['O']::tooth_surface[], 1, 28000, pli.id
-  from price_list_item pli where pli.procedure_id = '03111111-1111-7111-8111-111111111111';
+  from price_list_item pli
+  where pli.procedure_id = '03111111-1111-7111-8111-111111111111'
+    and pli.price_list_id = '07111111-1111-7111-8111-111111111111';
 
   insert into quote_item (tenant_id, quote_id, procedure_id, description, region_code,
                           quantity, quantity_unit, unit_price_cents, price_list_item_id)
   select '11111111-1111-7111-8111-111111111111', v_quote, '03333333-3333-7333-8333-333333333333',
          'Toxina botulinica', 'glabela', 1, 'sessao', 150000, pli.id
-  from price_list_item pli where pli.procedure_id = '03333333-3333-7333-8333-333333333333';
+  from price_list_item pli
+  where pli.procedure_id = '03333333-3333-7333-8333-333333333333'
+    and pli.price_list_id = '07111111-1111-7111-8111-111111111111';
 
   -- ------------------------------------------------------------ recepcao ---
   -- 5% de 178.000 = 8.900. O teto de tabela (35.600) e maior, entao quem manda

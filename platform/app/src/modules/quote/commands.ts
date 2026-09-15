@@ -11,6 +11,7 @@
  *   so decide se PEDE aprovacao antes de tentar.
  */
 import { createHash } from "node:crypto";
+import { sql } from "kysely";
 import type { TenantContext } from "@/server/context";
 import { Forbidden, NotFound, ValidationError } from "@/shared/errors";
 import { toValidationError } from "@/shared/zod";
@@ -71,7 +72,7 @@ export async function createQuote(
     .executeTakeFirstOrThrow();
 
   if (data.planItemIds.length > 0) {
-    await trazerDoPlano(ctx, quote.id as string, data.planItemIds);
+    await trazerDoPlano(ctx, quote.id as string, data.planItemIds, data.payerId ?? null);
   }
 
   return { id: quote.id as string, number: Number(quote.number) };
@@ -88,6 +89,7 @@ async function trazerDoPlano(
   ctx: TenantContext,
   quoteId: string,
   planItemIds: string[],
+  payerId: string | null,
 ): Promise<void> {
   const itens = await ctx.db
     .selectFrom("treatment_plan_item as i")
@@ -106,7 +108,7 @@ async function trazerDoPlano(
 
   for (const item of itens) {
     const preco = item.procedure_id
-      ? await resolverPreco(ctx, item.procedure_id)
+      ? await resolverPreco(ctx, item.procedure_id, payerId)
       : null;
 
     const novo = await ctx.db
@@ -156,26 +158,40 @@ async function profissionalDoPlano(
   return row?.provider_id ?? null;
 }
 
+/**
+ * Preco vigente para um procedimento.
+ *
+ * A escolha da tabela e do BANCO: `resolve_price` prefere a tabela da unidade
+ * sobre a da rede, e a do convenio sobre a particular. Reimplementar essa
+ * precedencia aqui daria dois lugares para o preco sair diferente — e o preco
+ * errado num orcamento e um desconto que ninguem autorizou.
+ */
 async function resolverPreco(
   ctx: TenantContext,
   procedureId: string,
+  payerId: string | null,
 ): Promise<{ itemId: string; priceCents: number; costCents: number } | null> {
-  const row = await ctx.db
-    .selectFrom("price_list as pl")
-    .innerJoin("price_list_item as pli", "pli.price_list_id", "pl.id")
-    .select(["pli.id", "pli.price_cents", "pli.expected_cost_cents"])
-    .where("pli.procedure_id", "=", procedureId)
-    .where("pl.status", "=", "active")
-    .orderBy("pl.valid_from", "desc")
-    .limit(1)
-    .executeTakeFirst();
+  const resultado = await sql<{
+    price_list_item_id: string;
+    price_cents: number;
+    expected_cost_cents: number;
+  }>`
+    select price_list_item_id, price_cents, expected_cost_cents
+    from resolve_price(
+      ${ctx.session.tenantId}::uuid,
+      ${procedureId}::uuid,
+      ${ctx.session.activeUnitId}::uuid,
+      ${payerId}::uuid
+    )
+  `.execute(ctx.db);
 
+  const row = resultado.rows[0];
   if (!row) return null;
 
   return {
-    itemId: row.id as string,
-    priceCents: row.price_cents,
-    costCents: row.expected_cost_cents,
+    itemId: row.price_list_item_id,
+    priceCents: Number(row.price_cents),
+    costCents: Number(row.expected_cost_cents),
   };
 }
 
@@ -191,7 +207,10 @@ export async function addQuoteItem(
 
   await exigirEditavel(ctx, data.quoteId);
 
-  const preco = data.procedureId ? await resolverPreco(ctx, data.procedureId) : null;
+  const convenio = await convenioDoOrcamento(ctx, data.quoteId);
+  const preco = data.procedureId
+    ? await resolverPreco(ctx, data.procedureId, convenio)
+    : null;
 
   const row = await ctx.db
     .insertInto("quote_item")
@@ -201,9 +220,15 @@ export async function addQuoteItem(
       procedure_id: data.procedureId ?? null,
       description: data.description,
       tooth_code: data.toothCode,
+      surfaces: data.surfaces,
       region_code: data.regionCode,
       quantity: String(data.quantity),
-      unit_price_cents: data.unitPriceCents,
+      // Procedimento de catalogo vale o que a tabela vigente diz, mesmo que a
+      // tela tenha mandado outro numero. Aceitar um preco livre aqui seria
+      // abrir um desconto que ninguem aprovou e que nenhum teto veria: quem
+      // quer cobrar menos usa `discountCents`, que passa pela alcada. Item
+      // avulso, sem procedimento, continua valendo o que foi combinado.
+      unit_price_cents: preco?.priceCents ?? data.unitPriceCents,
       unit_cost_cents: preco?.costCents ?? 0,
       discount_cents: data.discountCents,
       price_list_item_id: preco?.itemId ?? null,
@@ -212,6 +237,76 @@ export async function addQuoteItem(
     .executeTakeFirstOrThrow();
 
   return { id: row.id as string };
+}
+
+/**
+ * Troca o convenio do orcamento e REPRECIFICA os itens.
+ *
+ * Trocar o pagador sem mexer no preco deixaria a proposta com valor de
+ * particular e carimbo de convenio — o pior dos dois mundos, e o tipo de erro
+ * que so aparece quando o paciente questiona a diferenca.
+ */
+export async function setQuotePayer(
+  ctx: TenantContext,
+  quoteId: string,
+  payerId: string | null,
+): Promise<{ reprecificados: number }> {
+  ctx.assert("quote.write");
+  await exigirEditavel(ctx, quoteId);
+
+  if (payerId) {
+    const convenio = await ctx.db
+      .selectFrom("payer")
+      .select(["id", "is_active"])
+      .where("id", "=", payerId)
+      .executeTakeFirst();
+
+    if (!convenio || !convenio.is_active) throw new NotFound("Convênio");
+  }
+
+  await ctx.db
+    .updateTable("quote")
+    .set({ payer_id: payerId })
+    .where("id", "=", quoteId)
+    .execute();
+
+  const itens = await ctx.db
+    .selectFrom("quote_item")
+    .select(["id", "procedure_id"])
+    .where("quote_id", "=", quoteId)
+    .where("procedure_id", "is not", null)
+    .execute();
+
+  let reprecificados = 0;
+
+  for (const item of itens) {
+    const preco = await resolverPreco(ctx, item.procedure_id as string, payerId);
+    if (!preco) continue;
+
+    await ctx.db
+      .updateTable("quote_item")
+      .set({
+        unit_price_cents: preco.priceCents,
+        unit_cost_cents: preco.costCents,
+        price_list_item_id: preco.itemId,
+      })
+      .where("id", "=", item.id)
+      .execute();
+
+    reprecificados += 1;
+  }
+
+  return { reprecificados };
+}
+
+async function convenioDoOrcamento(ctx: TenantContext, quoteId: string): Promise<string | null> {
+  const row = await ctx.db
+    .selectFrom("quote")
+    .select("payer_id")
+    .where("id", "=", quoteId)
+    .executeTakeFirst();
+
+  return row?.payer_id ?? null;
 }
 
 export async function removeQuoteItem(ctx: TenantContext, itemId: string): Promise<void> {

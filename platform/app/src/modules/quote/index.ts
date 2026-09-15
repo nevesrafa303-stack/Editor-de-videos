@@ -5,8 +5,10 @@ export {
   listQuotes,
   getQuote,
   getPlanItemsForQuote,
+  listQuotableProcedures,
   type QuoteListItem,
   type QuoteDetail,
+  type QuotableProcedure,
 } from "@/modules/quote/queries";
 
 export {
@@ -14,6 +16,7 @@ export {
   addQuoteItem,
   removeQuoteItem,
   setQuoteDiscount,
+  setQuotePayer,
   setQuoteTerms,
   changeQuoteStatus,
   acceptQuote,

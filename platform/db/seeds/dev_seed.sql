@@ -136,6 +136,27 @@ insert into price_list_item (tenant_id, price_list_id, procedure_id, price_cents
   ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03333333-3333-7333-8333-333333333333', 150000, 120000, 29040, 20, 35),
   ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03444444-4444-7444-8444-444444444444', 180000, 150000, 54600, 15, 35);
 
+-- Convênios: um de reembolso (o paciente paga e pede de volta) e um faturado
+-- por guia, que o sistema ainda recusa de propósito.
+insert into payer (id, tenant_id, kind, code, name, billing_mode, settlement_days, admin_fee_percent, notes) values
+  ('09111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'insurance', 'ODONTO_SAUDE', 'Odonto Saúde', 'reimbursement', 0, 0,
+   'Paciente paga a clínica e solicita reembolso com o recibo.'),
+  ('09222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
+   'insurance', 'DENTAL_MAIS', 'Dental Mais', 'invoiced', 45, 8,
+   'Faturado por guia, com repasse em 45 dias.');
+
+-- Tabela do Odonto Saúde: mais barata que a particular, como convênio costuma
+-- ser. `resolve_price` prefere a tabela do convênio quando há uma.
+insert into price_list (id, tenant_id, payer_id, code, name, status, valid_from, activated_at) values
+  ('07222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
+   '09111111-1111-7111-8111-111111111111', 'ODONTO_SAUDE_2026', 'Odonto Saúde 2026',
+   'active', current_date - 30, now());
+
+insert into price_list_item (tenant_id, price_list_id, procedure_id, price_cents, floor_price_cents, expected_cost_cents, max_discount_percent, commission_percent) values
+  ('11111111-1111-7111-8111-111111111111', '07222222-2222-7222-8222-222222222222', '03111111-1111-7111-8111-111111111111',  18000,  16000,  1800,  5, 20),
+  ('11111111-1111-7111-8111-111111111111', '07222222-2222-7222-8222-222222222222', '03222222-2222-7222-8222-222222222222', 240000, 220000, 90000,  5, 25);
+
 insert into payment_method (id, tenant_id, kind, name, fee_percent, settlement_days, max_installments, affects_cash_session) values
   ('08111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'pix',    'PIX',            0.99, 0,  1,  false),
   ('08222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'cash',   'Dinheiro',       0,    0,  1,  true),

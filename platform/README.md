@@ -5,13 +5,13 @@ multi-rede para clínicas de odontologia e harmonização facial**.
 
 A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
 produto inteiro antes de a primeira tela existir. Sobre ela já estão de pé os
-cinco módulos que fecham o ciclo — **pacientes**, **agenda**, **prontuário**,
-**orçamento** e **financeiro**. O produto se chama **Áurea**.
+seis módulos que fecham o ciclo — **pacientes**, **agenda**, **prontuário**,
+**orçamento**, **financeiro** e **convênios**. O produto se chama **Áurea**.
 
 ## O que tem aqui
 
 ```
-db/migrations/   24 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   26 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
 db/tests/        118 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
@@ -24,11 +24,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0024
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0026
 psql -d crm -f db/seeds/dev_seed.sql
 
 ./db/tests/run_tests.sh                             # 118 testes de invariante
-(cd app && npm install && npm run test:all)         # + 111 de integração + 53 de navegador
+(cd app && npm install && npm run test:all)         # + 129 de integração + 60 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -46,10 +46,10 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Chaves estrangeiras | 410 |
 | Constraints `check` | 236 |
 | Triggers | 95 |
-| Enums | 63 |
+| Enums | 64 |
 | Transições de estado declaradas | 74 |
 | Permissões no catálogo | 66 |
-| Testes | 118 no banco + 111 na camada de acesso + 53 no navegador, todos passando |
+| Testes | 118 no banco + 129 na camada de acesso + 60 no navegador, todos passando |
 
 ## Por onde começar a ler
 

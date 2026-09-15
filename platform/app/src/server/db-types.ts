@@ -116,6 +116,8 @@ export type PatientStatus = "active" | "anonymized" | "archived" | "inactive";
 
 export type PayableStatus = "canceled" | "open" | "paid" | "partially_paid";
 
+export type PayerBillingMode = "invoiced" | "reimbursement";
+
 export type PayerKind = "agreement" | "insurance" | "partnership" | "private";
 
 export type PaymentKind = "boleto" | "cash" | "credit" | "credit_note" | "debit" | "insurance" | "pix" | "transfer";
@@ -1221,12 +1223,17 @@ export interface Payable {
 export interface Payer {
   admin_fee_percent: Generated<Numeric>;
   ans_code: string | null;
+  /**
+   * Decide quem deve o dinheiro. Muda o financeiro inteiro, nao so a tabela de preco.
+   */
+  billing_mode: Generated<PayerBillingMode>;
   code: string;
   created_at: Generated<Timestamp>;
   id: Generated<string>;
   is_active: Generated<boolean>;
   kind: Generated<PayerKind>;
   name: string;
+  notes: string | null;
   settlement_days: Generated<number>;
   tax_id: string | null;
   tenant_id: string;

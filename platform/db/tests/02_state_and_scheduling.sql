@@ -124,19 +124,25 @@ begin
               'Restauracao', 28000)$sql$, v_quote),
     'exige dente');
 
+  -- O `price_list_id` no filtro nao e detalhe: sem ele o select casava com a
+  -- linha da tabela particular E com a do convenio, inseria o item duas vezes e
+  -- o teste falhava por um total que o banco calculou certo. Item de orcamento
+  -- aponta para UMA linha de UMA tabela — a mesma que esta no cabecalho.
   insert into quote_item (tenant_id, quote_id, procedure_id, description, tooth_code, surfaces,
                           quantity, unit_price_cents, unit_cost_cents, price_list_item_id)
   select '11111111-1111-7111-8111-111111111111', v_quote, '03111111-1111-7111-8111-111111111111',
          'Restauracao em resina', '16', array['O']::tooth_surface[], 1, 28000, 1800, pli.id
   from price_list_item pli
-  where pli.procedure_id = '03111111-1111-7111-8111-111111111111';
+  where pli.procedure_id = '03111111-1111-7111-8111-111111111111'
+    and pli.price_list_id = '07111111-1111-7111-8111-111111111111';
 
   insert into quote_item (tenant_id, quote_id, procedure_id, description, region_code,
                           quantity, quantity_unit, unit_price_cents, unit_cost_cents, price_list_item_id)
   select '11111111-1111-7111-8111-111111111111', v_quote, '03333333-3333-7333-8333-333333333333',
          'Toxina botulinica - glabela', 'glabela', 1, 'sessao', 150000, 29040, pli.id
   from price_list_item pli
-  where pli.procedure_id = '03333333-3333-7333-8333-333333333333';
+  where pli.procedure_id = '03333333-3333-7333-8333-333333333333'
+    and pli.price_list_id = '07111111-1111-7111-8111-111111111111';
 
   select subtotal_cents, total_cents into v_sub, v_total from quote where id = v_quote;
   perform test.check('orcamento', 'totais sao recalculados pelo banco a partir dos itens',

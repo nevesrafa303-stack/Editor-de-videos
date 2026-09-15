@@ -7,6 +7,7 @@ import { cn } from "@/ui";
 import {
   IconBox,
   IconCalendar,
+  IconCard,
   IconDocument,
   IconExit,
   IconFunnel,
@@ -32,6 +33,7 @@ const ICONS: Record<string, (props: { className?: string }) => ReactElement> = {
   document: IconDocument,
   money: IconMoney,
   box: IconBox,
+  card: IconCard,
 };
 
 export function Rail({

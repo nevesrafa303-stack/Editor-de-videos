@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState, useState } from "react";
-import type { QuoteDetail } from "@/modules/quote";
+import { useActionState, useEffect, useRef, useState } from "react";
+import type { QuotableProcedure, QuoteDetail } from "@/modules/quote";
+import { SURFACES } from "@/modules/chart/schema";
 import {
   aceitarAction,
   adicionarItemAction,
@@ -9,19 +10,46 @@ import {
   descontoAction,
   mudarStatusAction,
   removerItemAction,
+  trocarConvenioAction,
 } from "@/modules/quote/server-actions";
+import type { BillingMode } from "@/modules/payer";
 import { EMPTY_STATE } from "@/shared/action-state";
 import { Badge, Button, Field, FormError, Input, Notice, Panel, PanelHead, Select } from "@/ui";
 import { formatBRL } from "@/shared/format";
 import { resumoParcelas } from "@/shared/money";
 import { PROXIMOS, STATUS } from "../status";
+import { MODO } from "../../convenios/modo";
+
+export type ConvenioOpcao = { id: string; name: string; billingMode: BillingMode };
 
 const EDITAVEL = ["draft", "negotiating"];
 
-export function Itens({ quote }: { quote: QuoteDetail }) {
+export function Itens({
+  quote,
+  procedimentos,
+}: {
+  quote: QuoteDetail;
+  procedimentos: QuotableProcedure[];
+}) {
   const [state, action, pending] = useActionState(adicionarItemAction, EMPTY_STATE);
   const [remocao, remover, removendo] = useActionState(removerItemAction, EMPTY_STATE);
+  const [procedureId, setProcedureId] = useState("");
+  const formulario = useRef<HTMLFormElement>(null);
   const editavel = EDITAVEL.includes(quote.status) && quote.can.write;
+
+  // Limpa o formulario depois de adicionar. Sem isto o dente do item anterior
+  // fica no campo, e o proximo item entra no dente errado — erro que so
+  // aparece quando o paciente le a proposta. `state` e um objeto novo a cada
+  // envio, entao o efeito dispara uma vez por adicao.
+  useEffect(() => {
+    if (!state.success) return;
+    formulario.current?.reset();
+    setProcedureId("");
+  }, [state]);
+
+  const escolhido = procedimentos.find((p) => p.id === procedureId) ?? null;
+  const pedeDente = escolhido?.scope === "tooth" || escolhido?.scope === "surface";
+  const pedeFace = escolhido?.scope === "surface";
 
   return (
     <Panel className="overflow-hidden">
@@ -91,7 +119,11 @@ export function Itens({ quote }: { quote: QuoteDetail }) {
       ) : null}
 
       {editavel ? (
-        <form action={action} className="border-t border-line bg-sunken/40 px-5 py-4">
+        <form
+          ref={formulario}
+          action={action}
+          className="border-t border-line bg-sunken/40 px-5 py-4"
+        >
           <FormError error={state.error} fieldErrors={state.fieldErrors} />
           {state.success ? (
             <p className="mb-2 text-sm font-medium text-positive">{state.success}</p>
@@ -99,30 +131,210 @@ export function Itens({ quote }: { quote: QuoteDetail }) {
 
           <input type="hidden" name="quoteId" value={quote.id} />
 
-          <div className="grid gap-3 sm:grid-cols-[minmax(0,2fr)_80px_110px_120px_auto] sm:items-end">
-            <Field label="Item avulso" error={state.fieldErrors?.description?.[0]}>
-              <Input name="description" required placeholder="Descrição do procedimento" />
+          {/* Duas linhas de proposito: procedimento e descricao precisam de
+              largura para serem lidos, e espremer os seis campos numa linha so
+              truncava o proprio rotulo dos campos. */}
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Procedimento">
+              <Select
+                name="procedureId"
+                value={procedureId}
+                onChange={(e) => setProcedureId(e.currentTarget.value)}
+              >
+                <option value="">Item avulso, sem tabela</option>
+                {procedimentos.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                    {p.priceCents === null ? " · sem preço" : ` · ${formatBRL(p.priceCents)}`}
+                  </option>
+                ))}
+              </Select>
             </Field>
+
+            <Field label="Descrição" error={state.fieldErrors?.description?.[0]}>
+              <Input
+                name="description"
+                required
+                key={procedureId}
+                defaultValue={escolhido?.name ?? ""}
+                placeholder="Como sai na proposta"
+              />
+            </Field>
+          </div>
+
+          {pedeFace ? (
+            <fieldset className="mt-3">
+              <legend className="label">Faces</legend>
+              <div className="flex flex-wrap gap-2">
+                {SURFACES.map((f) => (
+                  <label
+                    key={f}
+                    className="num flex cursor-pointer items-center gap-1.5 rounded-md border border-line bg-surface px-2.5 py-1 text-sm text-ink-soft hover:border-structure"
+                  >
+                    <input type="checkbox" name="surfaces" value={f} className="size-3.5" />
+                    {f}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ) : null}
+
+          <div className="mt-3 grid gap-3 sm:grid-cols-[90px_100px_140px_auto] sm:items-end">
             <Field label="Dente" error={state.fieldErrors?.toothCode?.[0]}>
-              <Input name="toothCode" placeholder="36" maxLength={2} className="num" />
+              <Input
+                name="toothCode"
+                placeholder="36"
+                maxLength={2}
+                required={pedeDente}
+                className="num"
+              />
             </Field>
+
             <Field label="Qtd.">
               <Input name="quantity" type="number" min="0.1" step="0.1" defaultValue="1" />
             </Field>
+
             <Field label="Unitário (R$)" error={state.fieldErrors?.unitPriceCents?.[0]}>
-              <Input name="unitPrice" required placeholder="0,00" className="num" />
+              <Input
+                name="unitPrice"
+                required
+                key={`preco-${procedureId}`}
+                defaultValue={
+                  escolhido?.priceCents != null
+                    ? (escolhido.priceCents / 100).toFixed(2).replace(".", ",")
+                    : ""
+                }
+                readOnly={escolhido?.priceCents != null}
+                placeholder="0,00"
+                className="num"
+              />
             </Field>
-            <Button type="submit" size="sm" disabled={pending} className="mb-0.5">
+
+            <Button
+              type="submit"
+              size="sm"
+              disabled={pending}
+              className="mb-0.5 justify-self-start"
+            >
               {pending ? "Adicionando…" : "Adicionar"}
             </Button>
           </div>
 
           <p className="mt-2 text-xs text-muted">
-            Item avulso não tem tabela de preço por trás — o teto de desconto passa a ser só o do
-            seu papel.
+            {escolhido
+              ? `${
+                  quote.payer
+                    ? `O preço vem da tabela de ${quote.payer.name}`
+                    : "O preço vem da tabela particular vigente"
+                } e fica congelado nesta proposta.${
+                  pedeFace ? " Este procedimento é por face: sem face, o banco recusa o item." : ""
+                }`
+              : "Item avulso não tem tabela de preço por trás — o teto de desconto passa a ser só o do seu papel."}
           </p>
         </form>
       ) : null}
+    </Panel>
+  );
+}
+
+/**
+ * Quem paga a proposta.
+ *
+ * Trocar o convenio reprecifica os itens, e a tela avisa quantos mudaram. Fica
+ * aqui, junto do total, e nao escondido no cadastro: o preco que o paciente
+ * ouve depende desta escolha, e quem atende precisa ve-la ao lado do numero.
+ */
+export function Convenio({
+  quote,
+  opcoes,
+}: {
+  quote: QuoteDetail;
+  opcoes: ConvenioOpcao[];
+}) {
+  const [state, action, pending] = useActionState(trocarConvenioAction, EMPTY_STATE);
+  const [payerId, setPayerId] = useState(quote.payer?.id ?? "");
+  const editavel = EDITAVEL.includes(quote.status) && quote.can.write;
+
+  const atual = quote.payer;
+  const escolhido = opcoes.find((o) => o.id === payerId) ?? null;
+  const modoAtual = atual ? MODO[atual.billingMode as BillingMode] : null;
+
+  // Convenio inativo continua no documento antigo, e some do seletor. Sem esta
+  // linha, trocar qualquer outra coisa apagaria o convenio da proposta sem
+  // ninguem pedir.
+  const some = atual !== null && !opcoes.some((o) => o.id === atual.id);
+
+  return (
+    <Panel className="overflow-hidden">
+      <PanelHead
+        title="Quem paga"
+        hint="O convênio decide o preço de cada item. Trocar reprecifica a proposta."
+      />
+
+      <div className="space-y-3 px-5 py-4">
+        <div className="flex flex-wrap items-center gap-2">
+          {atual ? (
+            <>
+              <span className="text-sm font-medium text-ink">{atual.name}</span>
+              {modoAtual ? <Badge tone={modoAtual.tom}>{modoAtual.rotulo}</Badge> : null}
+            </>
+          ) : (
+            <span className="text-sm text-ink-soft">Particular</span>
+          )}
+        </div>
+
+        {atual && modoAtual?.rotulo === MODO.invoiced.rotulo ? (
+          <Notice tone="warning">{MODO.invoiced.explica}</Notice>
+        ) : null}
+
+        {some ? (
+          <p className="text-xs text-muted">
+            Este convênio foi desativado. A proposta mantém o que foi combinado.
+          </p>
+        ) : null}
+
+        {editavel && opcoes.length > 0 ? (
+          <form action={action} className="space-y-2">
+            <FormError error={state.error} fieldErrors={state.fieldErrors} />
+            {state.success ? (
+              <p className="text-sm font-medium text-positive">{state.success}</p>
+            ) : null}
+
+            <input type="hidden" name="quoteId" value={quote.id} />
+
+            <div className="flex flex-wrap items-end gap-2">
+              <Field label="Trocar para" className="min-w-40 flex-1">
+                <Select
+                  name="payerId"
+                  value={payerId}
+                  onChange={(e) => setPayerId(e.currentTarget.value)}
+                >
+                  <option value="">Particular</option>
+                  {opcoes.map((o) => (
+                    <option key={o.id} value={o.id}>
+                      {o.name} · {MODO[o.billingMode].rotulo}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+
+              <Button
+                type="submit"
+                size="sm"
+                variant="secondary"
+                disabled={pending || payerId === (atual?.id ?? "")}
+                className="mb-0.5"
+              >
+                {pending ? "Trocando…" : "Trocar"}
+              </Button>
+            </div>
+
+            {escolhido && escolhido.billingMode === "invoiced" ? (
+              <p className="text-xs text-warning">{MODO.invoiced.explica}</p>
+            ) : null}
+          </form>
+        ) : null}
+      </div>
     </Panel>
   );
 }

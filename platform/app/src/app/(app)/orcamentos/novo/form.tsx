@@ -1,23 +1,31 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { criarOrcamentoAction } from "@/modules/quote/server-actions";
 import { EMPTY_STATE } from "@/shared/action-state";
-import { Button, Field, FormError, Input, Panel } from "@/ui";
+import { Button, Field, FormError, Input, Notice, Panel, Select } from "@/ui";
 import { formatBRL } from "@/shared/format";
+import type { BillingMode } from "@/modules/payer";
+import { MODO } from "../../convenios/modo";
 
 type Planejado = { id: string; descricao: string; local: string; precoCents: number };
+type Convenio = { id: string; name: string; billingMode: BillingMode };
 
 export function NovoOrcamentoForm({
   patientId,
   patientName,
   planejados,
+  convenios,
 }: {
   patientId: string;
   patientName: string;
   planejados: Planejado[];
+  convenios: Convenio[];
 }) {
   const [state, action, pending] = useActionState(criarOrcamentoAction, EMPTY_STATE);
+  const [payerId, setPayerId] = useState("");
+
+  const escolhido = convenios.find((c) => c.id === payerId) ?? null;
 
   return (
     <form action={action} className="space-y-5">
@@ -37,6 +45,34 @@ export function NovoOrcamentoForm({
         <Field label="Validade (dias)" hint="Depois disso, vence.">
           <Input id="validDays" name="validDays" type="number" min={1} max={365} defaultValue={15} />
         </Field>
+
+        {convenios.length > 0 ? (
+          <Field
+            label="Quem paga"
+            className="sm:col-span-2"
+            hint="Escolha antes de trazer os itens: é o convênio que decide o preço de cada um."
+          >
+            <Select
+              id="payerId"
+              name="payerId"
+              value={payerId}
+              onChange={(e) => setPayerId(e.currentTarget.value)}
+            >
+              <option value="">Particular</option>
+              {convenios.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name} · {MODO[c.billingMode].rotulo}
+                </option>
+              ))}
+            </Select>
+          </Field>
+        ) : null}
+
+        {escolhido && escolhido.billingMode === "invoiced" ? (
+          <div className="sm:col-span-2">
+            <Notice tone="warning">{MODO.invoiced.explica}</Notice>
+          </div>
+        ) : null}
       </Panel>
 
       <Panel className="overflow-hidden">

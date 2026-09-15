@@ -50,8 +50,13 @@ const BY_CONSTRAINT: Record<string, string> = {
 /**
  * Mensagens levantadas por trigger chegam como texto. Casamos por trecho
  * estavel da mensagem, nao pela frase inteira.
+ *
+ * `null` no lugar da frase significa "a mensagem do banco JA e a frase do
+ * produto, repasse". Serve para as recusas que citam um nome que so o banco
+ * conhece — reescrever aqui trocaria "o convenio Dental Mais e faturado por
+ * guia" por uma frase generica que nao diz de qual convenio se trata.
  */
-const BY_MESSAGE: [RegExp, string][] = [
+const BY_MESSAGE: [RegExp, string | null][] = [
   [/Transicao invalida em (\w+): (\w+) -> (\w+)/, "Esta mudanca de status nao e permitida a partir do estado atual."],
   [/exige lote rastreado/, "Aplicacao de injetavel exige lote rastreado."],
   [/venceu em/, "Este lote esta vencido e nao pode ser aplicado."],
@@ -67,6 +72,7 @@ const BY_MESSAGE: [RegExp, string][] = [
   [/exige dente/, "Este procedimento exige informar o dente."],
   [/exige regiao/, "Este procedimento exige informar a regiao."],
   [/exige ao menos uma face/, "Este procedimento exige informar ao menos uma face."],
+  [/faturado por guia/, null],
 ];
 
 export function translatePgError(error: unknown): AppError | null {
@@ -108,7 +114,7 @@ export function translatePgError(error: unknown): AppError | null {
   }
 
   for (const [pattern, text] of BY_MESSAGE) {
-    if (pattern.test(message)) return new BusinessRuleError(text, error);
+    if (pattern.test(message)) return new BusinessRuleError(text ?? message, error);
   }
 
   switch (pg.code) {

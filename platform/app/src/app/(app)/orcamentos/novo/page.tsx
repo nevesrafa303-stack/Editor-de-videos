@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { withPage } from "@/server/next/page";
 import { getPlanItemsForQuote } from "@/modules/quote/queries";
+import { listActivePayers } from "@/modules/payer";
 import { LinkButton, PageHead } from "@/ui";
 import { NovoOrcamentoForm } from "./form";
 
@@ -18,7 +19,7 @@ export default async function NovoOrcamentoPage({
   const dados = await withPage(async (ctx) => {
     if (!ctx.can("quote.write")) return null;
 
-    const [pessoa, planejados] = await Promise.all([
+    const [pessoa, planejados, convenios] = await Promise.all([
       ctx.db
         .selectFrom("patient")
         .select(["id", "full_name"])
@@ -26,9 +27,10 @@ export default async function NovoOrcamentoPage({
         .where("deleted_at", "is", null)
         .executeTakeFirst(),
       getPlanItemsForQuote(ctx, paciente),
+      listActivePayers(ctx),
     ]);
 
-    return pessoa ? { pessoa, planejados } : null;
+    return pessoa ? { pessoa, planejados, convenios } : null;
   }, "quote.read");
 
   if (!dados) redirect("/pacientes");
@@ -49,6 +51,7 @@ export default async function NovoOrcamentoPage({
         <NovoOrcamentoForm
           patientId={dados.pessoa.id as string}
           patientName={dados.pessoa.full_name}
+          convenios={dados.convenios}
           planejados={dados.planejados.map((i) => ({
             id: i.id as string,
             descricao: i.description,
