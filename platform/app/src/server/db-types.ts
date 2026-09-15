@@ -1657,6 +1657,9 @@ export interface Quote {
   loss_reason_id: string | null;
   notes: string | null;
   number: Generated<Int8>;
+  /**
+   * De qual negocio do funil esta proposta saiu. Aceitar o orcamento ganha a oportunidade.
+   */
   opportunity_id: string | null;
   patient_id: string;
   payer_id: string | null;

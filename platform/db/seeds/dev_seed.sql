@@ -72,25 +72,88 @@ insert into membership_unit (membership_id, unit_id, is_primary) values
 -- Origem de lead e funil.
 insert into acquisition_source (id, tenant_id, code, name, channel) values
   ('e1111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'INSTAGRAM', 'Instagram', 'organico'),
-  ('e2222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'INDICACAO', 'Indicacao', 'indicacao'),
-  ('e3333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', 'TRAFEGO',   'Trafego pago', 'pago');
+  ('e2222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'INDICACAO', 'Indicação', 'indicacao'),
+  ('e3333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', 'TRAFEGO',   'Tráfego pago', 'pago');
 
 insert into pipeline (id, tenant_id, code, name, vertical, is_default) values
-  ('f1111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'PADRAO', 'Funil padrao', 'geral', true);
+  ('f1111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'PADRAO', 'Funil padrão', 'geral', true);
 
 insert into pipeline_stage (tenant_id, pipeline_id, code, name, sort_order, win_probability, cooling_days, is_won, is_lost) values
   ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'NOVO',      'Novo lead',            1, 0.05, 2,  false, false),
   ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'CONTATO',   'Em contato',           2, 0.15, 3,  false, false),
-  ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'AVALIACAO', 'Avaliacao agendada',   3, 0.40, 5,  false, false),
+  ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'AVALIACAO', 'Avaliação agendada',   3, 0.40, 5,  false, false),
   ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'PROPOSTA',  'Proposta enviada',     4, 0.65, 7,  false, false),
   ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'GANHO',     'Fechado',              5, 1.00, 30, true,  false),
   ('11111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111', 'PERDIDO',   'Perdido',              6, 0.00, 30, false, true);
 
 insert into loss_reason (tenant_id, code, name, category) values
-  ('11111111-1111-7111-8111-111111111111', 'PRECO',       'Preco acima do esperado',       'preco'),
-  ('11111111-1111-7111-8111-111111111111', 'SEM_RESPOSTA','Sem resposta apos tentativas',  'sem_resposta'),
-  ('11111111-1111-7111-8111-111111111111', 'CONCORRENTE', 'Escolheu outra clinica',        'concorrencia'),
+  ('11111111-1111-7111-8111-111111111111', 'PRECO',       'Preço acima do esperado',       'preco'),
+  ('11111111-1111-7111-8111-111111111111', 'SEM_RESPOSTA','Sem resposta após tentativas',  'sem_resposta'),
+  ('11111111-1111-7111-8111-111111111111', 'CONCORRENTE', 'Escolheu outra clínica',        'concorrencia'),
   ('11111111-1111-7111-8111-111111111111', 'ADIOU',       'Adiou o tratamento',            'timing');
+
+-- Funil com movimento: um contato quente, um esfriando e um com a ação
+-- atrasada. Sem os três, a tela do funil não mostra o que ela existe para
+-- mostrar — que é onde os negócios param.
+insert into lead (id, tenant_id, unit_id, full_name, phone, email, source_id,
+                  interest, status, owner_id, created_at) values
+  ('0c111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', 'Beatriz Lemos', '11987651111',
+   'beatriz@exemplo.com', 'e1111111-1111-7111-8111-111111111111',
+   'Clareamento e facetas', 'working', 'd1111111-1111-7111-8111-111111111111',
+   now() - interval '2 days'),
+  ('0c222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', 'Otávio Prado', '11987652222',
+   null, 'e3333333-3333-7333-8333-333333333333',
+   'Implante no lugar do 36', 'new', 'd1111111-1111-7111-8111-111111111111',
+   now() - interval '12 days'),
+  ('0c333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', 'Renata Vieira', '11987653333',
+   'renata@exemplo.com', 'e2222222-2222-7222-8222-222222222222',
+   'Harmonização facial', 'working', 'd3333333-3333-7333-8333-333333333333',
+   now() - interval '6 days');
+
+insert into opportunity (id, tenant_id, unit_id, pipeline_id, stage_id, lead_id,
+                         title, amount_cents, owner_id, source_id, created_at) values
+  ('0d111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111',
+   (select id from pipeline_stage where pipeline_id = 'f1111111-1111-7111-8111-111111111111' and code = 'AVALIACAO'),
+   '0c111111-1111-7111-8111-111111111111', 'Clareamento e facetas', 450000,
+   'd1111111-1111-7111-8111-111111111111', 'e1111111-1111-7111-8111-111111111111',
+   now() - interval '2 days'),
+  ('0d222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111',
+   (select id from pipeline_stage where pipeline_id = 'f1111111-1111-7111-8111-111111111111' and code = 'NOVO'),
+   '0c222222-2222-7222-8222-222222222222', 'Implante no lugar do 36', 320000,
+   'd1111111-1111-7111-8111-111111111111', 'e3333333-3333-7333-8333-333333333333',
+   now() - interval '12 days'),
+  ('0d333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111',
+   'a1111111-1111-7111-8111-111111111111', 'f1111111-1111-7111-8111-111111111111',
+   (select id from pipeline_stage where pipeline_id = 'f1111111-1111-7111-8111-111111111111' and code = 'CONTATO'),
+   '0c333333-3333-7333-8333-333333333333', 'Harmonização facial', 600000,
+   'd3333333-3333-7333-8333-333333333333', 'e2222222-2222-7222-8222-222222222222',
+   now() - interval '6 days');
+
+-- Beatriz foi falada ontem; Renata há seis dias, e a etapa dela esfria em três.
+insert into activity (tenant_id, opportunity_id, kind, body, performed_by, occurred_at) values
+  ('11111111-1111-7111-8111-111111111111', '0d111111-1111-7111-8111-111111111111',
+   'whatsapp', 'Mandei os valores e as fotos do antes e depois. Vai conversar com o marido.',
+   'd1111111-1111-7111-8111-111111111111', now() - interval '1 day'),
+  ('11111111-1111-7111-8111-111111111111', '0d333333-3333-7333-8333-333333333333',
+   'call', 'Ligou perguntando preço de preenchimento. Passei a faixa e ofereci avaliação.',
+   'd3333333-3333-7333-8333-333333333333', now() - interval '6 days');
+
+-- A ação da Renata venceu anteontem: é a linha que a tela precisa gritar.
+insert into task (tenant_id, unit_id, opportunity_id, title, due_at, priority,
+                  assigned_to, created_by) values
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '0d111111-1111-7111-8111-111111111111', 'Ligar para saber da decisão',
+   now() + interval '2 days', 'normal',
+   'd1111111-1111-7111-8111-111111111111', 'd1111111-1111-7111-8111-111111111111'),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '0d333333-3333-7333-8333-333333333333', 'Mandar o orçamento de harmonização',
+   now() - interval '2 days', 'high',
+   'd3333333-3333-7333-8333-333333333333', 'd1111111-1111-7111-8111-111111111111');
 
 -- Catalogo.
 insert into procedure_category (id, tenant_id, code, name, vertical) values
@@ -101,7 +164,10 @@ insert into procedure (id, tenant_id, category_id, code, name, vertical, scope, 
   ('03111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'REST_RESINA', 'Restauração em resina', 'odontologia', 'surface', 'face',   60, false, null),
   ('03222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'IMPLANTE',    'Implante unitário',     'odontologia', 'tooth',   'dente',  120, true,  'procedimento'),
   ('03333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'TOXINA',      'Toxina botulínica',     'estetica',    'region',  'U',      60, true,  'procedimento'),
-  ('03444444-4444-7444-8444-444444444444', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'PREENCH',     'Preenchimento com ácido hialurônico', 'estetica', 'region', 'ml', 60, true, 'procedimento');
+  ('03444444-4444-7444-8444-444444444444', '11111111-1111-7111-8111-111111111111', '02222222-2222-7222-8222-222222222222', 'PREENCH',     'Preenchimento com ácido hialurônico', 'estetica', 'region', 'ml', 60, true, 'procedimento'),
+  -- Escopo `arch`: clareamento é por arcada, não por dente. Serve de exemplo de
+  -- procedimento que não pede dente nem face na tela do orçamento.
+  ('03555555-5555-7555-8555-555555555555', '11111111-1111-7111-8111-111111111111', '01111111-1111-7111-8111-111111111111', 'CLAREAMENTO', 'Clareamento de consultório', 'odontologia', 'arch', 'sessao', 90, false, null);
 
 -- Insumos com controle de lote.
 insert into product (id, tenant_id, kind, code, name, brand, stock_unit, usage_unit, conversion_factor, requires_lot, requires_refrigeration, min_temperature, max_temperature, min_quantity, default_cost_cents) values
@@ -110,7 +176,7 @@ insert into product (id, tenant_id, kind, code, name, brand, stock_unit, usage_u
   ('04333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', 'consumable', 'RESINA', 'Resina composta A2',     'Generico', 'tubo',   'g',  4,   false, false, null, null, 5, 12000);
 
 insert into stock_location (id, tenant_id, unit_id, code, name, kind) values
-  ('05111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'GELADEIRA', 'Geladeira clinica', 'fridge'),
+  ('05111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'GELADEIRA', 'Geladeira clínica', 'fridge'),
   ('05222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'a2222222-2222-7222-8222-222222222222', 'ALMOX',     'Almoxarifado',      'storage');
 
 -- Um lote valido e um vencido: o vencido existe para o teste provar que o banco
@@ -134,7 +200,8 @@ insert into price_list_item (tenant_id, price_list_id, procedure_id, price_cents
   ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03111111-1111-7111-8111-111111111111',  28000,  22000,  1800, 20, 30),
   ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03222222-2222-7222-8222-222222222222', 320000, 280000, 90000, 12, 40),
   ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03333333-3333-7333-8333-333333333333', 150000, 120000, 29040, 20, 35),
-  ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03444444-4444-7444-8444-444444444444', 180000, 150000, 54600, 15, 35);
+  ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03444444-4444-7444-8444-444444444444', 180000, 150000, 54600, 15, 35),
+  ('11111111-1111-7111-8111-111111111111', '07111111-1111-7111-8111-111111111111', '03555555-5555-7555-8555-555555555555',  90000,  80000,  12000, 10, 20);
 
 -- Convênios: um de reembolso (o paciente paga e pede de volta) e um faturado
 -- por guia, que emite guia, entra em lote e espera o repasse.

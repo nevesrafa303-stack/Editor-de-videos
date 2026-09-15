@@ -229,6 +229,10 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 18 · Glosa com prazo de recurso | pronto, com fila ordenada por prazo |
 | 19 · Conferência por procedimento | pronto; é o nível que responde "o que este convênio glosa sempre" |
 | 20 · Autorização prévia | só o campo da senha; o fluxo de pedir é outra fatia |
+| 21 · Funil por lista, não arrastável | pronto; funciona no teclado e no celular |
+| 22 · Ganhar é o aceite do orçamento | pronto, por trigger — não há botão de "ganhei" |
+| 23 · Próxima ação com data e responsável | pronto, com fila de pendências |
+| 24 · Entrada só por lead cadastrado à mão | pronto; oportunidade a partir de paciente antigo fica para depois |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -246,7 +250,12 @@ Os demais seguem pendentes, na ordem abaixo.
    procedimento, glosa com prazo e recurso. O aceite passou de recusa a
    roteamento: cobra o convênio pelo contrato e o paciente pela
    co-participação.
-6. **Importador de planilha** — quando houver cliente definido.
+6. ~~**Funil de vendas**~~ — feito. Quadro por etapa, contato registrado,
+   próxima ação com prazo, e o aceite do orçamento fechando o negócio. **O que
+   ficou de fora:** oportunidade a partir de paciente antigo (o botão na ficha),
+   formulário público no site, e o funil por vertical — o schema suporta mais de
+   um `pipeline`, mas a tela usa o padrão.
+7. **Importador de planilha** — quando houver cliente definido.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por

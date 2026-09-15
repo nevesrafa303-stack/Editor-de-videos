@@ -40,6 +40,8 @@ export const createQuoteSchema = z
     patientId: z.uuid("Escolha o paciente."),
     providerId: z.uuid().nullish(),
     payerId: z.uuid().nullish(),
+    /** De qual negócio do funil esta proposta saiu. O aceite ganha o negócio. */
+    opportunityId: z.uuid().nullish(),
     title: z.string().trim().max(160).nullish(),
     notes: z.string().trim().max(2000).nullish(),
     validDays: z.coerce.number().int().min(1).max(365).default(15),

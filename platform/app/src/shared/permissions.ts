@@ -68,6 +68,8 @@ export type Permission =
   | "report.financial"
   | "report.read"
   | "role.write"
+  | "task.read"
+  | "task.write"
   | "tenant.read"
   | "tenant.write"
   | "treatment_plan.execute"
@@ -161,6 +163,8 @@ export const PERMISSION_META: Record<
   "report.financial": { resource: "report", action: "financial", isPhi: false, description: "Ver relatorios financeiros" },
   "report.read": { resource: "report", action: "read", isPhi: false, description: "Ver relatorios operacionais" },
   "role.write": { resource: "role", action: "write", isPhi: false, description: "Editar papeis e permissoes" },
+  "task.read": { resource: "task", action: "read", isPhi: false, description: "Ver tarefas e pendencias" },
+  "task.write": { resource: "task", action: "write", isPhi: false, description: "Criar, concluir e cancelar tarefa" },
   "tenant.read": { resource: "tenant", action: "read", isPhi: false, description: "Ver dados da rede" },
   "tenant.write": { resource: "tenant", action: "write", isPhi: false, description: "Editar dados e plano da rede" },
   "treatment_plan.execute": { resource: "treatment_plan", action: "execute", isPhi: true, description: "Marcar item como executado" },
@@ -236,6 +240,8 @@ export const DEFAULT_ROLE_PERMISSIONS: Partial<Record<Permission, SystemRoleCode
   "report.financial": ["finance", "manager", "owner"],
   "report.read": ["finance", "manager", "owner", "professional", "reception"],
   "role.write": ["manager", "owner"],
+  "task.read": ["finance", "manager", "owner", "professional", "reception"],
+  "task.write": ["manager", "owner", "professional", "reception"],
   "tenant.read": ["manager", "owner"],
   "tenant.write": ["owner"],
   "treatment_plan.execute": ["manager", "owner", "professional"],

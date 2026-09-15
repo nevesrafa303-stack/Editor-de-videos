@@ -11,9 +11,9 @@ export const metadata: Metadata = { title: "Novo orçamento" };
 export default async function NovoOrcamentoPage({
   searchParams,
 }: {
-  searchParams: Promise<{ paciente?: string }>;
+  searchParams: Promise<{ paciente?: string; oportunidade?: string }>;
 }) {
-  const { paciente } = await searchParams;
+  const { paciente, oportunidade } = await searchParams;
   if (!paciente) redirect("/pacientes");
 
   const dados = await withPage(async (ctx) => {
@@ -52,6 +52,7 @@ export default async function NovoOrcamentoPage({
           patientId={dados.pessoa.id as string}
           patientName={dados.pessoa.full_name}
           convenios={dados.convenios}
+          oportunidadeId={oportunidade ?? null}
           planejados={dados.planejados.map((i) => ({
             id: i.id as string,
             descricao: i.description,

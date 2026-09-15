@@ -22,6 +22,7 @@ const criar = formAction(async (ctx, formData) => {
   const { id } = await createQuote(ctx, {
     patientId: String(formData.get("patientId") ?? ""),
     payerId: String(formData.get("payerId") ?? "") || null,
+    opportunityId: String(formData.get("opportunityId") ?? "") || null,
     title: String(formData.get("title") ?? ""),
     validDays: Number(formData.get("validDays") ?? 15),
     planItemIds: formData.getAll("planItemIds").map(String),

@@ -63,6 +63,7 @@ export async function createQuote(
       patient_id: data.patientId,
       provider_id: profissional,
       payer_id: data.payerId ?? null,
+      opportunity_id: data.opportunityId ?? null,
       created_by: ctx.session.membershipId,
       title: data.title,
       notes: data.notes,

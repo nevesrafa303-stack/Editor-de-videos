@@ -76,6 +76,58 @@ await page.getByRole("button", { name: "Adicionar" }).click();
 await page.getByText("Item adicionado.").waitFor();
 console.log("orçamento por convênio · item precificado pela tabela do pagador");
 
+// ----------------------------------------------------------------- funil --
+// O caminho inteiro do funil, pela tela: contato novo, conversa registrada,
+// próxima ação marcada, lead virando paciente, proposta e aceite — que é o que
+// ganha o negócio.
+await page.goto(`${BASE}/funil/novo`);
+await page.getByLabel("Nome", { exact: true }).fill("Helena Marques");
+await page.getByLabel("Telefone").fill("11987659999");
+await escolher(page, "sourceId", "Indicação");
+await page.getByLabel("Valor estimado (R$)").fill("2.800,00");
+await page.getByLabel("O que a pessoa quer").fill("Clareamento antes do casamento");
+await page.getByRole("button", { name: "Cadastrar contato" }).click();
+await page.waitForURL(/funil\/[0-9a-f-]{36}$/);
+const negocio = page.url();
+
+await page.getByLabel("O que aconteceu").fill("Explicou a data do casamento. Quer começar já.");
+await page.getByRole("button", { name: "Registrar", exact: true }).click();
+await page.getByText("Contato registrado.").waitFor();
+
+const daquiA = (dias) => {
+  const d = new Date(Date.now() + dias * 86400000);
+  return d.toISOString().slice(0, 16);
+};
+await page.getByLabel("O que fazer").fill("Confirmar a avaliação de segunda");
+await page.getByLabel("Quando").fill(daquiA(2));
+await page.getByRole("button", { name: "Marcar" }).click();
+await page.getByText("Próxima ação marcada.").waitFor();
+console.log("contato no funil · conversa e próxima ação registradas");
+
+await page.getByRole("button", { name: "Converter em paciente" }).click();
+await page.getByText(/Paciente criado/).waitFor();
+
+await page.getByRole("link", { name: "nova proposta" }).click();
+await page.waitForURL(/orcamentos\/novo/);
+await page.getByLabel("Título").fill("Clareamento antes do casamento");
+await page.getByRole("button", { name: "Criar orçamento" }).click();
+await page.waitForURL(/orcamentos\/[0-9a-f-]{36}$/);
+
+await escolher(page, "procedureId", "Clareamento");
+await page.getByRole("button", { name: "Adicionar", exact: true }).click();
+await page.getByText("Item adicionado.").waitFor();
+
+await page.getByRole("button", { name: "Enviar ao paciente" }).click();
+await page.getByText("Orçamento enviado ao paciente.").waitFor();
+await page.getByRole("button", { name: "Registrar aceite do paciente" }).click();
+await page.getByLabel("Quem está aceitando").fill("Helena Marques");
+await page.getByRole("button", { name: "Confirmar aceite" }).click();
+await page.getByText("Aceite registrado e assinado.").waitFor();
+
+await page.goto(negocio);
+await page.getByText("Fechado").first().waitFor();
+console.log("negócio ganho pelo aceite · funil e financeiro dizendo o mesmo");
+
 // ---------------------------------------------------------- faturamento --
 // O ciclo inteiro do convênio faturado por guia, pela tela: aceitar, faturar
 // no lote, enviar, conferir o repasse com glosa, e recorrer.

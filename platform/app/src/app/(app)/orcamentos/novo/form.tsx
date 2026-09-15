@@ -16,11 +16,14 @@ export function NovoOrcamentoForm({
   patientName,
   planejados,
   convenios,
+  oportunidadeId,
 }: {
   patientId: string;
   patientName: string;
   planejados: Planejado[];
   convenios: Convenio[];
+  /** Quando a proposta nasce de um negócio do funil, aceitar fecha os dois. */
+  oportunidadeId: string | null;
 }) {
   const [state, action, pending] = useActionState(criarOrcamentoAction, EMPTY_STATE);
   const [payerId, setPayerId] = useState("");
@@ -32,6 +35,9 @@ export function NovoOrcamentoForm({
       <FormError error={state.error} fieldErrors={state.fieldErrors} />
 
       <input type="hidden" name="patientId" value={patientId} />
+      {oportunidadeId ? (
+        <input type="hidden" name="opportunityId" value={oportunidadeId} />
+      ) : null}
 
       <Panel className="grid gap-4 p-5 sm:grid-cols-[minmax(0,2fr)_140px]">
         <Field label="Título" hint="Como o paciente vai reconhecer esta proposta.">

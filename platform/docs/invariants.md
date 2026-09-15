@@ -125,6 +125,22 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 75 | Glosa com andamento não pode ser apagada | `protect_touched_denial()` | `08_claims` |
 | 76 | Glosa sem recurso vence sozinha, pela passagem do tempo | `expire_claim_denials()` (job noturno) | `08_claims` |
 
+### Funil
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 77 | Ganhar é aceitar o orçamento, na mesma transação | trigger `quote_win_opportunity` | `09_funnel` |
+| 78 | Orçamento recusado não perde o negócio sozinho | ausência deliberada de trigger | `09_funnel` |
+| 79 | Perder exige motivo | `opportunity_lost_reason` | `09_funnel` |
+| 80 | Etapa pertence ao funil da oportunidade | FK composta `(stage_id, pipeline_id)` | `09_funnel` |
+| 81 | Negócio sem pessoa não existe | `opportunity_has_subject` | — |
+| 82 | O valor do negócio passa a ser o do orçamento | trigger `quote_sync_opportunity_amount` | `09_funnel` |
+| 83 | Registrar contato atualiza o último contato | trigger `activity_touch_opportunity` | `09_funnel` |
+| 84 | A próxima ação é a menor data entre as tarefas abertas | trigger `task_refresh_next_action` | `09_funnel` |
+| 85 | Tarefa concluída não vira cancelada | `state_transition` + `assert_state_transition` | `09_funnel` |
+| 86 | Lead com telefone já cadastrado reaproveita o paciente | `convert_lead_to_patient()` | `09_funnel` |
+| 87 | Cada movimento de etapa fica no histórico, com o tempo parado | trigger `opportunity_log_stage` | `09_funnel` |
+
 ---
 
 ## Invariantes que **não** estão no banco (e por quê)

@@ -143,7 +143,13 @@ test.describe("ciclo de vida", () => {
     await expect(page.getByText("Orçamento enviado ao paciente.")).toBeVisible();
 
     await page.getByRole("button", { name: "Registrar perda" }).first().click();
-    await page.getByLabel("Motivo da perda").selectOption({ label: "Preco acima do esperado" });
+    // Pelo VALOR, não pelo rótulo: o rótulo é conteúdo de tela e muda (este
+    // aqui já mudou quando os acentos entraram no seed), e um teste que quebra
+    // por acento não está medindo regressão nenhuma.
+    const motivo = page.locator('select[name="lossReasonId"]');
+    await motivo.selectOption(
+      await motivo.locator("option", { hasText: "acima do esperado" }).first().getAttribute("value"),
+    );
     await page.getByLabel("Observação").fill("Achou caro pelo parcelamento.");
     await page.getByRole("button", { name: "Registrar perda" }).last().click();
 

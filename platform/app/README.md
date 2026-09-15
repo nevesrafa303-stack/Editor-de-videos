@@ -2,8 +2,8 @@
 
 **Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
 facial. A camada de acesso ao banco e os cinco módulos que fecham o ciclo:
-**pacientes**, **agenda**, **prontuário**, **orçamento**, **financeiro**,
-**convênios** e **faturamento por guia**.
+**funil**, **pacientes**, **agenda**, **prontuário**, **orçamento**,
+**financeiro**, **convênios** e **faturamento por guia**.
 
 ```
 src/
@@ -20,6 +20,7 @@ src/
       pending-login.ts cookie assinado de 5 min entre senha e escolha de rede
   modules/
     auth/            ações de login e logout
+    funnel/          lead, quadro por etapa, contato, próxima ação e perda
     patient/         consultas, comandos e a porta única em index.ts
     scheduling/      grade do dia, máquina de estados do atendimento, encaixe
     chart/           odontograma, anamnese, evolução assinada e aditamento
@@ -39,8 +40,8 @@ src/
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               145 testes (integração contra PostgreSQL + unidade)
-e2e/                 66 testes de navegador sobre o build de produção
+tests/               162 testes (integração contra PostgreSQL + unidade)
+e2e/                 74 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -117,12 +118,20 @@ navegador — o `next build` reprova, e com razão.
 | Desconto em convênio faturado sai da parte do paciente | o que o convênio paga é o que está no contrato |
 | Glosa nasce com prazo, sem ninguém abrir | `settle_claim_item` cria junto com a conferência |
 | Mensagem escrita por nós chega inteira ao usuário | `P0001` é repassado; o Postgres nunca o emite sozinho |
+| Ganhar no funil é aceitar o orçamento | trigger na mesma transação; não há botão de "ganhei" |
+| Perder exige motivo | `opportunity_lost_reason`, e o motivo vira relatório |
+| Etapa pertence ao funil | chave composta `(stage_id, pipeline_id)` |
+| A próxima ação é mantida pelo sistema | trigger recalcula a menor data entre as tarefas abertas |
 
 ## As telas
 
 | Rota | O que resolve |
 |---|---|
 | `/entrar` | senha + escolha de rede quando a pessoa atende em mais de uma |
+| `/funil` | onde os negócios param, quanto se espera fechar, o que esfriou |
+| `/funil/[id]` | contatos, próxima ação, propostas — e o botão que vira paciente |
+| `/funil/novo` | quem ligou, em um formulário só |
+| `/funil/pendencias` | o que a clínica combinou fazer, atrasado primeiro |
 | `/pacientes` | busca por nome, telefone ou CPF; próxima consulta e saldo em aberto na mesma linha |
 | `/pacientes/[id]` | dinheiro, agenda, tratamento pendente e alerta clínico numa tela só |
 | `/pacientes/novo` | nome e telefone bastam; o resto pode vir depois |
@@ -142,7 +151,7 @@ navegador — o `next build` reprova, e com razão.
 | `/faturamento/glosas` | a fila de recurso, ordenada por prazo |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
-Os módulos ainda sem tela (funil, estoque)
+O módulo ainda sem tela (estoque)
 aparecem no menu marcados como **breve**, inativos. Sumir esconderia a forma do
 produto de quem usa e o que falta de quem constrói.
 
@@ -153,7 +162,7 @@ npm run db:types          # introspecção + correção de int8 e date
 npm run gen:permissions   # union type a partir da tabela permission
 ```
 
-`Permission` é um tipo união das 66 permissões do banco. `ctx.assert("quote.aprovar")`
+`Permission` é um tipo união das 73 permissões do banco. `ctx.assert("quote.aprovar")`
 não compila — erro de digitação em permissão seria falha silenciosa de segurança,
 e o compilador é mais confiável que revisão.
 
@@ -165,9 +174,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 145 testes (a suíte recria o banco antes)
-npm run test:e2e      # 66 testes de navegador sobre o build de produção
-npm run test:all      # os 156 testes SQL + os dois acima
+npm test              # 162 testes (a suíte recria o banco antes)
+npm run test:e2e      # 74 testes de navegador sobre o build de produção
+npm run test:all      # os 183 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -225,6 +234,32 @@ banco: condição de dente inteiro (ausente, canal, coroa) substitui tudo daquel
 dente; condição de face substitui só o que disputa a mesma face. Cárie na
 oclusal e restauração na mesial convivem — e o registro substituído continua
 existindo, apontando para quem o substituiu.
+
+## O funil
+
+**Ganhar é o aceite do orçamento.** Não existe botão de "marcar como ganha": a
+oportunidade é fechada por um trigger que observa o aceite, na mesma transação. A
+razão é dura — funil que diz "fechei R$ 8.000" com o financeiro vazio é um
+relatório em que ninguém confia, e um relatório em que ninguém confia é pior do
+que nenhum. **Perder continua sendo decisão de gente**, com motivo obrigatório:
+recusar uma proposta é comum e a conversa costuma seguir com outra, então
+orçamento recusado *não* perde o negócio sozinho.
+
+**O quadro não é arrastável, de propósito.** Arrastar é agradável no computador
+e não funciona no teclado nem bem no celular — então exigiria o botão de mover do
+mesmo jeito, e duas formas de fazer a mesma coisa é o dobro de superfície para
+quebrar. Quem usa isto é a recepção, no balcão, com o paciente na frente.
+
+**A próxima ação é o que faz o funil funcionar.** Cada negócio carrega uma data
+combinada, mantida por trigger a partir das tarefas abertas: concluir a mais
+próxima revela a seguinte em vez de deixar a data velha para trás. Sem isso o
+quadro vira uma lista de nomes que ninguém volta a olhar, e o contato esfria em
+silêncio — que é literalmente o que a coluna "esfriando" conta.
+
+**Lead vira paciente no meio do caminho**, não no fim: o orçamento exige
+paciente. Converter cria o cadastro (ou reaproveita o de mesmo telefone —
+espalhar o histórico clínico em dois cadastros é o pior estrago que um CRM de
+clínica faz) e liga o negócio na pessoa.
 
 ## O orçamento
 

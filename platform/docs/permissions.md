@@ -72,6 +72,8 @@ Legenda: **●** tem a permissão · **·** não tem · 🔒 dá acesso a dado d
 | `report` | `financial` | Ver relatorios financeiros | ● | ● | · | · | ● |
 | `report` | `read` | Ver relatorios operacionais | ● | ● | ● | ● | ● |
 | `role` | `write` | Editar papeis e permissoes | ● | ● | · | · | · |
+| `task` | `read` | Ver tarefas e pendencias | ● | ● | ● | ● | ● |
+| `task` | `write` | Criar, concluir e cancelar tarefa | ● | ● | ● | ● | · |
 | `tenant` | `read` | Ver dados da rede | ● | ● | · | · | · |
 | `tenant` | `write` | Editar dados e plano da rede | ● | · | · | · | · |
 | `treatment_plan` | `execute` 🔒 | Marcar item como executado | ● | ● | ● | · | · |
@@ -82,7 +84,7 @@ Legenda: **●** tem a permissão · **·** não tem · 🔒 dá acesso a dado d
 | `user` | `read` | Ver equipe | ● | ● | · | · | · |
 | `user` | `write` | Convidar, editar e desativar membros | ● | ● | · | · | · |
 
-**Total: 71 permissões.** Dono 71 · Gestor 69 · Profissional 27 · Recepção 26 · Financeiro 25.
+**Total: 73 permissões.** Dono 73 · Gestor 71 · Profissional 29 · Recepção 28 · Financeiro 26.
 
 ## Decisões de recorte que valem discussão
 

@@ -5,16 +5,16 @@ multi-rede para clínicas de odontologia e harmonização facial**.
 
 A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
 produto inteiro antes de a primeira tela existir. Sobre ela já estão de pé os
-sete módulos que fecham o ciclo — **pacientes**, **agenda**, **prontuário**,
-**orçamento**, **financeiro**, **convênios** e **faturamento por guia**. O
-produto se chama **Áurea**.
+oito módulos que fecham o ciclo — **funil**, **pacientes**, **agenda**,
+**prontuário**, **orçamento**, **financeiro**, **convênios** e **faturamento por
+guia**. O produto se chama **Áurea**.
 
 ## O que tem aqui
 
 ```
-db/migrations/   28 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   29 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
-db/tests/        156 testes de invariante, rodando contra PostgreSQL de verdade
+db/tests/        183 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
 app/             camada de acesso (withTenant, tipos gerados, sessão, RBAC)
                  e a primeira fatia de interface
@@ -25,11 +25,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0028
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0029
 psql -d crm -f db/seeds/dev_seed.sql
 
-./db/tests/run_tests.sh                             # 156 testes de invariante
-(cd app && npm install && npm run test:all)         # + 145 de integração + 66 de navegador
+./db/tests/run_tests.sh                             # 183 testes de invariante
+(cd app && npm install && npm run test:all)         # + 162 de integração + 74 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -44,13 +44,13 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 |---|---|
 | Tabelas | 121 |
 | Policies de RLS | 123 |
-| Chaves estrangeiras | 432 |
+| Chaves estrangeiras | 433 |
 | Constraints `check` | 260 |
-| Triggers | 112 |
+| Triggers | 121 |
 | Enums | 67 |
-| Transições de estado declaradas | 92 |
-| Permissões no catálogo | 71 |
-| Testes | 156 no banco + 145 na camada de acesso + 66 no navegador, todos passando |
+| Transições de estado declaradas | 96 |
+| Permissões no catálogo | 73 |
+| Testes | 183 no banco + 162 na camada de acesso + 74 no navegador, todos passando |
 
 ## Por onde começar a ler
 
