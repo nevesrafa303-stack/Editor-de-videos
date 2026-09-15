@@ -55,6 +55,14 @@ const TELAS = [
     espera: "Tabela de preços",
     altura: 1300,
   },
+  { nome: "22-importar", url: "/importar", espera: "Nova importação", altura: 1100 },
+  {
+    nome: "23-importacao",
+    url: "/importar",
+    clicar: "Planilha colada",
+    espera: "Linha a linha",
+    altura: 1000,
+  },
   { nome: "19-funil", url: "/funil", espera: "No funil", altura: 1100 },
   { nome: "20-pendencias", url: "/funil/pendencias", espera: "Abertas", altura: 900 },
   {

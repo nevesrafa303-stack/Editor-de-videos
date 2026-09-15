@@ -88,7 +88,7 @@ Dito com franqueza, porque é mais barato agora:
    O construtor arrastar-e-soltar não: comece com dois ou três formulários fixos
    bem-feitos, editáveis por JSON.
 5. **Cinco papéis configuráveis com permissão granular na fase 1.** A matriz de
-   73 permissões existe e está certa. A *tela* de edição de papel pode esperar:
+   75 permissões existe e está certa. A *tela* de edição de papel pode esperar:
    entregue os cinco papéis prontos e edite no banco enquanto ninguém pede.
 
 ## Onde você está simplificando demais e vai pagar caro

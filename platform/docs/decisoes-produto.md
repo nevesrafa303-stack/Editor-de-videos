@@ -233,6 +233,7 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 22 · Ganhar é o aceite do orçamento | pronto, por trigger — não há botão de "ganhei" |
 | 23 · Próxima ação com data e responsável | pronto, com fila de pendências |
 | 24 · Entrada só por lead cadastrado à mão | pronto; oportunidade a partir de paciente antigo fica para depois |
+| 18 · Importador de planilha | pronto: dois passos, duplicado pulado, saldo vira dívida |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -255,7 +256,11 @@ Os demais seguem pendentes, na ordem abaixo.
    ficou de fora:** oportunidade a partir de paciente antigo (o botão na ficha),
    formulário público no site, e o funil por vertical — o schema suporta mais de
    um `pipeline`, mas a tela usa o padrão.
-7. **Importador de planilha** — quando houver cliente definido.
+7. ~~**Importador de planilha**~~ — feito. CSV de pacientes com conferência antes
+   de criar, duplicado pulado e saldo em aberto virando dívida de origem
+   `manual`. **O que ficou de fora**, como previsto: prontuário e histórico
+   financeiro de outro sistema, e importação de leads, convênios ou tabela de
+   preço.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por

@@ -15,6 +15,7 @@ import {
   IconMoney,
   IconPeople,
   IconTooth,
+  IconUpload,
 } from "@/ui/icons";
 
 export type UnitChoice = { id: string; name: string; city: string | null };
@@ -36,6 +37,7 @@ const ICONS: Record<string, (props: { className?: string }) => ReactElement> = {
   box: IconBox,
   card: IconCard,
   clipboard: IconClipboard,
+  upload: IconUpload,
 };
 
 export function Rail({

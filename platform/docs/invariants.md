@@ -141,6 +141,17 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 86 | Lead com telefone já cadastrado reaproveita o paciente | `convert_lead_to_patient()` | `09_funnel` |
 | 87 | Cada movimento de etapa fica no histórico, com o tempo parado | trigger `opportunity_log_stage` | `09_funnel` |
 
+### Importação
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 88 | A importação nasce sem nada aplicado | `import_job.status` + `import_job_applied` | `10_import` |
+| 89 | Aplicada é terminal: não volta para conferência | `state_transition` + `assert_state_transition` | `10_import` |
+| 90 | Linha importada e paciente criado são a mesma afirmação | `import_row_imported` | `10_import` |
+| 91 | Duas linhas com o mesmo número são recusadas | `import_row_line_uk` | `10_import` |
+| 92 | O que veio na planilha fica guardado como veio | `import_row.raw` (jsonb) | `10_import` |
+| 93 | Quem trouxe a planilha fica na auditoria | trigger `import_job_audit` | `10_import` |
+
 ---
 
 ## Invariantes que **não** estão no banco (e por quê)

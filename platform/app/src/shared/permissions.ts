@@ -36,6 +36,8 @@ export type Permission =
   | "conversation.assign"
   | "conversation.read"
   | "conversation.write"
+  | "import.read"
+  | "import.write"
   | "inventory.adjust"
   | "inventory.count"
   | "inventory.read"
@@ -131,6 +133,8 @@ export const PERMISSION_META: Record<
   "conversation.assign": { resource: "conversation", action: "assign", isPhi: false, description: "Atribuir conversa a outra pessoa" },
   "conversation.read": { resource: "conversation", action: "read", isPhi: false, description: "Ver conversas de WhatsApp" },
   "conversation.write": { resource: "conversation", action: "write", isPhi: false, description: "Responder conversas" },
+  "import.read": { resource: "import", action: "read", isPhi: false, description: "Ver importacoes feitas" },
+  "import.write": { resource: "import", action: "write", isPhi: false, description: "Importar planilha de pacientes" },
   "inventory.adjust": { resource: "inventory", action: "adjust", isPhi: false, description: "Ajustar saldo divergente" },
   "inventory.count": { resource: "inventory", action: "count", isPhi: false, description: "Realizar inventario" },
   "inventory.read": { resource: "inventory", action: "read", isPhi: false, description: "Ver estoque" },
@@ -208,6 +212,8 @@ export const DEFAULT_ROLE_PERMISSIONS: Partial<Record<Permission, SystemRoleCode
   "conversation.assign": ["manager", "owner"],
   "conversation.read": ["manager", "owner", "reception"],
   "conversation.write": ["manager", "owner", "reception"],
+  "import.read": ["manager", "owner"],
+  "import.write": ["manager", "owner"],
   "inventory.adjust": ["manager", "owner"],
   "inventory.count": ["manager", "owner"],
   "inventory.read": ["finance", "manager", "owner", "professional", "reception"],

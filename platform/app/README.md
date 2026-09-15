@@ -21,6 +21,7 @@ src/
   modules/
     auth/            ações de login e logout
     funnel/          lead, quadro por etapa, contato, próxima ação e perda
+    import/          leitura da planilha, conferência e aplicação
     patient/         consultas, comandos e a porta única em index.ts
     scheduling/      grade do dia, máquina de estados do atendimento, encaixe
     chart/           odontograma, anamnese, evolução assinada e aditamento
@@ -37,11 +38,12 @@ src/
     money.ts         divisão de dinheiro que soma exatamente, e "1.234,56" -> 123456
     flash.ts         recado que sobrevive ao recarregamento
     br.ts            CPF, telefone
+    csv.ts           leitor de CSV que aguenta planilha de verdade
     format.ts        moeda, data, telefone, idade
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   app/               rotas (App Router)
-tests/               162 testes (integração contra PostgreSQL + unidade)
-e2e/                 74 testes de navegador sobre o build de produção
+tests/               208 testes (integração contra PostgreSQL + unidade)
+e2e/                 80 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -122,6 +124,9 @@ navegador — o `next build` reprova, e com razão.
 | Perder exige motivo | `opportunity_lost_reason`, e o motivo vira relatório |
 | Etapa pertence ao funil | chave composta `(stage_id, pipeline_id)` |
 | A próxima ação é mantida pelo sistema | trigger recalcula a menor data entre as tarefas abertas |
+| Importar confere antes de criar | dois passos, e o primeiro não escreve nada |
+| Importar nunca sobrescreve quem já existe | duplicado é pulado, com o nome de quem é |
+| A planilha fica guardada linha a linha | `import_row.raw`, com o que veio e o que aconteceu |
 
 ## As telas
 
@@ -132,6 +137,8 @@ navegador — o `next build` reprova, e com razão.
 | `/funil/[id]` | contatos, próxima ação, propostas — e o botão que vira paciente |
 | `/funil/novo` | quem ligou, em um formulário só |
 | `/funil/pendencias` | o que a clínica combinou fazer, atrasado primeiro |
+| `/importar` | a planilha do sistema antigo, e o histórico do que já veio |
+| `/importar/[id]` | o que entra, o que já existe, o que não entra — linha a linha |
 | `/pacientes` | busca por nome, telefone ou CPF; próxima consulta e saldo em aberto na mesma linha |
 | `/pacientes/[id]` | dinheiro, agenda, tratamento pendente e alerta clínico numa tela só |
 | `/pacientes/novo` | nome e telefone bastam; o resto pode vir depois |
@@ -162,7 +169,7 @@ npm run db:types          # introspecção + correção de int8 e date
 npm run gen:permissions   # union type a partir da tabela permission
 ```
 
-`Permission` é um tipo união das 73 permissões do banco. `ctx.assert("quote.aprovar")`
+`Permission` é um tipo união das 75 permissões do banco. `ctx.assert("quote.aprovar")`
 não compila — erro de digitação em permissão seria falha silenciosa de segurança,
 e o compilador é mais confiável que revisão.
 
@@ -174,9 +181,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 162 testes (a suíte recria o banco antes)
-npm run test:e2e      # 74 testes de navegador sobre o build de produção
-npm run test:all      # os 183 testes SQL + os dois acima
+npm test              # 208 testes (a suíte recria o banco antes)
+npm run test:e2e      # 80 testes de navegador sobre o build de produção
+npm run test:all      # os 195 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -234,6 +241,40 @@ banco: condição de dente inteiro (ausente, canal, coroa) substitui tudo daquel
 dente; condição de face substitui só o que disputa a mesma face. Cárie na
 oclusal e restauração na mesial convivem — e o registro substituído continua
 existindo, apontando para quem o substituiu.
+
+## O importador
+
+**Dois passos, sempre.** Conferir não escreve nada; importar cria. Quem traz
+2.000 pacientes precisa ver quantos vão entrar, quantos já existem e quantos têm
+erro antes de confirmar — e importação não tem desfazer. Por isso o botão diz o
+número (*"Importar 47 pacientes"*), e não "Importar": a última coisa que se lê
+antes de clicar é o tamanho do que vai acontecer.
+
+**Duplicado nunca sobrescreve.** Linha que casa por CPF ou telefone é pulada,
+com o nome de quem já está lá. Atualizar em massa um cadastro que a clínica já
+editou destrói trabalho sem pedir licença — e a planilha do sistema antigo quase
+sempre é a fonte pior. O mesmo vale dentro da própria planilha: export de sistema
+velho costuma ter a mesma pessoa duas vezes.
+
+**Um dígito errado não custa uma paciente.** CPF inválido, e-mail torto e data
+que não dá para ler entram como *aviso*, e o cadastro nasce sem aquele campo. Só
+falta de nome ou de telefone reprova a linha — porque sem telefone não há como
+voltar a falar com a pessoa.
+
+**A planilha fica guardada linha a linha**, com o que veio e o que aconteceu com
+cada uma. É o que responde, meses depois, *"por que esta paciente está com o
+telefone errado?"* — e importação em massa é exatamente de onde vem dado errado
+em massa.
+
+**O leitor de CSV é código de verdade, não `split(",")`.** A planilha que a
+clínica exporta tem vírgula dentro de aspas, ponto e vírgula como separador
+(Excel em português), aspas escapadas, quebra de linha dentro do campo e BOM no
+começo. Cada um transforma uma linha boa em cadastro errado, sem avisar.
+
+**O que não é importado:** prontuário e histórico financeiro. Registro clínico de
+origem desconhecida não pode virar registro próprio — seria assinar um documento
+que ninguém escreveu. Saldo em aberto entra, mas como dívida de origem `manual`,
+com a procedência na descrição.
 
 ## O funil
 

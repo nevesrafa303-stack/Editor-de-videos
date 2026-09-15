@@ -71,6 +71,12 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export type ImportKind = "patient";
+
+export type ImportRowStatus = "duplicate" | "error" | "imported" | "valid";
+
+export type ImportStatus = "analyzing" | "applied" | "canceled" | "ready";
+
 export type InjectableUnit = "cm2" | "fio" | "ml" | "sessao" | "U";
 
 export type InstallmentStatus = "canceled" | "open" | "paid" | "partially_paid" | "renegotiated";
@@ -758,6 +764,36 @@ export interface GatewayCharge {
   tenant_id: string;
   unit_id: string | null;
   updated_at: Generated<Timestamp>;
+}
+
+export interface ImportJob {
+  applied_at: Timestamp | null;
+  created_at: Generated<Timestamp>;
+  created_by: string | null;
+  duplicate_rows: Generated<number>;
+  error_rows: Generated<number>;
+  filename: string | null;
+  id: Generated<string>;
+  imported_rows: Generated<number>;
+  kind: Generated<ImportKind>;
+  status: Generated<ImportStatus>;
+  tenant_id: string;
+  total_rows: Generated<number>;
+  unit_id: string;
+  updated_at: Generated<Timestamp>;
+  valid_rows: Generated<number>;
+}
+
+export interface ImportRow {
+  created_at: Generated<Timestamp>;
+  id: Generated<string>;
+  job_id: string;
+  line_number: number;
+  message: string | null;
+  patient_id: string | null;
+  raw: Json;
+  status: ImportRowStatus;
+  tenant_id: string;
 }
 
 export interface InboundEvent {
@@ -2026,15 +2062,6 @@ export interface TenantPolicy {
   updated_at: Generated<Timestamp>;
 }
 
-export interface TestResult {
-  description: string;
-  detail: string | null;
-  id: Generated<number>;
-  passed: boolean;
-  ran_at: Generated<Timestamp>;
-  suite: string;
-}
-
 export interface Tooth {
   arch: string;
   code: string;
@@ -2209,6 +2236,8 @@ export interface DB {
   form_response: FormResponse;
   form_template: FormTemplate;
   gateway_charge: GatewayCharge;
+  import_job: ImportJob;
+  import_row: ImportRow;
   inbound_event: InboundEvent;
   injectable_application: InjectableApplication;
   installment: Installment;
@@ -2288,7 +2317,6 @@ export interface DB {
   tenant: Tenant;
   tenant_feature_override: TenantFeatureOverride;
   tenant_policy: TenantPolicy;
-  "test.result": TestResult;
   tooth: Tooth;
   treatment_plan: TreatmentPlan;
   treatment_plan_item: TreatmentPlanItem;

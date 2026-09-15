@@ -193,6 +193,26 @@ await page.getByRole("button", { name: "Registrar" }).first().click();
 await page.getByText(/Recurso registrado/).waitFor();
 console.log("recurso registrado · a glosa continua contando até o convênio responder");
 
+// ------------------------------------------------------------- importação --
+// A migração de quem troca de sistema: planilha com uma boa, uma repetida e
+// uma sem telefone — que é como a planilha real vem.
+await page.goto(`${BASE}/importar`);
+await page.getByLabel("Ou cole as células aqui").fill(
+  [
+    "Nome Completo;Celular;CPF;Data de Nascimento;Saldo",
+    "Bruno Tavares;11987654321;010.000.000-28;04/11/1982;1.500,00",
+    "Mariana Alves;11987650001;;;",
+    "Sem Telefone;;;;",
+  ].join("\n"),
+);
+await page.getByRole("button", { name: "Conferir planilha" }).click();
+await page.waitForURL(/importar\/[0-9a-f-]{36}$/);
+await page.getByText("Nada foi criado ainda").waitFor();
+
+await page.getByRole("button", { name: /^Importar 1 paciente/ }).click();
+await page.getByText(/1 paciente importado/).waitFor();
+console.log("planilha importada · 1 entrou, 1 já existia, 1 sem telefone");
+
 // ------------------------------------------------------------------- caixa --
 await page.goto(`${BASE}/financeiro/caixa`);
 await page.getByLabel("Abertura (R$)").fill("200,00");

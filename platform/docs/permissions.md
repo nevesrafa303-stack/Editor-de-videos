@@ -40,6 +40,8 @@ Legenda: **●** tem a permissão · **·** não tem · 🔒 dá acesso a dado d
 | `conversation` | `assign` | Atribuir conversa a outra pessoa | ● | ● | · | · | · |
 | `conversation` | `read` | Ver conversas de WhatsApp | ● | ● | · | ● | · |
 | `conversation` | `write` | Responder conversas | ● | ● | · | ● | · |
+| `import` | `read` | Ver importacoes feitas | ● | ● | · | · | · |
+| `import` | `write` | Importar planilha de pacientes | ● | ● | · | · | · |
 | `inventory` | `adjust` | Ajustar saldo divergente | ● | ● | · | · | · |
 | `inventory` | `count` | Realizar inventario | ● | ● | · | · | · |
 | `inventory` | `read` | Ver estoque | ● | ● | ● | ● | ● |
@@ -84,7 +86,7 @@ Legenda: **●** tem a permissão · **·** não tem · 🔒 dá acesso a dado d
 | `user` | `read` | Ver equipe | ● | ● | · | · | · |
 | `user` | `write` | Convidar, editar e desativar membros | ● | ● | · | · | · |
 
-**Total: 73 permissões.** Dono 73 · Gestor 71 · Profissional 29 · Recepção 28 · Financeiro 26.
+**Total: 75 permissões.** Dono 75 · Gestor 73 · Profissional 29 · Recepção 28 · Financeiro 26.
 
 ## Decisões de recorte que valem discussão
 

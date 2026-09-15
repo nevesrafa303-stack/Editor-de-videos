@@ -7,14 +7,15 @@ A fundação é **schema e regra**: o objetivo era ter uma base que aguentasse o
 produto inteiro antes de a primeira tela existir. Sobre ela já estão de pé os
 oito módulos que fecham o ciclo — **funil**, **pacientes**, **agenda**,
 **prontuário**, **orçamento**, **financeiro**, **convênios** e **faturamento por
-guia**. O produto se chama **Áurea**.
+guia** —, mais o **importador** que traz a base de quem troca de sistema. O
+produto se chama **Áurea**.
 
 ## O que tem aqui
 
 ```
-db/migrations/   29 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   30 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
-db/tests/        183 testes de invariante, rodando contra PostgreSQL de verdade
+db/tests/        195 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
 app/             camada de acesso (withTenant, tipos gerados, sessão, RBAC)
                  e a primeira fatia de interface
@@ -25,11 +26,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0029
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0030
 psql -d crm -f db/seeds/dev_seed.sql
 
-./db/tests/run_tests.sh                             # 183 testes de invariante
-(cd app && npm install && npm run test:all)         # + 162 de integração + 74 de navegador
+./db/tests/run_tests.sh                             # 195 testes de invariante
+(cd app && npm install && npm run test:all)         # + 208 de integração + 80 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -42,15 +43,15 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 
 | | |
 |---|---|
-| Tabelas | 121 |
-| Policies de RLS | 123 |
-| Chaves estrangeiras | 433 |
-| Constraints `check` | 260 |
-| Triggers | 121 |
-| Enums | 67 |
-| Transições de estado declaradas | 96 |
-| Permissões no catálogo | 73 |
-| Testes | 183 no banco + 162 na camada de acesso + 74 no navegador, todos passando |
+| Tabelas | 123 |
+| Policies de RLS | 125 |
+| Chaves estrangeiras | 439 |
+| Constraints `check` | 268 |
+| Triggers | 124 |
+| Enums | 70 |
+| Transições de estado declaradas | 100 |
+| Permissões no catálogo | 75 |
+| Testes | 195 no banco + 208 na camada de acesso + 80 no navegador, todos passando |
 
 ## Por onde começar a ler
 
@@ -66,7 +67,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 
 ## Três coisas que este projeto assume
 
-**Isolamento não depende de ninguém lembrar do `WHERE`.** RLS forçada em 121
+**Isolamento não depende de ninguém lembrar do `WHERE`.** RLS forçada em 123
 tabelas, `SET LOCAL app.tenant_id` por transação, papel de aplicação que não é
 dono das tabelas, e `assert_rls_coverage()` quebrando o CI se aparecer tabela
 descoberta.

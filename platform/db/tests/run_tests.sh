@@ -24,8 +24,17 @@ echo "==> testes"
 # Descoberta por glob, nao lista a mao: suite nova que ninguem lembrou de
 # registrar no runner e suite que nao roda — e ninguem percebe, porque o
 # resumo continua verde.
+# Glob por DIGITO, nao por "0*": o glob antigo parou de pegar as suites no
+# decimo arquivo (`10_import.sql`), e o resumo continuou verde — que e a pior
+# forma de um teste falhar. Mesmo motivo de a lista ter deixado de ser escrita
+# a mao; a armadilha so mudou de forma.
 SUITES=()
-for f in "$HERE"/0*.sql; do SUITES+=(-f "$f"); done
+for f in "$HERE"/[0-9]*.sql; do SUITES+=(-f "$f"); done
+
+if [ ${#SUITES[@]} -eq 0 ]; then
+  echo "Nenhuma suite encontrada em $HERE" >&2
+  exit 1
+fi
 
 PGPASSWORD="$APP_PASS" psql -q -v ON_ERROR_STOP=1 -h "$HOST" -U "$APP_USER" -d "$DB" \
   "${SUITES[@]}" 2>&1 \

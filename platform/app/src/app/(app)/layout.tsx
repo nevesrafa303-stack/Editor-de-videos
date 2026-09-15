@@ -20,6 +20,7 @@ const NAV: (RailItem & { permission?: Permission })[] = [
   { href: "/convenios", label: "Convênios", icon: "card", permission: "price.read" },
   { href: "/faturamento", label: "Faturamento", icon: "clipboard", permission: "claim.read" },
   { href: "/estoque", label: "Estoque", icon: "box", permission: "inventory.read", planned: true },
+  { href: "/importar", label: "Importar", icon: "upload", permission: "import.read" },
 ];
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
