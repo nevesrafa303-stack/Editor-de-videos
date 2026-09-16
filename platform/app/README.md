@@ -3,8 +3,8 @@
 **Áurea** — CRM e prontuário para clínicas de odontologia e harmonização
 facial. A camada de acesso ao banco e os módulos que fecham o ciclo:
 **funil**, **pacientes**, **agenda**, **prontuário**, **orçamento**,
-**financeiro**, **convênios**, **faturamento por guia** e o **painel
-gerencial** que lê tudo isso de volta.
+**financeiro**, **convênios**, **faturamento por guia**, **estoque** e o
+**painel gerencial** que lê tudo isso de volta.
 
 ```
 src/
@@ -31,6 +31,7 @@ src/
     payer/           convênio, tabela de preço própria e modo de faturamento
     claim/           guia, lote, conferência do repasse e recurso de glosa
     report/          o painel: cinco perguntas, nenhuma tabela de totais
+    stock/           saldo, lote, FEFO e a baixa pela ficha técnica
   shared/
     errors.ts        erros de domínio com código e status
     postgres-errors.ts  constraint do banco -> mensagem de produto
@@ -45,8 +46,8 @@ src/
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   ui/barras.tsx      barras horizontais comparativas, em CSS — sem biblioteca
   app/               rotas (App Router)
-tests/               241 testes (integração contra PostgreSQL + unidade)
-e2e/                 89 testes de navegador sobre o build de produção
+tests/               269 testes (integração contra PostgreSQL + unidade)
+e2e/                 101 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -133,6 +134,11 @@ navegador — o `next build` reprova, e com razão.
 | Relatório não guarda total | tudo sai dos fatos; não há tabela que possa discordar do extrato |
 | O período do relatório está no endereço | dá para mandar o link; captura de tela ninguém confere |
 | O último dia do período entra inteiro | janela em fuso local, aberta só no fim |
+| Saldo é contado na unidade em que se compra | frasco, seringa, tubo — o que dá para conferir abrindo o armário |
+| Executar o procedimento baixa o material | mesma transação; baixa que depende de lembrar não acontece |
+| O lote que sai é o que vence primeiro | FEFO em `pick_stock_lots`, quebrando entre lotes |
+| Injetável sem lote válido não é consumido | não é falta de saldo, é falta de rastreio |
+| Corrigir estoque é lançar movimento | `stock_movement` é append-only; nada é editado nem apagado |
 
 ## As telas
 
@@ -163,6 +169,10 @@ navegador — o `next build` reprova, e com razão.
 | `/faturamento/guias/[id]` | a guia, seus procedimentos, a senha e as glosas dela |
 | `/faturamento/glosas` | a fila de recurso, ordenada por prazo |
 | `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem por procedimento e de onde vem quem fecha |
+| `/estoque` | saldo por produto na unidade de compra, quem está abaixo do mínimo, quanto está parado |
+| `/estoque/[id]` | lotes, perda, acerto por contagem, bloqueio sanitário e todo o histórico de movimentação |
+| `/estoque/entrada` | o que chegou; produto com rastreio entra com lote e validade no mesmo formulário |
+| `/estoque/validade` | o que vence — e o que já venceu e continua na prateleira |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
 
 O módulo ainda sem tela (estoque)
@@ -188,9 +198,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 241 testes (a suíte recria o banco antes)
-npm run test:e2e      # 89 testes de navegador sobre o build de produção
-npm run test:all      # os 205 testes SQL + os dois acima
+npm test              # 269 testes (a suíte recria o banco antes)
+npm run test:e2e      # 101 testes de navegador sobre o build de produção
+npm run test:all      # os 224 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -471,6 +481,61 @@ inválido na URL não derruba o painel: volta para o mês corrente e **diz** que
 voltou — cair em silêncio seria pior, a pessoa leria setembro achando que pediu
 março.
 
+## O estoque
+
+**Saldo é contado na unidade em que se compra.** A 0012 criou
+`stock_movement.quantity` sem dizer em qual unidade, e o seed respondeu das
+duas formas: toxina lançada em U (unidade de uso) e resina em tubo (unidade de
+estoque). Dois significados no mesmo campo é como um estoque começa a divergir
+da prateleira. Agora é sempre frasco, seringa, tubo — porque saldo tem de ser
+conferível abrindo o armário, e ninguém conta "467 unidades de toxina"; conta
+quatro frascos e um pela metade. Saldo fracionário não é defeito: 4,67 frascos
+é exatamente isso.
+
+**A ficha técnica continua em unidade de uso** (30 U de toxina, 0,5 g de
+resina), porque é assim que se prescreve. A conversão acontece no consumo, com
+a perda esperada dentro — ela saiu da prateleira igual, e fingir que não saiu é
+o que faz o inventário nunca fechar.
+
+**Executar o procedimento é o que baixa o material.** Na mesma transação, na
+tela do paciente, sem ninguém abrir o estoque. Marcar "feito" numa tela e dar
+baixa em outra é o desenho que garante que as duas vão divergir: a primeira
+sempre acontece, a segunda depende de alguém lembrar. O consumo roda **antes**
+do carimbo de executado — assim uma falha no estoque derruba as duas coisas
+juntas, em vez de deixar o item marcado como feito sem o material ter saído.
+
+**O botão diz o que vai sair antes de você clicar.** Quem executa é quem vai
+ouvir do paciente "acabou o produto?". Descobrir que faltava depois de o
+procedimento estar registrado é a ordem errada.
+
+**FEFO, e não é preferência.** Sai o lote que vence primeiro, quebrando entre
+lotes quando um não cobre. É regra sanitária, e é o que impede a clínica de
+jogar fora produto bom porque o lote velho ficou no fundo da geladeira.
+
+**Sem saldo avisa; sem lote válido recusa.** São situações diferentes de
+propósito. Produto sem rastreio e sem saldo deixa o saldo negativo e visível:
+travar aqui impede o dentista de fechar o atendimento por causa de cadastro
+desatualizado, e clínica que não consegue trabalhar registra errado para
+conseguir (quem quiser travar liga `block_execution_without_stock`). Injetável
+sem lote válido é **recusado sempre** — não é falta de saldo, é falta de
+rastreio, e não há configuração que torne aceitável gravar consumo de
+injetável sem número de lote.
+
+**"Cliquei no dente errado" tem caminho de volta.** Executado não é estado
+terminal. Desfazer devolve o material ao lote de onde saiu e escreve uma linha
+nova — a do consumo continua ali, ao lado. Estoque que apaga histórico não
+defende ninguém numa fiscalização.
+
+**O acerto pergunta o que você contou, não a diferença.** Quem está com a
+prancheta na mão escreve o que viu; calcular a diferença de cabeça, com sinal,
+é exatamente onde o erro entra. E a confirmação diz o sinal — "faltou 2 tubos",
+não "acerto registrado".
+
+**Local de estoque ficou de fora**, e isso teve consequência visível: a chave
+do saldo é (unidade, produto, lote, **local**) com `NULLS NOT DISTINCT`, então
+entrada com local e baixa sem local viravam duas linhas do mesmo produto, uma
+delas negativa. Enquanto local não tem tela, ninguém escreve local.
+
 ## Três acabamentos que faltavam
 
 **Seletor de unidade.** Quem atende em mais de uma escolhe no menu, e a tela
@@ -591,10 +656,10 @@ ordem de valor:
 2. **Documentos e anexos** — esperando a decisão de armazenamento. É o único
    item bloqueado por algo que não é trabalho: bucket, retenção e expurgo por
    LGPD são escolha de quem paga a conta.
-3. **Estoque com tela** — está modelado desde a 0012 e aparece no menu como
-   *breve*. É o que falta para a margem por **consumo real** existir: hoje a
-   margem é a do orçamento, e a diferença entre ela e o consumo é onde mora o
-   desperdício.
+3. **Orçado contra consumido**, por procedimento. Os dois lados da conta agora
+   existem: a margem orçada saiu com o painel, a baixa por ficha técnica saiu
+   com o estoque. Falta confrontá-los numa tela — é onde o desperdício
+   aparece, e está a um relatório de distância.
 4. **Exportar o relatório** (CSV) e **comparar com o mês anterior** — o painel
    responde as cinco perguntas, mas ainda não substitui a planilha de quem
    presta contas para fora.

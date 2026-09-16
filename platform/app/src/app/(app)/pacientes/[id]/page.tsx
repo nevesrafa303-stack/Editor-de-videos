@@ -3,7 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { withPage } from "@/server/next/page";
 import { getPatientOverview } from "@/modules/patient";
+import {
+  listRecentExecutions,
+  previewConsumption,
+  type ConsumoPrevisto,
+  type ExecucaoRecente,
+} from "@/modules/stock";
+import { ExecutarItem, EstornarItem } from "./executar";
 import { NotFound } from "@/shared/errors";
+import { lerAviso } from "@/shared/flash";
 import { Badge, Empty, LinkButton, Metric, Notice, PageHead, Panel, PanelHead, type Tone } from "@/ui";
 import { IconAlert } from "@/ui/icons";
 import {
@@ -41,8 +49,19 @@ const CONSULTA: Record<string, { rotulo: string; tom: Tone }> = {
   canceled: { rotulo: "Cancelado", tom: "critical" },
 };
 
-export default async function PacientePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function PacientePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ aviso?: string }>;
+}) {
   const { id } = await params;
+
+  // A confirmação de "executei" chega pela URL, como no financeiro e no
+  // faturamento: o item sai da lista de planejados no exato caso de sucesso, e
+  // levaria junto qualquer mensagem presa ao formulário que o mostrava.
+  const aviso = lerAviso((await searchParams).aviso);
 
   const dados = await withPage(async (ctx) => {
     const overview = await getPatientOverview(ctx, id).catch((error: unknown) => {
@@ -50,14 +69,40 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
       throw error;
     });
 
-    return overview
-      ? {
-          ...overview,
-          podeVerProntuario: ctx.can("chart.read"),
-          podeOrcar: ctx.can("quote.write"),
-          fuso: ctx.session.timezone,
-        }
-      : null;
+    if (!overview) return null;
+
+    /*
+     * A prévia do que sai do estoque, por item planejado.
+     *
+     * Vem junto com a tela, e não num clique depois: quem vai executar precisa
+     * ver o material ANTES de marcar como feito. Descobrir que faltava produto
+     * depois de o procedimento estar registrado é a ordem errada — e é assim
+     * que nasce um estoque que ninguém confia.
+     *
+     * Só para quem pode executar. Para a recepção seria informação que ela não
+     * usa, e uma consulta por item que ninguém leria.
+     */
+    const podeExecutar = ctx.can("treatment_plan.execute") && ctx.can("inventory.read");
+
+    const previas: Record<string, ConsumoPrevisto[]> = {};
+    let executados: ExecucaoRecente[] = [];
+
+    if (podeExecutar) {
+      for (const item of overview.pendentes) {
+        previas[item.id as string] = await previewConsumption(ctx, item.id as string);
+      }
+      executados = await listRecentExecutions(ctx, id);
+    }
+
+    return {
+      ...overview,
+      previas,
+      executados,
+      podeExecutar,
+      podeVerProntuario: ctx.can("chart.read"),
+      podeOrcar: ctx.can("quote.write"),
+      fuso: ctx.session.timezone,
+    };
   }, "patient.read");
 
   if (!dados) notFound();
@@ -92,6 +137,12 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
           </span>
         }
       />
+
+      {aviso ? (
+        <div className="mb-4">
+          <Notice tone="positive">{aviso}</Notice>
+        </div>
+      ) : null}
 
       {alertas.length > 0 ? (
         <div className="mb-5">
@@ -185,7 +236,7 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
             ) : (
               <ul className="divide-y divide-line">
                 {pendentes.map((item) => (
-                  <li key={item.id} className="flex items-center gap-3 px-5 py-3">
+                  <li key={item.id} className="flex items-start gap-3 px-5 py-3">
                     <span className="min-w-0 flex-1">
                       <span className="block text-sm font-medium text-ink">{item.description}</span>
                       <span className="block text-xs text-muted">
@@ -194,14 +245,54 @@ export default async function PacientePage({ params }: { params: Promise<{ id: s
                           : (item.region_code ?? "Sem localização")}
                       </span>
                     </span>
-                    <span className="num text-sm text-ink-soft">
+                    <span className="num pt-0.5 text-sm text-ink-soft">
                       {formatBRL(Math.round(Number(item.quantity) * item.unit_price_cents))}
                     </span>
+                    {dados.podeExecutar ? (
+                      <ExecutarItem
+                        itemId={item.id as string}
+                        patientId={patient.id as string}
+                        previa={dados.previas[item.id as string] ?? []}
+                      />
+                    ) : null}
                   </li>
                 ))}
               </ul>
             )}
           </Panel>
+
+          {dados.podeExecutar && dados.executados.length > 0 ? (
+            <Panel>
+              <PanelHead
+                title="Executado nos últimos dias"
+                hint="Clicou no dente errado? Desfazer devolve o material ao lote de onde saiu."
+              />
+              <ul className="divide-y divide-line">
+                {dados.executados.map((e) => (
+                  <li key={e.id} className="flex flex-wrap items-center gap-3 px-5 py-3">
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-ink">{e.descricao}</span>
+                      <span className="block text-xs text-muted">
+                        {[
+                          e.onde,
+                          formatDateTime(e.executadoEm, fuso),
+                          e.profissional,
+                          e.materiais === 0
+                            ? "sem material"
+                            : e.materiais === 1
+                              ? "1 material baixado"
+                              : `${e.materiais} materiais baixados`,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ")}
+                      </span>
+                    </span>
+                    <EstornarItem itemId={e.id} patientId={patient.id as string} />
+                  </li>
+                ))}
+              </ul>
+            </Panel>
+          ) : null}
 
           <Panel>
             <PanelHead title="Atendimentos" hint={`${consultas.length} entre os próximos e os últimos`} />

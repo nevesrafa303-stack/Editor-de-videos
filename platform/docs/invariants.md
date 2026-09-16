@@ -7,7 +7,7 @@ não alcança importador de base, script de correção, integração futura nem 
 pessoas clicando ao mesmo tempo.
 
 Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
-(205 testes, `./db/tests/run_tests.sh`).
+(224 testes, `./db/tests/run_tests.sh`).
 
 ## Isolamento e acesso
 
@@ -160,6 +160,20 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 95 | Pagamento estornado e seu par não entram no faturamento | `status`/`reverses_payment_id` na consulta | `11_relatorios` |
 | 96 | Abrir um negócio já escreve histórico de etapa | trigger `opportunity_log_stage` | `11_relatorios` |
 | 97 | Os índices de leitura do painel existem e são parciais | `payment_confirmed_idx` e os cinco de 0031 | `11_relatorios` |
+
+### Estoque operando
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 98 | Saldo e movimentação estão sempre em unidade de ESTOQUE | `comment on column` + a 0032 | `12_estoque` |
+| 99 | O lote que sai é o que vence primeiro, quebrando entre lotes | `pick_stock_lots()` | `12_estoque` |
+| 100 | Lote bloqueado ou vencido não entra no consumo | `pick_stock_lots()` + `check_stock_lot` | `12_estoque` |
+| 101 | A ficha técnica vira unidade de estoque com a perda dentro | `consume_plan_item()` | `12_estoque` |
+| 102 | Sem lote válido, injetável não é consumido — nem com política permissiva | `pick_stock_lots()` | `12_estoque` |
+| 103 | Item não fica executado se a baixa falhar | consumo antes do carimbo, mesma transação | `12_estoque` |
+| 104 | O estorno soma uma linha em vez de apagar a do consumo | `revert_plan_item()` | `12_estoque` |
+| 105 | O mesmo item não é executado duas vezes | `execute_plan_item()` | `12_estoque` |
+| 106 | Executado não é terminal: desfazer tem caminho | `state_transition` | `12_estoque` |
 
 Três regras de relatório NÃO são invariantes de banco, e ficam registradas aqui
 porque são decisões, não descuido — vivem em `modules/report/queries.ts`, com

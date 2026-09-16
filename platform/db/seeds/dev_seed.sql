@@ -171,9 +171,9 @@ insert into procedure (id, tenant_id, category_id, code, name, vertical, scope, 
 
 -- Insumos com controle de lote.
 insert into product (id, tenant_id, kind, code, name, brand, stock_unit, usage_unit, conversion_factor, requires_lot, requires_refrigeration, min_temperature, max_temperature, min_quantity, default_cost_cents) values
-  ('04111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'injectable', 'TOX100', 'Toxina botulínica 100U', 'Generico', 'frasco', 'U',  100, true, true,  2, 8, 2, 90000),
-  ('04222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'injectable', 'AH1ML',  'Acido hialuronico 1ml',  'Generico', 'seringa','ml', 1,   true, true,  2, 25, 3, 55000),
-  ('04333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', 'consumable', 'RESINA', 'Resina composta A2',     'Generico', 'tubo',   'g',  4,   false, false, null, null, 5, 12000);
+  ('04111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'injectable', 'TOX100', 'Toxina botulínica 100U', 'Genérico', 'frasco', 'U',  100, true, true,  2, 8, 2, 90000),
+  ('04222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'injectable', 'AH1ML',  'Ácido hialurônico 1ml',  'Genérico', 'seringa','ml', 1,   true, true,  2, 25, 3, 55000),
+  ('04333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', 'consumable', 'RESINA', 'Resina composta A2',     'Genérico', 'tubo',   'g',  4,   false, false, null, null, 5, 12000);
 
 insert into stock_location (id, tenant_id, unit_id, code, name, kind) values
   ('05111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'GELADEIRA', 'Geladeira clínica', 'fridge'),
@@ -184,7 +184,10 @@ insert into stock_location (id, tenant_id, unit_id, code, name, kind) values
 insert into product_lot (id, tenant_id, product_id, lot_number, expires_on, unit_cost_cents, received_on) values
   ('06111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', '04111111-1111-7111-8111-111111111111', 'TOX-2027A', current_date + 300, 88000, current_date - 20),
   ('06222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', '04111111-1111-7111-8111-111111111111', 'TOX-VENC',  current_date - 5,   88000, current_date - 400),
-  ('06333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', 'AH-2026B',  current_date + 500, 52000, current_date - 10);
+  ('06333333-3333-7333-8333-333333333333', '11111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', 'AH-2026B',  current_date + 500, 52000, current_date - 10),
+  -- Vencendo em 25 dias, com saldo: é a linha que a tela de validade existe
+  -- para mostrar, e sem ela a clínica abre a tela semanal e vê nada.
+  ('06444444-4444-7444-8444-444444444444', '11111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', 'AH-CEDO',   current_date + 25,  52000, current_date - 150);
 
 -- Ficha tecnica: quanto cada procedimento consome.
 insert into procedure_bom (tenant_id, procedure_id, product_id, quantity, unit, waste_percent) values
@@ -263,11 +266,30 @@ insert into resource (id, tenant_id, unit_id, kind, code, name) values
   ('0b111111-1111-7111-8111-111111111111', '11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', 'chair', 'CAD1', 'Cadeira 1'),
   ('0b222222-2222-7222-8222-222222222222', '11111111-1111-7111-8111-111111111111', 'a2222222-2222-7222-8222-222222222222', 'room',  'SALA1', 'Sala de estetica');
 
--- Estoque inicial.
-insert into stock_movement (tenant_id, unit_id, product_id, lot_id, location_id, kind, quantity, unit_cost_cents, performed_by, reason) values
-  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04111111-1111-7111-8111-111111111111', '06111111-1111-7111-8111-111111111111', '05111111-1111-7111-8111-111111111111', 'purchase', 500, 880, 'd1111111-1111-7111-8111-111111111111', null),
-  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', '06333333-3333-7333-8333-333333333333', '05111111-1111-7111-8111-111111111111', 'purchase', 10,  52000,'d1111111-1111-7111-8111-111111111111', null),
-  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04333333-3333-7333-8333-333333333333', null, '05111111-1111-7111-8111-111111111111', 'purchase', 20, 12000, 'd1111111-1111-7111-8111-111111111111', null);
+-- Estoque inicial, em UNIDADE DE ESTOQUE.
+--
+-- Estava em duas línguas: a toxina lançada em U (500 unidades de uso) e a
+-- resina em tubo. Dois significados no mesmo campo é como um estoque começa a
+-- divergir da prateleira. A 0032 decidiu — saldo é sempre na unidade em que se
+-- compra e se conta — e o seed passou a falar só isso: 5 frascos, 10 seringas,
+-- 20 tubos, cada um com o custo do seu frasco/seringa/tubo.
+--
+-- Sem `location_id`, e isso importa mais do que parece. A chave do saldo é
+-- (unidade, produto, lote, LOCAL) com NULLS NOT DISTINCT, então entrada com
+-- local e baixa sem local viram DUAS linhas de saldo do mesmo produto. A tela
+-- mostraria o mesmo item duas vezes, uma delas negativa. Enquanto local não
+-- tem tela, ninguém escreve local — `stock_location` segue modelado e vazio de
+-- uso, esperando a clínica que tenha duas geladeiras.
+insert into stock_movement (tenant_id, unit_id, product_id, lot_id, kind, quantity, unit_cost_cents, performed_by, reason) values
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04111111-1111-7111-8111-111111111111', '06111111-1111-7111-8111-111111111111', 'purchase', 5,  88000, 'd1111111-1111-7111-8111-111111111111', null),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', '06333333-3333-7333-8333-333333333333', 'purchase', 10, 52000, 'd1111111-1111-7111-8111-111111111111', null),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04333333-3333-7333-8333-333333333333', null, 'purchase', 20, 12000, 'd1111111-1111-7111-8111-111111111111', null),
+  -- Saldo no lote vencido e no que vence em 25 dias. Os dois casos da tela de
+  -- validade, e eles pedem coisas diferentes: o vencido pede baixa de perda
+  -- hoje, o que vence pede usar antes. Sem saldo, os dois lotes existiriam no
+  -- cadastro e em tela nenhuma.
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04111111-1111-7111-8111-111111111111', '06222222-2222-7222-8222-222222222222', 'purchase', 2, 88000, 'd1111111-1111-7111-8111-111111111111', null),
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111', '04222222-2222-7222-8222-222222222222', '06444444-4444-7444-8444-444444444444', 'purchase', 1, 52000, 'd1111111-1111-7111-8111-111111111111', null);
 
 -- ---------------------------------------------------------------------------
 -- Movimento suficiente para a tela de resumo do paciente mostrar o que ela é.

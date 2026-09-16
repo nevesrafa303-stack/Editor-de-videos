@@ -71,6 +71,14 @@ const TELAS = [
     espera: "Faturamento por profissional",
     altura: 1900,
   },
+  { nome: "25-estoque", url: "/estoque", espera: "Abaixo do mínimo", altura: 900 },
+  {
+    nome: "26-produto",
+    url: "/estoque",
+    clicar: "Toxina botulínica 100U",
+    espera: "Movimentações",
+    altura: 1200,
+  },
   { nome: "19-funil", url: "/funil", espera: "No funil", altura: 1100 },
   { nome: "20-pendencias", url: "/funil/pendencias", espera: "Abertas", altura: 900 },
   {

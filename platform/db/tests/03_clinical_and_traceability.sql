@@ -193,20 +193,25 @@ begin
   select quantity into v_saldo from stock_balance
   where product_id = '04111111-1111-7111-8111-111111111111'
     and lot_id = '06111111-1111-7111-8111-111111111111';
-  perform test.check('estoque', 'saldo inicial veio das movimentacoes', v_saldo = 500,
+  -- Em UNIDADE DE ESTOQUE (frasco), nao em unidade de uso (U). A 0032 fixou a
+  -- lingua do campo; antes disso o seed lancava toxina em U e resina em tubo,
+  -- e o mesmo numero significava coisas diferentes por produto.
+  perform test.check('estoque', 'saldo inicial veio das movimentacoes', v_saldo = 5,
     format('saldo=%s', v_saldo));
 
-  insert into stock_movement (tenant_id, unit_id, product_id, lot_id, location_id, kind, quantity,
+  insert into stock_movement (tenant_id, unit_id, product_id, lot_id, kind, quantity,
                               unit_cost_cents, patient_id, performed_by)
   values ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
           '04111111-1111-7111-8111-111111111111', '06111111-1111-7111-8111-111111111111',
-          '05111111-1111-7111-8111-111111111111', 'consumption', -20, 880,
+          'consumption', -0.2, 88000,
           '0a111111-1111-7111-8111-111111111111', 'd3333333-3333-7333-8333-333333333333');
 
   select quantity into v_saldo from stock_balance
   where product_id = '04111111-1111-7111-8111-111111111111'
     and lot_id = '06111111-1111-7111-8111-111111111111';
-  perform test.check('estoque', 'baixa de consumo atualiza o saldo', v_saldo = 480,
+  -- 0,2 frasco = 20 U de um frasco de 100 U. Saldo fracionario nao e defeito:
+  -- e "quatro frascos fechados e um comecado", que e o que ha na geladeira.
+  perform test.check('estoque', 'baixa de consumo atualiza o saldo', v_saldo = 4.8,
     format('saldo=%s', v_saldo));
 
   perform test.rejects('estoque',

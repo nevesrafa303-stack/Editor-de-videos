@@ -237,6 +237,11 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 25 · Painel gerencial sem tabela de totais | pronto; todo número sai dos fatos, nada materializado |
 | 26 · Quem atendeu é o profissional do orçamento | pronto; é a mesma regra da comissão |
 | 27 · Coorte do funil por abertura, não por movimento | pronto; é a única em que o denominador não se mexe |
+| 28 · Saldo em unidade de compra, não de uso | pronto; saldo tem de ser conferível contando o armário |
+| 29 · Executar o procedimento é o que baixa o estoque | pronto, na mesma transação |
+| 30 · FEFO automático, com o lote podendo ser trocado | pronto; é regra sanitária, não preferência |
+| 31 · Sem saldo avisa; sem lote válido recusa | pronto; rastreio não é configurável |
+| 32 · Local de estoque fica para depois | um estoque por unidade; `stock_location` segue modelado |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -272,6 +277,14 @@ Os demais seguem pendentes, na ordem abaixo.
    escreve. **O que ficou de fora:** exportação (CSV/PDF), comparação com o mês
    anterior, meta por profissional, e o relatório de acesso ao prontuário — este
    último é LGPD, não gestão, e merece a própria fatia.
+
+9. ~~**Estoque operando**~~ — feito. Entrada com lote nascendo junto, perda,
+   acerto por contagem, fila de validade, bloqueio sanitário de lote — e o que
+   dá sentido a tudo: **executar o procedimento baixa o material pela ficha
+   técnica**, na mesma transação, com FEFO entre lotes e desfazer que devolve
+   ao lote de origem. **O que ficou de fora:** local de estoque (armário,
+   geladeira), pedido de compra, inventário cíclico com contagem por lista, log
+   de temperatura e transferência entre unidades. Todos seguem modelados.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por

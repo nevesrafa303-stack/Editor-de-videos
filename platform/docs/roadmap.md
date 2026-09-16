@@ -27,7 +27,7 @@ lote. Se um desses três continuar fora do sistema, a clínica não migra.
 | Catálogo | Procedimento, ficha técnica, tabela de preço versionada |
 | Orçamento | Item por dente/face e por região, desconto com teto, aceite assinado |
 | Financeiro | Recebível, parcela, baixa, caixa diário, inadimplência |
-| Estoque | Produto, lote com validade, entrada/baixa, mínimo, alerta de vencimento |
+| ~~Estoque~~ | **Feito.** Produto, lote com validade, entrada/baixa, mínimo, alerta de vencimento — e a baixa automática pela ficha técnica, que não estava prevista aqui e é o que impede o estoque de virar caderno paralelo |
 | Painel | Resumo do paciente em uma tela; agenda do dia; a receber |
 
 **Fora da fase 1, de propósito:** WhatsApp automático, gateway de pagamento,
@@ -72,7 +72,7 @@ paralela.
 
 | Entrega | Por que é diferencial |
 |---|---|
-| **Custo real e margem por atendimento** | Ficha técnica × **consumo real** × preço congelado. A margem *orçada* já saiu na fase 1; o que falta é confrontá-la com a baixa de estoque — a diferença entre as duas é onde mora o desperdício |
+| **Custo real e margem por atendimento** | Ficha técnica × **consumo real** × preço congelado. A margem *orçada* saiu com o painel e a baixa por ficha técnica saiu com o estoque: agora existem os dois lados da conta. **Falta confrontá-los na tela** — orçado contra consumido, por procedimento. É o que revela desperdício, e ficou a um relatório de distância |
 | ~~**Consolidação de rede**~~ | Saiu parcial com o painel: comparação entre unidades (vencido, recebido) e por profissional já existem. **Continua faltando:** previsão de caixa consolidada |
 | **Alertas preditivos** | No-show, paciente inativo, orçamento esfriando, lote que vence antes de ser consumido no ritmo atual |
 | **Rastreabilidade sanitária completa** | Recall reverso, log de temperatura, relatório para fiscalização |

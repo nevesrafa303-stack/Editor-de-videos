@@ -19,7 +19,7 @@ const NAV: (RailItem & { permission?: Permission })[] = [
   { href: "/financeiro", label: "Financeiro", icon: "money", permission: "receivable.read" },
   { href: "/convenios", label: "Convênios", icon: "card", permission: "price.read" },
   { href: "/faturamento", label: "Faturamento", icon: "clipboard", permission: "claim.read" },
-  { href: "/estoque", label: "Estoque", icon: "box", permission: "inventory.read", planned: true },
+  { href: "/estoque", label: "Estoque", icon: "box", permission: "inventory.read" },
   { href: "/importar", label: "Importar", icon: "upload", permission: "import.read" },
   { href: "/relatorios", label: "Relatórios", icon: "chart", permission: "report.read" },
 ];
