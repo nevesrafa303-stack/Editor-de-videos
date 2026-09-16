@@ -21,6 +21,7 @@ export {
 export {
   periodSchema,
   periodoPadrao,
+  periodoAnterior,
   rotuloPeriodo,
   rotuloCanal,
   type Period,

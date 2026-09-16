@@ -72,3 +72,60 @@ const CANAIS: Record<string, string> = {
 export function rotuloCanal(canal: string): string {
   return CANAIS[canal] ?? "Outro";
 }
+
+
+/**
+ * O periodo anterior, para o painel poder dizer "melhor ou pior que o que?".
+ *
+ * Numero sem base e dificil de agir: "recebi R$ 12 mil" nao diz nada sozinho;
+ * "R$ 12 mil, 18% a menos que agosto" diz o que fazer na segunda-feira.
+ *
+ * A regra tem dois casos, e o segundo existe porque o primeiro nao cobre tudo:
+ *
+ * 1. MES FECHADO (dia 1 ao ultimo dia do mesmo mes) -> o MES CALENDARIO
+ *    anterior. E o que a pessoa quer dizer quando escolhe setembro inteiro, e
+ *    uma janela de "30 dias antes" devolveria 2 a 31 de agosto — que nao e
+ *    agosto, e faria o numero nao bater com o fechamento do mes passado.
+ * 2. QUALQUER OUTRO RECORTE -> a janela do MESMO TAMANHO imediatamente antes.
+ *    Comparar 12 dias com um mes inteiro seria pior do que nao comparar.
+ */
+export function periodoAnterior(period: { de: string; ate: string }): {
+  de: string;
+  ate: string;
+  rotulo: string;
+} {
+  const iso = (d: Date) => d.toISOString().slice(0, 10);
+  const de = new Date(`${period.de}T00:00:00Z`);
+  const ate = new Date(`${period.ate}T00:00:00Z`);
+
+  const ultimoDiaDoMes = (d: Date) =>
+    new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0)).getUTCDate();
+
+  const mesFechado =
+    de.getUTCDate() === 1 &&
+    ate.getUTCDate() === ultimoDiaDoMes(ate) &&
+    de.getUTCMonth() === ate.getUTCMonth() &&
+    de.getUTCFullYear() === ate.getUTCFullYear();
+
+  if (mesFechado) {
+    const inicio = new Date(Date.UTC(de.getUTCFullYear(), de.getUTCMonth() - 1, 1));
+    const fim = new Date(Date.UTC(inicio.getUTCFullYear(), inicio.getUTCMonth() + 1, 0));
+
+    return {
+      de: iso(inicio),
+      ate: iso(fim),
+      rotulo: new Intl.DateTimeFormat("pt-BR", { month: "long", timeZone: "UTC" }).format(inicio),
+    };
+  }
+
+  const DIA = 86_400_000;
+  const dias = Math.round((ate.getTime() - de.getTime()) / DIA) + 1;
+  const fim = new Date(de.getTime() - DIA);
+  const inicio = new Date(fim.getTime() - (dias - 1) * DIA);
+
+  return {
+    de: iso(inicio),
+    ate: iso(fim),
+    rotulo: dias === 1 ? "o dia anterior" : `os ${dias} dias antes`,
+  };
+}

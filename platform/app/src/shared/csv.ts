@@ -126,3 +126,47 @@ export function coluna(header: string[], ...aceitos: string[]): number {
   }
   return -1;
 }
+
+/**
+ * Escritor de CSV, para a planilha que sai daqui.
+ *
+ * Tres decisoes, todas para o arquivo ABRIR CERTO com dois cliques no Excel em
+ * portugues — que e onde ele vai ser aberto, e nao num editor de texto:
+ *
+ * 1. SEPARADOR PONTO E VIRGULA. O Excel brasileiro usa virgula como separador
+ *    decimal, entao a virgula nao pode separar coluna. Arquivo com virgula
+ *    abre com tudo numa coluna so, e a pessoa conclui que o sistema exporta
+ *    errado (e, do ponto de vista dela, exporta).
+ * 2. BOM NO COMECO. Sem ele o Excel le como Latin-1 e "Preenchimento" vira
+ *    "PreÃ¡...". O BOM e feio e e a unica coisa que o Excel entende.
+ * 3. CRLF entre linhas, pelo mesmo motivo de compatibilidade.
+ *
+ * Aspas so quando precisa — campo com separador, aspas, ou quebra de linha —
+ * porque arquivo com tudo entre aspas e ilegivel quando alguem abre no Bloco
+ * de Notas para conferir.
+ */
+export function toCsv(header: string[], rows: (string | number | null)[][]): string {
+  const escapar = (valor: string | number | null): string => {
+    const texto = valor === null || valor === undefined ? "" : String(valor);
+    return /[";\r\n]/.test(texto) ? `"${texto.replace(/"/g, '""')}"` : texto;
+  };
+
+  const linhas = [header, ...rows].map((linha) => linha.map(escapar).join(";"));
+  return `﻿${linhas.join("\r\n")}\r\n`;
+}
+
+/**
+ * Numero como a planilha brasileira espera: virgula decimal, sem separador de
+ * milhar.
+ *
+ * O milhar fica de fora de proposito: "1.234,56" com ponto e o que o Excel
+ * mostra DEPOIS de entender o numero, nao o que ele aceita na entrada — com
+ * ponto no arquivo, algumas versoes leem como texto e a soma da coluna nao
+ * funciona. E uma coluna que nao soma e uma exportacao que nao serviu.
+ */
+export function numeroCsv(valor: number, casas = 2): string {
+  return valor.toFixed(casas).replace(".", ",");
+}
+
+/** Centavos como numero de planilha: 123456 -> "1234,56". */
+export const centavosCsv = (cents: number): string => numeroCsv(cents / 100);

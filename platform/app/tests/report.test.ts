@@ -26,6 +26,7 @@ import {
   getProducaoPorProcedimento,
   getResumo,
   periodoPadrao,
+  periodoAnterior,
   rotuloCanal,
   rotuloPeriodo,
 } from "@/modules/report";
@@ -94,6 +95,41 @@ describe("período", () => {
     await expect(
       withTenant(dona, (ctx) => getResumo(ctx, { de: "2026-09-30", ate: "2026-09-01" })),
     ).rejects.toBeInstanceOf(ValidationError);
+  });
+
+  it("mês fechado compara com o mês calendário anterior", () => {
+    // Uma janela de "30 dias antes" devolveria 2 a 31 de agosto — que não é
+    // agosto, e faria o número não bater com o fechamento do mês passado.
+    const a = periodoAnterior({ de: "2026-09-01", ate: "2026-09-30" });
+    expect(a).toEqual({ de: "2026-08-01", ate: "2026-08-31", rotulo: "agosto" });
+
+    // Fevereiro bissexto e virada de ano, que é onde a aritmética de mês erra.
+    expect(periodoAnterior({ de: "2028-03-01", ate: "2028-03-31" })).toEqual({
+      de: "2028-02-01",
+      ate: "2028-02-29",
+      rotulo: "fevereiro",
+    });
+    expect(periodoAnterior({ de: "2026-01-01", ate: "2026-01-31" })).toEqual({
+      de: "2025-12-01",
+      ate: "2025-12-31",
+      rotulo: "dezembro",
+    });
+  });
+
+  it("recorte solto compara com a janela do mesmo tamanho", () => {
+    // Comparar 12 dias com um mês inteiro seria pior do que não comparar.
+    const a = periodoAnterior({ de: "2026-09-10", ate: "2026-09-21" });
+    expect(a.de).toBe("2026-08-29");
+    expect(a.ate).toBe("2026-09-09");
+    expect(a.rotulo).toBe("os 12 dias antes");
+  });
+
+  it("um dia compara com o dia anterior", () => {
+    expect(periodoAnterior({ de: "2026-09-15", ate: "2026-09-15" })).toEqual({
+      de: "2026-09-14",
+      ate: "2026-09-14",
+      rotulo: "o dia anterior",
+    });
   });
 
   it("escreve o rótulo em pt-BR", () => {

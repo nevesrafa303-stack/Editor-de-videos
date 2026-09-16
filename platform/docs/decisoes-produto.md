@@ -245,6 +245,8 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 33 · Orçado e executado em tabelas separadas | são coortes diferentes; juntar faria sobrar "qual é o certo?" |
 | 34 · Desperdício não se dilui no custo do atendimento | painel próprio; é assim que ele some de vista |
 | 35 · Telas de estoque leem a unidade ativa | conta-se o armário daqui, não o da outra cidade |
+| 36 · Mês fechado compara com o mês calendário | "30 dias antes" não é agosto, e não bate com o fechamento |
+| 37 · Exportação é um arquivo por seção | bloco empilhado vira apagar linha para poder somar |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -296,6 +298,11 @@ Os demais seguem pendentes, na ordem abaixo.
     do outro lado. **O que ficou de fora:** diferença de QUANTIDADE por
     procedimento, que hoje não existe (a baixa segue a ficha técnica); ela vai
     aparecer quando houver consumo manual por atendimento.
+
+11. ~~**Exportar e comparar**~~ — feito. Cada seção do painel sai em CSV com o
+    mesmo recorte da tela, no formato que o Excel em português abre com dois
+    cliques; e os cartões do resumo passam a dizer se o período está melhor ou
+    pior que o anterior, comparando mês fechado com mês calendário.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por

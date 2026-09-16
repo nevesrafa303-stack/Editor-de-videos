@@ -46,8 +46,8 @@ src/
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   ui/barras.tsx      barras horizontais comparativas, em CSS — sem biblioteca
   app/               rotas (App Router)
-tests/               278 testes (integração contra PostgreSQL + unidade)
-e2e/                 104 testes de navegador sobre o build de produção
+tests/               286 testes (integração contra PostgreSQL + unidade)
+e2e/                 108 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -171,7 +171,8 @@ navegador — o `next build` reprova, e com razão.
 | `/faturamento/lotes/[id]` | o lote, e a conferência do repasse linha a linha |
 | `/faturamento/guias/[id]` | a guia, seus procedimentos, a senha e as glosas dela |
 | `/faturamento/glosas` | a fila de recurso, ordenada por prazo |
-| `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem orçada × custo real por procedimento, desperdício e de onde vem quem fecha |
+| `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem orçada × custo real por procedimento, desperdício e de onde vem quem fecha — com comparação com o período anterior |
+| `/relatorios/exportar` | cada seção em CSV, no mesmo recorte da tela |
 | `/estoque` | saldo por produto na unidade de compra, quem está abaixo do mínimo, quanto está parado |
 | `/estoque/[id]` | lotes, perda, acerto por contagem, bloqueio sanitário e todo o histórico de movimentação |
 | `/estoque/entrada` | o que chegou; produto com rastreio entra com lote e validade no mesmo formulário |
@@ -201,8 +202,8 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 278 testes (a suíte recria o banco antes)
-npm run test:e2e      # 104 testes de navegador sobre o build de produção
+npm test              # 286 testes (a suíte recria o banco antes)
+npm run test:e2e      # 108 testes de navegador sobre o build de produção
 npm run test:all      # os 224 testes SQL + os dois acima
 ```
 
@@ -496,6 +497,23 @@ na margem de atendimento nenhum, de propósito: diluir esse valor no custo dos
 procedimentos é exatamente como o desperdício some de vista. No seed de
 demonstração ele é cinco vezes o material que virou atendimento — que é mais
 ou menos o tamanho que ele tem numa clínica que nunca olhou para ele.
+
+**O painel diz melhor ou pior.** Número sem base é difícil de agir: "recebi
+R$ 12 mil" não diz nada sozinho; "R$ 12 mil, 18% a menos que agosto" diz o que
+fazer na segunda-feira. Mês fechado compara com o **mês calendário** anterior,
+não com "os 30 dias antes" — que devolveria 2 a 31 de agosto e não bateria com
+o fechamento do mês passado. Qualquer outro recorte compara com a janela do
+mesmo tamanho. Sair de zero não vira "+100%": é "nada em agosto para comparar",
+porque começar não é crescer.
+
+**Exportar é um arquivo por seção.** Blocos empilhados separados por linha em
+branco são a forma clássica de exportar relatório, e a primeira coisa que a
+pessoa faz ao abrir é apagar as linhas do meio para conseguir somar uma coluna.
+O arquivo sai com ponto e vírgula, vírgula decimal e BOM — não por
+preciosismo, mas porque é no Excel em português que ele vai ser aberto, e com
+vírgula separando coluna ele abre tudo numa coluna só. Onde não houve medição a
+célula fica **vazia**, nunca zero: zero entra na soma e na média como se fosse
+medição.
 
 **O período mora no endereço.** Relatório que não dá para mandar pronto vira
 captura de tela no WhatsApp, e ninguém confere uma captura de tela. Período

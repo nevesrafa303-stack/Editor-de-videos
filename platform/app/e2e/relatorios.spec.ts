@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { expect, test, type Page } from "@playwright/test";
 
 /**
@@ -15,6 +16,7 @@ import { expect, test, type Page } from "@playwright/test";
 const SENHA = "senha-de-teste-123";
 const DONA = "ana@sorriso.com.br";
 const PROFISSIONAL = "carla@sorriso.com.br";
+const RECEPCAO = "recepcao@sorriso.com.br";
 
 async function entrar(page: Page, email: string): Promise<void> {
   await page.goto("/entrar");
@@ -39,7 +41,11 @@ function centavos(texto: string): number {
 async function valorDoCartao(page: Page, rotulo: string): Promise<number> {
   const resumo = page.getByRole("region", { name: "Resumo do período" });
   const bloco = resumo.locator("div", { has: page.getByText(rotulo, { exact: true }) }).last();
-  return centavos((await bloco.textContent()) ?? "");
+
+  // Só o VALOR, não o cartão inteiro. Desde que existe a comparação com o mês
+  // anterior, o texto do cartão carrega dois números — e `centavos()` colava os
+  // dígitos dos dois num só ("R$ 768,00" + "20%" = 76800020).
+  return centavos((await bloco.locator(".num").first().textContent()) ?? "");
 }
 
 // Janela larga: o seed espalha o histórico por três meses, e o mês corrente
@@ -215,6 +221,72 @@ test.describe("relatórios", () => {
 
     await expect(painel).toContainText("Perda");
     await expect(painel).toContainText("fora do estoque");
+  });
+
+  test("o painel diz se o mês está melhor ou pior que o anterior", async ({ page }) => {
+    // Número sem base é difícil de agir: "recebi R$ 12 mil" não diz nada
+    // sozinho. O mês fechado compara com o mês calendário anterior, pelo nome.
+    await entrar(page, DONA);
+    await page.goto("/relatorios?de=2026-09-01&ate=2026-09-30");
+
+    const resumo = page.getByRole("region", { name: "Resumo do período" });
+    await expect(resumo).toContainText("vs. agosto");
+
+    // "Vencido hoje" é foto de agora, não recorte de período: comparar seria
+    // comparar o mesmo número com ele mesmo.
+    const vencido = resumo
+      .locator("div", { has: page.getByText("Vencido hoje") })
+      .last();
+    await expect(vencido).not.toContainText("vs.");
+  });
+
+  test("exportar leva o mesmo recorte da tela e abre como planilha", async ({ page }) => {
+    await entrar(page, DONA);
+    await page.goto(`/relatorios${AMPLO}`);
+
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page
+        .locator("section", { has: page.getByText("Executado: custo real") })
+        .last()
+        .getByText("Exportar")
+        .click(),
+    ]);
+
+    // O período no nome: três exportações na pasta de Downloads sem isso são
+    // três "relatorio.csv" e ninguém sabe qual é de qual mês.
+    expect(download.suggestedFilename()).toContain("executado-custo-real");
+    expect(download.suggestedFilename()).toMatch(/\d{4}-\d{2}-\d{2}.*\.csv$/);
+
+    const conteudo = await readFile((await download.path())!, "utf8");
+    expect(conteudo.startsWith("\ufeff")).toBe(true);
+    expect(conteudo).toContain("Procedimento;Feitos;");
+  });
+
+  test("quem não pode exportar não vê o link nem alcança a rota", async ({ page }) => {
+    await entrar(page, RECEPCAO);
+    await page.goto("/relatorios");
+
+    await expect(page.getByRole("heading", { name: "Relatórios" })).toBeVisible();
+    await expect(page.getByText("Exportar")).toHaveCount(0);
+
+    // A rota devolve 403, não redireciona: mandar um download para a tela de
+    // "sem permissão" entregaria um HTML com nome .csv, que a pessoa abriria
+    // no Excel e leria como dado.
+    //
+    // Pela navegação, e não por `page.request`: o cookie de sessão é `secure`,
+    // e o contexto de request do Playwright não manda cookie secure sobre
+    // HTTP. O navegador manda (localhost é origem confiável), então
+    // `page.request` daria 401 e o teste estaria medindo o próprio teste.
+    const resposta = await page.goto("/relatorios/exportar?secao=custo-real");
+    expect(resposta?.status()).toBe(403);
+  });
+
+  test("seção desconhecida não vira arquivo vazio", async ({ page }) => {
+    await entrar(page, DONA);
+    const resposta = await page.goto("/relatorios/exportar?secao=inventada");
+
+    expect(resposta?.status()).toBe(400);
   });
 
   test("o menu leva ao painel", async ({ page }) => {

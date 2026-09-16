@@ -10,6 +10,7 @@ import {
   getResumo,
   getSaidaSemProcedimento,
   periodoPadrao,
+  periodoAnterior,
   periodSchema,
   rotuloPeriodo,
   rotuloCanal,
@@ -26,8 +27,73 @@ export const metadata: Metadata = { title: "Relatórios" };
 
 const percent = (v: number) => `${(v * 100).toFixed(0)}%`;
 
+/**
+ * O link de exportar de um painel.
+ *
+ * Leva o MESMO recorte que a tela está mostrando — período e unidade. Uma
+ * exportação que ignora o filtro devolve um arquivo que não é o que está na
+ * tela, e aí a planilha e o painel discordam sem que ninguém saiba por quê.
+ */
+function Exportar({ secao, period }: { secao: string; period: Period }) {
+  const query = new URLSearchParams({ secao, de: period.de, ate: period.ate });
+  if (period.unitId) query.set("unidade", period.unitId);
+
+  return (
+    <a
+      href={`/relatorios/exportar?${query.toString()}`}
+      className="shrink-0 text-xs font-medium text-structure hover:underline"
+    >
+      Exportar
+    </a>
+  );
+}
+
+/**
+ * A variação contra o período anterior.
+ *
+ * Três casos, e os dois últimos existem porque o primeiro mente:
+ *
+ *   - havia base e mudou -> percentual, com o sinal na cor;
+ *   - havia base e nao mudou -> "igual a agosto", que também é informação;
+ *   - NÃO havia base -> "nada em agosto". Dividir por zero daria ∞, e
+ *     arredondar isso para "+100%" seria inventar uma comparação que não
+ *     existe: sair de zero não é crescer, é começar.
+ */
+function Variacao({
+  atual,
+  anterior,
+  rotulo,
+}: {
+  atual: number;
+  anterior: number;
+  rotulo: string;
+}) {
+  if (anterior === 0) {
+    return (
+      <span className="text-muted">
+        {atual === 0
+          ? `nada aqui nem em ${rotulo}`
+          : `nada em ${rotulo} para comparar`}
+      </span>
+    );
+  }
+
+  const variacao = (atual - anterior) / anterior;
+
+  if (Math.round(variacao * 100) === 0) {
+    return <span className="text-muted">igual a {rotulo}</span>;
+  }
+
+  return (
+    <span className={variacao > 0 ? "text-positive" : "text-critical"}>
+      {variacao > 0 ? "▲" : "▼"} {percent(Math.abs(variacao))} vs. {rotulo}
+    </span>
+  );
+}
+
 /** `1` vira "1 negócio"; `0` e `2` viram "negócios". */
-const plural = (n: number, um: string, muitos: string) => `${n} ${n === 1 ? um : muitos}`;
+const plural = (n: number, um: string, muitos: string) =>
+  `${n} ${n === 1 ? um : muitos}`;
 
 export default async function RelatoriosPage({
   searchParams,
@@ -78,6 +144,7 @@ export default async function RelatoriosPage({
         : "Esta unidade não está no seu acesso. Mostrando o que você alcança.";
 
     const podeFinanceiro = ctx.can("report.financial");
+    const podeExportar = ctx.can("report.export");
 
     // Quem não vê dinheiro ainda vê funil e captação. Devolver a tela inteira
     // vazia para o profissional seria trancar dele o relatório que é dele.
@@ -92,9 +159,12 @@ export default async function RelatoriosPage({
         aviso,
         unidades,
         podeFinanceiro,
+        podeExportar,
         funil,
         origem,
         resumo: null,
+        resumoAnterior: null,
+        comparadoCom: null,
         profissionais: null,
         inadimplencia: null,
         procedimentos: null,
@@ -103,24 +173,45 @@ export default async function RelatoriosPage({
       };
     }
 
-    const [resumo, profissionais, inadimplencia, procedimentos, custoReal, saidaAvulsa] =
-      await Promise.all([
-        getResumo(ctx, period),
-        getFaturamentoPorProfissional(ctx, period),
-        getInadimplenciaPorUnidade(ctx, period),
-        getProducaoPorProcedimento(ctx, period),
-        getCustoRealPorProcedimento(ctx, period),
-        getSaidaSemProcedimento(ctx, period),
-      ]);
+    /*
+     * O mesmo `getResumo`, na janela anterior.
+     *
+     * Duas chamadas da MESMA função em vez de uma consulta que calcula os dois
+     * lados: uma segunda definição de "recebido" seria uma a mais, e a
+     * comparação passaria a medir a diferença entre duas contas em vez da
+     * diferença entre dois meses.
+     */
+    const anterior = periodoAnterior(period);
+
+    const [
+      resumo,
+      resumoAnterior,
+      profissionais,
+      inadimplencia,
+      procedimentos,
+      custoReal,
+      saidaAvulsa,
+    ] = await Promise.all([
+      getResumo(ctx, period),
+      getResumo(ctx, { ...anterior, unitId: period.unitId }),
+      getFaturamentoPorProfissional(ctx, period),
+      getInadimplenciaPorUnidade(ctx, period),
+      getProducaoPorProcedimento(ctx, period),
+      getCustoRealPorProcedimento(ctx, period),
+      getSaidaSemProcedimento(ctx, period),
+    ]);
 
     return {
       period,
       aviso,
       unidades,
       podeFinanceiro,
+      podeExportar,
       funil,
       origem,
       resumo,
+      resumoAnterior,
+      comparadoCom: anterior.rotulo,
       profissionais,
       inadimplencia,
       procedimentos,
@@ -129,12 +220,14 @@ export default async function RelatoriosPage({
     };
   }, "report.read");
 
-  const { period, aviso, unidades, podeFinanceiro, resumo } = dados;
+  const { period, aviso, unidades, podeFinanceiro, podeExportar, resumo } =
+    dados;
   const rotulo = rotuloPeriodo(period);
   // Com uma unidade so ao alcance, "rede" seria uma palavra vazia — e pior,
   // sugeriria que existe mais coisa atras do numero do que existe.
   const unidade =
-    unidades.find((u) => u.id === period.unitId) ?? (unidades.length === 1 ? unidades[0] : undefined);
+    unidades.find((u) => u.id === period.unitId) ??
+    (unidades.length === 1 ? unidades[0] : undefined);
 
   return (
     <>
@@ -143,7 +236,12 @@ export default async function RelatoriosPage({
         meta={unidade ? `${rotulo} · ${unidade.name}` : `${rotulo} · rede`}
       />
 
-      <Filtro de={period.de} ate={period.ate} unitId={period.unitId} unidades={unidades} />
+      <Filtro
+        de={period.de}
+        ate={period.ate}
+        unitId={period.unitId}
+        unidades={unidades}
+      />
 
       {aviso ? (
         <div className="mb-4">
@@ -152,17 +250,32 @@ export default async function RelatoriosPage({
       ) : null}
 
       {resumo ? (
-        <Panel aria-label="Resumo do período" className="mb-4 grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Panel
+          aria-label="Resumo do período"
+          className="mb-4 grid gap-5 p-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
           <Metric
             label="Recebido"
             value={formatBRL(resumo.recebidoCents)}
-            hint="Pagamentos confirmados no período"
+            hint={
+              <Variacao
+                atual={resumo.recebidoCents}
+                anterior={dados.resumoAnterior?.recebidoCents ?? 0}
+                rotulo={dados.comparadoCom ?? "antes"}
+              />
+            }
             tone={resumo.recebidoCents > 0 ? "positive" : "neutral"}
           />
           <Metric
             label="Vendido"
             value={formatBRL(resumo.aceitoCents)}
-            hint="Orçamentos aceitos — entra parcelado"
+            hint={
+              <Variacao
+                atual={resumo.aceitoCents}
+                anterior={dados.resumoAnterior?.aceitoCents ?? 0}
+                rotulo={dados.comparadoCom ?? "antes"}
+              />
+            }
             tone={resumo.aceitoCents > 0 ? "structure" : "neutral"}
           />
           <Metric
@@ -175,17 +288,31 @@ export default async function RelatoriosPage({
             label="Taxa de ganho"
             value={resumo.taxaGanho === null ? "—" : percent(resumo.taxaGanho)}
             hint={
-              resumo.taxaGanho === null
-                ? "Nenhum negócio fechou no período"
-                : `${resumo.ganhos} ganhos · ${resumo.perdidos} perdidos`
+              resumo.taxaGanho === null ? (
+                "Nenhum negócio fechou no período"
+              ) : (
+                <>
+                  {resumo.ganhos} ganhos · {resumo.perdidos} perdidos
+                  {dados.resumoAnterior?.taxaGanho != null ? (
+                    <>
+                      <br />
+                      <Variacao
+                        atual={resumo.taxaGanho}
+                        anterior={dados.resumoAnterior.taxaGanho}
+                        rotulo={dados.comparadoCom ?? "antes"}
+                      />
+                    </>
+                  ) : null}
+                </>
+              )
             }
           />
         </Panel>
       ) : (
         <div className="mb-4">
           <Notice tone="warning">
-            Seu perfil não vê números financeiros. Abaixo ficam os relatórios de funil e de
-            captação, que são os do seu acesso.
+            Seu perfil não vê números financeiros. Abaixo ficam os relatórios de
+            funil e de captação, que são os do seu acesso.
           </Notice>
         </div>
       )}
@@ -194,6 +321,11 @@ export default async function RelatoriosPage({
         <Panel className="mb-4">
           <PanelHead
             title="Faturamento por profissional"
+            action={
+              podeExportar ? (
+                <Exportar secao="profissionais" period={period} />
+              ) : null
+            }
             hint="Vendido é o orçamento aceito; recebido é o dinheiro que entrou. A diferença é o parcelamento."
           />
           <Barras
@@ -215,6 +347,9 @@ export default async function RelatoriosPage({
       <Panel className="mb-4">
         <PanelHead
           title="Conversão do funil"
+          action={
+            podeExportar ? <Exportar secao="funil" period={period} /> : null
+          }
           hint="Dos negócios abertos no período, até onde cada um chegou. Os mais recentes ainda vão andar."
         />
         <Barras
@@ -241,6 +376,11 @@ export default async function RelatoriosPage({
         <Panel className="mb-4">
           <PanelHead
             title="Vencido por unidade"
+            action={
+              podeExportar ? (
+                <Exportar secao="inadimplencia" period={period} />
+              ) : null
+            }
             hint="Parcelas vencidas e não pagas, hoje. Não depende do período escolhido."
           />
           <Barras
@@ -268,6 +408,11 @@ export default async function RelatoriosPage({
         <Panel className="mb-4">
           <PanelHead
             title="Vendido: margem orçada"
+            action={
+              podeExportar ? (
+                <Exportar secao="producao" period={period} />
+              ) : null
+            }
             hint="Orçamentos ACEITOS no período. Preço e custo congelados na emissão — é a expectativa, feita antes de qualquer material sair."
           />
           {dados.procedimentos.length === 0 ? (
@@ -295,12 +440,21 @@ export default async function RelatoriosPage({
                     <tr key={p.procedureId ?? p.nome}>
                       <td className="font-medium text-ink">{p.nome}</td>
                       <td className="num text-right">{p.quantidade}</td>
-                      <td className="num text-right">{formatBRL(p.receitaCents)}</td>
-                      <td className="num text-right">{formatBRL(p.custoCents)}</td>
-                      <td className="num text-right">{formatBRL(p.margemCents)}</td>
+                      <td className="num text-right">
+                        {formatBRL(p.receitaCents)}
+                      </td>
+                      <td className="num text-right">
+                        {formatBRL(p.custoCents)}
+                      </td>
+                      <td className="num text-right">
+                        {formatBRL(p.margemCents)}
+                      </td>
                       <td className="num text-right">
                         {p.margemPercent === null ? (
-                          <span className="text-muted" title="Custo não preenchido no catálogo">
+                          <span
+                            className="text-muted"
+                            title="Custo não preenchido no catálogo"
+                          >
                             —
                           </span>
                         ) : (
@@ -320,6 +474,11 @@ export default async function RelatoriosPage({
         <Panel className="mb-4">
           <PanelHead
             title="Executado: custo real"
+            action={
+              podeExportar ? (
+                <Exportar secao="custo-real" period={period} />
+              ) : null
+            }
             hint="Procedimentos FEITOS no período. Previsto é a ficha técnica ao custo de catálogo; real é o que saiu dos lotes. Não entram aluguel, cadeira nem folha."
           />
           {dados.custoReal.length === 0 ? (
@@ -355,12 +514,15 @@ export default async function RelatoriosPage({
                                custo zero mostraria 100% de margem — o número mais
                                perigoso que um relatório pode exibir. */
                             <span className="mt-0.5 block text-xs text-warning">
-                              Sem ficha técnica: o custo real deste procedimento não é medido
+                              Sem ficha técnica: o custo real deste procedimento
+                              não é medido
                             </span>
                           ) : null}
                         </td>
                         <td className="num text-right">{p.execucoes}</td>
-                        <td className="num text-right">{formatBRL(p.receitaCents)}</td>
+                        <td className="num text-right">
+                          {formatBRL(p.receitaCents)}
+                        </td>
                         <td className="num text-right text-muted">
                           {p.temFicha ? formatBRL(p.previstoCents) : "—"}
                         </td>
@@ -409,9 +571,20 @@ export default async function RelatoriosPage({
         <Panel className="mb-4">
           <PanelHead
             title="Saiu do estoque sem procedimento"
+            action={
+              podeExportar ? (
+                <Exportar secao="desperdicio" period={period} />
+              ) : null
+            }
             hint={(() => {
-              const perdido = dados.saidaAvulsa.reduce((s, l) => s + l.valorCents, 0);
-              const consumido = (dados.custoReal ?? []).reduce((s, l) => s + l.realCents, 0);
+              const perdido = dados.saidaAvulsa.reduce(
+                (s, l) => s + l.valorCents,
+                0,
+              );
+              const consumido = (dados.custoReal ?? []).reduce(
+                (s, l) => s + l.realCents,
+                0,
+              );
 
               const base =
                 "Perda e acerto de inventário. Não entra na margem de atendimento nenhum — é onde o desperdício aparece.";
@@ -420,14 +593,16 @@ export default async function RelatoriosPage({
               // que virou atendimento. Fora desse caso ela seria uma fração
               // pequena repetida toda vez, e número que sempre aparece some
               // da vista.
-              if (perdido === 0 || consumido === 0 || perdido <= consumido) return base;
+              if (perdido === 0 || consumido === 0 || perdido <= consumido)
+                return base;
 
               return `${base} Foram ${formatBRL(perdido)} — ${(perdido / consumido).toFixed(1).replace(".", ",")}× o material que os atendimentos consumiram no período.`;
             })()}
           />
           {dados.saidaAvulsa.length === 0 ? (
             <p className="px-5 py-6 text-sm text-muted">
-              Nada saiu do estoque sem procedimento entre {rotulo}. É a notícia boa.
+              Nada saiu do estoque sem procedimento entre {rotulo}. É a notícia
+              boa.
             </p>
           ) : (
             <Barras
@@ -449,6 +624,9 @@ export default async function RelatoriosPage({
       <Panel>
         <PanelHead
           title="Origem de captação"
+          action={
+            podeExportar ? <Exportar secao="captacao" period={period} /> : null
+          }
           hint="Quem traz mais contato raramente é quem traz mais fechamento. As duas barras existem por isso."
         />
         <Barras
@@ -461,7 +639,10 @@ export default async function RelatoriosPage({
             rotulo: o.nome,
             // Origem chamada "Indicação" no canal "indicacao" repetiria a
             // palavra embaixo dela mesma. O canal só aparece quando acrescenta.
-            meta: rotuloCanal(o.canal) === o.nome ? undefined : rotuloCanal(o.canal),
+            meta:
+              rotuloCanal(o.canal) === o.nome
+                ? undefined
+                : rotuloCanal(o.canal),
             valores: [o.contatos, o.ganhos],
             textos: [
               plural(o.contatos, "contato", "contatos"),

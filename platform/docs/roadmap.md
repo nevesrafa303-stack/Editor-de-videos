@@ -64,7 +64,7 @@ paralela.
 | Contas a pagar, centro de custo e comissão | Fecha o financeiro; comissão é o que faz o profissional usar o sistema |
 | Ortodontia com manutenção recorrente | Receita recorrente que o concorrente costuma tratar mal |
 | Programa de indicação com recompensa | Aquisição mais barata da clínica |
-| Relatórios exportáveis | Substitui a planilha que sobreviveu à fase 1 |
+| ~~Relatórios exportáveis~~ | **Feito** junto com o painel: CSV por seção, no formato que o Excel em português abre sem reconfigurar nada |
 
 ---
 
