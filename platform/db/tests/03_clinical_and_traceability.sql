@@ -208,7 +208,8 @@ begin
 
   select quantity into v_saldo from stock_balance
   where product_id = '04111111-1111-7111-8111-111111111111'
-    and lot_id = '06111111-1111-7111-8111-111111111111';
+    and lot_id = '06111111-1111-7111-8111-111111111111'
+    and unit_id = 'a1111111-1111-7111-8111-111111111111';
   -- 0,2 frasco = 20 U de um frasco de 100 U. Saldo fracionario nao e defeito:
   -- e "quatro frascos fechados e um comecado", que e o que ha na geladeira.
   perform test.check('estoque', 'baixa de consumo atualiza o saldo', v_saldo = 4.8,

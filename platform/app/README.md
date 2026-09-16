@@ -46,8 +46,8 @@ src/
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   ui/barras.tsx      barras horizontais comparativas, em CSS — sem biblioteca
   app/               rotas (App Router)
-tests/               269 testes (integração contra PostgreSQL + unidade)
-e2e/                 101 testes de navegador sobre o build de produção
+tests/               278 testes (integração contra PostgreSQL + unidade)
+e2e/                 104 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -139,6 +139,9 @@ navegador — o `next build` reprova, e com razão.
 | O lote que sai é o que vence primeiro | FEFO em `pick_stock_lots`, quebrando entre lotes |
 | Injetável sem lote válido não é consumido | não é falta de saldo, é falta de rastreio |
 | Corrigir estoque é lançar movimento | `stock_movement` é append-only; nada é editado nem apagado |
+| Perda entra valorada, nunca a zero | custo do lote, ou o de catálogo; `total_cost_cents` é gerado e não dá para corrigir depois |
+| Telas de estoque leem a unidade ativa | conta-se o armário daqui, não o da outra cidade |
+| Sem ficha técnica não há margem | custo zero é "ninguém cadastrou", não "de graça" |
 
 ## As telas
 
@@ -168,7 +171,7 @@ navegador — o `next build` reprova, e com razão.
 | `/faturamento/lotes/[id]` | o lote, e a conferência do repasse linha a linha |
 | `/faturamento/guias/[id]` | a guia, seus procedimentos, a senha e as glosas dela |
 | `/faturamento/glosas` | a fila de recurso, ordenada por prazo |
-| `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem por procedimento e de onde vem quem fecha |
+| `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem orçada × custo real por procedimento, desperdício e de onde vem quem fecha |
 | `/estoque` | saldo por produto na unidade de compra, quem está abaixo do mínimo, quanto está parado |
 | `/estoque/[id]` | lotes, perda, acerto por contagem, bloqueio sanitário e todo o histórico de movimentação |
 | `/estoque/entrada` | o que chegou; produto com rastreio entra com lote e validade no mesmo formulário |
@@ -198,8 +201,8 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 269 testes (a suíte recria o banco antes)
-npm run test:e2e      # 101 testes de navegador sobre o build de produção
+npm test              # 278 testes (a suíte recria o banco antes)
+npm run test:e2e      # 104 testes de navegador sobre o build de produção
 npm run test:all      # os 224 testes SQL + os dois acima
 ```
 
@@ -474,6 +477,25 @@ espaço existe: nome de procedimento longo em tela de 13" passava por cima da
 barra, porque texto dentro de `viewBox` não reflui. O par de cores foi conferido
 por script, não a olho — o teal da identidade **reprova** no piso de croma para
 marca: num texto de 13px lê como teal, numa barra de 8px lê como cinza.
+
+**Orçado e executado são duas tabelas, não uma.** "Vendido: margem orçada" conta
+orçamentos ACEITOS no período, com preço e custo congelados na emissão — a
+expectativa. "Executado: custo real" conta procedimentos FEITOS, com o custo
+vindo dos lotes que saíram. São coortes diferentes com colunas parecidas, e sem
+o rótulo dizendo qual é qual a pergunta que sobra é "qual número é o certo?" —
+e aí nenhum dos dois serve.
+
+**Procedimento sem ficha técnica não vira margem cheia.** É o número mais
+perigoso que este painel poderia exibir: custo real zero porque ninguém
+cadastrou o que o procedimento consome, lido como 100% de margem. Um implante
+de R$ 3.200 com custo zero. A linha aparece, avisa, e não mostra percentual —
+a ausência de informação fica visível em vez de virar um número bonito.
+
+**O desperdício tem painel próprio.** Perda e acerto de inventário não entram
+na margem de atendimento nenhum, de propósito: diluir esse valor no custo dos
+procedimentos é exatamente como o desperdício some de vista. No seed de
+demonstração ele é cinco vezes o material que virou atendimento — que é mais
+ou menos o tamanho que ele tem numa clínica que nunca olhou para ele.
 
 **O período mora no endereço.** Relatório que não dá para mandar pronto vira
 captura de tela no WhatsApp, e ninguém confere uma captura de tela. Período

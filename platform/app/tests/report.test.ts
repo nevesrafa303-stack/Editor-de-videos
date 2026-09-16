@@ -18,6 +18,8 @@ import { closeDb } from "@/server/db";
 import { withTenant, type TenantSession } from "@/server/context";
 import {
   getConversaoFunil,
+  getCustoRealPorProcedimento,
+  getSaidaSemProcedimento,
   getFaturamentoPorProfissional,
   getInadimplenciaPorUnidade,
   getOrigemCaptacao,
@@ -35,6 +37,8 @@ import {
   getQuote,
   setQuoteDiscount,
 } from "@/modules/quote";
+import { sql } from "kysely";
+import { registerLoss } from "@/modules/stock";
 import { listReachableUnits } from "@/modules/auth/units";
 import { Forbidden, ValidationError } from "@/shared/errors";
 import { adminDb, entrar, SEED, USUARIOS } from "./helpers";
@@ -377,6 +381,104 @@ describe("produção e margem", () => {
     await expect(
       withTenant(profissional, (ctx) => getProducaoPorProcedimento(ctx, AMPLO)),
     ).rejects.toBeInstanceOf(Forbidden);
+  });
+});
+
+describe("custo real por procedimento", () => {
+  it("separa o previsto pela ficha do que saiu dos lotes", async () => {
+    const linhas = await withTenant(dona, (ctx) => getCustoRealPorProcedimento(ctx, AMPLO));
+
+    expect(linhas.length).toBeGreaterThan(0);
+
+    const comFicha = linhas.filter((l) => l.temFicha);
+    expect(comFicha.length).toBeGreaterThan(0);
+    expect(comFicha.every((l) => l.previstoCents > 0 && l.realCents > 0)).toBe(true);
+  });
+
+  it("procedimento sem ficha técnica não vira 100% de margem", async () => {
+    // É o número mais perigoso que este relatório poderia exibir: custo real
+    // zero porque ninguém cadastrou o que o procedimento consome, lido como
+    // "margem cheia". A linha existe, mas sem percentual.
+    const linhas = await withTenant(dona, (ctx) => getCustoRealPorProcedimento(ctx, AMPLO));
+    const semFicha = linhas.filter((l) => !l.temFicha);
+
+    expect(semFicha.length).toBeGreaterThan(0);
+    for (const l of semFicha) {
+      expect(l.realCents).toBe(0);
+      expect(l.margemPercent).toBeNull();
+    }
+  });
+
+  it("o custo real bate com as movimentações de consumo do período", async () => {
+    // O relatório não guarda total nenhum: se ele divergir da soma das
+    // movimentações, é porque passou a contar outra coisa.
+    const linhas = await withTenant(dona, (ctx) => getCustoRealPorProcedimento(ctx, AMPLO));
+    const doRelatorio = linhas.reduce((s, l) => s + l.realCents, 0);
+
+    const { rows } = await sql<{ total: string }>`
+      select coalesce(sum(m.total_cost_cents), 0) as total
+        from stock_movement m
+        join treatment_plan_item i on i.id = m.treatment_plan_item_id
+       where m.kind = 'consumption' and i.status = 'executed'
+    `.execute(admin);
+
+    expect(doRelatorio).toBe(Number(rows[0]?.total ?? 0));
+  });
+
+  it("período sem execução devolve lista vazia, não linhas zeradas", async () => {
+    const linhas = await withTenant(dona, (ctx) =>
+      getCustoRealPorProcedimento(ctx, { de: diaISO(500), ate: diaISO(530) }),
+    );
+    expect(linhas).toEqual([]);
+  });
+
+  it("profissional não vê custo real", async () => {
+    await expect(
+      withTenant(profissional, (ctx) => getCustoRealPorProcedimento(ctx, AMPLO)),
+    ).rejects.toBeInstanceOf(Forbidden);
+  });
+});
+
+describe("saiu do estoque sem procedimento", () => {
+  it("conta perda e acerto negativo, e não o acerto positivo", async () => {
+    // Material que apareceu a mais não é economia: é sinal de que a contagem
+    // anterior estava errada. Somar como crédito mascararia a perda do outro
+    // mês.
+    const antes = await withTenant(dona, (ctx) => getSaidaSemProcedimento(ctx, AMPLO));
+    const somaAntes = antes.reduce((s, l) => s + l.valorCents, 0);
+
+    await withTenant(dona, (ctx) =>
+      registerLoss(ctx, {
+        productId: "04333333-3333-7333-8333-333333333333",
+        quantity: 2,
+        reason: "Tubo ressecado, teste de relatório.",
+      }),
+    );
+
+    const depois = await withTenant(dona, (ctx) => getSaidaSemProcedimento(ctx, AMPLO));
+    const somaDepois = depois.reduce((s, l) => s + l.valorCents, 0);
+
+    expect(somaDepois).toBeGreaterThan(somaAntes);
+    expect(depois.some((l) => l.kind === "loss")).toBe(true);
+    expect(depois.every((l) => l.quantidade > 0)).toBe(true);
+  });
+
+  it("não se mistura com o custo dos procedimentos", async () => {
+    // Diluir desperdício no custo dos atendimentos é como o desperdício some
+    // de vista. As duas contas ficam separadas de propósito.
+    const custo = await withTenant(dona, (ctx) => getCustoRealPorProcedimento(ctx, AMPLO));
+    const avulsa = await withTenant(dona, (ctx) => getSaidaSemProcedimento(ctx, AMPLO));
+
+    const { rows } = await sql<{ total: string }>`
+      select coalesce(sum(m.total_cost_cents), 0) as total
+        from stock_movement m
+       where m.kind = 'consumption' and m.treatment_plan_item_id is not null
+    `.execute(admin);
+
+    expect(custo.reduce((s, l) => s + l.realCents, 0)).toBeLessThanOrEqual(
+      Number(rows[0]?.total ?? 0),
+    );
+    expect(avulsa.every((l) => l.kind === "loss" || l.kind === "adjustment")).toBe(true);
   });
 });
 

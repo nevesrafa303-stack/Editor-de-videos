@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { withPage } from "@/server/next/page";
 import {
   getConversaoFunil,
+  getCustoRealPorProcedimento,
   getFaturamentoPorProfissional,
   getInadimplenciaPorUnidade,
   getOrigemCaptacao,
   getProducaoPorProcedimento,
   getResumo,
+  getSaidaSemProcedimento,
   periodoPadrao,
   periodSchema,
   rotuloPeriodo,
@@ -17,6 +19,7 @@ import { Barras } from "@/ui/barras";
 import { Metric, Notice, PageHead, Panel, PanelHead } from "@/ui";
 import { listReachableUnits } from "@/modules/auth/units";
 import { formatBRL } from "@/shared/format";
+import { formatQuantidade } from "@/modules/stock";
 import { Filtro } from "./filtro";
 
 export const metadata: Metadata = { title: "Relatórios" };
@@ -95,15 +98,20 @@ export default async function RelatoriosPage({
         profissionais: null,
         inadimplencia: null,
         procedimentos: null,
+        custoReal: null,
+        saidaAvulsa: null,
       };
     }
 
-    const [resumo, profissionais, inadimplencia, procedimentos] = await Promise.all([
-      getResumo(ctx, period),
-      getFaturamentoPorProfissional(ctx, period),
-      getInadimplenciaPorUnidade(ctx, period),
-      getProducaoPorProcedimento(ctx, period),
-    ]);
+    const [resumo, profissionais, inadimplencia, procedimentos, custoReal, saidaAvulsa] =
+      await Promise.all([
+        getResumo(ctx, period),
+        getFaturamentoPorProfissional(ctx, period),
+        getInadimplenciaPorUnidade(ctx, period),
+        getProducaoPorProcedimento(ctx, period),
+        getCustoRealPorProcedimento(ctx, period),
+        getSaidaSemProcedimento(ctx, period),
+      ]);
 
     return {
       period,
@@ -116,6 +124,8 @@ export default async function RelatoriosPage({
       profissionais,
       inadimplencia,
       procedimentos,
+      custoReal,
+      saidaAvulsa,
     };
   }, "report.read");
 
@@ -257,8 +267,8 @@ export default async function RelatoriosPage({
       {dados.procedimentos ? (
         <Panel className="mb-4">
           <PanelHead
-            title="Produção e margem por procedimento"
-            hint="Preço e custo congelados no orçamento. Não entram aluguel, cadeira nem folha."
+            title="Vendido: margem orçada"
+            hint="Orçamentos ACEITOS no período. Preço e custo congelados na emissão — é a expectativa, feita antes de qualquer material sair."
           />
           {dados.procedimentos.length === 0 ? (
             <p className="px-5 py-6 text-sm text-muted">
@@ -302,6 +312,136 @@ export default async function RelatoriosPage({
                 </tbody>
               </table>
             </div>
+          )}
+        </Panel>
+      ) : null}
+
+      {dados.custoReal ? (
+        <Panel className="mb-4">
+          <PanelHead
+            title="Executado: custo real"
+            hint="Procedimentos FEITOS no período. Previsto é a ficha técnica ao custo de catálogo; real é o que saiu dos lotes. Não entram aluguel, cadeira nem folha."
+          />
+          {dados.custoReal.length === 0 ? (
+            <p className="px-5 py-6 text-sm text-muted">
+              Nenhum procedimento foi executado entre {rotulo}.
+            </p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="grid-table">
+                <thead>
+                  <tr>
+                    <th>Procedimento</th>
+                    <th className="text-right">Feitos</th>
+                    <th className="text-right">Receita</th>
+                    <th className="text-right">Previsto</th>
+                    <th className="text-right">Real</th>
+                    <th className="text-right">Margem</th>
+                    <th className="text-right">%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dados.custoReal.map((p) => {
+                    const desvio = p.realCents - p.previstoCents;
+
+                    return (
+                      <tr key={p.procedureId}>
+                        <td className="font-medium text-ink">
+                          {p.nome}
+                          {!p.temFicha ? (
+                            /* A linha mais importante da tabela. Custo zero aqui
+                               não é "barato": é "ninguém cadastrou o que este
+                               procedimento consome". Um implante de R$ 3.200 com
+                               custo zero mostraria 100% de margem — o número mais
+                               perigoso que um relatório pode exibir. */
+                            <span className="mt-0.5 block text-xs text-warning">
+                              Sem ficha técnica: o custo real deste procedimento não é medido
+                            </span>
+                          ) : null}
+                        </td>
+                        <td className="num text-right">{p.execucoes}</td>
+                        <td className="num text-right">{formatBRL(p.receitaCents)}</td>
+                        <td className="num text-right text-muted">
+                          {p.temFicha ? formatBRL(p.previstoCents) : "—"}
+                        </td>
+                        <td className="num text-right">
+                          {p.temFicha ? (
+                            <>
+                              {formatBRL(p.realCents)}
+                              {desvio !== 0 ? (
+                                <span
+                                  className={
+                                    desvio > 0
+                                      ? "block text-xs whitespace-nowrap text-critical"
+                                      : "block text-xs whitespace-nowrap text-positive"
+                                  }
+                                >
+                                  {desvio > 0 ? "+" : "−"}
+                                  {formatBRL(Math.abs(desvio))} vs. previsto
+                                </span>
+                              ) : null}
+                            </>
+                          ) : (
+                            "—"
+                          )}
+                        </td>
+                        <td className="num text-right">
+                          {p.temFicha ? formatBRL(p.margemCents) : "—"}
+                        </td>
+                        <td className="num text-right">
+                          {p.margemPercent === null ? (
+                            <span className="text-muted">—</span>
+                          ) : (
+                            percent(p.margemPercent)
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Panel>
+      ) : null}
+
+      {dados.saidaAvulsa ? (
+        <Panel className="mb-4">
+          <PanelHead
+            title="Saiu do estoque sem procedimento"
+            hint={(() => {
+              const perdido = dados.saidaAvulsa.reduce((s, l) => s + l.valorCents, 0);
+              const consumido = (dados.custoReal ?? []).reduce((s, l) => s + l.realCents, 0);
+
+              const base =
+                "Perda e acerto de inventário. Não entra na margem de atendimento nenhum — é onde o desperdício aparece.";
+
+              // A comparação só entra quando o desperdício passa do material
+              // que virou atendimento. Fora desse caso ela seria uma fração
+              // pequena repetida toda vez, e número que sempre aparece some
+              // da vista.
+              if (perdido === 0 || consumido === 0 || perdido <= consumido) return base;
+
+              return `${base} Foram ${formatBRL(perdido)} — ${(perdido / consumido).toFixed(1).replace(".", ",")}× o material que os atendimentos consumiram no período.`;
+            })()}
+          />
+          {dados.saidaAvulsa.length === 0 ? (
+            <p className="px-5 py-6 text-sm text-muted">
+              Nada saiu do estoque sem procedimento entre {rotulo}. É a notícia boa.
+            </p>
+          ) : (
+            <Barras
+              series={[{ rotulo: "Valor", cor: "critico" }]}
+              linhas={dados.saidaAvulsa.map((l) => ({
+                chave: `${l.produtoId}-${l.kind}`,
+                rotulo: l.produto,
+                meta: l.kind === "loss" ? "Perda" : "Acerto de inventário",
+                valores: [l.valorCents],
+                textos: [formatBRL(l.valorCents)],
+                destaque: `${formatQuantidade(l.quantidade, l.stockUnit)} fora do estoque`,
+              }))}
+              vazio="Nada."
+            />
           )}
         </Panel>
       ) : null}

@@ -24,6 +24,41 @@ import {
   type RevertItemInput,
 } from "@/modules/stock/schema";
 
+
+/**
+ * Quanto vale uma unidade deste produto, para valorar a movimentacao.
+ *
+ * Custo do LOTE quando ha lote, custo de catalogo quando nao ha. Nao e detalhe
+ * de arredondamento: `total_cost_cents` e coluna GERADA a partir de
+ * `unit_cost_cents`, e a movimentacao e append-only. Entrar com zero significa
+ * que aquela perda vale zero para sempre — a clinica joga dois tubos fora e o
+ * relatorio de desperdicio diz "R$ 0,00", que e pior do que nao ter relatorio.
+ */
+async function custoUnitario(
+  ctx: TenantContext,
+  productId: string,
+  lotId: string | null,
+): Promise<number> {
+  if (lotId) {
+    const lote = await ctx.db
+      .selectFrom("product_lot")
+      .select("unit_cost_cents")
+      .where("id", "=", lotId)
+      .executeTakeFirst();
+
+    const custo = Number(lote?.unit_cost_cents ?? 0);
+    if (custo > 0) return custo;
+  }
+
+  const produto = await ctx.db
+    .selectFrom("product")
+    .select("default_cost_cents")
+    .where("id", "=", productId)
+    .executeTakeFirst();
+
+  return Number(produto?.default_cost_cents ?? 0);
+}
+
 /**
  * Entrada de material, com o lote nascendo junto.
  *
@@ -134,6 +169,9 @@ export async function registerLoss(ctx: TenantContext, input: LossInput): Promis
       lot_id: dados.lotId ?? null,
       kind: "loss",
       quantity: String(-dados.quantity) as unknown as number,
+      unit_cost_cents: BigInt(
+        await custoUnitario(ctx, dados.productId, dados.lotId ?? null),
+      ) as unknown as number,
       reason: dados.reason,
       performed_by: ctx.session.membershipId,
     })
@@ -184,6 +222,9 @@ export async function adjustBalance(
       lot_id: dados.lotId ?? null,
       kind: "adjustment",
       quantity: String(diferenca) as unknown as number,
+      unit_cost_cents: BigInt(
+        await custoUnitario(ctx, dados.productId, dados.lotId ?? null),
+      ) as unknown as number,
       reason: dados.reason,
       performed_by: ctx.session.membershipId,
     })

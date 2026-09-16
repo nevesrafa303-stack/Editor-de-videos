@@ -242,6 +242,9 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 30 · FEFO automático, com o lote podendo ser trocado | pronto; é regra sanitária, não preferência |
 | 31 · Sem saldo avisa; sem lote válido recusa | pronto; rastreio não é configurável |
 | 32 · Local de estoque fica para depois | um estoque por unidade; `stock_location` segue modelado |
+| 33 · Orçado e executado em tabelas separadas | são coortes diferentes; juntar faria sobrar "qual é o certo?" |
+| 34 · Desperdício não se dilui no custo do atendimento | painel próprio; é assim que ele some de vista |
+| 35 · Telas de estoque leem a unidade ativa | conta-se o armário daqui, não o da outra cidade |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -285,6 +288,14 @@ Os demais seguem pendentes, na ordem abaixo.
    ao lote de origem. **O que ficou de fora:** local de estoque (armário,
    geladeira), pedido de compra, inventário cíclico com contagem por lista, log
    de temperatura e transferência entre unidades. Todos seguem modelados.
+
+10. ~~**Orçado contra consumido**~~ — feito. "Vendido: margem orçada" (orçamentos
+    aceitos, custo congelado na emissão) e "Executado: custo real" (procedimentos
+    feitos, custo dos lotes que saíram) lado a lado, com a diferença por
+    procedimento — e um painel separado para o que saiu do estoque sem paciente
+    do outro lado. **O que ficou de fora:** diferença de QUANTIDADE por
+    procedimento, que hoje não existe (a baixa segue a ficha técnica); ela vai
+    aparecer quando houver consumo manual por atendimento.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por

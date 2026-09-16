@@ -18,8 +18,23 @@ import {
   type ListProductsInput,
 } from "@/modules/stock/schema";
 
-/** Unidades que a sessao alcanca. Vazio = a rede inteira. */
+/**
+ * De qual estoque estamos falando.
+ *
+ * A UNIDADE ATIVA manda. Estoque e a coisa mais local que existe num produto de
+ * rede: ninguem conta o armario de outra cidade, e todas as acoes destas telas
+ * — entrada, perda, acerto — gravam na unidade ativa. Mostrar o saldo somado da
+ * rede ao lado de um botao que mexe em uma unidade so e como a tela dizia
+ * "49,85 tubos" e o acerto de 20 nao batia: dois numeros para duas perguntas
+ * diferentes, na mesma tela, sem dizer qual e qual.
+ *
+ * Sem unidade ativa (papel de coordenacao que circula), cai para tudo o que a
+ * sessao alcanca — e ai o total da rede e a resposta certa mesmo.
+ */
 function noAlcance(ctx: TenantContext, coluna: string) {
+  const ativa = ctx.session.activeUnitId;
+  if (ativa) return sql`and ${sql.raw(coluna)} = ${ativa}::uuid`;
+
   const unidades = ctx.session.unitIds;
   return unidades.length > 0
     ? sql`and ${sql.raw(coluna)} = any(${unidades}::uuid[])`

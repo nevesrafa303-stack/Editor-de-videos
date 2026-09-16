@@ -77,7 +77,12 @@ test.describe("relatórios", () => {
 
     const vendido = await valorDoCartao(page, "Vendido");
 
-    const linhas = page.locator("table tbody tr");
+    // Escopado ao painel: desde que existe também a tabela de custo real, um
+    // `table tbody tr` solto soma as duas e o teste passa a medir outra coisa.
+    const linhas = page
+      .locator("section", { has: page.getByText("Vendido: margem orçada") })
+      .last()
+      .locator("tbody tr");
     const total = (await linhas.count()) === 0 ? 0 : await somaColuna(linhas, 2);
 
     expect(total).toBe(vendido);
@@ -171,6 +176,45 @@ test.describe("relatórios", () => {
     await expect(page.getByText("Faturamento por profissional")).toHaveCount(0);
     await expect(page.getByText("Vencido por unidade")).toHaveCount(0);
     await expect(page.getByText("Produção e margem por procedimento")).toHaveCount(0);
+  });
+
+  test("procedimento sem ficha técnica não vira margem cheia", async ({ page }) => {
+    // É o número mais perigoso que este painel poderia exibir: custo real zero
+    // porque ninguém cadastrou o que o procedimento consome, lido como margem
+    // de 100%. A linha aparece, avisa, e não mostra percentual.
+    await entrar(page, DONA);
+    await page.goto(`/relatorios${AMPLO}`);
+
+    const painel = page.locator("section", { has: page.getByText("Executado: custo real") }).last();
+    const linha = painel.locator("tbody tr", { hasText: "Implante unitário" }).first();
+
+    await expect(linha).toContainText("Sem ficha técnica");
+    await expect(linha.locator("td").last()).toHaveText("—");
+  });
+
+  test("as duas tabelas dizem qual cohorte cada uma conta", async ({ page }) => {
+    // Vendido e executado são recortes diferentes com colunas parecidas. Sem o
+    // rótulo dizendo qual é qual, a pergunta que sobra é "qual número é o
+    // certo?" — e aí nenhum dos dois serve.
+    await entrar(page, DONA);
+    await page.goto(`/relatorios${AMPLO}`);
+
+    await expect(page.getByText("Vendido: margem orçada")).toBeVisible();
+    await expect(page.getByText("Executado: custo real")).toBeVisible();
+    await expect(page.getByText(/Orçamentos ACEITOS no período/)).toBeVisible();
+    await expect(page.getByText(/Procedimentos FEITOS no período/)).toBeVisible();
+  });
+
+  test("o desperdício tem painel próprio e não se dilui na margem", async ({ page }) => {
+    await entrar(page, DONA);
+    await page.goto(`/relatorios${AMPLO}`);
+
+    const painel = page
+      .locator("section", { has: page.getByText("Saiu do estoque sem procedimento") })
+      .last();
+
+    await expect(painel).toContainText("Perda");
+    await expect(painel).toContainText("fora do estoque");
   });
 
   test("o menu leva ao painel", async ({ page }) => {

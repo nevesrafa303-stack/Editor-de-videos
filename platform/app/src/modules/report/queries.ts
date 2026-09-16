@@ -596,3 +596,189 @@ export async function getOrigemCaptacao(
   });
 }
 
+// ------------------------------------------------------- custo real ---------
+
+export type LinhaCustoReal = {
+  procedureId: string;
+  nome: string;
+  execucoes: number;
+  receitaCents: number;
+  /** Ficha tecnica x custo de catalogo: o que a clinica esperava gastar. */
+  previstoCents: number;
+  /** O que saiu dos lotes de verdade. */
+  realCents: number;
+  margemCents: number;
+  margemPercent: number | null;
+  /** `false` = procedimento executado sem ficha tecnica: custo cego. */
+  temFicha: boolean;
+};
+
+/**
+ * O que o procedimento REALMENTE custou.
+ *
+ * O painel ja mostrava margem por procedimento, mas com o custo congelado no
+ * orcamento — uma estimativa feita antes de qualquer material sair. Aqui o
+ * custo vem dos LOTES que sairam: a soma das movimentacoes de consumo ligadas
+ * aos itens executados no periodo.
+ *
+ * As duas colunas ficam lado a lado porque a diferenca entre elas e a unica
+ * coisa acionavel. Hoje ela e quase toda EFEITO PRECO — o lote custou mais (ou
+ * menos) que o catalogo —, porque a baixa segue a ficha tecnica e a quantidade
+ * consumida e a prevista por construcao. A diferenca de QUANTIDADE existe e
+ * nao cabe aqui: material que sai a mais sai como perda ou acerto, sem
+ * paciente do outro lado. Essa metade tem painel proprio
+ * (`getSaidaSemProcedimento`), e e proposital que ela nao entre na margem de
+ * procedimento nenhum: diluir desperdicio no custo dos atendimentos e como se
+ * esconde desperdicio.
+ *
+ * `temFicha` e o campo mais importante da linha. Procedimento executado sem
+ * ficha tecnica aparece com custo real ZERO — e zero aqui nao e "barato", e
+ * "ninguem cadastrou o que ele consome". Um implante de R$ 3.200 com custo
+ * zero mostraria 100% de margem, que e o numero mais perigoso que um
+ * relatorio pode exibir.
+ */
+export async function getCustoRealPorProcedimento(
+  ctx: TenantContext,
+  input: PeriodInput,
+): Promise<LinhaCustoReal[]> {
+  ctx.assert("report.financial");
+  const period = lerPeriodo(input);
+  const { inicio, fim } = janela(period, ctx.session.timezone);
+
+  const linhas = await sql<{
+    procedure_id: string;
+    nome: string;
+    execucoes: string;
+    receita_cents: string;
+    previsto_cents: string;
+    real_cents: string;
+    tem_ficha: boolean;
+  }>`
+    with executados as (
+      select i.id, i.procedure_id, i.quantity, i.unit_price_cents
+        from treatment_plan_item i
+        join treatment_plan tp on tp.id = i.treatment_plan_id
+       where i.status = 'executed'
+         and i.executed_at >= ${inicio} and i.executed_at < ${fim}
+         and i.procedure_id is not null
+         ${naUnidade(period, "tp.unit_id")}
+    ),
+    -- Mesma conta da consume_plan_item, com o mesmo arredondamento de quatro
+    -- casas: previsto que arredonda diferente do consumido inventaria uma
+    -- diferenca de centavos que nao existe.
+    previsto as (
+      select e.procedure_id,
+             sum(round(b.quantity * e.quantity * (1 + b.waste_percent / 100.0)
+                       / pr.conversion_factor, 4) * pr.default_cost_cents)::bigint as cents
+        from executados e
+        join procedure_bom b on b.procedure_id = e.procedure_id and b.auto_consume
+        join product pr on pr.id = b.product_id and pr.is_active
+       group by e.procedure_id
+    ),
+    consumido as (
+      select e.procedure_id, sum(m.total_cost_cents)::bigint as cents
+        from executados e
+        join stock_movement m
+          on m.treatment_plan_item_id = e.id and m.kind = 'consumption'
+       group by e.procedure_id
+    )
+    select
+      p.id as procedure_id, p.name as nome,
+      count(*) as execucoes,
+      sum((e.quantity * e.unit_price_cents)::bigint) as receita_cents,
+      coalesce(max(pv.cents), 0) as previsto_cents,
+      coalesce(max(c.cents), 0)  as real_cents,
+      exists (
+        select 1 from procedure_bom b
+         where b.procedure_id = p.id and b.auto_consume
+      ) as tem_ficha
+      from executados e
+      join procedure p on p.id = e.procedure_id
+      left join previsto  pv on pv.procedure_id = e.procedure_id
+      left join consumido c  on c.procedure_id = e.procedure_id
+     group by p.id, p.name
+     order by receita_cents desc
+  `.execute(ctx.db);
+
+  return linhas.rows.map((l) => {
+    const receita = Number(l.receita_cents);
+    const real = Number(l.real_cents);
+
+    return {
+      procedureId: l.procedure_id,
+      nome: l.nome,
+      execucoes: Number(l.execucoes),
+      receitaCents: receita,
+      previstoCents: Number(l.previsto_cents),
+      realCents: real,
+      margemCents: receita - real,
+      // Sem ficha tecnica nao ha margem para calcular. Mostrar 100% seria
+      // inventar a informacao que o relatorio existe para dar.
+      margemPercent: l.tem_ficha && receita > 0 ? (receita - real) / receita : null,
+      temFicha: l.tem_ficha,
+    };
+  });
+}
+
+export type LinhaSaidaAvulsa = {
+  produtoId: string;
+  produto: string;
+  stockUnit: string;
+  kind: "loss" | "adjustment";
+  quantidade: number;
+  valorCents: number;
+};
+
+/**
+ * O que saiu do estoque sem procedimento por tras.
+ *
+ * Perda (quebrou, venceu, caiu) e acerto negativo de inventario (o sistema
+ * dizia que tinha, e nao tinha). E a metade da conta de custo que nenhum
+ * atendimento carrega — e e de proposito que ela fique fora da margem por
+ * procedimento: diluir esse valor no custo dos atendimentos e exatamente como
+ * o desperdicio some de vista.
+ *
+ * Acerto POSITIVO nao entra. Material que apareceu a mais nao e custo; e sinal
+ * de que a contagem anterior estava errada, e somar como se fosse economia
+ * mascararia a perda de outro mes.
+ */
+export async function getSaidaSemProcedimento(
+  ctx: TenantContext,
+  input: PeriodInput,
+): Promise<LinhaSaidaAvulsa[]> {
+  ctx.assert("report.financial");
+  const period = lerPeriodo(input);
+  const { inicio, fim } = janela(period, ctx.session.timezone);
+
+  const linhas = await sql<{
+    produto_id: string;
+    produto: string;
+    stock_unit: string;
+    kind: "loss" | "adjustment";
+    quantidade: string;
+    valor_cents: string;
+  }>`
+    select
+      pr.id as produto_id, pr.name as produto, pr.stock_unit,
+      m.kind::text as kind,
+      sum(-m.quantity) as quantidade,
+      sum(m.total_cost_cents)::bigint as valor_cents
+      from stock_movement m
+      join product pr on pr.id = m.product_id
+     where m.kind in ('loss', 'adjustment')
+       and m.quantity < 0
+       and m.occurred_at >= ${inicio} and m.occurred_at < ${fim}
+       ${naUnidade(period, "m.unit_id")}
+     group by pr.id, pr.name, pr.stock_unit, m.kind
+     order by valor_cents desc
+  `.execute(ctx.db);
+
+  return linhas.rows.map((l) => ({
+    produtoId: l.produto_id,
+    produto: l.produto,
+    stockUnit: l.stock_unit,
+    kind: l.kind,
+    quantidade: Number(l.quantidade),
+    valorCents: Number(l.valor_cents),
+  }));
+}

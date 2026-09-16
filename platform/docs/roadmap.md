@@ -72,7 +72,7 @@ paralela.
 
 | Entrega | Por que é diferencial |
 |---|---|
-| **Custo real e margem por atendimento** | Ficha técnica × **consumo real** × preço congelado. A margem *orçada* saiu com o painel e a baixa por ficha técnica saiu com o estoque: agora existem os dois lados da conta. **Falta confrontá-los na tela** — orçado contra consumido, por procedimento. É o que revela desperdício, e ficou a um relatório de distância |
+| ~~**Custo real e margem por atendimento**~~ | **Feito.** Orçado e consumido lado a lado por procedimento, com o custo vindo dos lotes que saíram — e o desperdício em painel próprio, porque diluí-lo no custo dos atendimentos é como ele some de vista. O que a fase 3 ainda deve aqui é a diferença de QUANTIDADE por atendimento, que só existe com consumo manual por procedimento |
 | ~~**Consolidação de rede**~~ | Saiu parcial com o painel: comparação entre unidades (vencido, recebido) e por profissional já existem. **Continua faltando:** previsão de caixa consolidada |
 | **Alertas preditivos** | No-show, paciente inativo, orçamento esfriando, lote que vence antes de ser consumido no ritmo atual |
 | **Rastreabilidade sanitária completa** | Recall reverso, log de temperatura, relatório para fiscalização |

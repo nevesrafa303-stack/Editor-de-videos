@@ -14,7 +14,7 @@ sistema e o **painel gerencial** que lê tudo isso de volta. O produto se chama
 ## O que tem aqui
 
 ```
-db/migrations/   32 migrations SQL, aplicadas em ordem — a fonte da verdade
+db/migrations/   33 migrations SQL, aplicadas em ordem — a fonte da verdade
 db/seeds/        duas redes de demonstração (para provar o isolamento)
 db/tests/        224 testes de invariante, rodando contra PostgreSQL de verdade
 db/reset.sh      recria o banco do zero (usado pelas duas suítes)
@@ -27,11 +27,11 @@ docs/            ADR, diagramas, matriz de permissões, invariantes, fases
 
 ```bash
 createdb crm
-psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0032
+psql -d crm -f db/migrations/0001_foundation.sql   # ... até 0033
 psql -d crm -f db/seeds/dev_seed.sql
 
 ./db/tests/run_tests.sh                             # 224 testes de invariante
-(cd app && npm install && npm run test:all)         # + 269 de integração + 101 de navegador
+(cd app && npm install && npm run test:all)         # + 278 de integração + 104 de navegador
 (cd app && npm run dev)                             # http://localhost:3000
 python3 docs/build_page.py > /tmp/arquitetura.html  # documento de referência
 ```
@@ -52,7 +52,7 @@ ignora RLS, e um teste de isolamento rodado assim não prova nada.
 | Enums | 70 |
 | Transições de estado declaradas | 100 |
 | Permissões no catálogo | 75 |
-| Testes | 224 no banco + 269 na camada de acesso + 101 no navegador, todos passando |
+| Testes | 224 no banco + 278 na camada de acesso + 104 no navegador, todos passando |
 
 ## Por onde começar a ler
 

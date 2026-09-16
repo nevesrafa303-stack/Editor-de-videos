@@ -29,6 +29,7 @@ import {
   revertPlanItem,
 } from "@/modules/stock";
 import { Forbidden, NotFound, ValidationError } from "@/shared/errors";
+import { sql } from "kysely";
 import { adminDb, entrar, SEED, USUARIOS } from "./helpers";
 
 const PRODUTOS = {
@@ -44,16 +45,49 @@ let recepcao: TenantSession;
 let outraRede: TenantSession;
 const admin = adminDb();
 
-/** Item planejado de resina no plano do Roberto, criado pelo seed. */
-async function itemDeResina(): Promise<string> {
-  const item = await admin
-    .selectFrom("treatment_plan_item")
-    .select("id")
-    .where("procedure_id", "=", SEED.procedimentoResina)
-    .where("status", "=", "planned")
-    .executeTakeFirst();
+/**
+ * Um item de resina planejado, novo a cada chamada.
+ *
+ * Os testes disputavam o item que o seed deixa planejado: o primeiro executava,
+ * e o seguinte não achava mais nenhum. Pescar "algum executado" era pior —
+ * pegava um atendimento do seed, de outra unidade, e o teste passava a medir
+ * outra coisa. Cada teste cria o seu.
+ */
+let planoDeTeste: string | null = null;
 
-  if (!item) throw new Error("O seed deveria ter um item de resina planejado.");
+async function itemDeResina(): Promise<string> {
+  if (!planoDeTeste) {
+    const plano = await admin
+      .insertInto("treatment_plan")
+      .values({
+        tenant_id: SEED.redeSorriso,
+        unit_id: SEED.unidadeCentro,
+        patient_id: SEED.pacienteRoberto,
+        title: "Plano da suíte de estoque",
+        status: "active",
+        code: BigInt(8000 + Math.floor(Math.random() * 900)) as unknown as number,
+      })
+      .returning("id")
+      .executeTakeFirstOrThrow();
+
+    planoDeTeste = plano.id as string;
+  }
+
+  const item = await admin
+    .insertInto("treatment_plan_item")
+    .values({
+      tenant_id: SEED.redeSorriso,
+      treatment_plan_id: planoDeTeste,
+      procedure_id: SEED.procedimentoResina,
+      description: "Restauração em resina",
+      tooth_code: "37",
+      surfaces: ["O"] as unknown as never,
+      quantity: "1" as unknown as number,
+      unit_price_cents: BigInt(28000) as unknown as number,
+    })
+    .returning("id")
+    .executeTakeFirstOrThrow();
+
   return item.id as string;
 }
 
@@ -100,7 +134,16 @@ describe("lista", () => {
     const linhas = await withTenant(dona, (ctx) => listProducts(ctx));
     const resina = linhas.find((l) => l.id === PRODUTOS.resina);
 
-    expect(resina?.saldo).toBe(20);
+    const { rows } = await sql<{ total: string }>`
+      select coalesce(sum(quantity), 0) as total
+        from stock_balance
+       where product_id = ${PRODUTOS.resina}
+         and unit_id = ${SEED.unidadeCentro}
+    `.execute(admin);
+
+    // Da unidade ATIVA, não da rede: as ações desta tela gravam numa unidade
+    // só, e um total somado ao lado delas é um número que não bate com nada.
+    expect(resina?.saldo).toBe(Number(rows[0]?.total ?? 0));
     expect(resina?.stockUnit).toBe("tubo");
     expect(resina?.usageUnit).toBe("g");
   });
@@ -138,7 +181,7 @@ describe("lista", () => {
     const resina = linhas.find((l) => l.id === PRODUTOS.resina);
 
     expect(resina?.exigeLote).toBe(false);
-    expect(resina?.valorEmEstoqueCents).toBe(20 * 12000);
+    expect(resina?.valorEmEstoqueCents).toBe(Math.round((resina?.saldo ?? 0) * 12000));
   });
 
   it("o resumo separa o que vai vencer do que já venceu", async () => {
@@ -233,6 +276,51 @@ describe("perda e acerto", () => {
     expect(await saldo(PRODUTOS.resina)).toBe(antes - 2);
   });
 
+  it("a perda entra valorada, não a zero", async () => {
+    // `total_cost_cents` é coluna gerada e a movimentação é append-only: se a
+    // perda nasce com custo zero, ela vale zero para sempre — a clínica joga
+    // material fora e o relatório de desperdício diz R$ 0,00.
+    const movimento = await withTenant(dona, (ctx) =>
+      registerLoss(ctx, {
+        productId: PRODUTOS.resina,
+        quantity: 1,
+        reason: "Teste de valoração.",
+      }),
+    );
+
+    const linha = await admin
+      .selectFrom("stock_movement")
+      .select(["unit_cost_cents", "total_cost_cents"])
+      .where("id", "=", movimento)
+      .executeTakeFirstOrThrow();
+
+    expect(Number(linha.unit_cost_cents)).toBe(12000);
+    expect(Number(linha.total_cost_cents)).toBe(12000);
+  });
+
+  it("a perda de um lote vale o custo daquele lote, não o de catálogo", async () => {
+    const ficha = await withTenant(dona, (ctx) => getProduct(ctx, PRODUTOS.toxina));
+    const lote = ficha.lotes.find((l) => l.saldo > 0 && l.custoCents > 0);
+    expect(lote).toBeDefined();
+
+    const movimento = await withTenant(dona, (ctx) =>
+      registerLoss(ctx, {
+        productId: PRODUTOS.toxina,
+        lotId: lote!.id,
+        quantity: 1,
+        reason: "Frasco quebrou.",
+      }),
+    );
+
+    const linha = await admin
+      .selectFrom("stock_movement")
+      .select("unit_cost_cents")
+      .where("id", "=", movimento)
+      .executeTakeFirstOrThrow();
+
+    expect(Number(linha.unit_cost_cents)).toBe(lote!.custoCents);
+  });
+
   it("perda sem motivo é recusada", async () => {
     await expect(
       withTenant(dona, (ctx) =>
@@ -242,16 +330,22 @@ describe("perda e acerto", () => {
   });
 
   it("o acerto recebe o que foi contado e calcula a diferença", async () => {
+    // Conta três a menos do que o sistema tem, seja qual for o saldo de agora:
+    // fixar o número contado fazia o teste virar no-op quando outra suíte já
+    // tinha deixado o estoque naquele valor.
+    const antes = await saldo(PRODUTOS.resina);
+    const contado = antes - 3;
+
     const { diferenca } = await withTenant(dona, (ctx) =>
       adjustBalance(ctx, {
         productId: PRODUTOS.resina,
-        countedQuantity: 15,
+        countedQuantity: contado,
         reason: "Contagem de fim de mês.",
       }),
     );
 
-    expect(await saldo(PRODUTOS.resina)).toBe(15);
-    expect(diferenca).not.toBe(0);
+    expect(diferenca).toBeCloseTo(-3, 4);
+    expect(await saldo(PRODUTOS.resina)).toBeCloseTo(contado, 4);
   });
 
   it("contagem que bate não vira movimentação", async () => {
@@ -323,11 +417,12 @@ describe("executar o procedimento", () => {
   });
 
   it("estornar devolve ao mesmo lote e não apaga o consumo", async () => {
-    const item = await admin
-      .selectFrom("treatment_plan_item")
-      .select("id")
-      .where("status", "=", "executed")
-      .executeTakeFirstOrThrow();
+    // Executa o próprio item em vez de pescar "algum executado": o seed já tem
+    // procedimentos executados, e pegar o primeiro da tabela estornaria um
+    // atendimento de outra unidade — o teste passaria a medir outra coisa.
+    const itemId = await itemDeResina();
+    await withTenant(dona, (ctx) => executePlanItem(ctx, { itemId }));
+    const item = { id: itemId };
 
     const antes = await saldo(PRODUTOS.resina);
 

@@ -63,11 +63,17 @@ test.describe("lista de estoque", () => {
     await entrar(page, DONA);
     await page.goto("/estoque");
 
-    // 7 frascos, não 700 unidades: saldo tem de ser conferível contando o que
-    // está no armário. (5 no lote bom + 2 no vencido, que continua ocupando
-    // prateleira até alguém dar baixa de perda.)
-    await expect(page.getByRole("cell", { name: "7 frascos" })).toBeVisible();
-    await expect(page.getByRole("cell", { name: "20 tubos" })).toBeVisible();
+    // A afirmação é sobre a UNIDADE, não sobre o número: em unidade de uso a
+    // toxina apareceria em centenas (cada frasco tem 100 U). Fixar o valor
+    // amarrava o teste a quanto o seed tem hoje, e cada compra ou perda nova
+    // no seed quebrava um teste que não é sobre isso.
+    const linha = page.locator("tbody tr", { hasText: "Toxina" }).first();
+    const saldo = (await linha.locator("td").nth(1).textContent()) ?? "";
+
+    expect(saldo).toMatch(/frascos?$/);
+    expect(numero(saldo)).toBeLessThan(100);
+
+    await expect(page.locator("tbody tr", { hasText: "Resina" }).first()).toContainText("tubos");
   });
 
   test("o valor parado da linha soma o valor do topo", async ({ page }) => {
@@ -193,7 +199,19 @@ test.describe("perda e acerto", () => {
     await entrar(page, DONA);
     await page.goto(`/estoque/${RESINA}`);
 
-    await page.getByLabel(/^Contei/).fill("18");
+    // Conta três a menos do que o sistema tem AGORA: um número fixo vira no-op
+    // no dia em que o seed já estiver naquele valor, e o teste passa sem
+    // testar.
+    const atual = numero(
+      (await page
+        .getByRole("region", { name: "Situação do produto" })
+        .locator("div", { has: page.getByText("Em estoque") })
+        .last()
+        .textContent()) ?? "",
+    );
+    const contado = atual - 3;
+
+    await page.getByLabel(/^Contei/).fill(String(contado).replace(".", ","));
     await page
       .locator("form", { has: page.getByLabel(/^Contei/) })
       .getByLabel("Por que estava diferente")
@@ -202,8 +220,10 @@ test.describe("perda e acerto", () => {
 
     // A frase diz o SINAL. "Acerto registrado" deixaria quem contou sem saber
     // se o sistema entendeu sobra ou falta.
-    await expect(page.getByText(/Faltou|Sobrou/)).toBeVisible();
-    await expect(page.getByRole("region", { name: "Situação do produto" })).toContainText("18");
+    await expect(page.getByText(/Faltou/)).toBeVisible();
+    await expect(
+      page.getByRole("region", { name: "Situação do produto" }),
+    ).toContainText(String(contado).replace(".", ","));
   });
 
   test("perda exige motivo", async ({ page }) => {

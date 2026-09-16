@@ -829,3 +829,143 @@ end;
 $$;
 
 select refresh_patient_rollups();
+
+
+-- ---------------------------------------------------------------------------
+-- O que foi executado — e o material que saiu por causa disso.
+--
+-- Os orçamentos aceitos acima param no dinheiro: recebível, parcela, comissão.
+-- Falta o outro lado, que é a clínica trabalhando: o procedimento sendo feito
+-- e o insumo saindo da prateleira. Sem isto o relatório de custo real abre
+-- vazio, e a demonstração mostra um estoque que nunca foi usado — que é
+-- exatamente o estoque que ninguém confia.
+--
+-- Cada plano nasce do orçamento aceito e é executado pela função de verdade
+-- (`execute_plan_item`), com FEFO e baixa pela ficha técnica. Nada de marcar
+-- `status = 'executed'` a mão: seed que pula a função cria um estado que o
+-- sistema nunca produziria — item executado sem movimentação nenhuma atrás.
+-- ---------------------------------------------------------------------------
+do $$
+declare
+  TENANT  constant uuid := '11111111-1111-7111-8111-111111111111';
+  v_q     record;
+  v_plano uuid;
+  v_item  uuid;
+  v_dia   timestamptz;
+  v_codigo bigint := 100;
+begin
+  -- Estoque de operação: os lotes de abertura mal cobrem uma semana. Uma
+  -- compra maior, mais antiga, para a clínica parecer o que é — e para a
+  -- baixa das execuções não deixar tudo negativo na primeira tela.
+  insert into stock_movement (tenant_id, unit_id, product_id, lot_id, kind,
+                              quantity, unit_cost_cents, performed_by, occurred_at)
+  values
+    (TENANT, 'a2222222-2222-7222-8222-222222222222', '04111111-1111-7111-8111-111111111111',
+     '06111111-1111-7111-8111-111111111111', 'purchase', 6, 88000,
+     'd1111111-1111-7111-8111-111111111111', now() - interval '80 days'),
+    (TENANT, 'a2222222-2222-7222-8222-222222222222', '04222222-2222-7222-8222-222222222222',
+     '06333333-3333-7333-8333-333333333333', 'purchase', 12, 52000,
+     'd1111111-1111-7111-8111-111111111111', now() - interval '80 days'),
+    (TENANT, 'a2222222-2222-7222-8222-222222222222', '04333333-3333-7333-8333-333333333333',
+     null, 'purchase', 30, 12000,
+     'd1111111-1111-7111-8111-111111111111', now() - interval '80 days');
+
+  for v_q in
+    select q.id, q.patient_id, q.unit_id, q.provider_id, q.accepted_at, q.title
+      from quote q
+     where q.tenant_id = TENANT and q.status = 'accepted' and q.accepted_at is not null
+     order by q.number
+  loop
+    v_codigo := v_codigo + 1;
+    -- O procedimento acontece alguns dias depois do aceite, não no mesmo dia:
+    -- entre fechar e sentar na cadeira existe uma agenda.
+    v_dia := v_q.accepted_at + interval '4 days';
+
+    -- Orçamento aceito ontem ainda não virou atendimento.
+    continue when v_dia > now();
+
+    insert into treatment_plan (tenant_id, unit_id, patient_id, provider_id, quote_id,
+                                code, title, status, started_at, created_at)
+    values (TENANT, v_q.unit_id, v_q.patient_id, v_q.provider_id, v_q.id,
+            v_codigo, coalesce(v_q.title, 'Tratamento'), 'active', v_dia, v_q.accepted_at)
+    returning id into v_plano;
+
+    for v_item in
+      with novos as (
+        insert into treatment_plan_item
+          (tenant_id, treatment_plan_id, procedure_id, quote_item_id, description,
+           tooth_code, surfaces, region_code, quantity, unit_price_cents, created_at)
+        select TENANT, v_plano, qi.procedure_id, qi.id, qi.description,
+               qi.tooth_code, qi.surfaces, qi.region_code, qi.quantity,
+               qi.unit_price_cents, v_q.accepted_at
+          from quote_item qi
+         where qi.quote_id = v_q.id
+        returning id
+      )
+      select id from novos
+    loop
+      perform execute_plan_item(v_item, v_q.unit_id);
+
+      -- A função carimba com `now()`. O seed quer o atendimento no passado, e
+      -- a movimentação junto: as duas datas são o que o relatório de período
+      -- lê, e separá-las faria o custo cair num mês e a receita em outro.
+      update treatment_plan_item
+         set executed_at = v_dia, updated_at = v_dia
+       where id = v_item;
+
+      -- `stock_movement` é append-only, e a trigger recusa este update — está
+      -- certa. Datar movimentação para trás é falsificar estoque, e nenhum
+      -- caminho do produto pode fazer isso: a data de uma baixa é quando ela
+      -- aconteceu, ponto.
+      --
+      -- O seed é o único lugar onde a regra é suspensa, porque ele não está
+      -- corrigindo um fato: está FABRICANDO um passado que nunca existiu, para
+      -- a demonstração ter história. É desligado e religado na mesma
+      -- transação, e o teste que prova a trigger continua de pé.
+      alter table stock_movement disable trigger stock_movement_append_only;
+
+      update stock_movement
+         set occurred_at = v_dia
+       where treatment_plan_item_id = v_item;
+
+      alter table stock_movement enable trigger stock_movement_append_only;
+    end loop;
+  end loop;
+end;
+$$;
+
+select refresh_patient_rollups();
+
+
+-- ---------------------------------------------------------------------------
+-- O que se perdeu.
+--
+-- Nenhuma clínica passa três meses sem quebrar um frasco ou deixar um tubo
+-- ressecar, e o relatório que mostra desperdício abrindo zerado ensina a coisa
+-- errada: que desperdício é exceção. Ele não é — ele é a linha que ninguém
+-- quer ver grande, e precisa existir para poder encolher.
+--
+-- `occurred_at` vai no INSERT, não num UPDATE depois: a movimentação é
+-- append-only, e datar para trás depois de gravada é justamente o que a
+-- trigger existe para impedir.
+-- ---------------------------------------------------------------------------
+insert into stock_movement (tenant_id, unit_id, product_id, lot_id, kind, quantity,
+                            unit_cost_cents, reason, performed_by, occurred_at) values
+  -- O lote venceu na prateleira. É o desfecho que a tela de validade existe
+  -- para evitar, e por isso precisa aparecer no seed junto com ela.
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '04111111-1111-7111-8111-111111111111', '06222222-2222-7222-8222-222222222222',
+   'loss', -1, 88000, 'Lote vencido, descartado conforme protocolo.',
+   'd1111111-1111-7111-8111-111111111111', now() - interval '20 days'),
+
+  ('11111111-1111-7111-8111-111111111111', 'a1111111-1111-7111-8111-111111111111',
+   '04333333-3333-7333-8333-333333333333', null,
+   'loss', -2, 12000, 'Tubo aberto ressecou antes do fim.',
+   'd1111111-1111-7111-8111-111111111111', now() - interval '35 days'),
+
+  -- Acerto negativo: o sistema dizia que tinha, e não tinha. Não é perda com
+  -- causa conhecida — é a diferença que a contagem revelou, e ela custa igual.
+  ('11111111-1111-7111-8111-111111111111', 'a2222222-2222-7222-8222-222222222222',
+   '04222222-2222-7222-8222-222222222222', '06333333-3333-7333-8333-333333333333',
+   'adjustment', -1, 52000, 'Contagem de fim de mês: faltou uma seringa.',
+   'd1111111-1111-7111-8111-111111111111', now() - interval '12 days');

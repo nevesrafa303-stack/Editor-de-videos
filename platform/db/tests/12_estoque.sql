@@ -34,6 +34,7 @@ declare
   v_fatias int;
   v_prim   text;
   v_saldo  numeric;
+  v_saldo2 numeric;
   v_qtd    numeric;
   v_status text;
   v_linhas int;
@@ -106,7 +107,7 @@ begin
   perform test.check('estoque', 'o seed tem item de resina planejado', v_item is not null);
 
   select quantity into v_saldo from stock_balance
-   where product_id = RESINA and lot_id is null;
+   where product_id = RESINA and lot_id is null and unit_id = UNIDADE;
 
   perform execute_plan_item(v_item, UNIDADE);
 
@@ -116,11 +117,15 @@ begin
   perform test.check('estoque', 'ficha tecnica em grama vira tubo, com a perda dentro',
     v_qtd = -0.1438, format('baixou %s', v_qtd));
 
-  select quantity into v_saldo from stock_balance
-   where product_id = RESINA and lot_id is null;
+  -- Sempre com a UNIDADE: saldo e por unidade, e o seed tem resina nas duas.
+  -- E sempre RELATIVO ao saldo de antes: fixar "20" amarrava o teste a quanto
+  -- o seed tem hoje, e a cada perda ou compra nova no seed ele quebrava sem
+  -- que nada da regra tivesse mudado.
+  select quantity into v_saldo2 from stock_balance
+   where product_id = RESINA and lot_id is null and unit_id = UNIDADE;
 
   perform test.check('estoque', 'o saldo caiu exatamente o que foi consumido',
-    v_saldo = 20 - 0.1438, format('saldo=%s', v_saldo));
+    v_saldo2 = v_saldo - 0.1438, format('antes=%s depois=%s', v_saldo, v_saldo2));
 
   select status into v_status from treatment_plan_item where id = v_item;
   perform test.check('estoque', 'e o item ficou marcado como executado', v_status = 'executed');
@@ -132,10 +137,10 @@ begin
   perform test.check('estoque', 'o estorno soma uma linha em vez de apagar a do consumo',
     v_linhas = 2, format('%s linhas', v_linhas));
 
-  select quantity into v_saldo from stock_balance
-   where product_id = RESINA and lot_id is null;
-  perform test.check('estoque', 'e o material volta ao saldo', v_saldo = 20,
-    format('saldo=%s', v_saldo));
+  select quantity into v_saldo2 from stock_balance
+   where product_id = RESINA and lot_id is null and unit_id = UNIDADE;
+  perform test.check('estoque', 'e o material volta ao saldo', v_saldo2 = v_saldo,
+    format('antes=%s depois=%s', v_saldo, v_saldo2));
 
   select status into v_status from treatment_plan_item where id = v_item;
   perform test.check('estoque', 'o item volta para planejado', v_status = 'planned');
@@ -223,7 +228,8 @@ begin
   -- Desligada, o saldo fica negativo e visivel em vez de o atendimento parar.
   perform execute_plan_item(v_item, UNIDADE);
 
-  select sum(quantity) into v_saldo from stock_balance where product_id = RESINA;
+  select sum(quantity) into v_saldo from stock_balance
+   where product_id = RESINA and unit_id = UNIDADE;
   perform test.check('estoque',
     'sem a politica, o saldo fica negativo em vez de o atendimento parar',
     v_saldo < 0, format('saldo=%s', v_saldo));

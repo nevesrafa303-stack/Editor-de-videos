@@ -175,6 +175,15 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 105 | O mesmo item não é executado duas vezes | `execute_plan_item()` | `12_estoque` |
 | 106 | Executado não é terminal: desfazer tem caminho | `state_transition` | `12_estoque` |
 
+### Custo real
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 107 | Perda e acerto entram valorados, nunca a zero | `custoUnitario()` no comando | `stock.test` |
+| 108 | O custo real sai das movimentações, não de coluna guardada | `getCustoRealPorProcedimento` | `report.test` |
+| 109 | Procedimento sem ficha técnica não vira 100% de margem | `temFicha` + `margemPercent` nulo | `report.test` |
+| 110 | Perda e acerto não entram na margem de atendimento nenhum | painel separado | `report.test` |
+
 Três regras de relatório NÃO são invariantes de banco, e ficam registradas aqui
 porque são decisões, não descuido — vivem em `modules/report/queries.ts`, com
 teste em `app/tests/report.test.ts`:
