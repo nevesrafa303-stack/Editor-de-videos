@@ -1013,22 +1013,29 @@ figure:hover .moldura img{transform:scale(1.035)}
 
 /* -- 12. FOTOGRAFIA ------------------------------------------------------ */
 
-/* 12.1 Retratos sem moldura.
-   As fotos vêm do estúdio com fundo #121214 — a mesma cor de --grafite.
-   Em vez de recortar a silhueta (que sempre deixa franja no cabelo ondulado),
-   os arquivos WebP carregam canal alfa: uma elipse bem desfocada dissolve as
-   bordas e um degradê apaga a base. A figura nasce da página, sem caixa e sem
-   costura, e o efeito vale sobre qualquer fundo. */
+/* 12.1 Retratos recortados.
+   O fundo foi removido de verdade, com alfa no próprio arquivo: o fundo de
+   estúdio atrás dos ombros tem luminância 44 — a mesma mediana do cabelo —
+   então a separação foi feita por textura, não por cor (fundo liso, cabelo
+   feito de fios). Ver ferramentas/recorte.py. Nada de máscara CSS aqui: a
+   figura inteira aparece, sem borda comida. */
 .retrato{position:relative}
 .retrato img{
   width:100%;height:auto;display:block;
   transition:transform 1.2s var(--ease);
 }
-/* halo dourado discreto atrás da figura, para ela não sumir no preto */
+/* luz difusa atrás da figura, para ela não flutuar num vazio chapado */
 .retrato::before{
-  content:'';position:absolute;inset:6% 0 10%;z-index:-1;border-radius:50%;
-  background:radial-gradient(ellipse at 50% 45%,rgba(201,169,106,.09),transparent 72%);
-  filter:blur(46px);pointer-events:none;
+  content:'';position:absolute;inset:4% -4% 2%;z-index:-1;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 46%,rgba(201,169,106,.13),transparent 68%);
+  filter:blur(52px);pointer-events:none;
+}
+/* A foto original é de meio corpo: sem tratamento, o jaleco termina num corte
+   reto no nada. O fade vai só nos últimos 7% da altura — laterais e topo ficam
+   intactos, que era o defeito da versão anterior. */
+.retrato--desvanece img{
+  -webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
 }
 figure:hover .retrato img{transform:scale(1.02)}
 
@@ -1065,22 +1072,6 @@ figure:hover .retrato img{transform:scale(1.02)}
   border:1px solid var(--linha);border-radius:999px;color:rgba(255,255,255,.95);
 }
 
-/* 12.5 Corpo inteiro na chamada final */
-.chamada{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);
-  gap:clamp(2rem,5vw,4rem);align-items:center;text-align:left;
-}
-.chamada__figura{position:relative}
-.chamada .secao__lead{margin-inline:0}
-
-@media (max-width:900px){
-  .clinica__grid{grid-template-columns:1fr}
-  .clinica__foto{max-width:26rem;margin-inline:auto}
-  .chamada{grid-template-columns:1fr;text-align:center}
-  .chamada .secao__lead{margin-inline:auto}
-  .chamada__figura{max-width:17rem;margin-inline:auto;order:-1}
-}
-
 /* 12.6 Antes/depois: a imagem é um espelho, mas quem chega não sabe qual
    lado é qual. Os rótulos resolvem em meio segundo de leitura. */
 .foto-enquadrada--caso{position:relative}
@@ -1102,26 +1093,11 @@ figure:hover .retrato img{transform:scale(1.02)}
   .foto-enquadrada--caso img{aspect-ratio:4/4.6}
 }
 
-/* 12.8 A chamada final: o texto é o protagonista, a figura acompanha.
-   Antes a coluna do texto ficava estreita e o título quebrava em três linhas. */
-.chamada{grid-template-columns:minmax(0,1.3fr) minmax(0,.5fr)}
-.chamada__figura img{max-height:34rem;width:auto;margin-inline:auto}
-@media (max-width:900px){
-  .chamada__figura img{max-height:22rem}
-}
-
-/* 12.9 Na chamada a figura é pequena: o halo, calculado em proporção, virava
-   uma auréola visível em volta dela. Aqui ele sai. */
-.chamada__figura .retrato::before{display:none}
-
 /* 12.10 A regra de duas colunas da 12.8 não tem media query, então vinha
    depois e vencia a de coluna única do mobile — a chamada continuava em duas
    colunas a 390px e o botão era empurrado para fora da tela. Reafirmado aqui,
    no fim da cascata. */
 @media (max-width:900px){
-  .chamada{grid-template-columns:1fr;text-align:center}
-  .chamada .secao__lead{margin-inline:auto}
-  .chamada__figura{max-width:17rem;margin-inline:auto;order:-1}
 }
 
 /* rótulos longos: em tela estreita o botão quebra em vez de estourar */

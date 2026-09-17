@@ -2,10 +2,12 @@
 """
 Prepara as fotos do site: recorta, gera três larguras e exporta WebP.
 
-Os retratos saem com canal alfa — uma rampa de transparência em cada borda
-dissolve o retângulo da foto. Como o estúdio usou fundo #121214, a mesma cor de
---grafite, a figura nasce do fundo da página sem recorte de silhueta (que em
-cabelo ondulado sempre deixa franja).
+Os retratos entram aqui já sem fundo — passe as fotos por recorte.py antes:
+
+    python3 ferramentas/recorte.py originais/retrato-hero.jpg originais/retrato-hero.png
+
+Este roteiro só recorta o enquadramento, gera as três larguras e exporta WebP
+preservando o canal alfa.
 
 Uso, a partir de site/:   python3 ferramentas/fotos.py
 Requer:                   pip install Pillow
@@ -42,7 +44,7 @@ def mascara_bordas(w, h, esq, dir_, topo, base):
                 if px[x, y] > v: px[x, y] = v
     return m
 
-def exporta(origem, destino, caixa, larguras, fades=None, qualidade=84):
+def exporta(origem, destino, caixa, larguras, fades=None, qualidade=88):
     """caixa e fades em fração (0–1). fades=None mantém a foto opaca."""
     im = Image.open(os.path.join(ORIGEM, origem)).convert('RGBA')
     W, H = im.size
@@ -51,7 +53,7 @@ def exporta(origem, destino, caixa, larguras, fades=None, qualidade=84):
     maior = max(larguras)
     rec = rec.resize((maior, round(rec.size[1] * maior / rec.size[0])), Image.LANCZOS)
     w, h = rec.size
-    if fades:
+    if fades:  # rampa opcional, só para fotos que ainda tenham fundo
         rec.putalpha(ImageChops.multiply(rec.getchannel('A'), mascara_bordas(w, h, *fades)))
     for larg in larguras:
         alt = round(h * larg / w)
@@ -61,9 +63,9 @@ def exporta(origem, destino, caixa, larguras, fades=None, qualidade=84):
 
 # (arquivo de origem, nome de saída, recorte, larguras, fades das bordas)
 RECEITA = [
-    ('retrato-hero.jpg',  'consuelo-hero',  (0.06, 0.18,  0.94, 1.0),   [560, 900, 1300], (0.14, 0.14, 0.13, 0.20)),
-    ('retrato-sobre.jpg', 'consuelo-sobre', (0.0,  0.167, 1.0,  1.0),   [520, 820, 1200], (0.13, 0.13, 0.12, 0.18)),
-    ('retrato-corpo.jpg', 'consuelo-corpo', (0.235,0.115, 0.775,0.995), [380, 620, 900],  (0.20, 0.20, 0.20, 0.14)),
+    # os três retratos passam antes por recorte.py, que remove o fundo
+    ('retrato-hero.png',  'consuelo-hero',  (0.06, 0.18,  0.94, 1.0),   [560, 900, 1300], None),
+    ('retrato-sobre.png', 'consuelo-sobre', (0.0,  0.167, 1.0,  1.0),   [520, 820, 1200], None),
     ('clinica.jpg',       'clinica',        (0.0,  0.10,  1.0,  0.94),  [520, 820, 1200], None),
     ('caso-labial.jpg',   'caso-labial',    (0.0,  0.04,  1.0,  0.80),  [600, 900, 1300], None),
 ]

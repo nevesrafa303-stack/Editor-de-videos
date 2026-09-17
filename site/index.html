@@ -117,7 +117,7 @@
     </div>
 
     <figure class="hero__foto" data-entrada data-atraso="150">
-      <div class="retrato" data-parallax="0.05">
+      <div class="retrato retrato--desvanece" data-parallax="0.05">
         <img src="assets/img/consuelo-hero-900.webp"
              srcset="assets/img/consuelo-hero-560.webp 560w,
                      assets/img/consuelo-hero-900.webp 900w,
@@ -157,7 +157,7 @@
 <section class="secao secao--grafite sobre" id="sobre">
   <div class="wrap sobre__grid">
     <figure class="sobre__foto" data-revelar>
-      <div class="retrato" data-parallax="0.04">
+      <div class="retrato retrato--desvanece" data-parallax="0.04">
         <img src="assets/img/consuelo-sobre-820.webp"
              srcset="assets/img/consuelo-sobre-520.webp 520w,
                      assets/img/consuelo-sobre-820.webp 820w,
@@ -514,30 +514,20 @@
 
 <!-- ======================= CTA + CONTATO ======================= -->
 <section class="secao secao--grafite contato" id="contato">
-  <div class="wrap contato__chamada chamada" data-revelar>
-    <div>
-      <h2 class="titulo titulo--g">Pronta para revelar <em>sua melhor versão?</em></h2>
-      <p class="secao__lead">
-        A primeira consulta é onde tudo começa. Vamos entender juntas o que seu rosto
-        e seu sorriso pedem.
-      </p>
-      <a class="btn btn--ouro btn--g" data-wa href="#">
-        Quero agendar minha avaliação
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-
-    <figure class="chamada__figura">
-      <div class="retrato" data-parallax="0.03">
-        <img src="assets/img/consuelo-corpo-620.webp"
-             srcset="assets/img/consuelo-corpo-380.webp 380w,
-                     assets/img/consuelo-corpo-620.webp 620w,
-                     assets/img/consuelo-corpo-900.webp 900w"
-             sizes="(max-width:900px) 60vw, 26vw"
-             width="620" height="1516" loading="lazy"
-             alt="Dra. Consuelo Vasconcelos de corpo inteiro, em jaleco branco">
-      </div>
-    </figure>
+  <!-- Sem foto aqui de propósito: na foto de corpo inteiro a calça preta, a
+       sombra do chão e o fundo do estúdio têm a mesma luminância (25 contra 26)
+       e a mesma textura, então nenhum recorte automático os separa. Para voltar
+       a usá-la seria preciso um recorte manual. -->
+  <div class="wrap contato__chamada" data-revelar>
+    <h2 class="titulo titulo--g">Pronta para revelar <em>sua melhor versão?</em></h2>
+    <p class="secao__lead">
+      A primeira consulta é onde tudo começa. Vamos entender juntas o que seu rosto
+      e seu sorriso pedem.
+    </p>
+    <a class="btn btn--ouro btn--g" data-wa href="#">
+      Quero agendar minha avaliação
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
 
   <div class="wrap contato__grid">

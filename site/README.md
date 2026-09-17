@@ -42,15 +42,21 @@ endereço na Hercílio Luz 642, horário de segunda a sábado 09h30–18h, cidad
 
 ### 1.2 Fotos — `assets/img/`
 
-As fotos são reais e já estão no site. Os retratos foram exportados em **WebP
-com canal alfa**: as bordas dissolvem para transparente, então a figura nasce do
-fundo da página sem moldura e sem recorte de silhueta.
+As fotos são reais e já estão no site. Os dois retratos tiveram o **fundo
+removido de verdade** e são WebP com canal alfa — a figura inteira aparece,
+sem moldura e sem borda comida.
+
+O recorte está em `ferramentas/recorte.py`. O detalhe que o torna necessário:
+o fundo de estúdio atrás dos ombros tem luminância **44** — exatamente a mediana
+do cabelo dela. Nenhum limiar de cor separa os dois. A separação é feita por
+**textura**: o fundo é liso (alta frequência p99 = 2), o cabelo é feito de fios
+(p50 = 8, p90 = 27). Um pixel só é fundo quando é escuro E liso, e a varredura
+parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 
 | Arquivo | Onde aparece |
 |---|---|
 | `consuelo-hero-*.webp` | Primeira dobra |
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
-| `consuelo-corpo-*.webp` | Chamada final, antes do contato |
 | `clinica-*.webp` | Seção "A clínica" |
 | `caso-labial-*.webp` | Seção "Resultados" |
 | `og-capa.jpg` | Miniatura no WhatsApp, Instagram e Facebook |
@@ -58,9 +64,21 @@ fundo da página sem moldura e sem recorte de silhueta.
 Cada foto tem três larguras (`srcset`), então o celular baixa a menor e o
 desktop a maior.
 
-**Para trocar uma foto por outra**, o roteiro está em `ferramentas/fotos.py`:
-ele recorta, gera as três larguras, aplica a máscara de transparência nas
-bordas e exporta WebP. Rode `python3 ferramentas/fotos.py` a partir de `site/`.
+**Para trocar uma foto por outra**, a partir de `site/`:
+
+```bash
+python3 ferramentas/recorte.py originais/retrato-hero.jpg originais/retrato-hero.png
+python3 ferramentas/fotos.py
+```
+
+O primeiro remove o fundo, o segundo enquadra, gera as três larguras e exporta
+WebP preservando a transparência.
+
+> **Limite conhecido:** o recorte funciona quando o sujeito tem contraste ou
+> textura contra o fundo. Na foto de corpo inteiro ele falha — a calça preta,
+> a sombra do chão e o fundo do estúdio têm a mesma luminância (25 contra 26) e
+> a mesma textura, então saem todos juntos. Aquela foto precisa de recorte
+> manual; por isso a chamada final não usa imagem.
 
 > **Seção "Resultados":** a imagem é de uma paciente. Ela só pode ficar no ar
 > com **termo de autorização de uso de imagem assinado** — é exigência do
