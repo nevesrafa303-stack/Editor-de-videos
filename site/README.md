@@ -42,29 +42,31 @@ endereço na Hercílio Luz 642, horário de segunda a sábado 09h30–18h, cidad
 
 ### 1.2 Fotos — `assets/img/`
 
-As imagens atuais são **placeholders SVG** com o aviso "SUBSTITUA POR FOTO REAL".
-Troque pelos arquivos reais mantendo os mesmos nomes (ou ajuste o `src` no HTML):
+As fotos são reais e já estão no site. Os retratos foram exportados em **WebP
+com canal alfa**: as bordas dissolvem para transparente, então a figura nasce do
+fundo da página sem moldura e sem recorte de silhueta.
 
-| Arquivo | Onde aparece | Proporção sugerida |
-|---|---|---|
-| `retrato-hero.svg` | Primeira dobra | retrato, 5:6.4 |
-| `retrato-sobre.svg` | Seção "Afinal, quem sou eu?" | retrato, 4:5 |
-| `og-capa.svg` | Miniatura no WhatsApp/Facebook | 1200×630 |
+| Arquivo | Onde aparece |
+|---|---|
+| `consuelo-hero-*.webp` | Primeira dobra |
+| `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
+| `consuelo-corpo-*.webp` | Chamada final, antes do contato |
+| `clinica-*.webp` | Seção "A clínica" |
+| `caso-labial-*.webp` | Seção "Resultados" |
+| `og-capa.jpg` | Miniatura no WhatsApp, Instagram e Facebook |
 
-As fotos profissionais que já estão no site atual (jaleco branco, fundo cinza)
-servem direto — é só exportar e renomear.
+Cada foto tem três larguras (`srcset`), então o celular baixa a menor e o
+desktop a maior.
 
-Use `.webp` ou `.jpg` para fotos reais (melhor compressão). Exemplo:
-`<img src="assets/img/retrato-hero.webp" ...>`.
+**Para trocar uma foto por outra**, o roteiro está em `ferramentas/fotos.py`:
+ele recorta, gera as três larguras, aplica a máscara de transparência nas
+bordas e exporta WebP. Rode `python3 ferramentas/fotos.py` a partir de `site/`.
 
-> **Antes e depois:** não há seção de antes/depois nesta página, de propósito.
-> O Código de Ética Odontológica restringe a divulgação de imagens de pacientes;
-> se um dia quiser publicar, faça só com **termo de autorização de uso de imagem
-> assinado**.
-
-> **Depoimentos:** também não há depoimentos escritos aqui. No lugar deles, a
-> seção "Quem já sentou nessa cadeira" leva às avaliações reais do Google, que
-> são públicas e verificáveis — nada inventado.
+> **Seção "Resultados":** a imagem é de uma paciente. Ela só pode ficar no ar
+> com **termo de autorização de uso de imagem assinado** — é exigência do
+> Código de Ética Odontológica, não formalidade. Para tirar do ar, apague a
+> seção `<!-- CASO CLÍNICO -->` inteira do `index.html` e o link "Resultados"
+> no rodapé.
 
 ### 1.3 Textos
 
@@ -143,7 +145,7 @@ genuinamente monocromático — o croma máximo medido nas áreas de interface f
 
 | Token | Cor | Onde foi medido |
 |---|---|---|
-| `--grafite` | `#181818` | Fundo do bloco "Paixão que virou carreira" |
+| `--grafite` | `#121214` | Fundo do estúdio das fotos — com o token igual, o retrato funde com a página |
 | `--carvao` | `#3A3A3A` | Fundo das seções escuras |
 | `--chumbo` | `#5D5D5D` | Topo do gradiente dos cards |
 | `--cinza` | `#6E6E6E` | O cinza dominante do site (`#888888`, 53% dos pixels), escurecido o suficiente para o texto branco passar em contraste |

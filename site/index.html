@@ -15,8 +15,11 @@
 <meta property="og:title" content="Dra. Consuelo Vasconcelos — Odontologia & Estética Avançada">
 <meta property="og:description" content="Autoestima não é vaidade. É posicionamento. Odontologia e estética avançada em Itajaí-SC, com atendimento humanizado e resultados naturais.">
 <meta property="og:url" content="https://draconsuelovasconcelos.com.br/">
-<meta property="og:image" content="https://draconsuelovasconcelos.com.br/assets/img/og-capa.svg">
+<meta property="og:image" content="https://draconsuelovasconcelos.com.br/assets/img/og-capa.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dra. Consuelo Vasconcelos — Odontologia e Estética Avançada em Itajaí-SC">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/favicon.svg">
@@ -51,8 +54,9 @@
         <li><a href="#missao">Missão</a></li>
         <li><a href="#procedimentos">Procedimentos</a></li>
         <li><a href="#estetica">O que muda</a></li>
+        <li><a href="#clinica">A clínica</a></li>
         <li><a href="#duvidas">Dúvidas</a></li>
-        <li><a href="#contato">Onde me encontrar</a></li>
+        <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
 
@@ -113,9 +117,14 @@
     </div>
 
     <figure class="hero__foto" data-entrada data-atraso="150">
-      <div class="moldura" data-parallax="0.06">
-        <img src="assets/img/retrato-hero.svg" width="1000" height="1400"
-             alt="Dra. Consuelo Vasconcelos, cirurgiã-dentista" fetchpriority="high">
+      <div class="retrato" data-parallax="0.05">
+        <img src="assets/img/consuelo-hero-900.webp"
+             srcset="assets/img/consuelo-hero-560.webp 560w,
+                     assets/img/consuelo-hero-900.webp 900w,
+                     assets/img/consuelo-hero-1300.webp 1300w"
+             sizes="(max-width:900px) 78vw, 42vw"
+             width="900" height="1258" fetchpriority="high"
+             alt="Dra. Consuelo Vasconcelos, cirurgiã-dentista, de jaleco branco">
       </div>
       <figcaption class="selo" data-parallax="-0.04">
         <strong>Atendimento</strong>
@@ -145,12 +154,17 @@
 </section>
 
 <!-- ======================= SOBRE ======================= -->
-<section class="secao secao--escura sobre" id="sobre">
+<section class="secao secao--grafite sobre" id="sobre">
   <div class="wrap sobre__grid">
     <figure class="sobre__foto" data-revelar>
-      <div class="moldura moldura--alta" data-parallax="0.05">
-        <img src="assets/img/retrato-sobre.svg" width="900" height="1150" loading="lazy"
-             alt="Dra. Consuelo Vasconcelos no consultório, em Itajaí">
+      <div class="retrato" data-parallax="0.04">
+        <img src="assets/img/consuelo-sobre-820.webp"
+             srcset="assets/img/consuelo-sobre-520.webp 520w,
+                     assets/img/consuelo-sobre-820.webp 820w,
+                     assets/img/consuelo-sobre-1200.webp 1200w"
+             sizes="(max-width:900px) 80vw, 36vw"
+             width="820" height="1025" loading="lazy"
+             alt="Dra. Consuelo Vasconcelos de braços cruzados, em jaleco branco">
       </div>
       <span class="assinatura" aria-hidden="true">Consuelo</span>
     </figure>
@@ -190,7 +204,7 @@
 </section>
 
 <!-- ======================= MISSÃO ======================= -->
-<section class="secao secao--grafite metodo" id="missao">
+<section class="secao secao--escura metodo" id="missao">
   <div class="wrap metodo__grid">
     <div class="metodo__fixo">
       <p class="rotulo">Minha missão</p>
@@ -241,7 +255,7 @@
 </section>
 
 <!-- ======================= PROCEDIMENTOS ======================= -->
-<section class="secao secao--escura tratamentos" id="procedimentos">
+<section class="secao secao--grafite tratamentos" id="procedimentos">
   <div class="wrap">
     <header class="secao__cabeca">
       <p class="rotulo" data-revelar>Procedimentos</p>
@@ -356,6 +370,80 @@
   </div>
 </section>
 
+<!-- ======================= A CLÍNICA ======================= -->
+<section class="secao secao--escura clinica" id="clinica">
+  <div class="wrap clinica__grid">
+    <div class="clinica__texto">
+      <p class="rotulo" data-revelar>A clínica</p>
+      <h2 class="titulo" data-revelar data-atraso="80">
+        Um ambiente pensado para <em>baixar a guarda</em>
+      </h2>
+      <p class="secao__lead" data-revelar data-atraso="140">
+        No calçadão da Hercílio Luz, no Centro de Itajaí. Consultório próprio,
+        equipado, com atendimento por hora marcada.
+      </p>
+      <ul class="marcadores" data-revelar data-atraso="200">
+        <li><strong>Hora marcada</strong> — sem sobreposição de agenda.</li>
+        <li><strong>Consultório próprio</strong> — equipamento e instrumental da casa.</li>
+        <li><strong>Centro de Itajaí</strong> — fácil acesso, no calçadão.</li>
+      </ul>
+      <a class="link-seta" href="#contato" data-revelar data-atraso="260">
+        Ver endereço e horários
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <figure class="clinica__foto" data-revelar data-atraso="120">
+      <div class="foto-enquadrada">
+        <img src="assets/img/clinica-820.webp"
+             srcset="assets/img/clinica-520.webp 520w,
+                     assets/img/clinica-820.webp 820w,
+                     assets/img/clinica-1200.webp 1200w"
+             sizes="(max-width:900px) 84vw, 50vw"
+             width="820" height="1211" loading="lazy"
+             alt="Sala de atendimento da clínica, com cadeira odontológica e espelho">
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= CASO CLÍNICO ======================= -->
+<!-- ATENÇÃO: imagem de paciente só pode ir ao ar com termo de autorização de
+     uso de imagem assinado (Código de Ética Odontológica). Para tirar do ar,
+     apague esta seção inteira e o link "Resultados" no menu e no rodapé. -->
+<section class="secao secao--cinza caso-secao" id="resultados">
+  <div class="wrap">
+    <header class="secao__cabeca secao__cabeca--centro">
+      <p class="rotulo" data-revelar>Resultados</p>
+      <h2 class="titulo" data-revelar data-atraso="80">Equilíbrio, <em>não exagero</em></h2>
+    </header>
+
+    <figure class="caso" data-revelar data-atraso="120">
+      <div class="foto-enquadrada foto-enquadrada--caso">
+        <span class="marca-caso marca-caso--antes">Antes</span>
+        <span class="marca-caso marca-caso--depois">Depois</span>
+        <img src="assets/img/caso-labial-900.webp"
+             srcset="assets/img/caso-labial-600.webp 600w,
+                     assets/img/caso-labial-900.webp 900w,
+                     assets/img/caso-labial-1300.webp 1300w"
+             sizes="(max-width:760px) 88vw, 620px"
+             width="900" height="1217" loading="lazy"
+             alt="Antes e depois de preenchimento labial, com resultado natural">
+      </div>
+      <ul class="caso__tags">
+        <li>Preenchimento com ácido hialurônico</li>
+        <li>Sessão única</li>
+        <li>Resultado imediato</li>
+      </ul>
+      <figcaption class="foto-legenda">
+        Antes e depois de preenchimento labial — contorno definido, proporção preservada.
+        <em>Imagem publicada com autorização da paciente. Resultados variam conforme as
+        condições clínicas de cada pessoa.</em>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- ======================= AVALIAÇÕES GOOGLE ======================= -->
 <section class="secao secao--grafite avaliacoes" id="avaliacoes" data-google-secao hidden>
   <div class="wrap avaliacoes__caixa" data-revelar>
@@ -426,16 +514,30 @@
 
 <!-- ======================= CTA + CONTATO ======================= -->
 <section class="secao secao--grafite contato" id="contato">
-  <div class="wrap contato__chamada" data-revelar>
-    <h2 class="titulo titulo--g">Pronta para revelar <em>sua melhor versão?</em></h2>
-    <p class="secao__lead">
-      A primeira consulta é onde tudo começa. Vamos entender juntas o que seu rosto
-      e seu sorriso pedem.
-    </p>
-    <a class="btn btn--ouro btn--g" data-wa href="#">
-      Quero agendar minha avaliação
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
+  <div class="wrap contato__chamada chamada" data-revelar>
+    <div>
+      <h2 class="titulo titulo--g">Pronta para revelar <em>sua melhor versão?</em></h2>
+      <p class="secao__lead">
+        A primeira consulta é onde tudo começa. Vamos entender juntas o que seu rosto
+        e seu sorriso pedem.
+      </p>
+      <a class="btn btn--ouro btn--g" data-wa href="#">
+        Quero agendar minha avaliação
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <figure class="chamada__figura">
+      <div class="retrato" data-parallax="0.03">
+        <img src="assets/img/consuelo-corpo-620.webp"
+             srcset="assets/img/consuelo-corpo-380.webp 380w,
+                     assets/img/consuelo-corpo-620.webp 620w,
+                     assets/img/consuelo-corpo-900.webp 900w"
+             sizes="(max-width:900px) 60vw, 26vw"
+             width="620" height="1516" loading="lazy"
+             alt="Dra. Consuelo Vasconcelos de corpo inteiro, em jaleco branco">
+      </div>
+    </figure>
   </div>
 
   <div class="wrap contato__grid">
@@ -582,8 +684,10 @@
         <li><a href="#missao">Missão</a></li>
         <li><a href="#procedimentos">Procedimentos</a></li>
         <li><a href="#estetica">O que muda</a></li>
+        <li><a href="#clinica">A clínica</a></li>
+        <li><a href="#resultados">Resultados</a></li>
         <li><a href="#duvidas">Dúvidas</a></li>
-        <li><a href="#contato">Onde me encontrar</a></li>
+        <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
 

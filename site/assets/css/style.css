@@ -9,7 +9,8 @@
    monocromática (croma máximo medido: 4); o dourado vem do logo da marca. */
 :root{
   /* neutros — do mais escuro ao mais claro */
-  --grafite:#181818;   /* fundo do bloco "Paixão que virou carreira" */
+  --grafite:#121214;   /* = fundo do estúdio das fotos, medido nos cantos:
+                          com o token igual, o retrato funde com a página */
   --carvao:#3A3A3A;
   --chumbo:#5D5D5D;    /* topo do gradiente dos cards */
   --rodape:#767676;
@@ -419,7 +420,7 @@ figure:hover .moldura img{transform:scale(1.035)}
 }
 .sobre__foto{position:relative}
 .assinatura{
-  position:absolute;right:-.5rem;bottom:-1.6rem;
+  position:absolute;right:0;bottom:-.6rem;
   font-family:var(--serif);font-style:italic;
   font-size:clamp(2.4rem,5vw,3.6rem);color:var(--ouro);opacity:.9;
   text-shadow:0 2px 18px rgba(0,0,0,.65);pointer-events:none;
@@ -1008,4 +1009,123 @@ figure:hover .moldura img{transform:scale(1.035)}
    rápida e o rodapé tem o link "Voltar ao topo". */
 @media (max-width:900px){
   .flutuante--topo{display:none}
+}
+
+/* -- 12. FOTOGRAFIA ------------------------------------------------------ */
+
+/* 12.1 Retratos sem moldura.
+   As fotos vêm do estúdio com fundo #121214 — a mesma cor de --grafite.
+   Em vez de recortar a silhueta (que sempre deixa franja no cabelo ondulado),
+   os arquivos WebP carregam canal alfa: uma elipse bem desfocada dissolve as
+   bordas e um degradê apaga a base. A figura nasce da página, sem caixa e sem
+   costura, e o efeito vale sobre qualquer fundo. */
+.retrato{position:relative}
+.retrato img{
+  width:100%;height:auto;display:block;
+  transition:transform 1.2s var(--ease);
+}
+/* halo dourado discreto atrás da figura, para ela não sumir no preto */
+.retrato::before{
+  content:'';position:absolute;inset:6% 0 10%;z-index:-1;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 45%,rgba(201,169,106,.09),transparent 72%);
+  filter:blur(46px);pointer-events:none;
+}
+figure:hover .retrato img{transform:scale(1.02)}
+
+/* 12.2 Fotos de ambiente e de caso: fundo claro, precisam de contenção. */
+.foto-enquadrada{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--sombra-alta);background:var(--carvao);
+}
+.foto-enquadrada img{width:100%;height:auto;display:block;transition:transform 1.1s var(--ease)}
+.foto-enquadrada:hover img{transform:scale(1.03)}
+.foto-enquadrada figcaption,
+.foto-legenda{
+  margin-top:1rem;font-size:var(--t-sm);color:var(--txt-2);
+}
+.foto-legenda em{
+  display:block;margin-top:.4rem;font-family:var(--sans);font-style:normal;
+  font-size:.78rem;color:var(--txt-3);
+}
+
+/* 12.3 A clínica */
+.clinica__grid{
+  display:grid;gap:clamp(2rem,5vw,4rem);
+  grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:center;
+}
+.clinica__texto .marcadores{margin-top:2rem}
+
+/* 12.4 Caso clínico */
+.caso{max-width:640px;margin-inline:auto;text-align:center}
+.caso__tags{
+  display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.2rem;
+}
+.caso__tags li{
+  font-size:.72rem;letter-spacing:.08em;padding:.35rem .85rem;
+  border:1px solid var(--linha);border-radius:999px;color:rgba(255,255,255,.95);
+}
+
+/* 12.5 Corpo inteiro na chamada final */
+.chamada{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);
+  gap:clamp(2rem,5vw,4rem);align-items:center;text-align:left;
+}
+.chamada__figura{position:relative}
+.chamada .secao__lead{margin-inline:0}
+
+@media (max-width:900px){
+  .clinica__grid{grid-template-columns:1fr}
+  .clinica__foto{max-width:26rem;margin-inline:auto}
+  .chamada{grid-template-columns:1fr;text-align:center}
+  .chamada .secao__lead{margin-inline:auto}
+  .chamada__figura{max-width:17rem;margin-inline:auto;order:-1}
+}
+
+/* 12.6 Antes/depois: a imagem é um espelho, mas quem chega não sabe qual
+   lado é qual. Os rótulos resolvem em meio segundo de leitura. */
+.foto-enquadrada--caso{position:relative}
+.marca-caso{
+  position:absolute;top:1rem;z-index:2;
+  padding:.35rem .9rem;border-radius:999px;
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.marca-caso--antes{left:1rem;background:rgba(18,18,20,.72);color:var(--creme)}
+.marca-caso--depois{right:1rem;background:rgba(201,169,106,.92);color:var(--grafite)}
+
+/* 12.7 Altura contida: as fotos verticais ficavam altas demais no desktop
+   e empurravam o texto ao lado para fora do campo de visão. */
+.clinica__foto .foto-enquadrada img{aspect-ratio:4/4.4;object-fit:cover;object-position:50% 42%}
+.foto-enquadrada--caso img{aspect-ratio:4/4.2;object-fit:cover;object-position:50% 38%}
+@media (max-width:900px){
+  .clinica__foto .foto-enquadrada img{aspect-ratio:4/4.8}
+  .foto-enquadrada--caso img{aspect-ratio:4/4.6}
+}
+
+/* 12.8 A chamada final: o texto é o protagonista, a figura acompanha.
+   Antes a coluna do texto ficava estreita e o título quebrava em três linhas. */
+.chamada{grid-template-columns:minmax(0,1.3fr) minmax(0,.5fr)}
+.chamada__figura img{max-height:34rem;width:auto;margin-inline:auto}
+@media (max-width:900px){
+  .chamada__figura img{max-height:22rem}
+}
+
+/* 12.9 Na chamada a figura é pequena: o halo, calculado em proporção, virava
+   uma auréola visível em volta dela. Aqui ele sai. */
+.chamada__figura .retrato::before{display:none}
+
+/* 12.10 A regra de duas colunas da 12.8 não tem media query, então vinha
+   depois e vencia a de coluna única do mobile — a chamada continuava em duas
+   colunas a 390px e o botão era empurrado para fora da tela. Reafirmado aqui,
+   no fim da cascata. */
+@media (max-width:900px){
+  .chamada{grid-template-columns:1fr;text-align:center}
+  .chamada .secao__lead{margin-inline:auto}
+  .chamada__figura{max-width:17rem;margin-inline:auto;order:-1}
+}
+
+/* rótulos longos: em tela estreita o botão quebra em vez de estourar */
+@media (max-width:420px){
+  .btn{white-space:normal;text-align:center;line-height:1.35}
+  .btn--g{padding-inline:1.4rem}
 }
