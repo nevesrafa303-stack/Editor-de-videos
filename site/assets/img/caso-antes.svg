@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Antes">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1E3A34"/>
+      <stop offset="0.55" stop-color="#2F5A4F"/>
+      <stop offset="1" stop-color="#14211E"/>
+    </linearGradient>
+    <pattern id="p" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="34" stroke="#C9A96A" stroke-opacity="0.13" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1000" height="1000" fill="url(#g)"/>
+  <rect width="1000" height="1000" fill="url(#p)"/>
+  <circle cx="500" cy="429" r="76" fill="none" stroke="#C9A96A" stroke-opacity="0.5" stroke-width="2"/>
+  <text x="50%" y="611" text-anchor="middle" fill="#F4F0EA" fill-opacity="0.82"
+        font-family="Georgia, 'Times New Roman', serif" font-size="45" letter-spacing="2">Antes</text>
+  <text x="50%" y="673" text-anchor="middle" fill="#C9A96A" fill-opacity="0.75"
+        font-family="Helvetica, Arial, sans-serif" font-size="26" letter-spacing="3">SUBSTITUA POR FOTO REAL</text>
+</svg>
