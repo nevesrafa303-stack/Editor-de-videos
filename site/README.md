@@ -17,25 +17,28 @@ site/
 
 ---
 
-## 1. Antes de publicar — o que é obrigatório trocar
+## 1. De onde veio o conteúdo
 
-### 1.1 `assets/js/config.js`
+Todo o texto desta página foi extraído do site publicado em
+`draconsuelovasconcelos.com.br`: a bio, a missão, os 8 procedimentos com as
+descrições originais, as 3 dúvidas frequentes, o endereço, o horário, o
+telefone e o CRO-SC 25523. A paleta foi amostrada pixel a pixel dos prints do
+site (ver seção 5).
 
-Todos os dados de contato ficam num único objeto. Os pontos marcados com
-`// ⚠️ TROCAR` **precisam** ser preenchidos com os dados reais:
+### 1.1 O que ainda falta — `assets/js/config.js`
 
-| Campo | O que é |
+Os campos marcados `// ⚠️ CONFIRMAR` são os que não apareciam nos prints:
+
+| Campo | Situação |
 |---|---|
-| `cro` / `responsavelTecnico` | Nº de inscrição no Conselho — exigido pelo Código de Ética |
-| `whatsapp` | Só dígitos, com DDI e DDD: `5585999998888` |
-| `telefoneExibicao` | Como o número aparece escrito: `(85) 99999-8888` |
-| `email` | E-mail de contato |
-| `endereco.*` | Rua, bairro/cidade, CEP, link e embed do Google Maps |
-| `redes.*` | URLs das redes. Deixe `null` para o ícone não aparecer |
-| `cidade` / `uf` | Usados no SEO estruturado (schema.org) |
+| `redes.instagram` | Chutei `@draconsuelovasconcelos` — **confirme o @ real** |
+| `redes.facebook` `.youtube` `.pinterest` `.tiktok` | O site atual tem os ícones, mas as URLs não apareciam. `null` esconde o ícone |
+| `email` | Não aparece no site atual. `null` faz o item sumir da página inteira |
+| `google.link` | Troque pelo link do perfil do Google Business |
+| `endereco.mapaEmbed` | Opcional: cole o `src` do iframe "Incorporar um mapa" |
 
-O site inteiro (links de WhatsApp, e-mail, mapa, rodapé, JSON-LD) lê daqui —
-não é preciso caçar o número em vários lugares.
+Já conferidos e corretos: nome, CRO-SC 25523, WhatsApp (47) 98860-3900,
+endereço na Hercílio Luz 642, horário de segunda a sábado 09h30–18h, cidade/UF.
 
 ### 1.2 Fotos — `assets/img/`
 
@@ -45,26 +48,30 @@ Troque pelos arquivos reais mantendo os mesmos nomes (ou ajuste o `src` no HTML)
 | Arquivo | Onde aparece | Proporção sugerida |
 |---|---|---|
 | `retrato-hero.svg` | Primeira dobra | retrato, 5:6.4 |
-| `retrato-sobre.svg` | Seção "Sobre" | retrato, 4:5 |
-| `clinica-01/02/03.svg` | Galeria da clínica | paisagem, 4:3 |
-| `caso-antes.svg` / `caso-depois.svg` | Comparador de resultados | quadrado, 1:1 |
+| `retrato-sobre.svg` | Seção "Afinal, quem sou eu?" | retrato, 4:5 |
 | `og-capa.svg` | Miniatura no WhatsApp/Facebook | 1200×630 |
+
+As fotos profissionais que já estão no site atual (jaleco branco, fundo cinza)
+servem direto — é só exportar e renomear.
 
 Use `.webp` ou `.jpg` para fotos reais (melhor compressão). Exemplo:
 `<img src="assets/img/retrato-hero.webp" ...>`.
 
-> **Antes e depois:** o Código de Ética Odontológica restringe a divulgação de
-> imagens de pacientes. Publique apenas casos com **termo de autorização de uso
-> de imagem assinado** e mantenha o aviso de que resultados variam. Se preferir
-> não publicar, remova a seção `#resultados` do `index.html` e o link
-> correspondente no menu e no rodapé.
+> **Antes e depois:** não há seção de antes/depois nesta página, de propósito.
+> O Código de Ética Odontológica restringe a divulgação de imagens de pacientes;
+> se um dia quiser publicar, faça só com **termo de autorização de uso de imagem
+> assinado**.
+
+> **Depoimentos:** também não há depoimentos escritos aqui. No lugar deles, a
+> seção "Quem já sentou nessa cadeira" leva às avaliações reais do Google, que
+> são públicas e verificáveis — nada inventado.
 
 ### 1.3 Textos
 
-Toda a copy está escrita direto no `index.html`, em português, em blocos
-comentados por seção. Os números da primeira dobra (`12+ anos`, `2.400+
-atendimentos`, `98% de retorno`) estão no atributo `data-contador` — ajuste para
-os números reais ou remova o bloco `.hero__provas`.
+Toda a copy está no `index.html`, em blocos comentados por seção. Nada foi
+inventado: as frases são as do site atual. Os três selos da primeira dobra
+(CRO, nota do Google, cidade) são fatos verificáveis, não estatísticas
+estimadas.
 
 ---
 
@@ -99,44 +106,66 @@ Abrir o `index.html` direto pelo navegador (`file://`) também funciona, mas o
 
 ## 4. O que já está implementado
 
+**Seções** — primeira dobra, faixa de credenciais, "Afinal, quem sou eu?" com
+"Paixão que virou carreira", missão "Cuidado que transforma" em 4 blocos, os 8
+procedimentos, "O que muda na sua estética" (01/02/03), avaliações do Google,
+as 3 dúvidas frequentes, chamada final, localização com formulário e rodapé.
+
 **Scroll e movimento** — barra de progresso de leitura, cabeçalho que encolhe e
 se esconde ao descer, revelação progressiva de cada bloco (IntersectionObserver),
-animação palavra a palavra no título, contadores animados, parallax nas fotos,
-scrollspy destacando a seção ativa no menu, medidor de progresso na seção
-"Método", faixa de credenciais em rolagem infinita e botão de voltar ao topo.
+animação palavra a palavra no título, parallax nas fotos, scrollspy destacando a
+seção ativa no menu, medidor de progresso na seção da missão, faixa de
+credenciais em rolagem infinita e botão de voltar ao topo.
 
-**Interações** — comparador antes/depois arrastável (mouse, toque e teclado),
-carrossel de depoimentos com autoplay, setas, pontos, swipe e navegação por
-setas do teclado, acordeão de dúvidas com um item aberto por vez, menu mobile
-em tela cheia e formulário que valida os campos e abre o WhatsApp com a
-mensagem já montada.
+**Interações** — acordeão de dúvidas com um item aberto por vez, menu mobile em
+tela cheia e formulário que valida os campos e abre o WhatsApp com a mensagem já
+montada (nome, procedimento escolhido, observação e telefone).
 
-**Acessibilidade** — HTML semântico, um único `h1` com hierarquia correta,
-link "pular para o conteúdo", foco visível, `alt` em todas as imagens, rótulos
-em todos os campos, navegação completa por teclado e respeito total a
-`prefers-reduced-motion` (todas as animações desligam).
+**Acessibilidade** — HTML semântico, um único `h1` com hierarquia correta, link
+"pular para o conteúdo", foco visível, `alt` em todas as imagens, rótulo em todos
+os campos, navegação completa por teclado, `prefers-reduced-motion` desligando
+todas as animações e **contraste WCAG AA aprovado em 100% dos textos** (auditado
+automaticamente em Chromium).
 
-**SEO** — meta description, canonical, Open Graph e Twitter Card, JSON-LD
-`schema.org/Dentist` gerado a partir do `config.js`, `robots.txt` e `sitemap.xml`.
+**SEO** — meta description, canonical, Open Graph, Twitter Card, JSON-LD
+`schema.org/Dentist` com endereço e horário de funcionamento reais, `robots.txt`
+e `sitemap.xml`.
 
 **Responsivo** — layout fluido com `clamp()`, testado de 390px a 1440px, sem
 rolagem horizontal. Também tem folha de impressão.
 
----
+## 5. A paleta — de onde ela veio
 
-## 5. Personalizar o design
+As cores não foram escolhidas: foram **medidas nos prints do site publicado**,
+amostrando os pixels de cada região da interface. O resultado é que o site é
+genuinamente monocromático — o croma máximo medido nas áreas de interface foi
+**4 de 255**, ou seja, cinza puro. A única cor da marca é o dourado do logo.
 
-As cores e a tipografia estão em `:root`, no topo do `assets/css/style.css`.
-Trocar a paleta inteira é mudar essas variáveis:
+| Token | Cor | Onde foi medido |
+|---|---|---|
+| `--grafite` | `#181818` | Fundo do bloco "Paixão que virou carreira" |
+| `--carvao` | `#3A3A3A` | Fundo das seções escuras |
+| `--chumbo` | `#5D5D5D` | Topo do gradiente dos cards |
+| `--cinza` | `#6E6E6E` | O cinza dominante do site (`#888888`, 53% dos pixels), escurecido o suficiente para o texto branco passar em contraste |
+| `--prata` | `#A5A5A5` | Base do gradiente dos cards e faixas claras |
+| `--creme` | `#EBE7DB` | Branco quente do logo |
+| `--ouro` | `#C9A96A` | Dourado do monograma e do bordado do jaleco |
 
-```css
---ink:#101A17;    /* verde quase preto — fundos escuros */
---verde:#1B332C;  /* verde da marca */
---ouro:#C2A15E;   /* dourado — destaques e botões */
---areia:#F2EEE7;  /* off-white quente */
-```
+O gradiente dos cards (`--grad-card`) reproduz o do site atual: escuro no canto
+superior esquerdo, prata no inferior direito.
 
-As fontes (**Fraunces** para títulos, **Manrope** para texto) vêm do Google
-Fonts, carregadas no `<head>`. Para hospedar localmente e ganhar performance,
-baixe os `.woff2`, coloque em `assets/fonts/` e troque o `<link>` por um
-`@font-face`.
+**Uma correção deliberada:** o cinza original `#888888` com texto branco dá
+contraste de 3,5:1 — abaixo do mínimo legal de acessibilidade (4,5:1). Escureci
+para `#6E6E6E`, que mantém o mesmo ar da marca e passa com folga. Se preferir o
+tom exato do site atual, troque `--cinza` de volta e aceite a perda de
+legibilidade.
+
+### Tipografia
+
+O site atual combina um **sans geométrico leve** nos títulos com um **serif
+itálico de contraste alto** nos acentos de marca ("É posicionamento", "quem sou
+eu?"). Reproduzi isso com **Montserrat 200/300** + **Playfair Display italic**,
+carregadas do Google Fonts no `<head>`.
+
+Para trocar qualquer cor ou fonte, edite as variáveis em `:root`, no topo de
+`assets/css/style.css`.

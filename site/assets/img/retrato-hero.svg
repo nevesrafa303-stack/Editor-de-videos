@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400" width="1000" height="1400" role="img" aria-label="Retrato da Dra. Consuelo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1400" width="1000" height="1400" role="img" aria-label="Dra. Consuelo Vasconcelos">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1E3A34"/>
-      <stop offset="0.55" stop-color="#2F5A4F"/>
-      <stop offset="1" stop-color="#14211E"/>
+      <stop offset="0" stop-color="#5D5D5D"/>
+      <stop offset="0.5" stop-color="#7A7A7A"/>
+      <stop offset="1" stop-color="#A5A5A5"/>
     </linearGradient>
-    <pattern id="p" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
-      <line x1="0" y1="0" x2="0" y2="34" stroke="#C9A96A" stroke-opacity="0.13" stroke-width="1"/>
+    <pattern id="p" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="36" stroke="#EBE7DB" stroke-opacity="0.10" stroke-width="1"/>
     </pattern>
   </defs>
   <rect width="1000" height="1400" fill="url(#g)"/>
   <rect width="1000" height="1400" fill="url(#p)"/>
-  <circle cx="500" cy="600" r="107" fill="none" stroke="#C9A96A" stroke-opacity="0.5" stroke-width="2"/>
-  <text x="50%" y="855" text-anchor="middle" fill="#F4F0EA" fill-opacity="0.82"
-        font-family="Georgia, 'Times New Roman', serif" font-size="63" letter-spacing="2">Retrato da Dra. Consuelo</text>
-  <text x="50%" y="942" text-anchor="middle" fill="#C9A96A" fill-opacity="0.75"
-        font-family="Helvetica, Arial, sans-serif" font-size="36" letter-spacing="3">SUBSTITUA POR FOTO REAL</text>
+  <circle cx="500" cy="593" r="100" fill="none" stroke="#C9A96A" stroke-opacity="0.65" stroke-width="2"/>
+  <text x="50%" y="855" text-anchor="middle" fill="#FFFFFF" fill-opacity="0.9"
+        font-family="Helvetica, Arial, sans-serif" font-weight="300" font-size="58" letter-spacing="1">Dra. Consuelo Vasconcelos</text>
+  <text x="50%" y="937" text-anchor="middle" fill="#C9A96A" fill-opacity="0.9"
+        font-family="Helvetica, Arial, sans-serif" font-size="35" letter-spacing="3">SUBSTITUA POR FOTO REAL</text>
 </svg>

@@ -1,59 +1,65 @@
 /* =============================================================================
-   CONFIG — ÚNICO ARQUIVO QUE VOCÊ PRECISA EDITAR PARA PUBLICAR
+   CONFIG — dados extraídos do site atual (draconsuelovasconcelos.com.br)
    -----------------------------------------------------------------------------
-   Troque os valores marcados com  // ⚠️ TROCAR  pelos dados reais.
-   O site inteiro (links, telefone, endereço, redes, SEO) lê daqui.
+   Os campos marcados com  // ⚠️ CONFIRMAR  eu não consegui ler dos prints.
+   Todo o resto veio do site publicado e está correto.
    ========================================================================== */
 
 window.SITE = {
   /* --- Identidade ------------------------------------------------------- */
   nome: 'Dra. Consuelo Vasconcelos',
-  especialidade: 'Odontologia Estética e Harmonização Orofacial',
-  cro: 'CRO-XX 00000', // ⚠️ TROCAR — nº de inscrição no Conselho
-  responsavelTecnico: 'Dra. Consuelo Vasconcelos — CRO-XX 00000', // ⚠️ TROCAR
+  especialidade: 'Odontologia & Estética Avançada',
+  titulo: 'Cirurgiã-Dentista',
+  cro: 'CRO-SC 25523',
+  responsavelTecnico: 'Dra. Consuelo Vasconcelos — Cirurgiã-Dentista, CRO-SC 25523',
 
   /* --- Contato ---------------------------------------------------------- */
-  // Somente dígitos, com DDI 55 e DDD. Ex.: 5585999998888
-  whatsapp: '5585999998888', // ⚠️ TROCAR
-  // Como o telefone aparece escrito na tela
-  telefoneExibicao: '(85) 99999-8888', // ⚠️ TROCAR
-  email: 'contato@draconsuelovasconcelos.com.br', // ⚠️ TROCAR
+  whatsapp: '5547988603900',
+  telefoneExibicao: '(47) 98860-3900',
+  email: null, // ⚠️ CONFIRMAR — não aparece no site atual. Deixe null para ocultar.
 
   /* --- Endereço --------------------------------------------------------- */
   endereco: {
-    linha1: 'Rua Exemplo, 1234 — Sala 501', // ⚠️ TROCAR
-    linha2: 'Bairro Exemplo · Fortaleza/CE', // ⚠️ TROCAR
-    cep: '60000-000', // ⚠️ TROCAR
-    // Cole aqui o link "Compartilhar" do Google Maps
-    mapaLink: 'https://maps.google.com/?q=Fortaleza+CE', // ⚠️ TROCAR
-    // Cole aqui o src do iframe "Incorporar um mapa" do Google Maps.
-    // Deixe null para o site mostrar um cartão elegante no lugar do mapa.
-    mapaEmbed: null, // ⚠️ TROCAR (opcional)
+    linha1: 'R. Hercílio Luz, 642 — Sala 304, segundo andar',
+    linha2: 'Centro · Itajaí — SC',
+    cep: '88301-001',
+    referencia: 'No calçadão da Hercílio Luz, no Centro de Itajaí.',
+    mapaLink: 'https://www.google.com/maps/search/?api=1&query=Consult%C3%B3rio+Odontol%C3%B3gico+Dra.+Consuelo+Vasconcelos+R.+Herc%C3%ADlio+Luz+642+Itaja%C3%AD+SC',
+    // Cole o src do iframe "Incorporar um mapa" do Google Maps para exibir o mapa embutido
+    mapaEmbed: null, // ⚠️ OPCIONAL
+  },
+
+  /* --- Avaliações Google ------------------------------------------------ */
+  google: {
+    nota: '5,0',
+    quantidade: 5,
+    // ⚠️ CONFIRMAR — troque pelo link "Escrever avaliação"/perfil do Google Business
+    link: 'https://www.google.com/maps/search/?api=1&query=Consult%C3%B3rio+Odontol%C3%B3gico+Dra.+Consuelo+Vasconcelos+Itaja%C3%AD',
   },
 
   /* --- Horários --------------------------------------------------------- */
   horarios: [
-    { dias: 'Segunda a quinta', hora: '09h — 19h' },
-    { dias: 'Sexta-feira', hora: '09h — 17h' },
-    { dias: 'Sábado', hora: '09h — 13h (agenda reduzida)' },
-    { dias: 'Domingo e feriados', hora: 'Fechado' },
+    { dias: 'Segunda a sábado', hora: '09h30 — 18h00' },
+    { dias: 'Domingo', hora: 'Fechado' },
   ],
 
   /* --- Redes sociais ---------------------------------------------------- */
+  // O site atual tem ícones de Instagram, Facebook, YouTube, Pinterest e TikTok,
+  // mas os prints não mostram as URLs. Confirme cada uma e preencha.
   redes: {
-    instagram: 'https://instagram.com/draconsuelovasconcelos', // ⚠️ TROCAR
-    // Deixe null para o ícone não aparecer
-    facebook: null,
-    youtube: null,
-    tiktok: null,
+    instagram: 'https://instagram.com/draconsuelovasconcelos', // ⚠️ CONFIRMAR o @
+    facebook: null,  // ⚠️ CONFIRMAR
+    youtube: null,   // ⚠️ CONFIRMAR
+    pinterest: null, // ⚠️ CONFIRMAR
+    tiktok: null,    // ⚠️ CONFIRMAR
   },
 
   /* --- Mensagem pré-preenchida do WhatsApp ------------------------------ */
   mensagemWhatsapp:
-    'Olá! Vim pelo site e gostaria de agendar uma avaliação com a Dra. Consuelo.',
+    'Olá, Dra. Consuelo! Vim pelo site e quero agendar minha avaliação.',
 
   /* --- SEO -------------------------------------------------------------- */
   site: 'https://draconsuelovasconcelos.com.br',
-  cidade: 'Fortaleza', // ⚠️ TROCAR
-  uf: 'CE', // ⚠️ TROCAR
+  cidade: 'Itajaí',
+  uf: 'SC',
 };

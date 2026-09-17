@@ -1,11 +1,10 @@
 /* =============================================================================
    main.js — comportamento do site (sem dependências, sem build)
    -----------------------------------------------------------------------------
-   1  utilidades            6  contadores          11  acordeão
-   2  dados do config.js    7  parallax            12  formulário → WhatsApp
-   3  SEO estruturado       8  scrollspy           13  mapa
-   4  cabeçalho + progresso 9  método (medidor)    14  menu mobile
-   5  revelar no scroll    10  comparador/carrossel
+   1  utilidades            5  revelar no scroll    9  método (medidor)
+   2  dados do config.js    6  contadores          10  acordeão
+   3  SEO estruturado       7  parallax            11  formulário → WhatsApp
+   4  cabeçalho + progresso 8  scrollspy           12  mapa · 13 menu · 14 marquee
    ========================================================================== */
 (() => {
   'use strict';
@@ -74,8 +73,10 @@
       facebook:  '<path d="M14.6 8.4V6.9c0-.8.3-1.3 1.3-1.3h1.5V2.9h-2.4c-2.6 0-3.8 1.5-3.8 3.7v1.8H9.1v2.9h2.1V21h3.4v-9.7h2.4l.4-2.9h-2.8Z"/>',
       youtube:   '<rect x="2.6" y="5.6" width="18.8" height="12.8" rx="4"/><path d="m10.2 9.6 5.1 2.4-5.1 2.4V9.6Z"/>',
       tiktok:    '<path d="M15.6 3.2c.4 2 1.9 3.5 3.9 3.7v2.7a6.7 6.7 0 0 1-3.9-1.3v5.9a5.4 5.4 0 1 1-4.7-5.4v2.8a2.6 2.6 0 1 0 1.9 2.5V3.2h2.8Z"/>',
+      pinterest: '<circle cx="12" cy="12" r="9.2"/><path d="M9.9 21c-.5-1.6-.2-3.4.1-4.7l1.2-4.9a3.3 3.3 0 0 1-.3-1.4c0-1.3.8-2.3 1.8-2.3.8 0 1.2.6 1.2 1.4 0 .9-.6 2.2-.9 3.4-.2 1 .5 1.9 1.6 1.9 1.9 0 3.2-2.4 3.2-5.3 0-2.2-1.5-3.8-4.1-3.8-3 0-4.9 2.2-4.9 4.7 0 .9.3 1.5.7 2 .2.2.2.3.2.6l-.2.8c-.1.3-.3.4-.5.2-1.2-.5-1.8-1.9-1.8-3.6 0-2.7 2.3-5.9 6.8-5.9 3.6 0 6 2.6 6 5.4 0 3.7-2.1 6.5-5.1 6.5-1 0-2-.6-2.4-1.2l-.6 2.5c-.2.8-.7 1.8-1.1 2.5Z"/>',
     };
-    const NOMES = { instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube', tiktok: 'TikTok' };
+    const NOMES = { instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube',
+                    tiktok: 'TikTok', pinterest: 'Pinterest' };
     const redes = CFG.redes || {};
     const htmlRedes = Object.keys(ICONES)
       .filter((k) => redes[k])
@@ -83,6 +84,30 @@
           <svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[k]}</svg></a>`)
       .join('');
     $$('[data-redes]').forEach((el) => { el.innerHTML = htmlRedes; });
+
+    // e-mail é opcional: sem ele, o item some em vez de virar link quebrado
+    if (!CFG.email) {
+      $$('[data-email]').forEach((a) => a.closest('li')?.setAttribute('hidden', ''));
+    } else {
+      $$('[data-email-item]').forEach((li) => li.removeAttribute('hidden'));
+    }
+
+    // avaliações do Google — a seção só aparece se houver dados reais
+    const g = CFG.google || {};
+    const secaoG = $('[data-google-secao]');
+    if (g.nota && g.link) {
+      secaoG?.removeAttribute('hidden');
+      $$('[data-google-nota]').forEach((el) => { el.textContent = g.nota; });
+      $$('[data-google-link]').forEach((a) => { a.href = g.link; });
+      $$('[data-google-qtd]').forEach((el) => {
+        el.textContent = g.quantidade
+          ? `${g.quantidade} ${g.quantidade === 1 ? 'avaliação' : 'avaliações'}`
+          : '';
+      });
+      $$('[data-google-selo] strong').forEach((el) => { el.textContent = `${g.nota} ★`; });
+    } else {
+      $$('[data-google-selo]').forEach((li) => li.remove());
+    }
 
     // título da aba + ano
     if (CFG.nome && CFG.especialidade) {
@@ -105,6 +130,13 @@
       email: CFG.email,
       priceRange: '$$',
       medicalSpecialty: CFG.especialidade,
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+        opens: '09:30',
+        closes: '18:00',
+      }],
+      hasMap: caminho(CFG, 'endereco.mapaLink'),
       address: {
         '@type': 'PostalAddress',
         streetAddress: end.linha1,
@@ -299,107 +331,6 @@
     atualiza();
   };
 
-  /* -- 10a. comparador antes/depois --------------------------------------- */
-  const comparador = () => {
-    const raiz = $('[data-comparador]');
-    if (!raiz) return;
-    const caixa = $('.comparador__caixa', raiz);
-    const depois = $('[data-comparador-depois]', raiz);
-    const alca = $('[data-comparador-alca]', raiz);
-    const range = $('[data-comparador-range]', raiz);
-    if (!caixa || !depois || !range) return;
-
-    const medir = () => caixa.style.setProperty('--largura-caixa', `${caixa.clientWidth}px`);
-
-    const aplicar = (v) => {
-      const p = Math.max(0, Math.min(100, v));
-      depois.style.width = `${p}%`;
-      if (alca) alca.style.left = `${p}%`;
-      range.setAttribute('aria-valuetext', `${Math.round(p)}% do resultado final visível`);
-    };
-
-    range.addEventListener('input', () => aplicar(Number(range.value)));
-
-    // arrastar com mouse/toque sobre a imagem
-    const arrastar = (e) => {
-      const r = caixa.getBoundingClientRect();
-      const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-      const p = (x / r.width) * 100;
-      range.value = String(p);
-      aplicar(p);
-    };
-    let ativo = false;
-    caixa.addEventListener('pointerdown', (e) => { ativo = true; caixa.setPointerCapture?.(e.pointerId); arrastar(e); });
-    caixa.addEventListener('pointermove', (e) => { if (ativo) arrastar(e); });
-    addEventListener('pointerup', () => { ativo = false; });
-
-    if ('ResizeObserver' in window) new ResizeObserver(medir).observe(caixa);
-    addEventListener('resize', medir);
-    medir();
-    aplicar(Number(range.value));
-  };
-
-  /* -- 10b. carrossel de depoimentos -------------------------------------- */
-  const carrossel = () => {
-    const raiz = $('[data-carrossel]');
-    if (!raiz) return;
-    const trilho = $('[data-carrossel-trilho]', raiz);
-    const itens = $$('.depo__item', raiz);
-    const pontos = $('[data-carrossel-pontos]', raiz);
-    if (!trilho || itens.length < 2) return;
-
-    let atual = 0;
-    let timer = null;
-
-    itens.forEach((el, i) => {
-      el.setAttribute('role', 'tabpanel');
-      el.id = `depo-${i}`;
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-controls', `depo-${i}`);
-      b.setAttribute('aria-label', `Depoimento ${i + 1} de ${itens.length}`);
-      b.addEventListener('click', () => { ir(i); reiniciar(); });
-      pontos?.appendChild(b);
-    });
-
-    const ir = (i) => {
-      atual = (i + itens.length) % itens.length;
-      trilho.style.transform = `translate3d(-${atual * 100}%,0,0)`;
-      itens.forEach((el, n) => el.setAttribute('aria-hidden', String(n !== atual)));
-      $$('button', pontos).forEach((b, n) => b.setAttribute('aria-selected', String(n === atual)));
-    };
-
-    const reiniciar = () => {
-      if (timer) clearInterval(timer);
-      if (semMovimento) return;
-      timer = setInterval(() => ir(atual + 1), 7000);
-    };
-
-    $('[data-carrossel-ant]', raiz)?.addEventListener('click', () => { ir(atual - 1); reiniciar(); });
-    $('[data-carrossel-prox]', raiz)?.addEventListener('click', () => { ir(atual + 1); reiniciar(); });
-
-    raiz.addEventListener('mouseenter', () => timer && clearInterval(timer));
-    raiz.addEventListener('mouseleave', reiniciar);
-    raiz.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { ir(atual - 1); reiniciar(); }
-      if (e.key === 'ArrowRight') { ir(atual + 1); reiniciar(); }
-    });
-
-    // arrastar / swipe
-    let x0 = null;
-    raiz.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
-    raiz.addEventListener('pointerup', (e) => {
-      if (x0 === null) return;
-      const d = e.clientX - x0;
-      if (Math.abs(d) > 45) { ir(atual + (d < 0 ? 1 : -1)); reiniciar(); }
-      x0 = null;
-    });
-
-    ir(0);
-    reiniciar();
-  };
-
   /* -- 11. acordeão (um aberto por vez) ----------------------------------- */
   const acordeao = () => {
     const raiz = $('[data-acordeao]');
@@ -452,7 +383,7 @@
       }
 
       const texto = [
-        `Olá! Sou ${nome}.`,
+        `Olá, Dra. Consuelo! Sou ${nome}.`,
         `Quero falar sobre: ${assunto}.`,
         msg ? `Observação: ${msg}` : null,
         `Meu WhatsApp: ${tel}.`,
@@ -489,8 +420,7 @@
       <div class="mapa__vazio">
         <strong>${end.linha1 || ''}</strong>
         <p>${end.linha2 || ''}${end.cep ? ` · CEP ${end.cep}` : ''}</p>
-        <p>Para exibir o mapa aqui, cole o código “Incorporar um mapa” do Google Maps
-        em <code>endereco.mapaEmbed</code> no arquivo <code>assets/js/config.js</code>.</p>
+        ${end.referencia ? `<p>${end.referencia}</p>` : ''}
         <a class="btn btn--fantasma" href="${end.mapaLink || '#'}" target="_blank" rel="noopener">Abrir no Google Maps</a>
       </div>`;
   };
@@ -544,8 +474,6 @@
     parallax();
     scrollspy();
     medidorMetodo();
-    comparador();
-    carrossel();
     acordeao();
     formulario();
     mapa();
