@@ -14,6 +14,7 @@ import {
   registerLoss,
   registerPurchase,
   revertPlanItem,
+  transferStock,
   unblockLot,
 } from "@/modules/stock/commands";
 
@@ -104,6 +105,37 @@ export async function acertarSaldoAction(
   formData: FormData,
 ): Promise<ActionState> {
   return acerto(previous, formData);
+}
+
+const transferir = formAction(async (ctx, formData) => {
+  const productId = String(formData.get("productId") ?? "");
+
+  await transferStock(ctx, {
+    productId,
+    lotId: String(formData.get("lotId") ?? "") || null,
+    toUnitId: String(formData.get("toUnitId") ?? ""),
+    quantity: String(formData.get("quantity") ?? ""),
+    notes: String(formData.get("notes") ?? ""),
+  });
+
+  atualizarEstoque(productId);
+
+  // O destino some da tela: a ficha mostra a unidade ATIVA, e o material que
+  // acabou de sair não está mais aqui. Sem a frase dizer para onde foi, a
+  // pessoa vê o saldo cair e nada explicando.
+  redirect(
+    comAviso(
+      `/estoque/${productId}`,
+      "Transferência registrada. O material saiu desta unidade e entrou na de destino.",
+    ),
+  );
+}, "inventory.write");
+
+export async function transferirAction(
+  previous: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  return transferir(previous, formData);
 }
 
 const bloquear = formAction(async (ctx, formData) => {

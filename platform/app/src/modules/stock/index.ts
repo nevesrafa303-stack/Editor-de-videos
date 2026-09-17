@@ -22,6 +22,7 @@ export {
   registerPurchase,
   registerLoss,
   adjustBalance,
+  transferStock,
   executePlanItem,
   revertPlanItem,
   blockLot,

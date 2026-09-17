@@ -5,6 +5,7 @@ import {
   acertarSaldoAction,
   bloquearLoteAction,
   registrarPerdaAction,
+  transferirAction,
 } from "@/modules/stock/server-actions";
 import { EMPTY_STATE } from "@/shared/action-state";
 import { Button, Field, FormError, Input, Panel, PanelHead, Select, Textarea } from "@/ui";
@@ -23,16 +24,86 @@ export function AcoesDoProduto({
   productId,
   stockUnit,
   lotes,
+  outrasUnidades,
 }: {
   productId: string;
   stockUnit: string;
   lotes: LoteLinha[];
+  /** Unidades de destino possíveis. Vazio = a rede tem uma unidade só. */
+  outrasUnidades: { id: string; name: string }[];
 }) {
   return (
     <div className="grid items-start gap-5 lg:grid-cols-2">
       <FormPerda productId={productId} stockUnit={stockUnit} lotes={lotes} />
       <FormAcerto productId={productId} stockUnit={stockUnit} lotes={lotes} />
+      {/* Transferência só aparece quando há para onde transferir. Numa clínica
+          de uma unidade só, o formulário seria uma pergunta sem resposta. */}
+      {outrasUnidades.length > 0 ? (
+        <FormTransferencia
+          productId={productId}
+          stockUnit={stockUnit}
+          lotes={lotes}
+          unidades={outrasUnidades}
+          className="lg:col-span-2"
+        />
+      ) : null}
     </div>
+  );
+}
+
+function FormTransferencia({
+  productId,
+  stockUnit,
+  lotes,
+  unidades,
+  className,
+}: {
+  productId: string;
+  stockUnit: string;
+  lotes: LoteLinha[];
+  unidades: { id: string; name: string }[];
+  className?: string;
+}) {
+  const [state, action, pending] = useActionState(transferirAction, EMPTY_STATE);
+  const erro = (campo: string) => state.fieldErrors?.[campo]?.[0];
+
+  return (
+    <Panel className={className}>
+      <PanelHead
+        title="Transferir para outra unidade"
+        hint="Sai daqui e entra lá, no mesmo lote e na mesma hora. Não dá para transferir mais do que existe nesta unidade."
+      />
+      <form action={action} className="grid gap-4 p-5 sm:grid-cols-2">
+        <FormError error={state.error} fieldErrors={state.fieldErrors} />
+        <input type="hidden" name="productId" value={productId} />
+
+        <SeletorDeLote lotes={lotes} />
+
+        <Field label="Para onde" error={erro("toUnitId")}>
+          <Select name="toUnitId" required defaultValue={unidades[0]?.id ?? ""}>
+            {unidades.map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.name}
+              </option>
+            ))}
+          </Select>
+        </Field>
+
+        <Field label={`Quantidade (${stockUnit})`} error={erro("quantity")}>
+          <Input name="quantity" required placeholder="0" className="num" inputMode="decimal" />
+        </Field>
+
+        <Field label="Observação" hint="Opcional. Aparece no histórico das duas unidades.">
+          <Input name="notes" placeholder="Reposição da agenda de quinta" />
+        </Field>
+
+        <div className="flex justify-end sm:col-span-2">
+          <Button type="submit" variant="secondary" disabled={pending}>
+            {pending ? "Transferindo…" : "Transferir"}
+          </Button>
+        </div>
+      </form>
+    </Panel>
   );
 }
 

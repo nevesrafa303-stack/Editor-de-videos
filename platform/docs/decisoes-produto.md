@@ -247,6 +247,7 @@ cria o incentivo perverso de compartilhar login para economizar.
 | 35 · Telas de estoque leem a unidade ativa | conta-se o armário daqui, não o da outra cidade |
 | 36 · Mês fechado compara com o mês calendário | "30 dias antes" não é agosto, e não bate com o fechamento |
 | 37 · Exportação é um arquivo por seção | bloco empilhado vira apagar linha para poder somar |
+| 38 · Transferência exige saldo; consumo não | uma registra fato passado, a outra executa decisão agora |
 
 Os demais seguem pendentes, na ordem abaixo.
 
@@ -303,6 +304,13 @@ Os demais seguem pendentes, na ordem abaixo.
     mesmo recorte da tela, no formato que o Excel em português abre com dois
     cliques; e os cartões do resumo passam a dizer se o período está melhor ou
     pior que o anterior, comparando mês fechado com mês calendário.
+
+12. ~~**Transferência entre unidades**~~ — feito. O material sai de uma e entra
+    na outra na mesma transação, no mesmo lote, com o par garantido por
+    constraint diferida — meia transferência é material evaporando entre
+    unidades. **O que ficou de fora:** transferência entre redes (não existe) e
+    material "em trânsito" como estado próprio; aqui ele sai e chega no mesmo
+    instante, que é o que acontece quando as duas unidades são da mesma cidade.
 
 Fora desta lista, esperando decisão de terceiros ou trabalho de fora: documentos
 e anexos clínicos (armazenamento), WhatsApp (Meta), NFS-e (fase 2), expurgo por

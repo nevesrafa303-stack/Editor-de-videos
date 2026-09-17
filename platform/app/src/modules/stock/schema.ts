@@ -93,6 +93,26 @@ export const adjustSchema = z.object({
 
 export type AdjustInput = z.input<typeof adjustSchema>;
 
+/**
+ * Transferencia entre unidades.
+ *
+ * `toUnitId` e a unidade de DESTINO; a origem e sempre a unidade ativa da
+ * sessao. Deixar a pessoa escolher as duas pontas abriria a porta para mover
+ * material entre duas unidades em que ela nao esta — e transferencia e uma
+ * decisao de quem esta com a caixa na mao.
+ */
+export const transferSchema = z
+  .object({
+    productId: z.uuid(),
+    lotId: z.uuid().nullish(),
+    toUnitId: z.uuid("Escolha a unidade de destino."),
+    quantity: quantidadePositiva,
+    notes: z.string().trim().max(300).nullish(),
+  })
+  .transform((v) => ({ ...v, notes: v.notes?.length ? v.notes : null }));
+
+export type TransferInput = z.input<typeof transferSchema>;
+
 export const executeItemSchema = z.object({
   itemId: z.uuid(),
   appointmentId: z.uuid().nullish(),

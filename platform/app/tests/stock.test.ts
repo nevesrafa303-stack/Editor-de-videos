@@ -27,6 +27,7 @@ import {
   registerLoss,
   registerPurchase,
   revertPlanItem,
+  transferStock,
 } from "@/modules/stock";
 import { Forbidden, NotFound, ValidationError } from "@/shared/errors";
 import { sql } from "kysely";
@@ -464,6 +465,112 @@ describe("executar o procedimento", () => {
     const itemId = await itemDeResina();
     await expect(
       withTenant(recepcao, (ctx) => executePlanItem(ctx, { itemId })),
+    ).rejects.toBeInstanceOf(Forbidden);
+  });
+});
+
+describe("transferência entre unidades", () => {
+  /** Saldo de um produto numa unidade específica, por fora do RLS. */
+  async function saldoNa(unitId: string, productId: string): Promise<number> {
+    const { rows } = await sql<{ total: string }>`
+      select coalesce(sum(quantity), 0) as total
+        from stock_balance
+       where product_id = ${productId} and unit_id = ${unitId}
+    `.execute(admin);
+
+    return Number(rows[0]?.total ?? 0);
+  }
+
+  it("tira daqui e põe lá, na mesma transação", async () => {
+    const antesAqui = await saldoNa(SEED.unidadeCentro, PRODUTOS.resina);
+    const antesLa = await saldoNa(SEED.unidadeZonaSul, PRODUTOS.resina);
+
+    const { groupId } = await withTenant(dona, (ctx) =>
+      transferStock(ctx, {
+        productId: PRODUTOS.resina,
+        toUnitId: SEED.unidadeZonaSul,
+        quantity: 4,
+        notes: "Reposição da agenda de quinta.",
+      }),
+    );
+
+    // `toBeCloseTo` e não `toBe`: o saldo é fracionário (a baixa por ficha
+    // técnica deixa quatro casas), e ponto flutuante não fecha na igualdade.
+    expect(await saldoNa(SEED.unidadeCentro, PRODUTOS.resina)).toBeCloseTo(antesAqui - 4, 4);
+    expect(await saldoNa(SEED.unidadeZonaSul, PRODUTOS.resina)).toBeCloseTo(antesLa + 4, 4);
+
+    // As duas linhas com o mesmo grupo: é ele que liga as pontas quando alguém
+    // for entender, meses depois, por que o saldo caiu de um lado.
+    const movimentos = await admin
+      .selectFrom("stock_movement")
+      .select(["kind", "quantity", "reason"])
+      .where("transfer_group_id", "=", groupId)
+      .execute();
+
+    expect(movimentos).toHaveLength(2);
+    expect(movimentos.map((m) => m.kind).sort()).toEqual(["transfer_in", "transfer_out"]);
+
+    // A frase basta na linha em que aparece: quem lê o histórico de uma
+    // unidade não vai buscar a outra ponta para saber para onde o material foi.
+    expect(movimentos.find((m) => m.kind === "transfer_out")?.reason).toContain("Zona Sul");
+    expect(movimentos.find((m) => m.kind === "transfer_in")?.reason).toContain("Centro");
+    expect(movimentos.every((m) => m.reason?.includes("quinta"))).toBe(true);
+  });
+
+  it("não transfere mais do que existe aqui", async () => {
+    // Diferente do consumo, que avisa e deixa negativo: consumo registra um
+    // procedimento que já aconteceu; transferência executa uma decisão agora,
+    // e não dá para pôr no carro o que não está na prateleira.
+    const aqui = await saldoNa(SEED.unidadeCentro, PRODUTOS.resina);
+
+    await expect(
+      withTenant(dona, (ctx) =>
+        transferStock(ctx, {
+          productId: PRODUTOS.resina,
+          toUnitId: SEED.unidadeZonaSul,
+          quantity: aqui + 10,
+        }),
+      ),
+    ).rejects.toThrow(/mais do que existe/i);
+
+    expect(await saldoNa(SEED.unidadeCentro, PRODUTOS.resina)).toBeCloseTo(aqui, 4);
+  });
+
+  it("transferir para a própria unidade é recusado", async () => {
+    await expect(
+      withTenant(dona, (ctx) =>
+        transferStock(ctx, {
+          productId: PRODUTOS.resina,
+          toUnitId: SEED.unidadeCentro,
+          quantity: 1,
+        }),
+      ),
+    ).rejects.toThrow(/diferente da de origem/i);
+  });
+
+  it("não dá para mandar material para unidade fora do seu acesso", async () => {
+    // Mandar para um lugar que a pessoa não enxerga é material que ela não
+    // consegue nem conferir se chegou.
+    await expect(
+      withTenant(dona, (ctx) =>
+        transferStock(ctx, {
+          productId: PRODUTOS.resina,
+          toUnitId: SEED.unidadeBella,
+          quantity: 1,
+        }),
+      ),
+    ).rejects.toThrow();
+  });
+
+  it("recepção não transfere estoque", async () => {
+    await expect(
+      withTenant(recepcao, (ctx) =>
+        transferStock(ctx, {
+          productId: PRODUTOS.resina,
+          toUnitId: SEED.unidadeZonaSul,
+          quantity: 1,
+        }),
+      ),
     ).rejects.toBeInstanceOf(Forbidden);
   });
 });

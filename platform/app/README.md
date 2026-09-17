@@ -46,8 +46,8 @@ src/
   ui/                primitivos visuais (Panel, Field, Badge, Metric, Rail)
   ui/barras.tsx      barras horizontais comparativas, em CSS — sem biblioteca
   app/               rotas (App Router)
-tests/               286 testes (integração contra PostgreSQL + unidade)
-e2e/                 108 testes de navegador sobre o build de produção
+tests/               291 testes (integração contra PostgreSQL + unidade)
+e2e/                 111 testes de navegador sobre o build de produção
 scripts/demo.mjs     monta o cenário de demonstração pela interface
 scripts/capturas.mjs captura as telas em PNG (documentação, não teste)
 ```
@@ -139,6 +139,7 @@ navegador — o `next build` reprova, e com razão.
 | O lote que sai é o que vence primeiro | FEFO em `pick_stock_lots`, quebrando entre lotes |
 | Injetável sem lote válido não é consumido | não é falta de saldo, é falta de rastreio |
 | Corrigir estoque é lançar movimento | `stock_movement` é append-only; nada é editado nem apagado |
+| Transferência é um par ou não existe | constraint diferida confere saída e entrada no commit |
 | Perda entra valorada, nunca a zero | custo do lote, ou o de catálogo; `total_cost_cents` é gerado e não dá para corrigir depois |
 | Telas de estoque leem a unidade ativa | conta-se o armário daqui, não o da outra cidade |
 | Sem ficha técnica não há margem | custo zero é "ninguém cadastrou", não "de graça" |
@@ -174,7 +175,7 @@ navegador — o `next build` reprova, e com razão.
 | `/relatorios` | vendido × recebido por profissional, onde o funil trava, vencido por unidade, margem orçada × custo real por procedimento, desperdício e de onde vem quem fecha — com comparação com o período anterior |
 | `/relatorios/exportar` | cada seção em CSV, no mesmo recorte da tela |
 | `/estoque` | saldo por produto na unidade de compra, quem está abaixo do mínimo, quanto está parado |
-| `/estoque/[id]` | lotes, perda, acerto por contagem, bloqueio sanitário e todo o histórico de movimentação |
+| `/estoque/[id]` | lotes, perda, acerto por contagem, transferência para outra unidade, bloqueio sanitário e todo o histórico |
 | `/estoque/entrada` | o que chegou; produto com rastreio entra com lote e validade no mesmo formulário |
 | `/estoque/validade` | o que vence — e o que já venceu e continua na prateleira |
 | `/sem-permissao` | explica qual permissão faltou, em vez de 404 |
@@ -202,9 +203,9 @@ npm install
 npm run db:reset      # migrations + seed + papel da aplicação
 npm run dev           # http://localhost:3000
 
-npm test              # 286 testes (a suíte recria o banco antes)
-npm run test:e2e      # 108 testes de navegador sobre o build de produção
-npm run test:all      # os 224 testes SQL + os dois acima
+npm test              # 291 testes (a suíte recria o banco antes)
+npm run test:e2e      # 111 testes de navegador sobre o build de produção
+npm run test:all      # os 229 testes SQL + os dois acima
 ```
 
 Usuários do seed, todos com a senha `senha-de-teste-123`:
@@ -570,6 +571,21 @@ defende ninguém numa fiscalização.
 prancheta na mão escreve o que viu; calcular a diferença de cabeça, com sinal,
 é exatamente onde o erro entra. E a confirmação diz o sinal — "faltou 2 tubos",
 não "acerto registrado".
+
+**Transferência é um par, ou não é nada.** Mover uma caixa do Centro para a
+Zona Sul só tinha dois caminhos antes, e os dois mentem: registrar perda na
+origem e compra no destino (a clínica passa a ter um desperdício que não teve e
+uma compra que não fez), ou não registrar nada. Agora a saída e a entrada
+nascem na mesma transação com o mesmo grupo, e o banco confere o par **no
+commit** — diferida, porque a primeira linha nunca tem par no instante em que
+entra. Uma saída órfã é material evaporando entre unidades, e some sem rastro
+porque cada tela olha uma unidade só.
+
+**Transferência exige saldo; consumo não.** A diferença não é inconsistência.
+O consumo registra um procedimento que **já aconteceu**, e travar o registro faz
+a clínica registrar errado para conseguir trabalhar. A transferência executa uma
+decisão no momento em que ela é tomada — e não dá para pôr no carro o que não
+está na prateleira.
 
 **Local de estoque ficou de fora**, e isso teve consequência visível: a chave
 do saldo é (unidade, produto, lote, **local**) com `NULLS NOT DISTINCT`, então

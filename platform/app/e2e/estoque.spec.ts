@@ -239,6 +239,54 @@ test.describe("perda e acerto", () => {
   });
 });
 
+test.describe("transferência", () => {
+  test("o material sai daqui e aparece na outra unidade", async ({ page }) => {
+    await entrar(page, DONA);
+    await page.goto(`/estoque/${RESINA}`);
+
+    const antes = await saldoNaFicha(page);
+
+    const form = page.locator("form", { has: page.getByLabel("Para onde") });
+    await form.getByLabel(/^Quantidade/).fill("4");
+    await form.getByLabel("Observação").fill("Reposição da agenda de quinta.");
+    await form.getByRole("button", { name: "Transferir" }).click();
+
+    await expect(page.getByText(/Transferência registrada/)).toBeVisible();
+
+    // O saldo desta unidade cai: a ficha mostra a unidade ativa, e o material
+    // não está mais aqui.
+    expect(await saldoNaFicha(page)).toBeCloseTo(antes - 4, 4);
+
+    // E o histórico diz PARA ONDE foi — quem lê a linha não vai buscar a outra
+    // ponta para descobrir.
+    await expect(page.getByText(/Transferido para Sorriso Zona Sul/)).toBeVisible();
+  });
+
+  test("a outra unidade recebe, com a mesma observação", async ({ page }) => {
+    await entrar(page, DONA);
+
+    // Troca a unidade ativa no menu: é o mesmo caminho que a pessoa faz.
+    await page.goto("/estoque");
+    await page.locator('select[name="unitId"], select[aria-label="Unidade"]').first()
+      .selectOption({ label: "Sorriso Zona Sul" });
+    await page.waitForLoadState("networkidle");
+
+    await page.goto(`/estoque/${RESINA}`);
+    await expect(page.getByText(/Recebido de Sorriso Centro/)).toBeVisible();
+  });
+
+  test("não dá para transferir mais do que existe aqui", async ({ page }) => {
+    await entrar(page, DONA);
+    await page.goto(`/estoque/${RESINA}`);
+
+    const form = page.locator("form", { has: page.getByLabel("Para onde") });
+    await form.getByLabel(/^Quantidade/).fill("99999");
+    await form.getByRole("button", { name: "Transferir" }).click();
+
+    await expect(page.getByText(/mais do que existe/i)).toBeVisible();
+  });
+});
+
 test.describe("validade", () => {
   test("a fila mostra o que vence e o que já venceu", async ({ page }) => {
     await entrar(page, DONA);

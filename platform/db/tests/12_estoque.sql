@@ -270,3 +270,84 @@ begin
     ));
 end;
 $$;
+
+-- ---------------------------------------------------- transferencia ----------
+do $$
+declare
+  TENANT  constant uuid := '11111111-1111-7111-8111-111111111111';
+  CENTRO  constant uuid := 'a1111111-1111-7111-8111-111111111111';
+  ZONASUL constant uuid := 'a2222222-2222-7222-8222-222222222222';
+  RESINA  constant uuid := '04333333-3333-7333-8333-333333333333';
+  TOXINA  constant uuid := '04111111-1111-7111-8111-111111111111';
+
+  v_grupo uuid := '0b0b0b0b-0000-7000-8000-00000000000a';
+  v_aqui  numeric;
+  v_la    numeric;
+begin
+  select quantity into v_aqui from stock_balance
+   where product_id = RESINA and lot_id is null and unit_id = CENTRO;
+  select quantity into v_la from stock_balance
+   where product_id = RESINA and lot_id is null and unit_id = ZONASUL;
+
+  insert into stock_movement (tenant_id, unit_id, product_id, lot_id, kind, quantity,
+                              unit_cost_cents, transfer_group_id) values
+    (TENANT, CENTRO,  RESINA, null, 'transfer_out', -3, 12000, v_grupo),
+    (TENANT, ZONASUL, RESINA, null, 'transfer_in',   3, 12000, v_grupo);
+
+  perform test.check('estoque', 'transferencia tira de uma unidade e poe na outra',
+    (select quantity from stock_balance
+      where product_id = RESINA and lot_id is null and unit_id = CENTRO) = v_aqui - 3
+    and
+    (select quantity from stock_balance
+      where product_id = RESINA and lot_id is null and unit_id = ZONASUL) = v_la + 3);
+
+  -- O que a constraint diferida existe para impedir: material evaporando entre
+  -- unidades. A saida sozinha some sem rastro, porque cada tela olha uma
+  -- unidade so e ninguem ve o buraco do outro lado.
+  --
+  -- `set constraints all immediate` no fim de cada caso: a checagem e DIFERIDA,
+  -- entao ela roda no commit — e dentro de um bloco de teste nao ha commit. Sem
+  -- forcar, o insert passaria aqui e a suite diria que a regra nao existe.
+  perform test.rejects('estoque',
+    'saida sem a entrada correspondente e recusada no commit',
+    format($sql$
+      insert into stock_movement (tenant_id, unit_id, product_id, kind, quantity,
+                                  unit_cost_cents, transfer_group_id)
+      values (%L, %L, %L, 'transfer_out', -1, 12000, '0b0b0b0b-0000-7000-8000-00000000000b');
+      set constraints all immediate;
+    $sql$, TENANT, CENTRO, RESINA),
+    'saída e uma entrada');
+
+  perform test.rejects('estoque',
+    'transferencia que nao bate em quantidade e recusada',
+    format($sql$
+      insert into stock_movement (tenant_id, unit_id, product_id, kind, quantity,
+                                  unit_cost_cents, transfer_group_id) values
+        (%L, %L, %L, 'transfer_out', -3, 12000, '0b0b0b0b-0000-7000-8000-00000000000c'),
+        (%L, %L, %L, 'transfer_in',   5, 12000, '0b0b0b0b-0000-7000-8000-00000000000c');
+      set constraints all immediate;
+    $sql$, TENANT, CENTRO, RESINA, TENANT, ZONASUL, RESINA),
+    'quantidade diferente');
+
+  -- Rastreio sanitario: sai um produto, entra o mesmo. Tirar resina de um lado
+  -- e pôr toxina no outro quebraria o lote no meio do caminho.
+  perform test.rejects('estoque',
+    'transferencia tem de mover o mesmo produto dos dois lados',
+    format($sql$
+      insert into stock_movement (tenant_id, unit_id, product_id, lot_id, kind, quantity,
+                                  unit_cost_cents, transfer_group_id) values
+        (%L, %L, %L, null, 'transfer_out', -1, 12000, '0b0b0b0b-0000-7000-8000-00000000000d'),
+        (%L, %L, %L, '06111111-1111-7111-8111-111111111111', 'transfer_in', 1, 88000, '0b0b0b0b-0000-7000-8000-00000000000d');
+      set constraints all immediate;
+    $sql$, TENANT, CENTRO, RESINA, TENANT, ZONASUL, TOXINA),
+    'mesmo produto');
+
+  perform test.rejects('estoque',
+    'movimentacao de transferencia sem grupo e recusada',
+    format($sql$
+      insert into stock_movement (tenant_id, unit_id, product_id, kind, quantity, unit_cost_cents)
+      values (%L, %L, %L, 'transfer_out', -1, 12000)
+    $sql$, TENANT, CENTRO, RESINA),
+    'stock_movement_transfer_group');
+end;
+$$;

@@ -7,7 +7,7 @@ não alcança importador de base, script de correção, integração futura nem 
 pessoas clicando ao mesmo tempo.
 
 Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
-(224 testes, `./db/tests/run_tests.sh`).
+(229 testes, `./db/tests/run_tests.sh`).
 
 ## Isolamento e acesso
 
@@ -183,6 +183,15 @@ Todas as linhas marcadas com ✅ têm teste automatizado em `db/tests/`
 | 108 | O custo real sai das movimentações, não de coluna guardada | `getCustoRealPorProcedimento` | `report.test` |
 | 109 | Procedimento sem ficha técnica não vira 100% de margem | `temFicha` + `margemPercent` nulo | `report.test` |
 | 110 | Perda e acerto não entram na margem de atendimento nenhum | painel separado | `report.test` |
+
+### Transferência entre unidades
+
+| # | Invariante | Onde vive | Teste |
+|---|---|---|---|
+| 111 | Transferência é um par ou não é nada | constraint trigger diferida `stock_movement_transfer_paired` | `12_estoque` |
+| 112 | Movimentação de transferência sem grupo é recusada | `stock_movement_transfer_group` | `12_estoque` |
+| 113 | Sai e entra a mesma quantidade, do mesmo produto e lote | `assert_transfer_paired()` | `12_estoque` |
+| 114 | Não se transfere mais do que existe na origem | `transferStock()` | `stock.test` |
 
 Três regras de relatório NÃO são invariantes de banco, e ficam registradas aqui
 porque são decisões, não descuido — vivem em `modules/report/queries.ts`, com

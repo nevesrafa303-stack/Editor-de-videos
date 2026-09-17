@@ -11,17 +11,20 @@ import type { TenantContext } from "@/server/context";
 import { BusinessRuleError, NotFound, ValidationError } from "@/shared/errors";
 import { translatePgError } from "@/shared/postgres-errors";
 import { toValidationError } from "@/shared/zod";
+import { randomUUID } from "node:crypto";
 import {
   adjustSchema,
   executeItemSchema,
   lossSchema,
   purchaseSchema,
   revertItemSchema,
+  transferSchema,
   type AdjustInput,
   type ExecuteItemInput,
   type LossInput,
   type PurchaseInput,
   type RevertItemInput,
+  type TransferInput,
 } from "@/modules/stock/schema";
 
 
@@ -285,6 +288,121 @@ export async function revertPlanItem(
   } catch (erro) {
     throw translatePgError(erro);
   }
+}
+
+/**
+ * Mover material de uma unidade para outra.
+ *
+ * As duas movimentacoes na MESMA transacao, com o mesmo `transfer_group_id`.
+ * Meia transferencia — saida sem entrada — e material evaporando entre
+ * unidades, e some sem rastro porque cada tela olha uma unidade so. O banco
+ * confere o par no commit (`assert_transfer_paired`); aqui o codigo garante
+ * que ele nasce completo.
+ *
+ * EXIGE SALDO, ao contrario do consumo. A diferenca nao e inconsistencia: o
+ * consumo registra um procedimento que JA ACONTECEU, e travar o registro faz a
+ * clinica registrar errado para conseguir trabalhar. A transferencia executa
+ * uma decisao no momento em que ela e tomada, e nao da para pôr no carro o que
+ * nao esta na prateleira.
+ */
+export async function transferStock(
+  ctx: TenantContext,
+  input: TransferInput,
+): Promise<{ groupId: string }> {
+  ctx.assert("inventory.write");
+
+  const parsed = transferSchema.safeParse(input);
+  if (!parsed.success) throw toValidationError(parsed.error, "Confira a transferência.");
+  const dados = parsed.data;
+
+  const origem = ctx.unitId();
+
+  if (dados.toUnitId === origem) {
+    throw new BusinessRuleError("A unidade de destino tem de ser diferente da de origem.");
+  }
+
+  // Destino fora do alcance da sessao nao e transferencia, e mandar material
+  // para um lugar que a pessoa nao enxerga — e do qual ela nao consegue nem
+  // conferir se chegou.
+  const alcance = ctx.session.unitIds;
+  if (alcance.length > 0 && !alcance.includes(dados.toUnitId)) {
+    throw new BusinessRuleError("Você não tem acesso à unidade de destino.");
+  }
+
+  const destino = await ctx.db
+    .selectFrom("unit")
+    .select("name")
+    .where("id", "=", dados.toUnitId)
+    .where("is_active", "=", true)
+    .executeTakeFirst();
+
+  if (!destino) throw new NotFound("Unidade de destino não encontrada.");
+
+  const saldo = await sql<{ quantidade: string }>`
+    select coalesce(sum(quantity), 0) as quantidade
+      from stock_balance
+     where product_id = ${dados.productId}
+       and unit_id = ${origem}
+       and lot_id is not distinct from ${dados.lotId ?? null}::uuid
+  `.execute(ctx.db);
+
+  const disponivel = Number(saldo.rows[0]?.quantidade ?? 0);
+
+  if (disponivel < dados.quantity) {
+    const produto = await ctx.db
+      .selectFrom("product")
+      .select(["name", "stock_unit"])
+      .where("id", "=", dados.productId)
+      .executeTakeFirst();
+
+    throw new BusinessRuleError(
+      `Não dá para transferir mais do que existe aqui: há ${disponivel} ${produto?.stock_unit ?? ""} de ${produto?.name ?? "produto"} nesta unidade.`,
+    );
+  }
+
+  const custo = await custoUnitario(ctx, dados.productId, dados.lotId ?? null);
+  const groupId = randomUUID();
+
+  const comum = {
+    tenant_id: ctx.session.tenantId,
+    product_id: dados.productId,
+    lot_id: dados.lotId ?? null,
+    unit_cost_cents: BigInt(custo) as unknown as number,
+    transfer_group_id: groupId,
+    performed_by: ctx.session.membershipId,
+  };
+
+  // O motivo carrega para onde foi / de onde veio. O `transfer_group_id` liga
+  // as duas linhas, mas quem le o historico de uma unidade nao vai buscar a
+  // outra ponta: a frase tem de bastar na linha em que ela aparece.
+  const nota = dados.notes ? ` · ${dados.notes}` : "";
+  const daOrigem = await ctx.db
+    .selectFrom("unit")
+    .select("name")
+    .where("id", "=", origem)
+    .executeTakeFirst();
+
+  await ctx.db
+    .insertInto("stock_movement")
+    .values([
+      {
+        ...comum,
+        unit_id: origem,
+        kind: "transfer_out",
+        quantity: String(-dados.quantity) as unknown as number,
+        reason: `Transferido para ${destino.name}${nota}`,
+      },
+      {
+        ...comum,
+        unit_id: dados.toUnitId,
+        kind: "transfer_in",
+        quantity: String(dados.quantity) as unknown as number,
+        reason: `Recebido de ${daOrigem?.name ?? "outra unidade"}${nota}`,
+      },
+    ])
+    .execute();
+
+  return { groupId };
 }
 
 /** Bloqueio sanitario de lote: recall, suspeita, fiscalizacao. */

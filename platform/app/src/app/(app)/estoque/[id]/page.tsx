@@ -8,8 +8,18 @@ import {
   rotuloMovimento,
   rotuloTipo,
 } from "@/modules/stock";
-import { Badge, Empty, Metric, Notice, PageHead, Panel, PanelHead, type Tone } from "@/ui";
+import {
+  Badge,
+  Empty,
+  Metric,
+  Notice,
+  PageHead,
+  Panel,
+  PanelHead,
+  type Tone,
+} from "@/ui";
 import { formatBRL, formatDateTime } from "@/shared/format";
+import { listReachableUnits } from "@/modules/auth/units";
 import { NotFound } from "@/shared/errors";
 import { lerAviso } from "@/shared/flash";
 import { AcoesDoProduto, BloquearLote } from "./acoes";
@@ -42,6 +52,11 @@ export default async function ProdutoPage({
       return {
         produto: await getProduct(ctx, id),
         podeEscrever: ctx.can("inventory.write"),
+        // Destinos possíveis: tudo o que a sessão alcança menos onde ela está.
+        // Transferir para a própria unidade não é transferência.
+        outrasUnidades: (await listReachableUnits(ctx))
+          .filter((u) => u.id !== ctx.session.activeUnitId)
+          .map((u) => ({ id: u.id, name: u.name })),
         fuso: ctx.session.timezone,
       };
     } catch (erro) {
@@ -51,7 +66,7 @@ export default async function ProdutoPage({
   }, "inventory.read");
 
   if (!dados) notFound();
-  const { produto, podeEscrever, fuso } = dados;
+  const { produto, podeEscrever, outrasUnidades, fuso } = dados;
 
   const comSaldo = produto.lotes.filter((l) => l.saldo > 0);
   const faltando = produto.saldo <= produto.minimo;
@@ -89,85 +104,107 @@ export default async function ProdutoPage({
         />
         <Metric
           label="Equivale a"
-          value={formatQuantidade(produto.saldo * produto.fatorConversao, produto.usageUnit)}
+          value={formatQuantidade(
+            produto.saldo * produto.fatorConversao,
+            produto.usageUnit,
+          )}
           hint={`1 ${produto.stockUnit} = ${formatQuantidade(produto.fatorConversao, produto.usageUnit)}`}
         />
         <Metric
           label="Lotes com saldo"
-          value={String(comSaldo.length)}
-          hint={produto.exigeLote ? "Este produto exige rastreio" : "Rastreio não exigido"}
+          // "0" num produto que não usa lote lê como "não tem nada" — e é um
+          // número que a pessoa soma. O travessão diz "não se aplica".
+          value={produto.exigeLote ? String(comSaldo.length) : "—"}
+          hint={
+            produto.exigeLote
+              ? "Este produto exige rastreio"
+              : "Rastreio não exigido"
+          }
         />
-        <Metric label="Parado" value={formatBRL(produto.valorEmEstoqueCents)} hint="A custo do lote" />
+        <Metric
+          label="Parado"
+          value={formatBRL(produto.valorEmEstoqueCents)}
+          hint="A custo do lote"
+        />
       </Panel>
 
-      <Panel className="mb-4">
-        <PanelHead
-          title="Lotes"
-          hint="O que vence antes sai antes. Lote bloqueado não sai em consumo nenhum."
-        />
-        {produto.lotes.length === 0 ? (
-          <Empty
-            title="Sem lote"
-            hint={
-              produto.exigeLote
-                ? "Este produto exige rastreio: registre uma entrada com número de lote."
-                : "Este produto não tem controle de lote."
-            }
+      {/* Produto sem rastreio e sem lote nenhum não ganha painel: seria uma tela
+          inteira dizendo "não tem", e o cartão lá em cima já disse. Com lote
+          (inclusive legado, de quando exigia) o painel volta. */}
+      {produto.exigeLote || produto.lotes.length > 0 ? (
+        <Panel className="mb-4">
+          <PanelHead
+            title="Lotes"
+            hint="O que vence antes sai antes. Lote bloqueado não sai em consumo nenhum."
           />
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="grid-table">
-              <thead>
-                <tr>
-                  <th>Lote</th>
-                  <th>Validade</th>
-                  <th className="text-right">Saldo</th>
-                  <th className="text-right">Custo</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {produto.lotes.map((l) => (
-                  <tr key={l.id}>
-                    <td className="font-medium text-ink">
-                      {l.numero}
-                      {l.bloqueado ? (
-                        <span className="mt-0.5 block">
-                          <Badge tone="critical">Bloqueado</Badge>{" "}
-                          <span className="text-xs text-muted">{l.motivoBloqueio}</span>
-                        </span>
-                      ) : null}
-                    </td>
-                    <td>
-                      <span
-                        className={
-                          l.diasParaVencer < 0
-                            ? "text-critical"
-                            : l.diasParaVencer <= 60
-                              ? "text-warning"
-                              : undefined
-                        }
-                      >
-                        {l.validade.split("-").reverse().join("/")}
-                      </span>
-                      <span className="block text-xs text-muted">
-                        {l.diasParaVencer < 0
-                          ? `venceu há ${Math.abs(l.diasParaVencer)} dias`
-                          : `faltam ${l.diasParaVencer} dias`}
-                      </span>
-                    </td>
-                    <td className="num text-right">{formatQuantidade(l.saldo, produto.stockUnit)}</td>
-                    <td className="num text-right">{formatBRL(l.custoCents)}</td>
-                    <td className="text-right">
-                      {podeEscrever ? <BloquearLote productId={produto.id} lote={l} /> : null}
-                    </td>
+          {produto.lotes.length === 0 ? (
+            <Empty
+              title="Sem lote"
+              hint="Este produto exige rastreio: registre uma entrada com número de lote."
+            />
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="grid-table">
+                <thead>
+                  <tr>
+                    <th>Lote</th>
+                    <th>Validade</th>
+                    <th className="text-right">Saldo</th>
+                    <th className="text-right">Custo</th>
+                    <th />
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </Panel>
+                </thead>
+                <tbody>
+                  {produto.lotes.map((l) => (
+                    <tr key={l.id}>
+                      <td className="font-medium text-ink">
+                        {l.numero}
+                        {l.bloqueado ? (
+                          <span className="mt-0.5 block">
+                            <Badge tone="critical">Bloqueado</Badge>{" "}
+                            <span className="text-xs text-muted">
+                              {l.motivoBloqueio}
+                            </span>
+                          </span>
+                        ) : null}
+                      </td>
+                      <td>
+                        <span
+                          className={
+                            l.diasParaVencer < 0
+                              ? "text-critical"
+                              : l.diasParaVencer <= 60
+                                ? "text-warning"
+                                : undefined
+                          }
+                        >
+                          {l.validade.split("-").reverse().join("/")}
+                        </span>
+                        <span className="block text-xs text-muted">
+                          {l.diasParaVencer < 0
+                            ? `venceu há ${Math.abs(l.diasParaVencer)} dias`
+                            : `faltam ${l.diasParaVencer} dias`}
+                        </span>
+                      </td>
+                      <td className="num text-right">
+                        {formatQuantidade(l.saldo, produto.stockUnit)}
+                      </td>
+                      <td className="num text-right">
+                        {formatBRL(l.custoCents)}
+                      </td>
+                      <td className="text-right">
+                        {podeEscrever ? (
+                          <BloquearLote productId={produto.id} lote={l} />
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Panel>
+      ) : null}
 
       {podeEscrever ? (
         <div className="mb-4">
@@ -175,6 +212,7 @@ export default async function ProdutoPage({
             productId={produto.id}
             stockUnit={produto.stockUnit}
             lotes={comSaldo}
+            outrasUnidades={outrasUnidades}
           />
         </div>
       ) : null}
@@ -189,13 +227,21 @@ export default async function ProdutoPage({
         ) : (
           <ul className="divide-y divide-line">
             {produto.movimentos.map((m) => (
-              <li key={m.id} className="flex flex-wrap items-start gap-3 px-5 py-3">
-                <Badge tone={TOM_MOVIMENTO[m.kind] ?? "neutral"}>{rotuloMovimento(m.kind)}</Badge>
+              <li
+                key={m.id}
+                className="flex flex-wrap items-start gap-3 px-5 py-3"
+              >
+                <Badge tone={TOM_MOVIMENTO[m.kind] ?? "neutral"}>
+                  {rotuloMovimento(m.kind)}
+                </Badge>
 
                 <span className="min-w-0 flex-1">
                   <span className="block text-sm text-ink">
                     {m.paciente && m.pacienteId ? (
-                      <Link href={`/pacientes/${m.pacienteId}`} className="hover:underline">
+                      <Link
+                        href={`/pacientes/${m.pacienteId}`}
+                        className="hover:underline"
+                      >
                         {m.paciente}
                       </Link>
                     ) : (
