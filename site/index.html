@@ -43,6 +43,8 @@
       </span>
     </a>
 
+    <span class="topo__secao" data-secao-atual aria-hidden="true"></span>
+
     <nav class="nav" id="menu" aria-label="Navegação principal">
       <ul>
         <li><a href="#sobre">Quem sou</a></li>
@@ -71,22 +73,22 @@
 
   <div class="wrap hero__grid">
     <div class="hero__texto">
-      <p class="olho" data-revelar>
+      <p class="olho" data-entrada>
         <span class="olho__linha" aria-hidden="true"></span>
         Odontologia &amp; Estética Avançada · Itajaí-SC
       </p>
 
-      <h1 class="hero__titulo" data-revelar data-revelar-palavras>
+      <h1 class="hero__titulo" data-entrada data-atraso="60">
         Autoestima não é vaidade. <em>É posicionamento.</em>
       </h1>
 
-      <p class="hero__lead" data-revelar data-atraso="120">
+      <p class="hero__lead" data-entrada data-atraso="120">
         E começa pelo cuidado — <span class="script">com você mesma</span>.
         Odontologia clínica, estética avançada e harmonização facial com
         atendimento humanizado e resultados naturais.
       </p>
 
-      <div class="hero__acoes" data-revelar data-atraso="220">
+      <div class="hero__acoes" data-entrada data-atraso="200">
         <a class="btn btn--ouro btn--g" data-wa href="#contato">
           Agendar minha avaliação
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -94,7 +96,7 @@
         <a class="btn btn--fantasma btn--g" href="#procedimentos">Meus procedimentos</a>
       </div>
 
-      <ul class="hero__selos" data-revelar data-atraso="320">
+      <ul class="hero__selos" data-entrada data-atraso="280">
         <li>
           <strong data-bind="cro">CRO-SC 25523</strong>
           <span>Cirurgiã-dentista</span>
@@ -110,7 +112,7 @@
       </ul>
     </div>
 
-    <figure class="hero__foto" data-revelar data-atraso="180">
+    <figure class="hero__foto" data-entrada data-atraso="150">
       <div class="moldura" data-parallax="0.06">
         <img src="assets/img/retrato-hero.svg" width="1000" height="1400"
              alt="Dra. Consuelo Vasconcelos, cirurgiã-dentista" fetchpriority="high">
@@ -599,6 +601,30 @@
     <p><a href="#inicio">Voltar ao topo</a></p>
   </div>
 </footer>
+
+<!-- barra de ações fixa (apenas mobile) -->
+<nav class="barra-acoes" aria-label="Ações rápidas">
+  <a class="barra-acoes__item" data-wa href="#contato">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 1 0 16 3Zm0 23.6c-2 0-4-.5-5.7-1.6l-.4-.2-4 1 1.1-3.9-.3-.4A10.6 10.6 0 1 1 16 26.6Zm6-7.9c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-1.2 1.2-1.2 2.9-.1 4.6a12 12 0 0 0 5 4.7c1.8.8 2.6.9 3.5.7.6-.1 1.9-.8 2.1-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4Z"/>
+    </svg>
+    <span>Agendar</span>
+  </a>
+  <a class="barra-acoes__item" data-telefone href="#contato">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6.6 3h2.2l1.4 3.5-1.8 1.3a11 11 0 0 0 5.8 5.8l1.3-1.8L19 13.2v2.2a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3Z"/>
+    </svg>
+    <span>Ligar</span>
+  </a>
+  <a class="barra-acoes__item" data-mapa href="#contato">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>
+    </svg>
+    <span>Como chegar</span>
+  </a>
+</nav>
 
 <a class="flutuante flutuante--wa" data-wa href="#contato" aria-label="Conversar no WhatsApp">
   <svg viewBox="0 0 32 32" aria-hidden="true">

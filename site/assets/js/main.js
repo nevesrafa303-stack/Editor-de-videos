@@ -51,6 +51,10 @@
       a.rel = 'noopener';
     });
     $$('[data-email]').forEach((a) => { if (CFG.email) a.href = `mailto:${CFG.email}`; });
+    $$('[data-telefone]').forEach((a) => {
+      const num = soDigitos(CFG.whatsapp);
+      if (num) a.href = `tel:+${num}`;
+    });
     $$('[data-mapa]').forEach((a) => {
       const url = caminho(CFG, 'endereco.mapaLink');
       if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
@@ -158,6 +162,7 @@
     const topo = $('[data-topo]');
     const barra = $('[data-progresso]');
     const btnTopo = $('[data-topo-btn]');
+    const barraAcoes = $('.barra-acoes');
     let ultimo = 0;
 
     const aoRolar = porFrame(() => {
@@ -171,6 +176,8 @@
         topo.classList.toggle('is-oculto', y > 620 && y > ultimo && !document.body.classList.contains('menu-aberto'));
       }
       if (btnTopo) btnTopo.classList.toggle('is-visivel', y > 900);
+      if (barraAcoes) barraAcoes.classList.toggle('is-visivel', y > 420);
+      if (y < 320) $('[data-secao-atual]')?.classList.remove('is-visivel');
       ultimo = y;
     });
 
@@ -214,6 +221,11 @@
   };
 
   const revelar = () => {
+    // o hero entra por CSS na carga (sem esperar o observer) — isso tirou ~1s do LCP
+    $$('[data-entrada]').forEach((el) => {
+      if (el.dataset.atraso) el.style.setProperty('--atraso', `${el.dataset.atraso}ms`);
+    });
+
     const alvos = $$('[data-revelar]');
     alvos.forEach((el) => {
       if (el.dataset.atraso) el.style.setProperty('--atraso', `${el.dataset.atraso}ms`);
@@ -298,13 +310,18 @@
       if (alvo) mapa.set(alvo, a);
     });
 
+    const rotulo = $('[data-secao-atual]');
+
     const obs = new IntersectionObserver((entradas) => {
       entradas.forEach((e) => {
         const a = mapa.get(e.target);
-        if (!a) return;
-        if (e.isIntersecting) {
-          links.forEach((l) => l.classList.remove('is-ativo'));
-          a.classList.add('is-ativo');
+        if (!a || !e.isIntersecting) return;
+        links.forEach((l) => { l.classList.remove('is-ativo'); l.removeAttribute('aria-current'); });
+        a.classList.add('is-ativo');
+        a.setAttribute('aria-current', 'true');
+        if (rotulo) {
+          rotulo.textContent = a.textContent.trim();
+          rotulo.classList.add('is-visivel');
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
@@ -345,10 +362,33 @@
   };
 
   /* -- 12. formulário → WhatsApp ------------------------------------------ */
+  /** (11) 91234-5678 — formata conforme a pessoa digita, sem atrapalhar o apagar. */
+  const formatarTelefone = (bruto) => {
+    const d = soDigitos(bruto).slice(0, 11);
+    if (d.length <= 2) return d.length ? `(${d}` : '';
+    if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  };
+
+  const mascaraTelefone = (campo) => {
+    if (!campo) return;
+    campo.addEventListener('input', () => {
+      const antes = campo.value;
+      const fimDoCursor = campo.selectionStart === antes.length;
+      const formatado = formatarTelefone(antes);
+      if (formatado === antes) return;
+      campo.value = formatado;
+      // digitando no fim (o caso comum) o cursor acompanha; no meio, não o movemos
+      if (fimDoCursor) campo.setSelectionRange(formatado.length, formatado.length);
+    });
+  };
+
   const formulario = () => {
     const form = $('[data-form]');
     if (!form) return;
     const status = $('[data-form-status]', form);
+    mascaraTelefone(form.elements.telefone);
 
     const erro = (nome, msg) => {
       const alvo = $(`[data-erro-de="${nome}"]`, form);
@@ -445,10 +485,24 @@
       btn.setAttribute('aria-label', 'Fechar menu de navegação');
       nav.classList.add('is-aberto');
       document.body.classList.add('menu-aberto');
+      $('a', nav)?.focus();
     });
 
     $$('a', nav).forEach((a) => a.addEventListener('click', fechar));
-    addEventListener('keydown', (e) => { if (e.key === 'Escape') fechar(); });
+
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { fechar(); btn.focus(); return; }
+      // menu aberto é um diálogo: o Tab circula dentro dele, não volta para a página
+      if (e.key !== 'Tab' || !nav.classList.contains('is-aberto')) return;
+      const foco = [btn, ...$$('a', nav)];
+      const i = foco.indexOf(document.activeElement);
+      if (i === -1) return;
+      e.preventDefault();
+      const proximo = e.shiftKey
+        ? foco[(i - 1 + foco.length) % foco.length]
+        : foco[(i + 1) % foco.length];
+      proximo.focus();
+    });
     matchMedia('(min-width: 901px)').addEventListener('change', fechar);
   };
 

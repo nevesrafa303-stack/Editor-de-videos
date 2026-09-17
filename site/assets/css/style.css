@@ -886,3 +886,126 @@ figure:hover .moldura img{transform:scale(1.035)}
   }
   .mudancas li{grid-template-columns:1fr;gap:.6rem}
 }
+
+/* -- 11. EXPERIÊNCIA — CORREÇÕES MEDIDAS -------------------------------- */
+
+/* 11.1 Entrada do hero por CSS, não por IntersectionObserver.
+   Antes o LCP era o .hero__lead esperando o observer: FCP 444ms, LCP 1488ms.
+   Animando na carga, o conteúdo da primeira dobra pinta junto com a página. */
+[data-entrada]{
+  opacity:0;transform:translateY(18px);
+  animation:entra .8s var(--ease) forwards;
+  animation-delay:var(--atraso,0ms);
+}
+@keyframes entra{to{opacity:1;transform:none}}
+
+/* 11.2 Alvos de toque: 16 elementos mediam menos de 44px de altura no mobile.
+   Os links de navegação e de contato ganham área clicável real. */
+.rodape ul a,
+.contato__lista a,
+.rodape__contato a{
+  display:inline-block;
+  padding-block:.55rem;
+  min-height:44px;
+}
+.rodape ul a{padding-block:.5rem}
+.contato__lista a{padding-block:.35rem}
+.redes a{width:46px;height:46px}
+.consentimento{padding-block:.35rem}
+.consentimento input{width:22px;height:22px}
+.link-seta{padding-block:.6rem}
+.nav a{padding-block:.75rem}
+
+/* 11.3 Resposta ao toque: sem :hover no celular, o dedo precisa de retorno. */
+@media (hover:none){
+  .btn:active{transform:scale(.97)}
+  .card:active{transform:scale(.99)}
+  .acordeao__item summary:active{background:rgba(255,255,255,.08)}
+  .barra-acoes__item:active{background:rgba(255,255,255,.1)}
+}
+
+/* 11.4 Seção atual no cabeçalho — a página tem ~14 telas no mobile,
+   e o menu fechado não dizia onde a pessoa está. */
+.topo__secao{
+  margin-left:auto;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ouro);opacity:0;transform:translateY(4px);
+  transition:opacity .35s var(--ease),transform .35s var(--ease);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw;
+  pointer-events:none;
+}
+.topo__secao.is-visivel{opacity:1;transform:none}
+@media (min-width:901px){.topo__secao{display:none}}
+
+/* 11.5 Barra de ações fixa no rodapé do mobile.
+   Uma pessoa no celular decide por atalho: agendar, ligar ou traçar rota. */
+.barra-acoes{display:none}
+@media (max-width:900px){
+  .barra-acoes{
+    position:fixed;left:0;right:0;bottom:0;z-index:105;
+    display:grid;grid-template-columns:repeat(3,1fr);
+    background:rgba(20,20,20,.94);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    backdrop-filter:blur(18px) saturate(140%);
+    border-top:1px solid var(--linha);
+    padding-bottom:env(safe-area-inset-bottom);
+    transform:translateY(105%);
+    transition:transform .4s var(--ease);
+  }
+  .barra-acoes.is-visivel{transform:none}
+  .barra-acoes__item{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.28rem;
+    min-height:60px;padding:.6rem .4rem;
+    font-size:.68rem;letter-spacing:.05em;color:var(--txt-2);
+    border-right:1px solid var(--linha);
+    transition:color .25s var(--ease),background .25s var(--ease);
+  }
+  .barra-acoes__item:last-child{border-right:0}
+  .barra-acoes__item svg{width:21px;height:21px;fill:none;stroke:currentColor}
+  .barra-acoes__item:first-child{color:var(--ouro)}
+  .barra-acoes__item:first-child svg{fill:currentColor;stroke:none}
+
+  /* o botão flutuante daria em cima da barra */
+  .flutuante--wa{display:none}
+  .flutuante--topo{bottom:calc(72px + env(safe-area-inset-bottom) + .8rem)}
+
+  /* espaço para a barra não cobrir o fim da página */
+  .rodape__base{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+}
+
+/* 11.6 Menos rolagem no celular: 8 cards em coluna única davam 13,7 telas.
+   Em duas colunas compactas a seção encolhe pela metade. */
+@media (max-width:620px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .card{padding:1.1rem .95rem;gap:.5rem}
+  .card h3{font-size:.95rem;line-height:1.25}
+  .card p{font-size:.78rem;line-height:1.5}
+  .card__num{font-size:.8rem}
+  .card h3 small{font-size:.7em}
+}
+@media (max-width:380px){
+  .cards{grid-template-columns:1fr}
+}
+
+/* 11.7 O menu aberto é um diálogo: nada atrás dele deve rolar nem receber foco. */
+@media (max-width:900px){
+  .nav{overscroll-behavior:contain}
+  body.menu-aberto .barra-acoes{transform:translateY(105%)}
+}
+
+/* 11.8 Últimos alvos abaixo de 44px (logo, links curtos do rodapé, caixa de
+   consentimento). O mínimo vale para largura e altura. */
+.marca{min-height:46px}
+.rodape ul a{padding-inline:.2rem;min-width:44px}
+.rodape__base a{
+  display:inline-block;padding:.65rem .3rem;min-height:44px;min-width:44px;
+}
+.rodape__base{align-items:center}
+.consentimento input{width:24px;height:24px}
+.link-seta{min-height:46px}
+
+/* 11.9 Com a barra de ações no rodapé, o botão flutuante de voltar ao topo
+   passava por cima do conteúdo. No mobile ele sai: a barra já dá navegação
+   rápida e o rodapé tem o link "Voltar ao topo". */
+@media (max-width:900px){
+  .flutuante--topo{display:none}
+}
