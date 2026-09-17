@@ -191,6 +191,8 @@
 
   /* -- 5. revelar no scroll ----------------------------------------------- */
   const fatiarPalavras = () => {
+    // todo título de seção ganha a entrada palavra a palavra
+    $$('.secao .titulo').forEach((t) => t.setAttribute('data-revelar-palavras', ''));
     $$('[data-revelar-palavras]').forEach((el) => {
       const frag = document.createDocumentFragment();
       let i = 0;
@@ -221,9 +223,22 @@
   };
 
   const revelar = () => {
+    // a rede de segurança do <head> já pode ter mostrado tudo; nesse caso as
+    // animações ficam de fora e o conteúdo permanece visível
+    clearTimeout(window.__redeDeSeguranca);
+    if (!document.documentElement.classList.contains('js')) return;
+
     // o hero entra por CSS na carga (sem esperar o observer) — isso tirou ~1s do LCP
     $$('[data-entrada]').forEach((el) => {
       if (el.dataset.atraso) el.style.setProperty('--atraso', `${el.dataset.atraso}ms`);
+    });
+
+    // cascata: cada filho de um grupo entra um pouco depois do anterior
+    $$('[data-cascata]').forEach((grupo) => {
+      const passo = Number(grupo.dataset.cascata) || 70;
+      $$(':scope > [data-revelar]', grupo).forEach((filho, i) => {
+        if (!filho.dataset.atraso) filho.dataset.atraso = String(i * passo);
+      });
     });
 
     const alvos = $$('[data-revelar]');
@@ -279,25 +294,71 @@
     alvos.forEach((el) => obs.observe(el));
   };
 
-  /* -- 7. parallax -------------------------------------------------------- */
-  const parallax = () => {
-    const alvos = $$('[data-parallax]');
-    if (!alvos.length || semMovimento) return;
+  /* -- 7. motor de efeitos de scroll --------------------------------------
+     Um único laço de rAF cuida de todos os efeitos que dependem da posição da
+     rolagem. Antes cada efeito tinha seu próprio listener; agora há uma leitura
+     de layout por quadro, o que evita o vaivém entre ler e escrever no DOM. */
+  const efeitosDeScroll = () => {
+    if (semMovimento) return;
 
-    const mover = porFrame(() => {
+    const camadas   = $$('[data-parallax]');
+    const heroTexto = $('.hero__texto');
+    const heroFoto  = $('.hero__foto');
+    const hero      = $('.hero');
+    const zooms     = $$('[data-zoom]');
+    if (!camadas.length && !hero && !zooms.length) return;
+
+    let pendente = false;
+
+    const desenhar = () => {
+      pendente = false;
       const meio = innerHeight / 2;
-      alvos.forEach((el) => {
+      const y = window.scrollY;
+
+      // profundidade na primeira dobra: o texto sobe mais que a foto e some
+      // antes dela, o que dá a sensação de dois planos distintos
+      if (hero) {
+        const alturaHero = hero.offsetHeight || innerHeight;
+        const p = Math.min(1, y / alturaHero);
+        if (p < 1.02) {
+          if (heroTexto) {
+            heroTexto.style.transform = `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
+            heroTexto.style.opacity = String(Math.max(0, 1 - p * 1.35));
+          }
+          if (heroFoto) {
+            heroFoto.style.transform = `translate3d(0, ${(y * 0.05).toFixed(1)}px, 0)`;
+            heroFoto.style.opacity = String(Math.max(0, 1 - p * 1.1));
+          }
+        }
+      }
+
+      camadas.forEach((el) => {
         const r = el.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        if (r.bottom < -220 || r.top > innerHeight + 220) return;
         const centro = r.top + r.height / 2;
         const fator = Number(el.dataset.parallax) || 0.05;
         el.style.transform = `translate3d(0, ${((centro - meio) * fator).toFixed(2)}px, 0)`;
       });
-    });
 
-    addEventListener('scroll', mover, { passive: true });
-    addEventListener('resize', mover);
-    mover();
+      // as fotos de ambiente crescem de leve enquanto atravessam a tela
+      zooms.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        const avanco = 1 - (r.top + r.height / 2) / (innerHeight + r.height / 2);
+        const escala = 1.06 - Math.max(0, Math.min(1, avanco)) * 0.06;
+        el.style.transform = `scale(${escala.toFixed(4)})`;
+      });
+    };
+
+    const agendar = () => {
+      if (pendente) return;
+      pendente = true;
+      requestAnimationFrame(desenhar);
+    };
+
+    addEventListener('scroll', agendar, { passive: true });
+    addEventListener('resize', agendar);
+    desenhar();
   };
 
   /* -- 8. scrollspy ------------------------------------------------------- */
@@ -346,6 +407,72 @@
     addEventListener('scroll', atualiza, { passive: true });
     addEventListener('resize', atualiza);
     atualiza();
+  };
+
+  /* -- 10. comparador antes/depois ---------------------------------------- */
+  const comparador = () => {
+    const raiz = $('[data-comparador]');
+    if (!raiz) return;
+    const controle = $('[data-comparador-controle]', raiz);
+    const dica = $('[data-comparador-dica]');
+    if (!controle) return;
+
+    let jaMexeu = false;
+
+    const posicionar = (pct) => {
+      const p = Math.max(0, Math.min(100, pct));
+      raiz.style.setProperty('--pos', `${p}%`);
+      controle.value = String(p);
+      controle.setAttribute('aria-valuetext',
+        p < 8  ? 'mostrando só o depois'
+      : p > 92 ? 'mostrando só o antes'
+      : `${Math.round(p)}% do antes à esquerda, o resto é o depois`);
+    };
+
+    const usou = () => {
+      if (jaMexeu) return;
+      jaMexeu = true;
+      raiz.classList.remove('is-convidando');
+      dica?.classList.add('is-oculta');
+    };
+
+    // teclado e leitor de tela vêm do próprio range
+    controle.addEventListener('input', () => { posicionar(Number(controle.value)); usou(); });
+
+    // arrastar direto na imagem, com mouse ou dedo
+    const daPosicao = (clientX) => {
+      const r = raiz.getBoundingClientRect();
+      return ((clientX - r.left) / r.width) * 100;
+    };
+    let arrastando = false;
+    raiz.addEventListener('pointerdown', (e) => {
+      arrastando = true;
+      raiz.classList.add('is-arrastando');
+      raiz.setPointerCapture?.(e.pointerId);
+      posicionar(daPosicao(e.clientX));
+      usou();
+    });
+    raiz.addEventListener('pointermove', (e) => {
+      if (arrastando) posicionar(daPosicao(e.clientX));
+    });
+    const soltar = () => { arrastando = false; raiz.classList.remove('is-arrastando'); };
+    raiz.addEventListener('pointerup', soltar);
+    raiz.addEventListener('pointercancel', soltar);
+    addEventListener('pointerup', soltar);
+
+    // ao entrar em cena, a alça oscila uma vez — quem chega entende que arrasta
+    if (!semMovimento && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entradas) => {
+        entradas.forEach((e) => {
+          if (!e.isIntersecting || jaMexeu) return;
+          raiz.classList.add('is-convidando');
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.45 });
+      obs.observe(raiz);
+    }
+
+    posicionar(50);
   };
 
   /* -- 11. acordeão (um aberto por vez) ----------------------------------- */
@@ -525,9 +652,10 @@
     revelar();
     cabecalho();
     contadores();
-    parallax();
+    efeitosDeScroll();
     scrollspy();
     medidorMetodo();
+    comparador();
     acordeao();
     formulario();
     mapa();

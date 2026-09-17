@@ -29,6 +29,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:ital,wght@0,400;1,400;1,500&display=swap">
 
 <link rel="stylesheet" href="assets/css/style.css">
+
+<script>
+/* Progressive enhancement da animação de entrada.
+   O conteúdo é visível por padrão: sem esta linha, nada é escondido. Só quando
+   há JavaScript a página ganha a classe que autoriza esconder para animar.
+   Assim, sem JS ou com JS que falhe, o site aparece inteiro.
+   A rede de segurança cobre o terceiro caso: o script principal demorar. Em
+   rede 3G ele levava mais de 3s, e até lá a página ficava em branco abaixo da
+   primeira dobra. Passado 1,2s sem o principal assumir, tudo aparece. */
+(function () {
+  var raiz = document.documentElement;
+  raiz.classList.add('js');
+  window.__redeDeSeguranca = setTimeout(function () {
+    raiz.classList.remove('js');
+  }, 1200);
+})();
+</script>
 </head>
 
 <body>
@@ -217,7 +234,7 @@
       <a class="btn btn--ouro" data-wa href="#contato">Agendar minha avaliação</a>
     </div>
 
-    <ol class="etapas" data-etapas>
+    <ol class="etapas" data-etapas data-cascata="110">
       <li class="etapa" data-revelar>
         <span class="etapa__n">01</span>
         <div>
@@ -267,55 +284,55 @@
       </p>
     </header>
 
-    <div class="cards">
+    <div class="cards" data-cascata="70">
       <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">01</span>
         <h3>Profilaxia <small>(Limpeza Dental)</small></h3>
         <p>Remove placa e tártaro, prevenindo cáries e mantendo a saúde bucal em dia.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="60">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">02</span>
         <h3>Restauração</h3>
         <p>Devolve forma e função aos dentes com resina de alta qualidade, de forma
         discreta e natural.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="120">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">03</span>
         <h3>Clareamento</h3>
         <p>Técnica segura e progressiva que uniformiza o tom dos dentes, sem agredir
         o esmalte.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="180">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">04</span>
         <h3>Extração Dentária</h3>
         <p>Procedimento realizado com conforto e segurança, sempre priorizando seu
         bem-estar.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="240">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">05</span>
         <h3>Botox</h3>
         <p>Relaxa a musculatura facial, suavizando linhas de expressão com resultado
         natural.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="300">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">06</span>
         <h3>Preenchimento com Ácido Hialurônico</h3>
         <p>Realça lábios e contornos faciais, respeitando as proporções do seu rosto.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="360">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">07</span>
         <h3>Bioestimulador de Colágeno</h3>
         <p>Estimula a produção natural de colágeno, melhorando firmeza e qualidade da
         pele com o tempo.</p>
       </article>
 
-      <article class="card" data-revelar data-atraso="420">
+      <article class="card" data-revelar>
         <span class="card__num" aria-hidden="true">08</span>
         <h3>Microagulhamento</h3>
         <p>Estimula a regeneração da pele, melhorando textura, poros e viço de forma
@@ -341,7 +358,7 @@
       </h2>
     </header>
 
-    <ol class="mudancas">
+    <ol class="mudancas" data-cascata="110">
       <li data-revelar>
         <span class="mudancas__n" aria-hidden="true">01</span>
         <div>
@@ -350,7 +367,7 @@
           natural, sem exageros.</p>
         </div>
       </li>
-      <li data-revelar data-atraso="90">
+      <li data-revelar>
         <span class="mudancas__n" aria-hidden="true">02</span>
         <div>
           <h3>Resultados que parecem seus</h3>
@@ -358,7 +375,7 @@
           não substituindo.</p>
         </div>
       </li>
-      <li data-revelar data-atraso="180">
+      <li data-revelar>
         <span class="mudancas__n" aria-hidden="true">03</span>
         <div>
           <h3>Autoestima que aparece no dia a dia</h3>
@@ -400,7 +417,7 @@
                      assets/img/clinica-820.webp 820w,
                      assets/img/clinica-1200.webp 1200w"
              sizes="(max-width:900px) 84vw, 50vw"
-             width="820" height="1211" loading="lazy"
+             width="820" height="1211" loading="lazy" data-zoom
              alt="Sala de atendimento da clínica, com cadeira odontológica e espelho">
       </div>
     </figure>
@@ -419,24 +436,48 @@
     </header>
 
     <figure class="caso" data-revelar data-atraso="120">
-      <div class="foto-enquadrada foto-enquadrada--caso">
-        <span class="marca-caso marca-caso--antes">Antes</span>
-        <span class="marca-caso marca-caso--depois">Depois</span>
-        <img src="assets/img/caso-labial-900.webp"
-             srcset="assets/img/caso-labial-600.webp 600w,
-                     assets/img/caso-labial-900.webp 900w,
-                     assets/img/caso-labial-1300.webp 1300w"
+      <div class="comparador" data-comparador style="--pos:50%">
+        <img class="comparador__foto" src="assets/img/caso-depois-760.webp"
+             srcset="assets/img/caso-depois-520.webp 520w,
+                     assets/img/caso-depois-760.webp 760w,
+                     assets/img/caso-depois-1040.webp 1040w"
              sizes="(max-width:760px) 88vw, 620px"
-             width="900" height="1217" loading="lazy"
-             alt="Antes e depois de preenchimento labial, com resultado natural">
+             width="760" height="950" loading="lazy"
+             alt="Lábios depois do preenchimento com ácido hialurônico">
+
+        <div class="comparador__frente" data-comparador-frente>
+          <img class="comparador__foto" src="assets/img/caso-antes-760.webp"
+               srcset="assets/img/caso-antes-520.webp 520w,
+                       assets/img/caso-antes-760.webp 760w,
+                       assets/img/caso-antes-1040.webp 1040w"
+               sizes="(max-width:760px) 88vw, 620px"
+               width="760" height="950" loading="lazy"
+               alt="Lábios antes do preenchimento">
+        </div>
+
+        <span class="comparador__rotulo comparador__rotulo--antes">Antes</span>
+        <span class="comparador__rotulo comparador__rotulo--depois">Depois</span>
+
+        <div class="comparador__linha" aria-hidden="true">
+          <span class="comparador__alca">
+            <svg viewBox="0 0 24 24"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+          </span>
+        </div>
+
+        <input class="comparador__controle" type="range" min="0" max="100" step="0.1" value="50"
+               data-comparador-controle
+               aria-label="Arraste para comparar o antes e o depois do preenchimento labial">
       </div>
+
+      <p class="comparador__dica" data-comparador-dica>Arraste a linha para comparar</p>
+
       <ul class="caso__tags">
         <li>Preenchimento com ácido hialurônico</li>
         <li>Sessão única</li>
         <li>Resultado imediato</li>
       </ul>
       <figcaption class="foto-legenda">
-        Antes e depois de preenchimento labial — contorno definido, proporção preservada.
+        Contorno definido e proporção preservada — o volume acompanha o rosto, não o contrário.
         <em>Imagem publicada com autorização da paciente. Resultados variam conforme as
         condições clínicas de cada pessoa.</em>
       </figcaption>
@@ -482,7 +523,7 @@
       </a>
     </div>
 
-    <div class="acordeao" data-acordeao>
+    <div class="acordeao" data-acordeao data-cascata="70">
       <details class="acordeao__item" data-revelar>
         <summary>Como funciona a primeira consulta de estética facial?</summary>
         <div class="acordeao__corpo"><p>
@@ -492,7 +533,7 @@
         </p></div>
       </details>
 
-      <details class="acordeao__item" data-revelar data-atraso="70">
+      <details class="acordeao__item" data-revelar>
         <summary>Os resultados ficam naturais?</summary>
         <div class="acordeao__corpo"><p>
           Sim, o objetivo é valorizar suas características, não mudar quem você é.
@@ -501,7 +542,7 @@
         </p></div>
       </details>
 
-      <details class="acordeao__item" data-revelar data-atraso="140">
+      <details class="acordeao__item" data-revelar>
         <summary>Preciso já saber o que quero fazer?</summary>
         <div class="acordeao__corpo"><p>
           Não. Muitas pacientes chegam só com uma inquietação: “algo incomoda, mas não sei

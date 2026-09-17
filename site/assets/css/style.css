@@ -700,19 +700,20 @@ figure:hover .moldura img{transform:scale(1.035)}
 .contato__cartao{--linha-escura:rgba(24,24,24,.24)}
 
 /* -- 7. ANIMAÇÕES DE SCROLL ---------------------------------------------- */
-[data-revelar]{
+.js [data-revelar]{
   opacity:0;transform:translateY(26px);
   transition:opacity .85s var(--ease),transform .85s var(--ease);
   transition-delay:var(--atraso,0ms);
 }
-[data-revelar].is-visivel{opacity:1;transform:none}
+.js [data-revelar].is-visivel{opacity:1;transform:none}
 
 .palavra{display:inline-block;overflow:hidden;vertical-align:top}
 .palavra > span{
   display:inline-block;transform:translateY(105%);
   transition:transform .9s var(--ease);transition-delay:var(--w,0ms);
 }
-[data-revelar-palavras].is-visivel .palavra > span{transform:none}
+.js [data-revelar-palavras].is-visivel .palavra > span{transform:none}
+html:not(.js) .palavra > span{transform:none}
 
 [data-parallax]{will-change:transform}
 
@@ -893,7 +894,7 @@ figure:hover .moldura img{transform:scale(1.035)}
 /* 11.1 Entrada do hero por CSS, não por IntersectionObserver.
    Antes o LCP era o .hero__lead esperando o observer: FCP 444ms, LCP 1488ms.
    Animando na carga, o conteúdo da primeira dobra pinta junto com a página. */
-[data-entrada]{
+.js [data-entrada]{
   opacity:0;transform:translateY(18px);
   animation:entra .8s var(--ease) forwards;
   animation-delay:var(--atraso,0ms);
@@ -1104,4 +1105,133 @@ figure:hover .retrato img{transform:scale(1.02)}
 @media (max-width:420px){
   .btn{white-space:normal;text-align:center;line-height:1.35}
   .btn--g{padding-inline:1.4rem}
+}
+
+/* -- 13. COMPARADOR ANTES / DEPOIS --------------------------------------- */
+/* Duas fotos empilhadas; a de cima é cortada por clip-path na posição --pos.
+   As metades foram recortadas centradas nos lábios (medidos por cor), então os
+   dois enquadramentos coincidem e o rosto não salta ao arrastar. */
+.comparador{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--sombra-alta);background:var(--carvao);
+  touch-action:pan-y;              /* o gesto horizontal é nosso, o vertical rola a página */
+  user-select:none;-webkit-user-select:none;
+  cursor:ew-resize;
+  isolation:isolate;
+}
+.comparador__foto{width:100%;height:auto;display:block;pointer-events:none}
+.comparador__frente{
+  position:absolute;inset:0;
+  clip-path:inset(0 calc(100% - var(--pos)) 0 0);
+  will-change:clip-path;
+}
+.comparador__frente .comparador__foto{height:100%;object-fit:cover}
+
+.comparador__rotulo{
+  position:absolute;top:1rem;z-index:3;
+  padding:.35rem .9rem;border-radius:999px;
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  pointer-events:none;transition:opacity .3s var(--ease);
+}
+.comparador__rotulo--antes{left:1rem;background:rgba(18,18,20,.74);color:var(--creme)}
+.comparador__rotulo--depois{right:1rem;background:rgba(201,169,106,.94);color:var(--grafite)}
+
+/* a linha e o ponto que a pessoa arrasta */
+.comparador__linha{
+  position:absolute;top:0;bottom:0;left:var(--pos);z-index:4;
+  width:2px;margin-left:-1px;background:var(--creme);
+  box-shadow:0 0 14px rgba(0,0,0,.55);pointer-events:none;
+}
+.comparador__alca{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:54px;height:54px;border-radius:50%;
+  background:var(--creme);color:var(--grafite);
+  display:grid;place-items:center;
+  box-shadow:0 6px 22px rgba(0,0,0,.45);
+  transition:transform .28s var(--ease),background .28s var(--ease);
+}
+.comparador__alca svg{
+  width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.comparador:hover .comparador__alca{transform:translate(-50%,-50%) scale(1.08)}
+.comparador.is-arrastando .comparador__alca{background:var(--ouro);transform:translate(-50%,-50%) scale(.95)}
+.comparador.is-arrastando .comparador__rotulo{opacity:.35}
+
+/* o range fica por cima, invisível: dá teclado e leitor de tela de graça */
+.comparador__controle{
+  position:absolute;inset:0;z-index:5;width:100%;height:100%;
+  margin:0;opacity:0;cursor:ew-resize;
+}
+.comparador__controle:focus-visible{outline:none}
+.comparador:has(.comparador__controle:focus-visible){outline:2px solid var(--ouro);outline-offset:3px}
+.comparador__controle:focus-visible ~ .comparador__linha .comparador__alca{background:var(--ouro)}
+
+.comparador__dica{
+  margin-top:.9rem;text-align:center;
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.92);
+  transition:opacity .4s var(--ease);
+}
+.comparador__dica.is-oculta{opacity:0}
+
+/* convite silencioso: a alça oscila uma vez quando a seção entra em cena */
+@keyframes convite{
+  0%,100%{transform:translate(-50%,-50%)}
+  30%{transform:translate(calc(-50% - 9px),-50%)}
+  60%{transform:translate(calc(-50% + 9px),-50%)}
+}
+.comparador.is-convidando .comparador__alca{animation:convite 1.5s var(--ease) 1}
+
+@media (max-width:560px){
+  .comparador__alca{width:46px;height:46px}
+  .comparador__rotulo{font-size:.64rem;padding:.3rem .7rem;top:.7rem}
+  .comparador__rotulo--antes{left:.7rem} .comparador__rotulo--depois{right:.7rem}
+}
+
+/* -- 14. MOVIMENTO ------------------------------------------------------- */
+
+/* 14.1 A primeira dobra tem dois planos: o texto sobe mais rápido que a foto e
+   sai antes dela. O motor de scroll escreve o transform; aqui só se prepara o
+   terreno para o navegador compor em camada própria. */
+.hero__texto,.hero__foto{will-change:transform,opacity}
+
+/* 14.2 O zoom das fotos de ambiente precisa de um contêiner que corte. */
+.foto-enquadrada{overflow:hidden}
+[data-zoom]{transform-origin:50% 45%;will-change:transform}
+
+/* 14.3 Entrada palavra a palavra nos títulos de seção. Sem JS as palavras
+   ficam paradas e visíveis — a regra html:not(.js) na seção 7 garante isso. */
+.titulo .palavra{margin-right:.22em}
+.titulo .palavra:last-child{margin-right:0}
+
+/* 14.4 Cada card sobe um pouco mais que o anterior ao entrar, e o conjunto
+   ganha ritmo em vez de aparecer em bloco. */
+.js .card[data-revelar]{transform:translateY(34px) scale(.985)}
+.js .card[data-revelar].is-visivel{transform:none}
+.js .etapa[data-revelar]{transform:translateY(30px)}
+.js .etapa[data-revelar].is-visivel{transform:none}
+
+/* 14.5 A régua da lista "O que muda" se desenha da esquerda para a direita
+   quando o item entra. */
+.mudancas li{position:relative;border-top:0}
+.mudancas li::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--linha);transform:scaleX(0);transform-origin:left;
+  transition:transform 1s var(--ease);transition-delay:var(--atraso,0ms);
+}
+.mudancas li.is-visivel::before,html:not(.js) .mudancas li::before{transform:scaleX(1)}
+.mudancas li:last-child{border-bottom:0}
+.mudancas li:last-child::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:var(--linha);transform:scaleX(0);transform-origin:left;
+  transition:transform 1s var(--ease) .2s;
+}
+.mudancas li:last-child.is-visivel::after,html:not(.js) .mudancas li:last-child::after{transform:scaleX(1)}
+
+@media (prefers-reduced-motion:reduce){
+  .hero__texto,.hero__foto{transform:none !important;opacity:1 !important}
+  [data-zoom]{transform:none !important}
+  .mudancas li::before,.mudancas li:last-child::after{transform:scaleX(1) !important}
 }
