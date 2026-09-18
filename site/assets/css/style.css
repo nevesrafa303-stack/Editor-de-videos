@@ -437,9 +437,12 @@ figure:hover .moldura img{transform:scale(1.035)}
      do texto. Colunas iguais a deixam maior e centram o conjunto. */
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;
 }
-.sobre__foto{position:relative;z-index:2;margin-inline:auto;width:100%}
-/* O texto passa por baixo quando os dois se cruzam no deslize. */
-.sobre__texto{position:relative;z-index:1}
+/* A foto fica ATRÁS do texto, não na frente. Era o contrário, e por isso ela
+   aparecia pousada por cima das palavras e dos botões quando o deslize a
+   trazia para baixo. Atrás, o mesmo cruzamento vira o efeito pedido: a imagem
+   sai de baixo do texto. */
+.sobre__foto{position:relative;z-index:0;margin-inline:auto;width:100%}
+.sobre__texto{position:relative;z-index:2}
 [data-desliza]{will-change:transform}
 .marcadores{display:grid;gap:.85rem;margin-top:2.2rem}
 .marcadores li{
@@ -789,10 +792,13 @@ html:not(.js) .palavra > span{transform:none}
   body.menu-aberto{overflow:hidden}
 
   .hero__grid,.sobre__grid,.metodo__grid,.faq__grid,.contato__grid{grid-template-columns:1fr}
-  /* Empilhados, a foto desce e o texto sobe no deslize — juntos fecham até
-     ~65px. O vão precisa ser maior que isso, senão a foto cobre o rótulo
-     "Sobre mim" na entrada. */
-  .sobre__grid{gap:clamp(5rem,13vw,6.5rem)}
+  /* Empilhados, a foto desce por cima do começo do texto — é o efeito pedido,
+     não um acidente. Para ele funcionar o texto precisa ser opaco, senão a
+     imagem apareceria atravessada nas palavras. A borda de baixo da foto já se
+     dissolve sozinha (a máscara de .retrato--desvanece), então ela some por
+     baixo do texto em vez de ser cortada a régua. */
+  .sobre__grid{gap:clamp(2.5rem,7vw,3.5rem)}
+  .sobre__texto{background:var(--grafite);padding-top:1.4rem}
   .hero{min-height:auto;padding-block:calc(var(--topo-h) + 3rem) 5rem}
   /* no empilhado, o menor entre o teto de largura e o teto de altura */
   .hero__foto{

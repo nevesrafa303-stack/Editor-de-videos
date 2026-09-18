@@ -450,22 +450,33 @@
         el.style.transform = `translate3d(0, ${((centro - meio) * fator).toFixed(2)}px, 0)`;
       });
 
-      /* Deslize longo: a foto entra por baixo, encoberta pelo texto, e sobe
-         junto com a rolagem até ficar acima dele. O texto anda um pouco no
-         sentido contrário, o que separa os dois planos e é o que dá a leitura
-         de "a imagem saiu de baixo do texto".
+      /* Deslize longo da foto do "sobre mim".
 
-         `avanco` vai de 0 (a peça está entrando por baixo da tela) a 1 (está
-         saindo por cima), então o deslocamento vai de +amplitude a -amplitude.
-         Em tela estreita a amplitude cai, senão foto e texto se encavalam. */
-      const escala = innerWidth < 760 ? 0.45 : 1;
+         O movimento vai de +amplitude a 0, nunca para o negativo. Ou seja: a
+         peça entra na tela empurrada para baixo, metida por baixo do bloco de
+         texto que vem logo abaixo dela, e sobe junto com a rolagem até pousar
+         exatamente onde o layout a colocaria. É essa a leitura pedida — a
+         imagem sai de baixo do texto e termina acima dele.
+
+         A versão anterior ia de +amplitude a -amplitude. Isso tinha dois
+         defeitos: o vão entre foto e texto inchava no fim do percurso (a foto
+         subia enquanto o texto descia), e para o vão não fechar demais no
+         começo a amplitude precisava ser cortada a 45% no celular — restavam
+         102px de percurso em mais de 800px de rolagem, movimento sutil demais
+         para alguém perceber. Com o intervalo ancorado no zero o vão só encolhe,
+         nunca cresce, e a amplitude pode ser generosa.
+
+         `avanco` vai de 0 (a peça está entrando por baixo da tela) a 1 (saindo
+         por cima). O percurso todo se cumpre na primeira metade da travessia,
+         senão a foto ainda estaria se acomodando quando já saiu de vista. */
+      const escala = innerWidth < 760 ? 0.62 : 1;
       desliza.forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > innerHeight + 200) return;
         const amplitude = (Number(el.dataset.desliza) || 0) * escala;
         const avanco = 1 - (r.top + r.height / 2) / (innerHeight + r.height / 2);
-        const p = Math.max(0, Math.min(1, avanco));
-        el.style.transform = `translate3d(0, ${((0.5 - p) * 2 * amplitude).toFixed(1)}px, 0)`;
+        const p = Math.max(0, Math.min(1, avanco * 1.8));
+        el.style.transform = `translate3d(0, ${((1 - p) * amplitude).toFixed(1)}px, 0)`;
       });
 
       // as fotos de ambiente crescem de leve enquanto atravessam a tela
@@ -853,52 +864,9 @@
     setTimeout(() => { if (!pronto) tela.remove(); }, 8000);
   };
 
-  /* -- 14. menu mobile + marquee ------------------------------------------ */
-  const menu = () => {
-    const btn = $('[data-menu-btn]');
-    const nav = $('#menu');
-    if (!btn || !nav) return;
-
-    const fechar = () => {
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-label', 'Abrir menu de navegação');
-      nav.classList.remove('is-aberto');
-      document.body.classList.remove('menu-aberto');
-    };
-
-    btn.addEventListener('click', () => {
-      const aberto = btn.getAttribute('aria-expanded') === 'true';
-      if (aberto) { fechar(); return; }
-      btn.setAttribute('aria-expanded', 'true');
-      btn.setAttribute('aria-label', 'Fechar menu de navegação');
-      nav.classList.add('is-aberto');
-      document.body.classList.add('menu-aberto');
-      $('a', nav)?.focus();
-    });
-
-    $$('a', nav).forEach((a) => a.addEventListener('click', fechar));
-
-    addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { fechar(); btn.focus(); return; }
-      // menu aberto é um diálogo: o Tab circula dentro dele, não volta para a página
-      if (e.key !== 'Tab' || !nav.classList.contains('is-aberto')) return;
-      const foco = [btn, ...$$('a', nav)];
-      const i = foco.indexOf(document.activeElement);
-      if (i === -1) return;
-      e.preventDefault();
-      const proximo = e.shiftKey
-        ? foco[(i - 1 + foco.length) % foco.length]
-        : foco[(i + 1) % foco.length];
-      proximo.focus();
-    });
-    // addEventListener em MediaQueryList é recente; em navegador antigo isso
-    // estoura e derruba o resto da inicialização. O fechamento ao passar para
-    // desktop é um detalhe, não vale o risco.
-    const mq = matchMedia('(min-width: 901px)');
-    if (mq.addEventListener) mq.addEventListener('change', fechar);
-    else if (mq.addListener) mq.addListener(fechar);
-  };
-
+  /* -- 14. marquee ---------------------------------------------------------
+     O menu do celular não mora mais aqui: virou um script curto dentro do HTML,
+     para que ele continue funcionando mesmo se este arquivo não carregar. */
   const marquee = () => {
     const trilho = $('[data-marquee]');
     if (!trilho) return;
@@ -910,23 +878,42 @@
     trilho.appendChild(copia);
   };
 
-  /* -- arranque ----------------------------------------------------------- */
+  /* -- arranque ------------------------------------------------------------
+     Antes os módulos eram chamados um atrás do outro. Bastava um deles estourar
+     — um recurso que o navegador do celular não conhece, um dado faltando — e
+     todos os seguintes morriam junto, sem aviso. Era assim que o menu parava de
+     abrir por causa de um erro no mapa, três módulos antes.
+
+     Agora cada um roda isolado: se cair, cai sozinho. Os mais importantes vêm
+     primeiro, então mesmo um erro em cadeia deixa a navegação e o movimento de
+     pé. O menu não está nesta lista de propósito — ele é montado por um script
+     curto dentro do próprio HTML, que não depende deste arquivo carregar. */
+  const MODULOS = [
+    ['fatiarPalavras', fatiarPalavras],   // precisa preceder o observer
+    ['revelar', revelar],                 // libera o conteúdo antes de tudo
+    ['config', aplicarConfig],
+    ['cabecalho', cabecalho],
+    ['efeitosDeScroll', efeitosDeScroll],
+    ['comparador', comparador],
+    ['formulario', formulario],
+    ['acordeao', acordeao],
+    ['scrollspy', scrollspy],
+    ['contadores', contadores],
+    ['medidorMetodo', medidorMetodo],
+    ['marquee', marquee],
+    ['mapa', mapa],
+    ['schema', injetarSchema],
+  ];
+
   const iniciar = () => {
-    aplicarConfig();
-    injetarSchema();
-    fatiarPalavras();
-    revelar();
-    cabecalho();
-    contadores();
-    efeitosDeScroll();
-    scrollspy();
-    medidorMetodo();
-    comparador();
-    acordeao();
-    formulario();
-    mapa();
-    menu();
-    marquee();
+    MODULOS.forEach(([nome, fn]) => {
+      try {
+        fn();
+      } catch (erro) {
+        // não interrompe os outros; fica registrado para quem for depurar
+        if (window.console && console.warn) console.warn(`[site] ${nome} falhou:`, erro);
+      }
+    });
     document.documentElement.classList.add('js-pronto');
   };
 

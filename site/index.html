@@ -33,7 +33,7 @@
 
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
-<link rel="stylesheet" href="assets/css/style.css?v=7">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
 
 <script>
 /* Progressive enhancement da animação de entrada.
@@ -51,6 +51,30 @@
   }, 1200);
 })();
 </script>
+
+<noscript>
+  <!-- Sem JavaScript o painel do menu não tem o que o abra. Em vez de deixar
+       sete links inalcançáveis, o menu vira uma lista comum sob a marca e o
+       botão de sanduíche some. O cabeçalho deixa de flutuar porque, parado no
+       topo da página, ele não precisa mais se esconder ao rolar. -->
+  <style>
+    @media (max-width:900px){
+      .topo{position:static;height:auto;padding-block:.9rem}
+      .topo__grid{flex-wrap:wrap;justify-content:center;row-gap:.8rem}
+      .nav{
+        position:static;height:auto;margin:0;padding:0;
+        opacity:1;visibility:visible;transform:none;
+        background:transparent;order:3;flex:1 0 100%;
+      }
+      .nav ul{
+        flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.5rem 1.1rem;
+      }
+      .nav a{font-size:.95rem;font-family:inherit}
+      .hamburguer{display:none}
+      .hero{padding-block:2.5rem 5rem}
+    }
+  </style>
+</noscript>
 </head>
 
 <body>
@@ -96,6 +120,66 @@
     </button>
   </div>
 </header>
+
+<script>
+/* Menu do celular — de propósito aqui dentro, e não no main.js.
+   Ele já deixou de abrir duas vezes por motivos que não tinham nada a ver com
+   ele: uma vez porque o painel era position:fixed dentro de um cabeçalho que
+   ganha transform ao se esconder (e transform em um ancestral vira o bloco de
+   referência do fixed, então o painel colapsava para zero de altura); outra
+   porque um módulo anterior do main.js estourava e levava junto todos os que
+   vinham depois.
+
+   Morando no HTML, ele não depende de o main.js baixar, nem de o main.js
+   funcionar. É o único controle sem o qual não dá para navegar o site no
+   celular, então é o que menos pode depender de terceiros. */
+(function () {
+  var btn = document.querySelector('[data-menu-btn]');
+  var nav = document.getElementById('menu');
+  if (!btn || !nav) return;
+
+  function fechar() {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Abrir menu de navegação');
+    nav.classList.remove('is-aberto');
+    document.body.classList.remove('menu-aberto');
+  }
+
+  function abrir() {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.setAttribute('aria-label', 'Fechar menu de navegação');
+    nav.classList.add('is-aberto');
+    document.body.classList.add('menu-aberto');
+    var primeiro = nav.querySelector('a');
+    if (primeiro) primeiro.focus();
+  }
+
+  btn.addEventListener('click', function () {
+    if (btn.getAttribute('aria-expanded') === 'true') fechar(); else abrir();
+  });
+
+  var links = nav.querySelectorAll('a');
+  for (var i = 0; i < links.length; i++) links[i].addEventListener('click', fechar);
+
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { fechar(); btn.focus(); return; }
+    // aberto, o menu é um diálogo: o Tab circula dentro dele
+    if (e.key !== 'Tab' || nav.className.indexOf('is-aberto') === -1) return;
+    var foco = [btn];
+    for (var j = 0; j < links.length; j++) foco.push(links[j]);
+    var k = foco.indexOf(document.activeElement);
+    if (k === -1) return;
+    e.preventDefault();
+    foco[e.shiftKey ? (k - 1 + foco.length) % foco.length : (k + 1) % foco.length].focus();
+  });
+
+  // Ao voltar para a largura de desktop o painel não faz mais sentido aberto.
+  // addEventListener em MediaQueryList é recente; em navegador antigo estoura.
+  var mq = window.matchMedia('(min-width: 901px)');
+  if (mq.addEventListener) mq.addEventListener('change', fechar);
+  else if (mq.addListener) mq.addListener(fechar);
+})();
+</script>
 
 <main id="conteudo">
 
@@ -188,7 +272,7 @@
          data-revelar, que anima o próprio transform — os dois na mesma tag
          brigariam pela propriedade. -->
     <figure class="sobre__foto" data-revelar>
-      <div class="retrato retrato--desvanece" data-desliza="115">
+      <div class="retrato retrato--desvanece" data-desliza="190">
         <img src="assets/img/consuelo-sobre-820.webp"
              srcset="assets/img/consuelo-sobre-520.webp 520w,
                      assets/img/consuelo-sobre-820.webp 820w,
@@ -199,7 +283,7 @@
       </div>
     </figure>
 
-    <div class="sobre__texto" data-desliza="-30">
+    <div class="sobre__texto">
       <p class="rotulo" data-revelar>Sobre mim</p>
       <h2 class="titulo" data-revelar data-atraso="80">
         Afinal, <em>quem sou eu?</em>
@@ -857,7 +941,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="assets/js/config.js?v=7"></script>
-<script src="assets/js/main.js?v=7" defer></script>
+<script src="assets/js/config.js?v=8"></script>
+<script src="assets/js/main.js?v=8" defer></script>
 </body>
 </html>
