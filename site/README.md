@@ -35,7 +35,13 @@ Os campos marcados `// ⚠️ CONFIRMAR` são os que não apareciam nos prints:
 | `redes.facebook` `.youtube` `.pinterest` `.tiktok` | O site atual tem os ícones, mas as URLs não apareciam. `null` esconde o ícone |
 | `email` | Não aparece no site atual. `null` faz o item sumir da página inteira |
 | `google.link` | Troque pelo link do perfil do Google Business |
-| `endereco.mapaEmbed` | Opcional: cole o `src` do iframe "Incorporar um mapa" |
+
+O mapa já está configurado e aponta para o estabelecimento real. Os três links
+saem do identificador do lugar no Google Maps
+(`ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb`, CID `14717790678789036027`):
+`endereco.mapaEmbed` desenha o mapa embutido sem precisar de chave de API,
+`endereco.mapaLink` abre a ficha do consultório e `endereco.rotaLink` traça a
+rota a partir de onde a pessoa estiver.
 
 Já conferidos e corretos: nome, CRO-SC 25523, WhatsApp (47) 98860-3900,
 endereço na Hercílio Luz 642, horário de segunda a sábado 09h30–18h, cidade/UF.

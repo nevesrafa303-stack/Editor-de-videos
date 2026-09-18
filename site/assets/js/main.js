@@ -59,6 +59,10 @@
       const url = caminho(CFG, 'endereco.mapaLink');
       if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
     });
+    $$('[data-rota]').forEach((a) => {
+      const url = caminho(CFG, 'endereco.rotaLink') || caminho(CFG, 'endereco.mapaLink');
+      if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
+    });
 
     // horários
     const listas = $$('[data-horarios]');
@@ -451,14 +455,25 @@
       raiz.setPointerCapture?.(e.pointerId);
       posicionar(daPosicao(e.clientX));
       usou();
+      e.preventDefault();          // no toque, evita a rolagem competir com o gesto
     });
     raiz.addEventListener('pointermove', (e) => {
-      if (arrastando) posicionar(daPosicao(e.clientX));
+      if (!arrastando) return;
+      posicionar(daPosicao(e.clientX));
+      e.preventDefault();
     });
-    const soltar = () => { arrastando = false; raiz.classList.remove('is-arrastando'); };
+    const soltar = () => {
+      if (!arrastando) return;
+      arrastando = false;
+      raiz.classList.remove('is-arrastando');
+    };
     raiz.addEventListener('pointerup', soltar);
     raiz.addEventListener('pointercancel', soltar);
     addEventListener('pointerup', soltar);
+    addEventListener('pointercancel', soltar);
+
+    // teclado: o range tem o foco, mas quem desenha é o contêiner
+    controle.addEventListener('keydown', usou);
 
     // ao entrar em cena, a alça oscila uma vez — quem chega entende que arrasta
     if (!semMovimento && 'IntersectionObserver' in window) {
@@ -580,6 +595,19 @@
       f.referrerPolicy = 'no-referrer-when-downgrade';
       f.setAttribute('allowfullscreen', '');
       slot.appendChild(f);
+
+      const barra = document.createElement('div');
+      barra.className = 'mapa__barra';
+      barra.innerHTML = `
+        <div>
+          <strong>${end.linha1 || ''}</strong>
+          <span>${end.linha2 || ''}${end.cep ? ` · CEP ${end.cep}` : ''}</span>
+        </div>
+        <div class="mapa__acoes">
+          ${CFG.endereco?.rotaLink ? `<a class="btn btn--ouro" href="${CFG.endereco.rotaLink}" target="_blank" rel="noopener">Traçar rota</a>` : ''}
+          <a class="btn btn--escuro" href="${end.mapaLink || '#'}" target="_blank" rel="noopener">Ver no Google Maps</a>
+        </div>`;
+      slot.appendChild(barra);
       return;
     }
 

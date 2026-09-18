@@ -1159,10 +1159,15 @@ figure:hover .retrato img{transform:scale(1.02)}
 .comparador.is-arrastando .comparador__alca{background:var(--ouro);transform:translate(-50%,-50%) scale(.95)}
 .comparador.is-arrastando .comparador__rotulo{opacity:.35}
 
-/* o range fica por cima, invisível: dá teclado e leitor de tela de graça */
+/* O range existe pelo teclado e pelo leitor de tela, não pelo ponteiro.
+   Ele cobria a imagem inteira e engolia todo pointerdown: no desktop o
+   comportamento nativo do range salvava o arraste por acaso, mas no celular
+   o gesto simplesmente não chegava a lugar nenhum. Com pointer-events:none
+   os eventos caem no contêiner, onde o arraste é tratado de verdade, e o
+   foco por Tab continua funcionando. */
 .comparador__controle{
   position:absolute;inset:0;z-index:5;width:100%;height:100%;
-  margin:0;opacity:0;cursor:ew-resize;
+  margin:0;opacity:0;pointer-events:none;
 }
 .comparador__controle:focus-visible{outline:none}
 .comparador:has(.comparador__controle:focus-visible){outline:2px solid var(--ouro);outline-offset:3px}
@@ -1234,4 +1239,32 @@ figure:hover .retrato img{transform:scale(1.02)}
   .hero__texto,.hero__foto{transform:none !important;opacity:1 !important}
   [data-zoom]{transform:none !important}
   .mudancas li::before,.mudancas li:last-child::after{transform:scaleX(1) !important}
+}
+
+/* -- 15. MAPA ------------------------------------------------------------ */
+.mapa{background:var(--carvao);display:block}
+.mapa iframe{
+  width:100%;height:clamp(300px,44vh,480px);border:0;display:block;
+  filter:grayscale(.42) contrast(1.06) brightness(.94);
+  transition:filter .5s var(--ease);
+}
+.mapa:hover iframe{filter:grayscale(0) contrast(1) brightness(1)}
+.mapa__barra{
+  display:flex;flex-wrap:wrap;gap:1rem 1.6rem;
+  align-items:center;justify-content:space-between;
+  padding:1.2rem clamp(1.2rem,3vw,2rem);
+  border-top:1px solid var(--linha);
+  background:rgba(255,255,255,.04);
+}
+.mapa__barra strong{
+  display:block;font-family:var(--sans);font-weight:400;
+  font-size:var(--t-base);color:var(--creme);
+}
+.mapa__barra span{font-size:var(--t-sm);color:var(--txt-2)}
+.mapa__acoes{display:flex;flex-wrap:wrap;gap:.7rem}
+.mapa__acoes .btn{padding:.7rem 1.25rem;font-size:.82rem}
+@media (max-width:620px){
+  .mapa__barra{flex-direction:column;align-items:stretch;text-align:center}
+  .mapa__acoes{justify-content:center}
+  .mapa__acoes .btn{flex:1 1 auto}
 }

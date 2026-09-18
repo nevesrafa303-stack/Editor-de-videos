@@ -24,9 +24,13 @@ window.SITE = {
     linha2: 'Centro · Itajaí — SC',
     cep: '88301-001',
     referencia: 'No calçadão da Hercílio Luz, no Centro de Itajaí.',
-    mapaLink: 'https://www.google.com/maps/search/?api=1&query=Consult%C3%B3rio+Odontol%C3%B3gico+Dra.+Consuelo+Vasconcelos+R.+Herc%C3%ADlio+Luz+642+Itaja%C3%AD+SC',
-    // Cole o src do iframe "Incorporar um mapa" do Google Maps para exibir o mapa embutido
-    mapaEmbed: null, // ⚠️ OPCIONAL
+    // Link canônico do estabelecimento no Google Maps. O CID veio do link que a
+    // pessoa usuária enviou (ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb).
+    mapaLink: 'https://maps.google.com/?cid=14717790678789036027',
+    // Mapa embutido, apontando para o mesmo lugar. Não precisa de chave de API.
+    mapaEmbed: 'https://www.google.com/maps?ftid=0x94d8cde22e7f6527:0xcc4018a4e7c697fb&hl=pt-BR&z=17&output=embed',
+    // Traça a rota a partir de onde a pessoa estiver
+    rotaLink: 'https://www.google.com/maps/dir/?api=1&destination=R.+Herc%C3%ADlio+Luz%2C+642+-+Centro%2C+Itaja%C3%AD+-+SC%2C+88301-001',
   },
 
   /* --- Avaliações Google ------------------------------------------------ */
