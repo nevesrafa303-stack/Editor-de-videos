@@ -580,44 +580,81 @@
     });
   };
 
-  /* -- 13. mapa ----------------------------------------------------------- */
+  /* -- 13. mapa -----------------------------------------------------------
+     O endereço é o conteúdo garantido: ele é montado primeiro e fica visível
+     mesmo que o mapa não carregue. O iframe entra acima, escondido, e só ocupa
+     espaço quando confirma o carregamento — assim uma falha de rede, um
+     bloqueio de terceiros ou um navegador restrito não deixam um buraco
+     cinza no lugar da seção. */
   const mapa = () => {
     const slot = $('[data-mapa-slot]');
     if (!slot) return;
-    const src = caminho(CFG, 'endereco.mapaEmbed');
     const end = CFG.endereco || {};
+    const src = end.mapaEmbed;
 
-    if (src) {
+    const linhas = [
+      end.linha1,
+      end.linha2,
+      end.cep ? `CEP ${end.cep}` : null,
+    ].filter(Boolean);
+
+    const horarios = (CFG.horarios || [])
+      .map((h) => `<li><b>${h.dias}</b><span>${h.hora}</span></li>`).join('');
+
+    slot.innerHTML = `
+      <div class="mapa__tela" data-mapa-tela></div>
+      <div class="mapa__cartao">
+        <div class="mapa__endereco">
+          <p class="rotulo">Endereço</p>
+          <p class="mapa__rua">${linhas.join('<br>')}</p>
+          ${end.referencia ? `<p class="mapa__ref">${end.referencia}</p>` : ''}
+        </div>
+        ${horarios ? `<div class="mapa__horarios">
+          <p class="rotulo">Atendimento</p>
+          <ul class="horarios">${horarios}</ul>
+        </div>` : ''}
+        <div class="mapa__acoes">
+          ${end.rotaLink ? `<a class="btn btn--ouro" href="${end.rotaLink}" target="_blank" rel="noopener">Traçar rota</a>` : ''}
+          ${end.mapaLink ? `<a class="btn btn--escuro" href="${end.mapaLink}" target="_blank" rel="noopener">Ver no Google Maps</a>` : ''}
+        </div>
+      </div>`;
+
+    if (!src) return;
+
+    const tela = $('[data-mapa-tela]', slot);
+
+    // O iframe dispara `load` mesmo quando fica em branco — foi assim que ele
+    // reservou 400px vazios no lugar do mapa. Então a checagem não pode ser o
+    // `load`: antes de inserir qualquer coisa, uma imagem pequena do domínio do
+    // Maps diz se a rede realmente entrega. Se não entregar, o mapa não entra e
+    // fica só o cartão de endereço, que é o que importa.
+    const sonda = new Image();
+    let decidido = false;
+
+    const inserir = () => {
+      if (decidido) return;
+      decidido = true;
       const f = document.createElement('iframe');
       f.src = src;
       f.loading = 'lazy';
-      f.title = `Localização do consultório — ${CFG.nome || ''}`;
+      f.title = `Mapa do consultório — ${end.linha1 || CFG.nome || ''}`;
       f.referrerPolicy = 'no-referrer-when-downgrade';
       f.setAttribute('allowfullscreen', '');
-      slot.appendChild(f);
+      f.addEventListener('load', () => tela.classList.add('is-pronta'));
+      tela.appendChild(f);
+    };
 
-      const barra = document.createElement('div');
-      barra.className = 'mapa__barra';
-      barra.innerHTML = `
-        <div>
-          <strong>${end.linha1 || ''}</strong>
-          <span>${end.linha2 || ''}${end.cep ? ` · CEP ${end.cep}` : ''}</span>
-        </div>
-        <div class="mapa__acoes">
-          ${CFG.endereco?.rotaLink ? `<a class="btn btn--ouro" href="${CFG.endereco.rotaLink}" target="_blank" rel="noopener">Traçar rota</a>` : ''}
-          <a class="btn btn--escuro" href="${end.mapaLink || '#'}" target="_blank" rel="noopener">Ver no Google Maps</a>
-        </div>`;
-      slot.appendChild(barra);
-      return;
-    }
+    const desistir = () => {
+      if (decidido) return;
+      decidido = true;
+      tela.remove();
+    };
 
-    slot.innerHTML = `
-      <div class="mapa__vazio">
-        <strong>${end.linha1 || ''}</strong>
-        <p>${end.linha2 || ''}${end.cep ? ` · CEP ${end.cep}` : ''}</p>
-        ${end.referencia ? `<p>${end.referencia}</p>` : ''}
-        <a class="btn btn--fantasma" href="${end.mapaLink || '#'}" target="_blank" rel="noopener">Abrir no Google Maps</a>
-      </div>`;
+    sonda.addEventListener('load', inserir);
+    sonda.addEventListener('error', desistir);
+    setTimeout(desistir, 4000);
+    sonda.referrerPolicy = 'no-referrer';
+    sonda.src = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png?' + Date.now();
   };
 
   /* -- 14. menu mobile + marquee ------------------------------------------ */
