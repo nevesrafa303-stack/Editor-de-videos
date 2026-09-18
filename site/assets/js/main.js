@@ -86,12 +86,25 @@
     const NOMES = { instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube',
                     tiktok: 'TikTok', pinterest: 'Pinterest' };
     const redes = CFG.redes || {};
-    const htmlRedes = Object.keys(ICONES)
-      .filter((k) => redes[k])
+    const ativas = Object.keys(ICONES).filter((k) => redes[k]);
+    const htmlRedes = ativas
       .map((k) => `<a href="${redes[k]}" target="_blank" rel="noopener" aria-label="${NOMES[k]}">
-          <svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[k]}</svg></a>`)
+          <svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[k]}</svg><b>${NOMES[k]}</b></a>`)
       .join('');
-    $$('[data-redes]').forEach((el) => { el.innerHTML = htmlRedes; });
+    $$('[data-redes]').forEach((el) => {
+      el.innerHTML = htmlRedes;
+      // Um ícone redondo sozinho parece coisa faltando. Com uma ou duas redes
+      // o nome aparece ao lado e o link passa a parecer intencional.
+      el.classList.toggle('redes--nomeadas', ativas.length > 0 && ativas.length < 3);
+    });
+    // sem nenhuma rede, o rótulo "Me acompanhe nas redes" ficaria órfão
+    if (!ativas.length) {
+      $$('[data-redes]').forEach((el) => {
+        el.previousElementSibling?.classList.contains('rotulo--redes')
+          && el.previousElementSibling.remove();
+        el.remove();
+      });
+    }
 
     // e-mail é opcional: sem ele, o item some em vez de virar link quebrado
     if (!CFG.email) {
@@ -104,7 +117,6 @@
     const g = CFG.google || {};
     const secaoG = $('[data-google-secao]');
     if (g.nota && g.link) {
-      secaoG?.removeAttribute('hidden');
       $$('[data-google-nota]').forEach((el) => { el.textContent = g.nota; });
       $$('[data-google-link]').forEach((a) => { a.href = g.link; });
       $$('[data-google-qtd]').forEach((el) => {
@@ -114,7 +126,10 @@
       });
       $$('[data-google-selo] strong').forEach((el) => { el.textContent = `${g.nota} ★`; });
     } else {
+      secaoG?.remove();
       $$('[data-google-selo]').forEach((li) => li.remove());
+      // o menu e o rodapé não podem apontar para uma seção que não existe
+      $$('a[href="#avaliacoes"]').forEach((a) => a.closest('li')?.remove() || a.remove());
     }
 
     // título da aba + ano
@@ -260,8 +275,12 @@
 
   /* -- 5. revelar no scroll ----------------------------------------------- */
   const fatiarPalavras = () => {
-    // todo título de seção ganha a entrada palavra a palavra
-    $$('.secao .titulo').forEach((t) => t.setAttribute('data-revelar-palavras', ''));
+    // Só fatia o título se alguém for revelá-lo — ele próprio ou um bloco em
+    // volta. Fatiar um título que nunca recebe .is-visivel o esconde de vez,
+    // porque as palavras ficam fora do overflow:hidden de .palavra.
+    $$('.secao .titulo').forEach((t) => {
+      if (t.closest('[data-revelar]')) t.setAttribute('data-revelar-palavras', '');
+    });
     $$('[data-revelar-palavras]').forEach((el) => {
       const frag = document.createDocumentFragment();
       let i = 0;
@@ -508,37 +527,112 @@
     // teclado e leitor de tela vêm do próprio range
     controle.addEventListener('input', () => { posicionar(Number(controle.value)); usou(); });
 
-    // arrastar direto na imagem, com mouse ou dedo
+    /* O passo do range é 0,1 para o arraste ficar suave, mas isso deixava cada
+       seta valendo 0,1% — mil toques para atravessar a imagem. As setas passam
+       a andar 2%, com Home/End nos extremos e PageUp/PageDown de 10 em 10. */
+    const PASSOS = {
+      ArrowLeft: -2, ArrowDown: -2, ArrowRight: 2, ArrowUp: 2,
+      PageDown: -10, PageUp: 10,
+    };
+    controle.addEventListener('keydown', (e) => {
+      let destino = null;
+      if (e.key in PASSOS) destino = Number(controle.value) + PASSOS[e.key];
+      else if (e.key === 'Home') destino = 0;
+      else if (e.key === 'End') destino = 100;
+      if (destino === null) return;
+      e.preventDefault();
+      posicionar(destino);
+      usou();
+    });
+
     const daPosicao = (clientX) => {
       const r = raiz.getBoundingClientRect();
       return ((clientX - r.left) / r.width) * 100;
     };
-    let arrastando = false;
+
+    /* Mouse e caneta: Pointer Events dão conta.
+       O dedo NÃO passa por aqui — ver o bloco de toque abaixo, e o porquê. */
+    let arrastandoPonteiro = false;
     raiz.addEventListener('pointerdown', (e) => {
-      arrastando = true;
+      if (e.pointerType === 'touch') return;
+      e.preventDefault();
+      arrastandoPonteiro = true;
       raiz.classList.add('is-arrastando');
-      raiz.setPointerCapture?.(e.pointerId);
+      // setPointerCapture lança se o ponteiro já não estiver ativo; o `?.`
+      // protege contra o método não existir, não contra ele estourar.
+      try { raiz.setPointerCapture(e.pointerId); } catch (_) {}
       posicionar(daPosicao(e.clientX));
       usou();
-      e.preventDefault();          // no toque, evita a rolagem competir com o gesto
     });
     raiz.addEventListener('pointermove', (e) => {
-      if (!arrastando) return;
+      if (!arrastandoPonteiro) return;
       posicionar(daPosicao(e.clientX));
       e.preventDefault();
     });
-    const soltar = () => {
-      if (!arrastando) return;
-      arrastando = false;
+    const soltarPonteiro = () => {
+      if (!arrastandoPonteiro) return;
+      arrastandoPonteiro = false;
       raiz.classList.remove('is-arrastando');
     };
-    raiz.addEventListener('pointerup', soltar);
-    raiz.addEventListener('pointercancel', soltar);
-    addEventListener('pointerup', soltar);
-    addEventListener('pointercancel', soltar);
+    raiz.addEventListener('pointerup', soltarPonteiro);
+    raiz.addEventListener('pointercancel', soltarPonteiro);
+    addEventListener('pointerup', soltarPonteiro);
+    addEventListener('pointercancel', soltarPonteiro);
 
-    // teclado: o range tem o foco, mas quem desenha é o contêiner
-    controle.addEventListener('keydown', usou);
+    /* Dedo: Touch Events, não Pointer Events.
+       No Safari do iPhone o caminho por ponteiro não é confiável para um
+       arraste horizontal: o navegador dispara `pointercancel` assim que
+       decide que o gesto é rolagem, e aí o arraste morre no primeiro quadro.
+       Touch Events não têm esse comportamento e estão em todo lugar.
+
+       A direção é decidida no primeiro movimento: se for mais horizontal que
+       vertical, o gesto é nosso e a página não rola; se for mais vertical, a
+       pessoa está só passando pela seção e a rolagem segue normal — por isso
+       o toque não reposiciona nada antes de saber para onde vai. */
+    let toqueId = null, x0 = 0, y0 = 0, decidido = false, meu = false;
+
+    raiz.addEventListener('touchstart', (e) => {
+      if (toqueId !== null) return;
+      const t = e.changedTouches[0];
+      toqueId = t.identifier;
+      x0 = t.clientX; y0 = t.clientY;
+      decidido = false; meu = false;
+    }, { passive: true });
+
+    const doToque = (e) => {
+      for (const t of e.changedTouches) if (t.identifier === toqueId) return t;
+      return null;
+    };
+
+    raiz.addEventListener('touchmove', (e) => {
+      const t = doToque(e);
+      if (!t) return;
+      if (!decidido) {
+        const dx = Math.abs(t.clientX - x0);
+        const dy = Math.abs(t.clientY - y0);
+        if (dx < 6 && dy < 6) return;     // ainda não dá para saber
+        decidido = true;
+        meu = dx > dy;
+        if (meu) { raiz.classList.add('is-arrastando'); usou(); }
+      }
+      if (!meu) return;
+      posicionar(daPosicao(t.clientX));
+      if (e.cancelable) e.preventDefault();   // segura a rolagem durante o gesto
+    }, { passive: false });
+
+    const fimDoToque = (e) => {
+      const t = doToque(e);
+      if (!t) return;
+      // toque curto e parado = tocar para posicionar
+      if (!decidido && Math.abs(t.clientX - x0) < 6 && Math.abs(t.clientY - y0) < 6) {
+        posicionar(daPosicao(t.clientX));
+        usou();
+      }
+      toqueId = null; meu = false; decidido = false;
+      raiz.classList.remove('is-arrastando');
+    };
+    raiz.addEventListener('touchend', fimDoToque);
+    raiz.addEventListener('touchcancel', fimDoToque);
 
     // ao entrar em cena, a alça oscila uma vez — quem chega entende que arrasta
     if (!semMovimento && 'IntersectionObserver' in window) {
@@ -618,7 +712,7 @@
 
       if (nome.length < 2) { erro('nome', 'Escreva seu nome.'); valido = false; }
       if (tel.length < 10 || tel.length > 13) {
-        erro('telefone', 'Informe DDD + número (ex.: 85999998888).'); valido = false;
+        erro('telefone', 'Informe DDD + número (ex.: 47988887777).'); valido = false;
       }
       if (!assunto) { erro('assunto', 'Escolha um assunto.'); valido = false; }
       if (!ok) { erro('consentimento', 'É preciso autorizar o contato.'); valido = false; }
@@ -657,31 +751,14 @@
     const end = CFG.endereco || {};
     const src = end.mapaEmbed;
 
-    const linhas = [
-      end.linha1,
-      end.linha2,
-      end.cep ? `CEP ${end.cep}` : null,
-    ].filter(Boolean);
-
-    const horarios = (CFG.horarios || [])
-      .map((h) => `<li><b>${h.dias}</b><span>${h.hora}</span></li>`).join('');
-
+    /* O cartão não repete endereço nem horários: eles estão logo acima, nesta
+       mesma seção. Repetir os dois era o que fazia a seção dizer tudo duas
+       vezes. Ficam só as duas ações, que não existem em outro lugar. */
     slot.innerHTML = `
       <div class="mapa__tela" data-mapa-tela></div>
-      <div class="mapa__cartao">
-        <div class="mapa__endereco">
-          <p class="rotulo">Endereço</p>
-          <p class="mapa__rua">${linhas.join('<br>')}</p>
-          ${end.referencia ? `<p class="mapa__ref">${end.referencia}</p>` : ''}
-        </div>
-        ${horarios ? `<div class="mapa__horarios">
-          <p class="rotulo">Atendimento</p>
-          <ul class="horarios">${horarios}</ul>
-        </div>` : ''}
-        <div class="mapa__acoes">
-          ${end.rotaLink ? `<a class="btn btn--ouro" href="${end.rotaLink}" target="_blank" rel="noopener">Traçar rota</a>` : ''}
-          ${end.mapaLink ? `<a class="btn btn--escuro" href="${end.mapaLink}" target="_blank" rel="noopener">Ver no Google Maps</a>` : ''}
-        </div>
+      <div class="mapa__acoes">
+        ${end.rotaLink ? `<a class="btn btn--ouro" href="${end.rotaLink}" target="_blank" rel="noopener">Traçar rota</a>` : ''}
+        ${end.mapaLink ? `<a class="btn btn--escuro" href="${end.mapaLink}" target="_blank" rel="noopener">Ver no Google Maps</a>` : ''}
       </div>`;
 
     if (!src) return;

@@ -575,7 +575,7 @@ figure:hover .moldura img{transform:scale(1.035)}
 .horarios li{display:flex;flex-wrap:wrap;gap:.5rem}
 .horarios b{color:var(--prata);font-weight:500;min-width:11rem}
 
-.redes{display:flex;gap:.6rem;margin-top:2.4rem}
+.redes{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.4rem}
 .redes a{
   width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
   border:1px solid var(--linha);color:var(--prata);
@@ -583,6 +583,17 @@ figure:hover .moldura img{transform:scale(1.035)}
              border-color .3s var(--ease),transform .3s var(--ease);
 }
 .redes a:hover{background:var(--ouro);color:var(--grafite);border-color:var(--ouro);transform:translateY(-3px)}
+
+/* Um ícone redondo sozinho parece coisa faltando. Com uma ou duas redes o
+   nome entra ao lado e o link passa a parecer intencional. */
+.redes a > b{display:none}
+/* .redes.redes--nomeadas, e não só .redes--nomeadas: a regra de alvo de toque
+   lá embaixo é .redes a, de mesma especificidade, e venceria por vir depois. */
+.redes.redes--nomeadas a{
+  width:auto;min-height:46px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:.55rem;padding-inline:1.05rem;
+}
+.redes.redes--nomeadas a > b{display:inline;font-size:.82rem;font-weight:500}
 .redes svg{width:19px;height:19px;fill:none;stroke:currentColor;
   stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .redes--rodape{margin-top:1.4rem}
@@ -712,7 +723,11 @@ figure:hover .moldura img{transform:scale(1.035)}
   display:inline-block;transform:translateY(105%);
   transition:transform .9s var(--ease);transition-delay:var(--w,0ms);
 }
-.js [data-revelar-palavras].is-visivel .palavra > span{transform:none}
+.js [data-revelar-palavras].is-visivel .palavra > span,
+/* Quando quem revela é um bloco em volta, e não o próprio título. Sem esta
+   linha o título fica empurrado 100% para baixo dentro de .palavra, que tem
+   overflow:hidden — ou seja, invisível para sempre. */
+.js [data-revelar].is-visivel [data-revelar-palavras] .palavra > span{transform:none}
 html:not(.js) .palavra > span{transform:none}
 
 [data-parallax]{will-change:transform}
@@ -1283,30 +1298,17 @@ figure:hover .retrato img{transform:scale(1.02)}
   filter:brightness(.97);
 }
 
-.mapa__cartao{
-  display:grid;gap:clamp(1.4rem,3vw,2.4rem);
-  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) auto;
-  align-items:start;
-  padding:clamp(1.5rem,3.4vw,2.2rem);
+/* O cartão de endereço saiu: repetia o que já está logo acima na seção.
+   Ficaram as duas ações, lado a lado sob o mapa. */
+.mapa__acoes{
+  display:flex;gap:.7rem;justify-content:center;
+  padding:clamp(1rem,2.4vw,1.3rem);
 }
-.mapa__cartao .rotulo{margin-bottom:.7rem}
-.mapa__rua{
-  font-size:var(--t-lg);font-weight:300;line-height:1.45;color:var(--creme);
+.mapa__acoes .btn{
+  flex:0 1 240px;justify-content:center;   /* esticados de ponta a ponta ficavam desproporcionais */
+  padding:.78rem 1rem;font-size:.84rem;
 }
-.mapa__ref{margin-top:.6rem;font-size:var(--t-sm);color:var(--txt-2)}
-.mapa__horarios .horarios li{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
-.mapa__horarios .horarios b{min-width:0;color:var(--creme);font-weight:500}
-.mapa__acoes{display:flex;flex-direction:column;gap:.7rem;align-self:center}
-.mapa__acoes .btn{padding:.78rem 1.3rem;font-size:.84rem;white-space:nowrap}
-
-@media (max-width:900px){
-  .mapa__cartao{grid-template-columns:1fr 1fr;gap:1.4rem}
-  .mapa__acoes{grid-column:1/-1;flex-direction:row}
-  .mapa__acoes .btn{flex:1 1 auto;justify-content:center}
-}
-@media (max-width:560px){
-  .mapa__cartao{grid-template-columns:1fr;text-align:center}
-  .mapa__cartao .rotulo{justify-content:center}
-  .mapa__horarios .horarios li{justify-content:center}
+@media (max-width:420px){
   .mapa__acoes{flex-direction:column}
+}
 }

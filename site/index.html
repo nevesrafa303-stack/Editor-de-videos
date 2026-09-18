@@ -224,9 +224,9 @@
 <section class="secao secao--escura metodo" id="missao">
   <div class="wrap metodo__grid">
     <div class="metodo__fixo">
-      <p class="rotulo">Minha missão</p>
-      <h2 class="titulo">Cuidado que <em>transforma</em></h2>
-      <p class="secao__lead">
+      <p class="rotulo" data-revelar>Minha missão</p>
+      <h2 class="titulo" data-revelar data-atraso="80">Cuidado que <em>transforma</em></h2>
+      <p class="secao__lead" data-revelar data-atraso="140">
         Cada sorriso é único. O que se repete é o cuidado: entender antes de tratar,
         planejar antes de executar, e respeitar o que já é seu.
       </p>
@@ -502,7 +502,9 @@
 </section>
 
 <!-- ======================= AVALIAÇÕES GOOGLE ======================= -->
-<section class="secao secao--grafite avaliacoes" id="avaliacoes" data-google-secao hidden>
+<!-- Visível por padrão e removida pelo JS quando não há nota real, em vez do
+     contrário: nascendo escondida, ela nunca apareceria sem JavaScript. -->
+<section class="secao secao--grafite avaliacoes" id="avaliacoes" data-google-secao>
   <div class="wrap avaliacoes__caixa" data-revelar>
     <div class="avaliacoes__nota">
       <strong data-google-nota>5,0</strong>
@@ -700,6 +702,9 @@
     </div>
   </div>
 
+  <!-- Largura inteira, sob as duas colunas. O cartão que existia aqui repetia
+       endereço e horários já escritos acima, na mesma seção; ficaram só as
+       duas ações, que não estão em nenhum outro lugar. -->
   <div class="wrap"><div class="mapa" data-mapa-slot data-revelar></div></div>
 </section>
 
