@@ -125,6 +125,74 @@
   };
 
   /* -- 3. SEO estruturado (JSON-LD) --------------------------------------- */
+
+  // Traduz os horários escritos em português (o mesmo texto que aparece na
+  // página) para o formato que o Google entende. Assim config.js continua
+  // sendo o único lugar a editar: mudou lá, muda na página e no Google.
+  const DIAS_EN = {
+    domingo: 'Sunday', segunda: 'Monday', terca: 'Tuesday', quarta: 'Wednesday',
+    quinta: 'Thursday', sexta: 'Friday', sabado: 'Saturday',
+  };
+  const ORDEM = ['domingo','segunda','terca','quarta','quinta','sexta','sabado'];
+
+  const semAcento = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const diasDoTexto = (texto) => {
+    // "segunda-feira" viraria uma falsa faixa por causa do hífen
+    const limpo = semAcento(texto).replace(/[- ]feiras?/g, '');
+
+    if (/\btodos? os dias\b|\btodo dia\b|\bdiariamente\b/.test(limpo)) return ORDEM.slice();
+
+    // na ordem em que aparecem NO TEXTO, não na ordem da semana:
+    // "sexta a segunda" precisa começar na sexta
+    const achados = ORDEM
+      .map((dia) => ({ dia, em: limpo.indexOf(dia) }))
+      .filter((d) => d.em >= 0)
+      .sort((a, b) => a.em - b.em);
+
+    if (achados.length !== 2) return achados.map((d) => d.dia);
+
+    // só conta como faixa se o que liga os dois dias for "a", "à", "até" ou traço
+    const entre = limpo.slice(achados[0].em + achados[0].dia.length, achados[1].em);
+    if (!/^\s*(a|ate|—|–|-)\s*$/.test(entre)) return achados.map((d) => d.dia);
+
+    const i = ORDEM.indexOf(achados[0].dia);
+    const f = ORDEM.indexOf(achados[1].dia);
+    return i <= f ? ORDEM.slice(i, f + 1) : ORDEM.slice(i).concat(ORDEM.slice(0, f + 1));
+  };
+
+  const horasDoTexto = (texto) => {
+    const achados = String(texto).match(/\d{1,2}\s*[h:]\s*\d{2}/g) || [];
+    return achados.map((h) => {
+      const [hh, mm] = h.split(/[h:]/).map((n) => n.trim());
+      return `${hh.padStart(2, '0')}:${mm}`;
+    });
+  };
+
+  const horariosParaSchema = (lista) =>
+    (lista || []).map((faixa) => {
+      const dias = diasDoTexto(faixa.dias || '');
+      const horas = horasDoTexto(faixa.hora || '');
+      if (!dias.length || horas.length !== 2) return null; // "Fechado" cai aqui
+      return {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: dias.map((d) => DIAS_EN[d]),
+        opens: horas[0],
+        closes: horas[1],
+      };
+    }).filter(Boolean);
+
+  // Campos vazios são removidos: um null no JSON-LD é ruído para o Google.
+  const semVazios = (obj) => {
+    const limpo = {};
+    Object.entries(obj).forEach(([chave, valor]) => {
+      const vazio = valor == null || valor === ''
+        || (Array.isArray(valor) && !valor.length);
+      if (!vazio) limpo[chave] = valor;
+    });
+    return limpo;
+  };
+
   const injetarSchema = () => {
     const end = CFG.endereco || {};
     const dados = {
@@ -134,16 +202,13 @@
       description: document.querySelector('meta[name="description"]')?.content,
       url: CFG.site,
       image: `${CFG.site || ''}/assets/img/og-capa.jpg`,
-      telephone: CFG.telefoneExibicao,
+      // O Google pede o telefone em formato internacional, não o formatado
+      // que aparece na tela.
+      telephone: CFG.whatsapp ? `+${CFG.whatsapp}` : null,
       email: CFG.email,
       priceRange: '$$',
       medicalSpecialty: CFG.especialidade,
-      openingHoursSpecification: [{
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-        opens: '09:30',
-        closes: '18:00',
-      }],
+      openingHoursSpecification: horariosParaSchema(CFG.horarios),
       hasMap: caminho(CFG, 'endereco.mapaCanonico') || caminho(CFG, 'endereco.mapaLink'),
       address: {
         '@type': 'PostalAddress',
@@ -157,7 +222,7 @@
     };
     const tag = document.createElement('script');
     tag.type = 'application/ld+json';
-    tag.textContent = JSON.stringify(dados);
+    tag.textContent = JSON.stringify(semVazios(dados));
     document.head.appendChild(tag);
   };
 

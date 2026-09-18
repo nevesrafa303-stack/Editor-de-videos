@@ -44,6 +44,19 @@ O mapa já está configurado e aponta para o estabelecimento real:
 | `endereco.mapaCanonico` | A mesma ficha na forma longa (CID `14717790678789036027`). Vai só nos dados estruturados (`schema.org/hasMap`), que preferem URL definitiva a encurtador |
 | `endereco.rotaLink` | Traça a rota a partir de onde a pessoa estiver |
 
+### 1.2 Horários
+
+`horarios` é escrito em português e é lido duas vezes: aparece na página do
+jeito que está e é traduzido automaticamente para os dados estruturados que o
+Google usa na ficha do consultório. Então basta editar em um lugar.
+
+O tradutor entende faixas (`Segunda a sábado`, `Segunda até sexta`,
+`Sexta a segunda`, com ou sem `-feira`), listas (`Terça e quinta`),
+`Todos os dias`, e horas escritas como `09h30 — 18h00` ou `08:00 às 19:00`.
+Uma linha sem horário — `Domingo / Fechado` — aparece na página e fica de fora
+dos dados estruturados, que é o comportamento correto: lá só entram os dias em
+que há atendimento.
+
 O identificador do lugar no Google Maps é
 `ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb` / CID `14717790678789036027`.
 
