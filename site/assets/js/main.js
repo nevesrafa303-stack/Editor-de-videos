@@ -133,7 +133,7 @@
       name: CFG.nome,
       description: document.querySelector('meta[name="description"]')?.content,
       url: CFG.site,
-      image: `${CFG.site || ''}/assets/img/og-capa.svg`,
+      image: `${CFG.site || ''}/assets/img/og-capa.jpg`,
       telephone: CFG.telefoneExibicao,
       email: CFG.email,
       priceRange: '$$',
@@ -144,7 +144,7 @@
         opens: '09:30',
         closes: '18:00',
       }],
-      hasMap: caminho(CFG, 'endereco.mapaLink'),
+      hasMap: caminho(CFG, 'endereco.mapaCanonico') || caminho(CFG, 'endereco.mapaLink'),
       address: {
         '@type': 'PostalAddress',
         streetAddress: end.linha1,

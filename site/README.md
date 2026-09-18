@@ -34,16 +34,18 @@ Os campos marcados `// ⚠️ CONFIRMAR` são os que não apareciam nos prints:
 | `redes.instagram` | Chutei `@draconsuelovasconcelos` — **confirme o @ real** |
 | `redes.facebook` `.youtube` `.pinterest` `.tiktok` | O site atual tem os ícones, mas as URLs não apareciam. `null` esconde o ícone |
 | `email` | Não aparece no site atual. `null` faz o item sumir da página inteira |
-| `google.link` | Troque pelo link do perfil do Google Business |
 
-O mapa já está configurado e aponta para o estabelecimento real. Os três links
-saem do identificador do lugar no Google Maps
-(`ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb`, CID `14717790678789036027`):
-`endereco.mapaEmbed` desenha o mapa embutido sem precisar de chave de API — a
-busca é pelo **nome do consultório**, que é o que faz o Google mostrar o card do
-estabelecimento com nome, endereço e nota em vez de um pin solto;
-`endereco.mapaLink` abre a ficha do consultório e `endereco.rotaLink` traça a
-rota a partir de onde a pessoa estiver.
+O mapa já está configurado e aponta para o estabelecimento real:
+
+| Campo | Para que serve |
+|---|---|
+| `endereco.mapaEmbed` | Desenha o mapa embutido, sem chave de API. A busca é pelo **nome do consultório** — é isso que faz o Google mostrar o card com nome, endereço e nota, em vez de um pin solto |
+| `endereco.mapaLink` | Link curto oficial de compartilhamento da ficha (`maps.app.goo.gl/m1uq5LL771gd7M6t7`). Abre direto no app do Maps, no celular. É o destino do botão "Ver no Google Maps" e do botão "Ler as avaliações no Google" |
+| `endereco.mapaCanonico` | A mesma ficha na forma longa (CID `14717790678789036027`). Vai só nos dados estruturados (`schema.org/hasMap`), que preferem URL definitiva a encurtador |
+| `endereco.rotaLink` | Traça a rota a partir de onde a pessoa estiver |
+
+O identificador do lugar no Google Maps é
+`ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb` / CID `14717790678789036027`.
 
 Se quiser controle exato do enquadramento do mapa, no Google Maps abra a ficha
 do consultório → **Compartilhar** → **Incorporar um mapa** → copie só o endereço

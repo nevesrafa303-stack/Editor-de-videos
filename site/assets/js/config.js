@@ -24,9 +24,12 @@ window.SITE = {
     linha2: 'Centro · Itajaí — SC',
     cep: '88301-001',
     referencia: 'No calçadão da Hercílio Luz, no Centro de Itajaí.',
-    // Link canônico do estabelecimento no Google Maps. O CID veio do link que a
-    // pessoa usuária enviou (ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb).
-    mapaLink: 'https://maps.google.com/?cid=14717790678789036027',
+    // Link curto oficial de compartilhamento da ficha no Google Maps, enviado
+    // pela pessoa usuária. Abre a ficha do consultório no app, no celular.
+    mapaLink: 'https://maps.app.goo.gl/m1uq5LL771gd7M6t7',
+    // Mesma ficha, na forma longa (CID). Vai nos dados estruturados do Google
+    // (schema.org/hasMap), que preferem URL definitiva em vez de encurtador.
+    mapaCanonico: 'https://maps.google.com/?cid=14717790678789036027',
     // Mapa embutido. A busca é pelo NOME do consultório, não pelo endereço:
     // é assim que o Google mostra o card do estabelecimento (nome, endereço e
     // nota) em vez de um pin solto. Não precisa de chave de API.
@@ -44,8 +47,8 @@ window.SITE = {
   google: {
     nota: '5,0',
     quantidade: 5,
-    // ⚠️ CONFIRMAR — troque pelo link "Escrever avaliação"/perfil do Google Business
-    link: 'https://www.google.com/maps/search/?api=1&query=Consult%C3%B3rio+Odontol%C3%B3gico+Dra.+Consuelo+Vasconcelos+Itaja%C3%AD',
+    // Mesma ficha do Maps: é lá que ficam as avaliações públicas.
+    link: 'https://maps.app.goo.gl/m1uq5LL771gd7M6t7',
   },
 
   /* --- Horários --------------------------------------------------------- */
