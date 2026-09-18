@@ -93,7 +93,7 @@ parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
 | `clinica-*.webp` | Seção "A clínica" |
 | `testa-*.webp` | Segundo antes/depois (linhas da testa) |
-| `logo-clara.png` / `logo-escura.png` | A marca. Duas tintas porque o cabeçalho começa transparente sobre o hero escuro e fica claro depois de rolar; as duas se cruzam |
+| `logo-ouro.png` / `logo-ouro-escuro.png` | A marca, dourada. Duas tintas porque o cabeçalho começa transparente sobre o hero escuro e fica claro depois de rolar; as duas se cruzam. O ouro da marca (`#C9A96A`) dá 8,35:1 sobre o escuro mas só 2,15:1 sobre o claro, então ali entra um ouro mais fundo (`#7A5D24`, 5,88:1) |
 | `favicon-*.png`, `apple-touch-icon.png` | Ícones, recortados do monograma da própria marca |
 | `caso-labial-*.webp` | Seção "Resultados" |
 | `og-capa.jpg` | Miniatura no WhatsApp, Instagram e Facebook |
