@@ -338,9 +338,24 @@
     if (!document.documentElement.classList.contains('js')) return;
 
     // o hero entra por CSS na carga (sem esperar o observer) — isso tirou ~1s do LCP
-    $$('[data-entrada]').forEach((el) => {
+    const entradas = $$('[data-entrada]');
+    entradas.forEach((el) => {
       if (el.dataset.atraso) el.style.setProperty('--atraso', `${el.dataset.atraso}ms`);
     });
+
+    /* Assim que a entrada acaba, a marca .entrou desliga a animação. Sem isso
+       o `forwards` continua valendo para sempre e vence o style inline, o que
+       deixava a foto do hero imóvel — o motor de scroll escrevia nela e nada
+       acontecia. O animationend sobe na árvore, então um ouvinte só dá conta.
+       A rede de segurança cobre o caso de o evento não vir (aba em segundo
+       plano na carga, animação cancelada): passado o tempo da mais demorada,
+       libera todas. */
+    const liberar = (el) => el.classList.add('entrou');
+    document.addEventListener('animationend', (e) => {
+      if (e.animationName === 'entra' && e.target.hasAttribute('data-entrada')) liberar(e.target);
+    });
+    const maiorAtraso = entradas.reduce((m, el) => Math.max(m, Number(el.dataset.atraso) || 0), 0);
+    setTimeout(() => entradas.forEach(liberar), maiorAtraso + 1600);
 
     // cascata: cada filho de um grupo entra um pouco depois do anterior
     $$('[data-cascata]').forEach((grupo) => {
@@ -427,16 +442,25 @@
 
       // profundidade na primeira dobra: o texto sobe mais que a foto e some
       // antes dela, o que dá a sensação de dois planos distintos
+      /* Profundidade na primeira dobra: lado a lado, o texto sobe mais que a
+         foto e some antes dela, o que dá a sensação de dois planos distintos.
+
+         Empilhados (celular), porém, não há dois planos — há um em cima do
+         outro. Ali o deslocamento diferente só serve para o texto e os botões
+         descerem em cima da foto, e era o que acontecia: a 300px de rolagem os
+         selos já invadiam a foto, a 900px estavam 104px dentro dela. No
+         empilhado os dois andam juntos e só se dissolvem. */
       if (hero) {
         const alturaHero = hero.offsetHeight || innerHeight;
         const p = Math.min(1, y / alturaHero);
+        const empilhado = innerWidth <= 900;
         if (p < 1.02) {
           if (heroTexto) {
-            heroTexto.style.transform = `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
+            heroTexto.style.transform = empilhado ? '' : `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
             heroTexto.style.opacity = String(Math.max(0, 1 - p * 1.35));
           }
           if (heroFoto) {
-            heroFoto.style.transform = `translate3d(0, ${(y * 0.05).toFixed(1)}px, 0)`;
+            heroFoto.style.transform = empilhado ? '' : `translate3d(0, ${(y * 0.05).toFixed(1)}px, 0)`;
             heroFoto.style.opacity = String(Math.max(0, 1 - p * 1.1));
           }
         }

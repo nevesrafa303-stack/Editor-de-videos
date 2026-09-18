@@ -963,6 +963,14 @@ html:not(.js) .palavra > span{transform:none}
   animation-delay:var(--atraso,0ms);
 }
 @keyframes entra{to{opacity:1;transform:none}}
+/* Terminada a entrada, a animação precisa SAIR do caminho.
+   Uma animação com `forwards` continua valendo depois de acabar, e no cascata
+   ela ganha do style inline — então tudo que o motor de scroll escrevesse em
+   .hero__foto (transform e opacity) era simplesmente ignorado. A foto ficava
+   congelada enquanto o texto descia por cima dela: era esse o "a foto está
+   parada em cima dos textos e botões". Com a animação desligada no fim, o
+   inline volta a mandar. */
+.js [data-entrada].entrou{animation:none;opacity:1;transform:none}
 
 /* 11.2 Alvos de toque: 16 elementos mediam menos de 44px de altura no mobile.
    Os links de navegação e de contato ganham área clicável real. */
