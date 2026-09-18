@@ -33,7 +33,7 @@
 
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
-<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
 
 <script>
 /* Progressive enhancement da animação de entrada.
@@ -53,25 +53,29 @@
 </script>
 
 <noscript>
-  <!-- Sem JavaScript o painel do menu não tem o que o abra. Em vez de deixar
-       sete links inalcançáveis, o menu vira uma lista comum sob a marca e o
-       botão de sanduíche some. O cabeçalho deixa de flutuar porque, parado no
-       topo da página, ele não precisa mais se esconder ao rolar. -->
+  <!-- Sem JavaScript o botão de sanduíche não tem quem o escute, e os sete
+       links do painel ficariam inalcançáveis. A primeira versão disto abria a
+       lista inteira sob a marca — resolvia o alcance, mas empurrava o conteúdo
+       para baixo e não era o que se espera de um menu no celular.
+
+       Aqui o mesmo botão volta ao canto e abre de verdade, só com CSS: o link
+       aponta para #menu e a regra :target abre o painel. Clicar em qualquer
+       opção muda o alvo para a seção escolhida, então o painel se fecha
+       sozinho — sem uma linha de script. -->
   <style>
     @media (max-width:900px){
-      .topo{position:static;height:auto;padding-block:.9rem}
-      .topo__grid{flex-wrap:wrap;justify-content:center;row-gap:.8rem}
-      .nav{
-        position:static;height:auto;margin:0;padding:0;
-        opacity:1;visibility:visible;transform:none;
-        background:transparent;order:3;flex:1 0 100%;
-      }
-      .nav ul{
-        flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.5rem 1.1rem;
-      }
-      .nav a{font-size:.95rem;font-family:inherit}
-      .hamburguer{display:none}
-      .hero{padding-block:2.5rem 5rem}
+      /* o <button> do JS não faz nada aqui; quem aparece é o link */
+      button.hamburguer{display:none !important}
+      .topo__grid > noscript{display:flex;align-items:center;margin-left:auto}
+      .hamburguer--semjs{display:none !important;margin-left:0}
+      .hamburguer--semjs.hamburguer--abrir{display:flex !important}
+      #menu:target{opacity:1;visibility:visible;transform:none}
+      #menu:target ~ noscript .hamburguer--abrir{display:none !important}
+      #menu:target ~ noscript .hamburguer--fechar{display:flex !important}
+      /* o link de fechar mostra o X, igual ao botão com aria-expanded */
+      .hamburguer--fechar span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+      .hamburguer--fechar span:nth-child(2){opacity:0;width:100%}
+      .hamburguer--fechar span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     }
   </style>
 </noscript>
@@ -118,6 +122,15 @@
             aria-label="Abrir menu de navegação">
       <span></span><span></span><span></span>
     </button>
+
+    <!-- Só entram no documento quando não há JavaScript. Com script ligado o
+         navegador nem cria estes elementos, então não há dois botões. -->
+    <noscript>
+      <a class="hamburguer hamburguer--semjs hamburguer--abrir" href="#menu"
+         aria-label="Abrir menu de navegação"><span></span><span></span><span></span></a>
+      <a class="hamburguer hamburguer--semjs hamburguer--fechar" href="#inicio"
+         aria-label="Fechar menu de navegação"><span></span><span></span><span></span></a>
+    </noscript>
   </div>
 </header>
 
@@ -941,7 +954,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="assets/js/config.js?v=8"></script>
-<script src="assets/js/main.js?v=8" defer></script>
+<script src="assets/js/config.js?v=9"></script>
+<script src="assets/js/main.js?v=9" defer></script>
 </body>
 </html>
