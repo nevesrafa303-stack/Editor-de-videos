@@ -1,6 +1,6 @@
 Dra. Consuelo Vasconcelos — site
-versao 12
-gerado em 18/09/2026 21:09
+versao 13
+gerado em 18/09/2026 21:39
 
 Se este numero nao for o mesmo do arquivo que voce publicou,
 o envio nao substituiu os arquivos antigos no servidor.

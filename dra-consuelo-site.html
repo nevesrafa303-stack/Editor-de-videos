@@ -348,18 +348,6 @@ figure:hover .moldura img{transform:scale(1.035)}
 .nav a:hover::after,.nav a.is-ativo::after{transform:scaleX(1);transform-origin:left}
 .topo__cta{padding:.62rem 1.15rem;font-size:.8rem}
 
-.hamburguer{
-  display:none;width:44px;height:44px;flex-direction:column;
-  justify-content:center;gap:5px;padding:0 10px;margin-left:auto;
-}
-.hamburguer span{
-  display:block;height:1.5px;background:currentColor;border-radius:2px;
-  transition:transform .35s var(--ease),opacity .2s var(--ease),width .35s var(--ease);
-}
-.hamburguer span:nth-child(2){width:70%;margin-left:auto}
-.hamburguer[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.hamburguer[aria-expanded="true"] span:nth-child(2){opacity:0;width:100%}
-.hamburguer[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
 /* 6.3 hero */
 .hero{
@@ -798,7 +786,7 @@ html:not(.js) .palavra > span{transform:none}
 @media (max-width:900px){
   :root{--topo-h:66px}
   .topo__cta{display:none}
-  .hamburguer{display:flex}
+
   /* O painel é posicionado em relação ao PRÓPRIO cabeçalho, não à janela.
      Era `position:fixed` dentro do `.topo`, e o `.topo` ganha `transform` ao
      se esconder na rolagem. Um ancestral transformado vira o contêiner dos
@@ -809,24 +797,13 @@ html:not(.js) .palavra > span{transform:none}
      As quatro bordas vão escritas uma a uma em vez de `inset`: se o navegador
      ignora a propriedade nova, perde as quatro âncoras de uma vez e o painel
      encolhe para o canto. */
-  .nav{
-    position:absolute;
-    top:100%;left:0;right:0;margin:0;
-    height:calc(100vh - var(--topo-h));
-    height:calc(100svh - var(--topo-h));
-    z-index:5;
-    overflow-y:auto;                 /* tela muito baixa: rola em vez de cortar */
-    background:var(--grafite);color:var(--txt);
-    display:grid;place-items:center;
-    opacity:0;visibility:hidden;transform:translateY(-8px);
-    transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s;
-  }
-  .nav.is-aberto{opacity:1;visibility:visible;transform:none}
-  /* com o menu aberto o cabeçalho não pode se esconder e levar o painel junto */
-  body.menu-aberto .topo{transform:none}
-  .nav ul{flex-direction:column;gap:1.5rem;text-align:center}
-  .nav a{font-size:1.35rem;font-family:var(--serif);opacity:1}
-  body.menu-aberto{overflow:hidden}
+  /* Sem botão de sanduíche, o painel de navegação não teria como abrir: no
+     celular a navegação some inteira, a pedido. O <nav> continua no HTML —
+     é dele que o rótulo da seção atual no topo tira os nomes — mas fora da
+     tela e fora da ordem de foco, para não virar um alvo invisível de Tab.
+     A navegação no celular passa a ser a rolagem, os links dentro do próprio
+     conteúdo e a barra fixa de baixo. */
+  .nav{display:none}
 
   .hero__grid,.sobre__grid,.metodo__grid,.faq__grid,.contato__grid{grid-template-columns:1fr}
   /* Empilhados, a foto desce por cima do começo do texto — é o efeito pedido,
@@ -940,6 +917,28 @@ html:not(.js) .palavra > span{transform:none}
 .hero__selos span{
   font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--txt-3);
 }
+
+/* Selos do hero no celular.
+
+   Eram um flex com flex-wrap e um vão de 4vw. Num iPhone de 360 a 390px os
+   três não cabiam na linha e quebravam em 2+1: "CRO-SC" e "5,0 ★" em cima,
+   "Centro" sozinho embaixo, desencontrado do resto. Acima disso cabiam, mas
+   encostados nas duas bordas, porque o vão elástico já tinha sido todo
+   consumido.
+
+   Agora são três colunas de largura natural distribuídas entre as margens:
+   sempre uma linha só, sempre alinhadas ao recuo da página dos dois lados. O
+   rótulo perde um pouco de espacejamento para o conjunto caber com folga —
+   "CIRURGIÃ-DENTISTA" é o mais largo dos três e era ele que forçava a quebra. */
+@media (max-width:620px){
+  .hero__selos{
+    display:grid;grid-auto-flow:column;grid-auto-columns:max-content;
+    justify-content:space-between;gap:.9rem;
+  }
+  .hero__selos strong{font-size:1.02rem}
+  .hero__selos span{font-size:.62rem;letter-spacing:.1em}
+}
+
 
 /* subtítulo interno da seção "Sobre" */
 .sobre__sub{
@@ -1134,7 +1133,6 @@ html:not(.js) .palavra > span{transform:none}
 /* 11.7 O menu aberto é um diálogo: nada atrás dele deve rolar nem receber foco. */
 @media (max-width:900px){
   .nav{overscroll-behavior:contain}
-  body.menu-aberto .barra-acoes{transform:translateY(105%)}
 }
 
 /* 11.8 Últimos alvos abaixo de 44px (logo, links curtos do rodapé, caixa de
@@ -1515,31 +1513,9 @@ figure:hover .retrato img{transform:scale(1.02)}
 </script>
 
 <noscript>
-  <!-- Sem JavaScript o botão de sanduíche não tem quem o escute, e os sete
-       links do painel ficariam inalcançáveis. A primeira versão disto abria a
-       lista inteira sob a marca — resolvia o alcance, mas empurrava o conteúdo
-       para baixo e não era o que se espera de um menu no celular.
-
-       Aqui o mesmo botão volta ao canto e abre de verdade, só com CSS: o link
-       aponta para #menu e a regra :target abre o painel. Clicar em qualquer
-       opção muda o alvo para a seção escolhida, então o painel se fecha
-       sozinho — sem uma linha de script. -->
-  <style>
-    @media (max-width:900px){
-      /* o <button> do JS não faz nada aqui; quem aparece é o link */
-      button.hamburguer{display:none !important}
-      .topo__grid > noscript{display:flex;align-items:center;margin-left:auto}
-      .hamburguer--semjs{display:none !important;margin-left:0}
-      .hamburguer--semjs.hamburguer--abrir{display:flex !important}
-      #menu:target{opacity:1;visibility:visible;transform:none}
-      #menu:target ~ noscript .hamburguer--abrir{display:none !important}
-      #menu:target ~ noscript .hamburguer--fechar{display:flex !important}
-      /* o link de fechar mostra o X, igual ao botão com aria-expanded */
-      .hamburguer--fechar span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-      .hamburguer--fechar span:nth-child(2){opacity:0;width:100%}
-      .hamburguer--fechar span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    }
-  </style>
+  <!-- A navegação do celular foi removida a pedido, então aqui não há painel
+       a abrir. No desktop o menu é uma lista sempre visível, que não depende
+       de script nenhum: sem JavaScript continua tudo alcançável. -->
 </noscript>
 </head>
 
@@ -1580,81 +1556,8 @@ figure:hover .retrato img{transform:scale(1.02)}
 
     <a class="btn btn--ouro topo__cta" data-wa href="#contato">Agendar consulta</a>
 
-    <button class="hamburguer" data-menu-btn aria-expanded="false" aria-controls="menu"
-            aria-label="Abrir menu de navegação">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Só entram no documento quando não há JavaScript. Com script ligado o
-         navegador nem cria estes elementos, então não há dois botões. -->
-    <noscript>
-      <a class="hamburguer hamburguer--semjs hamburguer--abrir" href="#menu"
-         aria-label="Abrir menu de navegação"><span></span><span></span><span></span></a>
-      <a class="hamburguer hamburguer--semjs hamburguer--fechar" href="#inicio"
-         aria-label="Fechar menu de navegação"><span></span><span></span><span></span></a>
-    </noscript>
   </div>
 </header>
-
-<script>
-/* Menu do celular — de propósito aqui dentro, e não no main.js.
-   Ele já deixou de abrir duas vezes por motivos que não tinham nada a ver com
-   ele: uma vez porque o painel era position:fixed dentro de um cabeçalho que
-   ganha transform ao se esconder (e transform em um ancestral vira o bloco de
-   referência do fixed, então o painel colapsava para zero de altura); outra
-   porque um módulo anterior do main.js estourava e levava junto todos os que
-   vinham depois.
-
-   Morando no HTML, ele não depende de o main.js baixar, nem de o main.js
-   funcionar. É o único controle sem o qual não dá para navegar o site no
-   celular, então é o que menos pode depender de terceiros. */
-(function () {
-  var btn = document.querySelector('[data-menu-btn]');
-  var nav = document.getElementById('menu');
-  if (!btn || !nav) return;
-
-  function fechar() {
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-label', 'Abrir menu de navegação');
-    nav.classList.remove('is-aberto');
-    document.body.classList.remove('menu-aberto');
-  }
-
-  function abrir() {
-    btn.setAttribute('aria-expanded', 'true');
-    btn.setAttribute('aria-label', 'Fechar menu de navegação');
-    nav.classList.add('is-aberto');
-    document.body.classList.add('menu-aberto');
-    var primeiro = nav.querySelector('a');
-    if (primeiro) primeiro.focus();
-  }
-
-  btn.addEventListener('click', function () {
-    if (btn.getAttribute('aria-expanded') === 'true') fechar(); else abrir();
-  });
-
-  var links = nav.querySelectorAll('a');
-  for (var i = 0; i < links.length; i++) links[i].addEventListener('click', fechar);
-
-  window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { fechar(); btn.focus(); return; }
-    // aberto, o menu é um diálogo: o Tab circula dentro dele
-    if (e.key !== 'Tab' || nav.className.indexOf('is-aberto') === -1) return;
-    var foco = [btn];
-    for (var j = 0; j < links.length; j++) foco.push(links[j]);
-    var k = foco.indexOf(document.activeElement);
-    if (k === -1) return;
-    e.preventDefault();
-    foco[e.shiftKey ? (k - 1 + foco.length) % foco.length : (k + 1) % foco.length].focus();
-  });
-
-  // Ao voltar para a largura de desktop o painel não faz mais sentido aberto.
-  // addEventListener em MediaQueryList é recente; em navegador antigo estoura.
-  var mq = window.matchMedia('(min-width: 901px)');
-  if (mq.addEventListener) mq.addEventListener('change', fechar);
-  else if (mq.addListener) mq.addListener(fechar);
-})();
-</script>
 
 <main id="conteudo">
 

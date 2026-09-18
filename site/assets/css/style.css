@@ -311,18 +311,6 @@ figure:hover .moldura img{transform:scale(1.035)}
 .nav a:hover::after,.nav a.is-ativo::after{transform:scaleX(1);transform-origin:left}
 .topo__cta{padding:.62rem 1.15rem;font-size:.8rem}
 
-.hamburguer{
-  display:none;width:44px;height:44px;flex-direction:column;
-  justify-content:center;gap:5px;padding:0 10px;margin-left:auto;
-}
-.hamburguer span{
-  display:block;height:1.5px;background:currentColor;border-radius:2px;
-  transition:transform .35s var(--ease),opacity .2s var(--ease),width .35s var(--ease);
-}
-.hamburguer span:nth-child(2){width:70%;margin-left:auto}
-.hamburguer[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.hamburguer[aria-expanded="true"] span:nth-child(2){opacity:0;width:100%}
-.hamburguer[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
 /* 6.3 hero */
 .hero{
@@ -761,7 +749,7 @@ html:not(.js) .palavra > span{transform:none}
 @media (max-width:900px){
   :root{--topo-h:66px}
   .topo__cta{display:none}
-  .hamburguer{display:flex}
+
   /* O painel é posicionado em relação ao PRÓPRIO cabeçalho, não à janela.
      Era `position:fixed` dentro do `.topo`, e o `.topo` ganha `transform` ao
      se esconder na rolagem. Um ancestral transformado vira o contêiner dos
@@ -772,24 +760,13 @@ html:not(.js) .palavra > span{transform:none}
      As quatro bordas vão escritas uma a uma em vez de `inset`: se o navegador
      ignora a propriedade nova, perde as quatro âncoras de uma vez e o painel
      encolhe para o canto. */
-  .nav{
-    position:absolute;
-    top:100%;left:0;right:0;margin:0;
-    height:calc(100vh - var(--topo-h));
-    height:calc(100svh - var(--topo-h));
-    z-index:5;
-    overflow-y:auto;                 /* tela muito baixa: rola em vez de cortar */
-    background:var(--grafite);color:var(--txt);
-    display:grid;place-items:center;
-    opacity:0;visibility:hidden;transform:translateY(-8px);
-    transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s;
-  }
-  .nav.is-aberto{opacity:1;visibility:visible;transform:none}
-  /* com o menu aberto o cabeçalho não pode se esconder e levar o painel junto */
-  body.menu-aberto .topo{transform:none}
-  .nav ul{flex-direction:column;gap:1.5rem;text-align:center}
-  .nav a{font-size:1.35rem;font-family:var(--serif);opacity:1}
-  body.menu-aberto{overflow:hidden}
+  /* Sem botão de sanduíche, o painel de navegação não teria como abrir: no
+     celular a navegação some inteira, a pedido. O <nav> continua no HTML —
+     é dele que o rótulo da seção atual no topo tira os nomes — mas fora da
+     tela e fora da ordem de foco, para não virar um alvo invisível de Tab.
+     A navegação no celular passa a ser a rolagem, os links dentro do próprio
+     conteúdo e a barra fixa de baixo. */
+  .nav{display:none}
 
   .hero__grid,.sobre__grid,.metodo__grid,.faq__grid,.contato__grid{grid-template-columns:1fr}
   /* Empilhados, a foto desce por cima do começo do texto — é o efeito pedido,
@@ -903,6 +880,28 @@ html:not(.js) .palavra > span{transform:none}
 .hero__selos span{
   font-size:var(--t-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--txt-3);
 }
+
+/* Selos do hero no celular.
+
+   Eram um flex com flex-wrap e um vão de 4vw. Num iPhone de 360 a 390px os
+   três não cabiam na linha e quebravam em 2+1: "CRO-SC" e "5,0 ★" em cima,
+   "Centro" sozinho embaixo, desencontrado do resto. Acima disso cabiam, mas
+   encostados nas duas bordas, porque o vão elástico já tinha sido todo
+   consumido.
+
+   Agora são três colunas de largura natural distribuídas entre as margens:
+   sempre uma linha só, sempre alinhadas ao recuo da página dos dois lados. O
+   rótulo perde um pouco de espacejamento para o conjunto caber com folga —
+   "CIRURGIÃ-DENTISTA" é o mais largo dos três e era ele que forçava a quebra. */
+@media (max-width:620px){
+  .hero__selos{
+    display:grid;grid-auto-flow:column;grid-auto-columns:max-content;
+    justify-content:space-between;gap:.9rem;
+  }
+  .hero__selos strong{font-size:1.02rem}
+  .hero__selos span{font-size:.62rem;letter-spacing:.1em}
+}
+
 
 /* subtítulo interno da seção "Sobre" */
 .sobre__sub{
@@ -1097,7 +1096,6 @@ html:not(.js) .palavra > span{transform:none}
 /* 11.7 O menu aberto é um diálogo: nada atrás dele deve rolar nem receber foco. */
 @media (max-width:900px){
   .nav{overscroll-behavior:contain}
-  body.menu-aberto .barra-acoes{transform:translateY(105%)}
 }
 
 /* 11.8 Últimos alvos abaixo de 44px (logo, links curtos do rodapé, caixa de

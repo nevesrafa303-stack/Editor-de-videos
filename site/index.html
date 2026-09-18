@@ -34,7 +34,7 @@
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
 <meta name="versao-do-site" content="11">
-<link rel="stylesheet" href="assets/css/style.css?v=12">
+<link rel="stylesheet" href="assets/css/style.css?v=13">
 
 <script>
 /* Progressive enhancement da animação de entrada.
@@ -54,31 +54,9 @@
 </script>
 
 <noscript>
-  <!-- Sem JavaScript o botão de sanduíche não tem quem o escute, e os sete
-       links do painel ficariam inalcançáveis. A primeira versão disto abria a
-       lista inteira sob a marca — resolvia o alcance, mas empurrava o conteúdo
-       para baixo e não era o que se espera de um menu no celular.
-
-       Aqui o mesmo botão volta ao canto e abre de verdade, só com CSS: o link
-       aponta para #menu e a regra :target abre o painel. Clicar em qualquer
-       opção muda o alvo para a seção escolhida, então o painel se fecha
-       sozinho — sem uma linha de script. -->
-  <style>
-    @media (max-width:900px){
-      /* o <button> do JS não faz nada aqui; quem aparece é o link */
-      button.hamburguer{display:none !important}
-      .topo__grid > noscript{display:flex;align-items:center;margin-left:auto}
-      .hamburguer--semjs{display:none !important;margin-left:0}
-      .hamburguer--semjs.hamburguer--abrir{display:flex !important}
-      #menu:target{opacity:1;visibility:visible;transform:none}
-      #menu:target ~ noscript .hamburguer--abrir{display:none !important}
-      #menu:target ~ noscript .hamburguer--fechar{display:flex !important}
-      /* o link de fechar mostra o X, igual ao botão com aria-expanded */
-      .hamburguer--fechar span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-      .hamburguer--fechar span:nth-child(2){opacity:0;width:100%}
-      .hamburguer--fechar span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    }
-  </style>
+  <!-- A navegação do celular foi removida a pedido, então aqui não há painel
+       a abrir. No desktop o menu é uma lista sempre visível, que não depende
+       de script nenhum: sem JavaScript continua tudo alcançável. -->
 </noscript>
 </head>
 
@@ -119,81 +97,8 @@
 
     <a class="btn btn--ouro topo__cta" data-wa href="#contato">Agendar consulta</a>
 
-    <button class="hamburguer" data-menu-btn aria-expanded="false" aria-controls="menu"
-            aria-label="Abrir menu de navegação">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Só entram no documento quando não há JavaScript. Com script ligado o
-         navegador nem cria estes elementos, então não há dois botões. -->
-    <noscript>
-      <a class="hamburguer hamburguer--semjs hamburguer--abrir" href="#menu"
-         aria-label="Abrir menu de navegação"><span></span><span></span><span></span></a>
-      <a class="hamburguer hamburguer--semjs hamburguer--fechar" href="#inicio"
-         aria-label="Fechar menu de navegação"><span></span><span></span><span></span></a>
-    </noscript>
   </div>
 </header>
-
-<script>
-/* Menu do celular — de propósito aqui dentro, e não no main.js.
-   Ele já deixou de abrir duas vezes por motivos que não tinham nada a ver com
-   ele: uma vez porque o painel era position:fixed dentro de um cabeçalho que
-   ganha transform ao se esconder (e transform em um ancestral vira o bloco de
-   referência do fixed, então o painel colapsava para zero de altura); outra
-   porque um módulo anterior do main.js estourava e levava junto todos os que
-   vinham depois.
-
-   Morando no HTML, ele não depende de o main.js baixar, nem de o main.js
-   funcionar. É o único controle sem o qual não dá para navegar o site no
-   celular, então é o que menos pode depender de terceiros. */
-(function () {
-  var btn = document.querySelector('[data-menu-btn]');
-  var nav = document.getElementById('menu');
-  if (!btn || !nav) return;
-
-  function fechar() {
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-label', 'Abrir menu de navegação');
-    nav.classList.remove('is-aberto');
-    document.body.classList.remove('menu-aberto');
-  }
-
-  function abrir() {
-    btn.setAttribute('aria-expanded', 'true');
-    btn.setAttribute('aria-label', 'Fechar menu de navegação');
-    nav.classList.add('is-aberto');
-    document.body.classList.add('menu-aberto');
-    var primeiro = nav.querySelector('a');
-    if (primeiro) primeiro.focus();
-  }
-
-  btn.addEventListener('click', function () {
-    if (btn.getAttribute('aria-expanded') === 'true') fechar(); else abrir();
-  });
-
-  var links = nav.querySelectorAll('a');
-  for (var i = 0; i < links.length; i++) links[i].addEventListener('click', fechar);
-
-  window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { fechar(); btn.focus(); return; }
-    // aberto, o menu é um diálogo: o Tab circula dentro dele
-    if (e.key !== 'Tab' || nav.className.indexOf('is-aberto') === -1) return;
-    var foco = [btn];
-    for (var j = 0; j < links.length; j++) foco.push(links[j]);
-    var k = foco.indexOf(document.activeElement);
-    if (k === -1) return;
-    e.preventDefault();
-    foco[e.shiftKey ? (k - 1 + foco.length) % foco.length : (k + 1) % foco.length].focus();
-  });
-
-  // Ao voltar para a largura de desktop o painel não faz mais sentido aberto.
-  // addEventListener em MediaQueryList é recente; em navegador antigo estoura.
-  var mq = window.matchMedia('(min-width: 901px)');
-  if (mq.addEventListener) mq.addEventListener('change', fechar);
-  else if (mq.addListener) mq.addListener(fechar);
-})();
-</script>
 
 <main id="conteudo">
 
@@ -963,7 +868,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="assets/js/config.js?v=12"></script>
-<script src="assets/js/main.js?v=12" defer></script>
+<script src="assets/js/config.js?v=13"></script>
+<script src="assets/js/main.js?v=13" defer></script>
 </body>
 </html>
