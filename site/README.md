@@ -39,9 +39,22 @@ Os campos marcados `// ⚠️ CONFIRMAR` são os que não apareciam nos prints:
 O mapa já está configurado e aponta para o estabelecimento real. Os três links
 saem do identificador do lugar no Google Maps
 (`ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb`, CID `14717790678789036027`):
-`endereco.mapaEmbed` desenha o mapa embutido sem precisar de chave de API,
+`endereco.mapaEmbed` desenha o mapa embutido sem precisar de chave de API — a
+busca é pelo **nome do consultório**, que é o que faz o Google mostrar o card do
+estabelecimento com nome, endereço e nota em vez de um pin solto;
 `endereco.mapaLink` abre a ficha do consultório e `endereco.rotaLink` traça a
 rota a partir de onde a pessoa estiver.
+
+Se quiser controle exato do enquadramento do mapa, no Google Maps abra a ficha
+do consultório → **Compartilhar** → **Incorporar um mapa** → copie só o endereço
+de dentro de `src="..."` (começa com `https://www.google.com/maps/embed?pb=...`)
+e cole em `endereco.mapaEmbed`. Os dois formatos funcionam.
+
+O mapa é uma camada opcional: o cartão com endereço, referência, horários e os
+botões de rota é montado primeiro e fica visível mesmo se o mapa não carregar.
+Antes de inserir o iframe o site carrega uma imagem pequena do domínio do Maps
+como sonda — sem ela, o mapa não entra e não sobra espaço vazio. Isso existe
+porque o iframe do Google dispara `load` mesmo quando fica em branco.
 
 Já conferidos e corretos: nome, CRO-SC 25523, WhatsApp (47) 98860-3900,
 endereço na Hercílio Luz 642, horário de segunda a sábado 09h30–18h, cidade/UF.

@@ -27,10 +27,15 @@ window.SITE = {
     // Link canônico do estabelecimento no Google Maps. O CID veio do link que a
     // pessoa usuária enviou (ftid 0x94d8cde22e7f6527:0xcc4018a4e7c697fb).
     mapaLink: 'https://maps.google.com/?cid=14717790678789036027',
-    // Mapa embutido. O formato com `q=<endereço>&output=embed` é o único que o
-    // Google serve sem chave de API — `ftid` e `cid` funcionam em link normal,
-    // mas não em iframe, e devolvem tela em branco.
-    mapaEmbed: 'https://maps.google.com/maps?q=R.%20Herc%C3%ADlio%20Luz%2C%20642%20-%20Centro%2C%20Itaja%C3%AD%20-%20SC%2C%2088301-001&hl=pt-BR&z=17&output=embed',
+    // Mapa embutido. A busca é pelo NOME do consultório, não pelo endereço:
+    // é assim que o Google mostra o card do estabelecimento (nome, endereço e
+    // nota) em vez de um pin solto. Não precisa de chave de API.
+    //
+    // Para controle exato, dá para colar aqui o código oficial: no Google Maps,
+    // abra a ficha do consultório → Compartilhar → Incorporar um mapa → copie
+    // só o endereço que está dentro de src="..." (começa com
+    // https://www.google.com/maps/embed?pb=...). Os dois formatos funcionam.
+    mapaEmbed: 'https://maps.google.com/maps?q=Consult%C3%B3rio%20Odontol%C3%B3gico%20-%20Dra.%20Consuelo%20Vasconcelos%2C%20R.%20Herc%C3%ADlio%20Luz%2C%20642%20-%20Sl%20304%2C%20segundo%20andar%20-%20Centro%2C%20Itaja%C3%AD%20-%20SC%2C%2088301-001&hl=pt-BR&z=17&output=embed',
     // Traça a rota a partir de onde a pessoa estiver
     rotaLink: 'https://www.google.com/maps/dir/?api=1&destination=R.+Herc%C3%ADlio+Luz%2C+642+-+Centro%2C+Itaja%C3%AD+-+SC%2C+88301-001',
   },
