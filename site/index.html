@@ -389,30 +389,15 @@
 
 <!-- ======================= A CLÍNICA ======================= -->
 <section class="secao secao--escura clinica" id="clinica">
-  <div class="wrap clinica__grid">
-    <div class="clinica__texto">
+  <div class="wrap">
+    <!-- Cabeçalho centralizado na largura inteira: o título cabe em uma linha
+         no desktop, em vez de quebrar em quatro dentro de uma coluna estreita. -->
+    <header class="secao__cabeca secao__cabeca--centro clinica__cabeca">
       <p class="rotulo" data-revelar>A clínica</p>
       <h2 class="titulo" data-revelar data-atraso="80">
         Onde o plano vira <em>procedimento</em>
       </h2>
-      <p class="secao__lead" data-revelar data-atraso="140">
-        Consultório estruturado no Centro de Itajaí para as três frentes que conduzo.
-        O lugar do diagnóstico é o mesmo da execução e do retorno — o seu caso não
-        muda de mãos no meio do caminho.
-      </p>
-      <ul class="marcadores" data-revelar data-atraso="200">
-        <li><strong>Quem avalia é quem executa</strong> — e quem acompanha o seu retorno.
-        Nenhuma etapa é repassada.</li>
-        <li><strong>Três frentes, um só lugar</strong> — odontologia clínica, cirurgia oral
-        menor e harmonização facial, sem encaminhamento no meio do tratamento.</li>
-        <li><strong>Agenda por hora marcada</strong> — de segunda a sábado, das 09h30 às 18h,
-        no Centro de Itajaí.</li>
-      </ul>
-      <a class="link-seta" href="#contato" data-revelar data-atraso="260">
-        Ver endereço e horários
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
+    </header>
 
     <figure class="clinica__foto" data-revelar data-atraso="120">
       <div class="foto-enquadrada">
@@ -420,11 +405,38 @@
              srcset="assets/img/clinica-520.webp 520w,
                      assets/img/clinica-820.webp 820w,
                      assets/img/clinica-1200.webp 1200w"
-             sizes="(max-width:900px) 84vw, 50vw"
+             sizes="(max-width:900px) 92vw, 900px"
              width="820" height="1211" loading="lazy" data-zoom
              alt="Sala de atendimento da clínica, com cadeira odontológica e espelho">
       </div>
     </figure>
+
+    <!-- A subheadline vem depois da foto: primeiro se vê o lugar, depois se lê
+         o que ele garante. -->
+    <p class="secao__lead clinica__lead" data-revelar data-atraso="160">
+      Consultório estruturado no Centro de Itajaí para as três frentes que conduzo.
+      O lugar do diagnóstico é o mesmo da execução e do retorno — o seu caso não
+      muda de mãos no meio do caminho.
+    </p>
+
+    <!-- O escalonamento fica nos <li>: o JS só atrasa filhos que tenham
+         data-revelar, então pôr data-cascata numa lista de itens "mudos" não
+         faria efeito nenhum. Assim as três entram da esquerda para a direita. -->
+    <ul class="marcadores marcadores--colunas" data-cascata="90">
+      <li data-revelar><strong>Quem avalia é quem executa</strong> — e quem acompanha o seu
+      retorno. Nenhuma etapa é repassada.</li>
+      <li data-revelar><strong>Três frentes, um só lugar</strong> — odontologia clínica,
+      cirurgia oral menor e harmonização facial, sem encaminhamento no meio do tratamento.</li>
+      <li data-revelar><strong>Agenda por hora marcada</strong> — de segunda a sábado,
+      das 09h30 às 18h, no Centro de Itajaí.</li>
+    </ul>
+
+    <p class="clinica__acao">
+      <a class="link-seta" href="#contato" data-revelar data-atraso="260">
+        Ver endereço e horários
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </p>
   </div>
 </section>
 
