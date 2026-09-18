@@ -373,7 +373,25 @@ figure:hover .moldura img{transform:scale(1.035)}
   margin-top:.45rem;font-size:var(--t-xs);letter-spacing:.14em;
   text-transform:uppercase;color:var(--txt-2);
 }
-.hero__foto{position:relative}
+/* A foto do hero tem dois riscos, e os dois já se manifestaram:
+
+   1. Como <figure> num grid, ela não estica sozinha — o navegador acaba
+      dimensionando-a pelo tamanho intrínseco da imagem (ou pelo `sizes`),
+      e não pela coluna. Daí ela sair da coluna e cobrir o texto.
+      `width:100%` tira essa decisão do navegador.
+
+   2. Numa janela baixa (notebook com escala do Windows, navegador dentro do
+      Instagram) a foto tomava a tela inteira e encostava no menu. O teto de
+      altura abaixo impede isso. A largura é derivada da altura pela proporção
+      real da imagem (900/1258 = 0,7154), para não deformar nem sobrar borda. */
+.hero__foto{
+  position:relative;
+  width:100%;min-width:0;
+  max-width:calc(min(80vh,760px) * .7154);
+  max-width:calc(min(80svh,760px) * .7154);   /* svh onde houver; vh é a reserva */
+  margin-inline:auto;
+}
+.hero__foto .retrato img{width:100%;max-width:100%;height:auto}
 .hero__foto .moldura img{aspect-ratio:5/6.4}
 .selo{
   position:absolute;left:clamp(-1.5rem,-2vw,-2.5rem);bottom:clamp(1.5rem,4vw,3rem);
@@ -762,8 +780,17 @@ html:not(.js) .palavra > span{transform:none}
   body.menu-aberto{overflow:hidden}
 
   .hero__grid,.sobre__grid,.metodo__grid,.faq__grid,.contato__grid{grid-template-columns:1fr}
+  /* Empilhados, a foto desce e o texto sobe no deslize — juntos fecham até
+     ~65px. O vão precisa ser maior que isso, senão a foto cobre o rótulo
+     "Sobre mim" na entrada. */
+  .sobre__grid{gap:clamp(5rem,13vw,6.5rem)}
   .hero{min-height:auto;padding-block:calc(var(--topo-h) + 3rem) 5rem}
-  .hero__foto{max-width:26rem;margin-inline:auto;width:100%}
+  /* no empilhado, o menor entre o teto de largura e o teto de altura */
+  .hero__foto{
+    max-width:min(26rem, calc(min(80vh,760px) * .7154));
+    max-width:min(26rem, calc(min(80svh,760px) * .7154));
+    margin-inline:auto;width:100%;
+  }
   .hero__rolar{display:none}
   .sobre__foto{max-width:30rem}   /* 24rem deixava a foto miúda em tablet */
   .metodo__fixo,.faq__intro{position:static}

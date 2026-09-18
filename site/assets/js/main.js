@@ -458,7 +458,7 @@
          `avanco` vai de 0 (a peça está entrando por baixo da tela) a 1 (está
          saindo por cima), então o deslocamento vai de +amplitude a -amplitude.
          Em tela estreita a amplitude cai, senão foto e texto se encavalam. */
-      const escala = innerWidth < 760 ? 0.55 : 1;
+      const escala = innerWidth < 760 ? 0.45 : 1;
       desliza.forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > innerHeight + 200) return;

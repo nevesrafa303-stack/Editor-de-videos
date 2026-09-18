@@ -53,16 +53,17 @@ def main(destino: Path) -> None:
     css = re.sub(padrao, trocar, css)
 
     # 3. CSS e JS viram blocos inline
-    html = html.replace(
-        '<link rel="stylesheet" href="assets/css/style.css">',
-        '<style>\n' + css + '\n</style>')
+    # os href/src carregam ?v=N para furar cache, então a busca é por regex
+    html, n = re.subn(r'<link rel="stylesheet" href="assets/css/style\.css[^"]*">',
+                      lambda _: '<style>\n' + css + '\n</style>', html)
+    assert n == 1, f'não achei o link do CSS ({n} ocorrências)'
 
-    for arquivo, atributos in (('assets/js/config.js', ''),
-                               ('assets/js/main.js', ' defer')):
+    for arquivo in ('assets/js/config.js', 'assets/js/main.js'):
         js = (RAIZ / arquivo).read_text(encoding='utf-8')
-        html = html.replace(
-            f'<script src="{arquivo}"{atributos}></script>',
-            '<script>\n' + js + '\n</script>')
+        alvo = re.escape(arquivo) + r'[^"]*'
+        html, n = re.subn(rf'<script src="{alvo}"[^>]*></script>',
+                          lambda _: '<script>\n' + js + '\n</script>', html)
+        assert n == 1, f'não achei o script {arquivo} ({n} ocorrências)'
 
     destino.write_text(html, encoding='utf-8')
     kb = destino.stat().st_size / 1024
