@@ -173,19 +173,22 @@
 <!-- ======================= SOBRE ======================= -->
 <section class="secao secao--grafite sobre" id="sobre">
   <div class="wrap sobre__grid">
+    <!-- data-desliza vai no .retrato, e não na <figure>: a figure carrega
+         data-revelar, que anima o próprio transform — os dois na mesma tag
+         brigariam pela propriedade. -->
     <figure class="sobre__foto" data-revelar>
-      <div class="retrato retrato--desvanece" data-parallax="0.04">
+      <div class="retrato retrato--desvanece" data-desliza="115">
         <img src="assets/img/consuelo-sobre-820.webp"
              srcset="assets/img/consuelo-sobre-520.webp 520w,
                      assets/img/consuelo-sobre-820.webp 820w,
                      assets/img/consuelo-sobre-1200.webp 1200w"
-             sizes="(max-width:900px) 80vw, 36vw"
+             sizes="(max-width:900px) 92vw, 46vw"
              width="820" height="1025" loading="lazy"
              alt="Dra. Consuelo Vasconcelos de braços cruzados, em jaleco branco">
       </div>
     </figure>
 
-    <div class="sobre__texto">
+    <div class="sobre__texto" data-desliza="-30">
       <p class="rotulo" data-revelar>Sobre mim</p>
       <h2 class="titulo" data-revelar data-atraso="80">
         Afinal, <em>quem sou eu?</em>

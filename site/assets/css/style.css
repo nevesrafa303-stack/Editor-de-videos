@@ -415,10 +415,15 @@ figure:hover .moldura img{transform:scale(1.035)}
 
 /* 6.5 sobre */
 .sobre__grid{
-  display:grid;gap:clamp(2.5rem,6vw,5.5rem);
-  grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);align-items:center;
+  display:grid;gap:clamp(2rem,4.5vw,4rem);
+  /* Era .84fr/1.16fr — a foto ficava com 33% da seção, pequena demais ao lado
+     do texto. Colunas iguais a deixam maior e centram o conjunto. */
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;
 }
-.sobre__foto{position:relative}
+.sobre__foto{position:relative;z-index:2;margin-inline:auto;width:100%}
+/* O texto passa por baixo quando os dois se cruzam no deslize. */
+.sobre__texto{position:relative;z-index:1}
+[data-desliza]{will-change:transform}
 .marcadores{display:grid;gap:.85rem;margin-top:2.2rem}
 .marcadores li{
   position:relative;padding-left:1.9rem;font-size:var(--t-sm);color:var(--txt-2);
@@ -753,7 +758,7 @@ html:not(.js) .palavra > span{transform:none}
   .hero{min-height:auto;padding-block:calc(var(--topo-h) + 3rem) 5rem}
   .hero__foto{max-width:26rem;margin-inline:auto;width:100%}
   .hero__rolar{display:none}
-  .sobre__foto{max-width:24rem}
+  .sobre__foto{max-width:30rem}   /* 24rem deixava a foto miúda em tablet */
   .metodo__fixo,.faq__intro{position:static}
   .galeria__item--g{grid-column:span 1}
   .rodape__grid{grid-template-columns:1fr 1fr}

@@ -411,11 +411,12 @@
     if (semMovimento) return;
 
     const camadas   = $$('[data-parallax]');
+    const desliza   = $$('[data-desliza]');
     const heroTexto = $('.hero__texto');
     const heroFoto  = $('.hero__foto');
     const hero      = $('.hero');
     const zooms     = $$('[data-zoom]');
-    if (!camadas.length && !hero && !zooms.length) return;
+    if (!camadas.length && !desliza.length && !hero && !zooms.length) return;
 
     let pendente = false;
 
@@ -447,6 +448,24 @@
         const centro = r.top + r.height / 2;
         const fator = Number(el.dataset.parallax) || 0.05;
         el.style.transform = `translate3d(0, ${((centro - meio) * fator).toFixed(2)}px, 0)`;
+      });
+
+      /* Deslize longo: a foto entra por baixo, encoberta pelo texto, e sobe
+         junto com a rolagem até ficar acima dele. O texto anda um pouco no
+         sentido contrário, o que separa os dois planos e é o que dá a leitura
+         de "a imagem saiu de baixo do texto".
+
+         `avanco` vai de 0 (a peça está entrando por baixo da tela) a 1 (está
+         saindo por cima), então o deslocamento vai de +amplitude a -amplitude.
+         Em tela estreita a amplitude cai, senão foto e texto se encavalam. */
+      const escala = innerWidth < 760 ? 0.55 : 1;
+      desliza.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        const amplitude = (Number(el.dataset.desliza) || 0) * escala;
+        const avanco = 1 - (r.top + r.height / 2) / (innerHeight + r.height / 2);
+        const p = Math.max(0, Math.min(1, avanco));
+        el.style.transform = `translate3d(0, ${((0.5 - p) * 2 * amplitude).toFixed(1)}px, 0)`;
       });
 
       // as fotos de ambiente crescem de leve enquanto atravessam a tela
