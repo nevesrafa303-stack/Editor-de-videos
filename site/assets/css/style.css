@@ -817,6 +817,41 @@ html:not(.js) .palavra > span{transform:none}
   .flutuante--topo{bottom:calc(clamp(1rem,3vw,2rem) + 62px)}
 }
 
+/* Janela de computador baixa: o hero nasce mais alto que a tela e a foto fica
+   cortada logo na abertura.
+
+   A altura do hero é a coluna de texto (659px) mais o respiro (238px de
+   padding). Numa janela de 768px isso dá 897px, e como a foto é centrada no
+   hero ela desce junto: 15px dela ficavam abaixo da dobra a 1366x768, 89px a
+   1366x650, 119px a 1280x600. Numa tela de notebook com barra de favoritos e
+   dock, que é o caso comum, a Dra. aparecia cortada na cintura.
+
+   Aqui o respiro encolhe e os intervalos da coluna de texto fecham um pouco.
+   Não muda nada em tela alta, onde já cabia. */
+@media (min-width:901px) and (max-height:900px){
+  .hero{padding-block:calc(var(--topo-h) + 1.1rem) 1.8rem}
+  .olho{margin-bottom:.9rem}
+  .hero__lead{margin-top:1rem}
+  .hero__acoes{margin-top:1.5rem}
+  .hero__selos{margin-top:1.7rem;padding-top:1.3rem}
+  /* e a foto nunca passa do que cabe entre o cabeçalho e a dobra */
+  .hero__foto{
+    max-width:calc(min(80vh,760px) * .7154);
+    max-width:calc(min(80svh, 760px, 100svh - var(--topo-h) - 3.5rem) * .7154);
+  }
+}
+
+/* Janela muito baixa (notebook com barra de favoritos e dock, ~600-720px de
+   altura útil): só encolher o respiro não basta, porque o título sozinho
+   ocupa 232px. Aqui ele cede um pouco de corpo para a foto caber inteira. */
+@media (min-width:901px) and (max-height:730px){
+  .hero{padding-block:calc(var(--topo-h) + .7rem) 1.2rem}
+  .hero__titulo{font-size:clamp(2.1rem,3.8vw,3rem)}
+  .hero__lead{margin-top:.85rem;font-size:1rem}
+  .hero__acoes{margin-top:1.2rem}
+  .hero__selos{margin-top:1.2rem;padding-top:1rem}
+}
+
 @media (max-width:560px){
   .selo{position:static;max-width:none;margin-top:1rem;box-shadow:var(--sombra)}
   .hero__provas{gap:1.4rem}

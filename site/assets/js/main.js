@@ -456,11 +456,20 @@
         const empilhado = innerWidth <= 900;
         if (p < 1.02) {
           if (heroTexto) {
+            // Empilhado o texto fica parado: ele está ACIMA da foto, e qualquer
+            // descida dele fecha o vão e termina em cima dela. Era o que
+            // acontecia — a 300px de rolagem os selos já invadiam a foto.
             heroTexto.style.transform = empilhado ? '' : `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
             heroTexto.style.opacity = String(Math.max(0, 1 - p * 1.35));
           }
           if (heroFoto) {
-            heroFoto.style.transform = empilhado ? '' : `translate3d(0, ${(y * 0.05).toFixed(1)}px, 0)`;
+            /* A foto desce enquanto a página sobe: ela resiste à rolagem e
+               parece flutuar num plano mais fundo. Empilhado a amplitude é
+               maior, porque ali é o único movimento da primeira dobra — e
+               descer é justamente o sentido que AFASTA a foto do texto acima
+               dela, então o vão só cresce e não há como encavalar. */
+            const desce = empilhado ? p * 110 : y * 0.05;
+            heroFoto.style.transform = `translate3d(0, ${desce.toFixed(1)}px, 0)`;
             heroFoto.style.opacity = String(Math.max(0, 1 - p * 1.1));
           }
         }
