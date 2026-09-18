@@ -37,6 +37,27 @@
     return `https://wa.me/${num}${msg ? `?text=${msg}` : ''}`;
   };
 
+  /* Abrir o WhatsApp sem depender de window.open.
+     O Safari do iPhone barra window.open disparado de dentro de um `submit`:
+     o clique é um gesto, mas o submit que vem depois já não conta como tal, e
+     a janela simplesmente não abre — era por isso que o botão não fazia nada.
+     Um <a> clicado no mesmo instante não sofre esse bloqueio.
+
+     A rede de segurança não é um temporizador adivinhando se algo abriu — isso
+     chegou a navegar a aba original além de abrir a nova. É um link de verdade
+     que aparece no lugar do aviso, para a pessoa tocar se nada acontecer. */
+  const abrirWhatsapp = (url) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+  };
+
   const aplicarConfig = () => {
     // textos: <span data-bind="endereco.linha1">
     $$('[data-bind]').forEach((el) => {
@@ -723,19 +744,26 @@
         return;
       }
 
+      // Cada assunto manda a sua frase; um assunto sem frase cai na genérica.
+      const porAssunto = CFG.mensagensPorAssunto || {};
+      const rotulo = $(`#f-assunto option[value="${assunto}"]`)?.textContent.trim() || assunto;
+      const frase = porAssunto[assunto] || `Quero falar sobre: ${rotulo}.`;
+
       const texto = [
         `Olá, Dra. Consuelo! Sou ${nome}.`,
-        `Quero falar sobre: ${assunto}.`,
+        frase,
         msg ? `Observação: ${msg}` : null,
         `Meu WhatsApp: ${tel}.`,
         'Vim pelo site.',
       ].filter(Boolean).join('\n');
 
+      const url = linkWhatsapp(texto);
       if (status) {
-        status.textContent = 'Abrindo o WhatsApp…';
+        status.innerHTML = 'Abrindo o WhatsApp… '
+          + `<a href="${url}" target="_blank" rel="noopener">Não abriu? Toque aqui.</a>`;
         status.classList.add('is-ok');
       }
-      window.open(linkWhatsapp(texto), '_blank', 'noopener');
+      abrirWhatsapp(url);
     });
   };
 
@@ -765,38 +793,31 @@
 
     const tela = $('[data-mapa-tela]', slot);
 
-    // O iframe dispara `load` mesmo quando fica em branco — foi assim que ele
-    // reservou 400px vazios no lugar do mapa. Então a checagem não pode ser o
-    // `load`: antes de inserir qualquer coisa, uma imagem pequena do domínio do
-    // Maps diz se a rede realmente entrega. Se não entregar, o mapa não entra e
-    // fica só o cartão de endereço, que é o que importa.
-    const sonda = new Image();
-    let decidido = false;
+    /* Antes de inserir o iframe eu carregava uma imagem de maps.gstatic.com
+       como sonda de conectividade, e só entrava com o mapa se ela respondesse.
+       Isso derrubava o mapa em três situações comuns: o caminho daquela imagem
+       é de uma versão antiga da API do Maps e pode não existir mais; qualquer
+       bloqueador de rastreadores barra o gstatic sem barrar o maps.google.com;
+       e a sonda ainda forçava uma ida à rede a cada visita.
 
-    const inserir = () => {
-      if (decidido) return;
-      decidido = true;
-      const f = document.createElement('iframe');
-      f.src = src;
-      f.loading = 'lazy';
-      f.title = `Mapa do consultório — ${end.linha1 || CFG.nome || ''}`;
-      f.referrerPolicy = 'no-referrer-when-downgrade';
-      f.setAttribute('allowfullscreen', '');
-      f.addEventListener('load', () => tela.classList.add('is-pronta'));
-      tela.appendChild(f);
-    };
+       A sonda existia porque o iframe dispara `load` mesmo em branco — mas
+       aquilo vinha do endereço inválido (`ftid=…&output=embed`), já corrigido.
+       Com um `q=…&output=embed` válido o `load` é confiável, então o mapa entra
+       direto e aparece quando carrega. O endereço não depende disso: está
+       escrito logo acima, nesta mesma seção. */
+    const f = document.createElement('iframe');
+    f.src = src;
+    f.loading = 'lazy';
+    f.title = `Mapa do consultório — ${end.linha1 || CFG.nome || ''}`;
+    f.referrerPolicy = 'no-referrer-when-downgrade';
+    f.setAttribute('allowfullscreen', '');
 
-    const desistir = () => {
-      if (decidido) return;
-      decidido = true;
-      tela.remove();
-    };
+    let pronto = false;
+    f.addEventListener('load', () => { pronto = true; tela.classList.add('is-pronta'); });
+    tela.appendChild(f);
 
-    sonda.addEventListener('load', inserir);
-    sonda.addEventListener('error', desistir);
-    setTimeout(desistir, 4000);
-    sonda.referrerPolicy = 'no-referrer';
-    sonda.src = 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png?' + Date.now();
+    // Nada carregou em 8s: tira a moldura vazia em vez de deixá-la na página.
+    setTimeout(() => { if (!pronto) tela.remove(); }, 8000);
   };
 
   /* -- 14. menu mobile + marquee ------------------------------------------ */

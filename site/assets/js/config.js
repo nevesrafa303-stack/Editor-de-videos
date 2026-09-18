@@ -69,8 +69,35 @@ window.SITE = {
   },
 
   /* --- Mensagem pré-preenchida do WhatsApp ------------------------------ */
+  // Usada nos botões soltos de WhatsApp, fora do formulário.
   mensagemWhatsapp:
     'Olá, Dra. Consuelo! Vim pelo site e quero agendar minha avaliação.',
+
+  /* --- Mensagem por assunto do formulário -------------------------------
+     A chave é o `value` de cada <option> no seletor "Sobre o que você quer
+     falar". Cada escolha manda uma frase própria, escrita na voz da paciente,
+     em vez de um "Quero falar sobre: X" genérico. Mexeu nas opções do HTML?
+     Mexa aqui também — um assunto sem frase cai na genérica, não quebra. */
+  mensagensPorAssunto: {
+    profilaxia:
+      'Quero agendar uma limpeza e saber como funciona a avaliação.',
+    restauracao:
+      'Acho que tenho um dente precisando de restauração e queria uma avaliação.',
+    clareamento:
+      'Tenho interesse em clarear os dentes e queria saber quais opções combinam com o meu caso.',
+    extracao:
+      'Preciso avaliar uma extração e gostaria de entender o procedimento e a recuperação.',
+    botox:
+      'Tenho interesse em toxina botulínica e queria uma avaliação para entender o que faz sentido no meu rosto.',
+    preenchimento:
+      'Tenho interesse em preenchimento com ácido hialurônico e queria uma avaliação para entender o resultado possível.',
+    bioestimulador:
+      'Tenho interesse em bioestimulador de colágeno e queria entender como funciona e em quanto tempo o resultado aparece.',
+    microagulhamento:
+      'Tenho interesse em microagulhamento e queria saber quantas sessões o meu caso pediria.',
+    avaliar:
+      'Ainda não sei qual procedimento preciso e queria marcar uma avaliação para entender o que o meu caso pede.',
+  },
 
   /* --- SEO -------------------------------------------------------------- */
   site: 'https://draconsuelovasconcelos.com.br',
