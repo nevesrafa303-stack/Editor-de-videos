@@ -242,16 +242,19 @@ p{text-wrap:pretty}
 figure:hover .moldura img{transform:scale(1.035)}
 
 /* marca */
-.marca{display:flex;align-items:center;gap:.75rem}
-.marca__mono{
-  width:42px;height:42px;flex:none;border-radius:50%;
-  display:grid;place-items:center;
-  border:1px solid var(--ouro);color:var(--ouro);
-  font-family:var(--serif);font-size:1rem;letter-spacing:-.02em;
+.marca{position:relative;display:flex;align-items:center;flex:none}
+.marca__logo{
+  display:block;height:36px;width:auto;
+  transition:opacity .35s var(--ease);
 }
-.marca__txt{display:flex;flex-direction:column;line-height:1.25}
-.marca__txt strong{font-family:var(--serif);font-weight:400;font-size:1.02rem;letter-spacing:-.01em}
-.marca__txt small{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.62}
+/* A escura fica sobreposta à clara e aparece quando o cabeçalho vira claro.
+   O cruzamento acompanha a mesma transição de cor do resto do cabeçalho. */
+.marca__logo--escura{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);opacity:0;
+}
+.topo.is-fixo .marca__logo--clara{opacity:0}
+.topo.is-fixo .marca__logo--escura{opacity:1}
+.marca--rodape .marca__logo{height:40px}
 
 /* -- 6. SEÇÕES ------------------------------------------------------------ */
 
@@ -285,8 +288,12 @@ figure:hover .moldura img{transform:scale(1.035)}
 .topo.is-fixo{--topo-h:66px;color:var(--txt-escuro)}
 .topo.is-fixo::before{opacity:1}
 .topo.is-oculto{transform:translateY(-102%)}
+/* Sem o width:100%: ele tem a mesma especificidade de .wrap e vinha depois,
+   então anulava a largura do contêiner e o cabeçalho ia de ponta a ponta
+   enquanto todas as seções ficam recuadas. Com a marca virando um logotipo
+   largo, isso passou a cortá-la na borda da tela. */
 .topo__grid{
-  display:flex;align-items:center;gap:var(--gap);width:100%;
+  display:flex;align-items:center;gap:var(--gap);
 }
 .nav{margin-left:auto}
 .nav ul{display:flex;align-items:center;gap:clamp(.9rem,1.7vw,1.9rem)}
@@ -735,7 +742,7 @@ html:not(.js) .palavra > span{transform:none}
 @media (max-width:1080px){
   .nav ul{gap:1rem}
   .nav a{font-size:.78rem}
-  .marca__txt small{display:none}
+  .marca__logo{height:30px}   /* a marca inteira é uma imagem: encolhe junto */
 }
 
 @media (max-width:900px){

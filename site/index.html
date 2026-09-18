@@ -21,8 +21,11 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Dra. Consuelo Vasconcelos — Odontologia e Estética Avançada em Itajaí-SC">
 
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+<!-- Ícones a partir do monograma real da marca. O traço do serif é fino, então
+     em 16 e 32px ele fica macio — é característica da marca, não do recorte. -->
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,12 +58,15 @@
 <!-- ======================= CABEÇALHO ======================= -->
 <header class="topo" data-topo>
   <div class="wrap topo__grid">
-    <a class="marca" href="#inicio" aria-label="Dra. Consuelo Vasconcelos — início">
-      <span class="marca__mono" aria-hidden="true">CV</span>
-      <span class="marca__txt">
-        <strong>Consuelo Vasconcelos</strong>
-        <small>Cirurgiã-Dentista</small>
-      </span>
+    <!-- Duas versões da mesma marca: o cabeçalho começa transparente sobre o
+         hero escuro e fica claro depois de rolar, então a logo precisa trocar
+         de tinta junto. Duas <img> que se cruzam resolvem sem depender de
+         suporte a máscara CSS. -->
+    <a class="marca" href="#inicio">
+      <img class="marca__logo marca__logo--clara" src="assets/img/logo-clara.png"
+           width="224" height="36" alt="Consuelo Vasconcelos — Cirurgiã-Dentista">
+      <img class="marca__logo marca__logo--escura" src="assets/img/logo-escura.png"
+           width="224" height="36" alt="" aria-hidden="true">
     </a>
 
     <span class="topo__secao" data-secao-atual aria-hidden="true"></span>
@@ -770,11 +776,8 @@
   <div class="wrap rodape__grid">
     <div>
       <a class="marca marca--rodape" href="#inicio">
-        <span class="marca__mono" aria-hidden="true">CV</span>
-        <span class="marca__txt">
-          <strong>Consuelo Vasconcelos</strong>
-          <small>Cirurgiã-Dentista</small>
-        </span>
+        <img class="marca__logo" src="assets/img/logo-clara.png"
+             width="248" height="40" alt="Consuelo Vasconcelos — Cirurgiã-Dentista">
       </a>
       <p class="rodape__cro"><span data-bind="cro">CRO-SC 25523</span></p>
       <p class="rodape__legal">

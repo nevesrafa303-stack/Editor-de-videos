@@ -92,6 +92,9 @@ parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 | `consuelo-hero-*.webp` | Primeira dobra |
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
 | `clinica-*.webp` | Seção "A clínica" |
+| `testa-*.webp` | Segundo antes/depois (linhas da testa) |
+| `logo-clara.png` / `logo-escura.png` | A marca. Duas tintas porque o cabeçalho começa transparente sobre o hero escuro e fica claro depois de rolar; as duas se cruzam |
+| `favicon-*.png`, `apple-touch-icon.png` | Ícones, recortados do monograma da própria marca |
 | `caso-labial-*.webp` | Seção "Resultados" |
 | `og-capa.jpg` | Miniatura no WhatsApp, Instagram e Facebook |
 
