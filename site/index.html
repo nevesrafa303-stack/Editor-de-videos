@@ -34,7 +34,7 @@
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
 <meta name="versao-do-site" content="11">
-<link rel="stylesheet" href="assets/css/style.css?v=11">
+<link rel="stylesheet" href="assets/css/style.css?v=12">
 
 <script>
 /* Progressive enhancement da animação de entrada.
@@ -242,8 +242,16 @@
       </ul>
     </div>
 
+    <!-- A entrada por CSS fica na <figure>; o movimento de rolagem vai no
+         .retrato de dentro. Os dois animam transform, e na mesma tag o que
+         ganha é a animação (uma animação com `forwards` vence o style inline),
+         o que deixava esta foto — e só ela — congelada na página. Separados,
+         não há disputa possível. É a mesma regra já usada na seção "sobre".
+         O data-parallax saiu daqui porque agora quem move este elemento é o
+         bloco do hero, e dois donos para a mesma propriedade seria o mesmo
+         problema de novo. -->
     <figure class="hero__foto" data-entrada data-atraso="150">
-      <div class="retrato retrato--desvanece" data-parallax="0.05">
+      <div class="retrato retrato--desvanece" data-hero-movel>
         <img src="assets/img/consuelo-hero-900.webp"
              srcset="assets/img/consuelo-hero-560.webp 560w,
                      assets/img/consuelo-hero-900.webp 900w,
@@ -955,7 +963,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="assets/js/config.js?v=11"></script>
-<script src="assets/js/main.js?v=11" defer></script>
+<script src="assets/js/config.js?v=12"></script>
+<script src="assets/js/main.js?v=12" defer></script>
 </body>
 </html>

@@ -428,7 +428,9 @@
     const camadas   = $$('[data-parallax]');
     const desliza   = $$('[data-desliza]');
     const heroTexto = $('.hero__texto');
-    const heroFoto  = $('.hero__foto');
+    // o .retrato, e não a <figure>: a figure carrega a animação de entrada,
+    // que venceria o que escrevemos aqui
+    const heroFoto  = $('[data-hero-movel]') || $('.hero__foto');
     const hero      = $('.hero');
     const zooms     = $$('[data-zoom]');
     if (!camadas.length && !desliza.length && !hero && !zooms.length) return;
@@ -467,8 +469,18 @@
                parece flutuar num plano mais fundo. Empilhado a amplitude é
                maior, porque ali é o único movimento da primeira dobra — e
                descer é justamente o sentido que AFASTA a foto do texto acima
-               dela, então o vão só cresce e não há como encavalar. */
-            const desce = empilhado ? p * 110 : y * 0.05;
+               dela, então o vão só cresce e não há como encavalar.
+
+               Isto é escrito no .retrato, não na <figure>: a figure tem a
+               animação de entrada, e animação com `forwards` ganha do style
+               inline no cascata. Enquanto os dois estavam na mesma tag, a
+               foto ficava imóvel e nada no console acusava. */
+            // Antes o desktop usava y * 0.05, que sobre um hero de 900px dá
+            // 45px — metade do celular, e quase imperceptível. Ancorado no
+            // progresso, o percurso fica igual nos dois. Em p = 0 (topo da
+            // página) o deslocamento é zero, então a foto continua inteira na
+            // abertura, que é o que o recorte em janela baixa depende.
+            const desce = p * (empilhado ? 110 : 90);
             heroFoto.style.transform = `translate3d(0, ${desce.toFixed(1)}px, 0)`;
             heroFoto.style.opacity = String(Math.max(0, 1 - p * 1.1));
           }
