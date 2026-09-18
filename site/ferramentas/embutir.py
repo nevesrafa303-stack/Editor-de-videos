@@ -10,6 +10,7 @@ arquivo é só para inspeção rápida.
 """
 import base64
 import mimetypes
+from datetime import datetime
 import re
 import sys
 from pathlib import Path
@@ -23,7 +24,36 @@ def como_data_uri(caminho: Path) -> str:
     return f'data:{tipo};base64,{dados}'
 
 
+def carimbar_versao() -> str:
+    """Escreve site/versao.txt com a versão que está sendo publicada.
+
+    Serve para responder, em um toque e sem ferramenta nenhuma, a pergunta que
+    já custou várias rodadas: "o que está no ar é mesmo o arquivo que eu subi?".
+    Basta abrir dominio/versao.txt no celular. Se o número não bater com o do
+    arquivo entregue, ou se der 404, o envio não chegou ao servidor — e aí o
+    problema é a publicação, não o site.
+
+    A versão sai do ?v=N do index.html, que já é o número usado contra cache.
+    """
+    html = (RAIZ / 'index.html').read_text(encoding='utf-8')
+    achado = re.search(r'style\.css\?v=(\d+)', html)
+    if not achado:
+        raise SystemExit('não achei o ?v= no index.html')
+    versao = achado.group(1)
+    quando = datetime.now().strftime('%d/%m/%Y %H:%M')
+    (RAIZ / 'versao.txt').write_text(
+        f'Dra. Consuelo Vasconcelos — site\n'
+        f'versao {versao}\n'
+        f'gerado em {quando}\n\n'
+        f'Se este numero nao for o mesmo do arquivo que voce publicou,\n'
+        f'o envio nao substituiu os arquivos antigos no servidor.\n',
+        encoding='utf-8')
+    return versao
+
+
 def main(destino: Path) -> None:
+    versao = carimbar_versao()
+    print(f'site/versao.txt → versao {versao}')
     html = (RAIZ / 'index.html').read_text(encoding='utf-8')
     css = (RAIZ / 'assets/css/style.css').read_text(encoding='utf-8')
 
