@@ -537,13 +537,16 @@
     atualiza();
   };
 
-  /* -- 10. comparador antes/depois ---------------------------------------- */
-  const comparador = () => {
-    const raiz = $('[data-comparador]');
-    if (!raiz) return;
+  /* -- 10. comparador antes/depois ----------------------------------------
+     Serve os dois casos da página. O eixo vem do HTML: sem `data-eixo` a linha
+     é vertical e o dedo anda na horizontal; com `data-eixo="vertical"` a linha
+     é horizontal e o dedo anda na vertical. Toda a lógica é a mesma; o que
+     muda é qual coordenada vira porcentagem e qual gesto é nosso. */
+  const montarComparador = (raiz) => {
     const controle = $('[data-comparador-controle]', raiz);
-    const dica = $('[data-comparador-dica]');
     if (!controle) return;
+    const dica = raiz.closest('.caso')?.querySelector('[data-comparador-dica]');
+    const vertical = raiz.dataset.eixo === 'vertical';
 
     let jaMexeu = false;
 
@@ -554,7 +557,9 @@
       controle.setAttribute('aria-valuetext',
         p < 8  ? 'mostrando só o depois'
       : p > 92 ? 'mostrando só o antes'
-      : `${Math.round(p)}% do antes à esquerda, o resto é o depois`);
+      : vertical
+        ? `${Math.round(p)}% do antes no alto, o resto é o depois`
+        : `${Math.round(p)}% do antes à esquerda, o resto é o depois`);
     };
 
     const usou = () => {
@@ -564,12 +569,11 @@
       dica?.classList.add('is-oculta');
     };
 
-    // teclado e leitor de tela vêm do próprio range
     controle.addEventListener('input', () => { posicionar(Number(controle.value)); usou(); });
 
     /* O passo do range é 0,1 para o arraste ficar suave, mas isso deixava cada
-       seta valendo 0,1% — mil toques para atravessar a imagem. As setas passam
-       a andar 2%, com Home/End nos extremos e PageUp/PageDown de 10 em 10. */
+       seta valendo 0,1% — mil toques para atravessar a imagem. As setas andam
+       2%, com Home/End nos extremos e PageUp/PageDown de 10 em 10. */
     const PASSOS = {
       ArrowLeft: -2, ArrowDown: -2, ArrowRight: 2, ArrowUp: 2,
       PageDown: -10, PageUp: 10,
@@ -585,9 +589,10 @@
       usou();
     });
 
-    const daPosicao = (clientX) => {
+    const daPosicao = (x, y) => {
       const r = raiz.getBoundingClientRect();
-      return ((clientX - r.left) / r.width) * 100;
+      return vertical ? ((y - r.top) / r.height) * 100
+                      : ((x - r.left) / r.width) * 100;
     };
 
     /* Mouse e caneta: Pointer Events dão conta.
@@ -601,12 +606,12 @@
       // setPointerCapture lança se o ponteiro já não estiver ativo; o `?.`
       // protege contra o método não existir, não contra ele estourar.
       try { raiz.setPointerCapture(e.pointerId); } catch (_) {}
-      posicionar(daPosicao(e.clientX));
+      posicionar(daPosicao(e.clientX, e.clientY));
       usou();
     });
     raiz.addEventListener('pointermove', (e) => {
       if (!arrastandoPonteiro) return;
-      posicionar(daPosicao(e.clientX));
+      posicionar(daPosicao(e.clientX, e.clientY));
       e.preventDefault();
     });
     const soltarPonteiro = () => {
@@ -621,15 +626,19 @@
 
     /* Dedo: Touch Events, não Pointer Events.
        No Safari do iPhone o caminho por ponteiro não é confiável para um
-       arraste horizontal: o navegador dispara `pointercancel` assim que
-       decide que o gesto é rolagem, e aí o arraste morre no primeiro quadro.
-       Touch Events não têm esse comportamento e estão em todo lugar.
+       arraste: o navegador dispara `pointercancel` assim que decide que o
+       gesto é rolagem, e aí o arraste morre no primeiro quadro. Touch Events
+       não têm esse comportamento e estão em todo lugar.
 
-       A direção é decidida no primeiro movimento: se for mais horizontal que
-       vertical, o gesto é nosso e a página não rola; se for mais vertical, a
-       pessoa está só passando pela seção e a rolagem segue normal — por isso
-       o toque não reposiciona nada antes de saber para onde vai. */
-    let toqueId = null, x0 = 0, y0 = 0, decidido = false, meu = false;
+       A direção é decidida no primeiro movimento: se o gesto for no nosso
+       eixo, ele é nosso e a página não rola; se for no outro, a pessoa está só
+       passando pela seção e a rolagem segue normal — por isso o toque não
+       reposiciona nada antes de saber para onde vai.
+
+       No comparador vertical isso é mais delicado: o nosso eixo é o mesmo da
+       rolagem. Lá o gesto só é nosso se tiver começado na linha ou na alça —
+       no resto da foto a pessoa rola a página como em qualquer outro lugar. */
+    let toqueId = null, x0 = 0, y0 = 0, decidido = false, meu = false, naAlca = false;
 
     raiz.addEventListener('touchstart', (e) => {
       if (toqueId !== null) return;
@@ -637,6 +646,8 @@
       toqueId = t.identifier;
       x0 = t.clientX; y0 = t.clientY;
       decidido = false; meu = false;
+      // no vertical, só o gesto que começa na linha/alça é nosso
+      naAlca = !!(t.target instanceof Element && t.target.closest('.comparador__linha'));
     }, { passive: true });
 
     const doToque = (e) => {
@@ -652,11 +663,11 @@
         const dy = Math.abs(t.clientY - y0);
         if (dx < 6 && dy < 6) return;     // ainda não dá para saber
         decidido = true;
-        meu = dx > dy;
+        meu = vertical ? (naAlca && dy > dx) : dx > dy;
         if (meu) { raiz.classList.add('is-arrastando'); usou(); }
       }
       if (!meu) return;
-      posicionar(daPosicao(t.clientX));
+      posicionar(daPosicao(t.clientX, t.clientY));
       if (e.cancelable) e.preventDefault();   // segura a rolagem durante o gesto
     }, { passive: false });
 
@@ -665,10 +676,10 @@
       if (!t) return;
       // toque curto e parado = tocar para posicionar
       if (!decidido && Math.abs(t.clientX - x0) < 6 && Math.abs(t.clientY - y0) < 6) {
-        posicionar(daPosicao(t.clientX));
+        posicionar(daPosicao(t.clientX, t.clientY));
         usou();
       }
-      toqueId = null; meu = false; decidido = false;
+      toqueId = null; meu = false; decidido = false; naAlca = false;
       raiz.classList.remove('is-arrastando');
     };
     raiz.addEventListener('touchend', fimDoToque);
@@ -688,6 +699,8 @@
 
     posicionar(50);
   };
+
+  const comparador = () => $$('[data-comparador]').forEach(montarComparador);
 
   /* -- 11. acordeão (um aberto por vez) ----------------------------------- */
   const acordeao = () => {
@@ -768,11 +781,12 @@
       const rotulo = $(`#f-assunto option[value="${assunto}"]`)?.textContent.trim() || assunto;
       const frase = porAssunto[assunto] || `Quero falar sobre: ${rotulo}.`;
 
+      // O número não entra na mensagem: ela chega pelo próprio WhatsApp, então
+      // repetir o telefone ali não diz nada a quem recebe.
       const texto = [
         `Olá, Dra. Consuelo! Sou ${nome}.`,
         frase,
         msg ? `Observação: ${msg}` : null,
-        `Meu WhatsApp: ${tel}.`,
         'Vim pelo site.',
       ].filter(Boolean).join('\n');
 

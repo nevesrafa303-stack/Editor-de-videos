@@ -1098,7 +1098,22 @@ figure:hover .retrato img{transform:scale(1.02)}
 }
 
 /* 12.4 Caso clínico */
+/* Dois casos lado a lado, um retrato (760x950) e um paisagem (760x570). Em
+   colunas iguais um ficaria bem mais alto que o outro e a seção pareceria
+   torta. As colunas seguem a razão inversa das proporções — 0,6 para 1 — e
+   então as duas imagens terminam na mesma altura. */
+.casos{
+  display:grid;gap:clamp(2rem,4vw,3.4rem);
+  grid-template-columns:minmax(0,.6fr) minmax(0,1fr);align-items:start;
+}
+@media (max-width:820px){
+  .casos{grid-template-columns:1fr;gap:3rem}
+}
 .caso{max-width:640px;margin-inline:auto;text-align:center}
+/* Dentro do par quem define a largura é a grade. Sem o width:100% a figura
+   não estica e acaba medindo pelo `sizes` da imagem (44vw = 633px a 1440),
+   o que desfazia o cálculo das alturas iguais. */
+.casos .caso{max-width:none;width:100%}
 .caso__tags{
   display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.2rem;
 }
@@ -1192,6 +1207,34 @@ figure:hover .retrato img{transform:scale(1.02)}
 .comparador:hover .comparador__alca{transform:translate(-50%,-50%) scale(1.08)}
 .comparador.is-arrastando .comparador__alca{background:var(--ouro);transform:translate(-50%,-50%) scale(.95)}
 .comparador.is-arrastando .comparador__rotulo{opacity:.35}
+
+/* ---- Variante vertical: a linha é horizontal e o antes fica em cima ----
+   O clip revela a camada da frente do topo para baixo, então o "antes" ocupa
+   a parte de cima e a pessoa desliza para cima para ver o depois. */
+.comparador--vertical .comparador__frente{
+  clip-path:inset(0 0 calc(100% - var(--pos)) 0);
+}
+.comparador--vertical .comparador__linha{
+  top:var(--pos);bottom:auto;left:0;right:0;
+  width:auto;height:2px;margin-left:0;margin-top:-1px;
+  /* Aqui o nosso eixo é o mesmo da rolagem. Se o comparador inteiro tomasse
+     o gesto vertical, passar o dedo por ele para rolar a página prenderia a
+     página. Então só a linha e a alça tomam o gesto; no resto da foto a
+     rolagem segue normal. */
+  pointer-events:auto;touch-action:none;
+}
+.comparador--vertical .comparador__rotulo--antes{
+  left:50%;transform:translateX(-50%);top:1rem;
+}
+.comparador--vertical .comparador__rotulo--depois{
+  left:50%;right:auto;transform:translateX(-50%);top:auto;bottom:1rem;
+}
+@keyframes conviteV{
+  0%,100%{transform:translate(-50%,-50%)}
+  30%{transform:translate(-50%,calc(-50% - 14px))}
+  60%{transform:translate(-50%,calc(-50% + 8px))}
+}
+.comparador--vertical.is-convidando .comparador__alca{animation:conviteV 1.5s var(--ease) 1}
 
 /* O range existe pelo teclado e pelo leitor de tela, não pelo ponteiro.
    Ele cobria a imagem inteira e engolia todo pointerdown: no desktop o
