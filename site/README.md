@@ -226,3 +226,24 @@ carregadas do Google Fonts no `<head>`.
 
 Para trocar qualquer cor ou fonte, edite as variáveis em `:root`, no topo de
 `assets/css/style.css`.
+
+## Onde este site pode ser publicado
+
+Ele precisa de uma hospedagem que sirva **arquivos estáticos** — qualquer uma
+serve, porque não há build nem banco de dados. Netlify, Cloudflare Pages,
+Vercel, GitHub Pages ou uma hospedagem comum com painel: basta subir o
+conteúdo da pasta `site/` com o `index.html` na raiz.
+
+**O Canva Sites não serve.** Ele publica um *design* do Canva como página, não
+um conjunto de arquivos: o JavaScript não roda (a própria ajuda do Canva diz
+que não há suporte a JS em designs importados) e o CSS é reinterpretado. Num
+site publicado assim, a foto do hero não desliza, o menu não abre, o
+comparador de antes e depois não arrasta e o formulário não monta a mensagem
+do WhatsApp — nada disso é código quebrado, é código que não chega a rodar.
+
+### Conferir o que está no ar
+
+`versao.txt` fica na raiz do site e carrega o mesmo número do `?v=` usado
+contra cache. Abrir `SEU-DOMINIO/versao.txt` diz, em um toque, se os arquivos
+novos realmente substituíram os antigos. Número diferente ou 404: o envio não
+chegou.
