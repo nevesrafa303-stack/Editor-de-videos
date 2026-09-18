@@ -891,7 +891,12 @@
         : foco[(i + 1) % foco.length];
       proximo.focus();
     });
-    matchMedia('(min-width: 901px)').addEventListener('change', fechar);
+    // addEventListener em MediaQueryList é recente; em navegador antigo isso
+    // estoura e derruba o resto da inicialização. O fechamento ao passar para
+    // desktop é um detalhe, não vale o risco.
+    const mq = matchMedia('(min-width: 901px)');
+    if (mq.addEventListener) mq.addEventListener('change', fechar);
+    else if (mq.addListener) mq.addListener(fechar);
   };
 
   const marquee = () => {

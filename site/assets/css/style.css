@@ -337,14 +337,6 @@ figure:hover .moldura img{transform:scale(1.035)}
     radial-gradient(80% 60% at 4% 98%,rgba(235,231,219,.10),transparent 64%),
     linear-gradient(165deg,#3A3A3A 0%,#242424 46%,#151515 100%);
 }
-.hero__fundo::after{
-  content:'';position:absolute;inset:0;opacity:.5;
-  background-image:
-    linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px);
-  background-size:clamp(70px,9vw,140px) 100%;
-  -webkit-mask-image:linear-gradient(180deg,transparent,#000 22%,#000 72%,transparent);
-  mask-image:linear-gradient(180deg,transparent,#000 22%,#000 72%,transparent);
-}
 .hero__grid{
   position:relative;display:grid;gap:clamp(2.5rem,6vw,5rem);
   grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:center;
@@ -767,14 +759,31 @@ html:not(.js) .palavra > span{transform:none}
   :root{--topo-h:66px}
   .topo__cta{display:none}
   .hamburguer{display:flex}
+  /* O painel é posicionado em relação ao PRÓPRIO cabeçalho, não à janela.
+     Era `position:fixed` dentro do `.topo`, e o `.topo` ganha `transform` ao
+     se esconder na rolagem. Um ancestral transformado vira o contêiner dos
+     filhos `fixed`: o painel passava a medir a altura do cabeçalho, 66px, e
+     o menu "abria" sem mostrar nada. Com `absolute` o resultado é o mesmo
+     esteja o cabeçalho transformado ou não.
+
+     As quatro bordas vão escritas uma a uma em vez de `inset`: se o navegador
+     ignora a propriedade nova, perde as quatro âncoras de uma vez e o painel
+     encolhe para o canto. */
   .nav{
-    position:fixed;inset:var(--topo-h) 0 0;margin:0;
+    position:absolute;
+    top:100%;left:0;right:0;margin:0;
+    height:calc(100vh - var(--topo-h));
+    height:calc(100svh - var(--topo-h));
+    z-index:5;
+    overflow-y:auto;                 /* tela muito baixa: rola em vez de cortar */
     background:var(--grafite);color:var(--txt);
     display:grid;place-items:center;
     opacity:0;visibility:hidden;transform:translateY(-8px);
     transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s;
   }
   .nav.is-aberto{opacity:1;visibility:visible;transform:none}
+  /* com o menu aberto o cabeçalho não pode se esconder e levar o painel junto */
+  body.menu-aberto .topo{transform:none}
   .nav ul{flex-direction:column;gap:1.5rem;text-align:center}
   .nav a{font-size:1.35rem;font-family:var(--serif);opacity:1}
   body.menu-aberto{overflow:hidden}
