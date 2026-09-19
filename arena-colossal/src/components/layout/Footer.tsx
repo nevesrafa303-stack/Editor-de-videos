@@ -74,12 +74,12 @@ export function Footer() {
               </li>
             ) : null}
             <li>
-              <a href="#localizacao" className={styles.link}>
+              <a href="/#localizacao" className={styles.link}>
                 Localização
               </a>
             </li>
             <li>
-              <a href="#duvidas" className={styles.link}>
+              <a href="/#duvidas" className={styles.link}>
                 Dúvidas frequentes
               </a>
             </li>

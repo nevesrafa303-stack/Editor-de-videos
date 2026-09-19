@@ -3,6 +3,7 @@ import { BeforeAfter } from '@/components/sections/BeforeAfter';
 import { BookingSection } from '@/components/sections/BookingSection';
 import { BrandExperience } from '@/components/sections/BrandExperience';
 import { DetailHotspots } from '@/components/sections/DetailHotspots';
+import { Diagnostic } from '@/components/sections/Diagnostic';
 import { Faq } from '@/components/sections/Faq';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { Hero } from '@/components/sections/Hero';
@@ -25,6 +26,7 @@ import { Standards } from '@/components/sections/Standards';
  *   PROVA        Antes/depois e avaliacoes
  *   MARCA        A Arena por dentro
  *   QUALIFICACAO Quando procurar — o visitante se reconhece numa situacao
+ *   PARTICIPACAO Diagnostico — a parte que o visitante FAZ, nao le
  *   OBJECOES     Duvidas — o que trava a decisao, respondido antes de travar
  *   ACESSO       Localizacao
  *   CONVERSAO    Agendamento e fechamento
@@ -43,6 +45,7 @@ export default function HomePage() {
       <Reviews />
       <BrandExperience />
       <Audience />
+      <Diagnostic />
       <Faq />
       <Location />
       <BookingSection />

@@ -7,6 +7,18 @@ import { track } from '@/lib/analytics';
 /** Evento que liga os atalhos da página ao formulário de agendamento. */
 export const EVENTO_SELECIONAR_SERVICO = 'arena:selecionar-servico';
 
+/**
+ * Carga do evento.
+ *
+ * `observacao` existe para o diagnóstico: além de escolher o serviço, ele cola
+ * o processo sugerido no campo de observações, para a Arena receber o pedido
+ * já sabendo do que se trata.
+ */
+export type SelecaoDeServico = {
+  slug: string;
+  observacao?: string;
+};
+
 type ServiceShortcutProps = {
   slug: string;
   children: ReactNode;
@@ -32,7 +44,9 @@ export function ServiceShortcut({ slug, children, source, className }: ServiceSh
       href="#agendamento"
       className={className}
       onClick={() => {
-        window.dispatchEvent(new CustomEvent(EVENTO_SELECIONAR_SERVICO, { detail: slug }));
+        window.dispatchEvent(
+          new CustomEvent<SelecaoDeServico>(EVENTO_SELECIONAR_SERVICO, { detail: { slug } }),
+        );
         track('select_service', { service: slug, source });
       }}
     >

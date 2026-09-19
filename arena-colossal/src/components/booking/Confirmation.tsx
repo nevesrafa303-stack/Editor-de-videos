@@ -106,6 +106,11 @@ export function Confirmation({ confirmation, onRestart }: ConfirmationProps) {
         ) : null}
       </div>
 
+      <p className={styles.acompanhar}>
+        <a href={`/agendamento/${confirmation.id}`}>Acompanhar este agendamento</a> — guarde o link,
+        ele mostra o estado atual a qualquer momento.
+      </p>
+
       <button type="button" className={styles.restart} onClick={onRestart}>
         Fazer outro agendamento
       </button>

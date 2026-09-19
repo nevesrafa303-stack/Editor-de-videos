@@ -8,8 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // Rotas de API nao tem conteudo indexavel e algumas sao de escrita.
-        disallow: '/api/',
+        // API nao tem conteudo indexavel; /agendamento/<id> e' link privado do
+        // cliente e nao deve aparecer em busca nenhuma.
+        disallow: ['/api/', '/agendamento/'],
       },
     ],
     sitemap: `${site.url}/sitemap.xml`,

@@ -35,7 +35,7 @@ export function MobileActionBar() {
   return (
     <div className={styles.bar} data-visible={visible} aria-hidden={!visible} inert={!visible}>
       <a
-        href="#agendamento"
+        href="/#agendamento"
         className={styles.primary}
         onClick={() => track('start_booking', { source: 'mobile_bar' })}
       >

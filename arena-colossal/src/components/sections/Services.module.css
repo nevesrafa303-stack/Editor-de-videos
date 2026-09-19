@@ -136,6 +136,26 @@
   color: var(--gray-500);
 }
 
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.cardLink span {
+  transition: transform 320ms var(--ease-out);
+}
+
+.card:hover .cardLink span {
+  transform: translateX(4px);
+}
+
 /* Dica de arraste so faz sentido onde existe arraste (desktop). */
 .hint {
   display: none;
@@ -161,6 +181,18 @@
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.endSecundario {
+  font-size: var(--step--1);
+  color: var(--gray-300);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  padding-bottom: 3px;
+  align-self: flex-start;
+}
+
+.endSecundario:hover {
   color: var(--white);
 }
 

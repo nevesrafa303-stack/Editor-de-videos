@@ -40,7 +40,17 @@ function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
-function layout(title: string, intro: string, booking: BookingWithRelations): string {
+/** Link de acompanhamento — o mesmo que aparece na tela de confirmação. */
+function linkAcompanhamento(booking: BookingWithRelations): string {
+  return `${site.url}/agendamento/${booking.id}`;
+}
+
+function layout(
+  title: string,
+  intro: string,
+  booking: BookingWithRelations,
+  comLink = false,
+): string {
   const body = rows(booking)
     .map(
       ([label, value]) => `
@@ -65,6 +75,11 @@ function layout(title: string, intro: string, booking: BookingWithRelations): st
       <tr>
         <td style="padding:20px 32px 32px;">
           <table role="presentation" cellpadding="0" cellspacing="0" width="100%">${body}</table>
+          ${
+            comLink
+              ? `<p style="margin:24px 0 0;"><a href="${escapeHtml(linkAcompanhamento(booking))}" style="color:#c9a227;font-size:14px;">Acompanhar este agendamento</a></p>`
+              : ''
+          }
           <p style="margin:24px 0 0;color:#6e6e77;font-size:12px;line-height:1.6;">
             Agendamento #${escapeHtml(booking.id)}<br />
             ${escapeHtml(site.location.city)} — ${escapeHtml(site.location.state)}
@@ -76,8 +91,15 @@ function layout(title: string, intro: string, booking: BookingWithRelations): st
 </html>`;
 }
 
-function plain(title: string, booking: BookingWithRelations): string {
-  return [title, '', ...rows(booking).map(([label, value]) => `${label}: ${value}`), '', `Agendamento #${booking.id}`].join('\n');
+function plain(title: string, booking: BookingWithRelations, comLink = false): string {
+  return [
+    title,
+    '',
+    ...rows(booking).map(([label, value]) => `${label}: ${value}`),
+    '',
+    ...(comLink ? [`Acompanhar: ${linkAcompanhamento(booking)}`, ''] : []),
+    `Agendamento #${booking.id}`,
+  ].join('\n');
 }
 
 /** Copia interna — e' o e-mail que a equipe da Arena recebe. */
@@ -100,7 +122,7 @@ export function customerBookingEmail(booking: BookingWithRelations): EmailConten
 
   return {
     subject: `Agendamento confirmado — Arena Colossal — ${formatIsoDateLong(booking.date)}`,
-    html: layout(title, intro, booking),
-    text: plain('AGENDAMENTO CONFIRMADO — ARENA COLOSSAL', booking),
+    html: layout(title, intro, booking, true),
+    text: plain('AGENDAMENTO CONFIRMADO — ARENA COLOSSAL', booking, true),
   };
 }

@@ -77,7 +77,7 @@ export function Navbar() {
   return (
     <header className={styles.header} data-solid={isSolid} data-menu-open={isMenuOpen}>
       <div className={styles.inner}>
-        <a href="#top" className={styles.logo} aria-label="Arena Colossal — início">
+        <a href="/" className={styles.logo} aria-label="Arena Colossal — início">
           <span className={styles.logoMark}>AC</span>
           <span className={styles.logoText}>
             Arena <em>Colossal</em>
@@ -98,7 +98,7 @@ export function Navbar() {
 
         <div className={styles.actions}>
           <Button
-            href="#agendamento"
+            href="/#agendamento"
             size="md"
             className={styles.cta}
             onClick={() => track('start_booking', { source: 'navbar' })}
@@ -143,7 +143,7 @@ export function Navbar() {
         </nav>
 
         <div className={styles.mobileFooter}>
-          <Button href="#agendamento" size="lg" magnetic={false} onClick={closeMenu}>
+          <Button href="/#agendamento" size="lg" magnetic={false} onClick={closeMenu}>
             Agendar serviço
           </Button>
 

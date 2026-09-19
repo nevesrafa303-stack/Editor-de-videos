@@ -97,11 +97,18 @@ export const site = {
   turnstileSiteKey: clean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY),
 } as const;
 
-/** Navegacao principal — a mesma lista alimenta navbar, menu mobile e rodape. */
+/**
+ * Navegacao principal — a mesma lista alimenta navbar, menu mobile e rodape.
+ *
+ * Os destinos sao ancoras ABSOLUTAS (`/#servicos`, nao `#servicos`): o site tem
+ * paginas proprias por servico e uma pagina de acompanhamento, e uma ancora
+ * relativa nao leva a lugar nenhum quando o visitante nao esta na home.
+ */
 export const navigation = [
-  { label: 'Experiência', href: '#experiencia' },
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Processo', href: '#processo' },
-  { label: 'Resultados', href: '#resultados' },
-  { label: 'Agendamento', href: '#agendamento' },
+  { label: 'Experiência', href: '/#experiencia' },
+  { label: 'Serviços', href: '/servicos' },
+  { label: 'Processo', href: '/#processo' },
+  { label: 'Resultados', href: '/#resultados' },
+  { label: 'Diagnóstico', href: '/#diagnostico' },
+  { label: 'Agendamento', href: '/#agendamento' },
 ] as const;

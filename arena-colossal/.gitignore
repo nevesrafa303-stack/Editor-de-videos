@@ -9,3 +9,7 @@ build/
 next-env.d.ts
 .vercel
 src/generated/
+
+# Gerados automaticamente por `next dev` (generate-agent-files.js), nao pelo projeto.
+AGENTS.md
+CLAUDE.md

@@ -12,7 +12,7 @@ import { DateStep } from './DateStep';
 import { DetailsStep } from './DetailsStep';
 import { ProgressSteps, STEP_LABELS } from './ProgressSteps';
 import { ReviewStep } from './ReviewStep';
-import { EVENTO_SELECIONAR_SERVICO } from './ServiceShortcut';
+import { EVENTO_SELECIONAR_SERVICO, type SelecaoDeServico } from './ServiceShortcut';
 import { ServiceStep } from './ServiceStep';
 import { TimeStep } from './TimeStep';
 import styles from './booking.module.css';
@@ -75,17 +75,28 @@ export function BookingWizard() {
    * string é digitável por qualquer um e não pode virar estado inválido.
    */
   useEffect(() => {
-    const escolher = (slug: string) => {
+    const escolher = (slug: string, observacao?: string) => {
       if (!isServiceSlug(slug)) return;
-      setDraft((current) => ({ ...current, serviceSlug: slug, time: null }));
+
+      setDraft((current) => ({
+        ...current,
+        serviceSlug: slug,
+        time: null,
+        // Só preenche observações se o campo ainda estiver vazio: o que a
+        // pessoa escreveu vale mais que o texto automático do diagnóstico.
+        notes:
+          observacao !== undefined && current.notes.trim().length === 0 ? observacao : current.notes,
+      }));
+
       setErrors({});
       setStep(1);
       setMaxReached((current) => Math.max(current, 1));
     };
 
     const aoReceber = (event: Event) => {
-      const slug = (event as CustomEvent<string>).detail;
-      if (typeof slug === 'string') escolher(slug);
+      const detalhe = (event as CustomEvent<SelecaoDeServico>).detail;
+      if (typeof detalhe === 'string') escolher(detalhe);
+      else if (detalhe && typeof detalhe.slug === 'string') escolher(detalhe.slug, detalhe.observacao);
     };
 
     window.addEventListener(EVENTO_SELECIONAR_SERVICO, aoReceber);

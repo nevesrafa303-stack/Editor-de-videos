@@ -516,6 +516,20 @@
   margin-top: 14px;
 }
 
+.acompanhar {
+  margin-top: 4px;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-500);
+  max-width: 52ch;
+}
+
+.acompanhar a {
+  color: var(--gold);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
 .restart {
   margin-top: 6px;
   padding-bottom: 4px;

@@ -49,7 +49,12 @@ Next.js App Router ────────────────────�
    Zod; só a do backend decide.
 4. **Reserva dupla é impedida no banco.** A inserção roda em transação
    `SERIALIZABLE` com contagem de sobreposição — não em `if` no JavaScript.
-5. **Nada é inventado.** Endereço, horário, avaliações e fotos aparecem só
+5. **Variável pública muda? Rebuild.** `next.config.ts` fixa as chaves
+`NEXT_PUBLIC_*` no build para servidor e cliente. Sem isso, uma página dinâmica
+renderiza no servidor com o valor de runtime e no navegador com o valor gravado
+no bundle — e a diferença quebra a hidratação em silêncio.
+
+**Nada é inventado.** Endereço, horário, avaliações e fotos aparecem só
    quando configurados. Enquanto não existem, a seção some ou assume um estado
    honesto.
 6. **Degradação é prevista, não acidental.** Sem banco → driver em memória.
@@ -133,18 +138,44 @@ placeholder elegante), `AvailableImagesProvider`.
 fullscreen com foco preso), `Footer`, `Preloader`, `SmoothScroll`,
 `CustomCursor`, `MobileActionBar`, `WhatsAppLink`.
 
+**Experiências** — `Diagnostic` (monta o processo do carro em 4 perguntas),
+páginas de serviço (`/servicos/[slug]`) e acompanhamento (`/agendamento/[id]`).
+
 **Seções** — `Hero`, `Manifesto`, `ServicesMarquee` (faixa em movimento),
 `Services` (scroll horizontal fixado no desktop, lista completa no mobile),
 `DetailHotspots`, `Standards` (critério técnico), `Process` (timeline com
 progresso amarrado ao scroll), `BeforeAfter` (comparador arrastável),
-`Reviews`, `BrandExperience`, `Audience` (quando procurar), `Faq`, `Location`,
-`BookingSection`, `FinalCta`.
+`Reviews`, `BrandExperience`, `Audience` (quando procurar), `Diagnostic`,
+`Faq`, `Location`, `BookingSection`, `FinalCta`.
 
 **Agendamento** — `BookingWizard`, `ProgressSteps`, `ServiceStep`, `DateStep`,
 `TimeStep`, `DetailsStep`, `ReviewStep`, `Confirmation`, `Turnstile`,
 `ServiceShortcut`.
 
 ---
+
+## 4b. O diagnóstico
+
+Quatro perguntas (rotina, pintura, interior, objetivo) e o site devolve o
+processo do carro **na ordem técnica**, com o motivo de cada etapa e o tempo
+somado. O motor está em `src/lib/config/diagnostic.ts`:
+
+- **determinístico** — pesos fixos por resposta, mesma entrada gera sempre a
+  mesma saída. Não há modelo nem sorteio, então a Arena consegue auditar regra
+  por regra por que um serviço entrou;
+- **ordenado por sequência técnica, não por pontuação** — proteção depois de
+  correção, correção depois de descontaminação. Inverter isso seria sugerir um
+  trabalho que a própria seção "Processo" diz que não se faz;
+- **a lavagem técnica entra fora da disputa por pontos** sempre que houver
+  trabalho de pintura, porque o site inteiro afirma que nada avança sem ela;
+- **roda no navegador**, sem requisição: responde na hora e funciona com a API
+  fora do ar.
+
+O resultado sai rotulado como ponto de partida — pintura não se lê por
+formulário. Ao agendar, o processo sugerido é colado nas observações (só se o
+campo estiver vazio: o que a pessoa escreveu vale mais).
+
+Para ajustar as recomendações, mexa apenas em `PESOS`.
 
 ## 5. Fluxo do agendamento
 
@@ -349,7 +380,9 @@ Cloudflare → *Turnstile* → adicione o domínio →
 - [ ] Casos de antes/depois em `src/components/sections/BeforeAfter.tsx`
       (ajuste o `label` para o serviço realmente executado).
 - [ ] **Revisar os textos de marca** com a Arena: `Standards.tsx` (critério
-      técnico), `Audience.tsx` (quando procurar) e `src/lib/config/faq.ts`.
+      técnico), `Audience.tsx` (quando procurar), `src/lib/config/faq.ts`, os
+      campos `etapas` / `indicado` / `naoResolve` de cada serviço em
+      `src/lib/config/services.ts` e os pesos do diagnóstico.
       São afirmações sobre método e operação — nenhuma inventa preço, prazo,
       garantia ou número, mas todas falam em nome da Arena e precisam do aval
       de quem toca a oficina. O FAQ em especial vira **dados estruturados no

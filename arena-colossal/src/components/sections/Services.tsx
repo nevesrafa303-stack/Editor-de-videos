@@ -100,7 +100,9 @@ export function Services() {
         <ol ref={trackRef} className={styles.track}>
           {services.map((service) => (
             <li key={service.slug} className={styles.panel} data-service={service.slug}>
-              <article className={styles.card}>
+              {/* O card inteiro e' o link: alvo grande no toque e um so destino
+                  para leitor de tela, em vez de "leia mais" repetido dez vezes. */}
+              <a className={styles.card} href={`/servicos/${service.slug}`}>
                 <div className={styles.cardMedia}>
                   <MediaFrame
                     src={service.image}
@@ -122,16 +124,24 @@ export function Services() {
                   <h3 className={styles.cardTitle}>{service.name}</h3>
                   <p className={styles.cardSummary}>{service.summary}</p>
                   <p className={styles.cardDescription}>{service.description}</p>
+
+                  <span className={styles.cardLink}>
+                    Ver o serviço
+                    <span aria-hidden="true">→</span>
+                  </span>
                 </div>
-              </article>
+              </a>
             </li>
           ))}
 
-          <li className={styles.panel} aria-hidden="true">
+          <li className={styles.panel}>
             <div className={styles.endCard}>
               <p className={styles.endTitle}>O processo certo depende do seu carro.</p>
-              <a href="#agendamento" className={styles.endLink}>
-                Agendar avaliação
+              <a href="#diagnostico" className={styles.endLink}>
+                Montar meu processo
+              </a>
+              <a href="/servicos" className={styles.endSecundario}>
+                Ver os dez serviços em detalhe
               </a>
             </div>
           </li>
