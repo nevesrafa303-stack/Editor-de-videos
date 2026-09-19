@@ -40,6 +40,16 @@
   will-change: transform;
 }
 
+/* No celular as figuras que ocupam a linha inteira ficam mais baixas: em 4/5
+   uma unica foto tomava quase uma tela e a secao virava um corredor de blocos
+   escuros. A proporcao original volta a valer a partir de 768px. */
+@media (max-width: 767px) {
+  .figure[data-size='tall'] :global(.media-frame),
+  .figure[data-size='wide'] :global(.media-frame) {
+    aspect-ratio: 16 / 10 !important;
+  }
+}
+
 .figure[data-size='tall'] {
   grid-column: span 2;
 }

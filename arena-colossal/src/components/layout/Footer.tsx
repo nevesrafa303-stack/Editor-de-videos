@@ -78,6 +78,11 @@ export function Footer() {
                 Localização
               </a>
             </li>
+            <li>
+              <a href="#duvidas" className={styles.link}>
+                Dúvidas frequentes
+              </a>
+            </li>
           </ul>
         </div>
 

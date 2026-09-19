@@ -11,7 +11,11 @@ import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { AvailableImagesProvider } from '@/components/ui/AvailableImagesProvider';
 import { site } from '@/lib/config/site';
 import { getAvailableImages } from '@/lib/images';
-import { buildLocalBusinessJsonLd, buildWebSiteJsonLd } from '@/lib/seo/structured-data';
+import {
+  buildFaqJsonLd,
+  buildLocalBusinessJsonLd,
+  buildWebSiteJsonLd,
+} from '@/lib/seo/structured-data';
 import { getOpeningWindows } from '@/services/booking/schedule';
 
 import './globals.css';
@@ -86,7 +90,11 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const jsonLd = [buildLocalBusinessJsonLd(getOpeningWindows()), buildWebSiteJsonLd()];
+  const jsonLd = [
+    buildLocalBusinessJsonLd(getOpeningWindows()),
+    buildWebSiteJsonLd(),
+    buildFaqJsonLd(),
+  ];
   const availableImages = getAvailableImages();
 
   return (

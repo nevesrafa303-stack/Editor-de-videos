@@ -71,7 +71,15 @@ export function MediaFrame({
       {!hasImage || !loaded ? (
         <div className={styles.placeholder} aria-hidden="true">
           <span className={styles.grain} />
-          <span className={styles.placeholderLabel}>{placeholderLabel}</span>
+          <span className={styles.crosshair} />
+          <span className={styles.monogram}>AC</span>
+          <span className={styles.placeholderLabel}>
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.4">
+              <path d="M3 8.5h3.2l1.4-2.2h7.8l1.4 2.2H21v10.5H3z" strokeLinejoin="round" />
+              <circle cx="12" cy="13" r="3.4" />
+            </svg>
+            {placeholderLabel}
+          </span>
         </div>
       ) : null}
     </div>

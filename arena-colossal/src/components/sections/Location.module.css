@@ -58,6 +58,19 @@
   margin-top: 24px;
 }
 
+.fachada {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fachadaNota {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-500);
+  max-width: 46ch;
+}
+
 .mapWrapper {
   position: relative;
   min-height: 300px;
@@ -81,7 +94,20 @@
     align-items: center;
   }
 
-  .mapWrapper {
+  .fachada {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fachadaNota {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-500);
+  max-width: 46ch;
+}
+
+.mapWrapper {
     min-height: 460px;
   }
 

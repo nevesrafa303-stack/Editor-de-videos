@@ -39,15 +39,15 @@
   width: 100%;
 }
 
+/* MOBILE: lista vertical com os DEZ servicos a vista.
+   O carrossel horizontal mostrava um card e escondia nove — no celular isso
+   lia como secao vazia, justamente na parte mais importante do site. O scroll
+   horizontal volta a existir no desktop, onde o GSAP o conduz. */
 .track {
   display: flex;
-  gap: 20px;
-  /* Mobile: carrossel nativo, com o mesmo respiro lateral do container. */
+  flex-direction: column;
+  gap: 14px;
   padding-inline: var(--gutter);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
 }
 
 .track::-webkit-scrollbar {
@@ -55,8 +55,7 @@
 }
 
 .panel {
-  flex: 0 0 min(82vw, 380px);
-  scroll-snap-align: center;
+  flex: 0 0 auto;
 }
 
 /* --- Card ---------------------------------------------------------------- */
@@ -77,6 +76,12 @@
   overflow: hidden;
 }
 
+/* A proporcao vem por style inline (4/3). No mobile ela e' achatada para a
+   lista respirar: dez blocos de 4/3 empilhados viram uma parede de imagem. */
+.cardMedia :global(.media-frame) {
+  aspect-ratio: 16 / 9 !important;
+}
+
 .cardMedia :global(.media-frame) {
   border: none;
   border-bottom: var(--border);
@@ -86,8 +91,8 @@
 .cardBody {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 26px 24px 30px;
+  gap: 10px;
+  padding: 20px 20px 24px;
 }
 
 .cardHead {
@@ -129,6 +134,11 @@
   font-size: var(--step--1);
   line-height: 1.7;
   color: var(--gray-500);
+}
+
+/* Dica de arraste so faz sentido onde existe arraste (desktop). */
+.hint {
+  display: none;
 }
 
 /* --- Card final ---------------------------------------------------------- */
@@ -199,11 +209,16 @@
     min-height: 0;
   }
 
+  .hint {
+    display: flex;
+  }
+
   .track {
+    flex-direction: row;
     height: 100%;
     align-items: center;
     gap: 28px;
-    /* O GSAP assume o deslocamento: o scroll nativo sai de cena. */
+    /* No desktop o GSAP conduz o deslocamento; o scroll nativo sai de cena. */
     overflow: visible;
     scroll-snap-type: none;
     padding-inline: max(var(--gutter), calc((100vw - var(--container-width)) / 2 + var(--gutter)));
@@ -256,8 +271,9 @@
   }
 }
 
-/* Sem GSAP (movimento reduzido), o trilho volta a ser rolavel na mao. */
-@media (prefers-reduced-motion: reduce) {
+/* Sem GSAP (movimento reduzido), o trilho do desktop volta a ser rolavel na
+   mao. No mobile a lista ja e' vertical e nao precisa de nada disso. */
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
   .track {
     overflow-x: auto;
     scroll-snap-type: x mandatory;

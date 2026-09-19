@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button';
+import { MediaFrame } from '@/components/ui/MediaFrame';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { site } from '@/lib/config/site';
@@ -15,6 +16,10 @@ import styles from './Location.module.css';
  *
  * O mapa e' um iframe com `loading="lazy"`: nenhum request ao Google acontece
  * antes de o usuario chegar perto da secao.
+ *
+ * Enquanto o endereco nao existe, a coluna da direita NAO fica vazia: ela
+ * recebe a moldura da foto de fachada. Meia secao em branco e' o tipo de buraco
+ * que faz um site parecer inacabado — principalmente no celular.
  */
 export function Location() {
   const hasAddress = site.location.fullAddress !== null;
@@ -70,7 +75,21 @@ export function Location() {
               allowFullScreen
             />
           </Reveal>
-        ) : null}
+        ) : (
+          <Reveal variant="mask" className={styles.fachada}>
+            <MediaFrame
+              src="/images/location/fachada.jpg"
+              alt="Fachada da Arena Colossal"
+              placeholderLabel="Foto — fachada da Arena"
+              ratio="4 / 3"
+              sizes="(max-width: 1024px) 100vw, 55vw"
+            />
+            <p className={styles.fachadaNota}>
+              Balneário Camboriú e região. O ponto exato é enviado junto com a confirmação do
+              agendamento.
+            </p>
+          </Reveal>
+        )}
       </div>
     </section>
   );

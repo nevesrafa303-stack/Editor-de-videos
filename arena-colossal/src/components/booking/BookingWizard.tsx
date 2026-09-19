@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { track } from '@/lib/analytics';
+import { isServiceSlug } from '@/lib/config/services';
 import { bookingRequestSchema, fieldErrors } from '@/lib/validation/booking';
 
 import { Confirmation } from './Confirmation';
@@ -11,6 +12,7 @@ import { DateStep } from './DateStep';
 import { DetailsStep } from './DetailsStep';
 import { ProgressSteps, STEP_LABELS } from './ProgressSteps';
 import { ReviewStep } from './ReviewStep';
+import { EVENTO_SELECIONAR_SERVICO } from './ServiceShortcut';
 import { ServiceStep } from './ServiceStep';
 import { TimeStep } from './TimeStep';
 import styles from './booking.module.css';
@@ -63,6 +65,35 @@ export function BookingWizard() {
       });
 
     return () => controller.abort();
+  }, []);
+
+  /**
+   * Serviço escolhido fora do formulário: pelos atalhos da seção "Quando
+   * procurar a Arena" ou por um link compartilhado com `?servico=`.
+   *
+   * O slug é validado contra o catálogo antes de entrar no rascunho — a query
+   * string é digitável por qualquer um e não pode virar estado inválido.
+   */
+  useEffect(() => {
+    const escolher = (slug: string) => {
+      if (!isServiceSlug(slug)) return;
+      setDraft((current) => ({ ...current, serviceSlug: slug, time: null }));
+      setErrors({});
+      setStep(1);
+      setMaxReached((current) => Math.max(current, 1));
+    };
+
+    const aoReceber = (event: Event) => {
+      const slug = (event as CustomEvent<string>).detail;
+      if (typeof slug === 'string') escolher(slug);
+    };
+
+    window.addEventListener(EVENTO_SELECIONAR_SERVICO, aoReceber);
+
+    const daUrl = new URLSearchParams(window.location.search).get('servico');
+    if (daUrl !== null) escolher(daUrl);
+
+    return () => window.removeEventListener(EVENTO_SELECIONAR_SERVICO, aoReceber);
   }, []);
 
   const update = useCallback(

@@ -133,13 +133,16 @@ placeholder elegante), `AvailableImagesProvider`.
 fullscreen com foco preso), `Footer`, `Preloader`, `SmoothScroll`,
 `CustomCursor`, `MobileActionBar`, `WhatsAppLink`.
 
-**Seções** — `Hero`, `Manifesto`, `Services` (scroll horizontal fixado no
-desktop, carrossel nativo no mobile), `DetailHotspots`, `Process` (timeline com
+**Seções** — `Hero`, `Manifesto`, `ServicesMarquee` (faixa em movimento),
+`Services` (scroll horizontal fixado no desktop, lista completa no mobile),
+`DetailHotspots`, `Standards` (critério técnico), `Process` (timeline com
 progresso amarrado ao scroll), `BeforeAfter` (comparador arrastável),
-`Reviews`, `BrandExperience`, `Location`, `BookingSection`, `FinalCta`.
+`Reviews`, `BrandExperience`, `Audience` (quando procurar), `Faq`, `Location`,
+`BookingSection`, `FinalCta`.
 
 **Agendamento** — `BookingWizard`, `ProgressSteps`, `ServiceStep`, `DateStep`,
-`TimeStep`, `DetailsStep`, `ReviewStep`, `Confirmation`, `Turnstile`.
+`TimeStep`, `DetailsStep`, `ReviewStep`, `Confirmation`, `Turnstile`,
+`ServiceShortcut`.
 
 ---
 
@@ -150,7 +153,10 @@ progresso amarrado ao scroll), `BeforeAfter` (comparador arrastável),
 ```
 
 1. **Serviço** — catálogo de `src/lib/config/services.ts`; a duração define o
-   bloco reservado.
+   bloco reservado. Pode vir pré-selecionado por um atalho da seção "Quando
+   procurar a Arena" ou por um link compartilhável
+   (`/?servico=polimento-tecnico#agendamento`); o slug é validado contra o
+   catálogo antes de virar estado.
 2. **Data** — faixa de dias vinda de `/api/booking-config`. Dias fechados e
    datas bloqueadas já chegam desabilitados.
 3. **Horário** — `/api/availability` cruza a grade de trabalho com os
@@ -342,6 +348,12 @@ Cloudflare → *Turnstile* → adicione o domínio →
       autorizado. Nenhuma avaliação foi inventada.
 - [ ] Casos de antes/depois em `src/components/sections/BeforeAfter.tsx`
       (ajuste o `label` para o serviço realmente executado).
+- [ ] **Revisar os textos de marca** com a Arena: `Standards.tsx` (critério
+      técnico), `Audience.tsx` (quando procurar) e `src/lib/config/faq.ts`.
+      São afirmações sobre método e operação — nenhuma inventa preço, prazo,
+      garantia ou número, mas todas falam em nome da Arena e precisam do aval
+      de quem toca a oficina. O FAQ em especial vira **dados estruturados no
+      Google**: resposta errada ali é resposta errada na busca.
 - [ ] Revisar a política de privacidade com quem cuida do jurídico
       (prazo de retenção e encarregado de dados não foram preenchidos).
 
@@ -410,5 +422,13 @@ estado final. O GSAP só é baixado quando há movimento permitido, e só nas se
 que realmente precisam.
 
 **Mobile não é o desktop encolhido.** Scroll nativo (sem Lenis), sem cursor
-customizado, sem seção fixada, carrossel com snap nativo, barra de ação fixa e
-campos com `font-size: 16px` para o iOS não dar zoom ao focar.
+customizado, sem seção fixada, barra de ação fixa e campos com
+`font-size: 16px` para o iOS não dar zoom ao focar. Os serviços, que no desktop
+correm na horizontal, viram **lista vertical com os dez à vista**: o carrossel
+mostrava um card e escondia nove, e no celular isso lia como seção vazia
+justamente na parte mais importante do site.
+
+**O placeholder de imagem é design, não buraco.** Enquanto as fotos da Arena
+não chegam, a moldura desenha marcas de enquadramento, cruz de centro,
+monograma e o rótulo do que entra ali. São esses blocos que seguram a
+composição no celular, onde cada um ocupa meia tela.

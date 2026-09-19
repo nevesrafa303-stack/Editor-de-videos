@@ -1,3 +1,4 @@
+import { faq } from '@/lib/config/faq';
 import { services } from '@/lib/config/services';
 import { site } from '@/lib/config/site';
 
@@ -89,5 +90,25 @@ export function buildWebSiteJsonLd() {
     name: `${site.name} — ${site.tagline}`,
     inLanguage: 'pt-BR',
     publisher: { '@id': `${site.url}/#business` },
+  };
+}
+
+/**
+ * FAQPage — o Google pode exibir estas perguntas direto no resultado de busca.
+ *
+ * Exatamente por isso a fonte é `src/lib/config/faq.ts`, que só aceita
+ * resposta sustentada pelo próprio site: o que entra aqui é publicado como
+ * informação oficial da Arena.
+ */
+export function buildFaqJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${site.url}/#faq`,
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.pergunta,
+      acceptedAnswer: { '@type': 'Answer', text: item.resposta },
+    })),
   };
 }
