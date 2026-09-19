@@ -117,11 +117,15 @@ WebP preservando a transparência.
 > a mesma textura, então saem todos juntos. Aquela foto precisa de recorte
 > manual; por isso a chamada final não usa imagem.
 
-> **Seção "Resultados":** a imagem é de uma paciente. Ela só pode ficar no ar
-> com **termo de autorização de uso de imagem assinado** — é exigência do
-> Código de Ética Odontológica, não formalidade. Para tirar do ar, apague a
-> seção `<!-- CASO CLÍNICO -->` inteira do `index.html` e o link "Resultados"
-> no rodapé.
+> **Seção "Resultados":** são **dois casos**, e as duas imagens são de
+> pacientes. Só podem ficar no ar com **termo de autorização de uso de imagem
+> assinado** — é exigência do Código de Ética Odontológica, não formalidade.
+>
+> **Situação em 19/09/2026:** a Dra. confirmou ter os dois termos assinados.
+> Fica registrado aqui porque é a informação que autoriza a seção a existir; se
+> um dia isso mudar, a seção sai. Para tirar do ar, apague a seção
+> `<!-- CASO CLÍNICO -->` inteira do `index.html` e o link "Resultados" no
+> rodapé.
 
 ### 1.3 Textos
 
