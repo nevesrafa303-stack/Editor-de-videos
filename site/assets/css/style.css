@@ -1038,6 +1038,13 @@ html:not(.js) .palavra > span{transform:none}
 
 /* 11.2 Alvos de toque: 16 elementos mediam menos de 44px de altura no mobile.
    Os links de navegação e de contato ganham área clicável real. */
+/* Marca de versão no rodapé: legível para quem procurar, invisível para quem
+   não estiver procurando. */
+.rodape__versao{
+  opacity:.45;font-size:.72em;letter-spacing:.06em;margin-left:.35rem;
+  font-variant-numeric:tabular-nums;
+}
+
 .rodape ul a,
 .contato__lista a,
 .rodape__contato a{

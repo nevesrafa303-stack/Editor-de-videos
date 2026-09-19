@@ -33,7 +33,7 @@
 
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
-<meta name="versao-do-site" content="16">
+<meta name="versao-do-site" content="17">
 <style>
 /* =============================================================================
    Dra. Consuelo Vasconcelos — folha de estilo única
@@ -1075,6 +1075,13 @@ html:not(.js) .palavra > span{transform:none}
 
 /* 11.2 Alvos de toque: 16 elementos mediam menos de 44px de altura no mobile.
    Os links de navegação e de contato ganham área clicável real. */
+/* Marca de versão no rodapé: legível para quem procurar, invisível para quem
+   não estiver procurando. */
+.rodape__versao{
+  opacity:.45;font-size:.72em;letter-spacing:.06em;margin-left:.35rem;
+  font-variant-numeric:tabular-nums;
+}
+
 .rodape ul a,
 .contato__lista a,
 .rodape__contato a{
@@ -2285,7 +2292,12 @@ figure:hover .retrato img{transform:scale(1.02)}
   </div>
 
   <div class="wrap rodape__base">
-    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados.</p>
+    <!-- O número da versão fica visível aqui, discreto, de propósito. Sem ele,
+         descobrir QUAL versão está publicada exigia abrir outro endereço, e a
+         pergunta ficou sem resposta por várias rodadas enquanto se corrigia
+         no escuro. Agora qualquer print do rodapé já responde. O build
+         mantém este número igual ao do ?v= e ao do versao.txt. -->
+    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados. <span class="rodape__versao" data-versao-visivel>v17</span></p>
     <p><a href="#inicio">Voltar ao topo</a></p>
   </div>
 </footer>

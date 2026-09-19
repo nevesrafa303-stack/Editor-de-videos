@@ -33,8 +33,8 @@
 
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
-<meta name="versao-do-site" content="16">
-<link rel="stylesheet" href="assets/css/style.css?v=16">
+<meta name="versao-do-site" content="17">
+<link rel="stylesheet" href="assets/css/style.css?v=17">
 
 <script>
 /* Progressive enhancement da animação de entrada.
@@ -828,7 +828,12 @@
   </div>
 
   <div class="wrap rodape__base">
-    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados.</p>
+    <!-- O número da versão fica visível aqui, discreto, de propósito. Sem ele,
+         descobrir QUAL versão está publicada exigia abrir outro endereço, e a
+         pergunta ficou sem resposta por várias rodadas enquanto se corrigia
+         no escuro. Agora qualquer print do rodapé já responde. O build
+         mantém este número igual ao do ?v= e ao do versao.txt. -->
+    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados. <span class="rodape__versao" data-versao-visivel>v17</span></p>
     <p><a href="#inicio">Voltar ao topo</a></p>
   </div>
 </footer>
@@ -868,7 +873,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="assets/js/config.js?v=16"></script>
-<script src="assets/js/main.js?v=16" defer></script>
+<script src="assets/js/config.js?v=17"></script>
+<script src="assets/js/main.js?v=17" defer></script>
 </body>
 </html>

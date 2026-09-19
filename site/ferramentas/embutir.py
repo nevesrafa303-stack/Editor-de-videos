@@ -46,11 +46,18 @@ def carimbar_versao() -> str:
     # carregava o defeito que existe para pegar. Quem descobriu foi a página de
     # diagnóstico, na primeira vez que rodou. Agora o build mantém os dois
     # iguais, que é a única forma de isso não repetir.
-    novo_meta = f'<meta name="versao-do-site" content="{versao}">'
     html_meta, trocas = re.subn(r'<meta name="versao-do-site" content="\d+">',
-                                novo_meta, html)
+                                f'<meta name="versao-do-site" content="{versao}">', html)
     if trocas != 1:
         raise SystemExit(f'esperava 1 <meta name="versao-do-site">, achei {trocas}')
+
+    # e a marca visível no rodapé, que é a que responde por um print
+    html_meta, trocas_rodape = re.subn(
+        r'(<span class="rodape__versao" data-versao-visivel>)v\d+(</span>)',
+        rf'\g<1>v{versao}\g<2>', html_meta)
+    if trocas_rodape != 1:
+        raise SystemExit(f'esperava 1 marca de versão no rodapé, achei {trocas_rodape}')
+
     if html_meta != html:
         (RAIZ / 'index.html').write_text(html_meta, encoding='utf-8')
 
