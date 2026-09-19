@@ -1,0 +1,105 @@
+.section {
+  background: var(--black);
+  border-top: var(--border);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vh, 72px);
+}
+
+.stage {
+  display: grid;
+  gap: 24px;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.hotspots {
+  position: absolute;
+  inset: 0;
+}
+
+.hotspot {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  /* Alvo de toque de 44px, ainda que o ponto visivel seja pequeno. */
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.hotspotDot {
+  position: relative;
+  z-index: 2;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+  transition: background-color 300ms var(--ease-out), transform 300ms var(--ease-out);
+}
+
+.hotspotPulse {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  opacity: 0.7;
+  transition: transform 420ms var(--ease-out), border-color 300ms var(--ease-out),
+    opacity 300ms var(--ease-out);
+}
+
+.hotspot[data-active='true'] .hotspotDot {
+  background: var(--gold);
+  transform: scale(1.15);
+}
+
+.hotspot[data-active='true'] .hotspotPulse {
+  border-color: var(--gold);
+  transform: scale(1.55);
+  opacity: 1;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px;
+  background: var(--surface);
+  border: var(--border);
+  border-left: 1px solid var(--gold);
+}
+
+.panelLabel {
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.panelText {
+  font-size: var(--step-0);
+  line-height: 1.65;
+  color: var(--gray-300);
+  max-width: 48ch;
+}
+
+@media (min-width: 1024px) {
+  .stage {
+    grid-template-columns: 1.65fr 1fr;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .panel {
+    min-height: 200px;
+    justify-content: center;
+  }
+}

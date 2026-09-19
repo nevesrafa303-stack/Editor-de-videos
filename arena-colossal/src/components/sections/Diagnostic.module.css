@@ -1,0 +1,318 @@
+.section {
+  background:
+    radial-gradient(70% 60% at 85% 0%, rgba(201, 162, 39, 0.07), transparent 60%),
+    var(--off-black);
+  border-top: var(--border);
+  scroll-margin-top: var(--nav-height);
+}
+
+.inner {
+  display: grid;
+  gap: clamp(36px, 5vw, 72px);
+}
+
+/* --- Painel --------------------------------------------------------------- */
+
+.painel {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  padding: clamp(22px, 4vw, 40px);
+  background: var(--surface);
+  border: var(--border);
+  border-top: 1px solid rgba(201, 162, 39, 0.4);
+}
+
+/* --- Pergunta -------------------------------------------------------------- */
+
+.pergunta {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: entra 420ms var(--ease-out);
+}
+
+.contador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--step--1);
+  color: var(--gray-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.contadorAtual {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.contadorTotal {
+  color: var(--gray-700);
+}
+
+.barra {
+  flex: 1;
+  height: 1px;
+  margin-left: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.barraPreenchida {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: left center;
+  transition: transform 460ms var(--ease-out);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  min-width: 0;
+}
+
+.titulo {
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.ajuda {
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--gray-500);
+  max-width: 54ch;
+}
+
+.opcoes {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  grid-template-columns: 1fr;
+}
+
+.opcao {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* Alvo grande: no celular esta é a interação principal da seção. */
+  min-height: 74px;
+  padding: 16px 18px;
+  text-align: left;
+  background: var(--off-black);
+  border: var(--border);
+  transition:
+    border-color 260ms var(--ease-out),
+    background-color 260ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+
+.opcao:hover,
+.opcao:focus-visible {
+  border-color: rgba(201, 162, 39, 0.55);
+  background: var(--surface-raised);
+  transform: translateY(-2px);
+}
+
+.opcao[data-selected='true'] {
+  border-color: var(--gold);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.opcaoRotulo {
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--white);
+}
+
+.opcaoDetalhe {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--gray-500);
+}
+
+.voltar {
+  align-self: flex-start;
+  margin-top: 6px;
+  padding-bottom: 3px;
+  font-size: var(--step--1);
+  color: var(--gray-500);
+  border-bottom: 1px solid currentColor;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.voltar:hover {
+  color: var(--white);
+}
+
+/* --- Resultado ------------------------------------------------------------- */
+
+.resultado {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: entra 520ms var(--ease-out);
+}
+
+.resultadoEyebrow {
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.resumo {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  max-width: 30ch;
+}
+
+.etapas {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  border-top: var(--border);
+}
+
+.etapa {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 14px;
+  padding-block: 16px;
+  border-bottom: var(--border);
+}
+
+.etapaIndice {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.etapaCorpo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.etapaNome {
+  font-size: var(--step-0);
+  color: var(--white);
+}
+
+.etapaMotivo {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--gray-500);
+}
+
+.etapaTempo {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 4px 12px;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.total strong {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--gold);
+  text-transform: none;
+}
+
+.aviso {
+  padding: 14px 16px;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-300);
+  background: var(--off-black);
+  border: var(--border);
+  border-left: 1px solid var(--gold);
+  max-width: 62ch;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.whats {
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--gray-300);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.5);
+  padding-bottom: 3px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.whats:hover {
+  color: var(--white);
+}
+
+@keyframes entra {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pergunta,
+  .resultado {
+    animation: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .opcoes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: 0.8fr 1.2fr;
+    align-items: start;
+  }
+
+  .head {
+    position: sticky;
+    top: calc(var(--nav-height) + 56px);
+  }
+}

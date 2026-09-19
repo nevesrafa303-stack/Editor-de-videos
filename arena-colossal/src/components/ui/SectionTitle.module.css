@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.title {
+  font-size: var(--step-4);
+  color: var(--white);
+}
+
+.description {
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--gray-300);
+  max-width: 54ch;
+}
