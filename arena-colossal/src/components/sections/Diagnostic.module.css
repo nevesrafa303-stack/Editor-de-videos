@@ -47,6 +47,10 @@
   color: var(--gold);
 }
 
+.contadorTotal {
+  color: var(--gray-700);
+}
+
 .barra {
   flex: 1;
   height: 1px;
