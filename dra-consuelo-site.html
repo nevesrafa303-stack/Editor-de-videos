@@ -93,7 +93,10 @@
   --gap:clamp(1rem,.7rem + 1.4vw,2rem);
   --secao-y:clamp(4.5rem,3rem + 7vw,9rem);
   --wrap:1220px;
-  --gutter:clamp(1.15rem,4vw,2.5rem);
+  /* O mínimo era 1.15rem: num iPhone dava 18px de recuo, e o conteúdo ficava
+     colado na borda da tela. 1.6rem dá 26px, que é o respiro que a página
+     pedia. Vale para todas as seções, não só para o hero. */
+  --gutter:clamp(1.6rem,5vw,2.5rem);
 
   /* forma */
   --r-sm:10px;
@@ -815,10 +818,21 @@ html:not(.js) .palavra > span{transform:none}
   .sobre__texto{background:var(--grafite);padding-top:1.4rem}
   .hero{min-height:auto;padding-block:calc(var(--topo-h) + 3rem) 5rem}
   /* no empilhado, o menor entre o teto de largura e o teto de altura */
+  /* Empilhada, a foto ocupava a largura do texto e sobrava borda dos dois
+     lados. Agora ela sangra até o limite da tela: some com o recuo da página
+     em vez de somar a ele. O texto continua com o recuo maior — é justamente o
+     contraste entre os dois que faz a foto parecer maior. O teto de altura
+     continua valendo, então em tela baixa ela encolhe como antes. */
   .hero__foto{
-    max-width:min(26rem, calc(min(80vh,760px) * .7154));
-    max-width:min(26rem, calc(min(80svh,760px) * .7154));
-    margin-inline:auto;width:100%;
+    width:auto;
+    margin-inline:calc(var(--gutter) * -1);
+    max-width:min(34rem, calc(min(86vh,820px) * .7154));
+    max-width:min(34rem, calc(min(86svh,820px) * .7154));
+  }
+  .selo{
+    position:static;max-width:none;
+    margin:1.1rem var(--gutter) 0;
+    box-shadow:var(--sombra);
   }
   .hero__rolar{display:none}
   .sobre__foto{max-width:30rem}   /* 24rem deixava a foto miúda em tablet */
@@ -867,7 +881,6 @@ html:not(.js) .palavra > span{transform:none}
 }
 
 @media (max-width:560px){
-  .selo{position:static;max-width:none;margin-top:1rem;box-shadow:var(--sombra)}
   .hero__provas{gap:1.4rem}
   .hero__provas > div{flex:1 1 7rem}
   .rodape__grid{grid-template-columns:1fr}
@@ -931,12 +944,22 @@ html:not(.js) .palavra > span{transform:none}
    rótulo perde um pouco de espacejamento para o conjunto caber com folga —
    "CIRURGIÃ-DENTISTA" é o mais largo dos três e era ele que forçava a quebra. */
 @media (max-width:620px){
+  /* Três colunas de LARGURA IGUAL, não de largura natural. Com larguras
+     naturais os três começavam em pontos desencontrados (18, 184 e 303 numa
+     tela de 390) porque o primeiro item é quase o dobro dos outros — ficava
+     distribuído, mas não alinhado. Em colunas iguais os três começos ficam
+     numa grade regular, e é isso que se lê como alinhado.
+     O rótulo cede espacejamento para caber: "CIRURGIÃ-DENTISTA" é o mais
+     largo e é ele que define se a grade fecha. */
   .hero__selos{
-    display:grid;grid-auto-flow:column;grid-auto-columns:max-content;
-    justify-content:space-between;gap:.9rem;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;
+    align-items:start;
   }
-  .hero__selos strong{font-size:1.02rem}
-  .hero__selos span{font-size:.62rem;letter-spacing:.1em}
+  .hero__selos li{min-width:0}
+  /* nowrap nos dois: numa tela de 360 era o "CRO-SC 25523" que quebrava em
+     duas linhas e deixava o primeiro selo mais alto que os outros dois */
+  .hero__selos strong{font-size:clamp(.72rem,3.4vw,1.02rem);white-space:nowrap}
+  .hero__selos span{font-size:clamp(.5rem,2.3vw,.62rem);letter-spacing:.02em;white-space:nowrap}
 }
 
 
@@ -2842,6 +2865,10 @@ window.SITE = {
     // o .retrato, e não a <figure>: a figure carrega a animação de entrada,
     // que venceria o que escrevemos aqui
     const heroFoto  = $('[data-hero-movel]') || $('.hero__foto');
+    // O card de atendimento é irmão da foto dentro da <figure>, não filho dela:
+    // quando o desvanecimento passou para o .retrato, o card ficou de fora e
+    // sobrava sozinho, opaco, sobre um hero ja vazio. Desbota junto.
+    const heroCard  = $('.hero__foto .selo');
     const hero      = $('.hero');
     const zooms     = $$('[data-zoom]');
     if (!camadas.length && !desliza.length && !hero && !zooms.length) return;
@@ -2892,8 +2919,10 @@ window.SITE = {
             // página) o deslocamento é zero, então a foto continua inteira na
             // abertura, que é o que o recorte em janela baixa depende.
             const desce = p * (empilhado ? 110 : 90);
+            const some = String(Math.max(0, 1 - p * 1.1));
             heroFoto.style.transform = `translate3d(0, ${desce.toFixed(1)}px, 0)`;
-            heroFoto.style.opacity = String(Math.max(0, 1 - p * 1.1));
+            heroFoto.style.opacity = some;
+            if (heroCard) heroCard.style.opacity = some;
           }
         }
       }

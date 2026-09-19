@@ -431,6 +431,10 @@
     // o .retrato, e não a <figure>: a figure carrega a animação de entrada,
     // que venceria o que escrevemos aqui
     const heroFoto  = $('[data-hero-movel]') || $('.hero__foto');
+    // O card de atendimento é irmão da foto dentro da <figure>, não filho dela:
+    // quando o desvanecimento passou para o .retrato, o card ficou de fora e
+    // sobrava sozinho, opaco, sobre um hero ja vazio. Desbota junto.
+    const heroCard  = $('.hero__foto .selo');
     const hero      = $('.hero');
     const zooms     = $$('[data-zoom]');
     if (!camadas.length && !desliza.length && !hero && !zooms.length) return;
@@ -481,8 +485,10 @@
             // página) o deslocamento é zero, então a foto continua inteira na
             // abertura, que é o que o recorte em janela baixa depende.
             const desce = p * (empilhado ? 110 : 90);
+            const some = String(Math.max(0, 1 - p * 1.1));
             heroFoto.style.transform = `translate3d(0, ${desce.toFixed(1)}px, 0)`;
-            heroFoto.style.opacity = String(Math.max(0, 1 - p * 1.1));
+            heroFoto.style.opacity = some;
+            if (heroCard) heroCard.style.opacity = some;
           }
         }
       }
