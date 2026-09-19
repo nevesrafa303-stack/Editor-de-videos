@@ -59,9 +59,10 @@ window.SITE = {
 
   /* --- Redes sociais ---------------------------------------------------- */
   // O site atual tem ícones de Instagram, Facebook, YouTube, Pinterest e TikTok,
-  // mas os prints não mostram as URLs. Confirme cada uma e preencha.
+  // mas os prints não mostram as URLs. As que ficarem em null somem da página,
+  // em vez de virar link quebrado.
   redes: {
-    instagram: 'https://instagram.com/draconsuelovasconcelos', // ⚠️ CONFIRMAR o @
+    instagram: 'https://instagram.com/consuelo_vasc',  // confirmado pela Dra.
     facebook: null,  // ⚠️ CONFIRMAR
     youtube: null,   // ⚠️ CONFIRMAR
     pinterest: null, // ⚠️ CONFIRMAR

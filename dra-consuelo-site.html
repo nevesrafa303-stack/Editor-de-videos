@@ -33,7 +33,7 @@
 
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
-<meta name="versao-do-site" content="18">
+<meta name="versao-do-site" content="19">
 <style>
 /* =============================================================================
    Dra. Consuelo Vasconcelos — folha de estilo única
@@ -2296,7 +2296,7 @@ figure:hover .retrato img{transform:scale(1.02)}
          pergunta ficou sem resposta por várias rodadas enquanto se corrigia
          no escuro. Agora qualquer print do rodapé já responde. O build
          mantém este número igual ao do ?v= e ao do versao.txt. -->
-    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados. <span class="rodape__versao" data-versao-visivel>v18</span></p>
+    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados. <span class="rodape__versao" data-versao-visivel>v19</span></p>
     <p><a href="#inicio">Voltar ao topo</a></p>
   </div>
 </footer>
@@ -2398,9 +2398,10 @@ window.SITE = {
 
   /* --- Redes sociais ---------------------------------------------------- */
   // O site atual tem ícones de Instagram, Facebook, YouTube, Pinterest e TikTok,
-  // mas os prints não mostram as URLs. Confirme cada uma e preencha.
+  // mas os prints não mostram as URLs. As que ficarem em null somem da página,
+  // em vez de virar link quebrado.
   redes: {
-    instagram: 'https://instagram.com/draconsuelovasconcelos', // ⚠️ CONFIRMAR o @
+    instagram: 'https://instagram.com/consuelo_vasc',  // confirmado pela Dra.
     facebook: null,  // ⚠️ CONFIRMAR
     youtube: null,   // ⚠️ CONFIRMAR
     pinterest: null, // ⚠️ CONFIRMAR
