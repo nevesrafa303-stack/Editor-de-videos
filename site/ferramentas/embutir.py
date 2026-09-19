@@ -40,6 +40,20 @@ def carimbar_versao() -> str:
     if not achado:
         raise SystemExit('não achei o ?v= no index.html')
     versao = achado.group(1)
+
+    # O <meta> tem de acompanhar. Na primeira versão ele foi escrito à mão e
+    # ficou parado em 11 enquanto o ?v= subia — o próprio carimbo de versão
+    # carregava o defeito que existe para pegar. Quem descobriu foi a página de
+    # diagnóstico, na primeira vez que rodou. Agora o build mantém os dois
+    # iguais, que é a única forma de isso não repetir.
+    novo_meta = f'<meta name="versao-do-site" content="{versao}">'
+    html_meta, trocas = re.subn(r'<meta name="versao-do-site" content="\d+">',
+                                novo_meta, html)
+    if trocas != 1:
+        raise SystemExit(f'esperava 1 <meta name="versao-do-site">, achei {trocas}')
+    if html_meta != html:
+        (RAIZ / 'index.html').write_text(html_meta, encoding='utf-8')
+
     quando = datetime.now().strftime('%d/%m/%Y %H:%M')
     (RAIZ / 'versao.txt').write_text(
         f'Dra. Consuelo Vasconcelos — site\n'

@@ -282,9 +282,10 @@ figure:hover .moldura img{transform:scale(1.035)}
 }
 .topo::before{
   content:'';position:absolute;inset:0;z-index:-1;opacity:0;
-  background:rgba(251,250,247,.88);
-  -webkit-backdrop-filter:blur(16px) saturate(150%);
-  backdrop-filter:blur(16px) saturate(150%);
+  /* Sem backdrop-filter: dentro de .topo, que ganha transform ao se esconder,
+     o Safari do iOS pode pintar isto em branco. O fundo sobe de .88 para .96
+     e faz o mesmo trabalho sem o risco. */
+  background:rgba(251,250,247,.96);
   border-bottom:1px solid var(--linha-escura);
   transition:opacity .35s var(--ease);
 }
@@ -379,9 +380,13 @@ figure:hover .moldura img{transform:scale(1.035)}
 .selo{
   position:absolute;left:clamp(-1.5rem,-2vw,-2.5rem);bottom:clamp(1.5rem,4vw,3rem);
   max-width:15rem;padding:1.1rem 1.3rem;border-radius:var(--r);
-  background:rgba(251,250,247,.94);color:var(--grafite);
+  /* Sem backdrop-filter: este card mora dentro da <figure> do hero, cuja
+     opacidade é animada na entrada e escrita pelo motor de rolagem. Filtro de
+     fundo dentro de ancestral com opacity < 1 é um bug conhecido do Safari do
+     iOS — o elemento renderiza em branco. O fundo já era 94% opaco; a 97%
+     entrega o mesmo resultado sem depender do filtro. */
+  background:rgba(251,250,247,.97);color:var(--grafite);
   box-shadow:var(--sombra-alta);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
 }
 .selo strong{
   display:block;font-size:var(--t-xs);letter-spacing:.18em;
@@ -511,8 +516,10 @@ figure:hover .moldura img{transform:scale(1.035)}
 .etapa{
   display:grid;grid-template-columns:auto 1fr;gap:clamp(1.2rem,2.5vw,2rem);
   padding:clamp(1.6rem,3vw,2.3rem);
-  background:rgba(255,255,255,.055);border:1px solid var(--linha);border-radius:var(--r);
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  /* Único caso em que o desfoque pesava no visual, porque o fundo tinha só
+     5,5% de opacidade. Um tom um pouco mais forte entrega a mesma separação
+     sem o filtro. */
+  background:rgba(255,255,255,.075);border:1px solid var(--linha);border-radius:var(--r);
   transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);
 }
 .etapa:hover{transform:translateY(-4px);box-shadow:var(--sombra);
@@ -1073,9 +1080,7 @@ html:not(.js) .palavra > span{transform:none}
   .barra-acoes{
     position:fixed;left:0;right:0;bottom:0;z-index:105;
     display:grid;grid-template-columns:repeat(3,1fr);
-    background:rgba(20,20,20,.94);
-    -webkit-backdrop-filter:blur(18px) saturate(140%);
-    backdrop-filter:blur(18px) saturate(140%);
+    background:rgba(20,20,20,.985);
     border-top:1px solid var(--linha);
     padding-bottom:env(safe-area-inset-bottom);
     transform:translateY(105%);
@@ -1242,9 +1247,8 @@ figure:hover .retrato img{transform:scale(1.02)}
   position:absolute;top:1rem;z-index:2;
   padding:.35rem .9rem;border-radius:999px;
   font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
 }
-.marca-caso--antes{left:1rem;background:rgba(18,18,20,.72);color:var(--creme)}
+.marca-caso--antes{left:1rem;background:rgba(18,18,20,.86);color:var(--creme)}
 .marca-caso--depois{right:1rem;background:rgba(201,169,106,.92);color:var(--grafite)}
 
 /* 12.7 Altura contida: as fotos verticais ficavam altas demais no desktop
@@ -1293,10 +1297,9 @@ figure:hover .retrato img{transform:scale(1.02)}
   position:absolute;top:1rem;z-index:3;
   padding:.35rem .9rem;border-radius:999px;
   font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   pointer-events:none;transition:opacity .3s var(--ease);
 }
-.comparador__rotulo--antes{left:1rem;background:rgba(18,18,20,.74);color:var(--creme)}
+.comparador__rotulo--antes{left:1rem;background:rgba(18,18,20,.88);color:var(--creme)}
 .comparador__rotulo--depois{right:1rem;background:rgba(201,169,106,.94);color:var(--grafite)}
 
 /* a linha e o ponto que a pessoa arrasta */

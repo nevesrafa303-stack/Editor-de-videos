@@ -457,8 +457,18 @@
          selos já invadiam a foto, a 900px estavam 104px dentro dela. No
          empilhado os dois andam juntos e só se dissolvem. */
       if (hero) {
-        const alturaHero = hero.offsetHeight || innerHeight;
-        const p = Math.min(1, y / alturaHero);
+        /* O progresso vem do retângulo vivo do hero, não de
+           `scrollY / offsetHeight`.
+
+           No Safari do iPhone a barra de endereço recolhe e reaparece durante
+           a rolagem, e isso muda `innerHeight` e o próprio ponto de rolagem no
+           meio do gesto. Com a conta antiga os dois lados mudavam em momentos
+           diferentes e o efeito dava um salto. Lida do rect, a conta é sempre
+           coerente consigo mesma, porque mede a peça contra o layout atual.
+           É a diferença entre um efeito que treme no celular e um que não. */
+        const rh = hero.getBoundingClientRect();
+        const alturaHero = rh.height || innerHeight;
+        const p = Math.min(1, Math.max(0, -rh.top / alturaHero));
         const empilhado = innerWidth <= 900;
 
         /* O desvanecimento é uma ideia de PRIMEIRA DOBRA: a tela inteira se
@@ -563,6 +573,36 @@
 
     addEventListener('scroll', agendar, { passive: true });
     addEventListener('resize', agendar);
+
+    /* Quatro redesenhos que o Chromium headless nunca exercita e o celular
+       exercita o tempo todo:
+
+       - `orientationchange`: o layout inteiro muda e o `resize` nem sempre vem
+         depois da mudança já aplicada.
+       - `visualViewport`: é o que se mexe quando a barra de endereço recolhe
+         ou o teclado abre. `resize` na janela não cobre isso no iOS.
+       - `pageshow` com `persisted`: voltar de outra página traz a anterior do
+         cache do Safari (bfcache) com o DOM congelado como estava — sem isto,
+         o efeito fica parado na posição em que foi deixado.
+       - `load`: as imagens terminam de chegar e o layout assenta depois do
+         primeiro desenho.
+
+       E um acerto final depois que a rolagem para: durante a rolagem por
+       inércia do iOS os quadros são engolidos, e a última posição pedida pode
+       nunca ter sido desenhada. Este passo garante o estado final correto. */
+    addEventListener('orientationchange', agendar);
+    addEventListener('load', agendar);
+    addEventListener('pageshow', (e) => { if (e.persisted) agendar(); });
+    if (window.visualViewport) {
+      visualViewport.addEventListener('resize', agendar);
+      visualViewport.addEventListener('scroll', agendar);
+    }
+    let parou;
+    addEventListener('scroll', () => {
+      clearTimeout(parou);
+      parou = setTimeout(desenhar, 120);
+    }, { passive: true });
+
     desenhar();
   };
 
