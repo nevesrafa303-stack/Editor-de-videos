@@ -460,13 +460,28 @@
         const alturaHero = hero.offsetHeight || innerHeight;
         const p = Math.min(1, y / alturaHero);
         const empilhado = innerWidth <= 900;
+
+        /* O desvanecimento é uma ideia de PRIMEIRA DOBRA: a tela inteira se
+           dissolve enquanto sai. No desktop o hero mede uma tela (900px) e
+           `p` mede mesmo o quanto ele já saiu.
+
+           Empilhado, não. Ali o hero tem 1560px — quase duas telas — porque
+           texto e foto estão um embaixo do outro. `p` continua sendo rolagem
+           dividida pela altura do hero, então quando a foto finalmente chega
+           ao meio da tela `p` já vale 0,42 e ela aparece com 54% de opacidade.
+           O card de atendimento, que vem ainda mais abaixo, chegava com 30% —
+           na prática invisível, e foi exatamente isso que foi relatado: o card
+           não aparecia no navegador.
+
+           Então o desvanecimento vale só onde ele descreve o que acontece. No
+           empilhado as peças saem de cena rolando, que é o suficiente. */
         if (p < 1.02) {
           if (heroTexto) {
             // Empilhado o texto fica parado: ele está ACIMA da foto, e qualquer
             // descida dele fecha o vão e termina em cima dela. Era o que
             // acontecia — a 300px de rolagem os selos já invadiam a foto.
             heroTexto.style.transform = empilhado ? '' : `translate3d(0, ${(y * 0.16).toFixed(1)}px, 0)`;
-            heroTexto.style.opacity = String(Math.max(0, 1 - p * 1.35));
+            heroTexto.style.opacity = empilhado ? '' : String(Math.max(0, 1 - p * 1.35));
           }
           if (heroFoto) {
             /* A foto desce enquanto a página sobe: ela resiste à rolagem e
@@ -485,7 +500,7 @@
             // página) o deslocamento é zero, então a foto continua inteira na
             // abertura, que é o que o recorte em janela baixa depende.
             const desce = p * (empilhado ? 110 : 90);
-            const some = String(Math.max(0, 1 - p * 1.1));
+            const some = empilhado ? '' : String(Math.max(0, 1 - p * 1.1));
             heroFoto.style.transform = `translate3d(0, ${desce.toFixed(1)}px, 0)`;
             heroFoto.style.opacity = some;
             if (heroCard) heroCard.style.opacity = some;
