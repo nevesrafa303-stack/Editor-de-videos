@@ -46,6 +46,10 @@ export function Reveal({
       return;
     }
 
+    // O estado inicial da variante `mask` recorta o elemento, e o recorte
+    // reduz a area que o observer enxerga. Com threshold 0 basta qualquer
+    // sobreposicao para revelar — assim a entrada nao depende de quanto do
+    // elemento sobrou visivel depois do recorte.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
@@ -53,12 +57,14 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.12 },
+      variant === 'mask'
+        ? { rootMargin: '0px 0px -8% 0px', threshold: 0 }
+        : { rootMargin: '0px 0px -12% 0px', threshold: 0.12 },
     );
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [variant]);
 
   return (
     <Tag
