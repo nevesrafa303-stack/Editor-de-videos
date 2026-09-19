@@ -1,0 +1,15 @@
+# Publicação do site da Dra. Consuelo.
+#
+# O site é HTML/CSS/JS puros: não há build, só arquivos estáticos a servir.
+# Esta configuração existe para o caso de a publicação ser ligada direto ao
+# repositório — aí o Netlify sabe que a pasta a publicar é site/, e não a raiz.
+[build]
+  publish = "site"
+  command = ""
+
+# Um site de página única: qualquer caminho desconhecido volta para a home,
+# em vez de mostrar a página de erro do servidor.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
