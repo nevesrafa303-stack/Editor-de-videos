@@ -1,0 +1,189 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  /* `svh` evita o salto causado pela barra de endereco no mobile. */
+  min-height: 100svh;
+  padding-block: calc(var(--nav-height) + 40px) clamp(64px, 12vh, 120px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.mediaWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.media {
+  position: absolute;
+  /* Folga em cima e embaixo: o parallax move sem revelar borda. */
+  inset: -10% 0;
+  will-change: transform;
+}
+
+.mediaFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  aspect-ratio: auto;
+}
+
+/* Escurecimento em duas camadas: vinheta lateral + subida para o rodape,
+   para o texto ter contraste real sobre qualquer foto. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.55) 45%, rgba(0, 0, 0, 0.35) 100%),
+    radial-gradient(90% 70% at 70% 30%, transparent 0%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-300);
+  opacity: 0;
+  animation: fadeUp 900ms var(--ease-out) 120ms forwards;
+}
+
+.title {
+  font-size: var(--step-5);
+  line-height: 0.92;
+  color: var(--white);
+  max-width: 14ch;
+}
+
+.titleLine {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.04em;
+}
+
+.titleLine > span {
+  display: block;
+  transform: translateY(105%);
+  animation: rise 1100ms var(--ease-out) forwards;
+}
+
+.titleLine:nth-child(2) > span {
+  animation-delay: 110ms;
+}
+
+.titleLine > span[data-accent='true'] {
+  color: var(--gold);
+}
+
+.lead {
+  max-width: 46ch;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--gray-300);
+  opacity: 0;
+  animation: fadeUp 900ms var(--ease-out) 420ms forwards;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  opacity: 0;
+  animation: fadeUp 900ms var(--ease-out) 540ms forwards;
+}
+
+.scrollCue {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(64px, 12vh, 120px);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray-500);
+}
+
+.scrollLabel {
+  font-size: 0.68rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  transform-origin: top center;
+  animation: scrollHint 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollHint {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 560px) {
+  .actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scrollCue {
+    display: flex;
+  }
+}
+
+/* Sem animacao: tudo ja nasce no lugar. */
+@media (prefers-reduced-motion: reduce) {
+  .titleLine > span,
+  .eyebrow,
+  .lead,
+  .actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .scrollLine {
+    animation: none;
+  }
+}

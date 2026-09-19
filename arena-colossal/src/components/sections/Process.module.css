@@ -1,0 +1,117 @@
+.section {
+  background: var(--off-black);
+  border-top: var(--border);
+}
+
+.inner {
+  display: grid;
+  gap: clamp(44px, 7vw, 88px);
+}
+
+.list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Espaco para a linha de progresso a esquerda. */
+  padding-left: 28px;
+}
+
+.progressTrack {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 3px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progressFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--gold), rgba(201, 162, 39, 0.35));
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+
+/* Sem GSAP a linha nasce completa — a etapa nunca fica "apagada". */
+.list[data-static='true'] .progressFill {
+  transform: scaleY(1);
+}
+
+.step {
+  position: relative;
+  padding-block: clamp(22px, 3vw, 34px);
+  border-bottom: var(--border);
+}
+
+.step:last-child {
+  border-bottom: none;
+}
+
+/* Marcador de cada etapa sobre a linha. */
+.step::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: calc(clamp(22px, 3vw, 34px) + 0.55em);
+  width: 7px;
+  height: 7px;
+  background: var(--off-black);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+}
+
+.stepInner {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+.stepIndex {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stepName {
+  font-size: var(--step-2);
+  line-height: 1.05;
+  color: var(--white);
+}
+
+.stepText {
+  font-size: var(--step-0);
+  line-height: 1.65;
+  color: var(--gray-300);
+  max-width: 56ch;
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: start;
+  }
+
+  .head {
+    position: sticky;
+    top: calc(var(--nav-height) + 56px);
+  }
+
+  .list {
+    padding-left: 40px;
+  }
+
+  .step::before {
+    left: -40px;
+  }
+}

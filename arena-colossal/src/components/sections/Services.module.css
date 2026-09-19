@@ -1,0 +1,265 @@
+.section {
+  position: relative;
+  padding-block: clamp(72px, 11vh, 160px);
+  background: var(--off-black);
+  border-top: var(--border);
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-bottom: clamp(40px, 6vh, 72px);
+}
+
+.title {
+  max-width: 44ch;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.hintLine {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* --- Trilho -------------------------------------------------------------- */
+
+.viewport {
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  /* Mobile: carrossel nativo, com o mesmo respiro lateral do container. */
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.panel {
+  flex: 0 0 min(82vw, 380px);
+  scroll-snap-align: center;
+}
+
+/* --- Card ---------------------------------------------------------------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--surface);
+  border: var(--border);
+  transition:
+    border-color 500ms var(--ease-out),
+    background-color 500ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.cardMedia {
+  overflow: hidden;
+}
+
+.cardMedia :global(.media-frame) {
+  border: none;
+  border-bottom: var(--border);
+  transition: transform 900ms var(--ease-out);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 24px 30px;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cardIndex {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cardDuration {
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.cardTitle {
+  font-size: var(--step-2);
+  line-height: 1.05;
+  color: var(--white);
+}
+
+.cardSummary {
+  font-size: var(--step-0);
+  line-height: 1.55;
+  color: var(--gray-300);
+}
+
+.cardDescription {
+  font-size: var(--step--1);
+  line-height: 1.7;
+  color: var(--gray-500);
+}
+
+/* --- Card final ---------------------------------------------------------- */
+
+.endCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  height: 100%;
+  min-height: 320px;
+  padding: 34px 28px;
+  border: var(--border-gold);
+  background: linear-gradient(160deg, rgba(201, 162, 39, 0.08), transparent 65%);
+}
+
+.endTitle {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.endLink {
+  align-self: flex-start;
+  padding-bottom: 6px;
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid currentColor;
+}
+
+/* --- Desktop: scroll horizontal com pin ---------------------------------- */
+
+@media (min-width: 1024px) {
+  /* O trecho fixado (pin) tem exatamente a altura da tela: cabecalho e cards
+     precisam caber juntos, senao o card fica cortado enquanto a secao esta
+     presa. Dai a altura fixa do card e o titulo um degrau menor aqui. */
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vh, 44px);
+    /* Altura exata da tela: o flex distribui o que sobra para o trilho, entao
+       o card se ajusta sozinho em qualquer altura de janela. */
+    height: 100svh;
+    padding-block: calc(var(--nav-height) + 24px) clamp(32px, 5vh, 64px);
+  }
+
+  .title h2 {
+    font-size: var(--step-3);
+  }
+
+  .head {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 48px;
+  }
+
+  .viewport {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .track {
+    height: 100%;
+    align-items: center;
+    gap: 28px;
+    /* O GSAP assume o deslocamento: o scroll nativo sai de cena. */
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-inline: max(var(--gutter), calc((100vw - var(--container-width)) / 2 + var(--gutter)));
+    will-change: transform;
+  }
+
+  .panel {
+    flex: 0 0 380px;
+    height: 100%;
+    max-height: 520px;
+  }
+
+  .card {
+    height: 100%;
+  }
+
+  .cardMedia {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* A moldura recebe a proporcao por style inline (para o mobile); aqui ela
+     precisa ceder para o flex, entao o override e' explicito. */
+  .cardMedia :global(.media-frame) {
+    height: 100%;
+    aspect-ratio: auto !important;
+  }
+
+  .cardBody {
+    flex: 0 0 auto;
+    padding: 22px 24px 26px;
+  }
+
+  .cardDescription {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    border-color: rgba(201, 162, 39, 0.4);
+    background: var(--surface-raised);
+    transform: translateY(-6px);
+  }
+
+  .card:hover .cardMedia :global(.media-frame) {
+    transform: scale(1.05);
+  }
+}
+
+/* Sem GSAP (movimento reduzido), o trilho volta a ser rolavel na mao. */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+}

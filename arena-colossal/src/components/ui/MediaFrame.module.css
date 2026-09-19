@@ -1,0 +1,57 @@
+.frame {
+  width: 100%;
+  isolation: isolate;
+}
+
+.image {
+  object-fit: cover;
+  opacity: 0;
+  /* Blur -> sharp: a foto "entra em foco" quando decodifica. */
+  filter: blur(14px);
+  transform: scale(1.03);
+  transition:
+    opacity 900ms var(--ease-out),
+    filter 900ms var(--ease-out),
+    transform 1200ms var(--ease-out);
+}
+
+.image[data-loaded='true'] {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(16px, 3vw, 28px);
+  background:
+    radial-gradient(90% 70% at 25% 10%, rgba(201, 162, 39, 0.1), transparent 62%),
+    linear-gradient(165deg, #17171b 0%, #0b0b0d 58%, #121216 100%);
+}
+
+/* Grão sutil — tira o aspecto de "retangulo cinza de template". */
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.32;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.placeholderLabel {
+  position: relative;
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    filter: none;
+    transform: none;
+  }
+}

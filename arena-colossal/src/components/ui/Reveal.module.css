@@ -1,0 +1,30 @@
+.reveal {
+  transition-property: opacity, transform, clip-path, filter;
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal[data-visible='true'] {
+  /* Depois de entrar, o elemento nao anima mais — libera a camada. */
+  will-change: auto;
+}
+
+.reveal[data-reveal='up'][data-visible='false'] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+
+.reveal[data-reveal='fade'][data-visible='false'] {
+  opacity: 0;
+}
+
+.reveal[data-reveal='mask'][data-visible='false'] {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.04);
+}
+
+.reveal[data-reveal='mask'] {
+  clip-path: inset(0 0 0 0);
+}
