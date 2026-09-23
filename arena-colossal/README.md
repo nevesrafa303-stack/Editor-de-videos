@@ -313,7 +313,12 @@ requisições quebradas enquanto as fotos não existem.
 
 ### 10.1 Dados da Arena (obrigatório antes de publicar)
 
-- [ ] `NEXT_PUBLIC_WHATSAPP_NUMBER` — sem ele, **todo botão de WhatsApp some**.
+- [x] `NEXT_PUBLIC_WHATSAPP_NUMBER` — `5547992228325`. Já é o padrão em
+      `src/lib/config/site.ts`; a variável de ambiente continua sobrescrevendo.
+- [x] `NEXT_PUBLIC_CONTACT_EMAIL` — `edinelson.yeshua@gmail.com`, também com
+      padrão no código. É um Gmail pessoal: assim que existir domínio próprio,
+      troque por `contato@dominio.com.br` — o Resend (§10.3) vai exigir isso
+      de qualquer forma para o remetente.
 - [ ] `BOOKING_HOURS` — horário real de atendimento. Sem ele não existe grade.
 - [ ] `BOOKING_CONCURRENCY` — quantos veículos a Arena atende no mesmo horário.
 - [ ] `durationMinutes` de cada serviço em `src/lib/config/services.ts` — os
@@ -358,6 +363,7 @@ requisições quebradas enquanto as fotos não existem.
    `whatsapp_business_messaging` + `whatsapp_business_management`) →
    `WHATSAPP_ACCESS_TOKEN`.
 4. `WHATSAPP_NOTIFY_TO` — número da equipe, em E.164 só com dígitos.
+   Para a Arena: `5547992228325`.
 5. **Template** (necessário fora da janela de 24h): crie um template de
    `UTILITY` em pt_BR com seis variáveis, nesta ordem —
    `{{1}}` cliente, `{{2}}` WhatsApp, `{{3}}` serviço, `{{4}}` veículo,
@@ -365,6 +371,14 @@ requisições quebradas enquanto as fotos não existem.
    `WHATSAPP_TEMPLATE_NAME`.
    Sem template configurado o sistema envia texto simples, que só é entregue
    dentro da janela de 24h.
+
+> **Um número não faz os dois papéis.** Registrar `5547992228325` na Cloud API
+> tira esse número do aplicativo WhatsApp Business — é uma via só. Como ele é
+> justamente o número que o cliente clica no site, o caminho recomendado é
+> deixá-lo no aplicativo e **não** ligar esta seção, ou registrar um segundo
+> chip como remetente da API. Sem Cloud API nada se perde no fluxo principal:
+> o pedido de agendamento chega pela própria conversa que o cliente abre, e a
+> confirmação continua vindo do Calendar e do e-mail.
 
 ### 10.5 Turnstile
 
@@ -426,7 +440,7 @@ Requisitos: rodar atrás de HTTPS e de um proxy que reescreva
 - [ ] `/api/health` → `status: ready`, `storageDriver: prisma`
 - [ ] Um agendamento de teste de ponta a ponta
 - [ ] O evento apareceu no Google Calendar da Arena
-- [ ] A equipe recebeu o WhatsApp e o e-mail interno
+- [ ] A equipe recebeu o e-mail interno (e o WhatsApp, se a Cloud API estiver ligada)
 - [ ] O cliente recebeu a confirmação por e-mail
 - [ ] O horário de teste sumiu da grade
 - [ ] `/sitemap.xml` e `/robots.txt` com o domínio certo

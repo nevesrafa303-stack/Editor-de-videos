@@ -26,7 +26,16 @@ function num(value: string | undefined): number | null {
 
 const siteUrl = clean(process.env.NEXT_PUBLIC_SITE_URL)?.replace(/\/+$/, '') ?? 'http://localhost:3000';
 
-const whatsappNumber = clean(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER)?.replace(/\D/g, '') ?? null;
+/**
+ * Contato publico da Arena. Fica aqui como padrao — e' o mesmo dado impresso
+ * no rodape do site, nao um segredo — e continua sobrescritivel por variavel
+ * de ambiente quando o numero ou o e-mail mudarem.
+ */
+const WHATSAPP_PADRAO = '5547992228325';
+const EMAIL_PADRAO = 'edinelson.yeshua@gmail.com';
+
+const whatsappNumber =
+  clean(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER)?.replace(/\D/g, '') ?? WHATSAPP_PADRAO;
 const instagramHandle = clean(process.env.NEXT_PUBLIC_INSTAGRAM)?.replace(/^@/, '') ?? null;
 
 const street = clean(process.env.NEXT_PUBLIC_ADDRESS_STREET);
@@ -61,7 +70,7 @@ export const site = {
             'Olá! Vim pelo site da Arena Colossal e gostaria de falar sobre um serviço.',
           )}`
         : null,
-    email: clean(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
+    email: clean(process.env.NEXT_PUBLIC_CONTACT_EMAIL) ?? EMAIL_PADRAO,
     instagram: instagramHandle,
     instagramUrl: instagramHandle !== null ? `https://instagram.com/${instagramHandle}` : null,
   },

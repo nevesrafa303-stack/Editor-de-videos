@@ -46,6 +46,20 @@ Sem JavaScript a página entrega ~97% da altura e todo o conteúdo de texto.
 O que se perde é o que é interativo por natureza: agenda, diagnóstico,
 comparador antes/depois, hotspots e menu mobile.
 
+> **Mudou o `CONFIG`? Regenere.** Esse HTML estático é a saída dos mesmos
+> renderizadores que leem o `CONFIG` — WhatsApp, endereço, horário, imagens,
+> avaliações. Depois de editar, rode:
+>
+> ```bash
+> node single-file/regenerar-fallback.mjs
+> ```
+>
+> Ele abre o arquivo num Chromium, deixa o JavaScript montar a home e grava
+> de volta o resultado — inclusive o link de cada botão de WhatsApp. Nada é
+> escrito à mão, então o estático nunca diverge do dinâmico. Precisa do
+> Playwright (`npm i -D playwright && npx playwright install chromium`), que é
+> ferramenta de build: o arquivo entregue não depende de nada disso.
+
 ---
 
 ## Configuração
@@ -54,7 +68,7 @@ Tudo num bloco só, no início do JavaScript (`const CONFIG`).
 
 | Campo | O que acontece se ficar vazio |
 | --- | --- |
-| `whatsapp` | **Todo botão de WhatsApp some do site.** Preencha primeiro. |
+| `whatsapp` | **Todo botão de WhatsApp some do site.** Já preenchido: `5547992228325`. |
 | `endereco`, `lat`, `lng` | O site mostra só a cidade e troca o mapa pela foto de fachada. Nada de endereço inventado. |
 | `googlePlaceId` | Sem link direto para o perfil e para as avaliações. |
 | `horarios` | O agendamento avisa que a agenda não está configurada. |
@@ -156,7 +170,9 @@ nativo, campos com `aria-invalid` e `aria-describedby`, e
 
 ## O que ainda depende de você
 
-- [ ] `CONFIG.whatsapp` — sem ele o site perde todos os CTAs de contato.
+- [x] `CONFIG.whatsapp` — `5547992228325`.
+- [x] `CONFIG.email` — `edinelson.yeshua@gmail.com` (Gmail pessoal; vale trocar
+      por um endereço no domínio da Arena quando ele existir).
 - [ ] Horário real de atendimento e as durações de cada serviço (`SERVICOS[].min`).
 - [ ] Endereço, quando existir.
 - [ ] Fotos reais (`images/` + `CONFIG.imagens`).
