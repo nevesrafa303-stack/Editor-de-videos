@@ -1,0 +1,140 @@
+# Arena Colossal — site completo em arquivo único
+
+`arena-colossal.html` é o site inteiro: **todas as páginas, todo o CSS, todo o
+JavaScript e as duas fontes** dentro de um arquivo de ~250 KB.
+
+Abre com dois cliques, funciona **sem internet** e não faz **uma única
+requisição a terceiros** — nem para o Google Fonts.
+
+```
+#/                         home (11 seções)
+#/servicos                 catálogo
+#/servico/<slug>           uma página por serviço (10)
+#/agendamento              formulário em 5 etapas
+#/acompanhar/<id>          acompanhamento do horário
+#/privacidade              política de privacidade
+qualquer outra             404 com caminho de volta
+```
+
+A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
+são montadas pelo roteador por hash.
+
+---
+
+## Configuração
+
+Tudo num bloco só, no início do JavaScript (`const CONFIG`).
+
+| Campo | O que acontece se ficar vazio |
+| --- | --- |
+| `whatsapp` | **Todo botão de WhatsApp some do site.** Preencha primeiro. |
+| `endereco`, `lat`, `lng` | O site mostra só a cidade e troca o mapa pela foto de fachada. Nada de endereço inventado. |
+| `googlePlaceId` | Sem link direto para o perfil e para as avaliações. |
+| `horarios` | O agendamento avisa que a agenda não está configurada. |
+| `imagens` | Todas as molduras ficam no placeholder técnico — e o navegador **não dispara nenhuma requisição**. |
+| `apiBase` | O agendamento entrega o pedido pelo WhatsApp (ver abaixo). |
+| `avaliacoesEndpoint` | A seção mostra um estado honesto com link para o Google. |
+
+### Imagens
+
+Crie uma pasta `images/` ao lado do HTML e **liste em `CONFIG.imagens` o que
+você colocou lá**:
+
+```js
+imagens: ['hero.jpg', 'polimento-tecnico.jpg', 'caso-01-antes.jpg'],
+```
+
+Nomes esperados: `hero.jpg`, `detalhes.jpg`, `fachada.jpg`,
+`caso-0N-antes.jpg` / `caso-0N-depois.jpg` (N = 1..3) e um por serviço com o
+mesmo nome do slug (`lavagem-tecnica.jpg`, `vitrificacao.jpg`…).
+
+Atalho: `imagens: 'auto'` tenta carregar tudo (e aceita os 404 no console).
+
+---
+
+## Agenda conectada ao Google Calendar e ao WhatsApp
+
+### Por que não dá para fazer isso só com este arquivo
+
+Chave da Google Calendar API, client secret e token do WhatsApp **não podem
+morar aqui**. Este HTML é baixado inteiro por qualquer visitante: uma
+credencial no código é uma credencial pública, e quem copiar passa a **criar,
+ler e apagar compromissos da agenda da Arena**.
+
+Quem guarda credencial é servidor. Por isso existe o `apiBase`.
+
+### Sem backend (`apiBase: null`) — funciona hoje
+
+O formulário completo continua: serviço, dia, horário, dados, conferência. No
+fim, monta a mensagem com tudo preenchido e envia pela conversa do WhatsApp.
+
+A tela final diz **"Pedido pronto para enviar"**, nunca "reservado" — o site
+não finge ter reservado o que não reservou. Os horários exibidos são os de
+atendimento, com aviso de que a disponibilidade real vem no contato.
+
+### Com backend (`apiBase: 'https://api.seudominio.com.br'`)
+
+Aponte para o backend que já está neste repositório, na pasta `arena-colossal/`
+(Next.js + Prisma + Google Calendar + Resend + WhatsApp Cloud API). Ele expõe
+exatamente as rotas que este arquivo consome:
+
+| Rota | Papel |
+| --- | --- |
+| `GET /api/availability?date&service` | grade do dia cruzando banco **e** `freeBusy` do Google Calendar |
+| `POST /api/bookings` | reserva em transação serializável (barra reserva dupla), cria o evento no Calendar, avisa o WhatsApp da equipe e dispara os e-mails |
+| `POST /api/bookings/confirm` | estado do agendamento para a página de acompanhamento |
+
+Com isso ligado, a tela final passa a dizer **"Agendamento confirmado"**,
+oferece o `.ics` e o link de acompanhamento.
+
+O backend precisa liberar CORS para o domínio onde este HTML estiver hospedado.
+
+### Avaliações do Google
+
+A Places API exige chave — e chave no frontend é chave vazada. Aponte
+`avaliacoesEndpoint` para uma rota **do seu backend** que consulta o Google e
+devolve:
+
+```json
+{ "nota": 4.9, "total": 127,
+  "avaliacoes": [{ "autor": "Nome", "nota": 5, "data": "2026-03-12", "texto": "..." }] }
+```
+
+Todo texto que chega daí entra na página por `textContent`, nunca como HTML:
+uma avaliação é conteúdo de terceiro e não pode virar script rodando no site
+da Arena.
+
+---
+
+## Segurança implementada aqui
+
+- **Nenhuma credencial no arquivo** — a fronteira é o `apiBase`.
+- **Escape de tudo que é externo** — CONFIG, URL e respostas de API.
+- **Honeypot** no formulário: campo invisível que só robô preenche.
+- **Validação completa no cliente** — e a do servidor continua sendo a que vale.
+- **Zero requisição a terceiros**: fontes embutidas, mapa só com `loading="lazy"`,
+  analytics apenas se você informar os IDs.
+- **`rel="noopener noreferrer"`** em todo link externo.
+- A página de acompanhamento **não mostra nome, telefone nem e-mail**: o
+  identificador circula por e-mail e barra de endereço e não pode virar chave
+  de acesso a dado pessoal.
+
+## Acessibilidade
+
+Hierarquia semântica de headings, `alt` em toda imagem, foco visível, menu
+fullscreen com foco preso e fechamento por `Esc`, comparador antes/depois
+operável por teclado (é um `<input type="range">` real), FAQ em `<details>`
+nativo, campos com `aria-invalid` e `aria-describedby`, e
+`prefers-reduced-motion` respeitado em todas as animações.
+
+## O que ainda depende de você
+
+- [ ] `CONFIG.whatsapp` — sem ele o site perde todos os CTAs de contato.
+- [ ] Horário real de atendimento e as durações de cada serviço (`SERVICOS[].min`).
+- [ ] Endereço, quando existir.
+- [ ] Fotos reais (`images/` + `CONFIG.imagens`).
+- [ ] Revisar os textos de marca: `PADROES`, `PUBLICO`, `FAQ` e os campos
+      `etapas` / `indicado` / `naoResolve` de cada serviço. Nada inventa preço,
+      prazo ou garantia — mas tudo fala em nome da Arena. O FAQ vira dado
+      estruturado no Google: resposta errada ali é resposta errada na busca.
+- [ ] Backend, para a agenda conectada de verdade.
