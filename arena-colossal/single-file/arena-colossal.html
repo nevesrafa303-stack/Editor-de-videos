@@ -190,10 +190,15 @@ ul,ol{list-style:none;padding:0}
 .nav__cta{display:none}
 .burger{display:inline-flex;flex-direction:column;justify-content:center;gap:7px;width:48px;height:48px;padding:0 10px;margin-right:-10px}
 .burger i{display:block;width:100%;height:1.5px;background:#fff;transition:transform .42s var(--ease)}
-.nav[data-open='true'] .burger i[data-b='t']{transform:translateY(4.25px) rotate(45deg)}
-.nav[data-open='true'] .burger i[data-b='b']{transform:translateY(-4.25px) rotate(-45deg)}
+/* Dois caminhos para o mesmo estado: o atributo que o JS escreve e o
+   :checked do checkbox, que funciona sozinho. */
+.nav[data-open='true'] .burger i[data-b='t'],.nav:has(.burger__i:checked) .burger i[data-b='t']{transform:translateY(4.25px) rotate(45deg)}
+.nav[data-open='true'] .burger i[data-b='b'],.nav:has(.burger__i:checked) .burger i[data-b='b']{transform:translateY(-4.25px) rotate(-45deg)}
+.burger{cursor:pointer}
+.burger__i:focus-visible+.burger{outline:2px solid var(--laranja-claro);outline-offset:3px}
+body:has(.burger__i:checked){overflow:hidden}
 .menu{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding:calc(var(--nav-h) + 40px) var(--gutter) max(40px,env(safe-area-inset-bottom));background:var(--black);opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .48s var(--ease),transform .62s var(--ease),visibility .48s;overflow-y:auto}
-.menu[data-open='true']{opacity:1;visibility:visible;transform:translateY(0)}
+.menu[data-open='true'],.nav:has(.burger__i:checked) .menu{opacity:1;visibility:visible;transform:translateY(0)}
 .menu__a{display:flex;align-items:baseline;gap:16px;padding-block:14px;font-family:var(--f-display);font-size:var(--s-3);font-weight:800;color:#fff;border-bottom:var(--border)}
 .menu__a i{font-style:normal;font-family:var(--f-body);font-size:var(--s--1);font-weight:500;letter-spacing:.1em;color:var(--laranja)}
 .menu__f{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
@@ -331,13 +336,38 @@ ul,ol{list-style:none;padding:0}
 .hot{display:grid;gap:24px}
 .hot__img{position:relative}
 .hot__img .frame{aspect-ratio:16/10}
+/* Desenho tecnico no lugar da moldura vazia: os seis pontos passam a cair
+   sobre a peca de que falam, e a secao para de depender de uma foto que
+   ainda nao existe. Quando a foto real carregar, o desenho sai de cena. */
+.hot__car{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hot__car g{fill:none;stroke-linejoin:round;stroke-linecap:round}
+.hot__grid{stroke:rgba(255,255,255,.06);stroke-width:.5}
+.hot__body{stroke:var(--g100);stroke-width:1.7}
+.hot__glass{stroke:var(--g500);stroke-width:1.2}
+.hot__line{stroke:var(--g700);stroke-width:1.1}
+.hot__lamp{stroke:var(--laranja);stroke-width:1.6}
+.hot__rule{stroke:rgba(255,149,0,.35);stroke-width:1;stroke-dasharray:3 5}
+.hot__img .frame .mono,.hot__img .frame .cross{display:none}
+.hot__img:has(.frame[data-loaded='true']) .hot__car{display:none}
 .hot__pts{position:absolute;inset:0}
-.hot__p{position:absolute;display:grid;place-items:center;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:50%}
+.hot__p{position:absolute;display:grid;place-items:center;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer}
 .hot__p .dot{position:relative;z-index:2;width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.45);transition:background-color .3s,transform .3s}
 .hot__p .rng{position:absolute;width:26px;height:26px;border:1px solid rgba(255,255,255,.55);border-radius:50%;opacity:.7;transition:transform .42s var(--ease),border-color .3s,opacity .3s}
-.hot__p[data-on='true'] .dot{background:var(--laranja);transform:scale(1.15)}
-.hot__p[data-on='true'] .rng{border-color:var(--laranja);transform:scale(1.55);opacity:1}
+.hot__p:has(:checked) .dot{background:var(--laranja);transform:scale(1.15)}
+.hot__p:has(:checked) .rng{border-color:var(--laranja);transform:scale(1.55);opacity:1}
+.hot__p:has(:focus-visible) .rng{border-color:var(--laranja-claro);transform:scale(1.9);opacity:1}
+/* Todos os painéis moram no HTML; o radio marcado decide qual aparece.
+   Uma regra por posição — se um sétimo ponto entrar, acrescente o par. */
 .hot__pn{display:flex;flex-direction:column;gap:10px;padding:24px;background:var(--surface);border:var(--border);border-left:1px solid var(--laranja)}
+.hot__c{display:none;flex-direction:column;gap:10px}
+.hot:has(.hot__p:nth-child(1) :checked) .hot__c:nth-child(1),
+.hot:has(.hot__p:nth-child(2) :checked) .hot__c:nth-child(2),
+.hot:has(.hot__p:nth-child(3) :checked) .hot__c:nth-child(3),
+.hot:has(.hot__p:nth-child(4) :checked) .hot__c:nth-child(4),
+.hot:has(.hot__p:nth-child(5) :checked) .hot__c:nth-child(5),
+.hot:has(.hot__p:nth-child(6) :checked) .hot__c:nth-child(6),
+.hot:has(.hot__p:nth-child(7) :checked) .hot__c:nth-child(7),
+.hot:has(.hot__p:nth-child(8) :checked) .hot__c:nth-child(8){display:flex}
 .hot__pn b{font-size:var(--s--1);letter-spacing:var(--track);text-transform:uppercase;color:var(--laranja);font-weight:500}
 .hot__pn p{font-size:var(--s-0);line-height:1.65;color:var(--g300);max-width:48ch}
 @media(min-width:1024px){.hot{grid-template-columns:1.65fr 1fr;align-items:center;gap:40px}.hot__pn{min-height:200px;justify-content:center}}
@@ -550,12 +580,22 @@ html:not(.js) .pre{display:none}
 #view{animation:pageIn .5s var(--ease)}
 @keyframes pageIn{from{opacity:0;transform:translateY(8px)}}
 
+/* ---------- comparador: a varredura se explica sozinha ---------- */
+/* Registrar --pos como propriedade tipada e' o que permite anima-la. Sem
+   JavaScript o comparador varre de um lado ao outro em vez de ficar parado
+   no meio parecendo quebrado; com JavaScript o controle e' do visitante. */
+@property --pos{syntax:'<percentage>';inherits:true;initial-value:50%}
+html:not(.js) .ba__v{animation:varredura 9s var(--ease) infinite alternate}
+html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 6px rgba(255,149,0,.12)}
+@keyframes varredura{from{--pos:26%}to{--pos:74%}}
+
 /* ---------- movimento reduzido ---------- */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   [data-rev]{opacity:1!important;transform:none!important;clip-path:none!important}
   .marq__t{animation:none}
+  .ba__v{animation:none!important}
   .hero__h .ln>span{transform:none}
   .hero__p,.hero__cta,.hero__side{opacity:1}
 }
@@ -579,13 +619,11 @@ html:not(.js) .pre{display:none}
     <nav class="nav__links" aria-label="Navegação principal"><ul id="navLinks"><li><a class="nav__a" href="#/#experiencia">Experiência</a></li><li><a class="nav__a" href="#/servicos">Serviços</a></li><li><a class="nav__a" href="#/#processo">Processo</a></li><li><a class="nav__a" href="#/#resultados">Resultados</a></li><li><a class="nav__a" href="#/#diagnostico">Diagnóstico</a></li><li><a class="nav__a" href="#/agendamento">Agendamento</a></li></ul></nav>
     <div class="nav__act">
       <a class="btn btn--p nav__cta" href="#/agendamento" data-ev="start_booking" data-src="navbar"><span>Agendar</span></a>
-      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu">
-        <span class="vh">Abrir menu</span>
-        <i data-b="t" aria-hidden="true"></i><i data-b="b" aria-hidden="true"></i>
-      </button>
+      <input class="vh burger__i" type="checkbox" id="burger" aria-controls="menu" aria-label="Menu de navegação" />
+      <label class="burger" for="burger"><i data-b="t" aria-hidden="true"></i><i data-b="b" aria-hidden="true"></i></label>
     </div>
   </div>
-  <div class="menu" id="menu" data-open="false" inert>
+  <div class="menu" id="menu" data-open="false">
     <nav aria-label="Navegação principal (mobile)"><ul id="menuLinks"><li style="transition-delay:90ms"><a class="menu__a" href="#/#experiencia"><i>01</i>Experiência</a></li><li style="transition-delay:145ms"><a class="menu__a" href="#/servicos"><i>02</i>Serviços</a></li><li style="transition-delay:200ms"><a class="menu__a" href="#/#processo"><i>03</i>Processo</a></li><li style="transition-delay:255ms"><a class="menu__a" href="#/#resultados"><i>04</i>Resultados</a></li><li style="transition-delay:310ms"><a class="menu__a" href="#/#diagnostico"><i>05</i>Diagnóstico</a></li><li style="transition-delay:365ms"><a class="menu__a" href="#/agendamento"><i>06</i>Agendamento</a></li></ul></nav>
     <div class="menu__f">
       <a class="btn btn--p" href="#/agendamento"><span>Agendar serviço</span></a>
@@ -726,10 +764,21 @@ html:not(.js) .pre{display:none}
     </div>
     <div class="hot" data-rev="mask" data-vis="false">
       <div class="hot__img">
-        <div class="frame" data-img="images/detalhes.jpg" data-cap="Foto — veículo para mapa de detalhes" style="aspect-ratio:16/10"></div>
-        <div class="hot__pts" id="hotPts" role="group" aria-label="Pontos de inspeção"><button type="button" class="hot__p" data-id="pintura" data-on="true" aria-pressed="true" style="left:30%;top:38%"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Pintura</span></button><button type="button" class="hot__p" data-id="farois" data-on="false" aria-pressed="false" style="left:13%;top:55%"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Faróis</span></button><button type="button" class="hot__p" data-id="rodas" data-on="false" aria-pressed="false" style="left:22%;top:78%"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Rodas</span></button><button type="button" class="hot__p" data-id="couro" data-on="false" aria-pressed="false" style="left:60%;top:46%"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Couro</span></button><button type="button" class="hot__p" data-id="painel" data-on="false" aria-pressed="false" style="left:72%;top:34%"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Painel</span></button><button type="button" class="hot__p" data-id="acabamentos" data-on="false" aria-pressed="false" style="left:85%;top:62%"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Acabamentos</span></button></div>
+        <div class="frame" data-img="images/detalhes.jpg" data-cap="Esquema técnico — pontos de inspeção" style="aspect-ratio:16/10"></div>
+        <svg class="hot__car" viewBox="0 0 400 250" aria-hidden="true" focusable="false">
+        <g class="hot__grid"><path d="M0 62.5H400M0 125H400M0 187.5H400M100 0V250M200 0V250M300 0V250"/></g>
+        <g class="hot__body"><path d="M24 170 L26 148 C28 136 36 130 49 128 L104 122 C113 121 120 118 126 112 L152 90 C160 84 168 81 177 81 L250 80 C266 80 279 84 289 93 L312 114 L348 122 C364 126 373 135 375 148 L376 170 L336 170 A30 30 0 0 0 276 170 L140 170 A30 30 0 0 0 80 170 Z"/></g>
+        <g class="hot__glass"><path d="M134 110 L156 90 C160 87 165 85 170 85 L197 85 L197 110 Z"/><path d="M206 85 L248 84 C261 84 271 88 279 95 L294 110 L206 110 Z"/></g>
+        <g class="hot__line"><path d="M42 142 L104 137"/><path d="M122 116 L128 124"/><path d="M304 112 L298 122"/><path d="M140 170 L276 170"/></g>
+        <g class="hot__body"><circle cx="110" cy="174" r="25"/><circle cx="306" cy="174" r="25"/></g>
+        <g class="hot__line"><circle cx="110" cy="174" r="12"/><circle cx="306" cy="174" r="12"/></g>
+        <g class="hot__lamp"><path d="M27 142 L48 138 L49 148 L28 151 Z"/></g>
+        <g class="hot__line"><path d="M374 144 L358 141 L357 150 L373 152 Z"/></g>
+        <g class="hot__rule"><path d="M18 212 H382"/><path d="M18 206V218M110 208V216M306 208V216M382 206V218"/></g>
+      </svg>
+      <div class="hot__pts" id="hotPts" role="group" aria-label="Pontos de inspeção"><label class="hot__p" data-id="pintura" style="left:24%;top:48%"><input type="radio" name="hotspot" class="vh" checked=""><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Pintura</span></label><label class="hot__p" data-id="farois" style="left:8%;top:58%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Faróis</span></label><label class="hot__p" data-id="rodas" style="left:27%;top:69%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Rodas</span></label><label class="hot__p" data-id="couro" style="left:58%;top:36%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Couro</span></label><label class="hot__p" data-id="painel" style="left:41%;top:35%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Painel</span></label><label class="hot__p" data-id="acabamentos" style="left:82%;top:53%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Acabamentos</span></label></div>
       </div>
-      <div class="hot__pn" id="hotPanel" aria-live="polite"><b>Pintura</b><p>Leitura da espessura do verniz antes de qualquer correção. É o que define até onde dá para polir com segurança.</p></div>
+      <div class="hot__pn" id="hotPanel" aria-live="polite"><div class="hot__c"><b>Pintura</b><p>Leitura da espessura do verniz antes de qualquer correção. É o que define até onde dá para polir com segurança.</p></div><div class="hot__c"><b>Faróis</b><p>Lente tratada por etapas de refino e protegida no fim — restaurar sem proteger só adia o amarelamento.</p></div><div class="hot__c"><b>Rodas</b><p>Limpeza de face interna, aro e cava. É a região que mais denuncia trabalho apressado.</p></div><div class="hot__c"><b>Couro</b><p>pH controlado, remoção de oleosidade e hidratação específica para o acabamento de cada banco.</p></div><div class="hot__c"><b>Painel</b><p>Plásticos e telas tratados sem produto oleoso: acabamento fosco, do jeito que saiu de fábrica.</p></div><div class="hot__c"><b>Acabamentos</b><p>Frisos, borrachas e detalhes cromados — os pontos onde o olho encosta depois que tudo já está limpo.</p></div></div>
     </div>
   </div>
 </section>
@@ -1067,13 +1116,15 @@ const CAMADAS = [
   { id:'metal', cor:'rgba(169,169,176,.5)', nome:'Chapa', d:'O metal. Exposto, começa a oxidar — e o relógio passa a correr contra o carro.' },
 ];
 
+/* x/y em % sobre o desenho tecnico do veiculo (viewBox 400x250) — cada ponto
+   cai sobre a peca de que fala. */
 const HOTSPOTS = [
-  { id:'pintura', nome:'Pintura', x:30, y:38, t:'Leitura da espessura do verniz antes de qualquer correção. É o que define até onde dá para polir com segurança.' },
-  { id:'farois', nome:'Faróis', x:13, y:55, t:'Lente tratada por etapas de refino e protegida no fim — restaurar sem proteger só adia o amarelamento.' },
-  { id:'rodas', nome:'Rodas', x:22, y:78, t:'Limpeza de face interna, aro e cava. É a região que mais denuncia trabalho apressado.' },
-  { id:'couro', nome:'Couro', x:60, y:46, t:'pH controlado, remoção de oleosidade e hidratação específica para o acabamento de cada banco.' },
-  { id:'painel', nome:'Painel', x:72, y:34, t:'Plásticos e telas tratados sem produto oleoso: acabamento fosco, do jeito que saiu de fábrica.' },
-  { id:'acabamentos', nome:'Acabamentos', x:85, y:62, t:'Frisos, borrachas e detalhes cromados — os pontos onde o olho encosta depois que tudo já está limpo.' },
+  { id:'pintura', nome:'Pintura', x:24, y:48, t:'Leitura da espessura do verniz antes de qualquer correção. É o que define até onde dá para polir com segurança.' },
+  { id:'farois', nome:'Faróis', x:8, y:58, t:'Lente tratada por etapas de refino e protegida no fim — restaurar sem proteger só adia o amarelamento.' },
+  { id:'rodas', nome:'Rodas', x:27, y:69, t:'Limpeza de face interna, aro e cava. É a região que mais denuncia trabalho apressado.' },
+  { id:'couro', nome:'Couro', x:58, y:36, t:'pH controlado, remoção de oleosidade e hidratação específica para o acabamento de cada banco.' },
+  { id:'painel', nome:'Painel', x:41, y:35, t:'Plásticos e telas tratados sem produto oleoso: acabamento fosco, do jeito que saiu de fábrica.' },
+  { id:'acabamentos', nome:'Acabamentos', x:82, y:53, t:'Frisos, borrachas e detalhes cromados — os pontos onde o olho encosta depois que tudo já está limpo.' },
 ];
 
 const PADROES = [
@@ -1887,25 +1938,20 @@ function renderCamadas(){
     if (i === 0) ligar(true);
   });
 }
+/* Antes eram <button> com listener: sem JavaScript os seis pontos ficavam
+   mortos. Agora sao radios de um mesmo grupo dentro de labels — o :checked
+   troca o painel por CSS, o teclado navega com as setas de graca, e nao
+   sobra nenhum listener para dar errado. */
 function renderHotspots(){
   const pts = $('#hotPts'), pan = $('#hotPanel'); if (!pts || !pan) return;
   pts.textContent = ''; pan.textContent = '';
-  const mostrar = h => {
-    pts.querySelectorAll('.hot__p').forEach(b => { b.dataset.on = 'false'; b.setAttribute('aria-pressed','false'); });
-    const b = pts.querySelector(`[data-id="${h.id}"]`);
-    if (b){ b.dataset.on = 'true'; b.setAttribute('aria-pressed','true'); }
-    pan.textContent = '';
-    pan.append(el('b', { text:h.nome }), el('p', { text:h.t }));
-  };
-  HOTSPOTS.forEach(h => {
-    const b = el('button', { type:'button', class:'hot__p','data-id':h.id,'data-on':'false',
-      'aria-pressed':'false', style:`left:${h.x}%;top:${h.y}%`,
-      onclick: () => mostrar(h), onmouseenter: () => mostrar(h), onfocus: () => mostrar(h) },
+  HOTSPOTS.forEach((h, i) => {
+    pts.append(el('label', { class:'hot__p','data-id':h.id, style:`left:${h.x}%;top:${h.y}%` },
+      el('input', { type:'radio', name:'hotspot', class:'vh', checked: i === 0 }),
       el('span',{class:'dot','aria-hidden':'true'}), el('span',{class:'rng','aria-hidden':'true'}),
-      el('span',{class:'vh',text:h.nome}));
-    pts.append(b);
+      el('span',{class:'vh',text:h.nome})));
+    pan.append(el('div', { class:'hot__c' }, el('b',{text:h.nome}), el('p',{text:h.t})));
   });
-  mostrar(HOTSPOTS[0]);
 }
 function renderPadroes(){
   const ul = $('#stdList'); if (!ul) return;
@@ -2386,8 +2432,12 @@ function montarNav(){
 }
 
 /* --- menu fullscreen: trava scroll, Esc fecha, foco preso dentro --- */
+/* O checkbox e' a fonte da verdade — e' ele que o CSS le, com ou sem JS.
+   Estas funcoes so acrescentam o que CSS nao faz: foco, inert e Esc. */
 function abrirMenu(){
   const nav = $('#nav'), menu = $('#menu'), b = $('#burger');
+  if (!nav || !menu || !b) return;
+  b.checked = true;
   nav.dataset.open = 'true'; menu.dataset.open = 'true'; menu.removeAttribute('inert');
   b.setAttribute('aria-expanded','true'); document.body.dataset.lock = 'true';
   const f = menu.querySelector('a[href],button'); if (f) f.focus();
@@ -2395,12 +2445,15 @@ function abrirMenu(){
 function fecharMenu(){
   const nav = $('#nav'), menu = $('#menu'), b = $('#burger');
   if (!nav || !menu || !b) return;
+  b.checked = false;
   nav.dataset.open = 'false'; menu.dataset.open = 'false'; menu.setAttribute('inert','');
   b.setAttribute('aria-expanded','false'); document.body.dataset.lock = 'false';
 }
 function ligarMenu(){
   const b = $('#burger'), menu = $('#menu');
-  b.addEventListener('click', () => menu.dataset.open === 'true' ? fecharMenu() : abrirMenu());
+  if (!b || !menu) return;
+  fecharMenu();
+  b.addEventListener('change', () => b.checked ? abrirMenu() : fecharMenu());
   menu.addEventListener('click', e => { if (e.target.closest('a')) fecharMenu(); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && menu.dataset.open === 'true'){ fecharMenu(); b.focus(); return; }

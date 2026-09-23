@@ -39,6 +39,11 @@ Ela não depende:
   animação CSS o retira sozinha caso algo trave no meio.
 - **As revelações por scroll só escondem quando há JS para revelá-las** —
   os seletores `[data-rev][data-vis="false"]` estão sob `.js`.
+- **Menu, pontos de inspeção e comparador funcionam sem JS.** O menu é um
+  checkbox escondido com `<label>`; os seis pontos são radios de um mesmo
+  grupo (as setas do teclado navegam de graça); o comparador antes/depois
+  varre sozinho, porque `--pos` é registrada com `@property` e por isso pode
+  ser animada. Com JavaScript o controle volta a ser do visitante.
 - **Diagnóstico e agendamento não fingem funcionar** sem JS: no lugar do
   formulário aparece a explicação de por que ele precisa do navegador.
 
