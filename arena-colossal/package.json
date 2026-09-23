@@ -2,7 +2,7 @@
   "name": "arena-colossal",
   "version": "1.0.0",
   "private": true,
-  "description": "Arena Colossal — plataforma digital premium de estetica automotiva (Balneario Camboriu/SC)",
+  "description": "Arena Colossal \u2014 plataforma digital premium de estetica automotiva (Balneario Camboriu/SC)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,9 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
@@ -31,6 +33,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "prisma": "7.10.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^3.2.4"
   }
 }
