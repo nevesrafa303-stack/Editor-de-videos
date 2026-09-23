@@ -1,13 +1,19 @@
 # Arena Colossal — site completo em arquivo único
 
 `arena-colossal.html` é o site inteiro: **todas as páginas, todo o CSS, todo o
-JavaScript e as duas fontes** dentro de um arquivo de ~250 KB.
+JavaScript, a logo e as duas fontes** dentro de um arquivo de ~440 KB.
 
 Abre com dois cliques, funciona **sem internet** e não faz **uma única
 requisição a terceiros** — nem para o Google Fonts.
 
+A paleta vem da logo da Arena: o laranja do letreiro (`--laranja #ff9500`), o
+azul do anel (`--azul #02abff`) e o azul-marinho do fundo do emblema
+(`--azul-fundo #132f83`). A própria logo está embutida em base64 e reaparece
+na navbar, no preloader, no rodapé, no favicon e como marca d'água das
+molduras de foto.
+
 ```
-#/                         home (11 seções)
+#/                         home (15 seções)
 #/servicos                 catálogo
 #/servico/<slug>           uma página por serviço (10)
 #/agendamento              formulário em 5 etapas
@@ -18,6 +24,27 @@ qualquer outra             404 com caminho de volta
 
 A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
 são montadas pelo roteador por hash.
+
+### Abre mesmo com o JavaScript bloqueado
+
+Visualizadores de arquivo, modos de leitura e políticas de CSP bloqueiam
+script. Se a página dependesse de JS para aparecer, o arquivo abriria preto.
+Ela não depende:
+
+- **A home inteira está no HTML** — as quinze seções, os dez serviços, o
+  processo, o FAQ, a navegação e o rodapé. O JS reassume esses blocos ao
+  iniciar (cada render limpa o container antes de montar), nunca duplica.
+- **O preloader tem três saídas independentes**: o JS remove o nó; sem JS a
+  classe `.js` nunca entra no `<html>` e ele não chega a ser exibido; e uma
+  animação CSS o retira sozinha caso algo trave no meio.
+- **As revelações por scroll só escondem quando há JS para revelá-las** —
+  os seletores `[data-rev][data-vis="false"]` estão sob `.js`.
+- **Diagnóstico e agendamento não fingem funcionar** sem JS: no lugar do
+  formulário aparece a explicação de por que ele precisa do navegador.
+
+Sem JavaScript a página entrega ~97% da altura e todo o conteúdo de texto.
+O que se perde é o que é interativo por natureza: agenda, diagnóstico,
+comparador antes/depois, hotspots e menu mobile.
 
 ---
 
@@ -121,7 +148,7 @@ da Arena.
 
 ## Acessibilidade
 
-Hierarquia semântica de headings, `alt` em toda imagem, foco visível, menu
+Funciona sem JavaScript (acima), hierarquia semântica de headings, `alt` em toda imagem, foco visível, menu
 fullscreen com foco preso e fechamento por `Esc`, comparador antes/depois
 operável por teclado (é um `<input type="range">` real), FAQ em `<details>`
 nativo, campos com `aria-invalid` e `aria-describedby`, e
