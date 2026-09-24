@@ -1,7 +1,8 @@
 # Arena Colossal — site completo em arquivo único
 
 `arena-colossal.html` é o site inteiro: **todas as páginas, todo o CSS, todo o
-JavaScript, a logo e as duas fontes** dentro de um arquivo de ~440 KB.
+JavaScript, o vídeo de abertura, a logo e as duas fontes** dentro de um arquivo
+de ~2,1 MB.
 
 Abre com dois cliques, funciona **sem internet** e não faz **uma única
 requisição a terceiros** — nem para o Google Fonts.
@@ -24,6 +25,33 @@ qualquer outra             404 com caminho de volta
 
 A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
 são montadas pelo roteador por hash.
+
+### O vídeo do hero
+
+Duas versões do mesmo take, embutidas em base64 e escolhidas por `media`: a
+**paisagem** (1024×654, 555 KB) mostra o carro inteiro na tela larga, a
+**vertical** (608×1080, 733 KB) enquadra certo no celular. O navegador baixa
+uma só. Sem áudio, em loop, com `autoplay muted playsinline` — ou seja,
+**roda sem JavaScript nenhum**. O `poster` cobre o instante antes do primeiro
+quadro e o caso de o vídeo não poder tocar.
+
+Sobre ele, cinco camadas: duotone da marca (azul-marinho e laranja da logo),
+uma varredura laranja que atravessa a tela a cada 12s, linhas finas de
+leitura, grão e o scrim. A varredura é a promessa da marca virando imagem —
+o veículo é lido antes de ser tocado.
+
+O contraste do texto foi **medido**, não estimado: contra o pixel mais claro
+do vídeo em seis momentos, nos dois breakpoints. Pior caso 5,17:1 no título
+e 7,52:1 no parágrafo (desktop); 6,35:1 e 9,85:1 (celular). No celular o
+parágrafo sobe para o cinza claro porque lá o texto ocupa a tela toda e não
+sobra janela livre para o vídeo brilhar.
+
+`prefers-reduced-motion` pausa o vídeo no primeiro quadro e desliga a
+varredura. Quando o hero sai da tela, o JavaScript pausa a decodificação —
+é bateria do visitante.
+
+Para trocar o vídeo: recorte com `ffmpeg` nos mesmos formatos, gere o base64
+e substitua os dois `<source>`. Os comandos usados estão no commit.
 
 ### Abre mesmo com o JavaScript bloqueado
 
