@@ -286,6 +286,26 @@ body:has(.burger__i:checked){overflow:hidden}
 .glass ul{margin-top:14px;display:flex;flex-direction:column;gap:9px}
 .glass li{display:flex;gap:10px;font-size:var(--s--1);line-height:1.5;color:var(--g300)}
 .glass li::before{content:'';flex:0 0 auto;width:10px;height:1px;margin-top:.7em;background:var(--laranja)}
+/* Próximo horário: urgência que vem da agenda, não de um contador falso. */
+.glass__prox{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:var(--border);font-size:var(--s--1)}
+.glass__prox i{width:7px;height:7px;border-radius:50%;background:var(--laranja);box-shadow:0 0 0 4px rgba(255,149,0,.16);animation:pulso 2.4s ease-in-out infinite}
+.glass__prox span{letter-spacing:var(--track);text-transform:uppercase;color:var(--g500)}
+.glass__prox b{margin-left:auto;font-family:var(--f-display);font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+@keyframes pulso{50%{box-shadow:0 0 0 9px rgba(255,149,0,0)}}
+
+/* Selo do Google: só existe quando o perfil está configurado. */
+.selo__w:empty{display:none}
+.selo{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;font-size:var(--s--1);color:var(--g300);background:var(--surface);border:var(--border);border-radius:999px;transition:border-color .3s,color .3s}
+.selo:hover{border-color:rgba(255,149,0,.45);color:#fff}
+.selo b{font-family:var(--f-display);font-weight:800;color:#fff}
+.selo span{letter-spacing:.04em}
+
+/* Redução de risco antes do último CTA: só reafirma o que o site já diz. */
+.risco{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-top:22px;max-width:62ch}
+.risco li{display:flex;align-items:center;gap:9px;font-size:var(--s--1);line-height:1.5;color:var(--g300)}
+.risco li::before{content:'';flex:0 0 auto;width:14px;height:14px;border:1px solid var(--laranja);border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,var(--laranja) 0 3px,transparent 3px)}
+
 .hero__scroll{position:absolute;right:var(--gutter);bottom:clamp(56px,10vh,110px);display:none;flex-direction:column;align-items:center;gap:12px;color:var(--g500)}
 .hero__scroll span{font-size:.68rem;letter-spacing:var(--track);text-transform:uppercase;writing-mode:vertical-rl}
 .hero__scroll i{width:1px;height:64px;background:linear-gradient(to bottom,var(--laranja),transparent);transform-origin:top;animation:hint 2.2s var(--ease) infinite}
@@ -709,6 +729,7 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
         <a class="btn btn--p btn--lg" href="#/agendamento" data-ev="start_booking" data-src="hero"><span>Agendar serviço</span></a>
         <a class="btn btn--o btn--lg" href="#diagnostico"><span>Montar meu processo</span></a>
       </div>
+      <p class="selo__w" id="seloHero"></p>
     </div>
     <aside class="hero__side">
       <div class="glass">
@@ -722,8 +743,11 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
       </div>
       <div class="glass">
         <p class="glass__t"><span>Agenda</span><span>Online</span></p>
-        <p class="glass__s">Horário reservado na hora, e fora da agenda no mesmo instante. Sem esperar retorno para saber se tem vaga.</p>
-        <a class="btn btn--o" href="#/agendamento" style="margin-top:16px;width:100%"><span>Ver horários</span></a>
+        <!-- Texto padrão = sem backend. Havendo `apiBase`, o JS troca pela
+             promessa de reserva instantânea, que aí é verdade. -->
+        <p class="glass__s" id="agTexto">Escolha serviço, dia e horário aqui mesmo. O pedido chega pronto na conversa — sem ficar esperando retorno só para saber se tem vaga.</p>
+        <p class="glass__prox" id="agProx" hidden></p>
+        <a class="btn btn--o" href="#/agendamento" style="margin-top:16px;width:100%"><span>Ver horários livres</span></a>
       </div>
     </aside>
   </div>
@@ -974,9 +998,15 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
   <div class="wrap" style="display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
     <h2 class="h-sec" style="max-width:20ch">Seu carro merece mais do que uma lavagem.</h2>
     <p style="font-family:var(--f-display);font-size:var(--s-2);font-weight:700;letter-spacing:-.02em;color:var(--laranja)">Ele merece um processo.</p>
+    <ul class="risco">
+      <li>A avaliação vem antes de qualquer serviço</li>
+      <li>Você aprova o processo antes de começar</li>
+      <li>O que não dá para fazer com segurança, a gente diz</li>
+    </ul>
     <div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:18px">
-      <a class="btn btn--p btn--lg" href="#/agendamento"><span>Agendar na Arena</span></a>
+      <a class="btn btn--p btn--lg" href="#/agendamento"><span>Ver horários e agendar</span></a>
       <a class="link-u" data-wa data-src="final" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+      <p class="selo__w" id="seloFinal"></p>
     </div>
   </div>
 </section>
@@ -1033,6 +1063,23 @@ const CONFIG = {
   lat: null,                // -26.9906
   lng: null,                // -48.6350
   googlePlaceId: '',        // habilita rota precisa e as avaliações
+
+  /* -------- prova social (Google) --------
+     Link do perfil da Arena no Google. Com ele preenchido, o selo aparece
+     ao lado dos botões principais e a seção de avaliações ganha saída para
+     o perfil real.
+
+     `nota` e `total` SÓ podem receber os números reais que estão no perfil.
+     Deixe vazio em vez de arredondar: um número inventado aqui é o tipo de
+     coisa que o cliente confere em dez segundos. */
+  googleUrl: '',            // 'https://g.page/r/...' ou o link de avaliações
+  googleNota: null,         // 4.9
+  googleTotal: null,        // 127
+
+  /* Avaliações reais, copiadas do perfil COM autorização de quem escreveu.
+     Cada item: { autor, nota, data:'2026-03-12', texto }. Enquanto a lista
+     estiver vazia a seção assume o estado honesto em vez de inventar. */
+  avaliacoes: [],
 
   /* -------- horário de atendimento -------- */
   // 0=domingo … 6=sábado. Lista vazia = o site não publica horário e o
@@ -1381,6 +1428,9 @@ const alvoMapa = (CONFIG.lat !== null && CONFIG.lng !== null)
 const urlMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(alvoMapa)}${CONFIG.googlePlaceId ? '&query_place_id=' + encodeURIComponent(CONFIG.googlePlaceId) : ''}`;
 const urlRota = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(alvoMapa)}${CONFIG.googlePlaceId ? '&destination_place_id=' + encodeURIComponent(CONFIG.googlePlaceId) : ''}`;
 const agendaConfigurada = Array.isArray(CONFIG.horarios) && CONFIG.horarios.length > 0;
+const temGoogle = typeof CONFIG.googleUrl === 'string' && CONFIG.googleUrl.trim().length > 0;
+const urlGoogle = temGoogle ? CONFIG.googleUrl.trim() : null;
+const fmtCurto = new Intl.DateTimeFormat('pt-BR',{ weekday:'short', day:'2-digit', month:'2-digit', timeZone:'UTC' });
 
 /* ======================================================================
    5. ANALYTICS — uma função só, para o funil ter nome estável
@@ -1511,6 +1561,60 @@ function janelaAgenda(){
   const primeiro = `${base.getFullYear()}-${pad(base.getMonth()+1)}-${pad(base.getDate())}`;
   return { primeiro, ultimo: somaDias(hojeISO(), CONFIG.janelaDias) };
 }
+/* Primeiro horário que a agenda configurada realmente comporta, contando a
+   antecedência mínima e os bloqueios. Usa o serviço mais curto: é o que
+   permite o horário mais cedo. Sem backend isto é a janela de atendimento,
+   não uma vaga confirmada — e o texto ao lado diz isso com todas as letras. */
+function proximoHorario(){
+  if (!agendaConfigurada) return null;
+  const menor = Math.min(...SERVICOS.map(s => s.min));
+  for (const d of diasDisponiveis()){
+    if (!d.aberto) continue;
+    const g = gradeLocal(d.data, menor);
+    if (g.length) return { data: d.data, hora: g[0].time };
+  }
+  return null;
+}
+
+/* Selo de prova social. Sem link do perfil ele simplesmente não existe —
+   e nota/total só entram se forem os números reais do Google. */
+function seloGoogle(fonte){
+  if (!temGoogle) return null;
+  const a = el('a', { class:'selo', href:urlGoogle, target:'_blank', rel:'noopener noreferrer',
+    onclick: () => track('click_google', { source: fonte }) });
+  if (CONFIG.googleNota){
+    a.append(estrelas(CONFIG.googleNota),
+      el('b', { text:String(CONFIG.googleNota).replace('.', ',') }));
+  }
+  a.append(el('span', { text: CONFIG.googleTotal
+    ? `${CONFIG.googleTotal} avaliações no Google` : 'Avaliações no Google' }));
+  return a;
+}
+
+function renderAgenda(){
+  const t = $('#agTexto'), p = $('#agProx'), selo = $('#seloHero'), selo2 = $('#seloFinal');
+  // A promessa muda com a infraestrutura: só existe reserva instantânea
+  // quando há backend para reservar.
+  if (t && CONFIG.apiBase)
+    t.textContent = 'Horário reservado na hora, e fora da agenda no mesmo instante. Sem esperar retorno para saber se tem vaga.';
+  if (p){
+    const prox = proximoHorario();
+    if (!prox){ p.hidden = true; }
+    else {
+      p.textContent = '';
+      p.append(el('i', { 'aria-hidden':'true' }),
+        el('span', { text:'Próximo horário livre' }),
+        el('b', { text:`${fmtCurto.format(new Date(prox.data + 'T12:00:00Z')).replace('.','')} · ${prox.hora}` }));
+      p.hidden = false;
+    }
+  }
+  [[selo,'hero'],[selo2,'fechamento']].forEach(([n, fonte]) => {
+    if (!n) return;
+    n.textContent = '';
+    const sel = seloGoogle(fonte); if (sel) n.append(sel);
+  });
+}
+
 function diasDisponiveis(){
   const { primeiro, ultimo } = janelaAgenda();
   const abertos = new Set(CONFIG.horarios.map(h => h.dia));
@@ -1573,7 +1677,14 @@ function validarEtapa(){
   if (bk.passo === 3){
     if (d.nome.trim().length < 3) e.nome = 'Informe seu nome completo.';
     if (!paraE164(d.tel)) e.tel = 'Informe um WhatsApp válido com DDD.';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email.trim())) e.email = 'Informe um e-mail válido.';
+    // Sem backend o pedido termina no WhatsApp: exigir e-mail ali é pedir
+    // um dado que ninguém vai usar — e cada campo obrigatório custa pedido.
+    // Com `apiBase` ligado ele volta a ser necessário: é por ele que sai a
+    // confirmação do cliente.
+    const emailObrigatorio = Boolean(CONFIG.apiBase);
+    if (emailObrigatorio || d.email.trim()){
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email.trim())) e.email = 'Informe um e-mail válido.';
+    }
     if (d.marca.trim().length < 2) e.marca = 'Informe a marca do veículo.';
     if (d.modelo.trim().length < 1) e.modelo = 'Informe o modelo do veículo.';
     const ano = Number(digitos(d.ano));
@@ -1779,7 +1890,8 @@ function renderBooking(){
     const form = el('div', { class:'form' },
       campo('nome','Nome completo',{ type:'text', autocomplete:'name', required:true }),
       campo('tel','WhatsApp',{ type:'tel', inputmode:'tel', autocomplete:'tel-national', placeholder:'(47) 90000-0000', required:true }),
-      campo('email','E-mail',{ type:'email', inputmode:'email', autocomplete:'email', required:true }),
+      campo('email', CONFIG.apiBase ? 'E-mail' : 'E-mail <s>(opcional)</s>',
+        { type:'email', inputmode:'email', autocomplete:'email', required: Boolean(CONFIG.apiBase) }),
       el('div', { class:'row' },
         campo('marca','Marca',{ type:'text', required:true }),
         campo('modelo','Modelo',{ type:'text', required:true }),
@@ -1900,11 +2012,20 @@ async function renderAvaliacoes(){
     const c = el('div', { class:'rev__empty','data-rev':'up','data-vis':'false' },
       el('h3', { text:'As avaliações reais dos clientes da Arena aparecem aqui.' }),
       el('p', { text:'Preferimos publicar nada a publicar algo inventado. Enquanto os depoimentos autorizados não entram, o perfil no Google segue aberto para consulta.' }));
-    if (CONFIG.googlePlaceId || temMapa)
-      c.append(el('a', { class:'link-u', href:urlMaps, target:'_blank', rel:'noopener noreferrer', text:'Ver avaliações no Google' }));
+    if (temGoogle || CONFIG.googlePlaceId || temMapa)
+      c.append(el('a', { class:'link-u', href: urlGoogle || urlMaps, target:'_blank', rel:'noopener noreferrer',
+        onclick: () => track('click_google', { source:'avaliacoes_vazio' }), text:'Ver avaliações no Google' }));
     box.append(c); observarReveals(box);
   };
 
+  /* Ordem de preferência: as avaliações reais coladas no CONFIG (não
+     exigem backend), depois o endpoint. Sem nenhuma das duas, o estado
+     honesto — nunca um depoimento inventado para preencher espaço. */
+  const locais = Array.isArray(CONFIG.avaliacoes) ? CONFIG.avaliacoes : [];
+  if (locais.length){
+    montarAvaliacoes(box, { nota: CONFIG.googleNota, total: CONFIG.googleTotal, avaliacoes: locais });
+    return;
+  }
   if (!CONFIG.avaliacoesEndpoint){ vazio(); return; }
 
   box.append(el('p', { class:'note', role:'status', text:'Carregando avaliações…' }));
@@ -1917,13 +2038,22 @@ async function renderAvaliacoes(){
   const lista = Array.isArray(dados && dados.avaliacoes) ? dados.avaliacoes : [];
   box.textContent = '';
   if (!lista.length){ vazio(); return; }
+  montarAvaliacoes(box, dados);
+}
+
+/* Desenha a lista — a mesma forma, venha ela do CONFIG ou da API. Todo
+   texto entra por textContent: avaliação é conteúdo de terceiro. */
+function montarAvaliacoes(box, dados){
+  const lista = dados.avaliacoes;
+  box.textContent = '';
 
   if (dados.nota){
     const sum = el('div', { class:'rev__sum' },
       el('span', { class:'rev__score', text: String(dados.nota).replace('.', ',') }),
       estrelas(dados.nota));
     if (dados.total) sum.append(el('span', { class:'muted', text:`${dados.total} avaliações no Google` }));
-    sum.append(el('a', { class:'link-u', href:urlMaps, target:'_blank', rel:'noopener noreferrer', text:'Ver no Google' }));
+    sum.append(el('a', { class:'link-u', href: urlGoogle || urlMaps, target:'_blank', rel:'noopener noreferrer',
+      onclick: () => track('click_google', { source:'avaliacoes' }), text:'Ver no Google' }));
     box.append(sum);
   }
 
@@ -2384,6 +2514,7 @@ function montarHome(){
   renderMarquee(); renderServicos(); renderCamadas(); renderHotspots();
   renderPadroes(); renderProcesso(); renderAntesDepois(); renderPublico();
   renderFaq(); renderLocal(); renderDiag(); renderBooking(); renderAvaliacoes();
+  renderAgenda();
 }
 
 async function rotear(){

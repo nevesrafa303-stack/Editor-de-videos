@@ -108,6 +108,9 @@ Tudo num bloco só, no início do JavaScript (`const CONFIG`).
 | `imagens` | Todas as molduras ficam no placeholder técnico — e o navegador **não dispara nenhuma requisição**. |
 | `apiBase` | O agendamento entrega o pedido pelo WhatsApp (ver abaixo). |
 | `avaliacoesEndpoint` | A seção mostra um estado honesto com link para o Google. |
+| `googleUrl` | O selo de avaliações some do site e a seção perde a saída para o perfil. |
+| `googleNota` / `googleTotal` | O selo aparece só com o texto, sem número. **Preencha apenas com os valores reais do perfil.** |
+| `avaliacoes` | Vazio = estado honesto. Cole aqui as avaliações reais, com autorização de quem escreveu. |
 
 ### Imagens
 
@@ -206,6 +209,10 @@ nativo, campos com `aria-invalid` e `aria-describedby`, e
 - [x] `CONFIG.whatsapp` — `5547992228325`.
 - [x] `CONFIG.email` — `edinelson.yeshua@gmail.com` (Gmail pessoal; vale trocar
       por um endereço no domínio da Arena quando ele existir).
+- [ ] `CONFIG.googleUrl` — link do perfil da Arena no Google. Destrava o selo
+      de prova social ao lado dos dois CTAs principais e a saída da seção de
+      avaliações. Depois, `googleNota` e `googleTotal` com os números reais, e
+      `avaliacoes` com os textos que os clientes autorizarem publicar.
 - [ ] Horário real de atendimento e as durações de cada serviço (`SERVICOS[].min`).
 - [ ] Endereço, quando existir.
 - [ ] Fotos reais (`images/` + `CONFIG.imagens`).
