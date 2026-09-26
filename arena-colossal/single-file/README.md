@@ -14,7 +14,7 @@ na navbar, no preloader, no rodapé, no favicon e como marca d'água das
 molduras de foto.
 
 ```
-#/                         home (15 seções)
+#/                         home (7 blocos)
 #/servicos                 catálogo
 #/servico/<slug>           uma página por serviço (10)
 #/agendamento              formulário em 5 etapas
@@ -25,6 +25,27 @@ qualquer outra             404 com caminho de volta
 
 A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
 são montadas pelo roteador por hash.
+
+### A home é curta de propósito
+
+Sete blocos: abertura, serviços, prova social, como funciona, diagnóstico,
+agenda + localização, dúvidas e fechamento. O aprofundamento técnico —
+camadas da pintura, pontos de inspeção, critérios e as seis etapas do
+processo — vive dentro de um `<details>` na seção "Como funciona". Fica no
+documento (Google indexa, quem quer ler abre, funciona sem JavaScript), mas
+não empurra a ação para 15 rolagens abaixo.
+
+A comparação antes/depois **saiu da home** e espera foto real da Arena. Um
+comparador de dois placeholders não prova nada; o código e os dados
+(`CASOS`, `renderAntesDepois`) continuam no arquivo, prontos para voltar.
+
+### As imagens dos serviços
+
+Dez quadros do próprio vídeo, embutidos como classes CSS (`.q01`…`.q10`) em
+vez de `<img>`: o mesmo byte serve o cartão com e sem JavaScript, e o HTML
+estático não duplica base64. São **ambientação automotiva** — em nenhum
+lugar o site afirma que este carro é trabalho da Arena. Isso só vale com
+foto sua.
 
 ### O vídeo do hero
 

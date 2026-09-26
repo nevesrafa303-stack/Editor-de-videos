@@ -24,11 +24,13 @@ const ARQUIVO = join(dirname(fileURLToPath(import.meta.url)), 'arena-colossal.ht
 
 const CONTAINERS = [
   'navLinks', 'menuLinks', 'marq', 'svcList', 'layList', 'hotPts', 'hotPanel',
-  'stdList', 'procList', 'baList', 'revBox', 'audList', 'faqList',
+  'stdList', 'procList', 'revBox', 'audList', 'faqList',
   'locBox', 'mapBox', 'footNav', 'footContact', 'footHours',
 ];
 
-/** `#diag` e `#bkBox` ficam de fora: sem JS eles não teriam como funcionar, e
+/** `#baList` saiu da home: a comparação antes/depois espera foto real da
+ *  Arena — um comparador de placeholders não prova nada.
+ *  `#diag` e `#bkBox` ficam de fora: sem JS eles não teriam como funcionar, e
  *  o HTML traz a explicação disso em vez de um formulário que não confirma nada. */
 
 /** Fim do conteúdo de um elemento, contando abertura e fechamento da mesma tag. */
