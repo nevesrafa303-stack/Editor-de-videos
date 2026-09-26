@@ -26,9 +26,12 @@ const CONTAINERS = [
   'navLinks', 'menuLinks', 'marq', 'svcList', 'layList', 'hotPts', 'hotPanel',
   'stdList', 'procList', 'revBox', 'audList', 'faqList',
   'locBox', 'mapBox', 'footNav', 'footContact', 'footHours',
+  'seloHero', 'seloFinal',
 ];
 
-/** `#baList` saiu da home: a comparação antes/depois espera foto real da
+/** `#agProx` fica de fora de propósito: o próximo horário livre depende da
+ *  data de hoje e congelá-lo no HTML mostraria um dia que já passou.
+ *  `#baList` saiu da home: a comparação antes/depois espera foto real da
  *  Arena — um comparador de placeholders não prova nada.
  *  `#diag` e `#bkBox` ficam de fora: sem JS eles não teriam como funcionar, e
  *  o HTML traz a explicação disso em vez de um formulário que não confirma nada. */
