@@ -26,7 +26,7 @@ const CONTAINERS = [
   'navLinks', 'menuLinks', 'marq', 'svcList', 'layList', 'hotPts', 'hotPanel',
   'stdList', 'procList', 'revBox', 'audList', 'faqList',
   'locBox', 'mapBox', 'footNav', 'footContact', 'footHours',
-  'seloHero', 'seloFinal',
+  'seloHero', 'seloFinal', 'footAddr',
 ];
 
 /** `#agProx` fica de fora de propósito: o próximo horário livre depende da

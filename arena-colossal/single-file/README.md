@@ -123,14 +123,14 @@ Tudo num bloco só, no início do JavaScript (`const CONFIG`).
 | Campo | O que acontece se ficar vazio |
 | --- | --- |
 | `whatsapp` | **Todo botão de WhatsApp some do site.** Já preenchido: `5547992228325`. |
-| `endereco`, `lat`, `lng` | O site mostra só a cidade e troca o mapa pela foto de fachada. Nada de endereço inventado. |
+| `endereco`, `lat`, `lng` | Endereço preenchido: Av. dos Tucanos, 286 — Ariribá. Destrava mapa, rota e o `PostalAddress` do schema.org. `lat`/`lng` ainda vazios — com eles o pino fica exato. |
 | `googlePlaceId` | Sem link direto para o perfil e para as avaliações. |
 | `horarios` | O agendamento avisa que a agenda não está configurada. |
 | `imagens` | Todas as molduras ficam no placeholder técnico — e o navegador **não dispara nenhuma requisição**. |
 | `apiBase` | O agendamento entrega o pedido pelo WhatsApp (ver abaixo). |
 | `avaliacoesEndpoint` | A seção mostra um estado honesto com link para o Google. |
 | `googleUrl` | O selo de avaliações some do site e a seção perde a saída para o perfil. |
-| `googleNota` / `googleTotal` | O selo aparece só com o texto, sem número. **Preencha apenas com os valores reais do perfil.** |
+| `googleNota` / `googleTotal` | O selo aparece só com o texto, sem número. **Preencha apenas com os valores reais do perfil.** As estrelas só ligam a partir de `MIN_AVALIACOES` (5): com uma avaliação só, "5,0 (1)" trabalha contra a conversão. |
 | `avaliacoes` | Vazio = estado honesto. Cole aqui as avaliações reais, com autorização de quem escreveu. |
 
 ### Imagens
@@ -235,7 +235,8 @@ nativo, campos com `aria-invalid` e `aria-describedby`, e
       avaliações. Depois, `googleNota` e `googleTotal` com os números reais, e
       `avaliacoes` com os textos que os clientes autorizarem publicar.
 - [ ] Horário real de atendimento e as durações de cada serviço (`SERVICOS[].min`).
-- [ ] Endereço, quando existir.
+- [x] Endereço — Av. dos Tucanos, 286 — Ariribá, 88338-610.
+- [ ] `lat` / `lng` — o pino do mapa hoje vem do texto do endereço; com coordenadas ele fica exato.
 - [ ] Fotos reais (`images/` + `CONFIG.imagens`).
 - [ ] Revisar os textos de marca: `PADROES`, `PUBLICO`, `FAQ` e os campos
       `etapas` / `indicado` / `naoResolve` de cada serviço. Nada inventa preço,
