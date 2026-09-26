@@ -1,0 +1,38 @@
+.text {
+  display: block;
+}
+
+.line {
+  display: block;
+}
+
+.word {
+  display: inline-block;
+  /* Contem a subida da palavra sem cortar acentos e descendentes. */
+  overflow: hidden;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  vertical-align: bottom;
+}
+
+.inner {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  opacity: 0;
+  transition:
+    transform 1s var(--ease-out),
+    opacity 0.7s var(--ease-out);
+}
+
+.text[data-visible='true'] .inner {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

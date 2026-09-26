@@ -1,0 +1,104 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  overflow: hidden;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: var(--radius);
+  /* Alvo confortavel no toque mesmo no tamanho md. */
+  min-height: 52px;
+  padding: 16px 30px;
+  transition:
+    transform 400ms var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.lg {
+  min-height: 60px;
+  padding: 20px 40px;
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+}
+
+/* Brilho diagonal discreto: aparece so no hover e some sozinho. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.18) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 750ms var(--ease-out);
+  pointer-events: none;
+}
+
+.button:hover .sheen,
+.button:focus-visible .sheen {
+  transform: translateX(120%);
+}
+
+/* --- Variantes ---------------------------------------------------------- */
+
+.primary {
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--white);
+}
+
+.primary:hover:not(:disabled),
+.primary:focus-visible:not(:disabled) {
+  background: var(--gold-soft);
+  border-color: var(--gold-soft);
+}
+
+.outline {
+  background: transparent;
+  color: var(--white);
+  border: var(--border-strong);
+}
+
+.outline:hover:not(:disabled),
+.outline:focus-visible:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold-soft);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--gray-300);
+  border: 1px solid transparent;
+  padding-inline: 8px;
+  min-height: 44px;
+}
+
+.ghost:hover:not(:disabled),
+.ghost:focus-visible:not(:disabled) {
+  color: var(--white);
+}
+
+.ghost .sheen {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheen {
+    display: none;
+  }
+}

@@ -1,0 +1,245 @@
+# Arena Colossal — site completo em arquivo único
+
+`arena-colossal.html` é o site inteiro: **todas as páginas, todo o CSS, todo o
+JavaScript, o vídeo de abertura, a logo e as duas fontes** dentro de um arquivo
+de ~2,1 MB.
+
+Abre com dois cliques, funciona **sem internet** e não faz **uma única
+requisição a terceiros** — nem para o Google Fonts.
+
+A paleta vem da logo da Arena: o laranja do letreiro (`--laranja #ff9500`), o
+azul do anel (`--azul #02abff`) e o azul-marinho do fundo do emblema
+(`--azul-fundo #132f83`). A própria logo está embutida em base64 e reaparece
+na navbar, no preloader, no rodapé, no favicon e como marca d'água das
+molduras de foto.
+
+```
+#/                         home (7 blocos)
+#/servicos                 catálogo
+#/servico/<slug>           uma página por serviço (10)
+#/agendamento              formulário em 5 etapas
+#/acompanhar/<id>          acompanhamento do horário
+#/privacidade              política de privacidade
+qualquer outra             404 com caminho de volta
+```
+
+A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
+são montadas pelo roteador por hash.
+
+### A home é curta de propósito
+
+Sete blocos: abertura, serviços, prova social, como funciona, diagnóstico,
+agenda + localização, dúvidas e fechamento. O aprofundamento técnico —
+camadas da pintura, pontos de inspeção, critérios e as seis etapas do
+processo — vive dentro de um `<details>` na seção "Como funciona". Fica no
+documento (Google indexa, quem quer ler abre, funciona sem JavaScript), mas
+não empurra a ação para 15 rolagens abaixo.
+
+A comparação antes/depois **saiu da home** e espera foto real da Arena. Um
+comparador de dois placeholders não prova nada; o código e os dados
+(`CASOS`, `renderAntesDepois`) continuam no arquivo, prontos para voltar.
+
+### As imagens dos serviços
+
+Dez quadros do próprio vídeo, embutidos como classes CSS (`.q01`…`.q10`) em
+vez de `<img>`: o mesmo byte serve o cartão com e sem JavaScript, e o HTML
+estático não duplica base64. São **ambientação automotiva** — em nenhum
+lugar o site afirma que este carro é trabalho da Arena. Isso só vale com
+foto sua.
+
+### O vídeo do hero
+
+Duas versões do mesmo take, embutidas em base64 e escolhidas por `media`: a
+**paisagem** (1024×654, 555 KB) mostra o carro inteiro na tela larga, a
+**vertical** (608×1080, 733 KB) enquadra certo no celular. O navegador baixa
+uma só. Sem áudio, em loop, com `autoplay muted playsinline` — ou seja,
+**roda sem JavaScript nenhum**. O `poster` cobre o instante antes do primeiro
+quadro e o caso de o vídeo não poder tocar.
+
+Sobre ele, cinco camadas: duotone da marca (azul-marinho e laranja da logo),
+uma varredura laranja que atravessa a tela a cada 12s, linhas finas de
+leitura, grão e o scrim. A varredura é a promessa da marca virando imagem —
+o veículo é lido antes de ser tocado.
+
+O contraste do texto foi **medido**, não estimado: contra o pixel mais claro
+do vídeo em seis momentos, nos dois breakpoints. Pior caso 5,17:1 no título
+e 7,52:1 no parágrafo (desktop); 6,35:1 e 9,85:1 (celular). No celular o
+parágrafo sobe para o cinza claro porque lá o texto ocupa a tela toda e não
+sobra janela livre para o vídeo brilhar.
+
+`prefers-reduced-motion` pausa o vídeo no primeiro quadro e desliga a
+varredura. Quando o hero sai da tela, o JavaScript pausa a decodificação —
+é bateria do visitante.
+
+Para trocar o vídeo: recorte com `ffmpeg` nos mesmos formatos, gere o base64
+e substitua os dois `<source>`. Os comandos usados estão no commit.
+
+### Abre mesmo com o JavaScript bloqueado
+
+Visualizadores de arquivo, modos de leitura e políticas de CSP bloqueiam
+script. Se a página dependesse de JS para aparecer, o arquivo abriria preto.
+Ela não depende:
+
+- **A home inteira está no HTML** — as quinze seções, os dez serviços, o
+  processo, o FAQ, a navegação e o rodapé. O JS reassume esses blocos ao
+  iniciar (cada render limpa o container antes de montar), nunca duplica.
+- **O preloader tem três saídas independentes**: o JS remove o nó; sem JS a
+  classe `.js` nunca entra no `<html>` e ele não chega a ser exibido; e uma
+  animação CSS o retira sozinha caso algo trave no meio.
+- **As revelações por scroll só escondem quando há JS para revelá-las** —
+  os seletores `[data-rev][data-vis="false"]` estão sob `.js`.
+- **Menu, pontos de inspeção e comparador funcionam sem JS.** O menu é um
+  checkbox escondido com `<label>`; os seis pontos são radios de um mesmo
+  grupo (as setas do teclado navegam de graça); o comparador antes/depois
+  varre sozinho, porque `--pos` é registrada com `@property` e por isso pode
+  ser animada. Com JavaScript o controle volta a ser do visitante.
+- **Diagnóstico e agendamento não fingem funcionar** sem JS: no lugar do
+  formulário aparece a explicação de por que ele precisa do navegador.
+
+Sem JavaScript a página entrega ~97% da altura e todo o conteúdo de texto.
+O que se perde é o que é interativo por natureza: agenda, diagnóstico,
+comparador antes/depois, hotspots e menu mobile.
+
+> **Mudou o `CONFIG`? Regenere.** Esse HTML estático é a saída dos mesmos
+> renderizadores que leem o `CONFIG` — WhatsApp, endereço, horário, imagens,
+> avaliações. Depois de editar, rode:
+>
+> ```bash
+> node single-file/regenerar-fallback.mjs
+> ```
+>
+> Ele abre o arquivo num Chromium, deixa o JavaScript montar a home e grava
+> de volta o resultado — inclusive o link de cada botão de WhatsApp. Nada é
+> escrito à mão, então o estático nunca diverge do dinâmico. Precisa do
+> Playwright (`npm i -D playwright && npx playwright install chromium`), que é
+> ferramenta de build: o arquivo entregue não depende de nada disso.
+
+---
+
+## Configuração
+
+Tudo num bloco só, no início do JavaScript (`const CONFIG`).
+
+| Campo | O que acontece se ficar vazio |
+| --- | --- |
+| `whatsapp` | **Todo botão de WhatsApp some do site.** Já preenchido: `5547992228325`. |
+| `endereco`, `lat`, `lng` | Endereço preenchido: Av. dos Tucanos, 286 — Ariribá. Destrava mapa, rota e o `PostalAddress` do schema.org. `lat`/`lng` ainda vazios — com eles o pino fica exato. |
+| `googlePlaceId` | Sem link direto para o perfil e para as avaliações. |
+| `horarios` | O agendamento avisa que a agenda não está configurada. |
+| `imagens` | Todas as molduras ficam no placeholder técnico — e o navegador **não dispara nenhuma requisição**. |
+| `apiBase` | O agendamento entrega o pedido pelo WhatsApp (ver abaixo). |
+| `avaliacoesEndpoint` | A seção mostra um estado honesto com link para o Google. |
+| `googleUrl` | O selo de avaliações some do site e a seção perde a saída para o perfil. |
+| `googleNota` / `googleTotal` | O selo aparece só com o texto, sem número. **Preencha apenas com os valores reais do perfil.** As estrelas só ligam a partir de `MIN_AVALIACOES` (5): com uma avaliação só, "5,0 (1)" trabalha contra a conversão. |
+| `avaliacoes` | Vazio = estado honesto. Cole aqui as avaliações reais, com autorização de quem escreveu. |
+
+### Imagens
+
+Crie uma pasta `images/` ao lado do HTML e **liste em `CONFIG.imagens` o que
+você colocou lá**:
+
+```js
+imagens: ['hero.jpg', 'polimento-tecnico.jpg', 'caso-01-antes.jpg'],
+```
+
+Nomes esperados: `hero.jpg`, `detalhes.jpg`, `fachada.jpg`,
+`caso-0N-antes.jpg` / `caso-0N-depois.jpg` (N = 1..3) e um por serviço com o
+mesmo nome do slug (`lavagem-tecnica.jpg`, `vitrificacao.jpg`…).
+
+Atalho: `imagens: 'auto'` tenta carregar tudo (e aceita os 404 no console).
+
+---
+
+## Agenda conectada ao Google Calendar e ao WhatsApp
+
+### Por que não dá para fazer isso só com este arquivo
+
+Chave da Google Calendar API, client secret e token do WhatsApp **não podem
+morar aqui**. Este HTML é baixado inteiro por qualquer visitante: uma
+credencial no código é uma credencial pública, e quem copiar passa a **criar,
+ler e apagar compromissos da agenda da Arena**.
+
+Quem guarda credencial é servidor. Por isso existe o `apiBase`.
+
+### Sem backend (`apiBase: null`) — funciona hoje
+
+O formulário completo continua: serviço, dia, horário, dados, conferência. No
+fim, monta a mensagem com tudo preenchido e envia pela conversa do WhatsApp.
+
+A tela final diz **"Pedido pronto para enviar"**, nunca "reservado" — o site
+não finge ter reservado o que não reservou. Os horários exibidos são os de
+atendimento, com aviso de que a disponibilidade real vem no contato.
+
+### Com backend (`apiBase: 'https://api.seudominio.com.br'`)
+
+Aponte para o backend que já está neste repositório, na pasta `arena-colossal/`
+(Next.js + Prisma + Google Calendar + Resend + WhatsApp Cloud API). Ele expõe
+exatamente as rotas que este arquivo consome:
+
+| Rota | Papel |
+| --- | --- |
+| `GET /api/availability?date&service` | grade do dia cruzando banco **e** `freeBusy` do Google Calendar |
+| `POST /api/bookings` | reserva em transação serializável (barra reserva dupla), cria o evento no Calendar, avisa o WhatsApp da equipe e dispara os e-mails |
+| `POST /api/bookings/confirm` | estado do agendamento para a página de acompanhamento |
+
+Com isso ligado, a tela final passa a dizer **"Agendamento confirmado"**,
+oferece o `.ics` e o link de acompanhamento.
+
+O backend precisa liberar CORS para o domínio onde este HTML estiver hospedado.
+
+### Avaliações do Google
+
+A Places API exige chave — e chave no frontend é chave vazada. Aponte
+`avaliacoesEndpoint` para uma rota **do seu backend** que consulta o Google e
+devolve:
+
+```json
+{ "nota": 4.9, "total": 127,
+  "avaliacoes": [{ "autor": "Nome", "nota": 5, "data": "2026-03-12", "texto": "..." }] }
+```
+
+Todo texto que chega daí entra na página por `textContent`, nunca como HTML:
+uma avaliação é conteúdo de terceiro e não pode virar script rodando no site
+da Arena.
+
+---
+
+## Segurança implementada aqui
+
+- **Nenhuma credencial no arquivo** — a fronteira é o `apiBase`.
+- **Escape de tudo que é externo** — CONFIG, URL e respostas de API.
+- **Honeypot** no formulário: campo invisível que só robô preenche.
+- **Validação completa no cliente** — e a do servidor continua sendo a que vale.
+- **Zero requisição a terceiros**: fontes embutidas, mapa só com `loading="lazy"`,
+  analytics apenas se você informar os IDs.
+- **`rel="noopener noreferrer"`** em todo link externo.
+- A página de acompanhamento **não mostra nome, telefone nem e-mail**: o
+  identificador circula por e-mail e barra de endereço e não pode virar chave
+  de acesso a dado pessoal.
+
+## Acessibilidade
+
+Funciona sem JavaScript (acima), hierarquia semântica de headings, `alt` em toda imagem, foco visível, menu
+fullscreen com foco preso e fechamento por `Esc`, comparador antes/depois
+operável por teclado (é um `<input type="range">` real), FAQ em `<details>`
+nativo, campos com `aria-invalid` e `aria-describedby`, e
+`prefers-reduced-motion` respeitado em todas as animações.
+
+## O que ainda depende de você
+
+- [x] `CONFIG.whatsapp` — `5547992228325`.
+- [x] `CONFIG.email` — `edinelson.yeshua@gmail.com` (Gmail pessoal; vale trocar
+      por um endereço no domínio da Arena quando ele existir).
+- [ ] `CONFIG.googleUrl` — link do perfil da Arena no Google. Destrava o selo
+      de prova social ao lado dos dois CTAs principais e a saída da seção de
+      avaliações. Depois, `googleNota` e `googleTotal` com os números reais, e
+      `avaliacoes` com os textos que os clientes autorizarem publicar.
+- [ ] Horário real de atendimento e as durações de cada serviço (`SERVICOS[].min`).
+- [x] Endereço — Av. dos Tucanos, 286 — Ariribá, 88338-610.
+- [ ] `lat` / `lng` — o pino do mapa hoje vem do texto do endereço; com coordenadas ele fica exato.
+- [ ] Fotos reais (`images/` + `CONFIG.imagens`).
+- [ ] Revisar os textos de marca: `PADROES`, `PUBLICO`, `FAQ` e os campos
+      `etapas` / `indicado` / `naoResolve` de cada serviço. Nada inventa preço,
+      prazo ou garantia — mas tudo fala em nome da Arena. O FAQ vira dado
+      estruturado no Google: resposta errada ali é resposta errada na busca.
+- [ ] Backend, para a agenda conectada de verdade.
