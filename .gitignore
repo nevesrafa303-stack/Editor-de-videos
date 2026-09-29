@@ -18,3 +18,6 @@ public/
 *.log
 .DS_Store
 data/silences.txt
+
+# arquivos gerados para envio (refaça com sites/_fontes/vanessa-marinho/build-preview.py)
+entregas/
