@@ -186,7 +186,8 @@
     prepDraw(ld);
     tl.to(ld, { strokeDashoffset: 0, duration: 1.4, stagger: 0.12, ease: 'power2.inOut' })
       .from('.loader-mark > *', { yPercent: 110, duration: 1.1, stagger: 0.1 }, 0.2)
-      .from('.loader-cro', { opacity: 0, y: 10, duration: 0.8 }, 0.5)
+      .from('.loader-cro', { opacity: 0, y: 10, duration: 0.8 }, 0.3)
+      .to({ v: 0 }, { v: 100, duration: 1.5, ease: 'power2.inOut', onUpdate() { $('.loader-num').textContent = String(Math.round(this.targets()[0].v)).padStart(3, '0'); } }, 0.2)
       .to('.loader', { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.1, ease: 'expo.inOut' }, '+=0.15')
       .add(() => { html.classList.remove('intro'); if (lenis) lenis.start(); });
   }
@@ -208,22 +209,70 @@
     }
   });
   gsap.to('.progress span', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
-  ScrollTrigger.create({ trigger: '.hero', start: 'bottom 70%', onEnter: () => waFloat.classList.add('is-on'), onLeaveBack: () => waFloat.classList.remove('is-on') });
+  ScrollTrigger.create({ trigger: '.hero', start: 'bottom 70%', refreshPriority: -1, onEnter: () => waFloat.classList.add('is-on'), onLeaveBack: () => waFloat.classList.remove('is-on') });
   $$('.nav-links a').forEach((a) => {
     const sec = document.getElementById(a.getAttribute('href').slice(1));
-    if (sec) ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: (s) => a.classList.toggle('is-active', s.isActive) });
+    if (sec) ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', refreshPriority: -1, onToggle: (s) => a.classList.toggle('is-active', s.isActive) });
   });
 
-  /* ----- hero ao rolar ----- */
+  /* ----- hero: a lente se abre ao rolar ----- */
   mm.add('(min-width: 901px)', () => {
-    gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
-      .to('.hero-copy', { yPercent: -30, opacity: 0, ease: 'none' }, 0)
-      .to('.hero-figure', { yPercent: 8, scale: 0.94, ease: 'none' }, 0)
-      .to('.hero-lines', { rotation: 12, scale: 1.15, transformOrigin: '70% 56%', ease: 'none' }, 0);
+    gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=150%', pin: true, scrub: 1, anticipatePin: 1 } })
+      .to('.hero-copy', { yPercent: -25, opacity: 0, ease: 'none', duration: 0.45 }, 0)
+      .to('.hero-foot', { opacity: 0, ease: 'none', duration: 0.3 }, 0)
+      .to('.hero-figure', { scale: 1.12, yPercent: 4, ease: 'none', duration: 0.8 }, 0)
+      .to('.hero-lines', { rotation: 24, scale: 1.5, transformOrigin: '70% 56%', ease: 'none', duration: 0.8 }, 0)
+      .fromTo('.lens', { clipPath: 'circle(0% at 70% 56%)' }, { clipPath: 'circle(140% at 70% 56%)', ease: 'power2.in', duration: 0.7 }, 0.25)
+      .from('.lens-inner > *', { y: 70, opacity: 0, stagger: 0.07, ease: 'power3.out', duration: 0.35 }, 0.7)
+      .to({}, { duration: 0.25 });
   });
 
   /* ----- credenciais ----- */
-  gsap.from('.creds-grid li', { y: 30, opacity: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out', scrollTrigger: { trigger: '.creds-band', start: 'top 90%' } });
+  gsap.from('.creds-grid li', { y: 30, opacity: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out', scrollTrigger: { trigger: '.fund .creds-grid', start: 'top 92%' } });
+
+  /* ----- palavra gigante ----- */
+  gsap.fromTo('.bigword-text', { scale: 0.62, backgroundPosition: '50% 0%', letterSpacing: '0.04em' }, {
+    scale: 1, backgroundPosition: '50% 100%', letterSpacing: '-0.06em', ease: 'none',
+    scrollTrigger: { trigger: '.bigword', start: 'top bottom', end: 'bottom 40%', scrub: true }
+  });
+
+  /* ----- fundamento ----- */
+  gsap.from('.fund-head h2', { y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: '.fund-head', start: 'top 80%' } });
+  gsap.from('.fund-points li', { y: 50, opacity: 0, duration: 1.2, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.fund-points', start: 'top 85%' } });
+  $$('.count').forEach((el) => {
+    const to = Number(el.dataset.to);
+    const from = el.dataset.from ? Number(el.dataset.from) : 0;
+    const obj = { v: from };
+    el.textContent = String(from);
+    gsap.to(obj, {
+      v: to, duration: 1.8, ease: 'power3.out',
+      onUpdate: () => { el.textContent = String(Math.round(obj.v)); },
+      scrollTrigger: { trigger: '.stats', start: 'top 85%' }
+    });
+  });
+
+  /* ----- medidor de profundidade ----- */
+  const gauge = $('.gauge');
+  if (gauge && getComputedStyle(gauge).display !== 'none') {
+    const gSecs = $$('[data-gauge]');
+    const gN = $('.gauge-n');
+    const gName = $('.gauge-name');
+    gSecs.forEach((sec, i) => ScrollTrigger.create({
+      trigger: sec, start: 'top 50%', end: 'bottom 50%', refreshPriority: -1,
+      onToggle: (st) => {
+        if (!st.isActive) return;
+        gN.textContent = String(i + 1).padStart(2, '0');
+        gName.textContent = sec.dataset.gauge;
+        gsap.fromTo([gN, gName], { opacity: 0 }, { opacity: 1, duration: 0.5 });
+      }
+    }));
+    ScrollTrigger.create({
+      trigger: gSecs[0], start: 'top 60%', endTrigger: '.footer', end: 'top bottom', refreshPriority: -1,
+      onUpdate: (st) => gauge.style.setProperty('--g', st.progress.toFixed(4)),
+      onToggle: (st) => gauge.classList.toggle('is-on', st.isActive)
+    });
+  }
+
 
   /* ----- manifesto ----- */
   const manifesto = $('[data-words]');
@@ -342,17 +391,33 @@
     });
   });
 
-  /* ----- etiqueta do cursor ----- */
+  /* ----- cursor de precisão ----- */
   if (finePointer) {
-    const tag = $('.cursor-tag');
-    gsap.set(tag, { xPercent: -50, yPercent: -50, scale: 0.5 });
-    const tx = gsap.quickTo(tag, 'x', { duration: 0.35, ease: 'power3' });
-    const ty = gsap.quickTo(tag, 'y', { duration: 0.35, ease: 'power3' });
-    $$('[data-cursor]').forEach((el) => {
-      el.addEventListener('pointerenter', () => { tag.textContent = el.dataset.cursor; gsap.to(tag, { opacity: 1, scale: 1, duration: 0.4, ease: 'expo.out' }); });
-      el.addEventListener('pointerleave', () => gsap.to(tag, { opacity: 0, scale: 0.5, duration: 0.3 }));
-      el.addEventListener('pointermove', (e) => { tx(e.clientX); ty(e.clientY - 56); });
+    const cur = $('.cursor');
+    const txt = $('.cursor-text', cur);
+    const xy = $('.cursor-xy', cur);
+    html.classList.add('has-cursor');
+    gsap.set(cur, { x: -100, y: -100 });
+    const cx = gsap.quickTo(cur, 'x', { duration: 0.18, ease: 'power3' });
+    const cy = gsap.quickTo(cur, 'y', { duration: 0.18, ease: 'power3' });
+    let raf = 0;
+    addEventListener('pointermove', (e) => {
+      cx(e.clientX); cy(e.clientY);
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        xy.textContent = 'X ' + (e.clientX / innerWidth).toFixed(3) + ' · Y ' + (e.clientY / innerHeight).toFixed(3);
+        raf = 0;
+      });
+    }, { passive: true });
+    document.addEventListener('pointerover', (e) => {
+      const label = e.target.closest('[data-cursor]');
+      const link = e.target.closest('a, button, summary, [role=tab]');
+      cur.classList.toggle('is-label', !!label);
+      cur.classList.toggle('is-link', !label && !!link);
+      if (label) txt.textContent = label.dataset.cursor;
     });
+    document.addEventListener('pointerleave', () => gsap.to(cur, { opacity: 0, duration: 0.2 }));
+    document.addEventListener('pointerenter', () => gsap.to(cur, { opacity: 1, duration: 0.2 }));
   }
 
   /* ----- resultados ----- */
@@ -393,6 +458,8 @@
     wrap.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, .4)' }));
   }
 
+  ScrollTrigger.sort();
+  ScrollTrigger.refresh();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
   addEventListener('load', () => ScrollTrigger.refresh());
 })();

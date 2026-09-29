@@ -15,6 +15,7 @@ def uri(rel):
 html = open(os.path.join(root, "index.html")).read()
 css = open(os.path.join(root, "assets/css/style.css")).read()
 css = re.sub(r"url\(\.\./fonts/([^)]+)\)", lambda m: "url(" + uri("assets/fonts/" + m.group(1)) + ")", css)
+css = re.sub(r"url\(\.\./img/([^)]+)\)", lambda m: "url(" + uri("assets/img/" + m.group(1)) + ")", css)
 
 js = open(os.path.join(root, "assets/js/main.js")).read()
 names = re.findall(r"\b[ad]: '([\w-]+-(?:720|1280))'", js)
