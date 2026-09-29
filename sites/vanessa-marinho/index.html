@@ -32,7 +32,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  img{display:block;max-width:100%}
+  img{display:block;max-width:100%;height:auto}
   a{color:inherit}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
   .eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--brown)}
@@ -97,7 +97,7 @@
   .philo-photo::after{content:"";position:absolute;inset:22px -22px -22px 22px;border:1px solid var(--brown);z-index:-1}
 
   /* PROCEDIMENTOS */
-  .procs{background:var(--ink);color:#fff}
+  .procs{background:var(--ink);color:#fff;overflow:hidden}
   .procs .eyebrow{color:var(--sand)}
   .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:56px;flex-wrap:wrap}
   .procs .lead{color:rgba(255,255,255,.65)}
@@ -108,12 +108,29 @@
   .proc h3{font-size:2rem;margin:14px 0 12px}
   .proc p{color:rgba(255,255,255,.65);font-size:.95rem}
 
+  .feature{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center;margin-bottom:80px}
+  .feature-media{position:relative}
+  .feature-media .big{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:60% 50%;-webkit-mask-image:radial-gradient(120% 95% at 60% 55%,#000 55%,transparent 100%);mask-image:radial-gradient(120% 95% at 60% 55%,#000 55%,transparent 100%)}
+  .feature-media .small{position:absolute;width:42%;aspect-ratio:1;object-fit:cover;right:-6%;bottom:-8%;border:6px solid var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .feature-media .label{position:absolute;left:0;top:8%;font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--sand);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.08em}
+  .feature h2{margin:16px 0 22px}
+
   /* RESULTADO */
   .result-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
-  .ba{position:relative;overflow:hidden;background:#ddd;aspect-ratio:1128/1450;max-width:520px}
-  .ba img{width:100%;height:100%;object-fit:cover;object-position:center 70%}
-  .ba-labels{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#fff}
-  .ba-labels span{padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.45))}
+  .cases{max-width:560px;width:100%}
+  .case-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .case-tabs button{font:inherit;font-size:.8rem;font-weight:500;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+  .case-tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .ba{position:relative;overflow:hidden;background:#222;aspect-ratio:1320/1079;user-select:none;transition:aspect-ratio .3s;touch-action:pan-y;--p:50%}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+  .ba .before{clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+  .ba .line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:#fff;pointer-events:none}
+  .ba .knob{position:absolute;top:50%;left:var(--p);width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.3);pointer-events:none;color:var(--ink)}
+  .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+  .ba .tag{position:absolute;top:14px;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#fff;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);padding:6px 10px;pointer-events:none}
+  .ba .tag.l{left:14px}.ba .tag.r{right:14px}
+  .case-cap{display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--muted);margin-top:12px}
+  .case-cap b{font-family:var(--serif);font-size:1.25rem;font-weight:400;color:var(--ink)}
   .result blockquote{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.1;margin:18px 0 24px}
   .result blockquote i{color:var(--brown)}
   .disclaimer{font-size:.78rem;color:var(--muted);margin-top:22px;border-left:2px solid var(--sand);padding-left:12px}
@@ -128,9 +145,11 @@
 
   /* SOBRE */
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
-  .about-photos{max-width:520px}
+  .about-photos{position:relative;max-width:520px;padding:0 18% 12% 0}
   .about-photos img{width:100%;object-fit:cover}
-  .about-photos .a{aspect-ratio:4/5}
+  .about-photos .a{aspect-ratio:4/5;object-position:50% 20%}
+  .about-photos .b{position:absolute;right:0;bottom:0;width:46%;aspect-ratio:4/5;border:6px solid var(--paper);box-shadow:0 20px 40px rgba(0,0,0,.18)}
+  .about-photos figcaption{position:absolute;left:0;bottom:0;max-width:48%}
   .about-photos figcaption{font-size:.75rem;color:var(--muted);margin-top:8px}
   .about p{margin-bottom:18px;font-size:1.05rem}
   .creds{list-style:none;margin-top:28px;border-top:1px solid var(--line)}
@@ -183,7 +202,9 @@
     .step-grid{grid-template-columns:1fr 1fr}
     .philo-photo{max-width:480px}
     .philo-photo::after{inset:16px -12px -16px 12px}
-    .ba{margin:0 auto}
+    .cases{margin:0 auto}
+    .feature{grid-template-columns:1fr;gap:56px}
+    .feature-media{max-width:520px}
     .nav-links{position:fixed;inset:74px 0 auto;background:rgba(15,14,13,.97);flex-direction:column;gap:0;padding:10px 24px 24px;display:none}
     .nav-links.open{display:flex}
     .nav-links li{width:100%;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -276,12 +297,17 @@
   <!-- PROCEDIMENTOS -->
   <section class="procs" id="procedimentos">
     <div class="wrap">
-      <div class="section-head reveal">
-        <div>
+      <div class="feature">
+        <figure class="feature-media reveal">
+          <span class="label">Rinomodelação</span>
+          <img class="big" src="img/rino-arte.jpg" alt="Perfil de paciente após rinomodelação" loading="lazy" width="1320" height="1476">
+          <img class="small" src="img/labios-detalhe.jpg" alt="Lábios após preenchimento labial" loading="lazy" width="1320" height="1233">
+        </figure>
+        <div class="reveal">
           <span class="eyebrow">Procedimentos</span>
-          <h2 style="margin-top:16px">Detalhes que mudam<br>a forma como você<br>enxerga o seu perfil.</h2>
+          <h2>Detalhes que mudam a forma como você enxerga o seu perfil.</h2>
+          <p class="lead">E eles podem ser mais sutis do que você imagina. Resultados que acompanham os seus traços sem disputar atenção com eles — cada protocolo é planejado de forma individual.</p>
         </div>
-        <p class="lead">Resultados sutis, que acompanham os seus traços sem disputar atenção com eles. Cada protocolo é planejado de forma individual.</p>
       </div>
       <div class="proc-grid">
         <article class="proc reveal"><span class="n">01</span><h3>Rinomodelação</h3><p>Ajuste do dorso e da ponta do nariz com ácido hialurônico, sem cortes, para um perfil mais harmônico.</p></article>
@@ -297,16 +323,28 @@
   <!-- RESULTADOS -->
   <section class="result" id="resultados">
     <div class="wrap result-grid">
-      <figure class="ba reveal">
-        <img src="img/rino-antes-depois.jpg" alt="Antes e depois de rinomodelação realizada pela Dra. Vanessa Marinho" loading="lazy" width="1320" height="2339">
-        <div class="ba-labels"><span>Antes</span><span>Depois</span></div>
-      </figure>
+      <div class="cases reveal">
+        <div class="case-tabs" role="tablist" aria-label="Casos">
+          <button role="tab" aria-selected="true" data-case="0">Rinomodelação</button>
+          <button role="tab" aria-selected="false" data-case="1">Rinomodelação II</button>
+          <button role="tab" aria-selected="false" data-case="2">Lábios</button>
+        </div>
+        <div class="ba" id="ba">
+          <img class="after" alt="Depois" src="img/rino2-depois.jpg">
+          <img class="before" alt="Antes" src="img/rino2-antes.jpg">
+          <span class="tag l">Antes</span><span class="tag r">Depois</span>
+          <span class="line"></span>
+          <span class="knob"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          <input type="range" min="0" max="100" value="50" aria-label="Arraste para comparar antes e depois">
+        </div>
+        <div class="case-cap"><b id="caseTitle">Rinomodelação</b><span id="caseNote">Arraste para comparar</span></div>
+      </div>
       <div class="reveal">
         <span class="eyebrow">Resultados</span>
         <blockquote>Tão sutil que parece que <i>sempre foi seu.</i></blockquote>
         <p class="lead">“Dra., quero fazer, mas quero que fique discreto.” Pode ficar tranquila: esse pedido já faz parte do meu planejamento. A ideia é realçar o que é seu — nunca transformar você em outra pessoa.</p>
         <a class="btn btn-primary js-wa" style="margin-top:30px" href="#" data-msg="Olá, Dra. Vanessa! Vi os resultados no site e gostaria de saber qual procedimento é indicado para mim.">Quero minha avaliação</a>
-        <p class="disclaimer">Imagem de paciente real, publicada com autorização. Os resultados variam de pessoa para pessoa e dependem de avaliação individual.</p>
+        <p class="disclaimer">Imagens de pacientes reais, publicadas com autorização. Os resultados variam de pessoa para pessoa e dependem de avaliação individual.</p>
       </div>
     </div>
   </section>
@@ -333,8 +371,9 @@
   <section class="about" id="sobre">
     <div class="wrap about-grid">
       <figure class="about-photos reveal">
-        <img class="a" src="img/cirurgia.jpg" alt="Dra. Vanessa Marinho durante cirurgia de extração de siso" loading="lazy" width="1320" height="1500">
-        <figcaption>Registros de cirurgia — extração de siso.</figcaption>
+        <img class="a" src="img/atendimento.jpg" alt="Dra. Vanessa Marinho realizando procedimento de harmonização facial" loading="lazy" width="1320" height="1541">
+        <img class="b" src="img/cirurgia.jpg" alt="Dra. Vanessa Marinho durante cirurgia de extração de siso" loading="lazy" width="1320" height="1500">
+        <figcaption>Na harmonização e na cirurgia: técnica e cuidado.</figcaption>
       </figure>
       <div class="reveal">
         <span class="eyebrow">Minha trajetória</span>
@@ -419,6 +458,25 @@
   const btn = document.getElementById("menuBtn"), links = document.getElementById("navLinks");
   btn.addEventListener("click", () => { const o = links.classList.toggle("open"); btn.setAttribute("aria-expanded", o); });
   links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { links.classList.remove("open"); btn.setAttribute("aria-expanded", false); }));
+
+  const CASES = [
+    {t:"Rinomodelação", a:"img/rino2-antes.jpg", d:"img/rino2-depois.jpg", pos:"50% 50%", r:"1320/1079"},
+    {t:"Rinomodelação", a:"img/rino1-antes.jpg", d:"img/rino1-depois.jpg", pos:"50% 55%", r:"4/5"},
+    {t:"Preenchimento labial · 1 ml", a:"img/labios-antes.jpg", d:"img/labios-depois.jpg", pos:"50% 50%", r:"1320/1022"}
+  ];
+  const ba = document.getElementById("ba"), range = ba.querySelector("input");
+  const setP = v => ba.style.setProperty("--p", v + "%");
+  range.addEventListener("input", () => setP(range.value));
+  document.querySelectorAll(".case-tabs button").forEach(b => b.addEventListener("click", () => {
+    const c = CASES[b.dataset.case];
+    document.querySelectorAll(".case-tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+    ba.querySelector(".after").src = c.d; ba.querySelector(".before").src = c.a;
+    ba.querySelectorAll("img").forEach(i => i.style.objectPosition = c.pos);
+    ba.style.aspectRatio = c.r;
+    document.getElementById("caseTitle").textContent = c.t;
+    range.value = 50; setP(50);
+  }));
+  CASES.forEach(c => { new Image().src = c.a; new Image().src = c.d; });
 
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
