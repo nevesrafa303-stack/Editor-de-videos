@@ -127,7 +127,8 @@ Tudo num bloco só, no início do JavaScript (`const CONFIG`).
 | `googlePlaceId` | Sem link direto para o perfil e para as avaliações. |
 | `horarios` | O agendamento avisa que a agenda não está configurada. |
 | `imagens` | Todas as molduras ficam no placeholder técnico — e o navegador **não dispara nenhuma requisição**. |
-| `apiBase` | O agendamento entrega o pedido pelo WhatsApp (ver abaixo). |
+| `agendaUrl` | **Sem ela não existe agenda de verdade**: o site calcula os horários localmente e entrega o pedido pelo WhatsApp. Com ela, o evento entra no Google Agenda. Ver `apps-script/README.md`. |
+| `apiBase` | Alternativa ao Apps Script, para quem tiver backend próprio. |
 | `avaliacoesEndpoint` | A seção mostra um estado honesto com link para o Google. |
 | `googleUrl` | O selo de avaliações some do site e a seção perde a saída para o perfil. |
 | `googleNota` / `googleTotal` | O selo aparece só com o texto, sem número. **Preencha apenas com os valores reais do perfil.** As estrelas só ligam a partir de `MIN_AVALIACOES` (5): com uma avaliação só, "5,0 (1)" trabalha contra a conversão. |
@@ -151,6 +152,23 @@ Atalho: `imagens: 'auto'` tenta carregar tudo (e aceita os 404 no console).
 ---
 
 ## Agenda conectada ao Google Calendar e ao WhatsApp
+
+### O caminho curto: Apps Script (sem servidor, sem credencial)
+
+Em `apps-script/` há um script que roda **dentro da conta Google da Arena** e
+recebe os pedidos do site. Publicar leva uns 10 minutos, tudo no navegador, e
+não exige domínio, hospedagem, Google Cloud nem refresh token. Com a URL dele
+em `CONFIG.agendaUrl`:
+
+- a grade mostra os horários **reais**, já descontando a agenda
+- o agendamento **cria o evento** no Google Agenda
+- a tela final diz **"Agendamento confirmado"**, oferece o `.ics` e o link de
+  acompanhamento
+- você e o cliente recebem **e-mail automático**
+- o cliente confirma no WhatsApp em **um toque**, com a mensagem pronta
+
+O passo a passo, e a conversa honesta sobre o que esse desenho protege e o
+que não protege, estão em `apps-script/README.md`.
 
 ### Por que não dá para fazer isso só com este arquivo
 

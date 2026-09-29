@@ -1196,7 +1196,23 @@ const CONFIG = {
   janelaDias: 60,           // até quantos dias à frente dá para agendar
   bloqueios: [],            // ['2026-12-25']
 
-  /* -------- BACKEND (agenda real) --------
+  /* -------- AGENDA DO GOOGLE, SEM SERVIDOR --------
+     Cole aqui a URL /exec do Apps Script publicado na conta Google da Arena
+     (o código está em `apps-script/Codigo.gs`, com o passo a passo no
+     README ao lado). Com ela preenchida:
+
+       · a grade mostra os horários REAIS, já descontando a agenda
+       · o agendamento cria o evento direto no Google Agenda da Arena
+       · a tela final diz "Agendamento confirmado", oferece o .ics e o
+         botão de confirmação no WhatsApp
+       · a Arena e o cliente recebem e-mail automático
+
+     Esta URL não é credencial: ela não dá acesso a nada além do que o
+     próprio script aceita fazer, e o script valida tudo antes de escrever.
+     Nenhuma chave do Google passa por aqui — é esse o ponto do desenho. */
+  agendaUrl: '',            // 'https://script.google.com/macros/s/AKfy.../exec'
+
+  /* -------- BACKEND próprio (alternativa ao Apps Script) --------
      Endereço da API que guarda as credenciais do Google Calendar, do
      WhatsApp Cloud API e do e-mail. Ex.: 'https://api.arenacolossal.com.br'
      (ou '' se estiver no mesmo domínio do site).
@@ -1630,14 +1646,36 @@ function baixarICS(dados){
 
 /* Fala com o backend quando ele existe. Timeout curto de propósito: uma
    API pendurada não pode deixar o cliente olhando para um botão travado. */
+const AGENDA_URL = typeof CONFIG.agendaUrl === 'string' && CONFIG.agendaUrl.trim()
+  ? CONFIG.agendaUrl.trim() : null;
+/* Uma coisa só para o resto do código perguntar: existe agenda de verdade
+   atrás deste site? Tanto faz se é Apps Script ou backend próprio. */
+const temAgendaOnline = Boolean(AGENDA_URL || CONFIG.apiBase);
+
+/* O Apps Script publica UMA url e não responde ao preflight do CORS. Por
+   isso duas adaptações, as duas obrigatórias:
+     · a rota vai no parâmetro `rota`, não no caminho;
+     · o corpo vai como text/plain. Com application/json o navegador manda
+       um OPTIONS antes, o Apps Script não responde, e a requisição morre
+       sem nunca chegar no seu código. */
+function montarUrl(rota){
+  if (!AGENDA_URL) return `${CONFIG.apiBase}${rota}`;
+  const [caminho, busca] = rota.split('?');
+  const q = new URLSearchParams(busca || '');
+  q.set('rota', caminho.replace(/^\/api\//, ''));
+  return AGENDA_URL + (AGENDA_URL.includes('?') ? '&' : '?') + q.toString();
+}
+
 async function api(rota, opcoes = {}){
-  if (CONFIG.apiBase === null) return null;
+  if (!temAgendaOnline) return null;
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 12000);
+  const t = setTimeout(() => ctrl.abort(), 20000);
   try {
-    const r = await fetch(`${CONFIG.apiBase}${rota}`, {
+    const r = await fetch(montarUrl(rota), {
       ...opcoes, signal: ctrl.signal,
-      headers: { 'Content-Type':'application/json', ...(opcoes.headers || {}) },
+      headers: AGENDA_URL
+        ? { 'Content-Type':'text/plain;charset=utf-8' }
+        : { 'Content-Type':'application/json', ...(opcoes.headers || {}) },
     });
     const corpo = await r.json().catch(() => ({}));
     return { ok: r.ok, status: r.status, corpo };
@@ -1701,7 +1739,7 @@ function renderAgenda(){
   const t = $('#agTexto'), p = $('#agProx'), selo = $('#seloHero'), selo2 = $('#seloFinal');
   // A promessa muda com a infraestrutura: só existe reserva instantânea
   // quando há backend para reservar.
-  if (t && CONFIG.apiBase)
+  if (t && temAgendaOnline)
     t.textContent = 'Horário reservado na hora, e fora da agenda no mesmo instante. Sem esperar retorno para saber se tem vaga.';
   if (p){
     const prox = proximoHorario();
@@ -1787,7 +1825,7 @@ function validarEtapa(){
     // um dado que ninguém vai usar — e cada campo obrigatório custa pedido.
     // Com `apiBase` ligado ele volta a ser necessário: é por ele que sai a
     // confirmação do cliente.
-    const emailObrigatorio = Boolean(CONFIG.apiBase);
+    const emailObrigatorio = temAgendaOnline;
     if (emailObrigatorio || d.email.trim()){
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email.trim())) e.email = 'Informe um e-mail válido.';
     }
@@ -1827,7 +1865,7 @@ async function enviarAgendamento(){
     renderBooking(); return;
   }
 
-  if (CONFIG.apiBase !== null){
+  if (temAgendaOnline){
     const r = await api('/api/bookings', { method:'POST', body: JSON.stringify({
       name:d.nome, phone:d.tel, email:d.email, vehicleBrand:d.marca, vehicleModel:d.modelo,
       vehicleYear:d.ano || null, serviceSlug:d.servico, date:d.data, time:d.hora,
@@ -1968,7 +2006,7 @@ function renderBooking(){
       if (res.erro){ zona.append(el('p', { class:'note note--e', role:'alert', text:'Não conseguimos consultar a agenda agora. Tente novamente em instantes ou fale com a Arena pelo WhatsApp.' })); return; }
       if (!res.slots.length){ zona.append(el('p', { class:'note', role:'status', text:'Não há horário disponível neste dia para este serviço. Escolha outra data.' })); return; }
       if (res.degradado) zona.append(el('p', { class:'note note--w', role:'status', text:'A agenda externa não respondeu agora. Os horários abaixo são os que temos registrados — a confirmação final acontece no envio.' }));
-      if (CONFIG.apiBase === null) zona.append(el('p', { class:'note note--w note--i', text:'Estes são os horários de atendimento da Arena. A disponibilidade real é confirmada no contato.' }));
+      if (!temAgendaOnline) zona.append(el('p', { class:'note note--w note--i', text:'Estes são os horários de atendimento da Arena. A disponibilidade real é confirmada no contato.' }));
       const g = el('div', { class:'slots' });
       res.slots.forEach(s => g.append(el('button', { type:'button', class:'slot', disabled: !s.available,
         'data-sel': String(bk.d.hora === s.time), 'aria-pressed': String(bk.d.hora === s.time),
@@ -1996,8 +2034,8 @@ function renderBooking(){
     const form = el('div', { class:'form' },
       campo('nome','Nome completo',{ type:'text', autocomplete:'name', required:true }),
       campo('tel','WhatsApp',{ type:'tel', inputmode:'tel', autocomplete:'tel-national', placeholder:'(47) 90000-0000', required:true }),
-      campo('email', CONFIG.apiBase ? 'E-mail' : 'E-mail <s>(opcional)</s>',
-        { type:'email', inputmode:'email', autocomplete:'email', required: Boolean(CONFIG.apiBase) }),
+      campo('email', temAgendaOnline ? 'E-mail' : 'E-mail <s>(opcional)</s>',
+        { type:'email', inputmode:'email', autocomplete:'email', required: temAgendaOnline }),
       el('div', { class:'row' },
         campo('marca','Marca',{ type:'text', required:true }),
         campo('modelo','Modelo',{ type:'text', required:true }),
@@ -2029,7 +2067,7 @@ function renderBooking(){
     const dl = el('dl', { class:'sum' });
     linhas.forEach(([k,v]) => dl.append(el('div', { class:'sum__r' }, el('dt',{text:k}), el('dd',{text:v}))));
     painel.append(el('p', { class:'bk__legend', text:'Confira antes de confirmar' }), dl);
-    if (CONFIG.apiBase === null)
+    if (!temAgendaOnline)
       painel.append(el('p', { class:'note note--w note--i', text:'A agenda online ainda não está conectada neste site. Ao confirmar, seu pedido é enviado à Arena pelo WhatsApp com tudo preenchido — o horário é confirmado na resposta.' }));
   }
 
@@ -2058,6 +2096,23 @@ function renderBooking(){
   box.append(wrap);
 }
 
+/* Mensagem que o cliente envia num toque depois de agendar. Vai completa de
+   propósito: a Arena confirma pela conversa sem precisar abrir a agenda, e o
+   cliente fica com o registro do que marcou no próprio histórico dele. */
+function mensagemConfirmacao(c){
+  return [
+    'AGENDAMENTO CONFIRMADO — ARENA COLOSSAL',
+    '',
+    `Cliente: ${c.customerName}`,
+    `Serviço: ${c.serviceName}`,
+    `Data: ${dataLonga(c.date)}`,
+    `Horário: ${c.timeRange || c.time}`,
+    c.vehicle ? `Veículo: ${c.vehicle}` : null,
+    '',
+    'Reservado pelo site. Confirmando por aqui!',
+  ].filter(v => v !== null).join('\n');
+}
+
 function viewConfirmacao(c){
   const local = enderecoCompleto || `${CONFIG.cidade} — ${CONFIG.uf}`;
   const box = el('div', { class:'done', role:'status' },
@@ -2084,11 +2139,12 @@ function viewConfirmacao(c){
   }
   if (temWhats && c.reservado)
     acoes.append(el('a', { class:'btn btn--o', target:'_blank', rel:'noopener noreferrer',
-      href: waLink(`Olá! Acabei de agendar ${c.serviceName} para ${dataLonga(c.date)} às ${c.time}.`),
-      onclick: () => track('click_whatsapp', { source:'booking_confirmation' }) }, el('span',{text:'Falar com a Arena'})));
+      href: waLink(mensagemConfirmacao(c)),
+      onclick: () => track('click_whatsapp', { source:'booking_confirmation' }) },
+      el('span',{text:'Confirmar no WhatsApp'})));
   box.append(acoes);
 
-  if (c.reservado && CONFIG.apiBase !== null)
+  if (c.reservado && temAgendaOnline)
     box.append(el('p', { class:'muted', style:'font-size:var(--s--1);line-height:1.6;max-width:52ch',
       html:`<a href="#/acompanhar/${encodeURIComponent(c.id)}" style="color:var(--laranja);border-bottom:1px solid currentColor">Acompanhar este agendamento</a> — guarde o link, ele mostra o estado atual a qualquer momento.` }));
 
@@ -2537,7 +2593,7 @@ function pageAgendamento(){
 async function pageAcompanhar(id){
   const w = el('div', { class:'wrap-sm page', style:'display:flex;flex-direction:column;gap:32px' });
   w.append(el('p',{class:'eyebrow',text:'Arena Colossal'}));
-  if (CONFIG.apiBase === null){
+  if (!temAgendaOnline){
     w.append(el('h1',{style:'font-size:var(--s-3);color:#fff',text:'Acompanhamento indisponível.'}),
       el('p',{class:'lead',text:'Este site ainda não está conectado à agenda. Para consultar um horário, fale com a Arena pelo WhatsApp.'}),
       el('p',{}, el('a',{class:'link-u','data-wa':'','data-src':'acompanhar',text:'Falar no WhatsApp'})));
