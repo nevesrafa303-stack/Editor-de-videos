@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dra. Vanessa Marinho | Harmonização Facial e Cirurgia</title>
-<meta name="description" content="Dra. Vanessa Marinho, cirurgiã-dentista (CRO SC 26480). Harmonização facial, rinomodelação, lábios, bioestimulador de colágeno, toxina botulínica e extração de sisos, com saúde, estética e naturalidade.">
+<title>Dra. Vanessa Marinho | Harmonização Facial em Balneário Camboriú</title>
+<meta name="description" content="Dra. Vanessa Marinho, cirurgiã-dentista em Balneário Camboriú – SC (CRO SC 26480). Harmonização facial, rinomodelação, lábios, bioestimulador de colágeno, toxina botulínica e extração de sisos, com saúde, estética e naturalidade.">
 <meta property="og:title" content="Dra. Vanessa Marinho | Harmonização Facial e Cirurgia">
 <meta property="og:description" content="Saúde, estética e naturalidade em cada atendimento. Agende sua avaliação.">
-<meta property="og:image" content="img/retrato-consultorio.jpg">
+<meta property="og:image" content="img/retrato-perfil.jpg">
 <meta name="theme-color" content="#0f0e0d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,6 +82,7 @@
   .strip li:not(:last-child)::after{content:"✦";font-size:.7rem;color:var(--brown)}
 
   section{padding:110px 0}
+  .philo{overflow:hidden}
 
   /* FILOSOFIA */
   .philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
@@ -92,9 +93,15 @@
   .philo p.note{font-size:1.15rem}
   .philo p.note b{font-weight:600}
   .philo .sig{font-style:italic;margin-top:10px;color:var(--muted)}
-  .philo-photo{position:relative}
-  .philo-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top}
-  .philo-photo::after{content:"";position:absolute;inset:22px -22px -22px 22px;border:1px solid var(--brown);z-index:-1}
+  .portrait{position:relative;width:min(100%,460px);aspect-ratio:1;margin:0 auto}
+  .portrait img{position:absolute;inset:12%;width:76%;height:76%;border-radius:50%;object-fit:cover;box-shadow:0 30px 60px rgba(92,66,48,.25)}
+  .portrait::before{content:"";position:absolute;inset:9%;border-radius:50%;border:1px solid var(--sand)}
+  .portrait svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 40s linear infinite}
+  .portrait text{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;fill:var(--brown);font-weight:500}
+  .portrait .sig{position:absolute;right:0;bottom:8%;background:var(--ink);color:#fff;padding:14px 20px;font-family:var(--serif);font-style:italic;font-size:1.25rem;line-height:1.2}
+  .portrait .sig small{display:block;font-family:var(--sans);font-style:normal;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sand);margin-top:4px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.portrait svg{animation:none}}
 
   /* PROCEDIMENTOS */
   .procs{background:var(--ink);color:#fff;overflow:hidden}
@@ -137,6 +144,13 @@
 
   /* JORNADA */
   .steps{background:var(--cream)}
+  .gallery{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:18px;align-items:start;margin-bottom:64px}
+  .gallery figure{position:relative;overflow:hidden}
+  .gallery figure:nth-child(1){margin-top:60px}
+  .gallery figure:nth-child(3){margin-top:120px}
+  .gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .8s ease}
+  .gallery figure:hover img{transform:scale(1.04)}
+  .gallery figcaption{position:absolute;left:0;bottom:0;right:0;padding:40px 16px 14px;color:#fff;font-family:var(--serif);font-size:1.2rem;background:linear-gradient(transparent,rgba(15,14,13,.7))}
   .step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
   .step{border-top:1px solid var(--ink);padding-top:22px}
   .step::before{counter-increment:s;content:"0" counter(s);font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--brown);line-height:1}
@@ -170,6 +184,7 @@
   .cta{background:var(--ink);color:#fff;text-align:center;position:relative;overflow:hidden}
   .cta::before{content:"";position:absolute;width:700px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle, rgba(122,90,65,.45), transparent 65%);left:50%;top:50%;transform:translate(-50%,-50%)}
   .cta .wrap{position:relative}
+  .cta-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 22px;border:2px solid var(--sand)}
   .cta h2{font-size:clamp(2.6rem,6vw,5rem);margin:18px auto 22px;max-width:16ch}
   .cta .eyebrow{color:var(--sand)}
   .cta p{color:rgba(255,255,255,.7);max-width:48ch;margin:0 auto 36px}
@@ -200,8 +215,11 @@
     .cro-badge{left:0;bottom:14%}
     .proc-grid{grid-template-columns:1fr 1fr}
     .step-grid{grid-template-columns:1fr 1fr}
-    .philo-photo{max-width:480px}
-    .philo-photo::after{inset:16px -12px -16px 12px}
+    .gallery{grid-template-columns:1fr 1fr;gap:12px}
+    .gallery figure:nth-child(1){margin-top:0}
+    .gallery figure:nth-child(2){margin-top:40px}
+    .gallery figure:nth-child(3){grid-column:1/-1;margin-top:0}
+    .gallery figure:nth-child(3) img{aspect-ratio:16/10;object-position:50% 35%}
     .cases{margin:0 auto}
     .feature{grid-template-columns:1fr;gap:56px}
     .feature-media{max-width:520px}
@@ -250,7 +268,7 @@
   <section class="hero" style="padding:0">
     <div class="wrap hero-grid">
       <div class="hero-copy reveal">
-        <span class="eyebrow">Harmonização Facial · Cirurgia Bucomaxilofacial</span>
+        <span class="eyebrow">Harmonização Facial · Cirurgia · Balneário Camboriú</span>
         <h1><em>Prazer, eu sou a</em>Vanessa Marinho.</h1>
         <p class="hero-tag">Cirurgiã-dentista apaixonada por unir <b>saúde, estética e naturalidade</b> em cada atendimento.</p>
         <div class="hero-ctas">
@@ -288,8 +306,10 @@
         <p class="note">A resposta deve vir depois de uma <b>boa avaliação</b>. É comum chegar ao consultório já com o nome de um procedimento em mente — meu papel é olhar para o seu rosto como um todo e indicar só o que faz sentido para você.</p>
         <p class="sig">Seu planejamento começa na consulta.</p>
       </div>
-      <figure class="philo-photo reveal">
-        <img src="img/retrato-preto.jpg" alt="Retrato da Dra. Vanessa Marinho" loading="lazy" width="707" height="510" style="aspect-ratio:707/510;object-position:center">
+      <figure class="portrait reveal">
+        <svg viewBox="0 0 300 300" aria-hidden="true"><defs><path id="circ" d="M150,150 m-138,0 a138,138 0 1,1 276,0 a138,138 0 1,1 -276,0"/></defs><text><textPath href="#circ" textLength="860" lengthAdjust="spacing">Saúde · Estética · Naturalidade · Saúde · Estética · Naturalidade · </textPath></text></svg>
+        <img src="img/retrato-perfil.jpg" alt="Dra. Vanessa Marinho" loading="lazy" width="800" height="800">
+        <figcaption class="sig">Sua melhor versão,<br>com naturalidade.<small>Balneário Camboriú · SC</small></figcaption>
       </figure>
     </div>
   </section>
@@ -358,6 +378,11 @@
           <h2 style="margin-top:16px">Vamos juntos<br>nessa jornada?</h2>
         </div>
       </div>
+      <div class="gallery">
+        <figure class="reveal"><img src="img/planejamento.jpg" alt="Dra. Vanessa Marinho avaliando a expressão facial do paciente" loading="lazy" width="1320" height="2100"><figcaption>Avaliação</figcaption></figure>
+        <figure class="reveal"><img style="object-position:50% 70%" src="img/marcacao.jpg" alt="Marcação dos pontos de aplicação no rosto da paciente" loading="lazy" width="1320" height="1727"><figcaption>Planejamento</figcaption></figure>
+        <figure class="reveal"><img src="img/botox-aplicacao.jpg" alt="Dra. Vanessa Marinho aplicando toxina botulínica" loading="lazy" width="1320" height="2100"><figcaption>Aplicação</figcaption></figure>
+      </div>
       <div class="step-grid">
         <div class="step reveal"><h3>Avaliação</h3><p>Conversa sobre o que te incomoda e análise completa da face, da pele e da sua saúde.</p></div>
         <div class="step reveal"><h3>Planejamento</h3><p>Indicação do que realmente faz sentido para você, com etapas, cuidados e expectativas claras.</p></div>
@@ -410,6 +435,7 @@
   <!-- CTA -->
   <section class="cta">
     <div class="wrap reveal">
+      <img class="cta-avatar" src="img/retrato-perfil.jpg" alt="" loading="lazy" width="800" height="800">
       <span class="eyebrow">Seu planejamento começa na consulta</span>
       <h2>Vamos entender juntas o que você precisa?</h2>
       <p>Agende sua avaliação e receba um plano pensado para o seu rosto, com saúde, estética e naturalidade.</p>
@@ -426,6 +452,7 @@
       </div>
       <ul>
         <li><a class="js-wa" href="#" data-msg="Olá, Dra. Vanessa!">WhatsApp</a></li>
+        <li>Balneário Camboriú · SC</li>
         <li><a href="https://www.instagram.com/dravanessamarinho_/" target="_blank" rel="noopener">Instagram @dravanessamarinho_</a></li>
       </ul>
     </div>
