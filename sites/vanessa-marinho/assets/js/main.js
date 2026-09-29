@@ -77,9 +77,9 @@
 
   /* ---------- antes / depois ---------- */
   const CASES = [
-    { t: 'Rinomodelação', a: 'rino2-antes-1280', d: 'rino2-depois-1280', r: 'ratio-a', pos: '50% 50%' },
-    { t: 'Rinomodelação', a: 'rino1-antes-720', d: 'rino1-depois-720', r: 'ratio-b', pos: '50% 55%' },
-    { t: 'Preenchimento labial · 1 ml', a: 'labios-antes-1280', d: 'labios-depois-1280', r: 'ratio-c', pos: '50% 50%' }
+    { t: 'Rinomodelação', a: 'rino2-antes-1280', d: 'rino2-depois-1280', r: 'ratio-a', pos: '50% 50%', layer: '03 · Volume', tech: 'Ácido hialurônico, sem cortes', plan: 'Ângulo nasolabial e linha do perfil' },
+    { t: 'Rinomodelação', a: 'rino1-antes-720', d: 'rino1-depois-720', r: 'ratio-b', pos: '50% 55%', layer: '03 · Volume', tech: 'Ácido hialurônico, sem cortes', plan: 'Dorso e ponta nasal no perfil' },
+    { t: 'Preenchimento labial · 1 ml', a: 'labios-antes-1280', d: 'labios-depois-1280', r: 'ratio-c', pos: '50% 50%', layer: '03 · Volume', tech: 'Ácido hialurônico · 1 ml', plan: 'Contorno e proporção labial' }
   ];
   const ba = $('#ba');
   const range = $('.ba-range', ba);
@@ -99,6 +99,12 @@
     before.src = 'assets/img/' + c.a + '.webp';
     [after, before].forEach((img) => { img.style.objectPosition = c.pos; });
     $('#caseTitle').textContent = c.t;
+    $('#csNum').textContent = 'Caso ' + String(i + 1).padStart(2, '0') + ' / ' + String(CASES.length).padStart(2, '0');
+    $('#csProc').textContent = c.t.split(' · ')[0];
+    $('#csLayer').textContent = c.layer;
+    $('#csTech').textContent = c.tech;
+    $('#csPlan').textContent = c.plan;
+    if (motion) gsap.from('.case-sheet dd', { y: 12, opacity: 0, duration: 0.6, stagger: 0.05, ease: 'expo.out' });
     range.value = 50;
     if (motion) gsap.fromTo(ba, { '--p': '88%' }, { '--p': '50%', duration: 1.3, ease: 'expo.out' });
     else setP(50);
@@ -232,7 +238,7 @@
 
   /* ----- palavra gigante ----- */
   gsap.fromTo('.bigword-text', { scale: 0.62, backgroundPosition: '50% 0%', letterSpacing: '0.04em' }, {
-    scale: 1, backgroundPosition: '50% 100%', letterSpacing: '-0.06em', ease: 'none',
+    scale: 1, backgroundPosition: '50% 100%', letterSpacing: '-0.07em', ease: 'none',
     scrollTrigger: { trigger: '.bigword', start: 'top bottom', end: 'bottom 40%', scrub: true }
   });
 
