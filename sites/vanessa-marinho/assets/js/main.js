@@ -288,33 +288,59 @@
     groups.forEach((g, i) => drawGroup(tlA, g, i * 0.9));
   });
 
-  /* ----- procedimentos: imagem que segue o mouse ----- */
-  if (finePointer) {
-    const float = $('.proc-float');
-    const fImg = $('img', float);
-    gsap.set(float, { xPercent: -50, yPercent: -50, scale: 0.7 });
-    const xTo = gsap.quickTo(float, 'x', { duration: 0.6, ease: 'power3' });
-    const yTo = gsap.quickTo(float, 'y', { duration: 0.6, ease: 'power3' });
-    const rTo = gsap.quickTo(float, 'rotation', { duration: 0.8, ease: 'power3' });
-    let lastX = 0;
-    $$('.proc').forEach((p) => {
-      const sum = $('summary', p);
-      sum.addEventListener('pointerenter', () => {
-        if (p.open) return;
-        fImg.src = p.dataset.img;
-        gsap.to(float, { opacity: 1, scale: 1, duration: 0.5, ease: 'expo.out' });
-      });
-      sum.addEventListener('pointerleave', () => gsap.to(float, { opacity: 0, scale: 0.7, duration: 0.4, ease: 'power3.out' }));
-      sum.addEventListener('click', () => gsap.to(float, { opacity: 0, scale: 0.7, duration: 0.3 }));
+  /* ----- tese: harmonização estrutural ----- */
+  gsap.from('.thesis-title .ln > span', { yPercent: 110, duration: 1.4, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.thesis-title', start: 'top 80%' } });
+  gsap.fromTo($$('.strata li').reverse(), { clipPath: 'inset(0% 100% 0% 0%)' }, {
+    clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, stagger: 0.14, ease: 'expo.inOut',
+    scrollTrigger: { trigger: '.strata', start: 'top 85%' }
+  });
+
+  /* ----- camadas: cartões que empilham e recuam ----- */
+  const layers = $$('.layer');
+  layers.forEach((layer, i) => {
+    const next = layers[i + 1];
+    if (!next) return;
+    gsap.to(layer, {
+      scale: 0.93 + i * 0.01, filter: 'brightness(.7)', ease: 'none',
+      scrollTrigger: { trigger: next, start: 'top 55%', end: 'top 12%', scrub: true }
     });
-    addEventListener('pointermove', (e) => {
-      xTo(e.clientX + 170); yTo(e.clientY);
-      rTo(gsap.utils.clamp(-10, 10, (e.clientX - lastX) * 0.6));
-      lastX = e.clientX;
-    }, { passive: true });
-  }
-  gsap.from('.proc', { y: 40, opacity: 0, duration: 1.1, stagger: 0.07, ease: 'expo.out', scrollTrigger: { trigger: '.proc-list', start: 'top 85%' } });
-  $$('.proc').forEach((p) => p.addEventListener('toggle', () => ScrollTrigger.refresh()));
+  });
+  layers.forEach((layer) => {
+    gsap.fromTo($('.layer-img img', layer), { scale: 1.2 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: layer, start: 'top bottom', end: 'top 20%', scrub: true } });
+    gsap.from($$('h3, .layer-sub, .chips li', layer), { y: 40, opacity: 0, duration: 1, stagger: 0.06, ease: 'expo.out', scrollTrigger: { trigger: layer, start: 'top 70%' } });
+  });
+
+  /* ----- compromissos ----- */
+  $$('.pledge-list li').forEach((li) => {
+    gsap.timeline({ scrollTrigger: { trigger: li, start: 'top 82%' } })
+      .from(li.children, { y: 30, opacity: 0, duration: 1, stagger: 0.1, ease: 'expo.out' })
+      .to(li, { '--pl': 1, duration: 1.4, ease: 'expo.inOut' }, 0);
+  });
+
+  /* ----- assinatura se escrevendo ----- */
+  gsap.fromTo('.signature', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.4, ease: 'power2.inOut', scrollTrigger: { trigger: '.signature', start: 'top 85%' } });
+
+  /* ----- rótulos "decodificando" ----- */
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  $$('.label').forEach((label) => {
+    const node = Array.from(label.childNodes).reverse().find((n) => n.nodeType === 3 && n.textContent.trim());
+    if (!node) return;
+    const final = node.textContent;
+    ScrollTrigger.create({
+      trigger: label, start: 'top 90%', once: true,
+      onEnter: () => {
+        const state = { p: 0 };
+        gsap.to(state, {
+          p: 1, duration: 1.1, ease: 'power2.out',
+          onUpdate: () => {
+            const n = Math.floor(final.length * state.p);
+            node.textContent = final.slice(0, n) + final.slice(n).replace(/\S/g, () => GLYPHS[(Math.random() * GLYPHS.length) | 0]);
+          },
+          onComplete: () => { node.textContent = final; }
+        });
+      }
+    });
+  });
 
   /* ----- etiqueta do cursor ----- */
   if (finePointer) {
@@ -343,7 +369,7 @@
   gsap.fromTo('.about-surgery', { yPercent: 25 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: true } });
 
   /* ----- revelações gerais ----- */
-  const reveals = $$('.label, .procs-head h2, .results-head h2, .results-head .muted-l, .journey-title, .about-copy h2, .faq-head h2, .faq-head .muted, .about-copy > p:not(.label), .pull, .timeline li, .faq-list details, .procs-foot, .tabs, .analysis-copy h2, .analysis-copy .muted-l')
+  const reveals = $$('.results-head h2, .results-head .muted-l, .journey-title, .about-copy h2, .faq-head h2, .faq-head .muted, .letter > p, .timeline li, .faq-list details, .tabs, .analysis-copy h2, .analysis-copy .muted-l, .thesis-side > p, .layers-head h2, .layers-head .muted, .layers-foot, .pledge-head h2, .pledge-head .muted-l, .notes-head h2, .notes-head .link-arrow, .note')
     .filter((el) => !el.closest('.hero') && !el.closest('.cta') && !el.closest('.analysis'));
   gsap.set(reveals, { y: 36, opacity: 0 });
   ScrollTrigger.batch(reveals, { start: 'top 90%', once: true, onEnter: (b) => gsap.to(b, { y: 0, opacity: 1, duration: 1.1, stagger: 0.07, ease: 'expo.out' }) });
