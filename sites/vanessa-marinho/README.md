@@ -18,7 +18,7 @@ Site estático (HTML + CSS + JS, sem build). Publique **o conteúdo desta pasta*
 
 ## O que tem
 - Scroll suave (Lenis) e animações guiadas pela rolagem (GSAP + ScrollTrigger), tudo hospedado no próprio site.
-- Fontes (Bodoni Moda + Manrope) hospedadas localmente — sem chamadas ao Google.
+- Fontes (Newsreader + Geist + Geist Mono) hospedadas localmente — sem chamadas ao Google.
 - Segurança: CSP sem nenhum script ou estilo externo/inline, HSTS, anti-clickjacking, nosniff, Permissions-Policy.
 - SEO local: Schema.org `Dentist`, Open Graph, sitemap, robots, título e descrição com a cidade.
 - Acessibilidade: navegação por teclado, abas com setas, "pular para o conteúdo",
