@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-aj4/b6ls2o95JjdvtXTV4u89VNc1VYSGWUfseS/TnVg='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Dra. Vanessa Marinho · Harmonização Facial em Balneário Camboriú</title>
 <meta name="description" content="Harmonização Facial Estrutural em Balneário Camboriú – SC, com a Dra. Vanessa Marinho, cirurgiã-dentista. Planejamento a partir da estrutura da face: rinomodelação, preenchimento labial, bioestimulador de colágeno, toxina botulínica e extração de sisos. CRO SC 26480.">
@@ -27,34 +27,177 @@
 <link rel="manifest" href="site.webmanifest">
 
 <link rel="preload" href="assets/fonts/intertight-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/intertight-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/hero-vanessa.webp" as="image" type="image/webp" media="(min-width: 600px)">
-<link rel="preload" href="assets/img/hero-vanessa-500.webp" as="image" type="image/webp" media="(max-width: 599px)">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/hero-vanessa-500.webp 500w, assets/img/hero-vanessa.webp 737w" imagesizes="51vh" media="(min-width: 600px)" fetchpriority="high">
+<link rel="preload" href="assets/img/hero-vanessa-500.webp" as="image" type="image/webp" media="(max-width: 599px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/style.min.css">
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Dentist",
-  "name": "Dra. Vanessa Marinho",
-  "description": "Cirurgiã-dentista com atuação em Harmonização Facial e Cirurgia Bucomaxilofacial.",
-  "url": "https://www.dravanessamarinho.com.br/",
-  "image": "https://www.dravanessamarinho.com.br/assets/img/og.jpg",
-  "address": { "@type": "PostalAddress", "addressLocality": "Balneário Camboriú", "addressRegion": "SC", "addressCountry": "BR" },
-  "geo": { "@type": "GeoCoordinates", "latitude": -26.99, "longitude": -48.63 },
-  "areaServed": "Balneário Camboriú",
-  "sameAs": ["https://www.instagram.com/dravanessamarinho_/"],
-  "availableService": [
-    { "@type": "MedicalProcedure", "name": "Rinomodelação" },
-    { "@type": "MedicalProcedure", "name": "Preenchimento labial" },
-    { "@type": "MedicalProcedure", "name": "Bioestimulador de colágeno" },
-    { "@type": "MedicalProcedure", "name": "Toxina botulínica" },
-    { "@type": "MedicalProcedure", "name": "Preenchimento facial" },
-    { "@type": "MedicalProcedure", "name": "Extração de sisos" }
-  ]
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://www.dravanessamarinho.com.br/#site",
+   "url": "https://www.dravanessamarinho.com.br/",
+   "name": "Dra. Vanessa Marinho",
+   "inLanguage": "pt-BR"
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://www.dravanessamarinho.com.br/#pagina",
+   "url": "https://www.dravanessamarinho.com.br/",
+   "name": "Dra. Vanessa Marinho · Harmonização Facial em Balneário Camboriú",
+   "isPartOf": {
+    "@id": "https://www.dravanessamarinho.com.br/#site"
+   },
+   "about": {
+    "@id": "https://www.dravanessamarinho.com.br/#clinica"
+   },
+   "primaryImageOfPage": "https://www.dravanessamarinho.com.br/assets/img/og.jpg",
+   "inLanguage": "pt-BR"
+  },
+  {
+   "@type": "Dentist",
+   "@id": "https://www.dravanessamarinho.com.br/#clinica",
+   "name": "Dra. Vanessa Marinho",
+   "description": "Harmonização Facial Estrutural em Balneário Camboriú – SC: planejamento a partir da estrutura da face, com formação em Harmonização Facial e Cirurgia Bucomaxilofacial.",
+   "url": "https://www.dravanessamarinho.com.br/",
+   "image": "https://www.dravanessamarinho.com.br/assets/img/og.jpg",
+   "logo": "https://www.dravanessamarinho.com.br/assets/img/icon-512.png",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Balneário Camboriú",
+    "addressRegion": "SC",
+    "addressCountry": "BR"
+   },
+   "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -26.99,
+    "longitude": -48.63
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Balneário Camboriú"
+   },
+   "sameAs": [
+    "https://www.instagram.com/dravanessamarinho_/"
+   ],
+   "employee": {
+    "@id": "https://www.dravanessamarinho.com.br/#vanessa"
+   },
+   "availableService": [
+    {
+     "@type": "MedicalProcedure",
+     "name": "Rinomodelação"
+    },
+    {
+     "@type": "MedicalProcedure",
+     "name": "Preenchimento labial"
+    },
+    {
+     "@type": "MedicalProcedure",
+     "name": "Bioestimulador de colágeno"
+    },
+    {
+     "@type": "MedicalProcedure",
+     "name": "Toxina botulínica"
+    },
+    {
+     "@type": "MedicalProcedure",
+     "name": "Preenchimento facial"
+    },
+    {
+     "@type": "MedicalProcedure",
+     "name": "Extração de sisos"
+    }
+   ]
+  },
+  {
+   "@type": "Person",
+   "@id": "https://www.dravanessamarinho.com.br/#vanessa",
+   "name": "Vanessa Marinho",
+   "honorificPrefix": "Dra.",
+   "jobTitle": "Cirurgiã-dentista",
+   "worksFor": {
+    "@id": "https://www.dravanessamarinho.com.br/#clinica"
+   },
+   "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "CRO-SC",
+    "value": "26480"
+   },
+   "knowsAbout": [
+    "Harmonização Facial",
+    "Harmonização Orofacial",
+    "Cirurgia e Traumatologia Bucomaxilofacial",
+    "Rinomodelação",
+    "Preenchimento labial",
+    "Toxina botulínica",
+    "Bioestimulador de colágeno"
+   ],
+   "image": "https://www.dravanessamarinho.com.br/assets/img/retrato-perfil-720.webp",
+   "sameAs": [
+    "https://www.instagram.com/dravanessamarinho_/"
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://www.dravanessamarinho.com.br/#duvidas",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Vai ficar artificial?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Não é esse o objetivo. O planejamento parte dos seus traços e busca um resultado que acompanhe o seu rosto, sem exageros. Naturalidade é prioridade em todos os procedimentos."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Com que idade faz sentido começar o botox preventivo?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A idade, sozinha, não responde essa pergunta. O que define é a sua pele, a sua musculatura e a forma como você se expressa — por isso a indicação vem sempre depois da avaliação."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Qual procedimento é o certo para mim?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Preenchimento, bioestimulador ou toxina botulínica? Depende do que causa o incômodo. Na consulta, analisamos juntas e montamos o seu plano."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Quanto tempo dura o resultado?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Varia conforme o procedimento, o produto e o organismo de cada paciente. Na avaliação você recebe essa estimativa para o seu caso, junto com o plano de manutenção."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "A extração de siso dói?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "O procedimento é feito com anestesia local e você recebe todas as orientações de pós-operatório para uma recuperação tranquila."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Como agendar?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "É só chamar no WhatsApp. Respondemos com os horários disponíveis e as orientações para a sua primeira consulta."
+     }
+    }
+   ]
+  }
+ ]
 }
 </script>
-<script src="assets/js/boot.js"></script>
+<script data-boot>(function(t){var e=t.documentElement;e.classList.remove("no-js"),e.classList.add("js");var s=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;s&&e.classList.add("reduced");try{!s&&!sessionStorage.getItem("vm-intro")&&(e.classList.add("intro"),sessionStorage.setItem("vm-intro","1"))}catch(d){}})(document);</script>
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -74,7 +217,7 @@
 
 <header class="nav" id="nav">
   <div class="nav-in">
-    <a href="#topo" class="brand" aria-label="Dra. Vanessa Marinho — início">
+    <a href="#topo" class="brand">
       <span class="brand-mark">V<em>M</em></span>
       <span class="brand-txt">Dra. Vanessa Marinho<small class="mono">Cirurgiã-dentista · CRO SC 26480</small></span>
     </a>
@@ -139,7 +282,7 @@
 
     <picture class="hero-figure">
       <source media="(max-width: 599px)" srcset="assets/img/hero-vanessa-500.webp">
-      <img src="assets/img/hero-vanessa.webp" alt="Dra. Vanessa Marinho, cirurgiã-dentista" width="737" height="1318" fetchpriority="high">
+      <img src="assets/img/hero-vanessa.webp" srcset="assets/img/hero-vanessa-500.webp 500w, assets/img/hero-vanessa.webp 737w" sizes="51vh" alt="Dra. Vanessa Marinho, cirurgiã-dentista" width="737" height="1318" fetchpriority="high">
     </picture>
 
     <div class="lens" aria-hidden="true">
@@ -189,7 +332,7 @@
   </section>
 
   <!-- ============ FUNDAMENTO ============ -->
-  <section class="fund" id="fundamento" data-gauge="Fundamento" aria-labelledby="t-fund">
+  <section class="fund sheet" id="fundamento" data-gauge="Fundamento" aria-labelledby="t-fund">
     <div class="wrap">
       <div class="fund-head">
         <p class="label mono label-light"><b>02</b> Fundamento<span class="ref">Protocolo HFE · 02/11</span></p>
@@ -239,11 +382,11 @@
   </section>
 
   <!-- ============ ANÁLISE FACIAL ============ -->
-  <section class="analysis" id="analise" data-gauge="Análise facial" aria-labelledby="t-analise">
+  <section class="analysis sheet" id="analise" data-gauge="Análise facial" aria-labelledby="t-analise">
     <div class="analysis-pin">
       <div class="wrap analysis-grid">
         <figure class="analysis-fig">
-          <img src="assets/img/rino-arte-1280.webp" alt="Perfil facial com linhas de análise: terços faciais, ângulo nasolabial e linha E de Ricketts" loading="lazy" width="1280" height="1431">
+          <img src="assets/img/rino-arte-1280.webp" srcset="assets/img/rino-arte-720.webp 720w, assets/img/rino-arte-1280.webp 1280w" sizes="(max-width: 900px) 92vw, 45vw" alt="Perfil facial com linhas de análise: terços faciais, ângulo nasolabial e linha E de Ricketts" loading="lazy" width="1280" height="1431">
           <svg class="analysis-svg" viewBox="0 0 1280 1431" aria-hidden="true">
             <g class="an-g an-1">
               <line class="an-l" x1="665" y1="433" x2="986" y2="790"/>
@@ -300,7 +443,7 @@
   </section>
 
   <!-- ============ CAMADAS ============ -->
-  <section class="layers" id="procedimentos" data-gauge="Camadas" aria-labelledby="t-camadas">
+  <section class="layers sheet" id="procedimentos" data-gauge="Camadas" aria-labelledby="t-camadas">
     <div class="wrap layers-head">
       <p class="label mono"><b>05</b> Procedimentos por camada<span class="ref">Protocolo HFE · 05/11</span></p>
       <h2 id="t-camadas">Quatro camadas. <em>Um só rosto.</em></h2>
@@ -356,7 +499,7 @@
 
 
   <!-- ============ RESULTADOS ============ -->
-  <section class="results" id="resultados" data-gauge="Resultados" aria-labelledby="t-res">
+  <section class="results sheet" id="resultados" data-gauge="Resultados" aria-labelledby="t-res">
     <div class="wrap">
       <div class="results-head">
         <p class="label mono label-light"><b>06</b> Resultados<span class="ref">Protocolo HFE · 06/11</span></p>
@@ -413,7 +556,7 @@
 
 
   <!-- ============ JORNADA ============ -->
-  <section class="journey" id="jornada" data-gauge="Jornada" aria-labelledby="t-jor">
+  <section class="journey sheet" id="jornada" data-gauge="Jornada" aria-labelledby="t-jor">
     <div class="wrap journey-grid">
       <div class="journey-media" aria-hidden="true">
         <div class="journey-frame">
@@ -529,7 +672,8 @@
       <div class="faq-head">
         <p class="label mono"><b>11</b> Dúvidas frequentes<span class="ref">Protocolo HFE · 11/11</span></p>
         <h2 id="t-faq">Antes de <em>agendar.</em></h2>
-        <p class="muted">Não encontrou sua dúvida? Pergunte direto pelo WhatsApp.</p>
+        <p class="muted">Não encontrou sua dúvida? Pergunte direto para a Dra. Vanessa.</p>
+        <a class="btn faq-btn js-wa" href="#contato" data-msg="Olá, Dra. Vanessa! Tenho uma dúvida sobre um procedimento.">Perguntar pelo WhatsApp</a>
       </div>
       <div class="faq-list">
         <details open><summary>Vai ficar artificial?</summary><div class="faq-a"><p>Não é esse o objetivo. O planejamento parte dos seus traços e busca um resultado que acompanhe o seu rosto, sem exageros. Naturalidade é prioridade em todos os procedimentos.</p></div></details>
@@ -543,7 +687,7 @@
   </section>
 
   <!-- ============ CTA ============ -->
-  <section class="cta" id="contato" data-gauge="Agendar" aria-labelledby="t-cta">
+  <section class="cta sheet" id="contato" data-gauge="Agendar" aria-labelledby="t-cta">
     <svg class="cta-lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <circle cx="500" cy="500" r="420"/><circle cx="500" cy="500" r="300"/><circle cx="500" cy="500" r="180"/>
       <line x1="500" y1="0" x2="500" y2="1000"/><line x1="0" y1="500" x2="1000" y2="500"/>
@@ -551,11 +695,45 @@
     <div class="cta-inner">
       <p class="label mono label-light center">Seu planejamento começa na consulta</p>
       <h2 id="t-cta" class="cta-title"><span class="ln"><span>Sua melhor versão,</span></span> <span class="ln"><span><em>com naturalidade.</em></span></span></h2>
-      <div class="magnet">
-        <a class="btn btn-xl js-wa" href="#contato" data-msg="Olá, Dra. Vanessa! Vim pelo site e gostaria de agendar uma avaliação.">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
-          Agendar minha avaliação
-        </a>
+      <div class="planner">
+        <div class="planner-form">
+          <fieldset>
+            <legend class="mono"><b>01</b> O que você gostaria de avaliar?</legend>
+            <div class="chips-opt">
+              <label><input type="checkbox" name="area" value="o nariz"><span>Nariz</span></label>
+              <label><input type="checkbox" name="area" value="os lábios"><span>Lábios</span></label>
+              <label><input type="checkbox" name="area" value="as linhas de expressão"><span>Linhas de expressão</span></label>
+              <label><input type="checkbox" name="area" value="a firmeza da pele"><span>Firmeza da pele</span></label>
+              <label><input type="checkbox" name="area" value="o contorno do rosto"><span>Contorno do rosto</span></label>
+              <label><input type="checkbox" name="area" value="a extração de sisos"><span>Sisos</span></label>
+              <label><input type="checkbox" name="area" value="__unsure"><span>Ainda não sei</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend class="mono"><b>02</b> Melhor período</legend>
+            <div class="chips-opt">
+              <label><input type="radio" name="periodo" value="pela manhã"><span>Manhã</span></label>
+              <label><input type="radio" name="periodo" value="à tarde"><span>Tarde</span></label>
+              <label><input type="radio" name="periodo" value="" checked><span>Sem preferência</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span class="mono"><b>03</b> Como posso te chamar? <i>(opcional)</i></span>
+            <input type="text" id="pName" maxlength="40" autocomplete="given-name" placeholder="Seu nome">
+          </label>
+        </div>
+        <div class="planner-out">
+          <p class="mono planner-tag">Sua mensagem</p>
+          <p class="planner-msg" id="pMsg" aria-live="polite">Olá, Dra. Vanessa! Vim pelo site e gostaria de agendar uma avaliação.</p>
+          <div class="magnet">
+            <a class="btn btn-xl js-wa js-planner" href="#contato" data-msg="Olá, Dra. Vanessa! Vim pelo site e gostaria de agendar uma avaliação.">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+              Enviar pelo WhatsApp
+            </a>
+          </div>
+          <p class="planner-note mono">Nada é salvo neste site — a mensagem abre direto no seu WhatsApp.</p>
+          <p class="planner-toast mono" id="pToast" role="status"></p>
+        </div>
       </div>
       <ul class="cta-info mono">
         <li>Balneário Camboriú · SC</li>
@@ -568,28 +746,56 @@
 
 <footer class="footer">
   <div class="wrap">
-    <div class="footer-top">
-      <div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark big">V<em>M</em></span>
         <p class="footer-kicker">Dra. Vanessa Marinho</p>
-        <p class="footer-desc">Cirurgiã-dentista · Harmonização Facial e Cirurgia Bucomaxilofacial.</p>
+        <p class="footer-desc">Harmonização Facial Estrutural. Cirurgiã-dentista com formação em Harmonização Facial e Cirurgia Bucomaxilofacial.</p>
       </div>
-      <ul class="footer-links">
-        <li><a class="js-wa" href="#contato" data-msg="Olá, Dra. Vanessa!">WhatsApp</a></li>
-        <li><a href="https://www.instagram.com/dravanessamarinho_/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="privacidade.html">Privacidade</a></li>
-        <li><a href="#topo">Voltar ao topo ↑</a></li>
-      </ul>
+      <nav class="footer-col" aria-label="Rodapé">
+        <p class="mono">Navegação</p>
+        <ul>
+          <li><a href="#estrutural">Método</a></li>
+          <li><a href="#analise">Análise facial</a></li>
+          <li><a href="#procedimentos">Procedimentos</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <p class="mono">Contato</p>
+        <ul>
+          <li><a class="js-wa" href="#contato" data-msg="Olá, Dra. Vanessa!">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/dravanessamarinho_/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li>Balneário Camboriú · SC</li>
+          <li>Atendimento com hora marcada</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="mono">Institucional</p>
+        <ul>
+          <li>Responsável técnica: Dra. Vanessa Marinho</li>
+          <li>CRO SC 26480</li>
+          <li><a href="privacidade.html">Política de privacidade</a></li>
+          <li><a class="js-consent" href="#" hidden>Preferências de cookies</a></li>
+        </ul>
+      </div>
     </div>
     <p class="footer-word" aria-hidden="true">Vanessa <em>Marinho</em></p>
     <div class="footer-legal mono">
-      <span>© <span id="ano">2026</span> Dra. Vanessa Marinho · Responsável técnica · CRO SC 26480</span>
-      <span>Balneário Camboriú · SC — 26°59′S 48°38′W</span>
+      <span>© <span id="ano">2026</span> Dra. Vanessa Marinho · Todos os direitos reservados</span>
+      <span>26°59′S 48°38′W — Balneário Camboriú · SC</span>
+      <a class="to-top" href="#topo" aria-label="Voltar ao topo">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tt-bg" cx="24" cy="24" r="22"/><circle class="tt-fg" cx="24" cy="24" r="22"/><path d="M24 31V17M18 23l6-6 6 6"/></svg>
+      </a>
     </div>
   </div>
 </footer>
 
-<a class="wa-float js-wa" href="#contato" data-msg="Olá, Dra. Vanessa! Vim pelo site e gostaria de agendar uma avaliação." aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+<a class="float-cta js-wa" href="#contato" data-msg="Olá, Dra. Vanessa! Vim pelo site e gostaria de agendar uma avaliação.">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+  <span>Agendar avaliação</span>
 </a>
 
 <div class="gauge" aria-hidden="true">
@@ -601,9 +807,6 @@
 
 <svg class="sprite" aria-hidden="true"><symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></symbol></svg>
 
-<script src="assets/vendor/gsap.min.js" defer></script>
-<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/app.min.js" defer></script>
 </body>
 </html>

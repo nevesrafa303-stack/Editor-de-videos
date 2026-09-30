@@ -26,14 +26,14 @@ vendor = "".join(open(os.path.join(root, "assets/vendor", f)).read() + "\n" for 
 html = re.sub(r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', "", html)
 html = re.sub(r'<link rel="(preload|manifest|apple-touch-icon)"[^>]*>\n', "", html)
 html = html.replace('href="favicon.svg"', 'href="' + uri("favicon.svg") + '"')
-html = html.replace('<link rel="stylesheet" href="assets/css/style.css">', "<style>" + css + "</style>")
+html = re.sub(r'<link rel="stylesheet" href="assets/css/style(?:\.min)?\.css">', lambda m: "<style>" + css + "</style>", html)
 html = html.replace('<script src="assets/js/boot.js"></script>', "<script>" + open(os.path.join(root, "assets/js/boot.js")).read() + "</script>")
 html = re.sub(r'(<script src="assets/[^"]+" defer></script>\n)+', lambda m: "<script>" + vendor + "</script>\n<script>" + js + "</script>\n", html)
-html = re.sub(r'\ssrcset="([^"]*)"', lambda m: ' srcset="' + m.group(1).split(",")[0].split(" ")[0] + '"', html)
+html = re.sub(r'\ssrcset="([^"]*)"', lambda m: ' srcset="' + m.group(1).split(",")[-1].strip().split(" ")[0] + '"', html)
 html = re.sub(r'\ssizes="[^"]*"', "", html)
 html = re.sub(r'(src|srcset|data-img)="(assets/img/[^"]+)"', lambda m: f'{m.group(1)}="{uri(m.group(2))}"', html)
 html = html.replace('href="privacidade.html"', 'href="#"')
-left = [l.strip()[:90] for l in html.split("\n") if "assets/" in l and "og.jpg" not in l and "apple-touch" not in l]
+left = [l.strip()[:90] for l in html.split("\n") if "assets/" in l and "dravanessamarinho.com.br" not in l and "apple-touch" not in l]
 assert not left, left
 open(out, "w").write(html)
 print(f"{out}: {os.path.getsize(out)/1e6:.2f} MB")

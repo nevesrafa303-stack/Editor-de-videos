@@ -1,0 +1,5 @@
+# Relato de vulnerabilidades — Dra. Vanessa Marinho
+Contact: https://www.instagram.com/dravanessamarinho_/
+Expires: 2027-09-30T00:00:00.000Z
+Preferred-Languages: pt-BR, en
+Canonical: https://www.dravanessamarinho.com.br/.well-known/security.txt
