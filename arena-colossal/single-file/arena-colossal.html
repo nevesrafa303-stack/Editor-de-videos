@@ -203,6 +203,101 @@ ul,ol{list-style:none;padding:0}
 .sec--in{padding-block:clamp(36px,5vh,64px)}
 .sec--in .wrap{padding-inline:0;max-width:none}
 
+
+/* =====================================================================
+   CENOGRAFIA DE SCROLL
+   ---------------------------------------------------------------------
+   Tudo aqui é enfeite que PRECISA sumir sem quebrar nada: sem JavaScript
+   nenhuma destas classes recebe estado, e o conteúdo fica visível e
+   legível do mesmo jeito. Só transform e opacity entram na conta, para a
+   rolagem não cair de 60fps.
+   ===================================================================== */
+
+/* --- barra de progresso da página --- */
+.prog{position:fixed;top:0;left:0;right:0;z-index:95;height:2px;background:transparent;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;
+  background:linear-gradient(to right,var(--azul),var(--laranja));transition:transform .08s linear}
+
+/* --- trilho de seções: onde estou e para onde dá para ir --- */
+.rail{position:fixed;right:max(18px,calc((100vw - var(--container))/2 - 34px));top:50%;z-index:70;
+  display:none;flex-direction:column;gap:14px;transform:translateY(-50%)}
+@media(min-width:1180px){.js .rail{display:flex}}
+.rail a{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:10px;height:14px}
+.rail a i{width:18px;height:1px;background:var(--g700);transition:width .34s var(--ease),background-color .34s}
+.rail a span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--g500);
+  opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s var(--ease);white-space:nowrap}
+.rail a:hover i,.rail a[aria-current='true'] i{width:34px;background:var(--laranja)}
+.rail a:hover span,.rail a[aria-current='true'] span{opacity:1;transform:none}
+.rail a:focus-visible{outline:2px solid var(--laranja-claro);outline-offset:6px;border-radius:2px}
+
+/* --- revelação palavra a palavra --- */
+.js [data-split] .pal{display:inline-block;opacity:0;transform:translateY(.5em) rotate(1.2deg);
+  transition:opacity .62s var(--ease),transform .62s var(--ease)}
+.js [data-split][data-visivel='true'] .pal{opacity:1;transform:none}
+
+/* --- parallax: o fundo anda menos que o texto --- */
+.js [data-par]{will-change:transform}
+
+/* --- transição entre rotas --- */
+.cort{position:fixed;inset:0;z-index:92;pointer-events:none;background:var(--black);
+  transform:scaleY(0);transform-origin:bottom;opacity:0}
+.js .cort[data-on='true']{animation:cortina .66s var(--ease)}
+@keyframes cortina{
+  0%{transform:scaleY(0);transform-origin:bottom;opacity:1}
+  42%{transform:scaleY(1);transform-origin:bottom;opacity:1}
+  43%{transform:scaleY(1);transform-origin:top;opacity:1}
+  100%{transform:scaleY(0);transform-origin:top;opacity:1}
+}
+
+/* --- números que contam --- */
+.nums{display:grid;gap:1px;background:rgba(255,255,255,.09);border-block:var(--border);grid-template-columns:repeat(2,1fr)}
+@media(min-width:820px){.nums{grid-template-columns:repeat(4,1fr)}}
+.nums li{display:flex;flex-direction:column;gap:6px;padding:clamp(22px,3.4vw,34px);background:var(--off-black)}
+.nums b{font-family:var(--f-display);font-size:clamp(2.4rem,5vw,3.6rem);font-weight:800;line-height:1;
+  letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
+.nums b s{text-decoration:none;color:var(--laranja)}
+.nums span{font-size:var(--s--1);line-height:1.45;color:var(--g500)}
+
+/* --- declaração editorial --- */
+.decl{max-width:20ch;font-family:var(--f-display);font-weight:800;letter-spacing:-.035em;line-height:.98;
+  font-size:clamp(2.6rem,8.4vw,6.4rem);color:#fff}
+.decl em{font-style:normal;color:var(--laranja)}
+.decl--sub{max-width:52ch;margin-top:28px;font-family:var(--f-body);font-weight:400;font-size:var(--s-1);
+  line-height:1.55;letter-spacing:0;color:var(--g300)}
+
+/* --- serviços em trilho horizontal --- */
+.trilho{position:relative}
+.trilho__p{position:sticky;top:0;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr);align-content:center;
+  gap:clamp(18px,3vh,30px);padding-block:calc(var(--nav-h) + 16px) clamp(76px,10vh,110px)}
+.trilho__f{display:flex;align-items:stretch;gap:16px;padding-inline:var(--gutter);will-change:transform;min-height:0}
+.trilho__f>li{flex:0 0 clamp(260px,78vw,380px);display:flex;min-height:0;max-height:100%}
+.trilho__f .card{min-height:0;overflow:hidden}
+.trilho__c{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+  padding-inline:var(--gutter)}
+/* Dentro do trilho o cartão precisa caber em pé: a imagem cede primeiro. */
+.trilho__f .card__img{aspect-ratio:16/10;max-height:min(34vh,260px);min-height:110px}
+/* No modo fixo o cabeçalho divide a tela com os cartões. Em tela média o
+   texto de apoio sai de cena antes de o botão de agendar ser espremido. */
+@media(min-width:1024px) and (max-height:939px){.js .trilho__p .trilho__c .lead{display:none}}
+.trilho__f .card__b{padding:16px}
+.trilho__f .card__s{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* Sem JavaScript, ou em tela estreita, o trilho vira carrossel nativo: o
+   dedo arrasta, o scroll-snap encaixa, e nada disso precisa de script. */
+.trilho__p{height:auto}
+.trilho__f{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-block:6px}
+.trilho__f::-webkit-scrollbar{display:none}
+.trilho__f>li{scroll-snap-align:start}
+@media(min-width:1024px) and (min-height:800px){
+  .js .trilho{height:420vh}
+  .js .trilho__p{height:100svh;position:sticky}
+  .js .trilho__f{overflow:visible;scroll-snap-type:none}
+  .js .trilho__f>li{flex-basis:clamp(320px,26vw,400px)}
+}
+.trilho__n{display:flex;align-items:center;gap:12px;font-size:var(--s--1);color:var(--g500)}
+.trilho__n i{display:block;width:60px;height:1px;background:var(--g700);overflow:hidden}
+.trilho__n i::after{content:'';display:block;height:100%;width:100%;background:var(--laranja);
+  transform:scaleX(var(--p,0));transform-origin:left;transition:transform .2s linear}
+
 /* ---------- botões ---------- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;overflow:hidden;min-height:52px;padding:16px 30px;font-weight:600;font-size:var(--s--1);letter-spacing:.16em;text-transform:uppercase;text-align:center;border-radius:var(--radius);transition:transform .4s var(--ease),background-color .22s,border-color .22s,color .22s,opacity .22s}
 .btn:disabled{opacity:.45;cursor:not-allowed}
@@ -538,6 +633,15 @@ body{padding-bottom:84px}
 .rev__m time{font-size:var(--s--1);color:var(--g500)}
 .rev__sum{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:20px 24px;background:var(--surface);border:var(--border);border-left:2px solid var(--laranja)}
 .rev__score{font-family:var(--f-display);font-size:var(--s-3);font-weight:800;color:#fff;line-height:1}
+.gbox{display:grid;gap:clamp(24px,3vw,44px);align-items:center;padding:clamp(28px,4vw,48px);
+  background:linear-gradient(135deg,var(--surface-2),var(--surface));border:var(--border);border-top:2px solid var(--laranja)}
+@media(min-width:900px){.gbox{grid-template-columns:auto 1fr}}
+.gbox__g{display:grid;place-items:center;width:clamp(74px,9vw,104px);aspect-ratio:1;border-radius:50%;
+  background:var(--black);border:var(--border);box-shadow:0 0 0 10px rgba(255,255,255,.02)}
+.gbox__g svg{width:52%;height:auto}
+.gbox h3{font-family:var(--f-display);font-size:var(--s-2);line-height:1.15;color:#fff;letter-spacing:-.02em}
+.gbox p{margin-top:12px;font-size:var(--s-0);line-height:1.7;color:var(--g300);max-width:56ch}
+.gbox__a{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:22px}
 .rev__empty{display:flex;flex-direction:column;align-items:flex-start;gap:16px;max-width:62ch;padding:clamp(28px,4vw,44px);background:var(--surface);border:var(--border);border-left:1px solid var(--laranja)}
 .rev__empty h3{font-size:var(--s-2);line-height:1.15;color:#fff}
 .rev__empty p{font-size:var(--s-0);line-height:1.7;color:var(--g300)}
@@ -750,6 +854,16 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
 
 <a class="skip" href="#main">Pular para o conteúdo</a>
 
+<div class="prog" aria-hidden="true"><i id="progI"></i></div>
+<div class="cort" id="cort" aria-hidden="true"></div>
+<nav class="rail" id="rail" aria-label="Seções da página">
+  <a href="#servicos" data-alvo="servicos"><span>Serviços</span><i aria-hidden="true"></i></a>
+  <a href="#avaliacoes" data-alvo="avaliacoes"><span>Avaliações</span><i aria-hidden="true"></i></a>
+  <a href="#processo" data-alvo="processo"><span>Processo</span><i aria-hidden="true"></i></a>
+  <a href="#diagnostico" data-alvo="diagnostico"><span>Diagnóstico</span><i aria-hidden="true"></i></a>
+  <a href="#agendamento" data-alvo="agendamento"><span>Agendar</span><i aria-hidden="true"></i></a>
+</nav>
+
 <header class="nav" id="nav" data-solid="false" data-open="false">
   <div class="nav__in">
     <a class="logo" href="#/" aria-label="Arena Colossal — início">
@@ -782,7 +896,7 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
     <!-- autoplay+muted+playsinline: roda sem JavaScript nenhum. O poster
          cobre o instante antes do primeiro quadro e o caso de o vídeo não
          poder tocar (dados economizados, codec recusado). -->
-    <video class="hero__vid" autoplay muted loop playsinline preload="auto" tabindex="-1"
+    <video class="hero__vid" data-par="26" autoplay muted loop playsinline preload="auto" tabindex="-1"
       poster="data:image/webp;base64,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">
       <!-- Duas versões do mesmo take: a paisagem mostra o carro inteiro na
            tela larga, a vertical enquadra certo no celular. O navegador
@@ -835,19 +949,38 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
 
 <div class="marq" aria-hidden="true"><div class="marq__t" id="marq"><ul><li><i aria-hidden="true"></i>Lavagem Técnica / Detalhada</li><li><i aria-hidden="true"></i>Higienização Interna</li><li><i aria-hidden="true"></i>Higienização de Couro</li><li><i aria-hidden="true"></i>Higienização do Ar-Condicionado</li><li><i aria-hidden="true"></i>Descontaminação</li><li><i aria-hidden="true"></i>Polimento Técnico</li><li><i aria-hidden="true"></i>Vitrificação</li><li><i aria-hidden="true"></i>Proteção de Plásticos</li><li><i aria-hidden="true"></i>Proteção de Pneus</li><li><i aria-hidden="true"></i>Restauração / Proteção de Faróis</li></ul><ul><li><i aria-hidden="true"></i>Lavagem Técnica / Detalhada</li><li><i aria-hidden="true"></i>Higienização Interna</li><li><i aria-hidden="true"></i>Higienização de Couro</li><li><i aria-hidden="true"></i>Higienização do Ar-Condicionado</li><li><i aria-hidden="true"></i>Descontaminação</li><li><i aria-hidden="true"></i>Polimento Técnico</li><li><i aria-hidden="true"></i>Vitrificação</li><li><i aria-hidden="true"></i>Proteção de Plásticos</li><li><i aria-hidden="true"></i>Proteção de Pneus</li><li><i aria-hidden="true"></i>Restauração / Proteção de Faróis</li></ul></div></div>
 
-<!-- SERVIÇOS -->
-<section class="sec" id="servicos" aria-label="Serviços">
+<!-- AUTORIDADE -->
+<section class="sec" id="autoridade" aria-label="O que a Arena faz">
   <div class="wrap">
-    <div class="head" style="margin-bottom:clamp(36px,5vh,64px)">
-      <p class="eyebrow">Serviços</p>
-      <h2 class="h-sec">Precisão em cada detalhe.</h2>
-      <p class="lead">Dez frentes de trabalho que se combinam conforme o estado e o uso do veículo. Nenhuma delas existe isolada — o processo é definido na avaliação.</p>
+    <p class="eyebrow" style="margin-bottom:28px">Critério</p>
+    <h2 class="decl" data-split>Lavar é tirar a sujeira. Cuidar é saber o que não se faz.</h2>
+    <p class="decl--sub" data-split>Toda pintura tem uma espessura de verniz que não volta. É ela que define até onde dá para polir — e é por isso que aqui o carro é lido antes de ser tocado.</p>
+
+    <ul class="nums" style="margin-top:clamp(48px,7vh,88px)">
+      <li><b data-conta="10">10</b><span>frentes de trabalho, combinadas conforme o estado do veículo</span></li>
+      <li><b data-conta="6">6</b><span>etapas na mesma ordem, em todo carro que entra</span></li>
+      <li><b data-conta="5">5</b><span>camadas lidas na pintura antes de qualquer correção</span></li>
+      <li><b><s data-conta="12">12</s>h</b><span>de antecedência mínima — a agenda nunca é improviso</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="trilho" id="servicos" aria-label="Serviços">
+  <div class="trilho__p" id="trilhoP">
+    <div class="trilho__c">
+      <div class="head" style="max-width:46ch">
+        <p class="eyebrow">Serviços</p>
+        <h2 class="h-sec">Precisão em cada detalhe.</h2>
+        <p class="lead">Dez frentes que se combinam conforme o estado do veículo. Nenhuma existe isolada — o processo é definido na avaliação.</p>
+      </div>
+      <p class="trilho__n"><span>Role</span><i aria-hidden="true"></i><span>10 serviços</span></p>
     </div>
-    <ul class="svcg" id="svcList"><li data-rev="up" data-vis="false" style="transition-delay:0ms"><article class="card"><a class="card__link" href="#/servico/lavagem-tecnica" aria-label="Ver detalhes de Lavagem Técnica / Detalhada"></a><div class="card__img q q01" aria-hidden="true"><span class="card__n">01</span></div><div class="card__b"><h3 class="card__t">Lavagem Técnica / Detalhada</h3><p class="card__s">A base de todo trabalho sério. Nada avança sem ela.</p><p class="card__m"><span>2h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_lavagem-tecnica" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Lavagem Técnica / Detalhada." aria-label="Falar no WhatsApp sobre Lavagem Técnica / Detalhada" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:60ms"><article class="card"><a class="card__link" href="#/servico/higienizacao-interna" aria-label="Ver detalhes de Higienização Interna"></a><div class="card__img q q02" aria-hidden="true"><span class="card__n">02</span></div><div class="card__b"><h3 class="card__t">Higienização Interna</h3><p class="card__s">O interior volta a ser um ambiente, não um depósito de tempo.</p><p class="card__m"><span>3h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_higienizacao-interna" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Higienização Interna." aria-label="Falar no WhatsApp sobre Higienização Interna" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:120ms"><article class="card"><a class="card__link" href="#/servico/higienizacao-couro" aria-label="Ver detalhes de Higienização de Couro"></a><div class="card__img q q03" aria-hidden="true"><span class="card__n">03</span></div><div class="card__b"><h3 class="card__t">Higienização de Couro</h3><p class="card__s">Couro limpo, hidratado e com o toque original preservado.</p><p class="card__m"><span>2h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_higienizacao-couro" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Higienização de Couro." aria-label="Falar no WhatsApp sobre Higienização de Couro" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:180ms"><article class="card"><a class="card__link" href="#/servico/higienizacao-ar-condicionado" aria-label="Ver detalhes de Higienização do Ar-Condicionado"></a><div class="card__img q q04" aria-hidden="true"><span class="card__n">04</span></div><div class="card__b"><h3 class="card__t">Higienização do Ar-Condicionado</h3><p class="card__s">O que você respira dentro do carro também é detalhe.</p><p class="card__m"><span>1h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_higienizacao-ar-condicionado" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Higienização do Ar-Condicionado." aria-label="Falar no WhatsApp sobre Higienização do Ar-Condicionado" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:240ms"><article class="card"><a class="card__link" href="#/servico/descontaminacao" aria-label="Ver detalhes de Descontaminação"></a><div class="card__img q q05" aria-hidden="true"><span class="card__n">05</span></div><div class="card__b"><h3 class="card__t">Descontaminação</h3><p class="card__s">A pintura precisa estar limpa de verdade antes de brilhar.</p><p class="card__m"><span>1h30</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_descontaminacao" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Descontaminação." aria-label="Falar no WhatsApp sobre Descontaminação" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:300ms"><article class="card"><a class="card__link" href="#/servico/polimento-tecnico" aria-label="Ver detalhes de Polimento Técnico"></a><div class="card__img q q06" aria-hidden="true"><span class="card__n">06</span></div><div class="card__b"><h3 class="card__t">Polimento Técnico</h3><p class="card__s">Correção medida, não remoção agressiva de verniz.</p><p class="card__m"><span>8h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_polimento-tecnico" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Polimento Técnico." aria-label="Falar no WhatsApp sobre Polimento Técnico" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:300ms"><article class="card"><a class="card__link" href="#/servico/vitrificacao" aria-label="Ver detalhes de Vitrificação"></a><div class="card__img q q07" aria-hidden="true"><span class="card__n">07</span></div><div class="card__b"><h3 class="card__t">Vitrificação</h3><p class="card__s">Proteção real sobre uma superfície devidamente preparada.</p><p class="card__m"><span>8h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_vitrificacao" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Vitrificação." aria-label="Falar no WhatsApp sobre Vitrificação" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:300ms"><article class="card"><a class="card__link" href="#/servico/protecao-plasticos" aria-label="Ver detalhes de Proteção de Plásticos"></a><div class="card__img q q08" aria-hidden="true"><span class="card__n">08</span></div><div class="card__b"><h3 class="card__t">Proteção de Plásticos</h3><p class="card__s">Plásticos externos que param de envelhecer antes do carro.</p><p class="card__m"><span>1h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_protecao-plasticos" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Proteção de Plásticos." aria-label="Falar no WhatsApp sobre Proteção de Plásticos" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:300ms"><article class="card"><a class="card__link" href="#/servico/protecao-pneus" aria-label="Ver detalhes de Proteção de Pneus"></a><div class="card__img q q09" aria-hidden="true"><span class="card__n">09</span></div><div class="card__b"><h3 class="card__t">Proteção de Pneus</h3><p class="card__s">Acabamento fosco, uniforme e sem respingo.</p><p class="card__m"><span>45 min</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_protecao-pneus" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Proteção de Pneus." aria-label="Falar no WhatsApp sobre Proteção de Pneus" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li data-rev="up" data-vis="false" style="transition-delay:300ms"><article class="card"><a class="card__link" href="#/servico/restauracao-farois" aria-label="Ver detalhes de Restauração / Proteção de Faróis"></a><div class="card__img q q10" aria-hidden="true"><span class="card__n">10</span></div><div class="card__b"><h3 class="card__t">Restauração / Proteção de Faróis</h3><p class="card__s">Transparência recuperada e protegida contra o próximo ciclo.</p><p class="card__m"><span>3h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_restauracao-farois" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Restauração / Proteção de Faróis." aria-label="Falar no WhatsApp sobre Restauração / Proteção de Faróis" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li></ul>
-    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:28px">
-      <a class="btn btn--o" href="#/servicos"><span>Ver o catálogo completo</span></a>
-      <a class="link-u" href="#diagnostico">Não sei qual escolher — montar meu processo</a>
-    </div>
+    <ul class="trilho__f" id="svcList" data-trilho><li><article class="card"><a class="card__link" href="#/servico/lavagem-tecnica" aria-label="Ver detalhes de Lavagem Técnica / Detalhada"></a><div class="card__img q q01" aria-hidden="true"><span class="card__n">01</span></div><div class="card__b"><h3 class="card__t">Lavagem Técnica / Detalhada</h3><p class="card__s">A base de todo trabalho sério. Nada avança sem ela.</p><p class="card__m"><span>2h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_lavagem-tecnica" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Lavagem Técnica / Detalhada." aria-label="Falar no WhatsApp sobre Lavagem Técnica / Detalhada" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/higienizacao-interna" aria-label="Ver detalhes de Higienização Interna"></a><div class="card__img q q02" aria-hidden="true"><span class="card__n">02</span></div><div class="card__b"><h3 class="card__t">Higienização Interna</h3><p class="card__s">O interior volta a ser um ambiente, não um depósito de tempo.</p><p class="card__m"><span>3h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_higienizacao-interna" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Higienização Interna." aria-label="Falar no WhatsApp sobre Higienização Interna" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/higienizacao-couro" aria-label="Ver detalhes de Higienização de Couro"></a><div class="card__img q q03" aria-hidden="true"><span class="card__n">03</span></div><div class="card__b"><h3 class="card__t">Higienização de Couro</h3><p class="card__s">Couro limpo, hidratado e com o toque original preservado.</p><p class="card__m"><span>2h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_higienizacao-couro" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Higienização de Couro." aria-label="Falar no WhatsApp sobre Higienização de Couro" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/higienizacao-ar-condicionado" aria-label="Ver detalhes de Higienização do Ar-Condicionado"></a><div class="card__img q q04" aria-hidden="true"><span class="card__n">04</span></div><div class="card__b"><h3 class="card__t">Higienização do Ar-Condicionado</h3><p class="card__s">O que você respira dentro do carro também é detalhe.</p><p class="card__m"><span>1h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_higienizacao-ar-condicionado" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Higienização do Ar-Condicionado." aria-label="Falar no WhatsApp sobre Higienização do Ar-Condicionado" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/descontaminacao" aria-label="Ver detalhes de Descontaminação"></a><div class="card__img q q05" aria-hidden="true"><span class="card__n">05</span></div><div class="card__b"><h3 class="card__t">Descontaminação</h3><p class="card__s">A pintura precisa estar limpa de verdade antes de brilhar.</p><p class="card__m"><span>1h30</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_descontaminacao" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Descontaminação." aria-label="Falar no WhatsApp sobre Descontaminação" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/polimento-tecnico" aria-label="Ver detalhes de Polimento Técnico"></a><div class="card__img q q06" aria-hidden="true"><span class="card__n">06</span></div><div class="card__b"><h3 class="card__t">Polimento Técnico</h3><p class="card__s">Correção medida, não remoção agressiva de verniz.</p><p class="card__m"><span>8h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_polimento-tecnico" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Polimento Técnico." aria-label="Falar no WhatsApp sobre Polimento Técnico" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/vitrificacao" aria-label="Ver detalhes de Vitrificação"></a><div class="card__img q q07" aria-hidden="true"><span class="card__n">07</span></div><div class="card__b"><h3 class="card__t">Vitrificação</h3><p class="card__s">Proteção real sobre uma superfície devidamente preparada.</p><p class="card__m"><span>8h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_vitrificacao" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Vitrificação." aria-label="Falar no WhatsApp sobre Vitrificação" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/protecao-plasticos" aria-label="Ver detalhes de Proteção de Plásticos"></a><div class="card__img q q08" aria-hidden="true"><span class="card__n">08</span></div><div class="card__b"><h3 class="card__t">Proteção de Plásticos</h3><p class="card__s">Plásticos externos que param de envelhecer antes do carro.</p><p class="card__m"><span>1h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_protecao-plasticos" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Proteção de Plásticos." aria-label="Falar no WhatsApp sobre Proteção de Plásticos" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/protecao-pneus" aria-label="Ver detalhes de Proteção de Pneus"></a><div class="card__img q q09" aria-hidden="true"><span class="card__n">09</span></div><div class="card__b"><h3 class="card__t">Proteção de Pneus</h3><p class="card__s">Acabamento fosco, uniforme e sem respingo.</p><p class="card__m"><span>45 min</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_protecao-pneus" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Proteção de Pneus." aria-label="Falar no WhatsApp sobre Proteção de Pneus" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li><li><article class="card"><a class="card__link" href="#/servico/restauracao-farois" aria-label="Ver detalhes de Restauração / Proteção de Faróis"></a><div class="card__img q q10" aria-hidden="true"><span class="card__n">10</span></div><div class="card__b"><h3 class="card__t">Restauração / Proteção de Faróis</h3><p class="card__s">Transparência recuperada e protegida contra o próximo ciclo.</p><p class="card__m"><span>3h</span>·<b>Orçamento na avaliação</b></p><div class="card__a"><a class="ag" href="#/agendamento">Agendar</a><a class="wa" data-wa="" data-src="card_restauracao-farois" data-msg="Olá! Vim pelo site da Arena Colossal e queria falar sobre Restauração / Proteção de Faróis." aria-label="Falar no WhatsApp sobre Restauração / Proteção de Faróis" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.87 9.87 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24Zm4.52-6.17c-.25-.13-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.72-.15-.25-.02-.38.1-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.84-.85 2.04s.87 2.37 1 2.53c.12.17 1.72 2.62 4.16 3.68.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.3Z"></path></svg></a></div></div></article></li></ul>
+  </div>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding-block:clamp(26px,4vh,44px)">
+    <a class="btn btn--o" href="#/servicos"><span>Ver o catálogo completo</span></a>
+    <a class="link-u" href="#diagnostico">Não sei qual escolher — montar meu processo</a>
   </div>
 </section>
 
@@ -859,7 +992,7 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
       <h2 class="h-sec">Quem conhece, volta.</h2>
       <p class="lead">Avaliações de clientes da Arena Colossal, publicadas exatamente como foram escritas.</p>
     </div>
-    <div id="revBox"><div class="rev__empty" data-rev="up" data-vis="false"><h3>As avaliações reais dos clientes da Arena aparecem aqui.</h3><p>Preferimos publicar nada a publicar algo inventado. Enquanto os depoimentos autorizados não entram, o perfil no Google segue aberto para consulta.</p><a class="link-u" href="https://share.google/zGxw3BoYpCqXHWh7J" target="_blank" rel="noopener noreferrer">Ver avaliações no Google</a></div></div>
+    <div id="revBox"><div class="gbox" data-rev="up" data-vis="false"><span class="gbox__g" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.2-.4-4.7H24v8.9h11.8a10 10 0 0 1-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.3Z"></path><path fill="#34A853" d="M24 46c6 0 11-2 14.5-5.2l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7A22 22 0 0 0 24 46Z"></path><path fill="#FBBC05" d="M11.8 28.4a13.2 13.2 0 0 1 0-8.4v-5.7H4.5a22 22 0 0 0 0 19.8l7.3-5.7Z"></path><path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 30 2 24 2 15.4 2 8 7 4.5 14.3l7.3 5.7c1.7-5.2 6.5-9.2 12.2-9.2Z"></path></svg></span><div><h3>A reputação da Arena se constrói no Google — e é lá que ela pode ser conferida.</h3><p>Nenhum depoimento é escrito aqui. Enquanto os clientes não autorizam a publicação, esta seção aponta para o perfil real, onde cada avaliação tem nome, data e resposta.</p><div class="gbox__a"><a class="btn btn--p" href="https://share.google/zGxw3BoYpCqXHWh7J" target="_blank" rel="noopener noreferrer"><span>Ver no Google</span></a><a class="link-u" data-wa="" data-src="avaliacoes" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer">Já é cliente? Avalie a Arena</a></div></div></div></div>
   </div>
 </section>
 
@@ -1001,7 +1134,7 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
       <h2 class="h-sec">Do primeiro detalhe ao último.</h2>
       <p class="lead">Seis etapas na mesma ordem, em todo veículo. O que muda é a profundidade de cada uma — definida na avaliação, não no orçamento.</p>
     </div>
-    <ol class="proc" id="procList"><span class="proc__track" aria-hidden="true"><i class="proc__fill" id="procFill"></i></span><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">01</span><div class="proc__c"><h3>Avaliação</h3><p>O veículo é lido antes de ser tocado: estado da pintura, do interior e o uso real do dia a dia. É aqui que o processo é definido — não antes.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">02</span><div class="proc__c"><h3>Preparação</h3><p>Pré-lavagem, descontaminação e secagem controlada. Nenhuma etapa seguinte acontece sobre superfície suja.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">03</span><div class="proc__c"><h3>Tratamento</h3><p>Correção e higienização conforme o que a avaliação apontou. Trabalho por etapas, com conferência entre elas.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">04</span><div class="proc__c"><h3>Detalhamento</h3><p>As áreas que ninguém fotografa: frisos, soleiras, cavas, grades e acabamentos internos.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">05</span><div class="proc__c"><h3>Proteção</h3><p>Aplicação da proteção adequada ao resultado obtido, com o tempo de cura respeitado.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">06</span><div class="proc__c"><h3>Entrega</h3><p>Conferência final sob iluminação técnica e explicação do que foi feito — e de como manter.</p></div></div></li></ol>
+    <ol class="proc" id="procList"><span class="proc__track" aria-hidden="true"><i class="proc__fill" id="procFill" style="transform: scaleY(0);"></i></span><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">01</span><div class="proc__c"><h3>Avaliação</h3><p>O veículo é lido antes de ser tocado: estado da pintura, do interior e o uso real do dia a dia. É aqui que o processo é definido — não antes.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">02</span><div class="proc__c"><h3>Preparação</h3><p>Pré-lavagem, descontaminação e secagem controlada. Nenhuma etapa seguinte acontece sobre superfície suja.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">03</span><div class="proc__c"><h3>Tratamento</h3><p>Correção e higienização conforme o que a avaliação apontou. Trabalho por etapas, com conferência entre elas.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">04</span><div class="proc__c"><h3>Detalhamento</h3><p>As áreas que ninguém fotografa: frisos, soleiras, cavas, grades e acabamentos internos.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">05</span><div class="proc__c"><h3>Proteção</h3><p>Aplicação da proteção adequada ao resultado obtido, com o tempo de cura respeitado.</p></div></div></li><li class="proc__it"><div class="proc__in" data-rev="fade" data-vis="false"><span class="num">06</span><div class="proc__c"><h3>Entrega</h3><p>Conferência final sob iluminação técnica e explicação do que foi feito — e de como manter.</p></div></div></li></ol>
   </div>
 </section>
 
@@ -2170,14 +2303,28 @@ async function renderAvaliacoes(){
   const box = $('#revBox'); if (!box) return;
   box.textContent = '';
 
+  const LOGO_G = '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">' +
+    '<path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.2-.4-4.7H24v8.9h11.8a10 10 0 0 1-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.3Z"/>' +
+    '<path fill="#34A853" d="M24 46c6 0 11-2 14.5-5.2l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7A22 22 0 0 0 24 46Z"/>' +
+    '<path fill="#FBBC05" d="M11.8 28.4a13.2 13.2 0 0 1 0-8.4v-5.7H4.5a22 22 0 0 0 0 19.8l7.3-5.7Z"/>' +
+    '<path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 30 2 24 2 15.4 2 8 7 4.5 14.3l7.3 5.7c1.7-5.2 6.5-9.2 12.2-9.2Z"/></svg>';
+
   const vazio = () => {
-    const c = el('div', { class:'rev__empty','data-rev':'up','data-vis':'false' },
-      el('h3', { text:'As avaliações reais dos clientes da Arena aparecem aqui.' }),
-      el('p', { text:'Preferimos publicar nada a publicar algo inventado. Enquanto os depoimentos autorizados não entram, o perfil no Google segue aberto para consulta.' }));
+    const texto = el('div', {},
+      el('h3', { text:'A reputação da Arena se constrói no Google — e é lá que ela pode ser conferida.' }),
+      el('p', { text:'Nenhum depoimento é escrito aqui. Enquanto os clientes não autorizam a publicação, esta seção aponta para o perfil real, onde cada avaliação tem nome, data e resposta.' }));
+    const acoes = el('div', { class:'gbox__a' });
     if (temGoogle || CONFIG.googlePlaceId || temMapa)
-      c.append(el('a', { class:'link-u', href: urlGoogle || urlMaps, target:'_blank', rel:'noopener noreferrer',
-        onclick: () => track('click_google', { source:'avaliacoes_vazio' }), text:'Ver avaliações no Google' }));
-    box.append(c); observarReveals(box);
+      acoes.append(el('a', { class:'btn btn--p', href: urlGoogle || urlMaps, target:'_blank', rel:'noopener noreferrer',
+        onclick: () => track('click_google', { source:'avaliacoes_vazio' }) }, el('span',{text:'Ver no Google'})));
+    if (temWhats)
+      acoes.append(el('a', { class:'link-u','data-wa':'','data-src':'avaliacoes',
+        text:'Já é cliente? Avalie a Arena' }));
+    texto.append(acoes);
+
+    const c = el('div', { class:'gbox','data-rev':'up','data-vis':'false' },
+      el('span', { class:'gbox__g','aria-hidden':'true', html: LOGO_G }), texto);
+    box.append(c); observarReveals(box); ligarWhats(box);
   };
 
   /* Ordem de preferência: as avaliações reais coladas no CONFIG (não
@@ -2266,7 +2413,8 @@ function renderServicos(){
       'aria-label':`Falar no WhatsApp sobre ${sv.nome}`, html: ICONE_WA });
     acoes.append(wa);
 
-    ul.append(el('li', { 'data-rev':'up','data-vis':'false', style:`transition-delay:${Math.min(i,5)*60}ms` },
+    const noTrilho = ul.hasAttribute('data-trilho');
+    ul.append(el('li', noTrilho ? {} : { 'data-rev':'up','data-vis':'false', style:`transition-delay:${Math.min(i,5)*60}ms` },
       el('article', { class:'card' },
         el('a', { class:'card__link', href:`#/servico/${sv.slug}`,
           'aria-label':`Ver detalhes de ${sv.nome}` }),
@@ -2733,6 +2881,7 @@ async function rotear(){
   if (r.desc) setMeta('description', r.desc);
   setMeta('robots', r.noindex ? 'noindex,nofollow' : 'index,follow');
   montarMolduras(view); observarReveals(view); ligarWhats(view); ligarVideo();
+  ligarCenografia(view);
   atualizarNavAtiva(caminho);
 
   // Âncora da home só depois de a home existir no DOM.
@@ -2904,6 +3053,175 @@ function montarJsonLd(){
   const tag = $('#ld'); if (tag) tag.textContent = JSON.stringify([neg, faq]);
 }
 
+
+/* ======================================================================
+   CENOGRAFIA DE SCROLL
+   ----------------------------------------------------------------------
+   Um rAF só, agendado por um listener passivo. Nada aqui lê layout dentro
+   do laço: as medidas são tiradas uma vez e recalculadas em resize, para
+   a rolagem não disparar reflow a cada quadro.
+
+   Se `prefers-reduced-motion` estiver ligado, nada disso roda — e como o
+   CSS deixa tudo visível por padrão, a página continua inteira.
+   ====================================================================== */
+const SEM_MOVIMENTO = () => window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* Quebra o texto em palavras para revelar uma a uma. Faz isso em JS de
+   propósito: no HTML o texto segue limpo, e leitor de tela e busca leem a
+   frase inteira, não uma pilha de <span>. */
+function partirPalavras(raiz = document){
+  $$('[data-split]', raiz).forEach(n => {
+    if (n.dataset.partido === '1') return;
+    n.dataset.partido = '1';
+    const frag = document.createDocumentFragment();
+    String(n.textContent).trim().split(/\s+/).forEach((p, i) => {
+      const w = el('span', { class:'pal', text:p, style:`transition-delay:${Math.min(i,14)*42}ms` });
+      frag.append(w, document.createTextNode(' '));
+    });
+    n.textContent = '';
+    n.append(frag);
+    n.dataset.visivel = 'false';
+  });
+}
+
+/* Conta até o número real. Nunca inventa: lê o valor que já está escrito
+   no HTML, para quem não tem JavaScript ver exatamente o mesmo. */
+function contar(n){
+  const alvo = Number(n.dataset.conta || n.textContent.replace(/\D/g,'')) || 0;
+  const t0 = performance.now(), dur = 900;
+  const passo = (t) => {
+    const p = Math.min(1, (t - t0) / dur);
+    const e = 1 - Math.pow(1 - p, 3);
+    n.textContent = String(Math.round(alvo * e));
+    if (p < 1) requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+}
+
+function ligarCenografia(raiz = document){
+  if (SEM_MOVIMENTO()) return;
+
+  partirPalavras(raiz);
+
+  /* --- entrada em cena: palavras e contadores --- */
+  const entrada = new IntersectionObserver((itens) => {
+    itens.forEach(i => {
+      if (!i.isIntersecting) return;
+      const n = i.target;
+      if (n.hasAttribute('data-split')) n.dataset.visivel = 'true';
+      if (n.hasAttribute('data-conta') && n.dataset.contou !== '1'){ n.dataset.contou = '1'; contar(n); }
+      entrada.unobserve(n);
+    });
+  }, { rootMargin:'0px 0px -12% 0px', threshold:0.18 });
+  /* Quem já ficou para trás antes do observer existir — caso de quem abre
+     a página direto num #ancora — entra em cena na hora, sem esperar um
+     cruzamento que nunca vai acontecer. */
+  $$('[data-split],[data-conta]', raiz).forEach(n => {
+    if (n.getBoundingClientRect().bottom < 0){
+      if (n.hasAttribute('data-split')) n.dataset.visivel = 'true';
+      if (n.hasAttribute('data-conta')) n.dataset.contou = '1';
+      return;
+    }
+    entrada.observe(n);
+  });
+
+  /* --- medidas: tiradas fora do laço --- */
+  const paralaxe = $$('[data-par]', raiz).map(n => ({ n, k: Number(n.dataset.par) || 0.12, topo:0, alt:0 }));
+  const trilho = $('#servicos');
+  const faixa = $('[data-trilho]');
+  const marcaT = $('#trilhoP');
+  const barra = $('#progI');
+  const heroG = $('.hero__grid');
+  const secoes = $$('#view > section[id]').map(n => ({ id:n.id, n, topo:0 }));
+  const links = $$('.rail a');
+  let H = 0, janela = 0, med = { trilhoTopo:0, trilhoAlt:0, corrida:0 };
+
+  const medir = () => {
+    janela = window.innerHeight;
+    H = document.documentElement.scrollHeight - janela;
+    paralaxe.forEach(p => {
+      const r = p.n.getBoundingClientRect();
+      p.topo = r.top + window.scrollY; p.alt = r.height;
+    });
+    secoes.forEach(s => { s.topo = s.n.getBoundingClientRect().top + window.scrollY; });
+    med.pinado = false;
+    if (trilho && faixa && marcaT){
+      med.pinado = getComputedStyle(marcaT).position === 'sticky'
+                && getComputedStyle(faixa).overflowX === 'visible';
+      if (!med.pinado){
+        faixa.style.transform = '';     // devolve a faixa ao scroll nativo
+        med.corrida = 0;
+      } else {
+        const r = trilho.getBoundingClientRect();
+        med.trilhoTopo = r.top + window.scrollY;
+        med.trilhoAlt = r.height - marcaT.offsetHeight;
+        // O quanto a faixa anda para o último cartão encostar na borda.
+        med.corrida = Math.max(0, faixa.scrollWidth - window.innerWidth + 24);
+      }
+    }
+  };
+
+  let ativa = '';
+  const pintar = () => {
+    const y = window.scrollY;
+
+    if (barra) barra.style.transform = `scaleX(${H > 0 ? Math.min(1, y / H) : 0})`;
+
+    // O hero não some: ele se afasta. A primeira dobra ganha profundidade
+    // em vez de simplesmente rolar para fora.
+    if (heroG && y < janela * 1.25){
+      const p = Math.min(1, y / janela);
+      heroG.style.opacity = String(1 - p * 0.92);
+      heroG.style.transform = `translate3d(0,${(p * -70).toFixed(1)}px,0) scale(${(1 - p * 0.04).toFixed(4)})`;
+    }
+
+    for (let i = 0; i < paralaxe.length; i++){
+      const p = paralaxe[i];
+      const d = (y + janela - p.topo) / (janela + p.alt);
+      if (d < -0.2 || d > 1.2) continue;
+      p.n.style.transform = `translate3d(0,${((d - 0.5) * p.k * 100).toFixed(2)}px,0)`;
+    }
+
+    // Trilho horizontal: a rolagem vertical vira deslocamento lateral.
+    if (med.pinado && faixa && med.corrida > 0 && med.trilhoAlt > 0){
+      const p = Math.min(1, Math.max(0, (y - med.trilhoTopo) / med.trilhoAlt));
+      faixa.style.transform = `translate3d(${(-p * med.corrida).toFixed(1)}px,0,0)`;
+      if (marcaT) marcaT.style.setProperty('--p', String(p));
+    }
+
+    // Qual seção está mandando na tela agora.
+    let atual = secoes.length ? secoes[0].id : '';
+    for (let i = 0; i < secoes.length; i++) if (y + janela * 0.42 >= secoes[i].topo) atual = secoes[i].id;
+    if (atual !== ativa){
+      ativa = atual;
+      links.forEach(a => a.setAttribute('aria-current', String(a.dataset.alvo === ativa)));
+    }
+  };
+
+  let agendado = false;
+  const aoRolar = () => {
+    if (agendado) return;
+    agendado = true;
+    requestAnimationFrame(() => { agendado = false; pintar(); });
+  };
+
+  medir(); pintar();
+  window.addEventListener('scroll', aoRolar, { passive:true });
+  window.addEventListener('resize', () => { medir(); pintar(); }, { passive:true });
+  // O trilho só tem altura depois que as imagens e fontes assentam.
+  window.addEventListener('load', () => { medir(); pintar(); }, { once:true });
+  setTimeout(() => { medir(); pintar(); }, 600);
+}
+
+/* Cortina entre rotas: esconde o salto de scroll e o repintar da página. */
+function cortina(){
+  if (SEM_MOVIMENTO()) return;
+  const c = $('#cort'); if (!c) return;
+  c.dataset.on = 'false';
+  void c.offsetWidth;          // reinicia a animação
+  c.dataset.on = 'true';
+}
+
 /* --- vídeo do hero: roda sozinho no HTML, o JS só economiza ---
    Sem JavaScript o autoplay do próprio <video> resolve. O que só dá para
    fazer aqui: respeitar quem pediu menos movimento e parar de decodificar
@@ -2953,7 +3271,7 @@ function iniciar(){
   homeHTML = view ? view.innerHTML : '';
   montarNav(); ligarMenu(); ligarScroll(); ligarMagnetico();
   montarJsonLd(); ligarWhats(); carregarAnalytics(); ligarPreloader();
-  window.addEventListener('hashchange', () => { rotear(); });
+  window.addEventListener('hashchange', () => { cortina(); rotear(); });
   rotear();
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);

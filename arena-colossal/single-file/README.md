@@ -26,6 +26,31 @@ qualquer outra             404 com caminho de volta
 A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
 são montadas pelo roteador por hash.
 
+### A cenografia de scroll
+
+Cinco efeitos, e todos são enfeite que precisa sumir sem quebrar nada:
+
+| Efeito | Como degrada |
+| --- | --- |
+| Barra de progresso no topo | some |
+| Trilho de seções à direita | só aparece acima de 1180px e com JS |
+| Serviços em trilho horizontal | vira carrossel nativo (`scroll-snap`), que o dedo arrasta |
+| Declaração revelada palavra a palavra | o texto aparece inteiro |
+| Números que contam | mostram o valor final, que já está escrito no HTML |
+
+Tudo roda num `requestAnimationFrame` só, agendado por listener passivo, e
+nenhuma medida é lida dentro do laço — elas são tiradas uma vez e refeitas
+no resize. Só `transform` e `opacity` entram na conta.
+
+`prefers-reduced-motion` desliga o conjunto inteiro. Como o CSS deixa tudo
+visível por padrão e só esconde sob a classe `.js`, nada depende do script
+para ser lido.
+
+**O trilho horizontal exige tela alta** (≥1024×800). Abaixo disso o cartão
+não caberia em pé e o botão de agendar — que é o ponto da seção — seria o
+primeiro a ser espremido; então o modo fixo nem liga, e o carrossel nativo
+assume. Medido em nove tamanhos de tela.
+
 ### A home é curta de propósito
 
 Sete blocos: abertura, serviços, prova social, como funciona, diagnóstico,
