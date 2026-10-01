@@ -1,0 +1,306 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 9vh, 120px);
+  padding-block: calc(var(--nav-height) + 40px) clamp(64px, 10vh, 120px);
+}
+
+/* --- Trilha --------------------------------------------------------------- */
+
+.trilha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-size: var(--step--1);
+  color: var(--gray-500);
+}
+
+.trilha a {
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.trilha a:hover {
+  color: var(--white);
+}
+
+.trilha [aria-current] {
+  color: var(--gray-300);
+}
+
+/* --- Topo ----------------------------------------------------------------- */
+
+.hero {
+  display: block;
+}
+
+.heroCorpo {
+  display: grid;
+  gap: clamp(32px, 5vw, 56px);
+}
+
+.heroTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.numero {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+}
+
+.titulo {
+  font-size: var(--step-4);
+  color: var(--white);
+}
+
+.resumo {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--gray-100);
+  max-width: 46ch;
+}
+
+.descricao {
+  font-size: var(--step-0);
+  line-height: 1.75;
+  color: var(--gray-300);
+  max-width: 58ch;
+}
+
+.ficha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 44px;
+  margin-top: 12px;
+  padding-block: 18px;
+  border-block: var(--border);
+}
+
+.ficha dt {
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.ficha dd {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.whats {
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--gray-300);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.5);
+  padding-bottom: 3px;
+}
+
+.whats:hover {
+  color: var(--white);
+}
+
+.heroMedia {
+  min-width: 0;
+}
+
+/* --- Blocos --------------------------------------------------------------- */
+
+.bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.blocoTitulo {
+  font-size: var(--step-2);
+  color: var(--white);
+}
+
+.etapas {
+  display: grid;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.09);
+  border: var(--border);
+  grid-template-columns: 1fr;
+}
+
+.etapa {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(20px, 3.5vw, 30px);
+  background: var(--off-black);
+}
+
+.etapaIndice {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.etapaTexto {
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--gray-300);
+}
+
+/* --- Escopo --------------------------------------------------------------- */
+
+.limites {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+.limiteCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(22px, 4vw, 34px);
+  background: var(--surface);
+  border: var(--border);
+}
+
+.limiteCard[data-tipo='indicado'] {
+  border-left: 2px solid var(--gold);
+}
+
+/* O bloco do limite tem peso visual próprio: é o que o setor inteiro esconde. */
+.limiteCard[data-tipo='nao'] {
+  border-left: 2px solid var(--gray-700);
+  background: var(--off-black);
+}
+
+.limiteTitulo {
+  font-size: var(--step-1);
+  line-height: 1.25;
+  color: var(--white);
+}
+
+.limiteTexto {
+  font-size: var(--step-0);
+  line-height: 1.75;
+  color: var(--gray-300);
+  max-width: 54ch;
+}
+
+/* --- Relacionados --------------------------------------------------------- */
+
+.relacionados {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.relacionado {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border: var(--border);
+  transition: border-color 320ms var(--ease-out), background-color 320ms var(--ease-out);
+}
+
+.relacionado:hover {
+  border-color: rgba(201, 162, 39, 0.45);
+  background: var(--surface-raised);
+}
+
+.relacionadoIndice {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+}
+
+.relacionadoNome {
+  grid-column: 2;
+  font-size: var(--step-0);
+  color: var(--white);
+}
+
+.relacionadoResumo {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--gray-500);
+}
+
+.seta {
+  grid-row: 1 / span 2;
+  color: var(--gray-500);
+  transition: transform 320ms var(--ease-out);
+}
+
+.relacionado:hover .seta {
+  transform: translateX(4px);
+  color: var(--gold);
+}
+
+/* --- Fechamento ----------------------------------------------------------- */
+
+.fechamento {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  padding-top: clamp(32px, 5vh, 56px);
+  border-top: var(--border);
+}
+
+.fechamentoTexto {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  max-width: 28ch;
+}
+
+@media (min-width: 700px) {
+  .etapas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .limites {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .relacionados {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroCorpo {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+}

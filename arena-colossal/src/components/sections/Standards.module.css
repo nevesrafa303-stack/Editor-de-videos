@@ -1,0 +1,70 @@
+.section {
+  background: var(--black);
+  border-top: var(--border);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 5vh, 64px);
+}
+
+.head {
+  max-width: 62ch;
+}
+
+.list {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: 1fr;
+  /* O fundo vira a linha divisória: a grade se fecha sozinha em qualquer
+     número de colunas, sem borda sobrando na última célula. */
+  background: rgba(255, 255, 255, 0.09);
+  border: var(--border);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(22px, 4vw, 32px);
+  background: var(--off-black);
+  transition: background-color 420ms var(--ease-out);
+}
+
+.item:hover {
+  background: var(--surface);
+}
+
+.index {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.itemTitle {
+  font-size: var(--step-1);
+  line-height: 1.2;
+  color: var(--white);
+}
+
+.itemText {
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--gray-300);
+}
+
+@media (min-width: 700px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

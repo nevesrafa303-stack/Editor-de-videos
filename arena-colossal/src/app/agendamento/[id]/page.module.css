@@ -1,0 +1,139 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: calc(var(--nav-height) + 56px) clamp(64px, 10vh, 120px);
+}
+
+.topo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.titulo {
+  font-size: var(--step-3);
+  color: var(--white);
+}
+
+.subtitulo {
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--gray-300);
+  max-width: 54ch;
+}
+
+.ficha {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-top: var(--border);
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-block: 16px;
+  border-bottom: var(--border);
+}
+
+.linha dt {
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.linha dd {
+  margin: 0;
+  font-size: var(--step-0);
+  color: var(--white);
+  text-align: right;
+}
+
+.entrega {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(20px, 4vw, 28px);
+  background: var(--surface);
+  border: var(--border);
+}
+
+.entregaTitulo {
+  font-size: var(--step-1);
+  color: var(--white);
+}
+
+.canais {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.canal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--step--1);
+  color: var(--gray-300);
+}
+
+.canalStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-500);
+}
+
+/* Bolinha de estado antes do rótulo — cor só reforça o texto, nunca o substitui. */
+.canalStatus::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.canal[data-status='sent'] .canalStatus {
+  color: #7fbf8a;
+}
+
+.canal[data-status='failed'] .canalStatus {
+  color: #e98181;
+}
+
+.entregaNota {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-500);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+.whats {
+  font-size: var(--step--1);
+  color: var(--gray-300);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.5);
+  padding-bottom: 3px;
+}
+
+.whats:hover {
+  color: var(--white);
+}
+
+.codigo {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--gray-700);
+}
