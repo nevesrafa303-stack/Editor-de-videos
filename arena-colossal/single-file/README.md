@@ -26,6 +26,22 @@ qualquer outra             404 com caminho de volta
 A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
 são montadas pelo roteador por hash.
 
+### Rolagem com inércia
+
+A página não para no instante em que o dedo para: ela desacelera. É a
+diferença de sensação entre um site comum e um site caro.
+
+Feito movendo a rolagem **real** (`window.scrollTo`) quadro a quadro, nunca
+transformando o `body`. Isso importa: transformar o body quebraria
+`position:sticky`, e o trilho de serviços inteiro depende dele.
+
+Nunca liga em toque (a rolagem nativa do celular é melhor que qualquer
+imitação), em ponteiro grosso, abaixo de 1024px, ou com
+`prefers-reduced-motion`. O teclado tem precedência: `End`, `PageDown`,
+setas e espaço cortam a inércia na hora. Elementos que rolam sozinhos — o
+carrossel, as etapas do agendamento, a tira de dias — ficam marcados com
+`data-rola-sozinho` e a roda continua sendo deles.
+
 ### A cenografia de scroll
 
 Cinco efeitos, e todos são enfeite que precisa sumir sem quebrar nada:
