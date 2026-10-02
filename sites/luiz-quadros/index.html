@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-8PgJZxrlcgLo2oLe380PDmHcs5L8cnFN8oYITStUJ4w='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-PxNaQEqCFfuiYHE1tmB45+UEjnbmrsWPqWrm8kZBRPE='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Luiz Quadros · Imóveis na Planta em Itapema e Porto Belo · CRECI-SC 77456F</title>
 <meta name="description" content="Luiz Quadros, corretor especialista em imóveis na planta em Itapema e Porto Belo (SC). R$ 130 milhões em VGV em agosto de 2026 e Campeão Geral de Vendas da unidade O Novo Imobiliário. Curadoria de lançamentos, leitura de tabela e acompanhamento até as chaves.">
@@ -27,11 +27,10 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 
-<link rel="preload" href="assets/fonts/cormorant-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/cormorant-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/geistmono-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/hero-luiz-480.webp 480w, assets/img/hero-luiz-720.webp 720w, assets/img/hero-luiz-1020.webp 1020w" imagesizes="(max-width: 900px) 100vw, 44vw" fetchpriority="high">
+<link rel="preload" href="assets/fonts/bodoni-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jakarta.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/img/luiz-recorte-560.webp 560w, assets/img/luiz-recorte-840.webp 840w, assets/img/luiz-recorte-1020.webp 1020w" imagesizes="(max-width: 900px) 92vw, 34vw" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/style.min.css">
 
 <script type="application/ld+json">
@@ -82,7 +81,7 @@
    "identifier": { "@type": "PropertyValue", "propertyID": "CRECI-SC", "value": "77456F" },
    "worksFor": { "@type": "Organization", "name": "O Novo Imobiliário", "sameAs": "https://www.instagram.com/onovoimobiliario/" },
    "award": ["Campeão Geral de Vendas da Unidade · O Novo Imobiliário", "Especialista ONI do Mês · O Novo Imobiliário"],
-   "image": "https://www.luizquadros.com.br/assets/img/retrato-escritorio-720.webp",
+   "image": "https://www.luizquadros.com.br/assets/img/retrato-recorte-720.webp",
    "sameAs": ["https://www.instagram.com/luizquadrosde/"]
   },
   {
@@ -100,7 +99,7 @@
  ]
 }
 </script>
-<script data-boot>(function(t){var e=t.documentElement;e.classList.remove("no-js"),e.classList.add("js");var s=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;s&&e.classList.add("reduced");try{!s&&!sessionStorage.getItem("lq-intro")&&(e.classList.add("intro"),sessionStorage.setItem("lq-intro","1"))}catch(d){}})(document);</script>
+<script data-boot>(function(s){var e=s.documentElement;e.classList.remove("no-js"),e.classList.add("js");var t=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;t&&e.classList.add("reduced");try{!t&&window.innerWidth>900&&!sessionStorage.getItem("lq-intro")&&(e.classList.add("intro"),sessionStorage.setItem("lq-intro","1"))}catch(d){}})(document);</script>
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -113,14 +112,9 @@
 
 <!-- INTRO -->
 <div class="loader" aria-hidden="true">
-  <svg class="loader-svg" viewBox="0 0 240 240">
-    <rect class="ld" x="20" y="20" width="200" height="200"/>
-    <line class="ld" x1="20" y1="120" x2="220" y2="120"/>
-    <line class="ld" x1="120" y1="20" x2="120" y2="220"/>
-    <line class="ld" x1="20" y1="20" x2="220" y2="220"/>
-  </svg>
   <p class="loader-mark"><span>L</span><em>Q</em></p>
-  <p class="loader-meta mono"><span>VGV · Ago 2026</span><span class="loader-num">R$ 000 mi</span><span>CRECI-SC 77456F</span></p>
+  <div class="loader-bar"><span></span></div>
+  <p class="loader-meta"><span class="kicker">VGV · agosto de 2026</span><span class="loader-num">R$ 000 mi</span><span class="kicker">CRECI-SC 77456F</span></p>
 </div>
 
 <div class="progress" aria-hidden="true"><span></span></div>
@@ -129,7 +123,7 @@
   <div class="nav-in">
     <a href="#topo" class="brand">
       <span class="brand-mark">L<em>Q</em></span>
-      <span class="brand-txt">Luiz Quadros<small class="mono">Corretor · CRECI-SC 77456F</small></span>
+      <span class="brand-txt">Luiz Quadros<small class="kicker">Corretor · CRECI-SC 77456F</small></span>
     </a>
     <nav aria-label="Principal">
       <ul class="nav-links">
@@ -148,41 +142,34 @@
 
 <div class="menu" id="menu" hidden>
   <ul>
-    <li><a href="#resultados"><i class="mono">01</i>Resultados</a></li>
-    <li><a href="#metodo"><i class="mono">02</i>Método</a></li>
-    <li><a href="#regiao"><i class="mono">03</i>Região</a></li>
-    <li><a href="#simulador"><i class="mono">04</i>Simulador</a></li>
-    <li><a href="#sobre"><i class="mono">05</i>Sobre</a></li>
-    <li><a href="#duvidas"><i class="mono">06</i>Dúvidas</a></li>
+    <li><a href="#resultados"><i>01</i>Resultados</a></li>
+    <li><a href="#metodo"><i>02</i>Método</a></li>
+    <li><a href="#regiao"><i>03</i>Região</a></li>
+    <li><a href="#simulador"><i>04</i>Simulador</a></li>
+    <li><a href="#sobre"><i>05</i>Sobre</a></li>
+    <li><a href="#duvidas"><i>06</i>Dúvidas</a></li>
   </ul>
   <a class="btn btn-gold js-wa" href="#contato" data-msg="Olá, Luiz! Vim pelo seu site e quero conversar sobre imóveis na planta.">Falar com Luiz no WhatsApp</a>
-  <p class="menu-foot mono">Itapema · Porto Belo — 27°05′S 48°36′W</p>
+  <p class="menu-foot kicker">Itapema · Porto Belo — Santa Catarina</p>
 </div>
 
 <main id="conteudo">
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="topo" aria-labelledby="t-hero">
-    <svg class="blueprint" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g class="bp-grid">
-        <line x1="0" y1="200" x2="1000" y2="200"/><line x1="0" y1="400" x2="1000" y2="400"/><line x1="0" y1="600" x2="1000" y2="600"/><line x1="0" y1="800" x2="1000" y2="800"/>
-        <line x1="200" y1="0" x2="200" y2="1000"/><line x1="400" y1="0" x2="400" y2="1000"/><line x1="600" y1="0" x2="600" y2="1000"/><line x1="800" y1="0" x2="800" y2="1000"/>
-      </g>
-      <path class="bp bp-1" d="M620 960V320h320v640"/>
-      <path class="bp bp-2" d="M620 480h320M620 640h320M620 800h320M780 320v640"/>
-      <path class="bp bp-3" d="M585 320v640M580 320h10M580 960h10"/>
-      <path class="bp bp-4" d="M620 285h320M620 280v10M940 280v10"/>
-      <circle class="bp bp-5" cx="780" cy="480" r="70"/>
-    </svg>
-    <div class="hero-in">
+    <div class="hero-stage">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <p class="hero-name" aria-hidden="true"><span class="hn hn-1">Luiz</span> <span class="hn hn-2">Quadros</span></p>
+      <figure class="hero-figure">
+        <img src="assets/img/luiz-recorte-840.webp" srcset="assets/img/luiz-recorte-560.webp 560w, assets/img/luiz-recorte-840.webp 840w, assets/img/luiz-recorte-1020.webp 1020w" sizes="(max-width: 900px) 92vw, 34vw" width="1020" height="1856" alt="Luiz Quadros, corretor de imóveis, sorrindo de camisa branca" fetchpriority="high" decoding="async">
+      </figure>
       <div class="hero-copy">
-        <p class="eyebrow mono"><span class="dot"></span>Especialista em imóveis na planta · Itapema &amp; Porto Belo</p>
+        <p class="eyebrow kicker"><span class="dot"></span>Especialista em imóveis na planta</p>
         <h1 class="hero-title" id="t-hero">
           <span class="ln"><span>Imóveis na planta,</span></span>
-          <span class="ln"><span>decididos com</span></span>
-          <span class="ln"><span><em>estratégia.</em></span></span>
+          <span class="ln"><span>decididos com <em>estratégia.</em></span></span>
         </h1>
-        <p class="hero-sub">Curadoria de lançamentos no litoral catarinense para quem quer investir bem ou realizar o próximo endereço — da escolha da unidade à entrega das chaves.</p>
+        <p class="hero-sub">Curadoria de lançamentos em Itapema e Porto Belo para quem quer investir bem ou realizar o próximo endereço — da escolha da unidade às chaves.</p>
         <div class="hero-ctas">
           <a class="btn btn-gold js-wa" href="#contato" data-msg="Olá, Luiz! Vim pelo seu site e quero uma curadoria de imóveis na planta.">
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>Quero uma curadoria
@@ -190,44 +177,49 @@
           <a class="btn btn-line" href="#resultados">Ver resultados<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
-      <figure class="hero-figure">
-        <img src="assets/img/hero-luiz-720.webp" srcset="assets/img/hero-luiz-480.webp 480w, assets/img/hero-luiz-720.webp 720w, assets/img/hero-luiz-1020.webp 1020w" sizes="(max-width: 900px) 100vw, 44vw" width="1020" height="1935" alt="Luiz Quadros, corretor de imóveis, sorrindo de camisa branca" fetchpriority="high" decoding="async">
-        <figcaption class="hero-tag mono"><b>R$ 130 mi</b><span>em VGV · agosto de 2026</span></figcaption>
-      </figure>
+      <aside class="hero-card" aria-label="Destaques">
+        <p class="kicker">VGV · agosto de 2026</p>
+        <p class="hero-card-num">R$ 130<small>mi</small></p>
+        <ul>
+          <li><b>Campeão</b> geral de vendas da unidade</li>
+          <li><b>2×</b> Especialista do Mês</li>
+          <li><b>CRECI-SC</b> 77456F</li>
+        </ul>
+      </aside>
+      <p class="hero-scroll kicker" aria-hidden="true"><span></span>Role para descobrir</p>
     </div>
-    <ul class="hero-foot mono" aria-label="Destaques">
-      <li><b>CRECI-SC</b> 77456F</li>
-      <li><b>Campeão</b> geral de vendas da unidade</li>
-      <li><b>2×</b> Especialista do Mês</li>
-      <li class="hero-scroll" aria-hidden="true">Role <span></span></li>
-    </ul>
   </section>
 
   <!-- ============ FAIXA ============ -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>R$ 130 milhões em VGV em um único mês</span><i>◆</i><span>Campeão Geral de Vendas da Unidade</span><i>◆</i><span>Especialista ONI do Mês</span><i>◆</i><span>O Novo Imobiliário</span><i>◆</i><span>Itapema · Porto Belo</span><i>◆</i>
-      <span>R$ 130 milhões em VGV em um único mês</span><i>◆</i><span>Campeão Geral de Vendas da Unidade</span><i>◆</i><span>Especialista ONI do Mês</span><i>◆</i><span>O Novo Imobiliário</span><i>◆</i><span>Itapema · Porto Belo</span><i>◆</i>
+      <span>R$ 130 milhões em VGV em um único mês</span><i>✦</i><span>Campeão Geral de Vendas da Unidade</span><i>✦</i><span>Especialista ONI do Mês</span><i>✦</i><span>O Novo Imobiliário</span><i>✦</i><span>Itapema · Porto Belo</span><i>✦</i>
+      <span>R$ 130 milhões em VGV em um único mês</span><i>✦</i><span>Campeão Geral de Vendas da Unidade</span><i>✦</i><span>Especialista ONI do Mês</span><i>✦</i><span>O Novo Imobiliário</span><i>✦</i><span>Itapema · Porto Belo</span><i>✦</i>
     </div>
   </div>
 
   <!-- ============ RESULTADO ============ -->
   <section class="big" id="resultados" aria-labelledby="t-big" data-gauge="Resultados">
+    <div class="big-stage">
+      <div class="wrap">
+        <p class="label"><span class="lnum">01</span>Resultado, não promessa</p>
+        <h2 class="sr-only" id="t-big">R$ 130 milhões em VGV em agosto de 2026</h2>
+        <div class="big-figure" aria-hidden="true">
+          <span class="big-cur">R$</span><span class="big-num"><span class="count" data-to="130">130</span></span><span class="big-unit">milhões</span>
+        </div>
+        <div class="big-meter" aria-hidden="true"><span></span></div>
+        <div class="big-row">
+          <p class="big-lead">em <strong>Valor Geral de Vendas</strong> no mês de <strong>agosto de 2026</strong>. Resultado não acontece por acaso — é fruto de estratégia, constância e de saber exatamente o que cada cliente procura.</p>
+          <p class="big-note">VGV · soma do valor dos imóveis vendidos no período, conforme divulgado pelo O Novo Imobiliário.</p>
+        </div>
+      </div>
+    </div>
     <div class="wrap">
-      <p class="label mono"><span class="lnum">01</span>Resultado, não promessa</p>
-      <h2 class="sr-only" id="t-big">R$ 130 milhões em VGV em agosto de 2026</h2>
-      <div class="big-figure" aria-hidden="true">
-        <span class="big-cur">R$</span><span class="big-num"><span class="count" data-to="130">130</span></span><span class="big-unit">milhões</span>
-      </div>
-      <div class="big-row">
-        <p class="big-lead">em <strong>Valor Geral de Vendas</strong> no mês de <strong>agosto de 2026</strong>. Resultado não acontece por acaso — é fruto de estratégia, constância e de saber exatamente o que cada cliente procura.</p>
-        <p class="big-note mono">VGV · soma do valor dos imóveis vendidos no período, conforme divulgado pelo O Novo Imobiliário.</p>
-      </div>
       <ul class="stats">
-        <li><b class="mono">01</b><span class="stat-v">1º</span><span class="stat-l">Campeão Geral de Vendas da unidade O Novo Imobiliário</span></li>
-        <li><b class="mono">02</b><span class="stat-v"><span class="count" data-to="2">2</span>×</span><span class="stat-l">Especialista ONI do Mês — dois meses, dois reconhecimentos</span></li>
-        <li><b class="mono">03</b><span class="stat-v"><span class="count" data-to="2">2</span></span><span class="stat-l">cidades de atuação: Itapema e Porto Belo</span></li>
-        <li><b class="mono">04</b><span class="stat-v">100%</span><span class="stat-l">foco em imóveis na planta e lançamentos</span></li>
+        <li><span class="stat-v">1º</span><span class="stat-l">Campeão Geral de Vendas da unidade O Novo Imobiliário</span></li>
+        <li><span class="stat-v"><span class="count" data-to="2">2</span>×</span><span class="stat-l">Especialista ONI do Mês — dois meses, dois reconhecimentos</span></li>
+        <li><span class="stat-v"><span class="count" data-to="2">2</span></span><span class="stat-l">cidades de atuação: Itapema e Porto Belo</span></li>
+        <li><span class="stat-v">100<small>%</small></span><span class="stat-l">foco em imóveis na planta e lançamentos</span></li>
       </ul>
     </div>
   </section>
@@ -235,107 +227,66 @@
   <!-- ============ MANIFESTO ============ -->
   <section class="manifesto sheet" aria-label="Manifesto" data-gauge="Manifesto">
     <div class="wrap">
-      <p class="label mono"><span class="lnum">02</span>Mais que imóveis</p>
+      <p class="label"><span class="lnum">02</span>Mais que imóveis</p>
       <p class="manifesto-text" data-words>Comprar na planta é comprar o <em>futuro</em>. Antes da sua assinatura, alguém precisa conhecer a construtora, o terreno, a tabela, o bairro e o ritmo do mercado. <em>Esse é o meu trabalho:</em> transformar uma decisão grande em uma decisão segura.</p>
       <div class="manifesto-foot">
         <p class="signature" aria-hidden="true">Luiz Quadros</p>
-        <p class="mono muted">Imóveis · Pessoas · Histórias reais</p>
+        <p class="kicker muted">Imóveis · Pessoas · Histórias reais</p>
       </div>
     </div>
   </section>
 
   <!-- ============ POR QUE NA PLANTA ============ -->
   <section class="why" id="planta" aria-labelledby="t-why" data-gauge="Na planta">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="label mono"><span class="lnum">03</span>A tese</p>
+    <div class="wrap why-in">
+      <div class="why-head">
+        <p class="label"><span class="lnum">03</span>A tese</p>
         <h2 id="t-why">Por que tantos investidores <em>entram na planta.</em></h2>
         <p class="muted-l">Quem compra no lançamento acessa condições que deixam de existir quando o prédio fica pronto. Mas só faz sentido com a escolha certa.</p>
       </div>
-      <ol class="why-grid">
+      <ol class="why-stack">
         <li class="why-card">
-          <span class="why-n mono">A</span>
-          <h3>Tabela de lançamento</h3>
-          <p>As primeiras unidades costumam sair pelos menores valores da tabela, que tende a ser reajustada a cada fase de vendas.</p>
-          <svg class="why-ico" viewBox="0 0 80 80" aria-hidden="true"><path d="M8 64h64M16 64V40M32 64V30M48 64V20M64 64V12"/></svg>
+          <span class="why-n">A</span>
+          <div class="why-body"><h3>Tabela de lançamento</h3><p>As primeiras unidades costumam sair pelos menores valores da tabela, que tende a ser reajustada a cada fase de vendas.</p></div>
+          <p class="why-tag kicker">Preço de entrada</p>
         </li>
         <li class="why-card">
-          <span class="why-n mono">B</span>
-          <h3>Pagamento durante a obra</h3>
-          <p>Entrada, parcelas mensais e reforços diluídos ao longo da construção — sem precisar do valor total à vista.</p>
-          <svg class="why-ico" viewBox="0 0 80 80" aria-hidden="true"><path d="M10 60h12V48h12V36h12V24h12V12h12"/></svg>
+          <span class="why-n">B</span>
+          <div class="why-body"><h3>Pagamento durante a obra</h3><p>Entrada, parcelas mensais e reforços diluídos ao longo da construção — sem precisar do valor total à vista.</p></div>
+          <p class="why-tag kicker">Fluxo diluído</p>
         </li>
         <li class="why-card">
-          <span class="why-n mono">C</span>
-          <h3>Potencial de valorização</h3>
-          <p>Entre o lançamento e a entrega, o imóvel pode se valorizar — dependendo de localização, produto e mercado. Não é garantia; é análise.</p>
-          <svg class="why-ico" viewBox="0 0 80 80" aria-hidden="true"><path d="M8 66C30 62 44 46 72 14M56 14h16v16"/></svg>
+          <span class="why-n">C</span>
+          <div class="why-body"><h3>Potencial de valorização</h3><p>Entre o lançamento e a entrega, o imóvel pode se valorizar — dependendo de localização, produto e mercado. Não é garantia; é análise.</p></div>
+          <p class="why-tag kicker">Até a entrega</p>
         </li>
         <li class="why-card">
-          <span class="why-n mono">D</span>
-          <h3>As melhores unidades</h3>
-          <p>No início, você escolhe andar, posição solar e vista antes de todo mundo. Depois, sobra o que ninguém quis.</p>
-          <svg class="why-ico" viewBox="0 0 80 80" aria-hidden="true"><path d="M20 72V8h40v64M20 24h40M20 40h40M20 56h40"/><rect x="42" y="12" width="14" height="8"/></svg>
+          <span class="why-n">D</span>
+          <div class="why-body"><h3>As melhores unidades</h3><p>No início, você escolhe andar, posição solar e vista antes de todo mundo. Depois, sobra o que ninguém quis.</p></div>
+          <p class="why-tag kicker">Primeira escolha</p>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- ============ MÉTODO ============ -->
+  <!-- ============ MÉTODO (horizontal) ============ -->
   <section class="method" id="metodo" aria-labelledby="t-method" data-gauge="Método">
-    <div class="method-in">
-      <div class="method-side">
-        <p class="label mono"><span class="lnum">04</span>Método LQ</p>
-        <h2 id="t-method">Cinco etapas entre a <em>vontade</em> e as <em>chaves.</em></h2>
-        <div class="method-plan" aria-hidden="true">
-          <svg viewBox="0 0 400 400">
-            <rect class="mp mp-0" x="40" y="40" width="320" height="320"/>
-            <path class="mp mp-1" d="M40 160h160V40"/>
-            <path class="mp mp-2" d="M200 160h160M280 160V40"/>
-            <path class="mp mp-3" d="M40 260h120v100M160 260h80"/>
-            <path class="mp mp-4" d="M240 260v100M240 300h120"/>
-            <path class="mp mp-5" d="M110 360v-30a30 30 0 0 1 30-30"/>
-          </svg>
-          <p class="method-count mono"><b>01</b> / 05</p>
+    <div class="method-pin">
+      <div class="method-head wrap">
+        <div>
+          <p class="label"><span class="lnum">04</span>Método LQ</p>
+          <h2 id="t-method">Cinco etapas entre a <em>vontade</em> e as <em>chaves.</em></h2>
         </div>
+        <p class="method-count" aria-hidden="true"><b>01</b><span>/ 05</span></p>
       </div>
-      <ol class="steps">
-        <li class="step" data-step="0">
-          <span class="step-n mono">01</span>
-          <div>
-            <h3>Diagnóstico</h3>
-            <p>Objetivo (valorização, renda com locação, moradia ou veraneio), prazo, perfil de risco e fluxo de caixa. Sem isso, qualquer indicação é palpite.</p>
-          </div>
-        </li>
-        <li class="step" data-step="1">
-          <span class="step-n mono">02</span>
-          <div>
-            <h3>Curadoria</h3>
-            <p>Filtro dos lançamentos que fazem sentido para você: construtora, histórico de entregas, registro da incorporação, localização e produto.</p>
-          </div>
-        </li>
-        <li class="step" data-step="2">
-          <span class="step-n mono">03</span>
-          <div>
-            <h3>Leitura da tabela</h3>
-            <p>Unidade certa, fluxo de pagamento, correção pelo INCC e o que acontece no saldo das chaves. Você entende cada número antes de decidir.</p>
-          </div>
-        </li>
-        <li class="step" data-step="3">
-          <span class="step-n mono">04</span>
-          <div>
-            <h3>Negociação e contrato</h3>
-            <p>Condições negociadas com a construtora, conferência de documentos e assinatura — presencial ou 100% digital.</p>
-          </div>
-        </li>
-        <li class="step" data-step="4">
-          <span class="step-n mono">05</span>
-          <div>
-            <h3>Acompanhamento até as chaves</h3>
-            <p>Andamento da obra, vistoria, financiamento do saldo e, se for o caso, estratégia de locação ou revenda. A venda é o começo da relação.</p>
-          </div>
-        </li>
+      <ol class="method-track">
+        <li class="mstep"><span class="mstep-n">01</span><h3>Diagnóstico</h3><p>Objetivo (valorização, renda com locação, moradia ou veraneio), prazo, perfil de risco e fluxo de caixa. Sem isso, qualquer indicação é palpite.</p></li>
+        <li class="mstep"><span class="mstep-n">02</span><h3>Curadoria</h3><p>Filtro dos lançamentos que fazem sentido para você: construtora, histórico de entregas, registro da incorporação, localização e produto.</p></li>
+        <li class="mstep"><span class="mstep-n">03</span><h3>Leitura da tabela</h3><p>Unidade certa, fluxo de pagamento, correção pelo INCC e o que acontece no saldo das chaves. Você entende cada número antes de decidir.</p></li>
+        <li class="mstep"><span class="mstep-n">04</span><h3>Negociação e contrato</h3><p>Condições negociadas com a construtora, conferência de documentos e assinatura — presencial ou 100% digital.</p></li>
+        <li class="mstep"><span class="mstep-n">05</span><h3>Até as chaves</h3><p>Andamento da obra, vistoria, financiamento do saldo e, se for o caso, estratégia de locação ou revenda. A venda é o começo da relação.</p></li>
       </ol>
+      <div class="method-bar wrap" aria-hidden="true"><span></span></div>
     </div>
   </section>
 
@@ -343,7 +294,7 @@
   <section class="region sheet" id="regiao" aria-labelledby="t-region" data-gauge="Região">
     <div class="wrap">
       <div class="sec-head">
-        <p class="label mono"><span class="lnum">05</span>Onde eu atuo</p>
+        <p class="label"><span class="lnum">05</span>Onde eu atuo</p>
         <h2 id="t-region">Dois endereços no litoral <em>mais desejado</em> de Santa Catarina.</h2>
       </div>
       <div class="region-grid">
@@ -352,31 +303,29 @@
             <title id="map-t">Mapa esquemático: Balneário Camboriú ao norte, Itapema, Porto Belo e Bombinhas ao sul</title>
             <path class="map-sea" d="M300 0H520V620H300C330 560 360 520 420 500C470 486 480 440 440 420C400 400 360 420 340 380C320 340 330 300 300 260C280 230 260 200 280 150C296 110 290 60 300 0Z"/>
             <path class="map-coast" d="M300 0C290 60 296 110 280 150C260 200 280 230 300 260C330 300 320 340 340 380C360 420 400 400 440 420C480 440 470 486 420 500C360 520 330 560 300 620"/>
-            <path class="map-road" d="M190 0C200 120 210 220 230 320C246 400 240 500 250 620"/>
             <g class="map-pin" data-city="bc"><circle cx="292" cy="70" r="5"/><text x="276" y="74" text-anchor="end">Balneário Camboriú</text></g>
-            <g class="map-pin is-main" data-city="itapema"><circle cx="284" cy="215" r="9"/><circle class="map-pulse" cx="284" cy="215" r="9"/><text x="266" y="220" text-anchor="end">Itapema</text></g>
-            <g class="map-pin is-main" data-city="portobelo"><circle cx="336" cy="372" r="9"/><circle class="map-pulse" cx="336" cy="372" r="9"/><text x="318" y="377" text-anchor="end">Porto Belo</text></g>
+            <g class="map-pin is-main" data-city="itapema"><circle cx="284" cy="215" r="9"/><circle class="map-pulse" cx="284" cy="215" r="9"/><text x="266" y="221" text-anchor="end">Itapema</text></g>
+            <g class="map-pin is-main" data-city="portobelo"><circle cx="336" cy="372" r="9"/><circle class="map-pulse" cx="336" cy="372" r="9"/><text x="318" y="378" text-anchor="end">Porto Belo</text></g>
             <g class="map-pin" data-city="bombinhas"><circle cx="446" cy="452" r="5"/><text x="446" y="478" text-anchor="middle">Bombinhas</text></g>
-            <text class="map-label" x="200" y="600" text-anchor="middle">BR-101</text>
-            <text class="map-label map-ocean" x="440" y="220" text-anchor="middle">Oceano Atlântico</text>
+            <text class="map-ocean" x="440" y="220" text-anchor="middle">Oceano Atlântico</text>
             <path class="map-n" d="M470 40l10 26-10-6-10 6Z"/><text class="map-label" x="470" y="86" text-anchor="middle">N</text>
           </svg>
-          <figcaption class="mono">Mapa esquemático · fora de escala</figcaption>
+          <figcaption class="kicker">Mapa esquemático · fora de escala</figcaption>
         </figure>
         <div class="cities">
           <article class="city" data-city="itapema">
-            <p class="mono city-geo">27°05′S · 48°36′W</p>
+            <p class="kicker city-geo">Litoral norte · SC</p>
             <h3>Itapema</h3>
             <p>Orla verticalizada, lançamentos de alto padrão e uma das praias mais procuradas do litoral norte catarinense. Mercado com forte demanda de investidores de todo o Brasil.</p>
             <ul class="tags"><li>Alto padrão</li><li>Frente mar</li><li>Liquidez</li></ul>
           </article>
           <article class="city" data-city="portobelo">
-            <p class="mono city-geo">27°09′S · 48°33′W</p>
+            <p class="kicker city-geo">Vizinha de Bombinhas · SC</p>
             <h3>Porto Belo</h3>
-            <p>Baía de águas calmas, ritmo mais tranquilo e vizinha de Bombinhas. Lançamentos com outro perfil de preço — ótimos para quem busca entrada estratégica e qualidade de vida.</p>
+            <p>Baía de águas calmas, ritmo mais tranquilo e novos lançamentos com outro perfil de preço — ótimos para quem busca entrada estratégica e qualidade de vida.</p>
             <ul class="tags"><li>Baía abrigada</li><li>Novos lançamentos</li><li>Qualidade de vida</li></ul>
           </article>
-          <p class="region-note mono">Conectadas pela BR-101 a Balneário Camboriú e Florianópolis.</p>
+          <p class="region-note kicker">Conectadas pela BR-101 a Balneário Camboriú e Florianópolis.</p>
         </div>
       </div>
     </div>
@@ -386,7 +335,7 @@
   <section class="sim" id="simulador" aria-labelledby="t-sim" data-gauge="Simulador">
     <div class="wrap">
       <div class="sec-head">
-        <p class="label mono"><span class="lnum">06</span>Simulador de fluxo</p>
+        <p class="label"><span class="lnum">06</span>Simulador de fluxo</p>
         <h2 id="t-sim">Veja como cabe <em>no seu caixa.</em></h2>
         <p class="muted-l">Monte um fluxo típico de compra na planta. É uma simulação educativa — cada empreendimento tem a sua tabela.</p>
       </div>
@@ -394,27 +343,27 @@
         <div class="sim-inputs">
           <div class="field">
             <label for="sValor">Valor do imóvel</label>
-            <output class="field-out mono" for="sValor" id="oValor">R$ 1.200.000</output>
+            <output class="field-out" for="sValor" id="oValor">R$ 1.200.000</output>
             <input type="range" id="sValor" min="300000" max="6000000" step="50000" value="1200000">
           </div>
           <div class="field">
             <label for="sEntrada">Entrada</label>
-            <output class="field-out mono" for="sEntrada" id="oEntrada">10%</output>
+            <output class="field-out" for="sEntrada" id="oEntrada">10%</output>
             <input type="range" id="sEntrada" min="5" max="50" step="1" value="10">
           </div>
           <div class="field">
             <label for="sObra">Pago durante a obra</label>
-            <output class="field-out mono" for="sObra" id="oObra">30%</output>
+            <output class="field-out" for="sObra" id="oObra">30%</output>
             <input type="range" id="sObra" min="0" max="80" step="1" value="30">
           </div>
           <div class="field">
             <label for="sPrazo">Prazo de obra</label>
-            <output class="field-out mono" for="sPrazo" id="oPrazo">36 meses</output>
+            <output class="field-out" for="sPrazo" id="oPrazo">36 meses</output>
             <input type="range" id="sPrazo" min="12" max="72" step="6" value="36">
           </div>
           <div class="field">
             <label for="sVal">Cenário de valorização ao ano</label>
-            <output class="field-out mono" for="sVal" id="oVal">8%</output>
+            <output class="field-out" for="sVal" id="oVal">8%</output>
             <input type="range" id="sVal" min="0" max="15" step="0.5" value="8">
           </div>
         </div>
@@ -426,9 +375,9 @@
             <div><dt><i class="sw sw-c"></i>Saldo nas chaves</dt><dd id="rChaves">R$ 720.000</dd></div>
           </dl>
           <div class="sim-proj">
-            <p class="mono">Cenário hipotético na entrega</p>
-            <p class="sim-big" id="rFuturo">R$ 1.511.000</p>
-            <p class="sim-sub" id="rGanho">+ R$ 311.000 sobre R$ 480.000 desembolsados até as chaves</p>
+            <p class="kicker">Cenário hipotético na entrega</p>
+            <p class="sim-big" id="rFuturo">R$ 1.511.700</p>
+            <p class="sim-sub" id="rGanho">+ R$ 311.700 de valorização hipotética</p>
           </div>
           <a class="btn btn-gold js-wa js-sim" href="#contato" data-msg="Olá, Luiz! Fiz uma simulação no seu site e quero ver empreendimentos com esse fluxo.">
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>Quero opções com esse fluxo
@@ -441,30 +390,34 @@
 
   <!-- ============ RECONHECIMENTOS ============ -->
   <section class="proof" id="reconhecimentos" aria-labelledby="t-proof" data-gauge="Reconhecimentos">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="label mono"><span class="lnum">07</span>Reconhecimentos</p>
-        <h2 id="t-proof">Constância que <em>vira registro.</em></h2>
+    <div class="zoom">
+      <div class="zoom-stage">
+        <p class="zoom-word zoom-l" aria-hidden="true">Dois meses.</p>
+        <p class="zoom-word zoom-r" aria-hidden="true">Dois títulos.</p>
+        <figure class="zoom-fig">
+          <img src="assets/img/reconhecimentos-1280.webp" srcset="assets/img/reconhecimentos-720.webp 720w, assets/img/reconhecimentos-1280.webp 1280w" sizes="100vw" width="1280" height="1513" alt="Luiz Quadros segurando dois quadros de Campeão Geral de Vendas da Unidade, em escritório com vista para a cidade" loading="lazy" decoding="async">
+          <figcaption class="zoom-cap">
+            <p class="label"><span class="lnum">07</span>Reconhecimentos</p>
+            <h2 id="t-proof">Constância que <em>vira registro.</em></h2>
+            <p>Agosto de 2026 · Especialista ONI do Mês e Campeão Geral de Vendas da unidade O Novo Imobiliário.</p>
+          </figcaption>
+        </figure>
       </div>
-      <div class="proof-grid">
-        <figure class="pf pf-a">
-          <div class="pf-img"><img src="assets/img/reconhecimentos-720.webp" srcset="assets/img/reconhecimentos-720.webp 720w, assets/img/reconhecimentos-1280.webp 1280w" sizes="(max-width: 900px) 100vw, 50vw" width="1280" height="1513" alt="Luiz Quadros segurando dois quadros de Campeão Geral de Vendas da Unidade, em escritório com vista para a cidade" loading="lazy" decoding="async"></div>
-          <figcaption><span class="mono">Ago 2026</span><b>Dois meses. Dois reconhecimentos.</b>Especialista ONI do Mês e Campeão Geral de Vendas da unidade O Novo Imobiliário.</figcaption>
-        </figure>
-        <figure class="pf pf-b">
-          <div class="pf-img"><img src="assets/img/quadro-campeao-720.webp" srcset="assets/img/quadro-campeao-720.webp 720w, assets/img/quadro-campeao-960.webp 960w" sizes="(max-width: 900px) 100vw, 30vw" width="960" height="1170" alt="Quadro com o título Campeão Geral de Vendas da Unidade, Luiz Quadros, O Novo Imobiliário" loading="lazy" decoding="async"></div>
-          <figcaption><span class="mono">Título</span><b>Campeão Geral de Vendas da Unidade</b>O Novo Imobiliário.</figcaption>
-        </figure>
-        <figure class="pf pf-c">
-          <div class="pf-img"><img src="assets/img/entrega-bbalas-720.webp" srcset="assets/img/entrega-bbalas-720.webp 720w, assets/img/entrega-bbalas-1280.webp 1280w" sizes="(max-width: 900px) 100vw, 30vw" width="1280" height="1435" alt="Luiz Quadros recebendo homenagem da B.Balas Construtora e Incorporadora ao lado de colegas" loading="lazy" decoding="async"></div>
-          <figcaption><span class="mono">Set 2026</span><b>Mais uma conquista.</b>Reconhecimento da B.Balas Construtora e Incorporadora.</figcaption>
-        </figure>
-        <div class="pf pf-d">
-          <p class="mono">Set 2026 · VGV</p>
-          <p class="pf-num">130<small>mi</small></p>
-          <p>em vendas no mês de agosto de 2026, divulgado pelo O Novo Imobiliário.</p>
-        </div>
+    </div>
+    <div class="wrap proof-grid">
+      <figure class="pf">
+        <div class="pf-img"><img src="assets/img/quadro-campeao-720.webp" srcset="assets/img/quadro-campeao-720.webp 720w, assets/img/quadro-campeao-960.webp 960w" sizes="(max-width: 900px) 100vw, 33vw" width="960" height="1170" alt="Quadro com o título Campeão Geral de Vendas da Unidade, Luiz Quadros, O Novo Imobiliário" loading="lazy" decoding="async"></div>
+        <figcaption><span class="kicker">Título</span><b>Campeão Geral de Vendas da Unidade</b>O Novo Imobiliário.</figcaption>
+      </figure>
+      <div class="pf pf-num-card">
+        <p class="kicker">Set 2026 · VGV</p>
+        <p class="pf-num">130<small>mi</small></p>
+        <p>em vendas no mês de agosto de 2026, divulgado pelo O Novo Imobiliário.</p>
       </div>
+      <figure class="pf">
+        <div class="pf-img"><img src="assets/img/entrega-bbalas-720.webp" srcset="assets/img/entrega-bbalas-720.webp 720w, assets/img/entrega-bbalas-1280.webp 1280w" sizes="(max-width: 900px) 100vw, 33vw" width="1280" height="1435" alt="Luiz Quadros recebendo homenagem da B.Balas Construtora e Incorporadora ao lado de colegas" loading="lazy" decoding="async"></div>
+        <figcaption><span class="kicker">Set 2026</span><b>Mais uma conquista.</b>Reconhecimento da B.Balas Construtora e Incorporadora.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -472,11 +425,12 @@
   <section class="about sheet" id="sobre" aria-labelledby="t-about" data-gauge="Sobre">
     <div class="wrap about-in">
       <figure class="about-fig">
-        <div class="arch"><img src="assets/img/retrato-escritorio-720.webp" srcset="assets/img/retrato-escritorio-720.webp 720w, assets/img/retrato-escritorio-1050.webp 1050w" sizes="(max-width: 900px) 90vw, 40vw" width="1050" height="1650" alt="Retrato de Luiz Quadros, de óculos e blusa preta, sorrindo em seu escritório" loading="lazy" decoding="async"></div>
-        <figcaption class="mono">Disciplina · Planejamento · Resultados</figcaption>
+        <div class="about-disc" aria-hidden="true"></div>
+        <img src="assets/img/retrato-recorte-720.webp" srcset="assets/img/retrato-recorte-720.webp 720w, assets/img/retrato-recorte-1050.webp 1050w" sizes="(max-width: 900px) 90vw, 42vw" width="1050" height="1650" alt="Retrato de Luiz Quadros, de óculos e blusa preta, sorrindo" loading="lazy" decoding="async">
+        <figcaption class="about-badge"><span class="kicker">Disciplina · Planejamento · Resultados</span></figcaption>
       </figure>
       <div class="about-copy">
-        <p class="label mono"><span class="lnum">08</span>Quem é Luiz Quadros</p>
+        <p class="label"><span class="lnum">08</span>Quem é Luiz Quadros</p>
         <h2 id="t-about">O sucesso é construído <em>todos os dias.</em></h2>
         <div class="letter">
           <p>Sou <strong>Luiz de Quadros</strong>, corretor de imóveis (CRECI-SC 77456F) e especialista em imóveis na planta em <strong>Itapema e Porto Belo</strong>. Atuo pelo O Novo Imobiliário, onde me tornei <strong>Campeão Geral de Vendas da unidade</strong>.</p>
@@ -485,7 +439,7 @@
         </div>
         <div class="sig-wrap">
           <p class="signature" aria-hidden="true">Luiz Quadros</p>
-          <p class="mono muted">Corretor de Imóveis · CRECI-SC 77456F</p>
+          <p class="kicker muted">Corretor de Imóveis · CRECI-SC 77456F</p>
         </div>
       </div>
     </div>
@@ -495,14 +449,14 @@
   <section class="pledge" aria-labelledby="t-pledge" data-gauge="Compromissos">
     <div class="wrap">
       <div class="sec-head">
-        <p class="label mono"><span class="lnum">09</span>Compromissos</p>
+        <p class="label"><span class="lnum">09</span>Compromissos</p>
         <h2 id="t-pledge">O que você pode <em>esperar de mim.</em></h2>
       </div>
       <ol class="pledge-list">
-        <li><span class="mono">I</span><h3>Números na mesa</h3><p>Tabela, fluxo, correção e saldo explicados antes de qualquer assinatura.</p></li>
-        <li><span class="mono">II</span><h3>Indicação com critério</h3><p>Só apresento empreendimentos que passaram pela checagem de construtora, incorporação e localização.</p></li>
-        <li><span class="mono">III</span><h3>Atendimento de ponta a ponta</h3><p>Do primeiro contato à entrega das chaves — e depois dela.</p></li>
-        <li><span class="mono">IV</span><h3>Distância não é barreira</h3><p>Apresentações por vídeo e documentação digital para quem compra de outra cidade ou estado.</p></li>
+        <li><span>I</span><h3>Números na mesa</h3><p>Tabela, fluxo, correção e saldo explicados antes de qualquer assinatura.</p></li>
+        <li><span>II</span><h3>Indicação com critério</h3><p>Só apresento empreendimentos que passaram pela checagem de construtora, incorporação e localização.</p></li>
+        <li><span>III</span><h3>De ponta a ponta</h3><p>Do primeiro contato à entrega das chaves — e depois dela.</p></li>
+        <li><span>IV</span><h3>Distância não é barreira</h3><p>Apresentações por vídeo e documentação digital para quem compra de outra cidade ou estado.</p></li>
       </ol>
     </div>
   </section>
@@ -511,7 +465,7 @@
   <section class="faq sheet" id="duvidas" aria-labelledby="t-faq" data-gauge="Dúvidas">
     <div class="wrap faq-in">
       <div class="faq-head">
-        <p class="label mono"><span class="lnum">10</span>Dúvidas frequentes</p>
+        <p class="label"><span class="lnum">10</span>Dúvidas frequentes</p>
         <h2 id="t-faq">Antes de comprar <em>na planta.</em></h2>
         <p class="muted">Não encontrou a sua pergunta? Mande no WhatsApp — eu respondo pessoalmente.</p>
         <a class="btn btn-dark js-wa" href="#contato" data-msg="Olá, Luiz! Tenho uma dúvida sobre compra de imóvel na planta.">Perguntar ao Luiz</a>
@@ -547,16 +501,16 @@
 
   <!-- ============ CONTATO ============ -->
   <section class="cta" id="contato" aria-labelledby="t-cta" data-gauge="Contato">
-    <svg class="cta-lines" viewBox="0 0 800 800" aria-hidden="true"><rect x="100" y="100" width="600" height="600"/><rect x="200" y="200" width="400" height="400"/><path d="M100 100l600 600M700 100L100 700"/></svg>
+    <div class="cta-glow" aria-hidden="true"></div>
     <div class="wrap cta-in">
       <div class="cta-copy">
-        <p class="label mono"><span class="lnum">11</span>Vamos conversar</p>
+        <p class="label"><span class="lnum">11</span>Vamos conversar</p>
         <h2 class="cta-title" id="t-cta">
           <span class="ln"><span>O seu próximo</span></span>
           <span class="ln"><span>imóvel começa</span></span>
           <span class="ln"><span><em>na planta.</em></span></span>
         </h2>
-        <ul class="cta-info mono">
+        <ul class="cta-info">
           <li>Itapema · Porto Belo — SC</li>
           <li>Atendimento presencial e online</li>
           <li><a href="https://www.instagram.com/luizquadrosde/" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ig"/></svg>@luizquadrosde</a></li>
@@ -565,7 +519,7 @@
       <form class="planner" aria-labelledby="pTitle" novalidate>
         <p class="planner-title" id="pTitle">Monte sua mensagem em 20 segundos</p>
         <fieldset>
-          <legend class="mono">01 · Objetivo</legend>
+          <legend class="kicker">01 · Objetivo</legend>
           <div class="chips">
             <label><input type="radio" name="obj" value="investir para valorização" checked><span>Valorização</span></label>
             <label><input type="radio" name="obj" value="investir para renda com locação"><span>Renda / locação</span></label>
@@ -574,7 +528,7 @@
           </div>
         </fieldset>
         <fieldset>
-          <legend class="mono">02 · Cidade</legend>
+          <legend class="kicker">02 · Cidade</legend>
           <div class="chips">
             <label><input type="radio" name="cid" value="em Itapema"><span>Itapema</span></label>
             <label><input type="radio" name="cid" value="em Porto Belo"><span>Porto Belo</span></label>
@@ -582,7 +536,7 @@
           </div>
         </fieldset>
         <fieldset>
-          <legend class="mono">03 · Investimento</legend>
+          <legend class="kicker">03 · Investimento</legend>
           <div class="chips">
             <label><input type="radio" name="fx" value="até R$ 800 mil"><span>Até 800 mil</span></label>
             <label><input type="radio" name="fx" value="entre R$ 800 mil e R$ 1,5 milhão" checked><span>800 mil – 1,5 mi</span></label>
@@ -591,17 +545,17 @@
           </div>
         </fieldset>
         <div class="field-name">
-          <label for="pName" class="mono">04 · Seu nome (opcional)</label>
+          <label for="pName" class="kicker">04 · Seu nome (opcional)</label>
           <input id="pName" type="text" autocomplete="given-name" maxlength="40" placeholder="Como posso te chamar?">
         </div>
         <div class="planner-out">
-          <p class="mono">Prévia da mensagem</p>
+          <p class="kicker">Prévia da mensagem</p>
           <p id="pMsg" class="planner-msg"></p>
         </div>
         <a class="btn btn-gold btn-block js-wa js-planner" href="#contato" data-msg="Olá, Luiz! Vim pelo seu site.">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>Enviar no WhatsApp
         </a>
-        <p class="planner-toast mono" id="pToast" role="status" aria-live="polite"></p>
+        <p class="planner-toast" id="pToast" role="status" aria-live="polite"></p>
         <p class="planner-legal">Nada é enviado ao site: a mensagem é montada no seu navegador e aberta no WhatsApp.</p>
       </form>
     </div>
@@ -616,7 +570,7 @@
         <p>Imóveis na planta em Itapema e Porto Belo, com estratégia do primeiro contato às chaves.</p>
       </div>
       <nav class="footer-col" aria-label="Rodapé">
-        <p class="mono">Navegação</p>
+        <p class="kicker">Navegação</p>
         <ul>
           <li><a href="#resultados">Resultados</a></li>
           <li><a href="#metodo">Método</a></li>
@@ -627,7 +581,7 @@
         </ul>
       </nav>
       <div class="footer-col">
-        <p class="mono">Contato</p>
+        <p class="kicker">Contato</p>
         <ul>
           <li><a class="js-wa" href="#contato" data-msg="Olá, Luiz! Vim pelo seu site.">WhatsApp</a></li>
           <li><a href="https://www.instagram.com/luizquadrosde/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
@@ -636,7 +590,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <p class="mono">Institucional</p>
+        <p class="kicker">Institucional</p>
         <ul>
           <li>Luiz de Quadros · Corretor de Imóveis</li>
           <li>CRECI-SC 77456F</li>
@@ -646,7 +600,7 @@
       </div>
     </div>
     <p class="footer-word" aria-hidden="true">Luiz <em>Quadros</em></p>
-    <div class="footer-legal mono">
+    <div class="footer-legal">
       <span>© <span id="ano">2026</span> Luiz Quadros · Todos os direitos reservados</span>
       <span>Valores e condições sujeitos à tabela de cada empreendimento.</span>
       <a class="to-top" href="#topo" aria-label="Voltar ao topo">
@@ -662,12 +616,13 @@
 </a>
 
 <div class="gauge" aria-hidden="true">
+  <p class="gauge-label"><b class="gauge-n">01</b><span class="gauge-name">Resultados</span></p>
   <div class="gauge-rule"><span class="gauge-mark"></span></div>
-  <p class="gauge-label mono"><b class="gauge-n">01</b><span class="gauge-name">Resultados</span></p>
 </div>
 
 <div class="cursor" aria-hidden="true"><span class="cursor-ring"></span><span class="cursor-dot"></span></div>
 
 <script src="assets/js/app.min.js" defer></script>
 </body>
+
 </html>
