@@ -189,9 +189,24 @@ ul,ol{list-style:none;padding:0}
 .card__a{position:relative;z-index:2}
 
 /* ---------- como funciona: três passos ---------- */
-.passos{display:grid;gap:1px;background:rgba(255,255,255,.09);border:var(--border);grid-template-columns:1fr}
-@media(min-width:820px){.passos{grid-template-columns:repeat(3,1fr)}}
-.passos li{display:flex;flex-direction:column;gap:10px;padding:clamp(22px,3.5vw,32px);background:var(--off-black)}
+.passos{display:flex;flex-direction:column;gap:clamp(14px,2vh,22px)}
+/* Empilhamento por `position:sticky`: cada etapa para um pouco abaixo da
+   anterior e a próxima sobe por cima. É CSS puro — funciona sem uma linha
+   de script, e sem script continua sendo uma lista legível de três itens. */
+.passos li{position:sticky;top:calc(var(--nav-h) + 18px + var(--i,0) * 16px);
+  display:flex;flex-direction:column;gap:10px;padding:clamp(24px,3.6vw,40px);
+  background:var(--off-black);border:var(--border);
+  box-shadow:0 -1px 0 rgba(255,255,255,.05),0 24px 60px rgba(0,0,0,.45)}
+.passos li:nth-child(1){--i:0}
+.passos li:nth-child(2){--i:1}
+.passos li:nth-child(3){--i:2}
+@media(min-width:900px){
+  .passos li{display:grid;grid-template-columns:auto 1fr;gap:10px 36px;align-items:start}
+  .passos li .num{grid-row:span 2;font-size:.9rem}
+  .passos li h3{margin-top:-2px}
+}
+/* Em tela baixa o empilhamento esconderia conteúdo: vira lista simples. */
+@media(max-height:620px){.passos li{position:static}}
 .passos h3{font-family:var(--f-display);font-size:var(--s-1);font-weight:700;color:#fff}
 .passos p{font-size:var(--s-0);line-height:1.7;color:var(--g300)}
 
@@ -303,6 +318,39 @@ ul,ol{list-style:none;padding:0}
 .trilho__n i{display:block;width:60px;height:1px;background:var(--g700);overflow:hidden}
 .trilho__n i::after{content:'';display:block;height:100%;width:100%;background:var(--laranja);
   transform:scaleX(var(--p,0));transform-origin:left;transition:transform .2s linear}
+
+
+/* ---------------------------------------------------------------------
+   EFEITOS ATRELADOS AO SCROLL (scrubbed)
+   O que separa um scroll caro de um scroll barato não é ter animação: é a
+   animação andar JUNTO com o dedo, para frente e para trás, em vez de
+   disparar uma vez e acabar. Daqui para baixo tudo é função de --p, uma
+   única variável que o rAF escreve por seção.
+   --------------------------------------------------------------------- */
+
+/* Leitura progressiva: a palavra acende quando o scroll passa por ela.
+   O JS escreve só --p no bloco; cada palavra resolve o próprio brilho em
+   CSS, então são 40 palavras animando com uma escrita de propriedade. */
+.js [data-scrub]{--p:0}
+.js [data-scrub] .pal{opacity:clamp(.16,calc((var(--p) * var(--n) - var(--i)) * .9 + .16),1);
+  transform:none;transition:none}
+.js [data-scrub][data-visivel]{}
+
+/* O desenho técnico se escreve enquanto você rola. pathLength="1" faz todo
+   traço medir 1, então um só número comanda o conjunto inteiro. */
+.js .hot__car{--d:0}
+.js .hot__car path,.js .hot__car circle{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--d))}
+.js .hot__car .hot__grid path{stroke-dashoffset:0}
+
+/* Velocidade vira matéria: o trilho inclina de leve quando a rolagem
+   acelera, e volta ao prumo quando ela para. */
+.js .trilho__f{transform:translate3d(var(--x,0),0,0) skewX(var(--sk,0deg))}
+
+/* O fundo esquenta conforme a página avança — do azul da noite para o
+   laranja da oficina. Sem transição: ele é função do scroll, não do tempo. */
+.js body{background-image:
+  radial-gradient(120% 80% at 50% calc(var(--tom,0) * 100%),rgba(255,149,0,.07),transparent 60%),
+  radial-gradient(90% 60% at 50% 0%,rgba(19,47,131,.26),transparent 62%)}
 
 /* ---------- botões ---------- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;overflow:hidden;min-height:52px;padding:16px 30px;font-weight:600;font-size:var(--s--1);letter-spacing:.16em;text-transform:uppercase;text-align:center;border-radius:var(--radius);transition:transform .4s var(--ease),background-color .22s,border-color .22s,color .22s,opacity .22s}
@@ -959,8 +1007,8 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
 <section class="sec" id="autoridade" aria-label="O que a Arena faz">
   <div class="wrap">
     <p class="eyebrow" style="margin-bottom:28px">Critério</p>
-    <h2 class="decl" data-split>Lavar é tirar a sujeira. Cuidar é saber o que não se faz.</h2>
-    <p class="decl--sub" data-split>Toda pintura tem uma espessura de verniz que não volta. É ela que define até onde dá para polir — e é por isso que aqui o carro é lido antes de ser tocado.</p>
+    <h2 class="decl" data-split data-scrub>Lavar é tirar a sujeira. Cuidar é saber o que não se faz.</h2>
+    <p class="decl--sub" data-split data-scrub>Toda pintura tem uma espessura de verniz que não volta. É ela que define até onde dá para polir — e é por isso que aqui o carro é lido antes de ser tocado.</p>
 
     <ul class="nums" style="margin-top:clamp(48px,7vh,88px)">
       <li><b data-conta="10">10</b><span>frentes de trabalho, combinadas conforme o estado do veículo</span></li>
@@ -1105,15 +1153,15 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
       <div class="hot__img">
         <div class="frame" data-img="images/detalhes.jpg" data-cap="Esquema técnico — pontos de inspeção" style="aspect-ratio:16/10"></div>
         <svg class="hot__car" viewBox="0 0 400 250" aria-hidden="true" focusable="false">
-        <g class="hot__grid"><path d="M0 62.5H400M0 125H400M0 187.5H400M100 0V250M200 0V250M300 0V250"/></g>
-        <g class="hot__body"><path d="M24 170 L26 148 C28 136 36 130 49 128 L104 122 C113 121 120 118 126 112 L152 90 C160 84 168 81 177 81 L250 80 C266 80 279 84 289 93 L312 114 L348 122 C364 126 373 135 375 148 L376 170 L336 170 A30 30 0 0 0 276 170 L140 170 A30 30 0 0 0 80 170 Z"/></g>
-        <g class="hot__glass"><path d="M134 110 L156 90 C160 87 165 85 170 85 L197 85 L197 110 Z"/><path d="M206 85 L248 84 C261 84 271 88 279 95 L294 110 L206 110 Z"/></g>
-        <g class="hot__line"><path d="M42 142 L104 137"/><path d="M122 116 L128 124"/><path d="M304 112 L298 122"/><path d="M140 170 L276 170"/></g>
-        <g class="hot__body"><circle cx="110" cy="174" r="25"/><circle cx="306" cy="174" r="25"/></g>
-        <g class="hot__line"><circle cx="110" cy="174" r="12"/><circle cx="306" cy="174" r="12"/></g>
-        <g class="hot__lamp"><path d="M27 142 L48 138 L49 148 L28 151 Z"/></g>
-        <g class="hot__line"><path d="M374 144 L358 141 L357 150 L373 152 Z"/></g>
-        <g class="hot__rule"><path d="M18 212 H382"/><path d="M18 206V218M110 208V216M306 208V216M382 206V218"/></g>
+        <g class="hot__grid"><path pathLength="1" d="M0 62.5H400M0 125H400M0 187.5H400M100 0V250M200 0V250M300 0V250"/></g>
+        <g class="hot__body"><path pathLength="1" d="M24 170 L26 148 C28 136 36 130 49 128 L104 122 C113 121 120 118 126 112 L152 90 C160 84 168 81 177 81 L250 80 C266 80 279 84 289 93 L312 114 L348 122 C364 126 373 135 375 148 L376 170 L336 170 A30 30 0 0 0 276 170 L140 170 A30 30 0 0 0 80 170 Z"/></g>
+        <g class="hot__glass"><path pathLength="1" d="M134 110 L156 90 C160 87 165 85 170 85 L197 85 L197 110 Z"/><path pathLength="1" d="M206 85 L248 84 C261 84 271 88 279 95 L294 110 L206 110 Z"/></g>
+        <g class="hot__line"><path pathLength="1" d="M42 142 L104 137"/><path pathLength="1" d="M122 116 L128 124"/><path pathLength="1" d="M304 112 L298 122"/><path pathLength="1" d="M140 170 L276 170"/></g>
+        <g class="hot__body"><circle pathLength="1" cx="110" cy="174" r="25"/><circle pathLength="1" cx="306" cy="174" r="25"/></g>
+        <g class="hot__line"><circle pathLength="1" cx="110" cy="174" r="12"/><circle pathLength="1" cx="306" cy="174" r="12"/></g>
+        <g class="hot__lamp"><path pathLength="1" d="M27 142 L48 138 L49 148 L28 151 Z"/></g>
+        <g class="hot__line"><path pathLength="1" d="M374 144 L358 141 L357 150 L373 152 Z"/></g>
+        <g class="hot__rule"><path pathLength="1" d="M18 212 H382"/><path pathLength="1" d="M18 206V218M110 208V216M306 208V216M382 206V218"/></g>
       </svg>
       <div class="hot__pts" id="hotPts" role="group" aria-label="Pontos de inspeção"><label class="hot__p" data-id="pintura" style="left:24%;top:48%"><input type="radio" name="hotspot" class="vh" checked=""><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Pintura</span></label><label class="hot__p" data-id="farois" style="left:8%;top:58%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Faróis</span></label><label class="hot__p" data-id="rodas" style="left:27%;top:69%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Rodas</span></label><label class="hot__p" data-id="couro" style="left:58%;top:36%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Couro</span></label><label class="hot__p" data-id="painel" style="left:41%;top:35%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Painel</span></label><label class="hot__p" data-id="acabamentos" style="left:82%;top:53%"><input type="radio" name="hotspot" class="vh"><span class="dot" aria-hidden="true"></span><span class="rng" aria-hidden="true"></span><span class="vh">Acabamentos</span></label></div>
       </div>
@@ -3092,13 +3140,19 @@ function partirPalavras(raiz = document){
     if (n.dataset.partido === '1') return;
     n.dataset.partido = '1';
     const frag = document.createDocumentFragment();
+    let total = 0;
     String(n.textContent).trim().split(/\s+/).forEach((p, i) => {
-      const w = el('span', { class:'pal', text:p, style:`transition-delay:${Math.min(i,14)*42}ms` });
+      const w = el('span', { class:'pal', text:p,
+        style:`--i:${i};transition-delay:${Math.min(i,14)*42}ms` });
       frag.append(w, document.createTextNode(' '));
+      total = i + 1;
     });
     n.textContent = '';
     n.append(frag);
-    n.dataset.visivel = 'false';
+    n.style.setProperty('--n', String(total));
+    // Bloco atrelado ao scroll não tem "entrada": ele é função do scroll
+    // do primeiro ao último quadro, para frente e para trás.
+    if (!n.hasAttribute('data-scrub')) n.dataset.visivel = 'false';
   });
 }
 
@@ -3135,6 +3189,7 @@ function ligarCenografia(raiz = document){
      a página direto num #ancora — entra em cena na hora, sem esperar um
      cruzamento que nunca vai acontecer. */
   $$('[data-split],[data-conta]', raiz).forEach(n => {
+    if (n.hasAttribute('data-scrub')) return;
     if (n.getBoundingClientRect().bottom < 0){
       if (n.hasAttribute('data-split')) n.dataset.visivel = 'true';
       if (n.hasAttribute('data-conta')) n.dataset.contou = '1';
@@ -3145,6 +3200,12 @@ function ligarCenografia(raiz = document){
 
   /* --- medidas: tiradas fora do laço --- */
   const paralaxe = $$('[data-par]', raiz).map(n => ({ n, k: Number(n.dataset.par) || 0.12, topo:0, alt:0 }));
+  /* --- leitura progressiva, desenho e temperatura: tudo função de --p --- */
+  const scrubs = $$('[data-scrub]', raiz).map(n => ({ n, topo:0, alt:0 }));
+  const carro = $('.hot__car', raiz);
+  const carroSec = $('#detalhes', raiz);
+  let carroM = { topo:0, alt:0 };
+
   const trilho = $('#servicos');
   const faixa = $('[data-trilho]');
   const marcaT = $('#trilhoP');
@@ -3162,12 +3223,14 @@ function ligarCenografia(raiz = document){
       p.topo = r.top + window.scrollY; p.alt = r.height;
     });
     secoes.forEach(s => { s.topo = s.n.getBoundingClientRect().top + window.scrollY; });
+    scrubs.forEach(s => { const r = s.n.getBoundingClientRect(); s.topo = r.top + window.scrollY; s.alt = r.height; });
+    if (carroSec){ const r = carroSec.getBoundingClientRect(); carroM.topo = r.top + window.scrollY; carroM.alt = r.height; }
     med.pinado = false;
     if (trilho && faixa && marcaT){
       med.pinado = getComputedStyle(marcaT).position === 'sticky'
                 && getComputedStyle(faixa).overflowX === 'visible';
       if (!med.pinado){
-        faixa.style.transform = '';     // devolve a faixa ao scroll nativo
+        faixa.style.removeProperty('--x');   // devolve a faixa ao scroll nativo
         med.corrida = 0;
       } else {
         const r = trilho.getBoundingClientRect();
@@ -3179,9 +3242,14 @@ function ligarCenografia(raiz = document){
     }
   };
 
-  let ativa = '';
+  let ativa = '', yAnt = window.scrollY, vel = 0;
+  const entre = (v) => v < 0 ? 0 : v > 1 ? 1 : v;
+
   const pintar = () => {
     const y = window.scrollY;
+
+    // Velocidade suavizada: o pico some sozinho quando a rolagem para.
+    vel += ((y - yAnt) - vel) * 0.18; yAnt = y;
 
     if (barra) barra.style.transform = `scaleX(${H > 0 ? Math.min(1, y / H) : 0})`;
 
@@ -3203,9 +3271,28 @@ function ligarCenografia(raiz = document){
     // Trilho horizontal: a rolagem vertical vira deslocamento lateral.
     if (med.pinado && faixa && med.corrida > 0 && med.trilhoAlt > 0){
       const p = Math.min(1, Math.max(0, (y - med.trilhoTopo) / med.trilhoAlt));
-      faixa.style.transform = `translate3d(${(-p * med.corrida).toFixed(1)}px,0,0)`;
+      faixa.style.setProperty('--x', `${(-p * med.corrida).toFixed(1)}px`);
       if (marcaT) marcaT.style.setProperty('--p', String(p));
     }
+
+    // Leitura progressiva: a frase acende no ritmo do scroll.
+    for (let i = 0; i < scrubs.length; i++){
+      const sc = scrubs[i];
+      const p = entre((y + janela * 0.86 - sc.topo) / (sc.alt + janela * 0.42));
+      sc.n.style.setProperty('--p', p.toFixed(4));
+    }
+
+    // O desenho técnico se escreve de ponta a ponta na travessia da seção.
+    if (carro && carroM.alt > 0){
+      const p = entre((y + janela * 0.95 - carroM.topo) / (janela * 0.95));
+      carro.style.setProperty('--d', p.toFixed(4));
+    }
+
+    // Inclinação por velocidade, com teto: nunca vira enjoo.
+    if (faixa) faixa.style.setProperty('--sk', (Math.max(-2.4, Math.min(2.4, vel * 0.05))).toFixed(3) + 'deg');
+
+    // Temperatura do fundo acompanha o avanço da página.
+    if (H > 0) document.body.style.setProperty('--tom', (y / H).toFixed(4));
 
     // Qual seção está mandando na tela agora.
     let atual = secoes.length ? secoes[0].id : '';

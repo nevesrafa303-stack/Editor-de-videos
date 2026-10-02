@@ -26,6 +26,24 @@ qualquer outra             404 com caminho de volta
 A home é HTML estático — o Google indexa no primeiro byte. As demais páginas
 são montadas pelo roteador por hash.
 
+### Efeitos atrelados ao scroll
+
+O que separa um scroll caro de um scroll barato não é ter animação: é a
+animação andar **junto com o dedo**, para frente e para trás, em vez de
+disparar uma vez e acabar. Quatro efeitos são função do scroll, não do
+tempo:
+
+| Efeito | Como funciona |
+| --- | --- |
+| Leitura progressiva | A frase acende palavra a palavra conforme o scroll passa. O JS escreve **uma** variável no bloco; cada palavra resolve o próprio brilho em CSS — 13 palavras animando com uma escrita de propriedade. |
+| Desenho que se escreve | O esquema técnico do veículo se desenha traço a traço. Cada `path` leva `pathLength="1"`, então um único número comanda o conjunto inteiro. |
+| Inclinação por velocidade | O trilho de serviços inclina de leve quando a rolagem acelera, com teto de 2,4° para não virar enjoo. |
+| Temperatura do fundo | O fundo esquenta conforme a página avança, do azul da noite ao laranja da oficina. |
+
+As três etapas do "Como funciona" **empilham** por `position:sticky` — CSS
+puro, sem uma linha de script, e em tela baixa viram lista simples para não
+esconder conteúdo.
+
 ### Rolagem com inércia
 
 A página não para no instante em que o dedo para: ela desacelera. É a
