@@ -25,7 +25,7 @@ html = html.replace('<script src="assets/js/app.min.js" defer></script>', "<scri
 html = re.sub(r'\ssrcset="([^"]*)"', "", html)
 html = re.sub(r'\ssizes="[^"]*"', "", html)
 html = re.sub(r'src="(assets/img/[^"]+)"', lambda m: f'src="{uri(m.group(1))}"', html)
-html = html.replace('href="privacidade.html"', 'href="#"')
+html = html.replace('href="privacidade.html"', 'href="#"').replace('href="assets/guia-investidor-luiz-quadros.pdf"', 'href="#guia"')
 left = [l.strip()[:90] for l in html.split("\n") if "assets/" in l and "luizquadros.com.br" not in l]
 assert not left, left
 os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
