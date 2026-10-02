@@ -258,35 +258,26 @@
   const MOB = '(max-width: 900px)';
   setStep(0);
 
-  const prepDraw = (els) => els.forEach((el) => {
-    const len = pathLen(el);
-    el.style.strokeDasharray = len;
-    el.style.strokeDashoffset = len;
-  });
-
   /* ----- intro + entrada ----- */
   const intro = html.classList.contains('intro');
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
   if (intro) {
     if (lenis) lenis.stop();
     const num = $('.loader-num');
-    tl.from('.loader-mark > *', { yPercent: 110, duration: 1.1, stagger: 0.1 }, 0.1)
+    tl.from('.loader-word span', { yPercent: 110, duration: 1.2, stagger: 0.12 }, 0.1)
       .from('.loader-meta', { opacity: 0, y: 10, duration: 0.8 }, 0.3)
-      .to('.loader-bar span', { scaleX: 1, duration: 1.6, ease: 'power3.inOut' }, 0.2)
-      .to({ v: 0 }, { v: 130, duration: 1.6, ease: 'power3.inOut', onUpdate() { num.textContent = 'R$ ' + String(Math.round(this.targets()[0].v)).padStart(3, '0') + ' mi'; } }, 0.2)
+      .to({ v: 0 }, { v: 130, duration: 1.5, ease: 'power3.inOut', onUpdate() { num.textContent = 'R$ ' + String(Math.round(this.targets()[0].v)).padStart(3, '0') + ' mi'; } }, 0.2)
       .to('.loader', { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.1, ease: 'expo.inOut' }, '+=0.15')
       .add(() => { html.classList.remove('intro'); if (lenis) lenis.start(); });
   }
-  tl.from('.hn-1', { xPercent: -30, opacity: 0, duration: 2 }, intro ? '-=0.7' : 0)
-    .from('.hn-2', { xPercent: 30, opacity: 0, duration: 2 }, '<')
-    .from('.hero-figure', { yPercent: 6, duration: 2 }, '<')
-    .from('.hero-glow', { opacity: 0, duration: 2.4, ease: 'power2.out' }, '<')
-    .from('.hero-title .ln > span', { yPercent: 110, duration: 1.4, stagger: 0.1 }, '<0.3')
-    .from('.eyebrow, .hero-sub, .hero-ctas', { y: 24, opacity: 0, duration: 1.1, stagger: 0.08 }, '<0.2')
-    .from('.hero-card', { y: 40, opacity: 0, duration: 1.3 }, '<')
-    .from('.nav-in > *', { y: -20, opacity: 0, duration: 1, stagger: 0.05 }, '<');
+  tl.from('.mh', { yPercent: 60, opacity: 0, duration: 1.6, stagger: 0.12 }, intro ? '-=0.7' : 0)
+    .from('.hero-photo img', { scale: 1.18, duration: 2.2 }, '<')
+    .from('.hero-meta > *', { y: 14, opacity: 0, duration: 1, stagger: 0.06 }, '<0.1')
+    .from('.hero-title .ln > span', { yPercent: 110, duration: 1.3, stagger: 0.09 }, '<0.2')
+    .from('.hero-sub, .hero-ctas, .hero-facts', { y: 22, opacity: 0, duration: 1.1, stagger: 0.08 }, '<0.2')
+    .from('.nav-in > *', { y: -16, opacity: 0, duration: 1, stagger: 0.05 }, '<');
 
-  /* ----- nav, progresso, botão flutuante ----- */
+  /* ----- nav e progresso ----- */
   ScrollTrigger.create({
     start: 0, end: 'max',
     onUpdate: (self) => {
@@ -300,36 +291,26 @@
   const tasks = [];
   const later = (fn) => tasks.push(fn);
 
-  /* ----- hero: o nome se abre e a cena recua ----- */
+  /* ----- capa: a foto se expande até ocupar a tela ----- */
   later(() => {
     mm.add(DESK, () => {
-      gsap.timeline({ scrollTrigger: { trigger: '.hero-stage', start: 'top top', end: '+=110%', pin: true, scrub: 1, anticipatePin: 1 } })
-        .to('.hn-1', { xPercent: -48, ease: 'none' }, 0)
-        .to('.hn-2', { xPercent: 48, ease: 'none' }, 0)
-        .to('.hero-name', { opacity: 0.25, scale: 1.08, ease: 'none' }, 0)
-        .to('.hero-figure', { scale: 0.86, yPercent: 4, transformOrigin: '50% 100%', ease: 'none' }, 0)
-        .to('.hero-copy', { y: -90, opacity: 0, ease: 'none', duration: 0.6 }, 0)
-        .to('.hero-card', { y: -90, opacity: 0, ease: 'none', duration: 0.6 }, 0.05)
-        .to('.hero-glow', { scale: 1.4, opacity: 0.4, ease: 'none' }, 0);
-    });
-    mm.add(MOB, () => {
-      gsap.to('.hero-name', { yPercent: 30, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-    });
-  });
-
-  /* ----- faixa: velocidade acompanha a rolagem ----- */
-  later(() => {
-    const track = $('.marquee-track');
-    const loop = gsap.to(track, { xPercent: -50, duration: 40, ease: 'none', repeat: -1 });
-    const skew = gsap.quickTo(track, 'skewX', { duration: 0.6, ease: 'power3' });
-    ScrollTrigger.create({
-      trigger: '.marquee', start: 'top bottom', end: 'bottom top',
-      onUpdate: (self) => {
-        const v = self.getVelocity();
-        gsap.to(loop, { timeScale: (self.direction || 1) * Math.min(6, 1 + Math.abs(v) / 300), duration: 0.3, overwrite: true, onComplete: () => gsap.to(loop, { timeScale: self.direction || 1, duration: 1.2 }) });
-        skew(gsap.utils.clamp(-8, 8, v / -250));
-      },
-      onToggle: (self) => (self.isActive ? loop.play() : loop.pause())
+      const stage = $('.hero-stage');
+      const slot = $('.hero-slot');
+      const photo = $('.hero-photo');
+      const box = () => {
+        const s = stage.getBoundingClientRect();
+        const r = slot.getBoundingClientRect();
+        return { l: r.left - s.left, t: r.top - s.top, w: r.width, h: r.height };
+      };
+      gsap.set(slot, { position: 'static' });
+      gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top top', end: '+=120%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
+        .fromTo(photo,
+          { position: 'absolute', left: () => box().l, top: () => box().t, width: () => box().w, height: () => box().h, borderRadius: 6 },
+          { left: 0, top: 0, width: () => stage.clientWidth, height: () => stage.clientHeight, borderRadius: 0, ease: 'power2.inOut', duration: 1 }, 0)
+        .to('.masthead', { yPercent: -35, opacity: 0, ease: 'power1.in', duration: 0.5 }, 0)
+        .to('.hero-copy, .hero-meta', { y: -70, opacity: 0, ease: 'power1.in', duration: 0.45 }, 0)
+        .to('.hero-photo-cap', { opacity: 0, duration: 0.3 }, 0.5)
+        .to(photo, { '--shade': 0.6, ease: 'none', duration: 0.35 }, 0.75);
     });
   });
 
@@ -346,7 +327,6 @@
       gsap.timeline({ scrollTrigger: { trigger: '.big-stage', start: 'top top', end: '+=120%', pin: true, scrub: 0.8, anticipatePin: 1 } })
         .from('.big-cur, .big-unit', { y: 40, opacity: 0, duration: 0.2 }, 0)
         .to(st, { p: 1, duration: 0.7, ease: 'power1.inOut', onUpdate: () => setBig(st.p) }, 0)
-        .fromTo('.big-num', { backgroundPosition: '50% 0%' }, { backgroundPosition: '50% 100%', duration: 0.9, ease: 'none' }, 0)
         .to(row, { y: 0, opacity: 1, stagger: 0.08, duration: 0.25 }, 0.62);
       return () => setBig(1);
     });
@@ -384,24 +364,19 @@
       });
     };
     splitWords(manifesto);
-    gsap.fromTo($$('.w', manifesto), { opacity: 0.12 }, {
+    gsap.fromTo($$('.w', manifesto), { opacity: 0.14 }, {
       opacity: 1, stagger: 0.08, ease: 'none', immediateRender: false,
       scrollTrigger: { trigger: manifesto, start: 'top 85%', end: 'bottom 45%', scrub: true }
     });
     gsap.fromTo('.manifesto .signature', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: '.manifesto-foot', start: 'top 90%' } });
   });
 
-  /* ----- tese: cartões empilham e recuam ----- */
+  /* ----- tese: régua desenha e o item sobe ----- */
   later(() => {
-    const cards = $$('.why-card');
-    cards.forEach((card, i) => {
-      const next = cards[i + 1];
-      gsap.from($$('.why-n, .why-body > *, .why-tag', card), { y: 40, opacity: 0, duration: 1.1, stagger: 0.07, ease: 'expo.out', scrollTrigger: { trigger: card, start: 'top 80%' } });
-      if (!next) return;
-      gsap.to(card, {
-        scale: 0.9 + i * 0.02, filter: 'brightness(.55)', ease: 'none',
-        scrollTrigger: { trigger: next, start: 'top 85%', end: 'top 20%', scrub: true }
-      });
+    $$('.why-list li').forEach((li) => {
+      gsap.timeline({ scrollTrigger: { trigger: li, start: 'top 85%' } })
+        .fromTo(li, { '--d': 0 }, { '--d': 1, duration: 1.4, ease: 'expo.inOut' })
+        .from(li.children, { y: 34, opacity: 0, duration: 1, stagger: 0.07, ease: 'expo.out' }, 0.15);
     });
   });
 
@@ -421,11 +396,10 @@
           }
         }
       });
-      msteps.forEach((m) => gsap.fromTo($('.mstep-n', m), { yPercent: 30 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.method-pin', start: 'top top', end: () => '+=' + dist(), scrub: true } }));
     });
     mm.add(MOB, () => {
       msteps.forEach((m, i) => {
-        gsap.from(m, { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: m, start: 'top 88%' } });
+        gsap.from(m, { y: 50, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: m, start: 'top 88%' } });
         ScrollTrigger.create({ trigger: m, start: 'top 60%', end: 'bottom 40%', onToggle: (s) => s.isActive && setStep(i) });
       });
     });
@@ -434,7 +408,7 @@
   /* ----- região ----- */
   later(() => {
     const coast = $$('.map-coast');
-    prepDraw(coast);
+    coast.forEach((el) => { const len = pathLen(el); el.style.strokeDasharray = len; el.style.strokeDashoffset = len; });
     gsap.timeline({ scrollTrigger: { trigger: '.map', start: 'top 75%' } })
       .from('.map-sea', { opacity: 0, duration: 1.2, ease: 'power2.out' })
       .to(coast, { strokeDashoffset: 0, duration: 2, ease: 'power2.inOut' }, 0)
@@ -444,25 +418,23 @@
 
   /* ----- simulador ----- */
   later(() => {
-    gsap.from('.sim-inputs, .sim-result', { y: 60, opacity: 0, duration: 1.3, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.sim-box', start: 'top 82%' } });
+    gsap.from('.sim-inputs .field', { y: 30, opacity: 0, duration: 1, stagger: 0.07, ease: 'expo.out', scrollTrigger: { trigger: '.sim-box', start: 'top 82%' } });
+    gsap.from('.sim-result', { y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: '.sim-box', start: 'top 82%' } });
   });
 
   /* ----- reconhecimentos: a foto cresce até ocupar a tela ----- */
   later(() => {
     mm.add(DESK, () => {
       gsap.timeline({ scrollTrigger: { trigger: '.zoom-stage', start: 'top top', end: '+=150%', pin: true, scrub: 1, anticipatePin: 1 } })
-        .fromTo('.zoom-fig', { clipPath: 'inset(20% 35% 20% 35% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
+        .fromTo('.zoom-fig', { clipPath: 'inset(20% 35% 20% 35% round 6px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.inOut', duration: 1 }, 0)
         .fromTo('.zoom-fig img', { scale: 1.35 }, { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
         .to('.zoom-l', { xPercent: -70, opacity: 0, ease: 'power2.in', duration: 0.6 }, 0.1)
         .to('.zoom-r', { xPercent: 70, opacity: 0, ease: 'power2.in', duration: 0.6 }, 0.1)
         .from('.zoom-cap > *', { y: 50, opacity: 0, stagger: 0.08, duration: 0.3 }, 0.75)
         .to({}, { duration: 0.25 });
     });
-    mm.add(MOB, () => {
-      gsap.fromTo('.zoom-fig', { clipPath: 'inset(12% 8% 12% 8% round 24px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.zoom', start: 'top 90%', end: 'top 20%', scrub: true } });
-    });
     $$('.proof-grid .pf').forEach((pf, i) => {
-      gsap.from(pf, { y: 80, opacity: 0, duration: 1.3, delay: i * 0.08, ease: 'expo.out', scrollTrigger: { trigger: '.proof-grid', start: 'top 88%' } });
+      gsap.from(pf, { y: 70, opacity: 0, duration: 1.3, delay: (i % 2) * 0.1, ease: 'expo.out', scrollTrigger: { trigger: pf, start: 'top 90%' } });
       const img = $('.pf-img img', pf);
       if (img) gsap.fromTo(img, { yPercent: -8 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: pf, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
@@ -470,18 +442,17 @@
 
   /* ----- sobre ----- */
   later(() => {
-    gsap.fromTo('.about-disc', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top 85%', end: 'top 20%', scrub: true } });
-    gsap.fromTo('.about-fig img', { yPercent: 14 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'center center', scrub: true } });
-    gsap.from('.about-badge', { x: -40, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.about-fig', start: 'top 60%' } });
+    gsap.fromTo('.about-block', { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.about-in', start: 'top 85%', end: 'top 35%', scrub: true } });
+    gsap.fromTo('.about-fig img', { yPercent: 12 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.about-in', start: 'top bottom', end: 'center center', scrub: true } });
     gsap.fromTo('.sig-wrap .signature', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.4, ease: 'power2.inOut', scrollTrigger: { trigger: '.sig-wrap', start: 'top 88%' } });
   });
 
   /* ----- compromissos ----- */
   later(() => {
-    gsap.from('.pledge-list li', { y: 70, opacity: 0, duration: 1.3, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.pledge-list', start: 'top 85%' } });
+    gsap.from('.pledge-list li', { y: 60, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.pledge-list', start: 'top 85%' } });
   });
 
-  /* ----- títulos: palavras sobem por máscara ----- */
+  /* ----- títulos por máscara e revelações gerais ----- */
   later(() => {
     const maskWords = (el) => {
       Array.from(el.childNodes).forEach((node) => {
@@ -502,26 +473,30 @@
         } else if (node.nodeType === 1 && !node.classList.contains('wm')) maskWords(node);
       });
     };
-    $$('.sec-head h2, .why-head h2, .method-head h2, .about-copy h2, .faq-head h2').forEach((h) => {
+    $$('.why-head h2, .method-pin h2, .region h2, .sim-head h2, .about-copy h2, .pledge h2, .faq-head h2').forEach((h) => {
       maskWords(h);
-      gsap.from($$('.wi', h), { yPercent: 115, duration: 1.2, stagger: 0.045, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' } });
+      gsap.from($$('.wi', h), { yPercent: 115, duration: 1.2, stagger: 0.04, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' } });
     });
-    const reveals = $$('.sec-head .muted-l, .why-head .muted-l, .manifesto-foot .kicker, .letter > p, .faq-head .muted, .faq-head .btn, .faq-list details, .label');
+    $$('.sh').forEach((sh) => {
+      gsap.timeline({ scrollTrigger: { trigger: sh, start: 'top 92%' } })
+        .from(sh, { clipPath: 'inset(0% 100% 0% 0%)', duration: 1.4, ease: 'expo.inOut' })
+        .from(sh.children, { y: 12, opacity: 0, duration: 0.8, stagger: 0.06, ease: 'expo.out' }, 0.3);
+    });
+    const reveals = $$('.why-head .muted-l, .sim-head .muted-l, .manifesto-foot .muted, .letter > p, .faq-head .muted, .faq-head .btn, .faq-list details');
     gsap.set(reveals, { y: 30, opacity: 0 });
     ScrollTrigger.batch(reveals, { start: 'top 92%', once: true, onEnter: (b) => gsap.to(b, { y: 0, opacity: 1, duration: 1.1, stagger: 0.07, ease: 'expo.out' }) });
   });
 
   /* ----- contato + rodapé ----- */
   later(() => {
-    gsap.timeline({ scrollTrigger: { trigger: '.cta', start: 'top 65%' }, defaults: { ease: 'expo.out' } })
+    gsap.timeline({ scrollTrigger: { trigger: '.cta-in', start: 'top 75%' }, defaults: { ease: 'expo.out' } })
       .from('.cta-title .ln > span', { yPercent: 110, duration: 1.4, stagger: 0.12 })
       .from('.cta-info li', { y: 20, opacity: 0, duration: 1, stagger: 0.08 }, '<0.4')
       .from('.planner', { y: 60, opacity: 0, duration: 1.3 }, '<');
-    gsap.fromTo('.cta-glow', { opacity: 0.3, scale: 0.8 }, { opacity: 1, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.cta', start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.fromTo('.footer-word', { yPercent: 40 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+    gsap.fromTo('.footer-word', { yPercent: 45 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
   });
 
-  /* ----- botão flutuante, links ativos e medidor ----- */
+  /* ----- botão flutuante e links ativos ----- */
   later(() => {
     ScrollTrigger.create({
       trigger: '.hero', start: 'bottom 70%', endTrigger: '#contato', end: 'top 85%',
@@ -531,25 +506,6 @@
       const sec = document.getElementById(a.getAttribute('href').slice(1));
       if (sec) ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: (s) => a.classList.toggle('is-active', s.isActive) });
     });
-    const gauge = $('.gauge');
-    if (gauge && getComputedStyle(gauge).display !== 'none') {
-      const gSecs = $$('[data-gauge]');
-      const gN = $('.gauge-n');
-      const gName = $('.gauge-name');
-      gSecs.forEach((sec, i) => ScrollTrigger.create({
-        trigger: sec, start: 'top 50%', end: 'bottom 50%',
-        onToggle: (st) => {
-          if (!st.isActive) return;
-          gN.textContent = String(i + 1).padStart(2, '0');
-          gName.textContent = sec.dataset.gauge;
-        }
-      }));
-      ScrollTrigger.create({
-        trigger: gSecs[0], start: 'top 60%', endTrigger: '.footer', end: 'top bottom',
-        onUpdate: (st) => gauge.style.setProperty('--g', st.progress.toFixed(4)),
-        onToggle: (st) => gauge.classList.toggle('is-on', st.isActive)
-      });
-    }
   });
 
   /* ----- cursor e botões magnéticos ----- */
@@ -557,8 +513,8 @@
     const cur = $('.cursor');
     html.classList.add('has-cursor');
     gsap.set(cur, { x: -100, y: -100 });
-    const cx = gsap.quickTo(cur, 'x', { duration: 0.18, ease: 'power3' });
-    const cy = gsap.quickTo(cur, 'y', { duration: 0.18, ease: 'power3' });
+    const cx = gsap.quickTo(cur, 'x', { duration: 0.2, ease: 'power3' });
+    const cy = gsap.quickTo(cur, 'y', { duration: 0.2, ease: 'power3' });
     addEventListener('pointermove', (e) => { cx(e.clientX); cy(e.clientY); }, { passive: true });
     document.addEventListener('pointerover', (e) => cur.classList.toggle('is-link', !!e.target.closest('a, button, summary, label, input')));
     document.addEventListener('pointerleave', () => gsap.to(cur, { opacity: 0, duration: 0.2 }));
@@ -568,7 +524,7 @@
       btn.addEventListener('pointerenter', () => { r = btn.getBoundingClientRect(); });
       btn.addEventListener('pointermove', (e) => {
         if (!r) return;
-        gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.35, duration: 0.6, ease: 'power3.out' });
+        gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * 0.18, y: (e.clientY - r.top - r.height / 2) * 0.28, duration: 0.6, ease: 'power3.out' });
       });
       btn.addEventListener('pointerleave', () => { r = null; gsap.to(btn, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, .4)' }); });
     });
