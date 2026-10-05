@@ -36,7 +36,7 @@ python3 build-preview.py ../../luiz-quadros ../../../entregas/luiz-quadros-previ
   aplica cabeçalhos, cache e compressão.
 
 ## Qualidade (Lighthouse 12, servidor com compressão)
-- Celular: Desempenho 96 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 2,6 s · TBT 80 ms · CLS 0)
+- Celular: Desempenho 96 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 2,7 s · TBT 60 ms · CLS 0)
 - Desktop: Desempenho 100 · Acessibilidade 100 · Boas práticas 100 · SEO 100
 
 ## O que tem (v5 — para investidores)
@@ -54,9 +54,10 @@ python3 build-preview.py ../../luiz-quadros ../../../entregas/luiz-quadros-previ
   reconhecimentos, região, sobre, dúvidas sobre 120x/cessão/correção e montador de mensagem por entrada disponível.
 
 ## Imagens ilustrativas (Higgsfield)
-Foram geradas 6 imagens (orla, baía, interior, obra, chaves, maquete) na conta Higgsfield. A rede do
-ambiente de criação bloqueou o download; para trazê-las, rode numa rede liberada:
-`../_fontes/luiz-quadros/importar-imagens-ia.sh` (gera `assets/img/ia-*.webp`).
+Seis imagens geradas com IA (orla, baía, interior, obra, chaves, maquete) em `assets/img/ia-*.webp`, sempre
+marcadas como "Imagem ilustrativa" no site. Onde aparecem: interlúdio da orla após o hero (zoom na rolagem),
+régua dos 120 meses (a imagem muda com a fase: maquete → obra → chaves → interior), abas de estratégias e
+cartões de Itapema e Porto Belo. Para baixar de novo os originais: `../_fontes/luiz-quadros/importar-imagens-ia.sh`.
 
 ## Fotos
 Imagens em `assets/img/` (WebP em mais de um tamanho). Fotos tratadas em JPG em

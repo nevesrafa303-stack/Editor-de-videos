@@ -458,6 +458,19 @@
     $$('.tl-img img').forEach((img) => gsap.fromTo(img, { yPercent: -8 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } }));
   });
 
+  /* ----- vista: a orla se aproxima ----- */
+  later(() => {
+    mm.add(DESK, () => {
+      gsap.timeline({ scrollTrigger: { trigger: '.vista-stage', start: 'top top', end: '+=80%', pin: true, scrub: 1, anticipatePin: 1 } })
+        .fromTo('.vista-fig img', { scale: 1.35 }, { scale: 1, ease: 'none' }, 0)
+        .from('.vista-copy > *', { y: 80, opacity: 0, stagger: 0.1, ease: 'power2.out', duration: 0.5 }, 0.15);
+    });
+    mm.add(MOB, () => {
+      gsap.fromTo('.vista-fig img', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.vista', start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.from('.vista-copy > *', { y: 40, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.vista-copy', start: 'top 90%' } });
+    });
+  });
+
   /* ----- tese: pilares ----- */
   later(() => {
     gsap.from('.thesis-head > *', { y: 40, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.thesis-head', start: 'top 85%' } });
@@ -473,6 +486,7 @@
     const cells = $$('.ruler-grid i');
     const mEl = $('.ruler-m');
     const phEl = $('.ruler-phase');
+    const rms = $$('.rm');
     const phase = (m) => m === 0 ? 'Entrada' : m < 36 ? 'Obra' : m === 36 ? 'Chaves' : m < 120 ? 'Pós-chaves' : 'Quitação';
     let lit = -1;
     const setLit = (n) => {
@@ -483,6 +497,8 @@
       const m = Math.max(0, n - 1);
       mEl.textContent = String(m).padStart(3, '0');
       phEl.textContent = n ? phase(m) : 'Assinatura';
+      const ph = m < 1 ? 0 : m < 36 ? 1 : m < 37 ? 2 : 3;
+      rms.forEach((f, k) => f.classList.toggle('is-on', k === ph));
     };
     setLit(0);
     mm.add(DESK, () => {
@@ -499,6 +515,7 @@
     gsap.from('.isim-inputs > *', { y: 30, opacity: 0, duration: 1, stagger: 0.06, ease: 'expo.out', scrollTrigger: { trigger: '.isim-box', start: 'top 82%' } });
     gsap.from('.isim-out', { y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: '.isim-box', start: 'top 82%' } });
     gsap.from('.ichart-svg', { clipPath: 'inset(0% 100% 0% 0%)', duration: 2, ease: 'power2.inOut', scrollTrigger: { trigger: '.ichart', start: 'top 80%' } });
+    $$('.city-img img').forEach((im) => gsap.fromTo(im, { yPercent: -10 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: im, start: 'top bottom', end: 'bottom top', scrub: true } }));
     gsap.from('.panel:not([hidden]) > *', { y: 40, opacity: 0, duration: 1.1, stagger: 0.07, ease: 'expo.out', scrollTrigger: { trigger: '.panels', start: 'top 82%' } });
   });
 
