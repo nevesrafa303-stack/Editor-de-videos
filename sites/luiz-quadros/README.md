@@ -36,23 +36,22 @@ python3 build-preview.py ../../luiz-quadros ../../../entregas/luiz-quadros-previ
   aplica cabeçalhos, cache e compressão.
 
 ## Qualidade (Lighthouse 12, servidor com compressão)
-- Celular: Desempenho 98 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 2,5 s · TBT 60 ms · CLS 0)
+- Celular: Desempenho 96 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 2,6 s · TBT 80 ms · CLS 0)
 - Desktop: Desempenho 100 · Acessibilidade 100 · Boas práticas 100 · SEO 100
 
-## O que tem (v4 — inteligência imobiliária)
-- **Posicionamento**: o corretor do m² mais valorizado do Brasil. Dados reais do Índice FipeZAP
-  (Itapema: R$ 15.403/m² em ago/2026, 2º de 56 cidades, +4,97% em 12 meses; 1º lugar em mai–jun/2026).
-  **Atualize os números todo mês** (hero, faixa, gráfico, cartões, guia em PDF e og-src.html).
-- **Hero**: o valor do m² como peça gráfica atrás do recorte do Luiz, cartão de indicador e faixa de
-  cotações estilo mercado financeiro. Ao rolar, a cena recua e o número cresce.
-- **Mercado**: gráfico animado do ranking do m² (top 5, jun/2026) e indicadores que contam.
-- **Resultados**: R$ 130 milhões preso à rolagem + linha do tempo das conquistas com fotos reais.
-- **Método como dossiê**: cinco folhas de documento que se empilham e recebem carimbo "Conferido".
-- **Simulador** de fluxo com referência de valorização real.
-- **Guia do Investidor (PDF real, 6 páginas)** em `assets/guia-investidor-luiz-quadros.pdf`, gerado de
-  `../_fontes/luiz-quadros/guia-src.html` com `node render-guia.mjs`. Livro 3D que gira com a rolagem.
-- Reconhecimentos em tela cheia, região com dados, sobre com compromissos, dúvidas e montador de mensagem.
-- Tipografia: Schibsted Grotesk + Geist Mono (dados).
+## O que tem (v5 — para investidores)
+- **Mensagem central**: investir no m² mais valorizado do Brasil com pagamento **100% direto com a
+  construtora, em até 120x, sem banco**. Confirmar com o Luiz que todos os empreendimentos seguem esse modelo.
+- **Hero** com o valor do m² (FipeZAP) como peça gráfica, CTA "Simular meu investimento" e faixa de cotações.
+- **Mercado**: gráfico do ranking do m² e indicadores (atualize os números todo mês).
+- **A tese**: quatro pilares do pagamento direto (sem banco, capital diluído, valorização sobre o valor total,
+  chaves antes da última parcela).
+- **A régua dos 120 meses**: 121 meses que acendem com a rolagem (entrada, obra, chaves, pós-chaves).
+- **Simulador do investidor**: entrada, 60/84/100/120x, prazo de entrega e cenário de valorização, com gráfico
+  interativo (capital desembolsado × valor estimado) e mensagem pronta para o WhatsApp.
+- **Estratégias**: abas com três teses (valorização, renda de temporada, patrimônio).
+- Resultados (R$ 130 mi), dossiê de compra, **Guia do Investidor em PDF** (atualizado para o pagamento direto),
+  reconhecimentos, região, sobre, dúvidas sobre 120x/cessão/correção e montador de mensagem por entrada disponível.
 
 ## Imagens ilustrativas (Higgsfield)
 Foram geradas 6 imagens (orla, baía, interior, obra, chaves, maquete) na conta Higgsfield. A rede do

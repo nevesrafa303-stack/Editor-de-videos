@@ -137,50 +137,153 @@
   /* ---------- sliders: preenchimento ---------- */
   const fillRange = (r) => r.style.setProperty('--v', ((r.value - r.min) / (r.max - r.min) * 100).toFixed(2) + '%');
 
-  /* ---------- simulador de fluxo ---------- */
+  /* ---------- simulador do investidor (até 120x direto com a construtora) ---------- */
   const sim = $('#sim');
   if (sim) {
     const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+    const short = (v) => v >= 1e6 ? 'R$ ' + (v / 1e6).toFixed(v >= 1e7 ? 0 : 1).replace('.', ',') + ' mi' : 'R$ ' + Math.round(v / 1e3) + ' mil';
     const round = (v) => Math.round(v / 100) * 100;
-    const inp = { valor: $('#sValor'), entrada: $('#sEntrada'), obra: $('#sObra'), prazo: $('#sPrazo'), val: $('#sVal') };
+    const inp = { valor: $('#sValor'), entrada: $('#sEntrada'), prazo: $('#sPrazo'), val: $('#sVal') };
     const out = (id, t) => { $(id).textContent = t; };
-    const bars = { e: $('.sb-e', sim), o: $('.sb-o', sim), c: $('.sb-c', sim) };
     const simBtn = $('.js-sim', sim);
+    const plot = $('.ichart-plot', sim);
+    const canvas = $('.ic-canvas', sim);
+    const svg = $('.ichart-svg', sim);
+    const pA = $('.ic-a', svg), pB = $('.ic-b', svg), pArea = $('.ic-area', svg);
+    const gGrid = $('.ic-grid', svg), keys = $('.ic-keys', svg), cross = $('.ic-cross', svg);
+    const dotA = $('.ic-dot-a', sim), dotB = $('.ic-dot-b', sim);
+    const tip = $('.ic-tip', sim), keysLabel = $('.ic-keys-label', sim);
+    const yAxis = $('.ic-y', sim), xAxis = $('.ic-x', sim);
+    const W = 640, H = 300;
+    let st = null;
     const pct = (v) => String(v).replace('.', ',') + '%';
+
+    const draw = () => {
+      const { V, E, P, parc, K, t, M } = st;
+      const valAt = (m) => V * Math.pow(1 + t, m / 12);
+      const capAt = (m) => E + parc * Math.min(m, P);
+      const yMax = Math.max(valAt(M), V) * 1.08;
+      const x = (m) => m / M * W;
+      const y = (v) => H - v / yMax * H;
+      st.x = x; st.y = y; st.valAt = valAt; st.capAt = capAt; st.yMax = yMax;
+      let a = '', b = '';
+      for (let m = 0; m <= M; m++) {
+        a += (m ? 'L' : 'M') + x(m).toFixed(1) + ' ' + y(valAt(m)).toFixed(1);
+        b += (m ? 'L' : 'M') + x(m).toFixed(1) + ' ' + y(capAt(m)).toFixed(1);
+      }
+      pA.setAttribute('d', a);
+      pB.setAttribute('d', b);
+      pArea.setAttribute('d', a + 'L' + W + ' ' + H + 'L0 ' + H + 'Z');
+      keys.setAttribute('x1', x(K)); keys.setAttribute('x2', x(K));
+      keysLabel.style.left = (K / M * 100) + '%';
+      // grade e eixos
+      gGrid.innerHTML = '';
+      yAxis.innerHTML = '';
+      for (let i = 0; i <= 4; i++) {
+        const v = yMax / 1.08 * i / 4;
+        const yy = y(v);
+        const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        ln.setAttribute('x1', 0); ln.setAttribute('x2', W); ln.setAttribute('y1', yy); ln.setAttribute('y2', yy);
+        gGrid.appendChild(ln);
+        const lb = document.createElement('span');
+        lb.textContent = i ? short(v) : 'R$ 0';
+        lb.style.top = (yy / H * 100) + '%';
+        yAxis.appendChild(lb);
+      }
+      xAxis.innerHTML = '';
+      const step = M > 90 ? 24 : 12;
+      for (let m = 0; m <= M; m += step) {
+        const lb = document.createElement('span');
+        lb.textContent = m ? 'mês ' + m : 'início';
+        lb.style.left = (m / M * 100) + '%';
+        xAxis.appendChild(lb);
+      }
+    };
+
+    const hover = (m) => {
+      const { x, y, valAt, capAt, M } = st;
+      m = Math.max(0, Math.min(M, Math.round(m)));
+      const xx = x(m);
+      cross.setAttribute('x1', xx); cross.setAttribute('x2', xx);
+      const lx = (xx / W * 100) + '%';
+      dotA.style.left = lx; dotA.style.top = (y(valAt(m)) / H * 100) + '%';
+      dotB.style.left = lx; dotB.style.top = (y(capAt(m)) / H * 100) + '%';
+      const label = m === 0 ? 'Assinatura' : m === st.K ? 'Mês ' + m + ' · chaves' : 'Mês ' + m + (m < st.K ? ' · obra' : ' · pós-chaves');
+      tip.innerHTML = '<b>' + label + '</b><span>Valor estimado <em>' + brl.format(round(valAt(m))) + '</em></span><span>Desembolsado <em>' + brl.format(round(capAt(m))) + '</em></span>';
+      const left = xx / W > 0.6;
+      tip.style.left = left ? '' : 'calc(' + lx + ' + 14px)';
+      tip.style.right = left ? 'calc(' + (100 - xx / W * 100) + '% + 14px)' : '';
+      tip.style.top = '8px';
+    };
+    const onMove = (e) => {
+      const r = canvas.getBoundingClientRect();
+      plot.classList.add('is-hover');
+      hover((e.clientX - r.left) / r.width * st.M);
+    };
+    canvas.addEventListener('pointermove', onMove);
+    canvas.addEventListener('pointerdown', onMove);
+    canvas.addEventListener('pointerleave', () => plot.classList.remove('is-hover'));
+
     const calc = () => {
-      const valor = Number(inp.valor.value);
+      const V = Number(inp.valor.value);
       const e = Number(inp.entrada.value);
-      inp.obra.max = String(100 - e);
-      const o = Math.min(Number(inp.obra.value), 100 - e);
-      inp.obra.value = String(o);
-      const n = Number(inp.prazo.value);
+      const P = Number(($('input[name=parc]:checked', sim) || {}).value || 120);
+      const K = Math.min(Number(inp.prazo.value), P);
       const t = Number(inp.val.value) / 100;
-      const c = 100 - e - o;
-      const vE = valor * e / 100;
-      const vO = valor * o / 100;
-      const vC = valor - vE - vO;
-      const futuro = valor * Math.pow(1 + t, n / 12);
-      const pago = vE + vO;
-      out('#oValor', brl.format(valor));
-      out('#oEntrada', e + '% · ' + brl.format(vE));
-      out('#oObra', o + '%');
-      out('#oPrazo', n + ' meses');
+      const E = V * e / 100;
+      const parc = (V - E) / P;
+      const M = P;
+      st = { V, E, P, parc, K, t, M };
+      const pago = E + parc * K;
+      const futuro = V * Math.pow(1 + t, K / 12);
+      const ganho = futuro - V;
+      const restante = P - K;
+      out('#oValor', brl.format(V));
+      out('#oEntrada', e + '% · ' + brl.format(E));
+      out('#oPrazo', K + ' meses');
       out('#oVal', pct(Number(inp.val.value)));
-      out('#rEntrada', brl.format(vE));
-      out('#rMensal', o ? n + '× ' + brl.format(round(vO / n)) : '—');
-      out('#rChaves', brl.format(vC) + ' · ' + c + '%');
+      out('#rEntrada', brl.format(round(E)));
+      out('#rMensal', P + '× ' + brl.format(round(parc)));
+      out('#rPago', brl.format(round(pago)));
       out('#rFuturo', brl.format(round(futuro)));
-      out('#rGanho', t ? '+ ' + brl.format(round(futuro - valor)) + ' de valorização hipotética, com ' + brl.format(pago) + ' desembolsados até as chaves' : 'Sem valorização no cenário escolhido.');
-      bars.e.style.flexBasis = e + '%';
-      bars.o.style.flexBasis = o + '%';
-      bars.c.style.flexBasis = c + '%';
+      const ins = $('#rGanho');
+      ins.innerHTML = 'Nas chaves, no mês ' + K + ', você terá desembolsado <strong>' + brl.format(round(pago)) + '</strong> — ' + Math.round(pago / V * 100) + '% do valor do imóvel' +
+        (t ? ', e o ativo estimado valerá <strong>' + brl.format(round(futuro)) + '</strong>. A valorização hipotética de ' + brl.format(round(ganho)) + ' equivale a ' + Math.round(ganho / pago * 100) + '% do capital desembolsado.' : '.') +
+        (restante > 0 ? ' O saldo segue em ' + restante + ' parcelas direto com a construtora.' : '');
       Object.values(inp).forEach(fillRange);
-      simBtn.dataset.msg = 'Olá, Luiz! Fiz uma simulação no seu site: imóvel de ' + brl.format(valor) + ', entrada de ' + e + '%, ' + o + '% durante ' + n + ' meses de obra e ' + c + '% nas chaves. Quero ver empreendimentos com esse fluxo.';
+      draw();
+      simBtn.dataset.msg = 'Olá, Luiz! Fiz uma simulação no seu site: imóvel de ' + brl.format(V) + ', entrada de ' + e + '% e ' + P + ' parcelas direto com a construtora, com chaves em ' + K + ' meses. Quero conhecer oportunidades com esse fluxo.';
       setWa(simBtn);
     };
     sim.addEventListener('input', calc);
+    sim.addEventListener('change', calc);
     sim.addEventListener('submit', (e) => e.preventDefault());
     calc();
+  }
+
+  /* ---------- abas de estratégias ---------- */
+  const tabs = $$('.tabs [role=tab]');
+  if (tabs.length) {
+    const select = (i, focus) => {
+      tabs.forEach((t, k) => {
+        const on = k === i;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) tabs[i].focus();
+      const panel = document.getElementById(tabs[i].getAttribute('aria-controls'));
+      if (window.gsap && !reduced) gsap.from(panel.children, { y: 24, opacity: 0, duration: 0.8, stagger: 0.05, ease: 'expo.out' });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!k) return;
+        e.preventDefault();
+        select((i + k + tabs.length) % tabs.length, true);
+      });
+    });
   }
 
   /* ---------- planejador de mensagem ---------- */
@@ -193,7 +296,7 @@
     const compose = () => {
       const nome = nameIn.value.replace(/[<>]/g, '').trim();
       const msg = 'Olá, Luiz!' + (nome ? ' Aqui é ' + nome + '.' : '') + ' Vim pelo seu site. Quero ' + val('obj') + ' ' + val('cid') +
-        ', com investimento ' + val('fx') + '. Pode me apresentar as melhores opções na planta?';
+        ', com entrada disponível ' + val('fx') + ', pagando direto com a construtora. Pode me apresentar as melhores oportunidades na planta?';
       msgOut.textContent = msg;
       btn.dataset.msg = msg;
       setWa(btn);
@@ -355,28 +458,48 @@
     $$('.tl-img img').forEach((img) => gsap.fromTo(img, { yPercent: -8 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } }));
   });
 
-  /* ----- manifesto ----- */
+  /* ----- tese: pilares ----- */
   later(() => {
-    const manifesto = $('[data-words]');
-    const splitWords = (el) => {
-      Array.from(el.childNodes).forEach((node) => {
-        if (node.nodeType === 3) {
-          const frag = document.createDocumentFragment();
-          node.textContent.split(/(\s+)/).forEach((part) => {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-            const s = document.createElement('span');
-            s.className = 'w';
-            s.textContent = part;
-            frag.appendChild(s);
-          });
-          node.replaceWith(frag);
-        } else if (node.nodeType === 1) splitWords(node);
-      });
+    gsap.from('.thesis-head > *', { y: 40, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.thesis-head', start: 'top 85%' } });
+    $$('.pillar').forEach((p, i) => {
+      gsap.timeline({ scrollTrigger: { trigger: '.pillars', start: 'top 85%' }, delay: i * 0.12 })
+        .fromTo(p, { '--pf': 0 }, { '--pf': 1, duration: 1.4, ease: 'expo.inOut' })
+        .from(p.children, { y: 30, opacity: 0, duration: 1, stagger: 0.06, ease: 'expo.out' }, 0.2);
+    });
+  });
+
+  /* ----- régua dos 120 meses: os meses acendem com a rolagem ----- */
+  later(() => {
+    const cells = $$('.ruler-grid i');
+    const mEl = $('.ruler-m');
+    const phEl = $('.ruler-phase');
+    const phase = (m) => m === 0 ? 'Entrada' : m < 36 ? 'Obra' : m === 36 ? 'Chaves' : m < 120 ? 'Pós-chaves' : 'Quitação';
+    let lit = -1;
+    const setLit = (n) => {
+      n = Math.max(0, Math.min(cells.length, n));
+      if (n === lit) return;
+      lit = n;
+      cells.forEach((c, k) => c.classList.toggle('is-off', k >= n));
+      const m = Math.max(0, n - 1);
+      mEl.textContent = String(m).padStart(3, '0');
+      phEl.textContent = n ? phase(m) : 'Assinatura';
     };
-    splitWords(manifesto);
-    gsap.fromTo($$('.w', manifesto), { opacity: 0.14 }, { opacity: 1, stagger: 0.08, ease: 'none', immediateRender: false, scrollTrigger: { trigger: manifesto, start: 'top 85%', end: 'bottom 45%', scrub: true } });
-    gsap.fromTo('.manifesto .signature', { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: '.manifesto-foot', start: 'top 90%' } });
+    setLit(0);
+    mm.add(DESK, () => {
+      ScrollTrigger.create({ trigger: '.ruler-pin', start: 'top top', end: '+=150%', pin: true, scrub: true, anticipatePin: 1, onUpdate: (s) => setLit(Math.round(s.progress * 1.08 * cells.length)) });
+    });
+    mm.add(MOB, () => {
+      ScrollTrigger.create({ trigger: '.ruler-grid', start: 'top 80%', end: 'bottom 35%', scrub: true, onUpdate: (s) => setLit(Math.round(s.progress * 1.05 * cells.length)) });
+    });
+    gsap.from('.ruler-legend li', { y: 20, opacity: 0, duration: 1, stagger: 0.08, ease: 'expo.out', scrollTrigger: { trigger: '.ruler-legend', start: 'top 92%' } });
+  });
+
+  /* ----- simulador e estratégias ----- */
+  later(() => {
+    gsap.from('.isim-inputs > *', { y: 30, opacity: 0, duration: 1, stagger: 0.06, ease: 'expo.out', scrollTrigger: { trigger: '.isim-box', start: 'top 82%' } });
+    gsap.from('.isim-out', { y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: '.isim-box', start: 'top 82%' } });
+    gsap.from('.ichart-svg', { clipPath: 'inset(0% 100% 0% 0%)', duration: 2, ease: 'power2.inOut', scrollTrigger: { trigger: '.ichart', start: 'top 80%' } });
+    gsap.from('.panel:not([hidden]) > *', { y: 40, opacity: 0, duration: 1.1, stagger: 0.07, ease: 'expo.out', scrollTrigger: { trigger: '.panels', start: 'top 82%' } });
   });
 
   /* ----- dossiê: folhas empilham e recebem o carimbo ----- */
@@ -389,12 +512,6 @@
       const next = sheets[i + 1];
       if (next) gsap.fromTo(sheet, { scale: 1, filter: 'brightness(1)' }, { scale: 0.94, filter: 'brightness(.9)', ease: 'none', scrollTrigger: { trigger: next, start: 'top 85%', end: 'top 25%', scrub: true } });
     });
-  });
-
-  /* ----- simulador ----- */
-  later(() => {
-    gsap.from('.sim-inputs .field', { y: 30, opacity: 0, duration: 1, stagger: 0.07, ease: 'expo.out', scrollTrigger: { trigger: '.sim-box', start: 'top 82%' } });
-    gsap.from('.sim-result', { y: 60, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: '.sim-box', start: 'top 82%' } });
   });
 
   /* ----- guia: o livro gira com a rolagem ----- */
@@ -456,7 +573,7 @@
         } else if (node.nodeType === 1 && !node.classList.contains('wm')) maskWords(node);
       });
     };
-    $$('.market-copy h2, .dossier-head h2, .sim-head h2, .guide-copy h2, .region h2, .about-copy h2, .faq-head h2').forEach((h) => {
+    $$('.market-copy h2, .thesis-head h2, .ruler-head h2, .isim-head h2, .strat-head h2, .dossier-head h2, .guide-copy h2, .region h2, .about-copy h2, .faq-head h2').forEach((h) => {
       maskWords(h);
       gsap.from($$('.wi', h), { yPercent: 115, duration: 1.2, stagger: 0.04, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 88%' } });
     });
@@ -465,7 +582,7 @@
         .from(sh, { clipPath: 'inset(0% 100% 0% 0%)', duration: 1.4, ease: 'expo.inOut' })
         .from(sh.children, { y: 12, opacity: 0, duration: 0.8, stagger: 0.06, ease: 'expo.out' }, 0.3);
     });
-    const reveals = $$('.market-copy p, .dossier-head .muted-l, .dossier-head .btn, .sim-head .muted-l, .guide-copy .muted-l, .guide-ctas, .manifesto-foot .mono, .letter > p, .faq-head .muted, .faq-head .btn, .faq-list details');
+    const reveals = $$('.market-copy p, .dossier-head .muted-l, .dossier-head .btn, .isim-head .muted-l, .guide-copy .muted-l, .guide-ctas, .letter > p, .faq-head .muted, .faq-head .btn, .faq-list details');
     gsap.set(reveals, { y: 30, opacity: 0 });
     ScrollTrigger.batch(reveals, { start: 'top 92%', once: true, onEnter: (b) => gsap.to(b, { y: 0, opacity: 1, duration: 1.1, stagger: 0.07, ease: 'expo.out' }) });
   });
