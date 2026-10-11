@@ -109,12 +109,29 @@ def main(destino: Path) -> None:
                       lambda _: '<style>\n' + css + '\n</style>', html)
     assert n == 1, f'não achei o link do CSS ({n} ocorrências)'
 
-    for arquivo in ('assets/js/config.js', 'assets/js/main.js'):
+    # A ordem importa e é a mesma do HTML: o Lenis precisa existir antes do
+    # main.js, que o procura em window.Lenis. Na pasta isso é garantido pelo
+    # defer, que preserva a ordem; aqui, por os blocos entrarem em sequência.
+    #
+    # O vendor entrou na lista depois do resto. Enquanto não estava, o arquivo
+    # único saía com um <script src="assets/vendor/..."> apontando para um
+    # caminho que não existe ao lado dele: 404 no console e rolagem sem o
+    # deslize, justamente no formato que serve para alguém abrir com dois
+    # cliques e julgar o site.
+    for arquivo in ('assets/vendor/lenis.min.js', 'assets/js/config.js', 'assets/js/main.js'):
         js = (RAIZ / arquivo).read_text(encoding='utf-8')
         alvo = re.escape(arquivo) + r'[^"]*'
         html, n = re.subn(rf'<script src="{alvo}"[^>]*></script>',
                           lambda _: '<script>\n' + js + '\n</script>', html)
         assert n == 1, f'não achei o script {arquivo} ({n} ocorrências)'
+
+    # Nada pode sobrar apontando para um arquivo ao lado: o ponto deste
+    # formato é ser um arquivo só. O mapa é a exceção — é um iframe do Google,
+    # busca na rede e não na pasta.
+    sobrou = [m for m in re.findall(r'(?:src|href)="(assets/[^"]+)"', html)]
+    if sobrou:
+        print('  ! ainda apontam para a pasta: ' + ', '.join(sorted(set(sobrou))), file=sys.stderr)
+        raise SystemExit(1)
 
     destino.write_text(html, encoding='utf-8')
     kb = destino.stat().st_size / 1024
