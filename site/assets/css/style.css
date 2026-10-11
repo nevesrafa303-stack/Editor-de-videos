@@ -352,12 +352,12 @@ p{text-wrap:pretty}
    2. Numa janela baixa (notebook com escala do Windows, navegador dentro do
       Instagram) a foto tomava a tela inteira e encostava no menu. O teto de
       altura abaixo impede isso. A largura é derivada da altura pela proporção
-      real da imagem (900/1258 = 0,7154), para não deformar nem sobrar borda. */
+      real da imagem (900/1154 = 0,78), para não deformar nem sobrar borda. */
 .hero__foto{
   position:relative;
   width:100%;min-width:0;
-  max-width:calc(min(80vh,760px) * .7154);
-  max-width:calc(min(80svh,760px) * .7154);   /* svh onde houver; vh é a reserva */
+  max-width:calc(min(80vh,760px) * .78);
+  max-width:calc(min(80svh,760px) * .78);   /* svh onde houver; vh é a reserva */
   margin-inline:auto;
 }
 .hero__foto .foto-enquadrada img{width:100%;max-width:100%;height:auto}
@@ -804,8 +804,8 @@ html:not(.js) .palavra > span{transform:none}
   .hero__foto{
     width:auto;
     margin-inline:calc(var(--gutter) * -1);
-    max-width:min(34rem, calc(min(86vh,820px) * .7154));
-    max-width:min(34rem, calc(min(86svh,820px) * .7154));
+    max-width:min(34rem, calc(min(86vh,820px) * .78));
+    max-width:min(34rem, calc(min(86svh,820px) * .78));
   }
   .selo{
     position:static;max-width:none;
@@ -842,8 +842,8 @@ html:not(.js) .palavra > span{transform:none}
   .hero__selos{margin-top:1.7rem;padding-top:1.3rem}
   /* e a foto nunca passa do que cabe entre o cabeçalho e a dobra */
   .hero__foto{
-    max-width:calc(min(80vh,760px) * .7154);
-    max-width:calc(min(80svh, 760px, 100svh - var(--topo-h) - 3.5rem) * .7154);
+    max-width:calc(min(80vh,760px) * .78);
+    max-width:calc(min(80svh, 760px, 100svh - var(--topo-h) - 3.5rem) * .78);
   }
 }
 
