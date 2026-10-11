@@ -8,7 +8,7 @@
 window.SITE = {
   /* --- Identidade ------------------------------------------------------- */
   nome: 'Dra. Consuelo Vasconcelos',
-  especialidade: 'Odontologia & Estética Avançada',
+  especialidade: 'Odontologia & Harmonização Facial',
   titulo: 'Cirurgiã-Dentista',
   cro: 'CRO-SC 25523',
   responsavelTecnico: 'Dra. Consuelo Vasconcelos — Cirurgiã-Dentista, CRO-SC 25523',

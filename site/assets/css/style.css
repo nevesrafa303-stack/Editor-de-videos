@@ -948,25 +948,6 @@ html:not(.js) .palavra > span{transform:none}
   font-size:.62em;letter-spacing:.02em;color:var(--txt-2);margin-top:.2rem;
 }
 
-/* "O que muda na sua estética" — lista numerada em régua */
-.mudancas{display:grid;gap:0;max-width:64rem}
-.mudancas li{
-  display:grid;grid-template-columns:auto 1fr;
-  gap:clamp(1.2rem,3.5vw,3rem);align-items:start;
-  padding-block:clamp(1.8rem,3.5vw,2.8rem);
-  border-top:1px solid var(--linha);
-}
-.mudancas li:last-child{border-bottom:1px solid var(--linha)}
-.mudancas__n{
-  font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.6rem);
-  line-height:.9;color:var(--creme);opacity:.4;
-}
-.mudancas h3{
-  font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:var(--t-xl);color:var(--creme);margin-bottom:.55rem;
-}
-.mudancas p{font-size:var(--t-base);color:rgba(255,255,255,.95);max-width:54ch;font-weight:300}
-
 /* avaliações do Google */
 .avaliacoes__caixa{
   display:grid;grid-template-columns:auto 1fr;align-items:center;
@@ -1013,7 +994,6 @@ html:not(.js) .palavra > span{transform:none}
     padding-right:0;padding-bottom:1.5rem;
     border-right:0;border-bottom:1px solid var(--linha);
   }
-  .mudancas li{grid-template-columns:1fr;gap:.6rem}
 }
 
 /* -- 11. EXPERIÊNCIA — CORREÇÕES MEDIDAS -------------------------------- */
@@ -1418,27 +1398,9 @@ figure:hover .retrato img{transform:scale(1.02)}
 .js .etapa[data-revelar]{transform:translateY(30px)}
 .js .etapa[data-revelar].is-visivel{transform:none}
 
-/* 14.5 A régua da lista "O que muda" se desenha da esquerda para a direita
-   quando o item entra. */
-.mudancas li{position:relative;border-top:0}
-.mudancas li::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:var(--linha);transform:scaleX(0);transform-origin:left;
-  transition:transform 1s var(--ease);transition-delay:var(--atraso,0ms);
-}
-.mudancas li.is-visivel::before,html:not(.js) .mudancas li::before{transform:scaleX(1)}
-.mudancas li:last-child{border-bottom:0}
-.mudancas li:last-child::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:var(--linha);transform:scaleX(0);transform-origin:left;
-  transition:transform 1s var(--ease) .2s;
-}
-.mudancas li:last-child.is-visivel::after,html:not(.js) .mudancas li:last-child::after{transform:scaleX(1)}
-
 @media (prefers-reduced-motion:reduce){
   .hero__texto,.hero__foto{transform:none !important;opacity:1 !important}
   [data-zoom]{transform:none !important}
-  .mudancas li::before,.mudancas li:last-child::after{transform:scaleX(1) !important}
 }
 
 /* -- 15. MAPA ------------------------------------------------------------ */
