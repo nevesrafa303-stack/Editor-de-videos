@@ -172,7 +172,7 @@
 
     // título da aba + ano
     if (CFG.nome && CFG.especialidade) {
-      document.title = `${CFG.nome} — ${CFG.especialidade}`;
+      document.title = `${CFG.nome} | ${CFG.especialidade}`;
     }
     $$('[data-ano]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
   };
@@ -989,7 +989,7 @@
     const f = document.createElement('iframe');
     f.src = src;
     f.loading = 'lazy';
-    f.title = `Mapa do consultório — ${end.linha1 || CFG.nome || ''}`;
+    f.title = `Mapa do consultório: ${end.linha1 || CFG.nome || ''}`;
     f.referrerPolicy = 'no-referrer-when-downgrade';
     f.setAttribute('allowfullscreen', '');
 

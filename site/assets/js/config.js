@@ -11,7 +11,7 @@ window.SITE = {
   especialidade: 'Odontologia & Harmonização Facial',
   titulo: 'Cirurgiã-Dentista',
   cro: 'CRO-SC 25523',
-  responsavelTecnico: 'Dra. Consuelo Vasconcelos — Cirurgiã-Dentista, CRO-SC 25523',
+  responsavelTecnico: 'Dra. Consuelo Vasconcelos, Cirurgiã-Dentista, CRO-SC 25523',
 
   /* --- Contato ---------------------------------------------------------- */
   whatsapp: '5547988603900',
@@ -20,8 +20,8 @@ window.SITE = {
 
   /* --- Endereço --------------------------------------------------------- */
   endereco: {
-    linha1: 'R. Hercílio Luz, 642 — Sala 304, segundo andar',
-    linha2: 'Centro · Itajaí — SC',
+    linha1: 'R. Hercílio Luz, 642, Sala 304, segundo andar',
+    linha2: 'Centro · Itajaí-SC',
     cep: '88301-001',
     referencia: 'No calçadão da Hercílio Luz, no Centro de Itajaí.',
     // Link curto oficial de compartilhamento da ficha no Google Maps, enviado
@@ -53,7 +53,7 @@ window.SITE = {
 
   /* --- Horários --------------------------------------------------------- */
   horarios: [
-    { dias: 'Segunda a sábado', hora: '09h30 — 18h00' },
+    { dias: 'Segunda a sábado', hora: '09h30 às 18h00' },
     { dias: 'Domingo', hora: 'Fechado' },
   ],
 
