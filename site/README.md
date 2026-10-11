@@ -12,8 +12,17 @@ site/
     ├── css/style.css       ← todo o design (tokens de cor, tipografia, componentes)
     ├── js/config.js        ← ⚠️ ÚNICO ARQUIVO OBRIGATÓRIO DE EDITAR
     ├── js/main.js          ← comportamento (scroll, carrossel, comparador, formulário)
+    ├── vendor/lenis.min.js ← única dependência: o deslize suave da rolagem (18 KB)
     └── img/                ← imagens (placeholders SVG para substituir)
 ```
+
+A única biblioteca do site é o **Lenis**, que dá o deslize suave da rolagem —
+o mesmo que o site da Vanessa Marinho usa. Ele vem junto no repositório, não
+de CDN: assim não há como a página chegar quebrada porque um servidor de
+terceiro caiu. Se o arquivo faltar, o site continua inteiro, só com a rolagem
+padrão do navegador. O Lenis só entra no ponteiro (`pointer:fine`) — no toque
+a inércia nativa do celular é melhor, e interceptá-la quebra o "puxar para
+atualizar" e a barra de endereço que recolhe.
 
 ---
 
@@ -93,7 +102,7 @@ parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
 | `clinica-*.webp` | Seção "A clínica" |
 | `testa-*.webp` | Segundo antes/depois (linhas da testa) |
-| `logo-ouro.png` / `logo-ouro-escuro.png` | A marca, dourada. Duas tintas porque o cabeçalho começa transparente sobre o hero escuro e fica claro depois de rolar; as duas se cruzam. O ouro da marca (`#C9A96A`) dá 8,35:1 sobre o escuro mas só 2,15:1 sobre o claro, então ali entra um ouro mais fundo (`#7A5D24`, 5,88:1) |
+| `logo-ouro.png` / `logo-ouro-escuro.png` | A marca, dourada, em duas tintas. Com a página clara, o cabeçalho usa só a escura; a de ouro claro (`#C9A96A`) ficou para o rodapé, que segue escuro — sobre o off-white ela daria 2,15:1 e não se leria |
 | `favicon-*.png`, `apple-touch-icon.png` | Ícones, recortados do monograma da própria marca |
 | `caso-labial-*.webp` | Seção "Resultados" |
 | `og-capa.jpg` | Miniatura no WhatsApp, Instagram e Facebook |
@@ -195,31 +204,47 @@ e `sitemap.xml`.
 **Responsivo** — layout fluido com `clamp()`, testado de 390px a 1440px, sem
 rolagem horizontal. Também tem folha de impressão.
 
-## 5. A paleta — de onde ela veio
+## 5. A paleta — off-white, dourado e cinza
 
-As cores não foram escolhidas: foram **medidas nos prints do site publicado**,
-amostrando os pixels de cada região da interface. O resultado é que o site é
-genuinamente monocromático — o croma máximo medido nas áreas de interface foi
-**4 de 255**, ou seja, cinza puro. A única cor da marca é o dourado do logo.
+A Dra. pediu a página clara, nesses três tons. O site nasceu escuro, com as
+cores amostradas pixel a pixel dos prints do site antigo; a versão clara
+mantém o espírito monocromático (a única cor é o dourado da marca) e inverte
+o resto.
 
-| Token | Cor | Onde foi medido |
+| Token | Cor | Papel |
 |---|---|---|
-| `--grafite` | `#121214` | Fundo do estúdio das fotos — com o token igual, o retrato funde com a página |
-| `--carvao` | `#3A3A3A` | Fundo das seções escuras |
-| `--chumbo` | `#5D5D5D` | Topo do gradiente dos cards |
-| `--cinza` | `#6E6E6E` | O cinza dominante do site (`#888888`, 53% dos pixels), escurecido o suficiente para o texto branco passar em contraste |
-| `--prata` | `#A5A5A5` | Base do gradiente dos cards e faixas claras |
-| `--creme` | `#EBE7DB` | Branco quente do logo |
-| `--ouro` | `#C9A96A` | Dourado do monograma e do bordado do jaleco |
+| `--marfim` | `#F8F6F1` | Off-white quente: o fundo base da página |
+| `--areia` | `#F0ECE4` | Um tom abaixo, para a seção vizinha não encostar |
+| `--cinza` | `#E8E5DE` | O cinza claro das seções de respiro |
+| `--grafite` | `#23211E` | O escuro que sobrou: texto, rodapé e topo fixo |
+| `--ouro` | `#6E5316` | Dourado de **texto** |
+| `--ouro-claro` | `#C9A96A` | Dourado do **logo**: só sobre escuro ou como traço |
 
-O gradiente dos cards (`--grad-card`) reproduz o do site atual: escuro no canto
-superior esquerdo, prata no inferior direito.
+**O dourado precisou virar dois.** O `#C9A96A` do logo é bonito sobre o escuro
+e rende 8,35:1 lá; sobre o off-white ele cai para 3,3:1, abaixo do mínimo
+legível. Então o dourado que carrega texto é o `#6E5316`, que dá 6,7:1 no
+mesmo fundo, e o claro fica para o rodapé e para traço decorativo, onde
+ninguém precisa ler.
 
-**Uma correção deliberada:** o cinza original `#888888` com texto branco dá
-contraste de 3,5:1 — abaixo do mínimo legal de acessibilidade (4,5:1). Escureci
-para `#6E6E6E`, que mantém o mesmo ar da marca e passa com folga. Se preferir o
-tom exato do site atual, troque `--cinza` de volta e aceite a perda de
-legibilidade.
+**Os três fundos de seção** (`--secao--grafite`, `--secao--escura`,
+`--secao--cinza`) alternam marfim, areia e cinza. Os nomes vêm da versão
+escura e perderam o sentido literal; o que importa é o ritmo — nenhuma seção
+encosta noutra da mesma cor.
+
+**O rodapé continua escuro de propósito:** fecha a página, dá contraste depois
+de tanto claro, e é onde o ouro do logo pode viver sem problema de leitura.
+Por ser uma ilha de tema invertido, ele redefine os tokens para si e tudo
+dentro herda os valores certos.
+
+**O token `--veu`** existe porque clarear e escurecer não são a mesma operação.
+No tema escuro, marcar uma superfície era clareá-la com
+`rgba(255,255,255,.05)`; no claro é o contrário. Os sete usos que estavam
+cravados no CSS passam a sair desse token.
+
+**Para voltar ao escuro** basta reescrever o bloco `:root` do `style.css` —
+tudo que está abaixo dele já lê dos tokens. As exceções são três regras que
+precisam de fundo opaco próprio e estão marcadas no arquivo: o fundo do hero,
+a seção "Sobre" no empilhado e a barra de ações fixa do celular.
 
 ### Tipografia
 
