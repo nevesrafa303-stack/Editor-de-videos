@@ -63,7 +63,7 @@ def carimbar_versao() -> str:
 
     quando = datetime.now().strftime('%d/%m/%Y %H:%M')
     (RAIZ / 'versao.txt').write_text(
-        f'Dra. Consuelo Vasconcelos — site\n'
+        f'Dra. Consuelo Vasconcelos - site\n'
         f'versao {versao}\n'
         f'gerado em {quando}\n\n'
         f'Se este numero nao for o mesmo do arquivo que voce publicou,\n'
