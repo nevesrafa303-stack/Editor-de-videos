@@ -13,6 +13,7 @@ site/
     ├── js/config.js        ← ⚠️ ÚNICO ARQUIVO OBRIGATÓRIO DE EDITAR
     ├── js/main.js          ← comportamento (scroll, carrossel, comparador, formulário)
     ├── vendor/lenis.min.js ← única dependência: o deslize suave da rolagem (18 KB)
+    ├── ferramentas/        ← roteiros de preparo (não vão para o servidor)
     └── img/                ← imagens (placeholders SVG para substituir)
 ```
 
@@ -100,6 +101,7 @@ parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 |---|---|
 | `consuelo-hero-*.webp` | Primeira dobra |
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
+| `consuelo-missao-*.webp` | Coluna fixa da seção "Minha missão" — só aparece no desktop |
 | `clinica-*.webp` | Seção "A clínica" |
 | `testa-*.webp` | Segundo antes/depois (linhas da testa) |
 | `logo-ouro.png` / `logo-ouro-escuro.png` | A marca, dourada, em duas tintas. Com a página clara, o cabeçalho usa só a escura; a de ouro claro (`#C9A96A`) ficou para o rodapé, que segue escuro — sobre o off-white ela daria 2,15:1 e não se leria |
@@ -203,6 +205,38 @@ e `sitemap.xml`.
 
 **Responsivo** — layout fluido com `clamp()`, testado de 390px a 1440px, sem
 rolagem horizontal. Também tem folha de impressão.
+
+## 4.5 As fotos — dois caminhos
+
+Há dois jeitos de uma foto entrar no site, e eles não se misturam:
+
+**Com fundo real**, em moldura (`.foto-enquadrada`): é o caso do hero, do
+"quem sou eu", da missão e da clínica. Passa pelo `ferramentas/enquadra.py`,
+que corta no formato do espaço, gera as três larguras e exporta WebP:
+
+```
+python3 ferramentas/enquadra.py foto.jpg assets/img/consuelo-hero 0.714 --rosto 0.34
+```
+
+O corte precisa de um ponto de ancoragem, senão a cabeça sai cortada ou sobra
+meio metro de parede acima dela. O roteiro procura esse ponto sozinho: acha a
+mancha de pele em YCbCr, que separa tom de pele de parede clara muito melhor
+que RGB. **A busca erra quando a parede é bege** — nessa faixa ela entra no
+mesmo intervalo da pele e puxa a âncora para o meio do quadro. Por isso existe
+o `--ancora X,Y`, que dita a posição à mão, e o `--escala`, que fecha o
+enquadramento. Toda foto deve ser olhada depois de gerada.
+
+**Sem fundo**, flutuando na página: passa antes pelo `recorte.py` e depois
+pelo `fotos.py`, que preserva o canal alfa. Era o tratamento do hero até a
+versão 20. Hoje nenhuma foto do site usa esse caminho — as fotos novas têm
+fundo real e vão todas em moldura —, mas as duas ferramentas continuam aqui
+porque a decisão pode voltar atrás.
+
+**Uma foto que não deu certo:** há um retrato dela de jaleco ao lado da
+identidade na parede. O letreiro "Consuelo Vasconcelos" encosta na borda
+direita do próprio arquivo, sem margem nenhuma: qualquer corte ou deixa o "s"
+final raspando a moldura ou parte a palavra no meio. Num site que se apoia no
+nome, nome truncado não passa — a foto ficou de fora.
 
 ## 5. A paleta — off-white, dourado e cinza
 

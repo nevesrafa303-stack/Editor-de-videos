@@ -33,8 +33,8 @@
 
 <!-- ?v= força o navegador e a hospedagem a buscarem o arquivo novo em vez de
      servir o antigo do cache. Ao publicar uma alteração, mude o número. -->
-<meta name="versao-do-site" content="20">
-<link rel="stylesheet" href="assets/css/style.css?v=20">
+<meta name="versao-do-site" content="21">
+<link rel="stylesheet" href="assets/css/style.css?v=21">
 
 <script>
 /* Progressive enhancement da animação de entrada.
@@ -140,23 +140,24 @@
       </ul>
     </div>
 
-    <!-- A entrada por CSS fica na <figure>; o movimento de rolagem vai no
-         .retrato de dentro. Os dois animam transform, e na mesma tag o que
+    <!-- A entrada por CSS fica na <figure>; o movimento de rolagem vai na
+         moldura de dentro. Os dois animam transform, e na mesma tag o que
          ganha é a animação (uma animação com `forwards` vence o style inline),
          o que deixava esta foto — e só ela — congelada na página. Separados,
          não há disputa possível. É a mesma regra já usada na seção "sobre".
-         O data-parallax saiu daqui porque agora quem move este elemento é o
-         bloco do hero, e dois donos para a mesma propriedade seria o mesmo
-         problema de novo. -->
+
+         A foto antiga era recorte sem fundo, flutuando na página. Esta tem
+         fundo real, então vai em moldura — o mesmo tratamento da foto da
+         clínica, o que deixa as duas falando a mesma língua. -->
     <figure class="hero__foto" data-entrada data-atraso="150">
-      <div class="retrato retrato--desvanece" data-hero-movel>
+      <div class="foto-enquadrada" data-hero-movel>
         <img src="assets/img/consuelo-hero-900.webp"
              srcset="assets/img/consuelo-hero-560.webp 560w,
                      assets/img/consuelo-hero-900.webp 900w,
                      assets/img/consuelo-hero-1300.webp 1300w"
              sizes="(max-width:900px) 78vw, 42vw"
-             width="900" height="1258" fetchpriority="high"
-             alt="Dra. Consuelo Vasconcelos, cirurgiã-dentista, de jaleco branco">
+             width="900" height="1261" fetchpriority="high"
+             alt="Dra. Consuelo Vasconcelos olhando para a câmera, apoiada, em retrato de estúdio">
       </div>
       <figcaption class="selo" data-parallax="-0.04">
         <strong>Atendimento</strong>
@@ -186,18 +187,18 @@
 <!-- ======================= SOBRE ======================= -->
 <section class="secao secao--grafite sobre" id="sobre">
   <div class="wrap sobre__grid">
-    <!-- data-desliza vai no .retrato, e não na <figure>: a figure carrega
+    <!-- data-desliza vai na moldura, e não na <figure>: a figure carrega
          data-revelar, que anima o próprio transform — os dois na mesma tag
          brigariam pela propriedade. -->
     <figure class="sobre__foto" data-revelar>
-      <div class="retrato retrato--desvanece" data-desliza="190">
-        <img src="assets/img/consuelo-sobre-820.webp"
-             srcset="assets/img/consuelo-sobre-520.webp 520w,
-                     assets/img/consuelo-sobre-820.webp 820w,
-                     assets/img/consuelo-sobre-1200.webp 1200w"
+      <div class="foto-enquadrada" data-desliza="190" data-cortina>
+        <img src="assets/img/consuelo-sobre-900.webp"
+             srcset="assets/img/consuelo-sobre-560.webp 560w,
+                     assets/img/consuelo-sobre-900.webp 900w,
+                     assets/img/consuelo-sobre-1300.webp 1300w"
              sizes="(max-width:900px) 92vw, 46vw"
-             width="820" height="1025" loading="lazy"
-             alt="Dra. Consuelo Vasconcelos de braços cruzados, em jaleco branco">
+             width="900" height="1125" loading="lazy"
+             alt="Dra. Consuelo Vasconcelos à mesa do consultório, em atendimento, sob a identidade da clínica">
       </div>
     </figure>
 
@@ -247,6 +248,22 @@
       </p>
       <div class="metodo__medidor" aria-hidden="true"><span data-metodo-medidor></span></div>
       <a class="btn btn--ouro" data-wa href="#contato">Agendar minha avaliação</a>
+
+      <!-- A coluna da esquerda é fixa enquanto as etapas rolam ao lado, e
+           sobrava tela embaixo do botão no desktop. A foto ocupa esse vazio em
+           vez de alongar a página: no empilhado ela sai, porque ali não há
+           vazio nenhum para preencher e a seção já é longa. -->
+      <figure class="metodo__foto" data-revelar data-atraso="320">
+        <div class="foto-enquadrada" data-cortina>
+          <img src="assets/img/consuelo-missao-900.webp"
+               srcset="assets/img/consuelo-missao-560.webp 560w,
+                       assets/img/consuelo-missao-900.webp 900w,
+                       assets/img/consuelo-missao-1300.webp 1300w"
+               sizes="(max-width:1100px) 44vw, 34vw"
+               width="900" height="1154" loading="lazy"
+               alt="Detalhe do espelho de mão refletindo o sorriso após o atendimento">
+        </div>
+      </figure>
     </div>
 
     <ol class="etapas" data-etapas data-cascata="110">
@@ -784,7 +801,7 @@
          pergunta ficou sem resposta por várias rodadas enquanto se corrigia
          no escuro. Agora qualquer print do rodapé já responde. O build
          mantém este número igual ao do ?v= e ao do versao.txt. -->
-    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados. <span class="rodape__versao" data-versao-visivel>v20</span></p>
+    <p>© <span data-ano>2026</span> <span data-bind="nome">Dra. Consuelo Vasconcelos</span>. Todos os direitos reservados. <span class="rodape__versao" data-versao-visivel>v21</span></p>
     <p><a href="#inicio">Voltar ao topo</a></p>
   </div>
 </footer>
@@ -824,8 +841,8 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="assets/vendor/lenis.min.js?v=20" defer></script>
-<script src="assets/js/config.js?v=20"></script>
-<script src="assets/js/main.js?v=20" defer></script>
+<script src="assets/vendor/lenis.min.js?v=21" defer></script>
+<script src="assets/js/config.js?v=21"></script>
+<script src="assets/js/main.js?v=21" defer></script>
 </body>
 </html>

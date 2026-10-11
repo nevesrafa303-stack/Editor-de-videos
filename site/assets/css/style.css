@@ -236,20 +236,6 @@ p{text-wrap:pretty}
   stroke-linecap:round;stroke-linejoin:round}
 .redondo:hover{background:var(--ouro);color:var(--grafite);border-color:var(--ouro)}
 
-/* moldura de imagem */
-.moldura{
-  position:relative;border-radius:var(--r-lg);overflow:hidden;
-  box-shadow:var(--sombra-alta);background:var(--carvao);
-}
-.moldura img{width:100%;aspect-ratio:5/7;transition:transform 1.1s var(--ease)}
-.moldura--alta img{aspect-ratio:4/5}
-.moldura::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(251,250,247,.14);
-  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.42));
-}
-figure:hover .moldura img{transform:scale(1.035)}
-
 /* marca */
 .marca{position:relative;display:flex;align-items:center;flex:none}
 .marca__logo{
@@ -374,8 +360,7 @@ figure:hover .moldura img{transform:scale(1.035)}
   max-width:calc(min(80svh,760px) * .7154);   /* svh onde houver; vh é a reserva */
   margin-inline:auto;
 }
-.hero__foto .retrato img{width:100%;max-width:100%;height:auto}
-.hero__foto .moldura img{aspect-ratio:5/6.4}
+.hero__foto .foto-enquadrada img{width:100%;max-width:100%;height:auto}
 .selo{
   position:absolute;left:clamp(-1.5rem,-2vw,-2.5rem);bottom:clamp(1.5rem,4vw,3rem);
   max-width:15rem;padding:1.1rem 1.3rem;border-radius:var(--r);
@@ -511,6 +496,15 @@ figure:hover .moldura img{transform:scale(1.035)}
   background:linear-gradient(90deg,var(--ouro),var(--chumbo));
   transition:width .2s linear;
 }
+/* A foto da coluna fixa só existe onde há vazio para ela ocupar: no desktop,
+   embaixo do bloco que fica parado enquanto as etapas rolam ao lado. No
+   empilhado a coluna deixa de ser fixa, não sobra vazio nenhum, e a foto só
+   alongaria uma seção que já é longa — por isso ela sai. */
+.metodo__foto{display:none}
+@media (min-width:901px){
+  .metodo__foto{display:block;margin-top:clamp(2.2rem,4vw,3.4rem);max-width:24rem}
+}
+
 .etapas{position:relative;display:grid;gap:clamp(1.6rem,3vw,2.4rem)}
 .etapa{
   display:grid;grid-template-columns:auto 1fr;gap:clamp(1.2rem,2.5vw,2rem);
@@ -796,9 +790,8 @@ html:not(.js) .palavra > span{transform:none}
   .hero__grid,.sobre__grid,.metodo__grid,.faq__grid,.contato__grid{grid-template-columns:1fr}
   /* Empilhados, a foto desce por cima do começo do texto — é o efeito pedido,
      não um acidente. Para ele funcionar o texto precisa ser opaco, senão a
-     imagem apareceria atravessada nas palavras. A borda de baixo da foto já se
-     dissolve sozinha (a máscara de .retrato--desvanece), então ela some por
-     baixo do texto em vez de ser cortada a régua. */
+     imagem apareceria atravessada nas palavras: a foto passa por baixo dele
+     em vez de ser cortada a régua. */
   .sobre__grid{gap:clamp(2.5rem,7vw,3.5rem)}
   .sobre__texto{background:var(--marfim);padding-top:1.4rem}
   .hero{min-height:auto;padding-block:calc(var(--topo-h) + 3rem) 5rem}
@@ -1154,30 +1147,10 @@ html:not(.js) .palavra > span{transform:none}
    então a separação foi feita por textura, não por cor (fundo liso, cabelo
    feito de fios). Ver ferramentas/recorte.py. Nada de máscara CSS aqui: a
    figura inteira aparece, sem borda comida. */
-.retrato{position:relative}
-.retrato img{
-  width:100%;height:auto;display:block;
-  transition:transform 1.2s var(--ease);
-}
-/* luz difusa atrás da figura, para ela não flutuar num vazio chapado */
-.retrato::before{
-  content:'';position:absolute;inset:4% -4% 2%;z-index:-1;border-radius:50%;
-  background:radial-gradient(ellipse at 50% 46%,rgba(201,169,106,.13),transparent 68%);
-  filter:blur(52px);pointer-events:none;
-}
-/* A foto original é de meio corpo: sem tratamento, o jaleco termina num corte
-   reto no nada. O fade vai só nos últimos 7% da altura — laterais e topo ficam
-   intactos, que era o defeito da versão anterior. */
-.retrato--desvanece img{
-  -webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);
-}
-figure:hover .retrato img{transform:scale(1.02)}
-
 /* 12.2 Fotos de ambiente e de caso: fundo claro, precisam de contenção. */
 .foto-enquadrada{
   position:relative;border-radius:var(--r-lg);overflow:hidden;
-  box-shadow:var(--sombra-alta);background:var(--carvao);
+  box-shadow:var(--sombra-alta);background:var(--cinza-2);
 }
 .foto-enquadrada img{width:100%;height:auto;display:block;transition:transform 1.1s var(--ease)}
 .foto-enquadrada:hover img{transform:scale(1.03)}
