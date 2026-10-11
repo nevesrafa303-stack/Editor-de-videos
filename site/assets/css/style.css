@@ -1418,6 +1418,11 @@ figure:hover .retrato img{transform:scale(1.02)}
   [data-zoom]{transform:none !important}
 }
 
+/* -- 14.6 CORTINA -------------------------------------------------------- */
+/* A cortina recebe o recorte por style inline durante a rolagem. Sem
+   JavaScript nada é escrito e a imagem nasce inteira, como deve. */
+[data-cortina]{will-change:clip-path}
+
 /* -- 15. MAPA ------------------------------------------------------------ */
 /* O cartão de endereço é o conteúdo garantido — desenha sempre. O mapa é uma
    camada acima que só ocupa espaço quando confirma o carregamento; se falhar,

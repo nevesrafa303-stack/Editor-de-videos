@@ -11,6 +11,23 @@
 
   const CFG = window.SITE || {};
   const semMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* O condutor do deslize suave. Fica aqui em cima porque três módulos
+     diferentes precisam rolar a página, e com o Lenis ligado a rolagem
+     nativa briga com ele: dá um salto e o deslize morre no meio. */
+  let deslize = null;
+
+  /** Rola até um ponto respeitando o condutor ativo.
+
+      Sem recuo próprio de propósito: o Lenis já lê o `scroll-padding-top` da
+      página (94px, a altura do cabeçalho mais folga), igual ao que o navegador
+      faz sozinho numa âncora. Descontar de novo aqui somava os dois e a seção
+      parava 184px abaixo do cabeçalho em vez de encostar nele. */
+  const rolarAte = (alvo) => {
+    if (deslize) { deslize.scrollTo(alvo, { duration: 1.3 }); return; }
+    const comportamento = semMovimento ? 'auto' : 'smooth';
+    if (alvo === 0) { scrollTo({ top: 0, behavior: comportamento }); return; }
+    alvo.scrollIntoView({ behavior: comportamento });
+  };
 
   /* -- 1. utilidades ------------------------------------------------------ */
   const $  = (s, ctx = document) => ctx.querySelector(s);
@@ -289,9 +306,7 @@
     addEventListener('scroll', aoRolar, { passive: true });
     aoRolar();
 
-    btnTopo?.addEventListener('click', () => {
-      scrollTo({ top: 0, behavior: semMovimento ? 'auto' : 'smooth' });
-    });
+    btnTopo?.addEventListener('click', () => rolarAte(0));
   };
 
   /* -- 5. revelar no scroll ----------------------------------------------- */
@@ -437,7 +452,8 @@
     const heroCard  = $('.hero__foto .selo');
     const hero      = $('.hero');
     const zooms     = $$('[data-zoom]');
-    if (!camadas.length && !desliza.length && !hero && !zooms.length) return;
+    const cortinas  = $$('[data-cortina]');
+    if (!camadas.length && !desliza.length && !hero && !zooms.length && !cortinas.length) return;
 
     let pendente = false;
 
@@ -553,6 +569,21 @@
         const avanco = 1 - (r.top + r.height / 2) / (innerHeight + r.height / 2);
         const p = Math.max(0, Math.min(1, avanco * 1.8));
         el.style.transform = `translate3d(0, ${((1 - p) * amplitude).toFixed(1)}px, 0)`;
+      });
+
+      /* Cortina: a imagem não aparece inteira de uma vez — ela se abre de
+         baixo para cima enquanto sobe na tela. É o movimento que a Vanessa
+         faz com clipPath em scrub; aqui a conta é a mesma travessia que o
+         deslize usa, só que escrita em `inset` em vez de `translate`.
+
+         O recorte fecha no máximo 18%: mais que isso e a foto chega cortada
+         ao ponto de parecer defeito em quem rola rápido. */
+      cortinas.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > innerHeight + 100) return;
+        const avanco = 1 - (r.top + r.height * 0.35) / (innerHeight + r.height * 0.35);
+        const p = Math.max(0, Math.min(1, avanco * 2.1));
+        el.style.clipPath = `inset(0 0 ${((1 - p) * 18).toFixed(2)}% 0)`;
       });
 
       // as fotos de ambiente crescem de leve enquanto atravessam a tela
@@ -994,7 +1025,40 @@
      primeiro, então mesmo um erro em cadeia deixa a navegação e o movimento de
      pé. O menu não está nesta lista de propósito — ele é montado por um script
      curto dentro do próprio HTML, que não depende deste arquivo carregar. */
+  /* -- 15. deslize suave -------------------------------------------------- */
+  /* Vem do site da Vanessa Marinho, que usa Lenis para o mesmo efeito. De lá
+     veio só o Lenis (18 KB) e não o conjunto GSAP + ScrollTrigger + Lenis
+     (136 KB): o que dá o deslize é o Lenis, e todo o resto — paralaxe, zoom,
+     revelar, cortina — este arquivo já faz em 60 linhas contra o retângulo
+     vivo dos elementos, que é o caminho que aguenta o Safari do iPhone.
+
+     O Lenis roda só no ponteiro. No toque ele fica fora de propósito: a
+     inércia nativa do iOS é melhor que qualquer imitação, e interceptá-la
+     quebra o "puxar para atualizar" e a barra de endereço que recolhe. */
+  const deslizeSuave = () => {
+    if (semMovimento || !window.Lenis || !matchMedia('(pointer:fine)').matches) return;
+    deslize = new window.Lenis({ lerp: 0.085, wheelMultiplier: 0.9, smoothWheel: true });
+    // com o condutor ligado, o scroll suave do CSS daria dois movimentos
+    document.documentElement.style.scrollBehavior = 'auto';
+    const quadro = (tempo) => { deslize.raf(tempo); requestAnimationFrame(quadro); };
+    requestAnimationFrame(quadro);
+
+    // as âncoras deixam de pular: o condutor leva até a seção
+    document.addEventListener('click', (ev) => {
+      const link = ev.target.closest('a[href^="#"]');
+      if (!link) return;
+      const id = link.getAttribute('href');
+      if (id.length < 2) return;
+      const alvo = document.getElementById(id.slice(1));
+      if (!alvo) return;
+      ev.preventDefault();
+      rolarAte(alvo);
+      history.replaceState(null, '', id);
+    });
+  };
+
   const MODULOS = [
+    ['deslizeSuave', deslizeSuave],       // antes de quem rola a página
     ['fatiarPalavras', fatiarPalavras],   // precisa preceder o observer
     ['revelar', revelar],                 // libera o conteúdo antes de tudo
     ['config', aplicarConfig],
