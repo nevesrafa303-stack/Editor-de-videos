@@ -103,14 +103,17 @@ parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
 | `consuelo-missao-*.webp` | Coluna fixa da seção "Minha missão" — só aparece no desktop |
 | `clinica-*.webp` | Seção "A clínica" |
-| `testa-*.webp` | Segundo antes/depois (linhas da testa) |
 | `logo-ouro.png` / `logo-ouro-escuro.png` | A marca, dourada, em duas tintas. Com a página clara, o cabeçalho usa só a escura; a de ouro claro (`#C9A96A`) ficou para o rodapé, que segue escuro — sobre o off-white ela daria 2,15:1 e não se leria |
 | `favicon-*.png`, `apple-touch-icon.png` | Ícones, recortados do monograma da própria marca |
-| `caso-labial-*.webp` | Seção "Resultados" |
+| `labios-1-*.webp`, `labios-2-*.webp` | Seção "Resultados": os dois casos de preenchimento labial |
+| `testa-1-*.webp`, `testa-2-*.webp` | Seção "Resultados": os dois casos de linhas da testa |
 | `og-capa.jpg` | Miniatura no WhatsApp, Instagram e Facebook |
 
 Cada foto tem três larguras (`srcset`), então o celular baixa a menor e o
-desktop a maior.
+desktop a maior. A exceção é `labios-2-*`, que tem duas: a montagem que a Dra.
+mandou é pequena, e gerar uma terceira largura só inventaria nitidez que o
+arquivo de origem não tem. O `srcset` diz quais existem, e o navegador escolhe
+entre essas.
 
 **Para trocar uma foto por outra**, a partir de `site/`:
 
@@ -237,6 +240,51 @@ identidade na parede. O letreiro "Consuelo Vasconcelos" encosta na borda
 direita do próprio arquivo, sem margem nenhuma: qualquer corte ou deixa o "s"
 final raspando a moldura ou parte a palavra no meio. Num site que se apoia no
 nome, nome truncado não passa — a foto ficou de fora.
+
+## 4.6 Os antes e depois
+
+Os quatro pares da seção "Resultados" entram pelo `ferramentas/antes_depois.py`,
+que recebe a montagem vertical (as duas fotos coladas, uma em cima da outra) e
+devolve o par alinhado em WebP.
+
+Alinhar não é capricho. As duas fotos nunca têm a pessoa na mesma posição; sem
+alinhar, arrastar o comparador faz o rosto saltar, e a atenção vai para o salto
+em vez de ir para o que mudou. O roteiro casa dois pontos de referência de uma
+foto com os da outra e tira dali a escala, o giro e o deslocamento.
+
+**Quais pontos** depende do que a foto mostra:
+
+- Nas fotos de testa, as **pupilas**. As sobrancelhas não servem: estão
+  levantadas de propósito no "antes", então são justamente o que se move.
+- Na segunda foto de lábios, **a narina e o canto da boca**. Ali a cabeça girou
+  entre as duas tomadas, e com a perspectiva a distância entre as pupilas mudou
+  13% enquanto a região da boca ficou do mesmo tamanho. Alinhar pelos olhos
+  descolava a boca, que é justamente o assunto do cartão.
+
+A busca automática dos pontos funciona em fundo escuro e falha em fundo claro:
+ela acha a pupila pelo reflexo, e parede branca é mais clara que reflexo nenhum.
+Quando falhar, meça os pontos e passe à mão:
+
+```bash
+python3 ferramentas/antes_depois.py montagem.jpg testa-2 \
+        --divisao 1340 \
+        --pupilas-antes 943,1066,1562,1076 \
+        --pupilas-depois 986,2418,1553,2436 --razao 1.3333
+```
+
+O roteiro recusa o recorte que sai da foto ou que invade a outra metade, em vez
+de entregar uma imagem com barra preta ou com um pedaço da tomada errada.
+
+**O balanço de branco do "antes" é igualado ao do "depois"**, preservando a
+luminância: só a cor muda. Isso tira a diferença de iluminação entre as duas
+tomadas. Textura, nitidez e contraste ficam intocados, que é o que importaria no
+resultado clínico.
+
+**O texto de cada cartão só afirma o que a foto mostra.** No segundo caso de
+testa não dá para saber se o "depois" repete a careta do "antes", então o cartão
+não fala em expressão nem em movimento preservado: fala que as linhas deixaram
+de aparecer. As duas frases de rodapé (autorização da paciente e variação de
+resultado) são obrigatórias e vão em todos os quatro.
 
 ## 5. A paleta — off-white, dourado e cinza
 
