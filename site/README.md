@@ -101,7 +101,7 @@ parte das bordas por inundação, então o cabelo interno nunca é alcançado.
 |---|---|
 | `consuelo-hero-*.webp` | Primeira dobra |
 | `consuelo-sobre-*.webp` | "Afinal, quem sou eu?" |
-| `consuelo-missao-*.webp` | Coluna fixa da seção "Minha missão" — só aparece no desktop |
+| `consuelo-missao-*.webp` | Seção "Minha missão": na coluna fixa no desktop, entre o botão e as etapas no celular |
 | `clinica-*.webp` | Seção "A clínica" |
 | `logo-ouro.png` / `logo-ouro-escuro.png` | A marca, dourada, em duas tintas. Com a página clara, o cabeçalho usa só a escura; a de ouro claro (`#C9A96A`) ficou para o rodapé, que segue escuro — sobre o off-white ela daria 2,15:1 e não se leria |
 | `favicon-*.png`, `apple-touch-icon.png` | Ícones, recortados do monograma da própria marca |

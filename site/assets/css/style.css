@@ -496,14 +496,11 @@ p{text-wrap:pretty}
   background:linear-gradient(90deg,var(--ouro),var(--chumbo));
   transition:width .2s linear;
 }
-/* A foto da coluna fixa só existe onde há vazio para ela ocupar: no desktop,
-   embaixo do bloco que fica parado enquanto as etapas rolam ao lado. No
-   empilhado a coluna deixa de ser fixa, não sobra vazio nenhum, e a foto só
-   alongaria uma seção que já é longa — por isso ela sai. */
-.metodo__foto{display:none}
-@media (min-width:901px){
-  .metodo__foto{display:block;margin-top:clamp(2.2rem,4vw,3.4rem);max-width:24rem}
-}
+/* No desktop esta foto ocupa o vazio que sobra embaixo da coluna fixa enquanto
+   as etapas rolam ao lado, e por isso ela nasceu com a largura do texto, à
+   esquerda. No empilhado não há vazio para ocupar: ela passa a ser a imagem da
+   seção, centrada e com teto de largura, entre o botão e as etapas. */
+.metodo__foto{margin-top:clamp(2.2rem,4vw,3.4rem);max-width:24rem}
 
 .etapas{position:relative;display:grid;gap:clamp(1.6rem,3vw,2.4rem)}
 .etapa{
@@ -814,6 +811,7 @@ html:not(.js) .palavra > span{transform:none}
   }
   .hero__rolar{display:none}
   .sobre__foto{max-width:30rem}   /* 24rem deixava a foto miúda em tablet */
+  .metodo__foto{max-width:30rem;margin-inline:auto}
   .metodo__fixo,.faq__intro{position:static}
   .galeria__item--g{grid-column:span 1}
   .rodape__grid{grid-template-columns:1fr 1fr}
