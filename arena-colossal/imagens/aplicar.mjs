@@ -42,6 +42,7 @@ const CARTAO = { largura: 480, altura: 360, qualidade: 70 };
    escolhido, para a conversão dar sempre o mesmo resultado. */
 const FOCO = {
   'higienizacao-interna': 0.36,
+  'descontaminacao': 0.38,
 };
 
 const achar = (nome) => {
