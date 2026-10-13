@@ -77,6 +77,42 @@ na sua agenda com o prefixo `[SITE]`, e o e-mail tem que chegar.
 
 ---
 
+## Como o "tempo real" funciona de verdade
+
+Ligado o `agendaUrl`, a disponibilidade deixa de ser uma tabela de horário
+comercial e passa a ser a sua agenda. Quatro mecanismos, nesta ordem de
+importância:
+
+**1. O servidor é a palavra final.** Antes de criar qualquer evento, o script
+confere o conflito na agenda **sob trava** (`LockService`). Dois pedidos no
+mesmo milissegundo para o mesmo horário: um entra, o outro recebe
+`slot_taken`. Não existe janela de corrida — nem que a tela do cliente esteja
+mostrando algo errado.
+
+**2. A grade se refaz sozinha a cada 45 segundos** enquanto o cliente está na
+etapa de horário. Se outra pessoa fechar aquele horário, ele desaparece da
+tela de quem ainda está decidindo, sem recarregar a página.
+
+**3. Ao voltar para a aba, refaz na hora.** Quem deixou o site aberto e foi
+almoçar volta para uma lista verdadeira, não para a de uma hora atrás.
+
+**4. Se o horário escolhido morrer**, o site avisa na própria lista — *"O
+horário que você tinha escolhido acabou de ser reservado"* — e, se ainda
+assim o pedido for enviado, a recusa do servidor devolve o cliente à etapa de
+horário com a grade já atualizada. Ele nunca fica preso no fim do fluxo.
+
+A grade fica em cache por 45 segundos no navegador. Isso existe para que
+**tocar num horário não dispare uma consulta nova** ao Apps Script: sem o
+cache, cada toque custava uma ida ao Google e a lista piscava "Consultando a
+agenda…". O cache serve ao clique; o relógio acima serve à verdade.
+
+> **O que isso não é:** não é websocket. O site pergunta à agenda, a agenda
+> não avisa o site. Com 45 segundos de ciclo a diferença é invisível para uma
+> estética automotiva, e o mecanismo 1 garante que a diferença nunca vira
+> dois carros no mesmo box.
+
+---
+
 ## Segurança — o que está protegido e o que não está
 
 **Protegido.** O script nunca devolve a sua agenda. A rota de

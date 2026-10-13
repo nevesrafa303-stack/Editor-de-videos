@@ -2038,14 +2038,38 @@ function gradeLocal(iso, minutos){
   }
   return slots;
 }
-async function buscarGrade(iso, slug){
+/* A grade vale por pouco tempo e é guardada por dia+serviço. Sem isto,
+   cada toque num horário disparava uma consulta nova ao Apps Script — a
+   lista piscava "Consultando a agenda…" a cada clique, e uma ida ao Google
+   leva um ou dois segundos. O cache serve ao clique; o relógio logo abaixo
+   serve à verdade. */
+const VALIDADE_GRADE = 45000;
+const cacheGrade = new Map();
+const chaveGrade = (iso, slug) => iso + '|' + slug;
+
+function gradeFresca(iso, slug){
+  const c = cacheGrade.get(chaveGrade(iso, slug));
+  return c && (Date.now() - c.t) < VALIDADE_GRADE ? c.dados : null;
+}
+/* Depois de reservar, a grade daquele dia está velha por definição. */
+function esquecerGrade(iso){
+  for (const k of [...cacheGrade.keys()]) if (!iso || k.startsWith(iso + '|')) cacheGrade.delete(k);
+}
+
+async function buscarGrade(iso, slug, forcar = false){
   const svc = porSlug[slug];
   if (!svc) return { slots: [], degradado: false, configurada: agendaConfigurada };
+  if (!forcar){ const c = gradeFresca(iso, slug); if (c) return c; }
   const r = await api(`/api/availability?date=${encodeURIComponent(iso)}&service=${encodeURIComponent(slug)}`);
+  let res;
   if (r && r.ok && Array.isArray(r.corpo.slots))
-    return { slots: r.corpo.slots, degradado: Boolean(r.corpo.degraded), configurada: r.corpo.scheduleConfigured !== false };
-  if (r && !r.ok) return { slots: [], degradado: false, configurada: agendaConfigurada, erro: true };
-  return { slots: gradeLocal(iso, svc.min), degradado: false, configurada: agendaConfigurada };
+    res = { slots: r.corpo.slots, degradado: Boolean(r.corpo.degraded), configurada: r.corpo.scheduleConfigured !== false };
+  else if (r && !r.ok)
+    return { slots: [], degradado: false, configurada: agendaConfigurada, erro: true };
+  else
+    res = { slots: gradeLocal(iso, svc.min), degradado: false, configurada: agendaConfigurada };
+  cacheGrade.set(chaveGrade(iso, slug), { t: Date.now(), dados: res });
+  return res;
 }
 
 /* ======================================================================
@@ -2119,6 +2143,9 @@ async function enviarAgendamento(){
     })});
     bk.enviando = false;
     if (r && r.ok && r.corpo.booking){
+      // O dia acabou de mudar — por nós mesmos. Guardar a grade antiga faria
+      // o próprio cliente ver o horário que ele acabou de tomar como livre.
+      esquecerGrade(d.data);
       bk.confirmacao = { ...r.corpo.booking, reservado: true };
       track('booking_confirmed', { service: d.servico, date: d.data });
       renderBooking(); return;
@@ -2128,6 +2155,8 @@ async function enviarAgendamento(){
     if (codigo === 'slot_taken' || codigo === 'invalid_slot'){
       // O horário morreu entre a grade e o envio: devolve o cliente para
       // a etapa de horário, já atualizada, em vez de deixá-lo preso no fim.
+      // "Já atualizada" exige jogar fora a grade que mentiu.
+      esquecerGrade(d.data);
       bk.erros = { geral: 'Esse horário acabou de ser reservado. Escolha outro horário disponível.' };
       bk.d.hora = null; bk.passo = 2; renderBooking(); return;
     }
@@ -2202,7 +2231,78 @@ function viewAppExterno(){
   return quadro;
 }
 
+/* ----------------------------------------------------------------------
+   A grade ao vivo
+
+   "Tempo real" não é só perguntar à agenda uma vez. Enquanto o cliente
+   decide, outra pessoa pode fechar o mesmo horário. Três coisas cobrem isso:
+
+     · a grade se refaz sozinha a cada 45s enquanto a etapa está aberta;
+     · ao voltar para a aba, refaz na hora — quem some por dez minutos
+       volta para uma lista verdadeira, não para a de dez minutos atrás;
+     · o servidor é a palavra final: ele confere o conflito sob trava antes
+       de criar o evento, então a grade pode errar, o agendamento não.
+
+   O repintar troca só a lista, nunca a etapa: se a tela voltasse ao estado
+   "Consultando…" a cada ciclo, o cliente perderia o horário já escolhido. */
+let relogioGrade = null;
+
+function pararRelogioGrade(){
+  if (relogioGrade){ clearInterval(relogioGrade); relogioGrade = null; }
+}
+
+function pintarGrade(zona, res){
+  zona.textContent = '';
+  if (res.erro){ zona.append(el('p', { class:'note note--e', role:'alert', text:'Não conseguimos consultar a agenda agora. Tente novamente em instantes ou fale com a Arena pelo WhatsApp.' })); return; }
+  if (!res.slots.length){ zona.append(el('p', { class:'note', role:'status', text:'Não há horário disponível neste dia para este serviço. Escolha outra data.' })); return; }
+  if (res.degradado) zona.append(el('p', { class:'note note--w', role:'status', text:'A agenda externa não respondeu agora. Os horários abaixo são os que temos registrados — a confirmação final acontece no envio.' }));
+  if (!temAgendaOnline) zona.append(el('p', { class:'note note--w note--i', text:'Estes são os horários de atendimento da Arena. A disponibilidade real é confirmada no contato.' }));
+  const g = el('div', { class:'slots' });
+  res.slots.forEach(s => g.append(el('button', { type:'button', class:'slot', disabled: !s.available,
+    'data-sel': String(bk.d.hora === s.time), 'aria-pressed': String(bk.d.hora === s.time),
+    'aria-label': `${s.time} — ${s.available ? 'disponível' : 'indisponível'}`,
+    onclick: () => { bk.d.hora = s.time; bk.erros = {}; renderBooking(); } }, s.time)));
+  zona.append(g);
+  // O horário que o cliente já tinha escolhido pode ter sido levado por
+  // outra pessoa entre um ciclo e o seguinte. Dizer isso agora é melhor do
+  // que deixá-lo descobrir no envio.
+  if (bk.d.hora && !res.slots.some(x => x.time === bk.d.hora && x.available)){
+    bk.d.hora = null;
+    zona.prepend(el('p', { class:'note note--w', role:'alert',
+      text:'O horário que você tinha escolhido acabou de ser reservado. Escolha outro abaixo.' }));
+  }
+}
+
+function atualizarGrade(zona, forcar){
+  const iso = bk.d.data, slug = bk.d.servico;
+  buscarGrade(iso, slug, forcar).then(res => {
+    // Entre o pedido e a resposta o cliente pode ter mudado de etapa, de dia
+    // ou de serviço. Repintar aí seria escrever por cima do que ele já fez.
+    if (bk.passo !== 2 || bk.d.data !== iso || bk.d.servico !== slug) return;
+    if (!zona.isConnected) return;
+    pintarGrade(zona, res);
+  });
+}
+
+function armarRelogioGrade(zona){
+  pararRelogioGrade();
+  if (!temAgendaOnline) return;   // sem backend não há o que reconsultar
+  relogioGrade = setInterval(() => {
+    if (!zona.isConnected || bk.passo !== 2){ pararRelogioGrade(); return; }
+    if (document.hidden) return;  // aba escondida não gasta chamada
+    atualizarGrade(zona, true);
+  }, VALIDADE_GRADE);
+}
+
+/* Voltar para a aba é o momento em que a lista costuma estar mais velha. */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden || bk.passo !== 2 || !temAgendaOnline) return;
+  esquecerGrade(bk.d.data);
+  renderBooking();
+});
+
 function renderBooking(){
+  pararRelogioGrade();
   const box = $('#bkBox'); if (!box) return;
   box.textContent = '';
 
@@ -2271,21 +2371,15 @@ function renderBooking(){
   if (bk.passo === 2){
     painel.append(el('p', { class:'bk__legend', text:'Escolha o horário' }),
       el('p', { class:'bk__help', text: bk.d.data ? dataLonga(bk.d.data) : '' }));
-    const zona = el('div', {}, el('p', { class:'note', role:'status', text:'Consultando a agenda…' }));
+    const zona = el('div', {});
+    const emCache = gradeFresca(bk.d.data, bk.d.servico);
+    if (emCache) pintarGrade(zona, emCache);
+    else zona.append(el('p', { class:'note', role:'status', text:'Consultando a agenda…' }));
     painel.append(zona);
-    buscarGrade(bk.d.data, bk.d.servico).then(res => {
-      zona.textContent = '';
-      if (res.erro){ zona.append(el('p', { class:'note note--e', role:'alert', text:'Não conseguimos consultar a agenda agora. Tente novamente em instantes ou fale com a Arena pelo WhatsApp.' })); return; }
-      if (!res.slots.length){ zona.append(el('p', { class:'note', role:'status', text:'Não há horário disponível neste dia para este serviço. Escolha outra data.' })); return; }
-      if (res.degradado) zona.append(el('p', { class:'note note--w', role:'status', text:'A agenda externa não respondeu agora. Os horários abaixo são os que temos registrados — a confirmação final acontece no envio.' }));
-      if (!temAgendaOnline) zona.append(el('p', { class:'note note--w note--i', text:'Estes são os horários de atendimento da Arena. A disponibilidade real é confirmada no contato.' }));
-      const g = el('div', { class:'slots' });
-      res.slots.forEach(s => g.append(el('button', { type:'button', class:'slot', disabled: !s.available,
-        'data-sel': String(bk.d.hora === s.time), 'aria-pressed': String(bk.d.hora === s.time),
-        'aria-label': `${s.time} — ${s.available ? 'disponível' : 'indisponível'}`,
-        onclick: () => { bk.d.hora = s.time; bk.erros = {}; renderBooking(); } }, s.time)));
-      zona.append(g);
-    });
+    // Sem cache, busca agora. Com cache, a lista já está na tela e a
+    // consulta roda por baixo, sem apagar nada enquanto não chega.
+    atualizarGrade(zona, !emCache);
+    armarRelogioGrade(zona);
   }
 
   /* --- 04 dados --- */
