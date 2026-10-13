@@ -70,6 +70,13 @@ agendaUrl: 'https://script.google.com/macros/s/AKfy....../exec',
 **7.** Abra o site e faça um agendamento de teste. O evento tem que aparecer
 na sua agenda com o prefixo `[SITE]`, e o e-mail tem que chegar.
 
+> **Repositório público:** a URL `/exec` fica dentro do HTML, e isso é parte
+> do desenho — o navegador do visitante precisa dela. Mas um repositório
+> público é varrido por robôs, e o `git` guarda para sempre o que entrou
+> uma vez. Por isso a URL fica **fora do que é versionado**: o arquivo deste
+> repositório mantém `agendaUrl: ''`, e a URL é colada na cópia que vai ao ar.
+> Enquanto o site não estiver hospedado, ninguém de fora conhece o endereço.
+
 > **Sempre que mudar o `Codigo.gs`**: *Implantar > Gerenciar implantações >
 > lápis > Versão: Nova versão > Implantar*. A URL continua a mesma. Se você
 > criar uma implantação nova em vez de editar, a URL muda e o site para de
