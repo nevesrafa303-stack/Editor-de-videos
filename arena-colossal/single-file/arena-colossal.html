@@ -302,13 +302,23 @@ ul,ol{list-style:none;padding:0}
 
 /* --- serviços em trilho horizontal --- */
 .trilho{position:relative}
-.trilho__p{position:sticky;top:0;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr);align-content:center;
-  gap:clamp(18px,3vh,30px);padding-block:calc(var(--nav-h) + 16px) clamp(76px,10vh,110px)}
+/* `position` fica de fora daqui de propósito: grudar no topo só faz sentido
+   no modo fixo do desktop, que o declara mais abaixo. Em tela estreita o
+   grude prendia este bloco enquanto o resto da seção rolava, e o rodapé
+   ("Ver o catálogo completo") passava POR CIMA dos cartões. */
+.trilho__p{top:0;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr);align-content:center;
+  gap:clamp(18px,3vh,30px);padding-block:clamp(48px,8vh,96px) clamp(40px,6vh,80px)}
 .trilho__f{display:flex;align-items:stretch;gap:16px;padding-inline:var(--gutter);will-change:transform;min-height:0}
 .trilho__f>li{flex:0 0 clamp(260px,78vw,380px);display:flex;min-height:0;max-height:100%}
 .trilho__f .card{min-height:0;overflow:hidden}
-.trilho__c{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+/* No celular isto empilha: o texto ocupa a largura toda e o indicador de
+   rolagem desce para junto dos cartões, que é onde ele serve. Lado a lado
+   só a partir de 760px, onde sobra largura para os dois. */
+.trilho__c{display:flex;flex-direction:column;align-items:flex-start;gap:16px;
   padding-inline:var(--gutter)}
+@media(min-width:760px){
+  .trilho__c{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:20px}
+}
 /* Dentro do trilho o cartão precisa caber em pé: a imagem cede primeiro. */
 .trilho__f .card__img{aspect-ratio:16/10;max-height:min(34vh,260px);min-height:110px}
 /* No modo fixo o cabeçalho divide a tela com os cartões. Em tela média o
@@ -319,7 +329,8 @@ ul,ol{list-style:none;padding:0}
 /* Sem JavaScript, ou em tela estreita, o trilho vira carrossel nativo: o
    dedo arrasta, o scroll-snap encaixa, e nada disso precisa de script. */
 .trilho__p{height:auto}
-.trilho__f{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-block:6px}
+.trilho__f{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);
+  scrollbar-width:none;padding-block:6px;overscroll-behavior-x:contain}
 .trilho__f::-webkit-scrollbar{display:none}
 .trilho__f>li{scroll-snap-align:start}
 @media(min-width:1024px) and (min-height:800px){
@@ -3471,8 +3482,12 @@ function ligarCenografia(raiz = document){
       carro.style.setProperty('--d', p.toFixed(4));
     }
 
-    // Inclinação por velocidade, com teto: nunca vira enjoo.
-    if (faixa) faixa.style.setProperty('--sk', (Math.max(-2.4, Math.min(2.4, vel * 0.05))).toFixed(3) + 'deg');
+    /* Inclinação por velocidade, com teto: nunca vira enjoo.
+       Só no modo fixo. No celular o trilho é um carrossel que o dedo
+       arrasta, e torcer os cartões ali fazia um encostar no outro — era o
+       "bloco em cima de bloco" que aparecia nas fotos de tela. */
+    if (faixa) faixa.style.setProperty('--sk',
+      med.pinado ? (Math.max(-2.4, Math.min(2.4, vel * 0.05))).toFixed(3) + 'deg' : '0deg');
 
     // Temperatura do fundo acompanha o avanço da página.
     if (H > 0) document.body.style.setProperty('--tom', (y / H).toFixed(4));
