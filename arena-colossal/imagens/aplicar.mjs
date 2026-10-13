@@ -35,6 +35,15 @@ const SERVICOS = [
    480 cobre telas de densidade 2x sem engordar o arquivo à toa. */
 const CARTAO = { largura: 480, altura: 360, qualidade: 70 };
 
+/* Onde recortar na vertical, de 0 (topo) a 1 (base). O padrão é o centro,
+   que serve para imagem horizontal. Foto vertical costuma ter o assunto em
+   cima — numa foto de banco a vapor, o centro pega só o estofado e corta a
+   mão que segura a ferramenta. Aqui fica registrado o enquadramento
+   escolhido, para a conversão dar sempre o mesmo resultado. */
+const FOCO = {
+  'higienizacao-interna': 0.36,
+};
+
 const achar = (nome) => {
   for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
     const p = join(ENTRADA, `${nome}.${ext}`);
@@ -43,9 +52,11 @@ const achar = (nome) => {
   return null;
 };
 
-async function paraWebp(origem, destino, { largura, altura, qualidade }) {
+async function paraWebp(origem, destino, { largura, altura, qualidade }, foco = 0.5) {
+  const f = Math.min(1, Math.max(0, foco));
   await exec('ffmpeg', ['-v', 'error', '-i', origem,
-    '-vf', `scale=${largura}:${altura}:force_original_aspect_ratio=increase,crop=${largura}:${altura}`,
+    '-vf', `scale=${largura}:${altura}:force_original_aspect_ratio=increase,` +
+           `crop=${largura}:${altura}:(iw-ow)/2:(ih-oh)*${f}`,
     '-c:v', 'libwebp', '-quality', String(qualidade), destino, '-y']);
   return readFile(destino);
 }
@@ -69,7 +80,8 @@ async function principal() {
     if (!origem) { faltando.push(slug); continue; }
 
     const classe = `.q${String(i + 1).padStart(2, '0')}`;
-    const buf = await paraWebp(origem, join(TMP, `${slug}.webp`), CARTAO);
+    const foco = FOCO[slug];
+    const buf = await paraWebp(origem, join(TMP, `${slug}.webp`), CARTAO, foco ?? 0.5);
     const b64 = buf.toString('base64');
 
     /* Troca só a URL dentro da regra daquela classe. O escape do ponto
@@ -81,7 +93,8 @@ async function principal() {
     }
     html = html.replace(re, `$1${b64}$2`);
     trocadas++;
-    console.log(`  ${classe}  ${slug.padEnd(30)} ${kb(buf.length)}`);
+    console.log(`  ${classe}  ${slug.padEnd(30)} ${kb(buf.length)}` +
+      (foco === undefined ? '' : `  (recorte em ${Math.round(foco * 100)}%)`));
   }
 
   if (!trocadas) {
