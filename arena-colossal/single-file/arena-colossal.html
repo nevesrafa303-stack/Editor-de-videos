@@ -1346,7 +1346,7 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
     </div>
     <nav aria-label="Navegação do rodapé"><h2>Navegação</h2><ul id="footNav"><li><a href="#/#servicos">Serviços</a></li><li><a href="#/#avaliacoes">Avaliações</a></li><li><a href="#/#processo">Como funciona</a></li><li><a href="#/#diagnostico">Diagnóstico</a></li><li><a href="#/#agendamento">Agendar</a></li><li><a href="#/#duvidas">Dúvidas</a></li><li><a href="#/#localizacao">Localização</a></li></ul></nav>
     <div><h2>Contato</h2><ul id="footContact"><li><a data-wa="" data-src="footer" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer">WhatsApp</a></li><li><a href="mailto:edinelson.yeshua@gmail.com">edinelson.yeshua@gmail.com</a></li><li><a href="#/#localizacao">Localização</a></li></ul></div>
-    <div id="footHours"><h2>Atendimento</h2><ul><li style="display:flex;justify-content:space-between;gap:18px;font-size:var(--s-0);color:var(--g300)"><span>Segunda a Sexta</span><span class="muted" style="font-variant-numeric:tabular-nums">08:00 – 18:00</span></li><li style="display:flex;justify-content:space-between;gap:18px;font-size:var(--s-0);color:var(--g300)"><span>Sábado</span><span class="muted" style="font-variant-numeric:tabular-nums">08:00 – 12:00</span></li></ul></div>
+    <div id="footHours"><h2>Atendimento</h2><ul><li style="display:flex;justify-content:space-between;gap:18px;font-size:var(--s-0);color:var(--g300)"><span>Segunda a Sexta</span><span class="muted" style="font-variant-numeric:tabular-nums">08:00 – 19:00</span></li><li style="display:flex;justify-content:space-between;gap:18px;font-size:var(--s-0);color:var(--g300)"><span>Sábado e Domingo</span><span class="muted" style="font-variant-numeric:tabular-nums">08:00 – 15:00</span></li></ul></div>
   </div>
   <div class="wrap foot__b">
     <p>© <span id="year"></span> Arena Colossal. Todos os direitos reservados.</p>
@@ -1412,9 +1412,10 @@ const CONFIG = {
   // 0=domingo … 6=sábado. Lista vazia = o site não publica horário e o
   // agendamento avisa que a agenda ainda não está configurada.
   horarios: [
-    { dia: 1, de: '08:00', ate: '18:00' }, { dia: 2, de: '08:00', ate: '18:00' },
-    { dia: 3, de: '08:00', ate: '18:00' }, { dia: 4, de: '08:00', ate: '18:00' },
-    { dia: 5, de: '08:00', ate: '18:00' }, { dia: 6, de: '08:00', ate: '12:00' },
+    { dia: 1, de: '08:00', ate: '19:00' }, { dia: 2, de: '08:00', ate: '19:00' },
+    { dia: 3, de: '08:00', ate: '19:00' }, { dia: 4, de: '08:00', ate: '19:00' },
+    { dia: 5, de: '08:00', ate: '19:00' }, { dia: 6, de: '08:00', ate: '15:00' },
+    { dia: 0, de: '08:00', ate: '15:00' },
   ],
   passoMinutos: 30,         // granularidade da grade
   antecedenciaHoras: 12,    // antecedência mínima
@@ -3180,13 +3181,16 @@ function montarNav(){
     [1,2,3,4,5,6,0].forEach(d => {
       const v = porDia[d] ? porDia[d].join(', ') : null;
       if (!v){ if (cur){ linhas.push(cur); cur = null; } return; }
-      if (cur && cur.v === v) cur.fim = d; else { if (cur) linhas.push(cur); cur = { ini:d, fim:d, v }; }
+      if (cur && cur.v === v){ cur.fim = d; cur.n++; }
+      else { if (cur) linhas.push(cur); cur = { ini:d, fim:d, v, n:1 }; }
     });
     if (cur) linhas.push(cur);
     fh.append(el('h2',{text:'Atendimento'}));
     const ul = el('ul');
     linhas.forEach(l => ul.append(el('li',{style:'display:flex;justify-content:space-between;gap:18px;font-size:var(--s-0);color:var(--g300)'},
-      el('span',{text: l.ini === l.fim ? nomes[l.ini] : `${nomes[l.ini]} a ${nomes[l.fim]}`}),
+      el('span',{text: l.n === 1 ? nomes[l.ini]
+        : l.n === 2 ? `${nomes[l.ini]} e ${nomes[l.fim]}`
+        : `${nomes[l.ini]} a ${nomes[l.fim]}`}),
       el('span',{class:'muted',style:'font-variant-numeric:tabular-nums',text:l.v}))));
     fh.append(ul);
   }
