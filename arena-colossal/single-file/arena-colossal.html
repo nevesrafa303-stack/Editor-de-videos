@@ -245,10 +245,24 @@ ul,ol{list-style:none;padding:0}
 @media(min-width:1180px){.js .rail{display:flex}}
 .rail a{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:10px;height:14px}
 .rail a i{width:18px;height:1px;background:var(--g700);transition:width .34s var(--ease),background-color .34s}
-.rail a span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--g500);
+/* O rótulo é uma etiqueta, não texto solto: o container tem 1320px e o
+   trilho fica colado nele, então o nome da seção sempre cairia por cima
+   do conteúdo da coluna direita. Com fundo e borda ele se lê como
+   etiqueta sobreposta de propósito; sem fundo, lia-se como layout
+   quebrado — era o "bloco em cima do outro" visível ao rolar. */
+.rail a span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--g300);
+  padding:4px 9px;border-radius:999px;background:rgba(8,8,9,.92);border:var(--border);
+  backdrop-filter:blur(8px);
   opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s var(--ease);white-space:nowrap}
 .rail a:hover i,.rail a[aria-current='true'] i{width:34px;background:var(--laranja)}
-.rail a:hover span,.rail a[aria-current='true'] span{opacity:1;transform:none}
+/* Revelar no hover é um ato deliberado: a etiqueta aparece onde o ponteiro
+   já está, e some quando ele sai. Revelar sozinho a cada seção que entrava
+   na tela era o que empilhava etiqueta sobre o texto da coluna direita sem
+   ninguém pedir — e não há largura de tela que resolva, porque o trilho é
+   ancorado ao container, não à borda da janela: o rótulo nasce sempre uns
+   120px para dentro. Quem marca a seção atual é o traço, que fica mais
+   longo e laranja; isso não cobre nada. */
+.rail a:hover span,.rail a:focus-visible span{opacity:1;transform:none}
 .rail a:focus-visible{outline:2px solid var(--laranja-claro);outline-offset:6px;border-radius:2px}
 
 /* --- revelação palavra a palavra --- */
@@ -433,13 +447,11 @@ body{padding-bottom:84px}
 .bar[data-vis='true']{transform:translateY(0)}
 .bar a:first-child{flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:52px;background:#fff;color:#000;font-size:var(--s--1);font-weight:600;letter-spacing:.16em;text-transform:uppercase}
 .bar .wa{display:inline-grid;place-items:center;width:52px;min-height:52px;color:var(--laranja);border:var(--border-gold)}
-/* A barra deixou de ser exclusiva do celular: em servico local a ação
-   precisa estar a um toque em qualquer tela, não 15 rolagens acima. */
-@media(min-width:1080px){
-  .bar{left:auto;right:24px;bottom:24px;width:auto;padding:10px;gap:8px;border:var(--border);border-radius:999px;box-shadow:0 18px 50px rgba(0,0,0,.55)}
-  .bar a:first-child{min-height:46px;padding-inline:26px;border-radius:999px}
-  .bar .wa{width:46px;min-height:46px;border-radius:50%}
-}
+/* A barra é do celular, e só dele. A partir de 1080px a nav deixa de ser
+   hamburger e passa a carregar o botão "Agendar" fixo no topo: uma pílula
+   flutuante no canto seria o mesmo botão duas vezes — e, pior, pousada em
+   cima do texto dos cartões, que vão até a borda do container. */
+@media(min-width:1080px){ .bar{display:none} }
 
 /* ---------- hero ---------- */
 .hero{position:relative;display:flex;align-items:flex-end;min-height:100svh;padding-block:calc(var(--nav-h) + 40px) clamp(56px,10vh,110px);overflow:hidden;border-top:none}
@@ -817,7 +829,17 @@ body{padding-bottom:84px}
    então ele recebe uma altura generosa e rola por dentro. É o preço honesto
    de embutir app de terceiro; a alternativa seria adivinhar e cortar. */
 .appbox{position:relative;overflow:hidden;background:var(--off-black);border:var(--border)}
-.appbox iframe{display:block;width:100%;height:clamp(720px,88svh,980px);border:0;background:transparent}
+/* Enquanto o quadro não pinta — e se nunca pintar, porque o outro domínio
+   recusou ser embutido — o que se via era um retângulo BRANCO de 720px no
+   meio de um site preto. O aviso abaixo fica atrás do quadro: se o app
+   carrega, some coberto; se não carrega, é ele que o visitante lê.
+   `color-scheme:dark` tira o branco padrão do documento embutido. */
+.appbox::before{content:'Carregando o agendamento… Se não aparecer em alguns segundos, use o WhatsApp abaixo.';
+  position:absolute;inset:0;z-index:0;display:grid;place-items:center;
+  padding:0 32px;text-align:center;max-width:36ch;margin-inline:auto;
+  font-size:var(--s--1);line-height:1.7;color:var(--g500)}
+.appbox iframe{position:relative;z-index:1;display:block;width:100%;
+  height:clamp(560px,82svh,900px);border:0;background:var(--off-black);color-scheme:dark}
 .appbox__f{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
   padding:14px 18px;border-top:var(--border);font-size:var(--s--1);color:var(--g500)}
 .appbox__f a{color:var(--laranja);border-bottom:1px solid currentColor}
@@ -825,8 +847,10 @@ body{padding-bottom:84px}
 /* ---------- localização ---------- */
 .loc{display:grid;gap:clamp(36px,5vw,64px)}
 @media(min-width:1024px){.loc{grid-template-columns:1fr 1.15fr;align-items:center}}
-.loc__map{position:relative;min-height:300px;overflow:hidden;border:var(--border);filter:grayscale(1) contrast(1.05) brightness(.72)}
-.loc__map iframe{width:100%;height:100%;min-height:300px;border:0}
+.loc__map{position:relative;min-height:300px;overflow:hidden;border:var(--border);background:var(--surface);filter:grayscale(1) contrast(1.05) brightness(.72)}
+/* Mesmo motivo do quadro do agendamento: mapa que ainda não chegou pintava
+   um bloco claro. Agora o fundo é escuro e o quadro entra por cima dele. */
+.loc__map iframe{position:relative;width:100%;height:100%;min-height:300px;border:0;background:var(--surface);color-scheme:dark}
 @media(min-width:1024px){.loc__map,.loc__map iframe{min-height:460px}}
 
 /* ---------- rodapé ---------- */
@@ -1242,9 +1266,9 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
     <div class="head stick">
       <p class="eyebrow">Agendamento</p>
       <h2 class="h-sec">Reserve o horário do seu carro.</h2>
-      <p class="lead">Escolha o serviço, o porte, o dia e o horário. Você revisa tudo antes de enviar, e o pedido chega pronto no WhatsApp da Arena para a equipe confirmar.</p>
+      <p class="lead" id="bkLead">Escolha o serviço, o dia e o horário em cinco passos curtos. Você revisa tudo antes de enviar, e o pedido chega pronto no WhatsApp da Arena para a equipe confirmar.</p>
       <ul style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
-        <li style="position:relative;padding-left:22px;font-size:var(--s-0);line-height:1.6;color:var(--g300)"><span style="position:absolute;left:0;top:.62em;width:10px;height:1px;background:var(--laranja)"></span>Resumo do pedido montado para você, sem digitar nada.</li>
+        <li style="position:relative;padding-left:22px;font-size:var(--s-0);line-height:1.6;color:var(--g300)"><span style="position:absolute;left:0;top:.62em;width:10px;height:1px;background:var(--laranja)"></span><i id="bkPonto1" style="font-style:normal">Cinco passos curtos, com uma revisão antes de enviar.</i></li>
         <li style="position:relative;padding-left:22px;font-size:var(--s-0);line-height:1.6;color:var(--g300)"><span style="position:absolute;left:0;top:.62em;width:10px;height:1px;background:var(--laranja)"></span>Horários a partir de 12 horas de antecedência, dentro do horário de funcionamento.</li>
         <li style="position:relative;padding-left:22px;font-size:var(--s-0);line-height:1.6;color:var(--g300)"><span style="position:absolute;left:0;top:.62em;width:10px;height:1px;background:var(--laranja)"></span>Seus dados são usados apenas para este agendamento.</li>
       </ul>
@@ -1253,11 +1277,11 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
     <div id="bkBox">
       <div class="bk">
         <p class="eyebrow">Agendamento</p>
-        <h3 style="font-family:var(--f-display);font-size:var(--s-1);color:#fff;margin-top:10px">O agendamento abre em uma página própria.</h3>
-        <p class="muted" style="margin-top:12px;font-size:var(--s-0);line-height:1.7;max-width:48ch">Com JavaScript ligado, ele aparece aqui mesmo, dentro desta página. Sem JavaScript, o caminho é o link abaixo — ou o WhatsApp, que resolve do mesmo jeito.</p>
+        <h3 style="font-family:var(--f-display);font-size:var(--s-1);color:#fff;margin-top:10px">A agenda do site precisa de JavaScript.</h3>
+        <p class="muted" style="margin-top:12px;font-size:var(--s-0);line-height:1.7;max-width:48ch">Ela monta a grade de horários no próprio navegador. Sem JavaScript não haveria como conferir nada antes de enviar — então o formulário não é exibido fingindo que confere.</p>
+        <p class="muted" style="margin-top:12px;font-size:var(--s-0);line-height:1.7;max-width:48ch">Pelo WhatsApp o horário é marcado do mesmo jeito, falando direto com a equipe.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
-          <a class="btn btn--o" href="https://agendamento-arena-colossal.lovable.app" target="_blank" rel="noopener noreferrer"><span>Abrir o agendamento</span></a>
-          <a class="btn btn--g" data-wa data-src="booking-nojs" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><span>Falar no WhatsApp</span></a>
+          <a class="btn btn--o" data-wa data-src="booking-nojs" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer"><span>Agendar pelo WhatsApp</span></a>
         </div>
         <p class="muted" style="margin-top:18px;font-size:var(--s--1);line-height:1.6;max-width:48ch">Todos os serviços, o processo e os critérios continuam descritos acima — nada aqui depende deste bloco.</p>
       </div>
@@ -1287,7 +1311,7 @@ html:not(.js) .ba__h i::after{content:'';position:absolute;inset:0;border-radius
       <h2 class="h-sec">Antes de você perguntar.</h2>
       <p class="lead">As perguntas que mais chegam pelo WhatsApp, respondidas aqui para você não precisar esperar resposta.</p>
     </div>
-    <div class="faq" id="faqList"><details name="faq"><summary><span>Quanto tempo o serviço leva?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Depende do serviço. A duração de cada um aparece no agendamento, ao lado do nome, e é ela que define o bloco reservado na agenda. O prazo final é confirmado na avaliação, com o veículo na frente.</p></div></details><details name="faq"><summary><span>Por que não tem tabela de preços no site?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Porque o valor depende do porte do veículo, do estado real da pintura e do interior, e do que a avaliação apontar. Publicar um número fixo seria chutar para cima ou para baixo. O orçamento é fechado com o carro presente.</p></div></details><details name="faq"><summary><span>Preciso agendar ou posso chegar direto?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Agende. O agendamento do site monta o pedido com serviço, porte, dia e horário e abre o WhatsApp com tudo preenchido; a equipe responde confirmando o horário e o box. Chegar sem agendar significa depender de uma janela livre no dia.</p></div></details><details name="faq"><summary><span>Meu carro precisa de mais de um serviço. Como faço?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>O agendamento online escolhe um serviço por vez. Escolha o principal e conte o restante na própria conversa do WhatsApp, que já abre com o resumo pronto — a combinação final de etapas é definida na avaliação, que é onde esse tipo de decisão é tomada.</p></div></details><details name="faq"><summary><span>Como remarco ou cancelo um horário?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Fale com a Arena pelo WhatsApp, na mesma conversa em que o horário foi confirmado. A remarcação é feita no contato direto, para que a equipe consiga reorganizar a agenda do dia.</p></div></details><details name="faq"><summary><span>O que acontece com os meus dados?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>São usados apenas para montar e confirmar o seu agendamento: a mensagem de WhatsApp que você envia e o registro na agenda da Arena. Não são vendidos nem usados para publicidade. O detalhe completo está na política de privacidade.</p></div></details><p class="muted" style="margin-top:28px;font-size:var(--s-0)">Ficou uma dúvida que não está aqui? <a data-wa="" data-src="faq" style="color:var(--laranja);border-bottom:1px solid currentColor" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer">Pergunte no WhatsApp</a></p></div>
+    <div class="faq" id="faqList"><details name="faq"><summary><span>Quanto tempo o serviço leva?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Depende do serviço. A duração de cada um aparece no agendamento, ao lado do nome, e é ela que define o bloco reservado na agenda. O prazo final é confirmado na avaliação, com o veículo na frente.</p></div></details><details name="faq"><summary><span>Por que não tem tabela de preços no site?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Porque o valor depende do porte do veículo, do estado real da pintura e do interior, e do que a avaliação apontar. Publicar um número fixo seria chutar para cima ou para baixo. O orçamento é fechado com o carro presente.</p></div></details><details name="faq"><summary><span>Preciso agendar ou posso chegar direto?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Agende. O agendamento do site monta o pedido com serviço, dia, horário e veículo e abre o WhatsApp com tudo preenchido; a equipe responde confirmando o horário e o box. Chegar sem agendar significa depender de uma janela livre no dia.</p></div></details><details name="faq"><summary><span>Meu carro precisa de mais de um serviço. Como faço?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>O agendamento online reserva um serviço por vez. Escolha o principal e descreva o restante no campo de observações — a combinação final de etapas é definida na avaliação, que é onde esse tipo de decisão é tomada.</p></div></details><details name="faq"><summary><span>Como remarco ou cancelo um horário?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>Fale com a Arena pelo WhatsApp, na mesma conversa em que o horário foi confirmado. A remarcação é feita no contato direto, para que a equipe consiga reorganizar a agenda do dia.</p></div></details><details name="faq"><summary><span>O que acontece com os meus dados?</span><span class="pm" aria-hidden="true"></span></summary><div class="faq__a"><p>São usados apenas para montar e confirmar o seu agendamento: a mensagem de WhatsApp que você envia e o registro na agenda da Arena. Não são vendidos nem usados para publicidade. O detalhe completo está na política de privacidade.</p></div></details><p class="muted" style="margin-top:28px;font-size:var(--s-0)">Ficou uma dúvida que não está aqui? <a data-wa="" data-src="faq" style="color:var(--laranja);border-bottom:1px solid currentColor" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer">Pergunte no WhatsApp</a></p></div>
   </div>
 </section>
 
@@ -1403,7 +1427,7 @@ const CONFIG = {
 
      Vazio = o formulário interno assume. Os dois nunca aparecem juntos:
      duas formas de agendar na mesma tela é indecisão, não escolha. */
-  agendaApp: 'https://agendamento-arena-colossal.lovable.app',
+  agendaApp: '',
 
   /* -------- AGENDA DO GOOGLE, SEM SERVIDOR --------
      Cole aqui a URL /exec do Apps Script publicado na conta Google da Arena
@@ -1593,8 +1617,8 @@ const PUBLICO = [
 const FAQ = [
   { p:'Quanto tempo o serviço leva?', r:'Depende do serviço. A duração de cada um aparece no agendamento, ao lado do nome, e é ela que define o bloco reservado na agenda. O prazo final é confirmado na avaliação, com o veículo na frente.' },
   { p:'Por que não tem tabela de preços no site?', r:'Porque o valor depende do porte do veículo, do estado real da pintura e do interior, e do que a avaliação apontar. Publicar um número fixo seria chutar para cima ou para baixo. O orçamento é fechado com o carro presente.' },
-  { p:'Preciso agendar ou posso chegar direto?', r:'Agende. O agendamento do site monta o pedido com serviço, porte, dia e horário e abre o WhatsApp com tudo preenchido; a equipe responde confirmando o horário e o box. Chegar sem agendar significa depender de uma janela livre no dia.' },
-  { p:'Meu carro precisa de mais de um serviço. Como faço?', r:'O agendamento online escolhe um serviço por vez. Escolha o principal e conte o restante na própria conversa do WhatsApp, que já abre com o resumo pronto — a combinação final de etapas é definida na avaliação, que é onde esse tipo de decisão é tomada.' },
+  { p:'Preciso agendar ou posso chegar direto?', r:'Agende. O agendamento do site monta o pedido com serviço, dia, horário e veículo e abre o WhatsApp com tudo preenchido; a equipe responde confirmando o horário e o box. Chegar sem agendar significa depender de uma janela livre no dia.' },
+  { p:'Meu carro precisa de mais de um serviço. Como faço?', r:'O agendamento online reserva um serviço por vez. Escolha o principal e descreva o restante no campo de observações — a combinação final de etapas é definida na avaliação, que é onde esse tipo de decisão é tomada.' },
   { p:'Como remarco ou cancelo um horário?', r:'Fale com a Arena pelo WhatsApp, na mesma conversa em que o horário foi confirmado. A remarcação é feita no contato direto, para que a equipe consiga reorganizar a agenda do dia.' },
   { p:'O que acontece com os meus dados?', r:'São usados apenas para montar e confirmar o seu agendamento: a mensagem de WhatsApp que você envia e o registro na agenda da Arena. Não são vendidos nem usados para publicidade. O detalhe completo está na política de privacidade.' },
 ];
@@ -1861,6 +1885,16 @@ const AGENDA_URL = typeof CONFIG.agendaUrl === 'string' && CONFIG.agendaUrl.trim
    atrás deste site? Tanto faz se é Apps Script ou backend próprio. */
 const temAgendaOnline = Boolean(AGENDA_URL || CONFIG.apiBase);
 
+/* O texto da seção precisa dizer a verdade dos DOIS modos. Sem backend o
+   site monta o pedido e entrega no WhatsApp; com backend ele reserva na
+   agenda na hora. Deixar uma frase fixa significaria prometer reserva
+   instantânea onde não existe — ou esconder a reserva onde ela existe. */
+const TEXTO_AG = temAgendaOnline
+  ? { lead:'Escolha o serviço, o dia e o horário em cinco passos curtos. O horário é reservado na agenda da Arena no momento em que você confirma.',
+      ponto1:'Confirmação na hora: o horário sai da agenda no mesmo instante.' }
+  : { lead:'Escolha o serviço, o dia e o horário em cinco passos curtos. Você revisa tudo antes de enviar, e o pedido chega pronto no WhatsApp da Arena para a equipe confirmar.',
+      ponto1:'Cinco passos curtos, com uma revisão antes de enviar.' };
+
 /* O Apps Script publica UMA url e não responde ao preflight do CORS. Por
    isso duas adaptações, as duas obrigatórias:
      · a rota vai no parâmetro `rota`, não no caminho;
@@ -1950,6 +1984,9 @@ function renderAgenda(){
   // quando há backend para reservar.
   if (t && temAgendaOnline)
     t.textContent = 'Horário reservado na hora, e fora da agenda no mesmo instante. Sem esperar retorno para saber se tem vaga.';
+  const lead = $('#bkLead'), ponto1 = $('#bkPonto1');
+  if (lead) lead.textContent = TEXTO_AG.lead;
+  if (ponto1) ponto1.textContent = TEXTO_AG.ponto1;
   if (p){
     const prox = proximoHorario();
     if (!prox){ p.hidden = true; }
@@ -2834,7 +2871,7 @@ function pageAgendamento(){
       el('div',{class:'head stick'},
         el('p',{class:'eyebrow',text:'Agendamento'}),
         el('h1',{class:'h-sec',text:'Reserve o horário do seu carro.'}),
-        el('p',{class:'lead',text:'Escolha o serviço, o porte, o dia e o horário. Você revisa tudo antes de enviar, e o pedido chega pronto no WhatsApp da Arena para a equipe confirmar.'}),
+        el('p',{class:'lead',text:TEXTO_AG.lead}),
         el('p',{style:'margin-top:8px'}, el('a',{class:'link-u','data-wa':'','data-src':'booking_page',text:'Prefere falar antes? Chame no WhatsApp'}))),
       el('div',{id:'bkBox'})));
   return { node:w, titulo:'Agendamento | Arena Colossal', desc:'Reserve o horário do seu carro na Arena Colossal.' };
