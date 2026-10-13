@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://draconsuelovasconcelos.com.br/sitemap.xml
