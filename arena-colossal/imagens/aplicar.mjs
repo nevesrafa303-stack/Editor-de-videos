@@ -43,6 +43,7 @@ const CARTAO = { largura: 480, altura: 360, qualidade: 70 };
 const FOCO = {
   'higienizacao-interna': 0.36,
   'descontaminacao': 0.38,
+  'protecao-pneus': 0.25,
 };
 
 const achar = (nome) => {
