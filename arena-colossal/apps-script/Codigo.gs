@@ -14,6 +14,8 @@
  *        -> valida, confere conflito, cria o evento e avisa por e-mail
  *   POST ?rota=bookings/confirm
  *        -> estado de um agendamento, para a página de acompanhamento
+ *   GET  ?rota=avaliacoes
+ *        -> nota, total e até 5 avaliações reais do perfil no Google
  *
  * SOBRE SEGURANÇA — leia antes de publicar
  * -----------------------------------------------------------------------------
@@ -78,6 +80,24 @@ const CFG = {
 
   MAX_POR_EMAIL_POR_DIA: 3,
   PREFIXO: '[SITE]',
+
+  // -------- avaliações do Google --------
+  // Place ID do perfil da Arena. Não é segredo: ele aparece em link público.
+  // Pegue em https://developers.google.com/maps/documentation/places/place-id
+  // (campo "Find the ID of a particular place"). Começa com ChIJ...
+  PLACE_ID: '',
+
+  // A CHAVE DA API NÃO FICA AQUI. Ela mora em
+  //   Configurações do projeto > Propriedades do script
+  // com o nome PLACES_API_KEY. Este arquivo é colado, copiado e
+  // compartilhado; a chave, não.
+  //
+  // A Places API cobra por chamada e devolve no máximo 5 avaliações, sempre
+  // as que o Google considera mais relevantes — não dá para pedir a sexta
+  // nem pedir as mais recentes. Por isso o resultado fica em cache: o site
+  // pergunta ao Google algumas vezes por dia, não a cada visita.
+  AVALIACOES_CACHE_S: 10800,   // 3 horas (máximo do CacheService: 21600)
+  AVALIACOES_ERRO_S: 300,      // 5 min, para um erro não virar enxurrada
 };
 
 // =============================================================================
@@ -102,6 +122,7 @@ function despachar(metodo, e, corpo) {
   try {
     if (metodo === 'GET' && rota === 'availability') return rotaDisponibilidade(e.parameter);
     if (metodo === 'GET' && rota === 'health') return { ok: true, status: 'ready', calendario: CFG.CALENDARIO };
+    if (metodo === 'GET' && rota === 'avaliacoes') return rotaAvaliacoes();
     if (metodo === 'POST' && rota === 'bookings') return rotaAgendar(corpo);
     if (metodo === 'POST' && rota === 'bookings/confirm') return rotaConsultar(corpo);
     return { ok: false, code: 'not_found', message: 'Rota desconhecida.' };
@@ -116,6 +137,82 @@ function responder(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// =============================================================================
+// 2b. AVALIAÇÕES DO GOOGLE
+// -----------------------------------------------------------------------------
+// Por que isso passa por aqui e não direto do navegador: a Places API exige
+// chave, e chave que o navegador usa é chave que o visitante lê. Aqui ela
+// fica numa propriedade do script, dentro da conta da Arena.
+//
+// O que a API entrega, e o que ela NÃO entrega:
+//   - nota e total de avaliações: sempre atualizados;
+//   - até 5 avaliações, escolhidas pelo Google por relevância. Não existe
+//     paginação nem "as mais recentes". Quem tem 200 avaliações recebe 5.
+//
+// Nada daqui é escrito à mão. Sem chave ou sem Place ID a rota responde que
+// não está configurada, e o site mostra o estado honesto com link para o
+// perfil — nunca um depoimento inventado.
+// =============================================================================
+function rotaAvaliacoes() {
+  var cache = CacheService.getScriptCache();
+  var guardado = cache.get('avaliacoes');
+  if (guardado) return JSON.parse(guardado);
+
+  var chave = PropertiesService.getScriptProperties().getProperty('PLACES_API_KEY');
+  if (!chave || !CFG.PLACE_ID) {
+    return { ok: false, code: 'not_configured', avaliacoes: [] };
+  }
+
+  var url = 'https://places.googleapis.com/v1/places/' + encodeURIComponent(CFG.PLACE_ID) +
+    '?languageCode=pt-BR&regionCode=BR';
+  var resposta = UrlFetchApp.fetch(url, {
+    method: 'get',
+    muteHttpExceptions: true,
+    headers: {
+      'X-Goog-Api-Key': chave,
+      'X-Goog-FieldMask': 'rating,userRatingCount,googleMapsUri,reviews',
+    },
+  });
+
+  var codigo = resposta.getResponseCode();
+  if (codigo !== 200) {
+    console.error('avaliacoes: Places API devolveu ' + codigo + ' — ' + resposta.getContentText().slice(0, 400));
+    var falha = { ok: false, code: 'upstream_error', avaliacoes: [] };
+    cache.put('avaliacoes', JSON.stringify(falha), CFG.AVALIACOES_ERRO_S);
+    return falha;
+  }
+
+  var d = JSON.parse(resposta.getContentText());
+  var lista = (d.reviews || []).map(function (r) {
+    var texto = (r.text && r.text.text) || (r.originalText && r.originalText.text) || '';
+    var autor = (r.authorAttribution && r.authorAttribution.displayName) || 'Cliente do Google';
+    return {
+      autor: String(autor),
+      nota: Number(r.rating) || 0,
+      // publishTime vem em RFC 3339; o site formata a data por extenso.
+      data: String(r.publishTime || '').slice(0, 10),
+      texto: String(texto).trim(),
+    };
+  }).filter(function (r) { return r.texto.length > 0; });
+
+  var saida = {
+    ok: true,
+    nota: Number(d.rating) || null,
+    total: Number(d.userRatingCount) || 0,
+    perfil: d.googleMapsUri || null,
+    avaliacoes: lista,
+  };
+  cache.put('avaliacoes', JSON.stringify(saida), CFG.AVALIACOES_CACHE_S);
+  return saida;
+}
+
+/** Limpa o cache das avaliações. Rode depois de responder um cliente no
+ *  Google e quiser ver o resultado no site sem esperar as 3 horas. */
+function limparCacheAvaliacoes() {
+  CacheService.getScriptCache().remove('avaliacoes');
+  console.log('cache das avaliações limpo');
 }
 
 // =============================================================================

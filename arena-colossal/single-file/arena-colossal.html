@@ -2601,7 +2601,12 @@ function montarAvaliacoes(box, dados){
   const lista = dados.avaliacoes;
   box.textContent = '';
 
-  if (dados.nota && notaExibivel){
+  /* Quando os números vêm da API, quem decide se a nota aparece é o total
+     que a API devolveu — não o número guardado no CONFIG. Sem total (lista
+     colada à mão), vale a regra do CONFIG. */
+  const totalReal = Number(dados.total) || 0;
+  const mostrarNota = totalReal ? totalReal >= MIN_AVALIACOES : notaExibivel;
+  if (dados.nota && mostrarNota){
     const sum = el('div', { class:'rev__sum' },
       el('span', { class:'rev__score', text: String(dados.nota).replace('.', ',') }),
       estrelas(dados.nota));

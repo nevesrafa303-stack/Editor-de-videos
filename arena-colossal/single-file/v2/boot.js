@@ -73,6 +73,17 @@ ligarWhats(document);
   if (ano) ano.textContent = String(new Date().getFullYear());
 }
 
+/* --- avaliações do Google ---
+       A mesma URL do Apps Script serve a agenda e as avaliações; muda só a
+       rota. Assim o cliente configura um endereço, não dois. Sem URL, a
+       seção assume o estado honesto com link para o perfil: nada é
+       inventado para preencher espaço. */
+{
+  if (!CONFIG.avaliacoesEndpoint && AGENDA_URL)
+    CONFIG.avaliacoesEndpoint = AGENDA_URL + (AGENDA_URL.includes('?') ? '&' : '?') + 'rota=avaliacoes';
+  renderAvaliacoes();
+}
+
 /* --- o formulário de agendamento, reaproveitado inteiro da v1 --- */
 renderBooking();
 

@@ -17,7 +17,7 @@ import { dirname, join } from 'node:path';
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const ARQUIVO = join(AQUI, '..', 'arena-colossal-v2.html');
 
-const CONTAINERS = ['agP1', 'peEnd', 'peHoras', 'peContato', 'peSelo', 'ano'];
+const CONTAINERS = ['agP1', 'peEnd', 'peHoras', 'peContato', 'peSelo', 'ano', 'revBox'];
 
 /* `#bkBox` fica de fora de propósito: sem JavaScript o formulário não teria
    como confirmar nada, e o HTML já traz a explicação e o botão do WhatsApp
@@ -49,6 +49,15 @@ const erros = [];
 pagina.on('pageerror', (e) => erros.push(e.message));
 await pagina.goto(pathToFileURL(ARQUIVO).href, { waitUntil: 'load' });
 await pagina.waitForTimeout(2500);
+
+/* `#revBox` é gravado SEMPRE no estado honesto, nunca com avaliações reais
+   dentro. Avaliação congelada no HTML envelhece: o cliente responde no
+   Google, o número muda, e o arquivo continua mostrando o de ontem. Sem
+   JavaScript a seção aponta para o perfil, que é a fonte. */
+await pagina.evaluate(async () => {
+  CONFIG.avaliacoesEndpoint = null;
+  await renderAvaliacoes();
+});
 
 const linkWhats = await pagina.evaluate(() => {
   const a = document.querySelector('[data-wa][href]');

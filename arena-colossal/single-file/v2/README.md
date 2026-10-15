@@ -34,6 +34,23 @@ coisas que a v2 não tem (a ferramenta de diagnóstico e a rota de
 acompanhamento). Se a v1 reescrever essas frases, a montagem falha dizendo
 qual delas mudou — de propósito, para ninguém publicar um link morto.
 
+## Avaliações do Google
+
+A seção de reputação lê o perfil real: nota, total e até cinco avaliações. O
+mesmo endereço do Apps Script serve as duas coisas, muda só a rota — o
+`boot.js` monta `?rota=avaliacoes` a partir do `CONFIG.agendaUrl`, então não há
+um segundo endereço para configurar.
+
+Sem a rota respondendo, a seção mostra o estado honesto com link para o
+perfil. Nenhum depoimento é escrito no arquivo, nem como exemplo.
+
+O `fallback.mjs` grava `#revBox` **sempre** nesse estado honesto, mesmo quando
+a rota está ligada: avaliação congelada no HTML envelhece, e sem JavaScript o
+certo é mandar para a fonte. Com JavaScript o renderizador limpa o bloco e
+põe os dados de agora.
+
+Como ligar a chave da Places API: `arena-colossal/apps-script/README.md`.
+
 ## Endpoint da agenda
 
 `CONFIG.agendaUrl` fica **vazio** no repositório, que é público. O endereço do
