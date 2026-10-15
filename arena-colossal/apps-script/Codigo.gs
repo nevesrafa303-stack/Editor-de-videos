@@ -56,7 +56,10 @@ const CFG = {
   },
 
   PASSO_MIN: 30,          // de quanto em quanto tempo a grade oferece horário
-  ANTECEDENCIA_H: 12,     // antecedência mínima para agendar
+  // Antecedência mínima, em horas. Tem que ser IGUAL ao `antecedenciaHoras`
+  // do site: com números diferentes, o site oferece horário que esta rota
+  // recusa. Com 12, o dia de hoje nunca sobra; 2 deixa o mesmo dia agendável.
+  ANTECEDENCIA_H: 2,
   JANELA_DIAS: 60,        // até quantos dias à frente
   SIMULTANEOS: 1,         // quantos veículos a Arena atende ao mesmo tempo
   BLOQUEIOS: [],          // ['2026-12-25', '2026-12-31']
@@ -238,10 +241,12 @@ function rotaDisponibilidade(p) {
 }
 
 function janela() {
+  // `first` é HOJE, não hoje mais a antecedência: quem filtra horário cedo
+  // demais é a `gradeDoDia`, horário a horário. Assim o dia de hoje continua
+  // na janela mesmo quando já só cabe o fim da tarde.
   var agora = new Date();
-  var primeiro = new Date(agora.getTime() + CFG.ANTECEDENCIA_H * 3600e3);
   var ultimo = new Date(agora.getTime() + CFG.JANELA_DIAS * 86400e3);
-  return { first: iso(primeiro), last: iso(ultimo) };
+  return { first: iso(agora), last: iso(ultimo) };
 }
 
 /** Horários do dia, já descontando o que a agenda mostra como ocupado. */

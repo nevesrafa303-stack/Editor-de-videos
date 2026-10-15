@@ -27,6 +27,7 @@ const CONTAINERS = [
   'stdList', 'procList', 'revBox', 'audList', 'faqList',
   'locBox', 'mapBox', 'footNav', 'footContact', 'footHours',
   'seloHero', 'seloFinal', 'footAddr',
+  'bkPonto2',   // a antecedência mínima vem do CONFIG, não escrita à mão
 ];
 
 /** `#agProx` fica de fora de propósito: o próximo horário livre depende da

@@ -586,7 +586,7 @@ body{padding-bottom:0}
       <h2 class="d">Reserve o horário<br />do seu carro.</h2>
       <ul class="ag__u">
         <li id="agP1">Cinco passos curtos, com uma revisão antes de enviar.</li>
-        <li>Horários a partir de 12 horas de antecedência, dentro do horário de funcionamento.</li>
+        <li id="agP2">Horários a partir de 2 horas de antecedência, dentro do horário de funcionamento.</li>
         <li>Seus dados são usados apenas para este agendamento.</li>
       </ul>
       <p style="margin-top:22px"><a class="seta" data-wa data-src="agendamento" href="https://wa.me/5547992228325?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Arena%20Colossal%20e%20gostaria%20de%20falar%20sobre%20um%20servi%C3%A7o." target="_blank" rel="noopener noreferrer">Prefere falar antes?</a></p>
@@ -687,7 +687,13 @@ const CONFIG = {
     { dia: 0, de: '08:00', ate: '15:00' },
   ],
   passoMinutos: 30,         // granularidade da grade
-  antecedenciaHoras: 12,    // antecedência mínima
+  /* Antecedência mínima, em horas. Com 12 aqui, quem abre o site às 11h só
+     consegue marcar a partir das 23h — ou seja, o dia de hoje nunca aparece.
+     2 deixa o mesmo dia agendável com um intervalo razoável para a Arena se
+     organizar. Para aceitar na hora, 0; para exigir meio dia de aviso, 12.
+     ESTE NÚMERO TEM QUE SER IGUAL AO `ANTECEDENCIA_H` DO APPS SCRIPT: se
+     forem diferentes, o site oferece horário que o backend recusa. */
+  antecedenciaHoras: 2,
   janelaDias: 60,           // até quantos dias à frente dá para agendar
   bloqueios: [],            // ['2026-12-25']
 
@@ -1022,11 +1028,21 @@ const temAgendaOnline = Boolean(AGENDA_URL || CONFIG.apiBase);
    site monta o pedido e entrega no WhatsApp; com backend ele reserva na
    agenda na hora. Deixar uma frase fixa significaria prometer reserva
    instantânea onde não existe — ou esconder a reserva onde ela existe. */
+/* A antecedência aparece em texto na seção. Escrevê-la à mão garante que um
+   dia o número do texto e o do CONFIG vão divergir — e o visitante lê a
+   promessa errada. Sai daqui, do mesmo lugar que a grade usa. */
+const H_ANTECEDENCIA = Number(CONFIG.antecedenciaHoras) || 0;
+const TEXTO_ANTECEDENCIA = H_ANTECEDENCIA <= 0
+  ? 'Dá para marcar para hoje mesmo, dentro do horário de funcionamento.'
+  : `Horários a partir de ${H_ANTECEDENCIA} ${H_ANTECEDENCIA === 1 ? 'hora' : 'horas'} de antecedência, dentro do horário de funcionamento.`;
+
 const TEXTO_AG = temAgendaOnline
   ? { lead:'Escolha o serviço, o dia e o horário em cinco passos curtos. O horário é reservado na agenda da Arena no momento em que você confirma.',
-      ponto1:'Confirmação na hora: o horário sai da agenda no mesmo instante.' }
+      ponto1:'Confirmação na hora: o horário sai da agenda no mesmo instante.',
+      ponto2: TEXTO_ANTECEDENCIA }
   : { lead:'Escolha o serviço, o dia e o horário em cinco passos curtos. Você revisa tudo antes de enviar, e o pedido chega pronto no WhatsApp da Arena para a equipe confirmar.',
-      ponto1:'Cinco passos curtos, com uma revisão antes de enviar.' };
+      ponto1:'Cinco passos curtos, com uma revisão antes de enviar.',
+      ponto2: TEXTO_ANTECEDENCIA };
 
 /* O Apps Script publica UMA url e não responde ao preflight do CORS. Por
    isso duas adaptações, as duas obrigatórias:
@@ -1074,9 +1090,11 @@ async function api(rota, opcoes = {}){
    explícito que a confirmação vem no contato, nunca fingindo reserva.
    ====================================================================== */
 function janelaAgenda(){
-  const base = new Date(Date.now() + CONFIG.antecedenciaHoras * 3600e3);
-  const primeiro = `${base.getFullYear()}-${pad(base.getMonth()+1)}-${pad(base.getDate())}`;
-  return { primeiro, ultimo: somaDias(hojeISO(), CONFIG.janelaDias) };
+  /* A trilha começa HOJE, não na antecedência mínima. Antes, quando já era
+     tarde demais para o mesmo dia, hoje simplesmente sumia da lista e o
+     visitante via a semana começando amanhã sem explicação. Agora hoje
+     aparece como qualquer outro dia sem vaga: visível e desativado. */
+  return { primeiro: hojeISO(), ultimo: somaDias(hojeISO(), CONFIG.janelaDias) };
 }
 /* Primeiro horário que a agenda configurada realmente comporta, contando a
    antecedência mínima e os bloqueios. Usa o serviço mais curto: é o que
@@ -1118,9 +1136,10 @@ function renderAgenda(){
   // quando há backend para reservar.
   if (t && temAgendaOnline)
     t.textContent = 'Horário reservado na hora, e fora da agenda no mesmo instante. Sem esperar retorno para saber se tem vaga.';
-  const lead = $('#bkLead'), ponto1 = $('#bkPonto1');
+  const lead = $('#bkLead'), ponto1 = $('#bkPonto1'), ponto2 = $('#bkPonto2');
   if (lead) lead.textContent = TEXTO_AG.lead;
   if (ponto1) ponto1.textContent = TEXTO_AG.ponto1;
+  if (ponto2) ponto2.textContent = TEXTO_AG.ponto2;
   if (p){
     const prox = proximoHorario();
     if (!prox){ p.hidden = true; }
@@ -1142,10 +1161,17 @@ function renderAgenda(){
 function diasDisponiveis(){
   const { primeiro, ultimo } = janelaAgenda();
   const abertos = new Set(CONFIG.horarios.map(h => h.dia));
+  /* O serviço mais curto é o que permite o horário mais cedo: se nem ele
+     cabe no que sobrou do dia, o dia não tem o que oferecer. É isso que
+     desativa hoje ao fim da tarde, em vez de escondê-lo. */
+  const menor = SERVICOS.length ? Math.min(...SERVICOS.map(s => s.min)) : CONFIG.passoMinutos;
   const out = []; let cur = primeiro; let mes = '';
   while (cur <= ultimo && out.length < 120){
     const m = cur.slice(0,7);
-    out.push({ data: cur, aberto: abertos.has(diaSemana(cur)) && !CONFIG.bloqueios.includes(cur), novoMes: m !== mes });
+    const aberto = abertos.has(diaSemana(cur))
+      && !CONFIG.bloqueios.includes(cur)
+      && gradeLocal(cur, menor).length > 0;
+    out.push({ data: cur, aberto, novoMes: m !== mes });
     mes = m; cur = somaDias(cur, 1);
   }
   return out;
@@ -1769,8 +1795,11 @@ ligarWhats(document);
 
 /* --- a promessa do agendamento muda com a infraestrutura --- */
 {
-  const p1 = $('#agP1');
+  const p1 = $('#agP1'), p2 = $('#agP2');
   if (p1 && typeof TEXTO_AG === 'object') p1.textContent = TEXTO_AG.ponto1;
+  // A antecedência mínima sai do CONFIG, nunca escrita à mão: número no texto
+  // diferente do número da grade é promessa quebrada na cara do visitante.
+  if (p2 && typeof TEXTO_AG === 'object') p2.textContent = TEXTO_AG.ponto2;
 }
 
 /* --- rodapé: endereço, horário, contatos e selo do Google --- */

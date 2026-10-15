@@ -17,7 +17,7 @@ import { dirname, join } from 'node:path';
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const ARQUIVO = join(AQUI, '..', 'arena-colossal-v2.html');
 
-const CONTAINERS = ['agP1', 'peEnd', 'peHoras', 'peContato', 'peSelo', 'ano', 'revBox'];
+const CONTAINERS = ['agP1', 'agP2', 'peEnd', 'peHoras', 'peContato', 'peSelo', 'ano', 'revBox'];
 
 /* `#bkBox` fica de fora de propósito: sem JavaScript o formulário não teria
    como confirmar nada, e o HTML já traz a explicação e o botão do WhatsApp

@@ -212,6 +212,30 @@ permitido, publicar um retrato congelado do perfil não.
 
 ---
 
+## Antecedência mínima — o número que faz hoje sumir
+
+`CFG.ANTECEDENCIA_H` diz quantas horas de aviso a Arena exige. Com 12, quem
+abre o site às 11h só consegue marcar a partir das 23h: o dia de hoje não
+sobra nenhum horário e some da lista. Hoje está em **2 horas**, o que deixa o
+mesmo dia agendável.
+
+Esse número existe em **dois lugares e os dois têm que bater**:
+
+| Onde | Campo |
+| --- | --- |
+| `apps-script/Codigo.gs` | `CFG.ANTECEDENCIA_H` |
+| o arquivo do site | `CONFIG.antecedenciaHoras` |
+
+Diferentes, o site oferece horário que esta rota recusa — e o cliente leva a
+recusa na cara depois de preencher tudo. Mudou um, muda o outro e publica os
+dois.
+
+O texto que o visitante lê ("Horários a partir de 2 horas de antecedência")
+sai do próprio `CONFIG`, não está escrito à mão: mudando o número, a frase
+muda junto.
+
+---
+
 ## Segurança — o que está protegido e o que não está
 
 **Protegido.** O script nunca devolve a sua agenda. A rota de

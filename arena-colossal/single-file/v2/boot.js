@@ -13,8 +13,11 @@ ligarWhats(document);
 
 /* --- a promessa do agendamento muda com a infraestrutura --- */
 {
-  const p1 = $('#agP1');
+  const p1 = $('#agP1'), p2 = $('#agP2');
   if (p1 && typeof TEXTO_AG === 'object') p1.textContent = TEXTO_AG.ponto1;
+  // A antecedência mínima sai do CONFIG, nunca escrita à mão: número no texto
+  // diferente do número da grade é promessa quebrada na cara do visitante.
+  if (p2 && typeof TEXTO_AG === 'object') p2.textContent = TEXTO_AG.ponto2;
 }
 
 /* --- rodapé: endereço, horário, contatos e selo do Google --- */
