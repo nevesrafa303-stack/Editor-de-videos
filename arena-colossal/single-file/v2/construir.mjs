@@ -48,10 +48,45 @@ const videoLargo = vhero.match(/<source media="\(min-width:760px\)" src="(data:v
 
 const favicon = pegar(/<link rel="icon"[^>]+href="([^"]+)"/, 'favicon');
 
-/* ---------- o estilo do formulário de agendamento, da v1 ---------- */
-const marcas = ['.bk{', '.bk__', '.slot', '.days', '.campo', '.note', '.done'];
-const regras = [...css1.matchAll(/(?:^|\n)([^\n{}]*\{[^{}]*\})/g)].map(m => m[1]);
-const estiloAg = regras.filter(r => marcas.some(mk => r.trimStart().startsWith(mk))).join('\n');
+/* ---------- o estilo do formulário de agendamento, da v1 ----------
+   Esta lista NÃO é adivinhada por prefixo. Foi levantada percorrendo os cinco
+   passos do formulário num navegador e juntando toda classe que aparece no
+   DOM. A versão por prefixo pegava `.days` e deixava `.day` de fora: os chips
+   de data nasciam com largura zero, empilhados uns sobre os outros, e nada
+   no build acusava. Classe nova no formulário da v1 entra aqui.
+
+   Para refazer a lista: abra a v1, ande pelos cinco passos e colete
+   `[...document.querySelectorAll('#bkBox *')]` com suas classes. */
+const CLASSES_AG = [
+  'bk', 'bk__act', 'bk__help', 'bk__legend', 'bk__nav', 'bk__opt', 'bk__opts',
+  'bk__panel', 'bk__pbar', 'bk__s', 'bk__steps',
+  'check', 'day', 'day__m', 'days', 'diag__back',
+  'done', 'done__a', 'done__m', 'done__p',
+  'field', 'form', 'hp', 'note', 'note--i', 'note--w',
+  'row', 'slot', 'slots', 'sum', 'sum__r',
+];
+// `(?![\w-])` para `.day` não casar com `.days` por acidente — e vice-versa:
+// as duas estão na lista porque as duas existem, não porque uma cobre a outra.
+const alvoAg = new RegExp(
+  '\\.(?:' + CLASSES_AG.slice().sort((a, b) => b.length - a.length)
+    .map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?![\\w-])');
+const casa = (regra) => alvoAg.test(regra.split('{')[0]);
+
+const soltas = [...css1.matchAll(/(?:^|\n)([^\n{}]*\{[^{}]*\})/g)]
+  .map(m => m[1]).filter(casa);
+
+/* As regras dentro de @media precisam voltar com o @media em volta, senão o
+   formulário perde o layout largo e cai no de celular em qualquer tela. */
+const emMedia = [];
+for (const m of css1.matchAll(/@media[^{]*\{((?:[^{}]|\{[^{}]*\})*)\}/g)) {
+  const dentro = [...m[1].matchAll(/([^\n{}]*\{[^{}]*\})/g)].map(x => x[1]).filter(casa);
+  if (dentro.length) emMedia.push(`${m[0].slice(0, m[0].indexOf('{') + 1)}${dentro.join('')}}`);
+}
+
+const estiloAg = [...soltas, ...emMedia].join('\n');
+// Rede de segurança: se a v1 reorganizar o CSS e o casamento quebrar, a
+// montagem para aqui em vez de publicar um formulário sem estilo.
+if (soltas.length < 60) throw new Error(`só ${soltas.length} regras do agendamento casaram — a lista CLASSES_AG ficou desatualizada`);
 
 /* ---------- as linhas de serviço, escritas na montagem ---------- */
 const dados = blocos.find(b => /const\s+SERVICOS\s*=/.test(b));

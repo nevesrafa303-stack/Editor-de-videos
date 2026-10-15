@@ -34,7 +34,10 @@ __FONTES__
   --e:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* A nav é fixa: sem isso, saltar para uma âncora põe o topo da seção
+   debaixo dela. Vale também para o `scrollIntoView` do formulário. */
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + 18px)}
+[id]{scroll-margin-top:calc(var(--nav) + 18px)}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
@@ -194,7 +197,8 @@ p{margin:0}
 .av__f{margin-top:20px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--fraco);line-height:1.7}
 .muted{color:var(--fraco)}
-.note{font-size:13.5px;line-height:1.6;color:var(--fraco)}
+/* `.note` não se define aqui: ela vem com o CSS do agendamento, logo abaixo,
+   e definir duas vezes só criaria divergência entre a seção e o formulário. */
 .link-u{color:var(--meio);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
   text-decoration:none;border-bottom:1px solid rgba(255,149,0,.5);padding-bottom:3px;
   transition:color .25s}

@@ -18,3 +18,6 @@ assets/logo/*
 *.log
 .DS_Store
 data/silences.txt
+
+# capturas da auditoria do agendamento
+arena-colossal/single-file/v2/fluxo-*.png

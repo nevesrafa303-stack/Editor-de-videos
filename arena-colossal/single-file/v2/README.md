@@ -57,11 +57,29 @@ Como ligar a chave da Places API: `arena-colossal/apps-script/README.md`.
 Apps Script é preenchido só no arquivo entregue. Ver
 `arena-colossal/apps-script/README.md`.
 
+## O CSS do agendamento
+
+`CLASSES_AG`, em `construir.mjs`, lista as classes que o formulário usa. A
+lista foi levantada percorrendo os cinco passos num navegador, não adivinhada
+por prefixo: a versão por prefixo pegava `.days` e deixava `.day` de fora, e
+os chips de data foram ao ar com largura zero, empilhados uns sobre os outros.
+
+Classe nova no formulário da v1 entra nessa lista. Se a v1 reorganizar o CSS e
+o casamento quebrar, a montagem para com erro em vez de publicar um formulário
+sem estilo.
+
 ## Antes de publicar
 
 ```
 node v2/construir.mjs && node v2/fallback.mjs
+node v2/auditar-agendamento.mjs mob
+node v2/auditar-agendamento.mjs desk
 ```
 
-e confira: sem JavaScript o rodapé aparece e os botões de WhatsApp têm href;
-com JavaScript o rodapé não duplica.
+A auditoria entra nos cinco passos do agendamento e mede largura zero, texto
+espremido, elemento fora da tela e transbordo. Sai com erro se achar algo.
+Rode também `node v2/auditar-agendamento.mjs mob v1` quando quiser comparar com
+a v1: as duas têm que sair OK.
+
+Confira ainda: sem JavaScript o rodapé aparece e os botões de WhatsApp têm
+href; com JavaScript o rodapé não duplica.

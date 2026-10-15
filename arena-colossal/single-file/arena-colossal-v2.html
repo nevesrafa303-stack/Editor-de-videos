@@ -37,7 +37,10 @@ unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+0
   --e:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* A nav é fixa: sem isso, saltar para uma âncora põe o topo da seção
+   debaixo dela. Vale também para o `scrollIntoView` do formulário. */
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + 18px)}
+[id]{scroll-margin-top:calc(var(--nav) + 18px)}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
@@ -197,7 +200,8 @@ p{margin:0}
 .av__f{margin-top:20px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--fraco);line-height:1.7}
 .muted{color:var(--fraco)}
-.note{font-size:13.5px;line-height:1.6;color:var(--fraco)}
+/* `.note` não se define aqui: ela vem com o CSS do agendamento, logo abaixo,
+   e definir duas vezes só criaria divergência entre a seção e o formulário. */
 .link-u{color:var(--meio);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
   text-decoration:none;border-bottom:1px solid rgba(255,149,0,.5);padding-bottom:3px;
   transition:color .25s}
@@ -333,8 +337,9 @@ body{padding-bottom:0}
 .ag__g>*,#bkBox,#bkBox *{min-width:0}
 #bkBox img{max-width:100%}
 
+.diag__back{align-self:flex-start;margin-top:6px;padding-bottom:3px;font-size:var(--s--1);color:var(--g500);border-bottom:1px solid currentColor}
+.diag__back:hover{color:#fff}
 .note,.note--e,.note--w{padding:14px 16px;font-size:var(--s--1);line-height:1.6;background:var(--off-black);border:var(--border);color:var(--g300)}
-.note--e{border-color:rgba(233,129,129,.45);color:#f0a9a9}
 .note--w{border-color:rgba(255,149,0,.45);color:var(--laranja-claro)}
 .note--i{border-left:1px solid var(--laranja)}
 .bk{display:flex;flex-direction:column;gap:28px;padding:clamp(22px,4vw,40px);background:var(--surface);border:var(--border)}
@@ -360,17 +365,43 @@ body{padding-bottom:0}
 .bk__opt .c i{font-style:normal;font-size:var(--s-0);color:#fff}
 .bk__opt .c s{text-decoration:none;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--g500)}
 .days{display:flex;gap:8px;padding-bottom:10px;overflow-x:auto;scroll-snap-type:x proximity}
+.day{position:relative;flex:0 0 auto;scroll-snap-align:start;padding-top:22px}
+.day__m{position:absolute;top:0;left:0;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);white-space:nowrap}
+.day button{display:flex;flex-direction:column;align-items:center;gap:4px;width:62px;padding:12px 0;background:var(--off-black);border:var(--border);transition:border-color .22s,background-color .22s}
+.day button:disabled{opacity:.32;cursor:not-allowed}
+.day button:not(:disabled):hover{border-color:rgba(255,255,255,.22)}
+.day button[data-sel='true']{border-color:var(--laranja);background:rgba(255,149,0,.08)}
+.day s{text-decoration:none;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g500)}
+.day b{font-family:var(--f-display);font-size:1.15rem;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .slots{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}
 .slot{min-height:52px;background:var(--off-black);border:var(--border);font-variant-numeric:tabular-nums;color:var(--g100);transition:border-color .22s,background-color .22s}
 .slot:disabled{color:var(--g700);text-decoration:line-through;cursor:not-allowed}
 .slot:not(:disabled):hover{border-color:rgba(255,255,255,.24)}
 .slot[data-sel='true']{border-color:var(--laranja);background:rgba(255,149,0,.08);color:#fff}
+.form{display:flex;flex-direction:column;gap:18px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.row{display:grid;gap:18px;grid-template-columns:1fr}
+.field label{font-size:var(--s--1);letter-spacing:.1em;text-transform:uppercase;color:var(--g300)}
+.field label s{text-decoration:none;text-transform:none;letter-spacing:0;color:var(--g500)}
+.field input,.field textarea{width:100%;padding:14px 16px;font-size:16px;color:#fff;background:var(--off-black);border:var(--border);border-radius:var(--radius);transition:border-color .22s}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--laranja)}
+.field input[aria-invalid='true'],.field textarea[aria-invalid='true']{border-color:rgba(233,129,129,.75)}
+.field textarea{resize:vertical;min-height:108px;line-height:1.6}
+.check{display:flex;align-items:flex-start;gap:12px;font-size:var(--s--1);line-height:1.6;color:var(--g300);cursor:pointer}
+.check input{flex:0 0 auto;width:20px;height:20px;margin-top:2px;accent-color:var(--laranja)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sum{display:flex;flex-direction:column;margin:0}
+.sum__r{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px;padding-block:12px;border-bottom:var(--border)}
+.sum__r dt{font-size:.72rem;letter-spacing:var(--track);text-transform:uppercase;color:var(--g500)}
+.sum__r dd{margin:0;font-size:var(--s-0);color:#fff;text-align:right;max-width:60ch}
 .bk__act{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:6px;border-top:var(--border)}
 .done{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:clamp(26px,4vw,44px);background:var(--surface);border:var(--border);border-left:2px solid var(--laranja);scroll-margin-top:calc(var(--nav-h) + 24px)}
 .done__m{display:grid;place-items:center;width:52px;height:52px;color:var(--laranja);border:var(--border-gold);border-radius:50%}
 .done h3{font-size:var(--s-3);color:#fff}
 .done__p{font-size:var(--s-1);color:var(--g300)}
 .done__a{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+@media(min-width:768px){.bk__opts{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:768px){.row{grid-template-columns:1fr 1fr .6fr}}
 </style>
 </head>
 <body>
