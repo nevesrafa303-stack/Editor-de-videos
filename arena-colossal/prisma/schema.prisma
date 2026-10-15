@@ -1,0 +1,120 @@
+// Arena Colossal — modelo de dados do agendamento.
+//
+// Regras estruturais:
+//   - Instantes (`startsAt`, `endsAt`) sao sempre UTC. `date` guarda a data
+//     civil no fuso da operacao apenas para consulta/relatorio.
+//   - O servico NAO e' tabela: o catalogo vive em `src/lib/config/services.ts`
+//     e aqui fica o slug. Isso evita um estado duplicado que so se desatualiza.
+//   - `Notification` e' um log por canal: um agendamento existe mesmo que o
+//     WhatsApp, o e-mail ou o Calendar falhem.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  /// E.164, somente digitos.
+  phone     String
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  vehicles Vehicle[]
+  bookings Booking[]
+
+  @@index([phone])
+}
+
+model Vehicle {
+  id         String  @id @default(cuid())
+  customerId String
+  brand      String
+  model      String
+  year       Int?
+
+  customer Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  bookings Booking[]
+
+  @@index([customerId])
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  cancelled
+  failed
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  customerId  String
+  vehicleId   String
+  /// Slug do catalogo de servicos.
+  serviceSlug String
+  /// Data civil (YYYY-MM-DD) no fuso da operacao.
+  date        String
+  startsAt    DateTime
+  endsAt      DateTime
+  status      BookingStatus @default(pending)
+  notes       String?
+  /// ID do evento criado no Google Calendar, quando a integracao esta ativa.
+  googleEventId String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  customer      Customer       @relation(fields: [customerId], references: [id])
+  vehicle       Vehicle        @relation(fields: [vehicleId], references: [id])
+  notifications Notification[]
+
+  /// Consulta de disponibilidade: sempre por janela de tempo + status.
+  @@index([startsAt, endsAt, status])
+  @@index([date])
+}
+
+/// Bloqueios manuais de agenda (feriado, manutencao, evento) que nao sao
+/// agendamentos de cliente. Alimentam a disponibilidade junto com `Booking`.
+model AvailabilityBlock {
+  id        String   @id @default(cuid())
+  startsAt  DateTime
+  endsAt    DateTime
+  reason    String?
+  createdAt DateTime @default(now())
+
+  @@index([startsAt, endsAt])
+}
+
+enum NotificationChannel {
+  calendar
+  whatsapp_internal
+  email_internal
+  email_customer
+}
+
+enum NotificationStatus {
+  pending
+  sent
+  failed
+  skipped
+}
+
+model Notification {
+  id        String              @id @default(cuid())
+  bookingId String
+  channel   NotificationChannel
+  status    NotificationStatus
+  /// Mensagem de erro ou ID externo — o suficiente para reprocessar depois.
+  detail    String?
+  sentAt    DateTime?
+  createdAt DateTime            @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([status])
+}

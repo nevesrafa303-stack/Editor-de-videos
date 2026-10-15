@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Arena Colossal | Estética Automotiva em Balneário Camboriú</title>
+<meta name="description" content="Lavagem técnica, polimento, vitrificação e higienização em Balneário Camboriú. Avaliação antes de qualquer serviço e agendamento online." />
+<meta name="theme-color" content="#090909" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Arena Colossal | Estética Automotiva" />
+<meta property="og:description" content="Processo, critério e agendamento online. Balneário Camboriú, SC." />
+<link rel="icon" href="__FAVICON__" />
+<style>
+__FONTES__
+
+/* ===================================================================
+   ARENA COLOSSAL v2
+   -------------------------------------------------------------------
+   Preto quase puro, um acento só, tipografia condensada pesada e muito
+   ar. A informação vem em linhas separadas por fio, não em cartões:
+   a página inteira existe para levar ao agendamento.
+   =================================================================== */
+:root{
+  color-scheme: dark;
+  --preto:#090909; --carvao:#101010; --painel:#141414;
+  --acento:#ff9500; --acento-claro:#ffb958; --frio:#02abff;
+  --branco:#f6f6f6; --meio:#9a9a9a; --fraco:#6a6a6a;
+  --fio:rgba(255,255,255,.13); --fio-forte:rgba(255,255,255,.26);
+  --d:'Anton',Impact,'Haettenschweiler','Arial Narrow',sans-serif;
+  --c:'Inter',system-ui,-apple-system,sans-serif;
+  --nav:68px;
+  --gut:clamp(18px,5vw,64px);
+  --larg:1280px;
+  --e:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important}
+}
+body{margin:0;background:var(--preto);color:var(--branco);font-family:var(--c);
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* O brilho de borda é o que dá o ar caro da referência: duas manchas
+   grandes e moles, fixas, que o conteúdo atravessa. */
+.brilho{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(52% 44% at 0% 26%,rgba(255,149,0,.13),transparent 68%),
+    radial-gradient(46% 40% at 100% 72%,rgba(255,149,0,.10),transparent 66%),
+    radial-gradient(70% 50% at 50% 100%,rgba(2,171,255,.05),transparent 70%)}
+.folha{position:relative;z-index:1}
+
+.wrap{max-width:var(--larg);margin-inline:auto;padding-inline:var(--gut)}
+
+/* ---------- tipografia ---------- */
+.d{font-family:var(--d);font-weight:400;text-transform:uppercase;
+  line-height:.9;letter-spacing:.004em;margin:0}
+h1.d{font-size:clamp(44px,10.5vw,124px)}
+h2.d{font-size:clamp(30px,6.2vw,66px)}
+h3.d{font-size:clamp(19px,2.3vw,27px)}
+.olho{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);
+  margin:0 0 14px;font-weight:600}
+.olho--f{color:var(--fraco)}
+p{margin:0}
+.txt{color:var(--meio);font-size:clamp(14px,1.05vw,15.5px);line-height:1.68;max-width:62ch}
+
+/* ---------- link com seta, a assinatura da referência ---------- */
+.seta{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:600;color:var(--acento);text-decoration:none;
+  padding-block:8px;border-bottom:1px solid currentColor;transition:gap .3s var(--e),color .3s}
+.seta::after{content:'↗';font-size:14px;line-height:1;transition:transform .3s var(--e)}
+.seta:hover{gap:14px}
+.seta:hover::after{transform:translate(2px,-2px)}
+.seta--b{color:var(--branco)}
+.seta:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2px solid var(--acento-claro);outline-offset:4px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;
+  padding:0 30px;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;border:0;cursor:pointer;transition:background-color .3s,color .3s,border-color .3s}
+.btn--p{background:var(--acento);color:#140b00}
+.btn--p:hover{background:var(--acento-claro)}
+.btn--g{background:transparent;color:var(--branco);border:1px solid var(--fio-forte)}
+.btn--g:hover{border-color:var(--acento);color:var(--acento)}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;height:var(--nav);
+  display:flex;align-items:center;transition:background-color .4s,border-color .4s}
+.nav[data-fix='true']{background:rgba(9,9,9,.86);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--fio)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%}
+.marca{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--branco)}
+.marca img{display:block;width:34px;height:34px;object-fit:contain}
+.marca b{font-family:var(--d);font-size:17px;letter-spacing:.03em;text-transform:uppercase;font-weight:400}
+.nav__l{display:none;gap:30px}
+.nav__l a{font-size:13px;color:var(--meio);text-decoration:none;transition:color .25s}
+.nav__l a:hover{color:var(--branco)}
+@media(min-width:900px){.nav__l{display:flex}}
+.nav__cta{display:none}
+@media(min-width:900px){.nav__cta{display:inline-flex;min-height:42px;padding:0 20px;font-size:11px}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;
+  padding-block:calc(var(--nav) + 40px) clamp(40px,8vh,88px);overflow:hidden}
+.hero__bg{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#060606}
+.hero__bg video{width:100%;height:100%;object-fit:cover;object-position:62% 45%;
+  filter:saturate(.62) contrast(1.12) brightness(.82)}
+.hero__v{position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(to top,var(--preto) 2%,rgba(9,9,9,.82) 34%,rgba(9,9,9,.28) 72%,rgba(9,9,9,.62) 100%),
+  linear-gradient(to right,rgba(9,9,9,.96) 0%,rgba(9,9,9,.78) 30%,rgba(9,9,9,.26) 62%,rgba(9,9,9,.06) 88%)}
+@media(max-width:720px){
+  .hero__bg video{object-position:58% 42%;filter:saturate(.64) contrast(1.08) brightness(.84)}
+  .hero__v{background:linear-gradient(to top,var(--preto) 4%,rgba(9,9,9,.93) 30%,rgba(9,9,9,.52) 62%,rgba(9,9,9,.8) 100%)}
+}
+.hero__c{position:relative;width:100%}
+/* véu local atrás do texto: garante contraste AA mesmo nos quadros mais claros
+   do vídeo, sem precisar escurecer o carro inteiro */
+.hero__c::before{content:'';position:absolute;z-index:-1;pointer-events:none;
+  inset:-8% -14% -16% -14%;
+  background:radial-gradient(118% 86% at 16% 76%,rgba(9,9,9,.74) 0%,rgba(9,9,9,.5) 40%,rgba(9,9,9,0) 74%)}
+@media(max-width:720px){
+  .hero__c::before{inset:-6% -10% -12% -10%;
+    background:radial-gradient(130% 78% at 50% 80%,rgba(9,9,9,.76) 0%,rgba(9,9,9,.52) 46%,rgba(9,9,9,0) 78%)}
+}
+.hero .olho{color:var(--acento-claro)}
+.hero h1{max-width:14ch}
+.hero h1 i{font-style:normal;color:var(--acento)}
+.hero__p{margin-top:22px;max-width:46ch}
+.hero__a{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
+
+/* ---------- faixa de números/afirmações ---------- */
+.faixa{border-block:1px solid var(--fio);background:rgba(255,255,255,.015)}
+.faixa ul{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--fio)}
+@media(min-width:720px){.faixa ul{grid-template-columns:repeat(3,1fr)}}
+.faixa li{background:var(--preto);padding:clamp(26px,4vw,40px) clamp(20px,3vw,34px)}
+.faixa b{display:block;font-family:var(--d);font-size:clamp(34px,5vw,54px);line-height:1;
+  color:var(--branco);font-weight:400}
+.faixa span{display:block;margin-top:12px;font-size:13.5px;line-height:1.6;color:var(--meio);max-width:30ch}
+
+/* ---------- prova: cartões inclinados, como na referência ---------- */
+.prova{padding-block:clamp(56px,8vh,96px) clamp(10px,2vh,24px)}
+.prova__g{display:grid;gap:clamp(22px,3vw,34px);margin-top:clamp(34px,5vh,56px)}
+@media(min-width:760px){.prova__g{grid-template-columns:repeat(3,1fr)}}
+.prova__i{position:relative;aspect-ratio:4/3;overflow:hidden;transform:skewX(-7deg);
+  border:1px solid var(--fio);background:var(--painel)}
+.prova__i>i{position:absolute;inset:-6%;display:block;transform:skewX(7deg) scale(1.1);
+  background-size:cover;background-position:center}
+.prova__t{margin-top:18px;font-size:13.5px;line-height:1.65;color:var(--meio);max-width:34ch}
+
+/* ---------- serviços em linhas, o movimento central da referência ---------- */
+.svc{padding-block:clamp(56px,8vh,96px)}
+.svc__h{display:grid;gap:18px;margin-bottom:clamp(30px,5vh,52px)}
+@media(min-width:900px){.svc__h{grid-template-columns:1.25fr .75fr;align-items:end}}
+.svc__l{list-style:none;margin:0;padding:0;border-top:1px solid var(--fio)}
+.svc__l>li{border-bottom:1px solid var(--fio)}
+.linha{display:grid;grid-template-columns:1fr;gap:16px;padding-block:22px;
+  align-items:center;position:relative;transition:background-color .3s}
+@media(min-width:900px){
+  .linha{grid-template-columns:minmax(0,1.05fr) 212px minmax(0,1.5fr) auto;
+    gap:clamp(20px,2.4vw,40px);padding-block:18px}
+}
+.linha:hover{background:rgba(255,255,255,.022)}
+.linha__n{display:flex;align-items:baseline;gap:14px;min-width:0}
+.linha__n s{text-decoration:none;font-family:var(--d);font-size:13px;color:var(--fraco);font-weight:400}
+.linha__n h3{margin:0;font-family:var(--d);font-weight:400;text-transform:uppercase;
+  font-size:clamp(17px,2vw,22px);line-height:1.05;letter-spacing:.012em}
+.linha__i{display:block;width:100%;aspect-ratio:16/10;background-size:cover;
+  background-position:center;border:1px solid var(--fio);filter:grayscale(.35) contrast(1.05)}
+/* No celular a foto ocupa a linha inteira, mas em faixa: dez serviços com
+   foto 16/10 fariam a página virar um rolo. A coluna de 212px só existe no
+   desktop, onde a linha é horizontal. */
+@media(max-width:899px){.linha__i{aspect-ratio:2.3/1}}
+@media(min-width:900px){.linha__i{max-width:212px}}
+.linha:hover .linha__i{filter:none}
+.linha__d{font-size:13.5px;line-height:1.6;color:var(--meio);min-width:0}
+.linha__m{display:flex;align-items:center;gap:10px;margin-top:9px;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--fraco)}
+.linha__m b{color:var(--acento);font-weight:600}
+.linha__a{justify-self:start}
+@media(min-width:900px){.linha__a{justify-self:end}}
+/* O link cobre a linha inteira no desktop: a linha toda é o alvo. */
+.linha__a::before{content:'';position:absolute;inset:0;z-index:1}
+.linha__a{position:static}
+.svc__f{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:clamp(28px,4vh,44px)}
+
+/* ---------- avaliações do Google ----------
+   As classes são as mesmas da v1 porque o renderizador é o mesmo; o desenho
+   é o da v2: fio no lugar de caixa, nada arredondado. */
+.av{padding-block:clamp(56px,8vh,96px);border-top:1px solid var(--fio)}
+.av__h{display:grid;gap:18px;margin-bottom:clamp(26px,4vh,44px)}
+@media(min-width:900px){.av__h{grid-template-columns:1.25fr .75fr;align-items:end}}
+.av__f{margin-top:20px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--fraco);line-height:1.7}
+.muted{color:var(--fraco)}
+.note{font-size:13.5px;line-height:1.6;color:var(--fraco)}
+.link-u{color:var(--meio);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;border-bottom:1px solid rgba(255,149,0,.5);padding-bottom:3px;
+  transition:color .25s}
+.link-u:hover{color:var(--branco)}
+
+.rev__sum{display:flex;flex-wrap:wrap;align-items:center;gap:12px 26px;
+  padding-bottom:22px;border-bottom:1px solid var(--fio)}
+.rev__score{font-family:var(--d);font-weight:400;line-height:1;color:var(--branco);
+  font-size:clamp(34px,5vw,52px)}
+.stars{margin:0;font-size:16px;letter-spacing:.2em;color:var(--acento)}
+.stars i{font-style:normal;color:#3c3c3c}
+
+/* Fio por borda, não por fundo com gap: o Google devolve até cinco
+   avaliações, então a última fileira quase sempre fica incompleta — e o
+   truque do fundo transformaria a célula vazia num bloco cinza. */
+.rev{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--fio)}
+.rev>li{border-bottom:1px solid var(--fio)}
+@media(min-width:760px){
+  .rev{grid-template-columns:repeat(2,1fr)}
+  .rev>li:nth-child(odd){border-right:1px solid var(--fio)}
+}
+@media(min-width:1100px){
+  .rev{grid-template-columns:repeat(3,1fr)}
+  .rev>li{border-right:1px solid var(--fio)}
+  .rev>li:nth-child(3n){border-right:0}
+}
+.rev__c{display:flex;flex-direction:column;gap:13px;height:100%;padding:clamp(22px,2.6vw,30px)}
+.rev__x{font-size:14px;line-height:1.7;color:var(--meio)}
+.rev__m{display:flex;flex-direction:column;gap:3px;margin-top:auto;padding-top:15px;
+  border-top:1px solid var(--fio)}
+.rev__m b{font-size:13.5px;font-weight:600;color:var(--branco)}
+.rev__m time{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fraco)}
+
+/* Estado honesto: sem a rota configurada, o destino é o perfil real. */
+.gbox{display:grid;gap:22px;align-items:center;padding:clamp(26px,4vw,40px);
+  border:1px solid var(--fio);background:var(--painel)}
+@media(min-width:760px){.gbox{grid-template-columns:auto 1fr;gap:clamp(26px,3vw,40px)}}
+.gbox__g{display:grid;place-items:center;width:72px;aspect-ratio:1;
+  border:1px solid var(--fio);background:var(--preto)}
+.gbox__g svg{width:52%;height:auto}
+.gbox h3{margin:0;font-family:var(--d);font-weight:400;text-transform:uppercase;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.1;color:var(--branco)}
+.gbox p{margin-top:13px;font-size:14px;line-height:1.68;color:var(--meio);max-width:58ch}
+.gbox__a{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:22px}
+
+/* O renderizador da v1 marca os blocos com data-rev; a v2 usa data-sobe.
+   Mesma entrada, para a seção não destoar do resto da página. */
+.js [data-rev]{opacity:0;transform:translateY(16px)}
+.js [data-rev][data-vis='true']{opacity:1;transform:none;
+  transition:opacity .6s var(--e),transform .6s var(--e)}
+@media(prefers-reduced-motion:reduce){
+  .js [data-rev]{opacity:1;transform:none;transition:none}
+}
+
+/* ---------- agendamento ---------- */
+.ag{padding-block:clamp(56px,8vh,96px);border-top:1px solid var(--fio);background:var(--carvao)}
+.ag__g{display:grid;gap:clamp(30px,5vw,56px)}
+@media(min-width:1000px){.ag__g{grid-template-columns:.8fr 1.2fr;align-items:start}}
+.ag__l{position:relative}
+@media(min-width:1000px){.ag__l{position:sticky;top:calc(var(--nav) + 34px)}}
+.ag__u{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.ag__u li{position:relative;padding-left:22px;font-size:13.5px;line-height:1.6;color:var(--meio)}
+.ag__u li::before{content:'';position:absolute;left:0;top:.68em;width:11px;height:1px;background:var(--acento)}
+
+/* ---------- rodapé ---------- */
+.pe{border-top:1px solid var(--fio);padding-block:clamp(46px,7vh,76px) 30px}
+.pe__g{display:grid;gap:34px}
+@media(min-width:760px){.pe__g{grid-template-columns:1.3fr 1fr 1fr}}
+.pe h4{margin:0 0 14px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--fraco);font-weight:600}
+.pe a{color:var(--meio);text-decoration:none;transition:color .25s}
+.pe a:hover{color:var(--acento)}
+.pe__l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13.5px}
+.pe address{font-style:normal;font-size:13.5px;line-height:1.7;color:var(--meio);max-width:34ch}
+.pe__b{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+  margin-top:clamp(34px,5vh,56px);padding-top:22px;border-top:1px solid var(--fio);
+  font-size:11.5px;color:var(--fraco)}
+.selo{display:inline-flex;align-items:center;gap:10px;padding:9px 15px;border:1px solid var(--fio);
+  font-size:12px;color:var(--meio);text-decoration:none;transition:border-color .3s}
+.selo:hover{border-color:var(--acento)}
+.selo svg{flex:0 0 auto}
+
+/* ---------- barra fixa no celular ---------- */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:10px;
+  padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom));
+  background:rgba(9,9,9,.94);backdrop-filter:blur(14px);border-top:1px solid var(--fio);
+  transform:translateY(110%);transition:transform .4s var(--e)}
+.barra[data-vis='true']{transform:none}
+.barra .btn{flex:1;min-height:50px}
+@media(min-width:900px){.barra{display:none}}
+body{padding-bottom:0}
+@media(max-width:899px){body{padding-bottom:78px}}
+
+/* ---------- entrada suave, sem travar leitura ---------- */
+.js [data-sobe]{opacity:0;transform:translateY(16px)}
+.js [data-sobe][data-vis='true']{opacity:1;transform:none;
+  transition:opacity .7s var(--e),transform .7s var(--e)}
+@media(prefers-reduced-motion:reduce){
+  .js [data-sobe]{opacity:1;transform:none}
+}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.pular{position:absolute;left:var(--gut);top:-60px;z-index:100;padding:12px 18px;
+  background:var(--acento);color:#140b00;font-size:12px;font-weight:700;text-decoration:none;
+  transition:top .25s}
+.pular:focus{top:12px}
+__IMAGENS__
+
+/* ---------- ponte para o formulário de agendamento ----------
+   As 38 regras abaixo vieram da v1 inteiras, e falam os nomes de variável
+   dela. Em vez de reescrevê-las (e arriscar quebrar o que já está testado),
+   eu traduzo os nomes: o formulário passa a usar a paleta, a escala e o
+   fio da v2 sem uma linha alterada. */
+:root{
+  --off-black:var(--carvao); --surface:var(--painel);
+  --laranja:var(--acento); --laranja-claro:var(--acento-claro);
+  --g100:var(--branco); --g300:var(--meio); --g500:var(--fraco); --g700:#3c3c3c;
+  --border:1px solid var(--fio); --border-gold:1px solid rgba(255,149,0,.42);
+  --ease:var(--e); --nav-h:var(--nav); --f-display:var(--d); --f-body:var(--c);
+  --s--1:12.5px; --s-0:14.5px; --s-1:17px; --s-2:21px; --s-3:27px;
+  --radius:0; --radius-lg:0;
+}
+/* Item de grade nasce com min-width:auto, e aí o formulário não encolhe:
+   a fila de etapas (que já rola sozinha) empurrava a página inteira. */
+.ag__g>*,#bkBox,#bkBox *{min-width:0}
+#bkBox img{max-width:100%}
+
+__ESTILO_AGENDAMENTO__
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+<div class="brilho" aria-hidden="true"></div>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="marca" href="#topo" aria-label="Arena Colossal: início">
+      <img src="__LOGO__" alt="" width="34" height="34" />
+      <b>Arena Colossal</b>
+    </a>
+    <nav class="nav__l" aria-label="Seções">
+      <a href="#servicos">serviços</a>
+      <a href="#agendamento">agendamento</a>
+      <a href="#contato">contato</a>
+    </nav>
+    <a class="btn btn--p nav__cta" href="#agendamento">Agendar</a>
+  </div>
+</header>
+
+<main class="folha" id="conteudo">
+
+<section class="hero" id="topo">
+  <div class="hero__bg" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="auto" tabindex="-1" poster="__POSTER__">
+      <source src="__VIDEO__" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero__v" aria-hidden="true"></div>
+  <div class="wrap hero__c">
+    <p class="olho">Estética automotiva · Balneário Camboriú, SC</p>
+    <h1 class="d">Seu carro.<br /><i>Outro nível.</i></h1>
+    <p class="txt hero__p">Avaliação antes de qualquer serviço. O processo é definido com o carro na frente, e você sabe o que foi feito.</p>
+    <div class="hero__a">
+      <a class="btn btn--p" href="#agendamento">Agendar serviço</a>
+      <a class="seta seta--b" href="#servicos">Ver os dez serviços</a>
+    </div>
+  </div>
+</section>
+
+<section class="faixa" aria-label="Como a Arena trabalha">
+  <ul>
+    <li data-sobe><b>01</b><span>A avaliação vem antes. Nada é prometido sem o veículo na frente.</span></li>
+    <li data-sobe><b>02</b><span>As etapas acontecem na ordem técnica, nunca proteção sobre superfície mal preparada.</span></li>
+    <li data-sobe><b>03</b><span>Você recebe o relato do que foi feito, inclusive o que não dava para fazer com segurança.</span></li>
+  </ul>
+</section>
+
+<section class="prova wrap" aria-label="O trabalho">
+  <p class="olho">O trabalho</p>
+  <h2 class="d">Processo à vista,<br />resultado medido.</h2>
+  <div class="prova__g">
+    <figure style="margin:0" data-sobe>
+      <div class="prova__i"><i class="q q01"></i></div>
+      <figcaption class="prova__t">Lavagem técnica com produto e método por superfície, nunca o mesmo pano em tudo.</figcaption>
+    </figure>
+    <figure style="margin:0" data-sobe>
+      <div class="prova__i"><i class="q q06"></i></div>
+      <figcaption class="prova__t">Polimento com espessura de verniz medida antes. Corrigir é remover camada, e camada não volta.</figcaption>
+    </figure>
+    <figure style="margin:0" data-sobe>
+      <div class="prova__i"><i class="q q07"></i></div>
+      <figcaption class="prova__t">Vitrificação só sobre superfície preparada. Proteção em cima de sujeira sela o defeito.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="svc wrap" id="servicos" aria-label="Serviços">
+  <div class="svc__h">
+    <div>
+      <p class="olho">Serviços</p>
+      <h2 class="d">Dez frentes.<br />Um processo.</h2>
+    </div>
+    <p class="txt">Nenhuma existe isolada. A combinação é definida na avaliação, e o orçamento sai com o carro na frente.</p>
+  </div>
+  <ul class="svc__l" id="svcLista">__SERVICOS__</ul>
+  <div class="svc__f">
+    <a class="btn btn--p" href="#agendamento">Agendar serviço</a>
+    <a class="seta" data-wa data-src="servicos">Falar no WhatsApp</a>
+  </div>
+</section>
+
+<section class="av" id="avaliacoes" aria-label="Avaliações no Google">
+  <div class="wrap">
+    <div class="av__h" data-sobe>
+      <div>
+        <p class="olho">Reputação</p>
+        <h2 class="d">O que dizem,<br />no Google.</h2>
+      </div>
+      <p class="txt">Nenhum depoimento é escrito aqui. Esta seção lê o perfil da Arena no Google e mostra o que está lá, com o nome e a data de quem escreveu.</p>
+    </div>
+    <div id="revBox"></div>
+    <p class="av__f">Nota e avaliações fornecidas pelo Google, lidas do perfil da Arena. O Google entrega até cinco avaliações por consulta, escolhidas por ele.</p>
+  </div>
+</section>
+
+<section class="ag" id="agendamento" aria-label="Agendamento">
+  <div class="wrap ag__g">
+    <div class="ag__l">
+      <p class="olho">Agendamento</p>
+      <h2 class="d">Reserve o horário<br />do seu carro.</h2>
+      <ul class="ag__u">
+        <li id="agP1">Cinco passos curtos, com uma revisão antes de enviar.</li>
+        <li>Horários a partir de 12 horas de antecedência, dentro do horário de funcionamento.</li>
+        <li>Seus dados são usados apenas para este agendamento.</li>
+      </ul>
+      <p style="margin-top:22px"><a class="seta" data-wa data-src="agendamento">Prefere falar antes?</a></p>
+    </div>
+    <div id="bkBox">
+      <div style="border:1px solid var(--fio);padding:clamp(22px,4vw,34px);background:var(--painel)">
+        <h3 class="d" style="font-size:22px">A agenda do site precisa de JavaScript.</h3>
+        <p class="txt" style="margin-top:14px">Ela monta a grade de horários no próprio navegador. Pelo WhatsApp o horário é marcado do mesmo jeito, falando direto com a equipe.</p>
+        <p style="margin-top:22px"><a class="btn btn--p" data-wa data-src="booking-nojs">Agendar pelo WhatsApp</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="pe wrap" id="contato">
+  <div class="pe__g">
+    <div>
+      <p class="olho olho--f">Onde estamos</p>
+      <address id="peEnd">Balneário Camboriú, SC</address>
+      <p style="margin-top:18px"><a class="seta" id="peMapa" target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a></p>
+    </div>
+    <div>
+      <h4>Atendimento</h4>
+      <ul class="pe__l" id="peHoras"></ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul class="pe__l" id="peContato"></ul>
+      <div style="margin-top:18px" id="peSelo"></div>
+    </div>
+  </div>
+  <div class="pe__b">
+    <span>© <span id="ano"></span> Arena Colossal. Estética automotiva.</span>
+    <span>Balneário Camboriú, SC</span>
+  </div>
+</footer>
+
+</main>
+
+<div class="barra" id="barra">
+  <a class="btn btn--p" href="#agendamento">Agendar serviço</a>
+  <a class="btn btn--g" data-wa data-src="barra" style="flex:0 0 auto;padding-inline:18px" aria-label="Falar no WhatsApp">WhatsApp</a>
+</div>
+
+<script>
+__DADOS__
+</script>
+<script>
+__UTILIDADES__
+</script>
+<script>
+__GRADE__
+</script>
+<script>
+__AGENDAMENTO__
+</script>
+<script>
+__BOOT__
+</script>
+</body>
+</html>

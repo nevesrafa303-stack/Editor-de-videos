@@ -1,0 +1,122 @@
+.frame {
+  width: 100%;
+  isolation: isolate;
+}
+
+.image {
+  object-fit: cover;
+  opacity: 0;
+  /* Blur -> sharp: a foto "entra em foco" quando decodifica. */
+  filter: blur(14px);
+  transform: scale(1.03);
+  transition:
+    opacity 900ms var(--ease-out),
+    filter 900ms var(--ease-out),
+    transform 1200ms var(--ease-out);
+}
+
+.image[data-loaded='true'] {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* O placeholder precisa parecer uma moldura tecnica esperando a foto — nunca
+   um retangulo preto. Sem as fotos da Arena, sao esses blocos que seguram a
+   composicao, principalmente no mobile, onde ocupam meia tela. */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(14px, 3vw, 26px);
+  background:
+    radial-gradient(85% 65% at 22% 8%, rgba(201, 162, 39, 0.16), transparent 60%),
+    radial-gradient(70% 60% at 85% 95%, rgba(255, 255, 255, 0.05), transparent 62%),
+    linear-gradient(165deg, #202026 0%, #0e0e11 55%, #17171d 100%);
+}
+
+/* Marcas de enquadramento nos cantos. */
+.placeholder::before,
+.placeholder::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+}
+
+.placeholder::before {
+  top: 12px;
+  left: 12px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.placeholder::after {
+  top: 12px;
+  right: 12px;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* Cruz de centro, discreta, como visor de camera. */
+.crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.18) 0 100%) center / 100% 1px no-repeat,
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 100%) center / 1px 100% no-repeat;
+  opacity: 0.7;
+}
+
+.monogram {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 42px));
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  color: rgba(201, 162, 39, 0.5);
+}
+
+/* Grão sutil — tira o aspecto de "retangulo cinza de template". */
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.32;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.placeholderLabel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(169, 169, 176, 0.72);
+}
+
+.placeholderLabel svg {
+  flex: 0 0 auto;
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    filter: none;
+    transform: none;
+  }
+}

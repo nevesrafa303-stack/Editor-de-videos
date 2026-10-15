@@ -1,0 +1,555 @@
+/* =============================================================================
+   Formulario de agendamento
+   ========================================================================== */
+
+.wizard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: clamp(22px, 4vw, 40px);
+  background: var(--surface);
+  border: var(--border);
+}
+
+/* --- Progresso ----------------------------------------------------------- */
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progressList {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.progressList::-webkit-scrollbar {
+  display: none;
+}
+
+.progressItem {
+  flex: 0 0 auto;
+}
+
+.progressButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: var(--step--1);
+  color: var(--gray-500);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.progressButton:disabled {
+  cursor: default;
+}
+
+.progressItem[data-state='current'] .progressButton {
+  color: var(--white);
+}
+
+.progressItem[data-state='done'] .progressButton {
+  color: var(--gray-300);
+}
+
+.progressIndex {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressItem[data-state='current'] .progressIndex {
+  color: var(--gold);
+}
+
+.progressLabel {
+  letter-spacing: 0.08em;
+}
+
+.progressBar {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progressBarFill {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: left center;
+  transition: transform 520ms var(--ease-out);
+}
+
+/* --- Painel da etapa ----------------------------------------------------- */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 280px;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.help {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-500);
+  max-width: 58ch;
+}
+
+/* --- Etapa 01: servicos --------------------------------------------------- */
+
+.optionGrid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  min-height: 62px;
+  background: var(--off-black);
+  border: var(--border);
+  cursor: pointer;
+  transition: border-color 260ms var(--ease-out), background-color 260ms var(--ease-out);
+}
+
+.option:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.option[data-selected='true'] {
+  border-color: var(--gold);
+  background: rgba(201, 162, 39, 0.06);
+}
+
+/* O input continua no DOM (teclado, leitor de tela), apenas invisivel. */
+.optionInput {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.option:has(.optionInput:focus-visible) {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 2px;
+}
+
+.optionIndex {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.optionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.optionName {
+  font-size: var(--step-0);
+  color: var(--white);
+}
+
+.optionMeta {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+/* --- Etapa 02: datas ------------------------------------------------------ */
+
+.dayStrip {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.dayCell {
+  position: relative;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  padding-top: 22px;
+}
+
+.monthLabel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 62px;
+  padding: 12px 0;
+  background: var(--off-black);
+  border: var(--border);
+  transition: border-color 220ms var(--ease-out), background-color 220ms var(--ease-out),
+    color 220ms var(--ease-out);
+}
+
+.day:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.day:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.day[data-selected='true'] {
+  border-color: var(--gold);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.dayWeekday {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.dayNumber {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Etapa 03: horarios --------------------------------------------------- */
+
+.slotGrid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+}
+
+.slot {
+  min-height: 52px;
+  background: var(--off-black);
+  border: var(--border);
+  font-size: var(--step-0);
+  font-variant-numeric: tabular-nums;
+  color: var(--gray-100);
+  transition: border-color 220ms var(--ease-out), background-color 220ms var(--ease-out);
+}
+
+.slot:disabled {
+  color: var(--gray-700);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.slot:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.slot[data-selected='true'] {
+  border-color: var(--gold);
+  background: rgba(201, 162, 39, 0.08);
+  color: var(--white);
+}
+
+/* --- Etapa 04: formulario -------------------------------------------------- */
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fieldRow {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr;
+}
+
+.label {
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-300);
+}
+
+.optional {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--gray-500);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 14px 16px;
+  /* 16px evita o zoom automatico do Safari iOS ao focar o campo. */
+  font-size: 16px;
+  color: var(--white);
+  background: var(--off-black);
+  border: var(--border);
+  border-radius: var(--radius);
+  transition: border-color 220ms var(--ease-out);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.input[aria-invalid='true'],
+.textarea[aria-invalid='true'] {
+  border-color: rgba(233, 129, 129, 0.75);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 108px;
+  line-height: 1.6;
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-300);
+  cursor: pointer;
+}
+
+.checkbox input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--gold);
+}
+
+.fieldError {
+  font-size: var(--step--1);
+  color: #e98181;
+}
+
+/* Honeypot: fora da tela, fora do tab, presente no DOM. */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* --- Etapa 05: conferencia ------------------------------------------------ */
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.reviewTitle {
+  font-size: var(--step-2);
+  color: var(--white);
+}
+
+.reviewList,
+.successList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.reviewRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding-block: 12px;
+  border-bottom: var(--border);
+}
+
+.reviewLabel {
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.reviewValue {
+  margin: 0;
+  font-size: var(--step-0);
+  color: var(--white);
+  text-align: right;
+  max-width: 60ch;
+}
+
+/* --- Avisos --------------------------------------------------------------- */
+
+.notice,
+.noticeError,
+.noticeWarning {
+  padding: 14px 16px;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  border: var(--border);
+  background: var(--off-black);
+  color: var(--gray-300);
+}
+
+.noticeError {
+  border-color: rgba(233, 129, 129, 0.45);
+  color: #f0a9a9;
+}
+
+.noticeWarning {
+  border-color: rgba(201, 162, 39, 0.45);
+  color: var(--gold-soft);
+}
+
+/* --- Acoes ---------------------------------------------------------------- */
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 6px;
+  border-top: var(--border);
+}
+
+/* --- Confirmacao ---------------------------------------------------------- */
+
+.success {
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: clamp(26px, 4vw, 44px);
+  background: var(--surface);
+  border: var(--border);
+  border-left: 2px solid var(--gold);
+}
+
+.successMark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: var(--gold);
+  border: var(--border-gold);
+  border-radius: 50%;
+}
+
+.successTitle {
+  font-size: var(--step-3);
+  color: var(--white);
+}
+
+.successText {
+  font-size: var(--step-1);
+  color: var(--gray-300);
+}
+
+.successList {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.successActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.acompanhar {
+  margin-top: 4px;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--gray-500);
+  max-width: 52ch;
+}
+
+.acompanhar a {
+  color: var(--gold);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.restart {
+  margin-top: 6px;
+  padding-bottom: 4px;
+  font-size: var(--step--1);
+  color: var(--gray-500);
+  border-bottom: 1px solid currentColor;
+}
+
+.restart:hover {
+  color: var(--white);
+}
+
+/* --- Desktop -------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .optionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr 1fr 0.6fr;
+  }
+}
