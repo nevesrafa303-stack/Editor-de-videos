@@ -2,8 +2,8 @@
 """
 Escreve audio_meta.json: locução HeyGen + trilha + SFX (source: host), nos
 tempos locais de cada cena. Os marcos batem com tools/build-frames.mjs:
-checks dos benefícios no tempo da fala, riser 5.6-7.2 s e impacto na trava
-do preço (7.2 s, linha de compasso).
+checks dos benefícios em sequência rápida, riser 2.4-4.0 s e impacto na trava
+do preço (4.0 s, linha de compasso).
 
   python3 tools/audio_meta.py
 """
@@ -12,8 +12,8 @@ import os
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
-BENEFITS = {3: [1.76, 2.82, 4.0], 4: [1.6, 3.55], 5: [1.24, 2.5, 3.76, 4.45]}
-LOCK, RISER = 7.2, 1.6
+BENEFITS = {3: [0.75, 0.97, 1.19], 4: [0.75, 0.97], 5: [0.7, 0.9, 1.1, 1.3]}
+LOCK, RISER = 4.0, 1.6
 
 sfx = []
 
@@ -24,19 +24,19 @@ def cue(frame, name, at, dur, vol):
 
 
 cue(1, 'sfx_impact', 0.0, 3.0, 0.4)
-cue(2, 'sfx_whoosh', -0.3, 1.0, 0.4)
-cue(2, 'sfx_shimmer', 0.75, 3.0, 0.32)
-cue(2, 'sfx_tick', 4.05, 0.14, 0.25)
+cue(2, 'sfx_whoosh', -0.25, 1.0, 0.4)
+cue(2, 'sfx_shimmer', 0.7, 3.0, 0.32)
+cue(2, 'sfx_tick', 2.8, 0.14, 0.25)
 for f, ticks in BENEFITS.items():
-    cue(f, 'sfx_whoosh', -0.3, 1.0, 0.4)
+    cue(f, 'sfx_whoosh', -0.25, 1.0, 0.4)
     for t in ticks:
         cue(f, 'sfx_tick', t, 0.14, 0.25)
     cue(f, 'sfx_riser', round(LOCK - RISER, 2), RISER, 0.3)
     cue(f, 'sfx_impact', LOCK, 3.0, 0.5)
-cue(6, 'sfx_whoosh', -0.3, 1.0, 0.4)
+cue(6, 'sfx_whoosh', -0.25, 1.0, 0.4)
 cue(6, 'sfx_impact', 0.0, 3.0, 0.4)
-cue(6, 'sfx_pop', 1.85, 0.5, 0.45)
-cue(6, 'sfx_shimmer', 5.5, 3.0, 0.32)
+cue(6, 'sfx_pop', 1.2, 0.5, 0.45)
+cue(6, 'sfx_shimmer', 4.4, 1.6, 0.32)
 
 voices = [{'frame': n, 'path': f'assets/voice/{n:02d}.wav'} for n in range(1, 7)
           if os.path.exists(os.path.join(ROOT, f'assets/voice/{n:02d}.wav'))]

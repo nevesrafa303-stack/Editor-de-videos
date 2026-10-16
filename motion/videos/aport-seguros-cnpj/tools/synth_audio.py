@@ -4,16 +4,16 @@ Trilha + sound design do filme Aport Seguros (100% sintetizado, determinístico)
 
   python tools/synth_audio.py            -> assets/audio/{bgm,sfx_*}.wav
 
-Grade: 100 BPM, 1 compasso = 2.4 s, 21 compassos = 50.4 s (duração do filme).
+Grade: 120 BPM, 1 compasso = 2.0 s, 17 compassos = 34 s (duração do filme).
 Cortes de cena e travas de preço caem em barra (ver STORYBOARD.md), então a
 música "respira" junto com a montagem e com a locução.
 
-Progressão (Ré maior, um acorde por compasso):
-  1-5   intro  (hook + marca)  piano esparso + pads, sem bateria
-  6-9   Bradesco               + baixo, kick 1 e 3 (batida de coração)
-  10-13 SulAmérica             + hats, kick em todo tempo
-  14-17 Porto                  + caixa 2 e 4; compasso 17 = rufo + prato reverso
-  18-21 CTA    D  A  G  D      tutti, filtro aberto, resolve
+Seções (um acorde por compasso, Ré maior):
+  1-2   abertura (hospital)   pads + piano em colcheias, sem bateria
+  3-5   marca                 entra o kick (1 e 3) e o baixo
+  6-8   Bradesco              kick em todo tempo + hats
+  9-14  SulAmérica e Porto    + caixa 2 e 4; compasso 14 = rufo + prato reverso
+  15-17 CTA                   tutti, filtro aberto, resolve em Ré
 """
 import os
 import sys
@@ -23,13 +23,13 @@ import soundfile as sf
 from scipy.signal import butter, fftconvolve, sosfilt
 
 SR = 48000
-BPM = 100
-BEAT = 60 / BPM          # 0.6 s
-BAR = 4 * BEAT           # 2.4 s
-BARS = 21
-DUR = BARS * BAR         # 50.4 s
+BPM = 120
+BEAT = 60 / BPM          # 0.5 s
+BAR = 4 * BEAT           # 2.0 s
+BARS = 17
+DUR = BARS * BAR         # 34.0 s
 # seções (índice do compasso onde cada uma começa)
-VERSE, BUILD, PEAK, ROLL, CTA = 5, 9, 13, 16, 17
+VERSE, BUILD, PEAK, ROLL, CTA = 2, 5, 8, 13, 14
 RNG = np.random.default_rng(20261016)
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'assets', 'audio')
@@ -184,7 +184,7 @@ CHORDS = {
     'D': dict(bass=38, pad=[57, 62, 66, 69], arp=[66, 69, 74, 78]),
     'A': dict(bass=33, pad=[57, 61, 64, 69], arp=[64, 69, 73, 76]),
 }
-PROG = ['Bm', 'G', 'D', 'A'] * 4 + ['G'] + ['D', 'A', 'G', 'D']
+PROG = ['Bm', 'G', 'D', 'A'] * 3 + ['G', 'A'] + ['D', 'G', 'D']
 
 
 def bgm():
@@ -207,7 +207,7 @@ def bgm():
             add(pads, stereo(p, pan=(-0.5 + i * 0.33)), t0)
         # piano: quartas no intro, colcheias depois
         pattern = [0, 1, 2, 3, 2, 1, 2, 3]
-        step = BEAT if b < 2 else BEAT / 2
+        step = BEAT / 2
         steps = int(round(BAR / step))
         for s in range(steps):
             if last and s > 0:

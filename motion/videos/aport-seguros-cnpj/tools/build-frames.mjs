@@ -17,9 +17,9 @@ const OUT = join(ROOT, "compositions/frames");
 const W = 1080;
 const H = 1920;
 
-// Locução: cada fala entra 0.3 s após o início da cena (tools/voice.py).
-// Os marcos abaixo vêm dos word_timestamps da HeyGen + esse 0.3 s.
-const HOOK_WORDS = [0.51, 0.81, 1.32, 1.71, 1.84, 2.13, 2.3, 2.86, 3.29];
+// Locução: cada fala entra 0.2 s após o início da cena (tools/voice.py).
+// Os marcos abaixo vêm dos word_timestamps da HeyGen + esse 0.2 s.
+const HOOK_WORDS = [0.39, 0.65, 1.09, 1.42, 1.54, 1.8, 1.94, 2.43, 2.8];
 const NAVY = "#07122B";
 const GOLD = "#C9A86A";
 const PAPER = "#F4F7FF";
@@ -169,7 +169,7 @@ const CHECK_SVG = (p, i, color) =>
 
 function hook() {
   const p = "h1";
-  const D = 4.8;
+  const D = 4.0;
   const atm = atmosphere(p, 101, { rays: 3, bokeh: 12 });
   const lines = [
     { words: ["Sua", "empresa"], cls: "l1" },
@@ -184,9 +184,9 @@ function hook() {
     stage.push(`<div class="${p}-line ${p}-${ln.cls}">`);
     for (const w of ln.words) {
       stage.push(`<span class="${p}-w" id="${p}-w${wi}">${w}</span>`);
-      const at = HOOK_WORDS[wi] - 0.08;
+      const at = HOOK_WORDS[wi] - 0.06;
       wordTl.push(
-        `tl.fromTo("#${p}-w${wi}",{opacity:0,y:46,filter:"blur(14px)"},{opacity:1,y:0,filter:"blur(0px)",duration:${ln.cls === "l3" ? 0.9 : 0.7},ease:"power3.out"},${r2(at)});`,
+        `tl.fromTo("#${p}-w${wi}",{opacity:0,y:46,filter:"blur(14px)"},{opacity:1,y:0,filter:"blur(0px)",duration:${ln.cls === "l3" ? 0.6 : 0.42},ease:"power3.out"},${r2(at)});`,
       );
       wi++;
     }
@@ -197,25 +197,28 @@ function hook() {
     baseCss(p, "transparent") +
     `
 .${p}-bg{background:radial-gradient(90% 60% at 50% 30%,#13306b 0%,#0a1a3d 45%,${NAVY} 80%);}
-.${p}-glow{position:absolute;left:50%;top:44%;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,106,0.22) 0%,rgba(201,168,106,0) 65%);}
-.${p}-eyebrow{position:absolute;left:0;right:0;top:600px;text-align:center;font-weight:700;font-size:30px;letter-spacing:0.42em;color:${GOLD};}
-.${p}-head{position:absolute;left:60px;right:60px;top:680px;display:flex;flex-direction:column;align-items:center;}
+.${p}-photo{position:absolute;inset:-3%;background:url('assets/img/nursing-care.png') 50% 38%/cover no-repeat;filter:blur(1px) saturate(1.08) contrast(1.05);}
+.${p}-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,18,43,0.35) 0%,rgba(7,18,43,0.12) 22%,rgba(7,18,43,0.45) 42%,rgba(7,18,43,0.86) 56%,rgba(7,18,43,0.95) 100%);}
+.${p}-glow{position:absolute;left:50%;top:62%;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,106,0.22) 0%,rgba(201,168,106,0) 65%);}
+.${p}-eyebrow{position:absolute;left:0;right:0;top:930px;text-align:center;font-weight:700;font-size:30px;letter-spacing:0.42em;color:${GOLD};}
+.${p}-head{position:absolute;left:60px;right:60px;top:990px;display:flex;flex-direction:column;align-items:center;}
 .${p}-line{display:flex;gap:0.26em;justify-content:center;line-height:1.08;}
 .${p}-l1{font-weight:800;font-size:112px;letter-spacing:-0.025em;}
 .${p}-l2{font-weight:800;font-size:92px;letter-spacing:-0.02em;color:rgba(244,247,255,0.92);}
 .${p}-l3{font-family:"Lora",Georgia,serif;font-style:italic;font-weight:500;font-size:168px;color:${GOLD};margin-top:18px;text-shadow:0 0 60px rgba(201,168,106,0.45);}
 .${p}-w{display:inline-block;}
-.${p}-rule{position:absolute;left:50%;top:1330px;width:360px;height:3px;margin-left:-180px;background:linear-gradient(90deg,transparent,${GOLD},transparent);transform-origin:50% 50%;}
+.${p}-rule{position:absolute;left:50%;top:1545px;width:360px;height:3px;margin-left:-180px;background:linear-gradient(90deg,transparent,${GOLD},transparent);transform-origin:50% 50%;}
 `;
-  const ground = `<div class="${p}-bg" id="${p}-bg" data-layout-allow-overflow></div><div class="${p}-glow" id="${p}-glow"></div>${atm.html}`;
+  const ground = `<div class="${p}-bg" id="${p}-bg" data-layout-allow-overflow></div><div class="${p}-photo" id="${p}-photo" data-layout-allow-overflow></div><div class="${p}-shade"></div><div class="${p}-glow" id="${p}-glow"></div>${atm.html}`;
   const tl = [
     atmosphereTl(p, atm, D),
-    `tl.fromTo("#${p}-bg",{scale:1.12},{scale:1.02,duration:${D},ease:"sine.out"},0);`,
-    `tl.fromTo("#${p}-glow",{opacity:0,scale:0.7},{opacity:1,scale:1.1,duration:3.2,ease:"sine.out"},0.2);`,
-    `tl.fromTo("#${p}-stage",{scale:1.0},{scale:1.06,duration:${D},ease:"none"},0);`,
-    `tl.fromTo("#${p}-eyebrow",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.4,ease:"power2.out"},0.15);`,
+    `tl.fromTo("#${p}-photo",{scale:1.32},{scale:1.08,duration:0.9,ease:"expo.out"},0);`,
+    `tl.to("#${p}-photo",{scale:1.17,y:-40,duration:${r2(D - 0.9)},ease:"none"},0.9);`,
+    `tl.fromTo("#${p}-glow",{opacity:0,scale:0.7},{opacity:1,scale:1.1,duration:2.2,ease:"sine.out"},0.2);`,
+    `tl.fromTo("#${p}-stage",{scale:1.0},{scale:1.05,duration:${D},ease:"none"},0);`,
+    `tl.fromTo("#${p}-eyebrow",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:0.6,ease:"power2.out"},0.1);`,
     ...wordTl,
-    `tl.fromTo("#${p}-rule",{scaleX:0,opacity:0},{scaleX:1,opacity:1,duration:1.0,ease:"power2.inOut"},3.7);`,
+    `tl.fromTo("#${p}-rule",{scaleX:0,opacity:0},{scaleX:1,opacity:1,duration:0.6,ease:"power2.inOut"},3.05);`,
     grainTl(p, D, 901),
   ].join("\n");
   return { file: "01-hook.html", content: frameFile({ id: "01-hook", p, D, css, ground, stage: stage.join("\n"), tl }) };
@@ -225,7 +228,7 @@ function hook() {
 
 function brand() {
   const p = "h2";
-  const D = 7.2;
+  const D = 6.0;
   const atm = atmosphere(p, 202, { rays: 2, bokeh: 10, color: "232,210,160" });
   const stage = `
 <div class="${p}-mark" id="${p}-mark"><span class="${p}-aport" id="${p}-aport">APORT</span></div>
@@ -242,6 +245,7 @@ function brand() {
     baseCss(p, "transparent") +
     `
 .${p}-bg{background:radial-gradient(80% 55% at 50% 35%,#18346f 0%,#0b1b40 50%,${NAVY} 85%);}
+.${p}-photo{position:absolute;inset:-4%;background:url('assets/img/dr-beda.png') 50% 50%/cover no-repeat;filter:blur(9px) brightness(0.55) saturate(0.7);opacity:0.4;mix-blend-mode:luminosity;}
 .${p}-halo{position:absolute;left:50%;top:560px;width:1200px;height:520px;margin-left:-600px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,168,106,0.28),rgba(201,168,106,0));filter:blur(10px);}
 .${p}-mark{position:absolute;left:0;right:0;top:420px;display:flex;justify-content:center;overflow:hidden;height:230px;}
 .${p}-aport{display:block;font-weight:900;font-size:210px;line-height:230px;letter-spacing:0.1em;padding-left:0.1em;background-image:linear-gradient(100deg,rgba(255,236,190,0) 42%,rgba(255,236,190,0.95) 50%,rgba(255,236,190,0) 58%),linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);background-size:250% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0%,0% 0%;-webkit-background-clip:text;background-clip:text;color:transparent;}
@@ -257,20 +261,21 @@ function brand() {
 .${p}-chip{display:inline-flex;align-items:center;gap:14px;padding:16px 26px;border-radius:999px;font-weight:700;font-size:30px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.16);white-space:nowrap;}
 .${p}-chip::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c);}
 `;
-  const ground = `<div class="${p}-bg" id="${p}-bg" data-layout-allow-overflow></div><div class="${p}-halo" id="${p}-halo"></div>${atm.html}`;
+  const ground = `<div class="${p}-bg" id="${p}-bg" data-layout-allow-overflow></div><div class="${p}-photo" id="${p}-photo" data-layout-allow-overflow></div><div class="${p}-halo" id="${p}-halo"></div>${atm.html}`;
   const tl = [
     atmosphereTl(p, atm, D),
     `tl.fromTo("#${p}-bg",{scale:1.1},{scale:1.0,duration:${D},ease:"sine.out"},0);`,
+    `tl.fromTo("#${p}-photo",{scale:1.15},{scale:1.0,duration:${D},ease:"none"},0);`,
     `tl.fromTo("#${p}-stage",{scale:1.04},{scale:1.0,duration:${D},ease:"power1.out"},0);`,
-    `tl.fromTo("#${p}-halo",{opacity:0,scaleX:0.4},{opacity:1,scaleX:1,duration:1.6,ease:"power2.out"},0.2);`,
-    `tl.fromTo("#${p}-aport",{yPercent:100,opacity:0},{yPercent:0,opacity:1,duration:0.9,ease:"expo.out"},0.35);`,
-    `tl.fromTo("#${p}-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:1.2,ease:"power2.inOut",immediateRender:false},0.75);`,
-    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.2,ease:"power3.out"},0.9);`,
-    `tl.fromTo("#${p}-div",{scaleX:0},{scaleX:1,duration:0.7,ease:"power2.out"},1.4);`,
-    `tl.fromTo("#${p}-pl0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},1.95);`,
-    `tl.fromTo("#${p}-pl1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},2.15);`,
-    `tl.fromTo("#${p}-badge",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.6,ease:"back.out(1.8)"},4.05);`,
-    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.18},5.3);`,
+    `tl.fromTo("#${p}-halo",{opacity:0,scaleX:0.4},{opacity:1,scaleX:1,duration:1.0,ease:"power2.out"},0.15);`,
+    `tl.fromTo("#${p}-aport",{yPercent:100,opacity:0},{yPercent:0,opacity:1,duration:0.6,ease:"expo.out"},0.4);`,
+    `tl.fromTo("#${p}-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:0.9,ease:"power2.inOut",immediateRender:false},0.7);`,
+    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:0.6,ease:"power3.out"},0.75);`,
+    `tl.fromTo("#${p}-div",{scaleX:0},{scaleX:1,duration:0.45,ease:"power2.out"},1.05);`,
+    `tl.fromTo("#${p}-pl0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.5,ease:"power3.out"},1.35);`,
+    `tl.fromTo("#${p}-pl1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.5,ease:"power3.out"},1.95);`,
+    `tl.fromTo("#${p}-badge",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.8)"},2.8);`,
+    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out",stagger:0.12},3.9);`,
     grainTl(p, D, 902),
   ].join("\n");
   return { file: "02-aport.html", content: frameFile({ id: "02-aport", p, D, css, ground, stage, tl }) };
@@ -292,7 +297,7 @@ const CARRIERS = [
     word: `<span class="W-wm" style="color:#CC092F">bradesco</span><span class="W-wm2" style="color:#CC092F">saúde</span>`,
     benefits: ["Ampla rede referenciada", "Telemedicina", "Suporte para pacientes com TEA"],
     price: "1.697,90",
-    marks: { benefits: [1.76, 2.82, 4.0], lives: 5.38 },
+    marks: { benefits: [0.75, 0.97, 1.19], lives: 2.35 },
     seed: 303,
   },
   {
@@ -308,7 +313,7 @@ const CARRIERS = [
     word: `<span class="W-wm" style="color:#001E62">Sul<span style="color:#F26522">América</span></span>`,
     benefits: ["Atendimento Rede D'Or", "Plano odontológico"],
     price: "1.014,97",
-    marks: { benefits: [1.6, 3.55], lives: 5.06 },
+    marks: { benefits: [0.75, 0.97], lives: 2.2 },
     seed: 404,
   },
   {
@@ -323,7 +328,7 @@ const CARRIERS = [
     word: `<span class="W-wm" style="color:#0046C0">Porto</span><span class="W-wm2" style="color:#0046C0">saúde</span>`,
     benefits: ["Plano odontológico", "Seguro de vida", "Serviços ocupacionais", "Proteção antiácaro"],
     price: "942,80",
-    marks: { benefits: [1.24, 2.5, 3.76, 4.45], lives: 5.5 },
+    marks: { benefits: [0.7, 0.9, 1.1, 1.3], lives: 2.13 },
     seed: 505,
   },
 ];
@@ -331,14 +336,14 @@ const CARRIERS = [
 // marcos (tempo local) — usados também pelo audio_meta.json
 // trava do preço em 7.2 s = linha de compasso (impacto da trilha)
 export const CARRIER_MARKS = {
-  countFrom: 5.8,
-  lockAt: 7.2,
-  footAt: 7.9,
+  countFrom: 2.6,
+  lockAt: 4.0,
+  footAt: 4.35,
 };
 
 function carrier(c) {
   const { p } = c;
-  const D = 9.6;
+  const D = 6.0;
   const n = c.benefits.length;
   const atm = atmosphere(p, c.seed, { rays: 2, bokeh: 10, color: c.glow });
   const wheel = priceWheel(p, c.price);
@@ -418,30 +423,30 @@ ${benefitsHtml}
 tl.fromTo("#${p}-orb0",{x:0,y:0},{x:160,y:120,duration:${D},ease:"sine.inOut"},0);
 tl.fromTo("#${p}-orb1",{x:0,y:0},{x:-180,y:-140,duration:${D},ease:"sine.inOut"},0);`,
     `tl.fromTo("#${p}-stage",{scale:1.0},{scale:1.045,duration:${D},ease:"none"},0);`,
-    `tl.fromTo("#${p}-leak",{opacity:0,x:-300},{opacity:0.95,x:0,duration:0.35,ease:"power2.out"},0);`,
-    `tl.to("#${p}-leak",{opacity:0,x:500,duration:0.9,ease:"power2.in"},0.35);`,
-    `tl.fromTo("#${p}-pill",{opacity:0,y:-40,scale:0.86},{opacity:1,y:0,scale:1,duration:0.8,ease:"back.out(1.6)"},0.25);`,
-    `tl.fromTo("#${p}-eyebrow",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power2.out"},0.5);`,
-    `tl.fromTo("#${p}-card",{opacity:0,y:120,rotationX:18,transformPerspective:1400},{opacity:1,y:0,rotationX:0,duration:1.0,ease:"power3.out"},0.55);`,
+    `tl.fromTo("#${p}-leak",{opacity:0,x:-300},{opacity:0.95,x:0,duration:0.25,ease:"power2.out"},0);`,
+    `tl.to("#${p}-leak",{opacity:0,x:500,duration:0.6,ease:"power2.in"},0.25);`,
+    `tl.fromTo("#${p}-pill",{opacity:0,y:-40,scale:0.86},{opacity:1,y:0,scale:1,duration:0.5,ease:"back.out(1.6)"},0.12);`,
+    `tl.fromTo("#${p}-eyebrow",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:0.5,ease:"power2.out"},0.3);`,
+    `tl.fromTo("#${p}-card",{opacity:0,y:120,rotationX:18,transformPerspective:1400},{opacity:1,y:0,rotationX:0,duration:0.6,ease:"power3.out"},0.3);`,
     ...c.benefits.map((_, i) => {
       const at = r2(c.marks.benefits[i]);
-      return `tl.fromTo("#${p}-b${i}",{opacity:0,x:-60},{opacity:1,x:0,duration:0.55,ease:"power3.out"},${r2(at - 0.15)});
-tl.fromTo("#${p}-ck${i}",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.35,ease:"power2.out"},${at});`;
+      return `tl.fromTo("#${p}-b${i}",{opacity:0,x:-60},{opacity:1,x:0,duration:0.32,ease:"power3.out"},${r2(at - 0.12)});
+tl.fromTo("#${p}-ck${i}",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.22,ease:"power2.out"},${at});`;
     }),
-    `tl.fromTo("#${p}-hr",{scaleX:0},{scaleX:1,duration:0.7,ease:"power2.inOut"},${r2(c.marks.lives - 0.3)});`,
-    `tl.fromTo("#${p}-lives",{opacity:0,y:24},{opacity:1,y:0,duration:0.5,ease:"power3.out"},${c.marks.lives});`,
-    `tl.fromTo("#${p}-price",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},${M.countFrom});`,
+    `tl.fromTo("#${p}-hr",{scaleX:0},{scaleX:1,duration:0.4,ease:"power2.inOut"},${r2(c.marks.lives - 0.25)});`,
+    `tl.fromTo("#${p}-lives",{opacity:0,y:24},{opacity:1,y:0,duration:0.3,ease:"power3.out"},${c.marks.lives});`,
+    `tl.fromTo("#${p}-price",{opacity:0,y:30},{opacity:1,y:0,duration:0.25,ease:"power3.out"},${M.countFrom});`,
     ...wheel.strips.map(
       (s, i) =>
         `tl.fromTo("${s.sel}",{yPercent:0},{yPercent:${s.yp},duration:${r2(M.lockAt - M.countFrom - 0.05 - (wheel.strips.length - 1 - i) * 0.05)},ease:"power3.out"},${r2(M.countFrom + 0.05)});`,
     ),
     `tl.fromTo("#${p}-price",{scale:1},{scale:1.06,duration:0.12,ease:"power2.out",transformOrigin:"0% 50%"},${M.lockAt});`,
-    `tl.to("#${p}-price",{scale:1,duration:0.6,ease:"elastic.out(1,0.5)"},${r2(M.lockAt + 0.12)});`,
+    `tl.to("#${p}-price",{scale:1,duration:0.45,ease:"elastic.out(1,0.5)"},${r2(M.lockAt + 0.12)});`,
     `tl.fromTo("#${p}-flare",{opacity:0,scale:0.6},{opacity:1,scale:1.1,duration:0.15,ease:"power2.out"},${M.lockAt});`,
-    `tl.to("#${p}-flare",{opacity:0,scale:1.4,duration:1.0,ease:"power2.out"},${r2(M.lockAt + 0.15)});`,
-    `tl.fromTo("#${p}-foot",{opacity:0},{opacity:1,duration:0.7,ease:"power1.out"},${M.footAt});`,
-    `tl.fromTo("#${p}-prog",{opacity:0,y:20},{opacity:1,y:0,duration:0.6,ease:"power2.out"},0.9);`,
-    `tl.fromTo("#${p}-d${c.idx}",{scaleX:0.2},{scaleX:1,duration:0.8,ease:"power2.out",transformOrigin:"0% 50%"},1.0);`,
+    `tl.to("#${p}-flare",{opacity:0,scale:1.4,duration:0.7,ease:"power2.out"},${r2(M.lockAt + 0.15)});`,
+    `tl.fromTo("#${p}-foot",{opacity:0},{opacity:1,duration:0.4,ease:"power1.out"},${M.footAt});`,
+    `tl.fromTo("#${p}-prog",{opacity:0,y:20},{opacity:1,y:0,duration:0.4,ease:"power2.out"},0.5);`,
+    `tl.fromTo("#${p}-d${c.idx}",{scaleX:0.2},{scaleX:1,duration:0.5,ease:"power2.out",transformOrigin:"0% 50%"},0.55);`,
     grainTl(p, D, 903 + c.idx),
   ].join("\n");
   return { file: c.file, content: frameFile({ id: c.id, p, D, css, ground, stage, tl }) };
@@ -451,7 +456,7 @@ tl.fromTo("#${p}-ck${i}",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.35
 
 function cta() {
   const p = "h6";
-  const D = 9.6;
+  const D = 6.0;
   const atm = atmosphere(p, 606, { rays: 2, bokeh: 10, color: "232,210,160" });
   const stage = `
 <div class="${p}-mark" id="${p}-mark"><span class="${p}-aport" id="${p}-aport">APORT</span></div>
@@ -498,23 +503,23 @@ function cta() {
 ${atm.html}`;
   const tl = [
     atmosphereTl(p, atm, D),
-    `tl.fromTo("#${p}-flash",{opacity:0.85},{opacity:0,duration:0.5,ease:"power2.out"},0);`,
-    `tl.fromTo("#${p}-o0",{x:0,y:0,scale:1},{x:420,y:420,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);`,
-    `tl.fromTo("#${p}-o1",{x:0,y:0,scale:1},{x:-420,y:290,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);`,
-    `tl.fromTo("#${p}-o2",{x:0,y:0,scale:1},{x:0,y:-560,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);`,
+    `tl.fromTo("#${p}-flash",{opacity:0.85},{opacity:0,duration:0.35,ease:"power2.out"},0);`,
+    `tl.fromTo("#${p}-o0",{x:0,y:0,scale:1},{x:420,y:420,scale:0.55,opacity:0.35,duration:1.1,ease:"power3.inOut"},0);`,
+    `tl.fromTo("#${p}-o1",{x:0,y:0,scale:1},{x:-420,y:290,scale:0.55,opacity:0.35,duration:1.1,ease:"power3.inOut"},0);`,
+    `tl.fromTo("#${p}-o2",{x:0,y:0,scale:1},{x:0,y:-560,scale:0.55,opacity:0.35,duration:1.1,ease:"power3.inOut"},0);`,
     `tl.fromTo("#${p}-stage",{scale:1.03},{scale:1.0,duration:${D},ease:"power1.out"},0);`,
-    `tl.fromTo("#${p}-mark",{opacity:0,y:40,filter:"blur(16px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.9,ease:"power3.out"},5.05);`,
-    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power3.out"},5.35);`,
-    `tl.fromTo("#${p}-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:1.2,ease:"power2.inOut",immediateRender:false},5.5);`,
-    `tl.fromTo("#${p}-h0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.35);`,
-    `tl.fromTo("#${p}-h1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.6);`,
-    `tl.fromTo("#${p}-btn",{opacity:0,scale:0.6,y:40},{opacity:1,scale:1,y:0,duration:0.7,ease:"back.out(1.7)"},1.85);`,
-    `tl.fromTo("#${p}-btn",{scale:1},{scale:1.035,duration:0.6,ease:"sine.inOut",yoyo:true,repeat:9,immediateRender:false},2.6);`,
-    ...[2.7, 4.2, 6.6].map((t, i) => `tl.fromTo("#${p}-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut"${i ? ",immediateRender:false" : ""}},${t});`),
-    `tl.fromTo("#${p}-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.6,ease:"power3.out"},2.9);`,
-    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.15},3.2);`,
-    `tl.fromTo("#${p}-foot",{opacity:0},{opacity:1,duration:0.8,ease:"power1.out"},3.6);`,
-    `tl.fromTo("#${p}-black",{opacity:0},{opacity:1,duration:0.8,ease:"power1.in"},${r2(D - 0.8)});`,
+    `tl.fromTo("#${p}-mark",{opacity:0,y:40,filter:"blur(16px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.5,ease:"power3.out"},3.95);`,
+    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:0.5,ease:"power3.out"},4.15);`,
+    `tl.fromTo("#${p}-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:0.9,ease:"power2.inOut",immediateRender:false},4.4);`,
+    `tl.fromTo("#${p}-h0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.5,ease:"power3.out"},0.25);`,
+    `tl.fromTo("#${p}-h1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.5,ease:"power3.out"},0.45);`,
+    `tl.fromTo("#${p}-btn",{opacity:0,scale:0.6,y:40},{opacity:1,scale:1,y:0,duration:0.5,ease:"back.out(1.7)"},1.2);`,
+    `tl.fromTo("#${p}-btn",{scale:1},{scale:1.035,duration:0.6,ease:"sine.inOut",yoyo:true,repeat:6,immediateRender:false},1.75);`,
+    ...[1.9, 3.1, 4.9].map((t, i) => `tl.fromTo("#${p}-shine",{x:-260},{x:1100,duration:0.7,ease:"power2.inOut"${i ? ",immediateRender:false" : ""}},${t});`),
+    `tl.fromTo("#${p}-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},1.9);`,
+    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out",stagger:0.1},2.2);`,
+    `tl.fromTo("#${p}-foot",{opacity:0},{opacity:1,duration:0.5,ease:"power1.out"},2.5);`,
+    `tl.fromTo("#${p}-black",{opacity:0},{opacity:1,duration:0.35,ease:"power1.in"},${r2(D - 0.35)});`,
     grainTl(p, D, 906),
   ].join("\n");
   return { file: "06-cta.html", content: frameFile({ id: "06-cta", p, D, css, ground, stage, tl }) };

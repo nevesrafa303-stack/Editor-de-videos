@@ -7,7 +7,7 @@ destination: instagram-reels
 aspect: "9:16"
 language: pt-BR
 audience: donos de pequenas empresas no Brasil (CNPJ / MEI)
-length: 38s
+length: 34s
 angle: vitrine premium das 3 operadoras → CTA de simulação
 vo_mode: restructured
 style_preset: blue-professional

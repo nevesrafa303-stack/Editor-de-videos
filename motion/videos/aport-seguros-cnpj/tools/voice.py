@@ -21,15 +21,15 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 OUT = os.path.join(ROOT, 'assets', 'voice')
 API = 'https://api.heygen.com/v3/voices/speech'
 VOICE = '0edbc867be6f48c5be8ff8b0fbca0802'  # Sofia Brazil - Friendly
-LEAD_IN = 0.3
+LEAD_IN = 0.2
 
 LINES = [
-    (1, 1.0, 'Sua empresa merece um plano de saúde à altura.'),
-    (2, 1.0, 'Na Aport Seguros, o seu CNPJ tem plano de saúde a partir de três vidas.'),
-    (3, 1.05, 'Bradesco Saúde: ampla rede, telemedicina e suporte para TEA. A partir de mil seiscentos e noventa e sete reais e noventa.'),
-    (4, 1.05, "SulAmérica: atendimento na Rede D'Or e plano odontológico. A partir de mil e catorze reais e noventa e sete."),
-    (5, 1.05, 'Porto: odontológico, seguro de vida e serviços ocupacionais. A partir de novecentos e quarenta e dois reais e oitenta.'),
-    (6, 1.0, 'Faça agora a sua simulação gratuita, cem por cento online. Aport Seguros.'),
+    (1, 1.15, 'Sua empresa merece um plano de saúde à altura.'),
+    (2, 1.15, 'Na Aport, plano para CNPJ a partir de três vidas.'),
+    (3, 1.15, 'Bradesco com telemedicina, a partir de mil seiscentos e noventa e sete e noventa.'),
+    (4, 1.15, "SulAmérica com Rede D'Or, a partir de mil e catorze e noventa e sete."),
+    (5, 1.15, 'Porto com seguro de vida, a partir de novecentos e quarenta e dois e oitenta.'),
+    (6, 1.1, 'Faça sua simulação grátis, cem por cento online. Aport Seguros.'),
 ]
 
 
@@ -75,8 +75,7 @@ def main():
     for n, speed, text in LINES:
         c = speech(n, speed, text)
         raw = os.path.join(OUT, f'{n:02d}.raw.wav')
-        if not os.path.exists(raw):
-            curl(['-o', raw, c['response']['audio_url']])
+        curl(['-o', raw, c['response']['audio_url']])  # sempre o áudio da fala atual
         dst = os.path.join(OUT, f'{n:02d}.wav')
         loudnorm(raw, dst)
         print(f'cena {n}: {c["response"]["duration"]:.2f}s de fala -> assets/voice/{n:02d}.wav')

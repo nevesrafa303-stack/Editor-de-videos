@@ -1,15 +1,15 @@
 {
  "request": {
-  "text": "Porto: odontológico, seguro de vida e serviços ocupacionais. A partir de novecentos e quarenta e dois reais e oitenta.",
+  "text": "Porto com seguro de vida, a partir de novecentos e quarenta e dois e oitenta.",
   "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
-  "speed": 1.05,
+  "speed": 1.15,
   "language": "pt"
  },
  "response": {
-  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=5b7d25e9-3c63-4b91-9d92-7da3ec8f0c9f.wav",
-  "duration": 8.646530612244899,
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=d0d10109-73dc-4ec1-aeec-0842c7ed5be0.wav",
+  "duration": 5.198367346938776,
   "engine": "orca",
-  "request_id": "6a9afb57dcf14165a32b67fc0a9bb5db",
+  "request_id": "dec533966bfb4d5cb4957138a9a14d14",
   "word_timestamps": [
    {
     "end": 0.0,
@@ -17,103 +17,83 @@
     "word": "<start>"
    },
    {
-    "end": 0.8123809523809523,
-    "start": 0.2438095238095238,
-    "word": "Porto:"
+    "end": 0.5936521739130435,
+    "start": 0.22260869565217395,
+    "word": "Porto"
    },
    {
-    "end": 2.1533333333333333,
-    "start": 1.016190476190476,
-    "word": "odontológico,"
+    "end": 0.9643478260869566,
+    "start": 0.7052173913043479,
+    "word": "com"
    },
    {
-    "end": 2.7225714285714284,
-    "start": 2.275238095238095,
+    "end": 1.2982608695652176,
+    "start": 1.0017391304347827,
     "word": "seguro"
    },
    {
-    "end": 2.84447619047619,
-    "start": 2.8038095238095235,
+    "end": 1.3727826086956523,
+    "start": 1.3356521739130436,
     "word": "de"
    },
    {
-    "end": 3.210190476190476,
-    "start": 2.9257142857142857,
-    "word": "vida"
+    "end": 1.8547826086956523,
+    "start": 1.4843478260869567,
+    "word": "vida,"
    },
    {
-    "end": 3.494285714285714,
-    "start": 3.3323809523809524,
-    "word": "e"
+    "end": 2.040608695652174,
+    "start": 1.9295652173913045,
+    "word": "a"
    },
    {
-    "end": 4.022857142857143,
-    "start": 3.5352380952380953,
-    "word": "serviços"
-   },
-   {
-    "end": 5.0180952380952375,
-    "start": 4.063809523809524,
-    "word": "ocupacionais."
-   },
-   {
-    "end": 5.444761904761904,
-    "start": 5.282857142857142,
-    "word": "A"
-   },
-   {
-    "end": 5.81047619047619,
-    "start": 5.485714285714285,
+    "end": 2.4113043478260874,
+    "start": 2.077391304347826,
     "word": "partir"
    },
    {
-    "end": 5.892095238095238,
-    "start": 5.851428571428571,
+    "end": 2.522608695652174,
+    "start": 2.4860869565217394,
     "word": "de"
    },
    {
-    "end": 6.541904761904761,
-    "start": 5.973333333333334,
+    "end": 3.339130434782609,
+    "start": 2.5973913043478265,
     "word": "novecentos"
    },
    {
-    "end": 6.623523809523809,
-    "start": 6.582857142857143,
+    "end": 3.5243478260869567,
+    "start": 3.376521739130435,
     "word": "e"
    },
    {
-    "end": 6.948571428571428,
-    "start": 6.663809523809523,
+    "end": 3.8217391304347825,
+    "start": 3.561739130434783,
     "word": "quarenta"
    },
    {
-    "end": 7.070476190476191,
-    "start": 7.029523809523809,
+    "end": 3.932782608695653,
+    "start": 3.895652173913044,
     "word": "e"
    },
    {
-    "end": 7.2330476190476185,
-    "start": 7.11142857142857,
+    "end": 4.080869565217391,
+    "start": 3.969565217391305,
     "word": "dois"
    },
    {
-    "end": 7.5580952380952375,
-    "start": 7.314285714285713,
-    "word": "reais"
-   },
-   {
-    "end": 7.720666666666666,
-    "start": 7.68,
+    "end": 4.2666956521739134,
+    "start": 4.229565217391305,
     "word": "e"
    },
    {
-    "end": 8.495842781557068,
-    "start": 7.7209523809523795,
+    "end": 5.061539978310165,
+    "start": 4.303478260869565,
     "word": "oitenta."
    },
    {
-    "end": 8.646530612244899,
-    "start": 8.646530612244899,
+    "end": 5.198367346938776,
+    "start": 5.198367346938776,
     "word": "<end>"
    }
   ]

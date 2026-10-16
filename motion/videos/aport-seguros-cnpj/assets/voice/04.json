@@ -1,15 +1,15 @@
 {
  "request": {
-  "text": "SulAmérica: atendimento na Rede D'Or e plano odontológico. A partir de mil e catorze reais e noventa e sete.",
+  "text": "SulAmérica com Rede D'Or, a partir de mil e catorze e noventa e sete.",
   "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
-  "speed": 1.05,
+  "speed": 1.15,
   "language": "pt"
  },
  "response": {
-  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=baca694d-6c6e-4a9a-ac64-f29b2a408e5f.wav",
-  "duration": 8.202448979591837,
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=06fecac0-1467-46fc-9ace-1d318ac50d05.wav",
+  "duration": 5.0416326530612245,
   "engine": "orca",
-  "request_id": "5ba01948536c46e398b561a76be1c9fe",
+  "request_id": "6fdabc0b97284b85a9a25e45e9fa8c1e",
   "word_timestamps": [
    {
     "end": 0.0,
@@ -17,103 +17,78 @@
     "word": "<start>"
    },
    {
-    "end": 1.199047619047619,
-    "start": 0.20285714285714285,
-    "word": "SulAmérica:"
+    "end": 0.8904347826086958,
+    "start": 0.18521739130434783,
+    "word": "SulAmérica"
    },
    {
-    "end": 2.1533333333333333,
-    "start": 1.381904761904762,
-    "word": "atendimento"
+    "end": 1.2243478260869565,
+    "start": 1.0017391304347827,
+    "word": "com"
    },
    {
-    "end": 2.275238095238095,
-    "start": 2.194285714285714,
-    "word": "na"
-   },
-   {
-    "end": 2.4787619047619045,
-    "start": 2.316190476190476,
+    "end": 1.4095652173913045,
+    "start": 1.2617391304347827,
     "word": "Rede"
    },
    {
-    "end": 2.8038095238095235,
-    "start": 2.6009523809523807,
-    "word": "D'Or"
+    "end": 1.8365217391304351,
+    "start": 1.4843478260869567,
+    "word": "D'Or,"
    },
    {
-    "end": 3.2914285714285714,
-    "start": 2.966666666666667,
-    "word": "e"
+    "end": 2.151913043478261,
+    "start": 2.0034782608695654,
+    "word": "a"
    },
    {
-    "end": 3.697809523809523,
-    "start": 3.3323809523809524,
-    "word": "plano"
-   },
-   {
-    "end": 4.693333333333333,
-    "start": 3.7380952380952377,
-    "word": "odontológico."
-   },
-   {
-    "end": 5.079047619047619,
-    "start": 4.835238095238095,
-    "word": "A"
-   },
-   {
-    "end": 5.444761904761904,
-    "start": 5.12,
+    "end": 2.4860869565217394,
+    "start": 2.188695652173913,
     "word": "partir"
    },
    {
-    "end": 5.566666666666666,
-    "start": 5.526666666666666,
+    "end": 2.597130434782609,
+    "start": 2.56,
     "word": "de"
    },
    {
-    "end": 5.851428571428571,
-    "start": 5.688571428571428,
+    "end": 2.93104347826087,
+    "start": 2.7086956521739136,
     "word": "mil"
    },
    {
-    "end": 5.973333333333334,
-    "start": 5.892380952380952,
+    "end": 3.042347826086957,
+    "start": 2.967826086956522,
     "word": "e"
    },
    {
-    "end": 6.419999999999999,
-    "start": 6.014285714285714,
+    "end": 3.4875652173913045,
+    "start": 3.0791304347826087,
     "word": "catorze"
    },
    {
-    "end": 6.745428571428571,
-    "start": 6.501904761904761,
-    "word": "reais"
-   },
-   {
-    "end": 6.948571428571428,
-    "start": 6.867619047619048,
+    "end": 3.858260869565218,
+    "start": 3.635652173913044,
     "word": "e"
    },
    {
-    "end": 7.2330476190476185,
-    "start": 6.98952380952381,
+    "end": 4.1921739130434785,
+    "start": 3.895652173913044,
     "word": "noventa"
    },
    {
-    "end": 7.35495238095238,
-    "start": 7.314285714285713,
+    "end": 4.303478260869565,
+    "start": 4.2669565217391305,
     "word": "e"
    },
    {
-    "end": 8.053333333333333,
-    "start": 7.395238095238095,
+    "end": 4.910105491471952,
+    "start": 4.340869565217392,
     "word": "sete."
    },
    {
-    "end": 8.202448979591837,
-    "start": 8.202448979591837,
+    "end": 5.0416326530612245,
+    "start": 5.0416326530612245,
     "word": "<end>"
    }
   ]

@@ -2,14 +2,14 @@
  "request": {
   "text": "Sua empresa merece um plano de saúde à altura.",
   "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
-  "speed": 1.0,
+  "speed": 1.15,
   "language": "pt"
  },
  "response": {
-  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=f4747d8d-8a8a-4832-a132-5ab4d9b4a29c.wav",
-  "duration": 3.8922448979591837,
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=c5f38cdb-ea17-4a97-9b6a-b9f0b289f46c.wav",
+  "duration": 3.500408163265306,
   "engine": "orca",
-  "request_id": "0c4b81acff5e4c5eaf6a94f160626358",
+  "request_id": "8d72dea30e3548c790281b9b59c82cad",
   "word_timestamps": [
    {
     "end": 0.0,
@@ -17,53 +17,53 @@
     "word": "<start>"
    },
    {
-    "end": 0.469,
-    "start": 0.213,
+    "end": 0.4078260869565218,
+    "start": 0.18521739130434783,
     "word": "Sua"
    },
    {
-    "end": 0.9387,
-    "start": 0.512,
+    "end": 0.8162608695652175,
+    "start": 0.4452173913043479,
     "word": "empresa"
    },
    {
-    "end": 1.3227,
-    "start": 1.024,
+    "end": 1.1501739130434783,
+    "start": 0.8904347826086958,
     "word": "merece"
    },
    {
-    "end": 1.493,
-    "start": 1.408,
+    "end": 1.2982608695652176,
+    "start": 1.2243478260869565,
     "word": "um"
    },
    {
-    "end": 1.792,
-    "start": 1.536,
+    "end": 1.5582608695652176,
+    "start": 1.3356521739130436,
     "word": "plano"
    },
    {
-    "end": 1.877,
-    "start": 1.835,
+    "end": 1.6321739130434785,
+    "start": 1.5956521739130436,
     "word": "de"
    },
    {
-    "end": 2.389,
-    "start": 2.005,
+    "end": 2.077391304347826,
+    "start": 1.7434782608695654,
     "word": "saúde"
    },
    {
-    "end": 2.944,
-    "start": 2.56,
+    "end": 2.56,
+    "start": 2.2260869565217396,
     "word": "à"
    },
    {
-    "end": 3.858684807256236,
-    "start": 2.987,
+    "end": 3.3553780932662924,
+    "start": 2.5973913043478265,
     "word": "altura."
    },
    {
-    "end": 3.8922448979591837,
-    "start": 3.8922448979591837,
+    "end": 3.500408163265306,
+    "start": 3.500408163265306,
     "word": "<end>"
    }
   ]
