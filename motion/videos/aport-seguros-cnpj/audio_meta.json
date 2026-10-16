@@ -1,0 +1,218 @@
+{
+  "bgm": {
+    "path": "assets/audio/bgm.wav",
+    "volume": 0.8,
+    "source": "host"
+  },
+  "voices": [],
+  "sfx": [
+    {
+      "frame": 1,
+      "file": "assets/audio/sfx_impact.wav",
+      "offset_s": 0.0,
+      "duration_s": 3.0,
+      "volume": 0.4,
+      "source": "host"
+    },
+    {
+      "frame": 2,
+      "file": "assets/audio/sfx_whoosh.wav",
+      "offset_s": -0.3,
+      "duration_s": 1.0,
+      "volume": 0.5,
+      "source": "host"
+    },
+    {
+      "frame": 2,
+      "file": "assets/audio/sfx_shimmer.wav",
+      "offset_s": 0.6,
+      "duration_s": 3.0,
+      "volume": 0.4,
+      "source": "host"
+    },
+    {
+      "frame": 2,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 2.6,
+      "duration_s": 0.14,
+      "volume": 0.35,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_whoosh.wav",
+      "offset_s": -0.3,
+      "duration_s": 1.0,
+      "volume": 0.5,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.2,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.8,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 2.4,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_riser.wav",
+      "offset_s": 3.2,
+      "duration_s": 1.6,
+      "volume": 0.4,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_impact.wav",
+      "offset_s": 4.8,
+      "duration_s": 3.0,
+      "volume": 0.55,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_whoosh.wav",
+      "offset_s": -0.3,
+      "duration_s": 1.0,
+      "volume": 0.5,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.2,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.8,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_riser.wav",
+      "offset_s": 3.2,
+      "duration_s": 1.6,
+      "volume": 0.4,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_impact.wav",
+      "offset_s": 4.8,
+      "duration_s": 3.0,
+      "volume": 0.55,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_whoosh.wav",
+      "offset_s": -0.3,
+      "duration_s": 1.0,
+      "volume": 0.5,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.0,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.5,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 2.0,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 2.5,
+      "duration_s": 0.14,
+      "volume": 0.32,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_riser.wav",
+      "offset_s": 3.2,
+      "duration_s": 1.6,
+      "volume": 0.4,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_impact.wav",
+      "offset_s": 4.8,
+      "duration_s": 3.0,
+      "volume": 0.55,
+      "source": "host"
+    },
+    {
+      "frame": 6,
+      "file": "assets/audio/sfx_whoosh.wav",
+      "offset_s": -0.3,
+      "duration_s": 1.0,
+      "volume": 0.5,
+      "source": "host"
+    },
+    {
+      "frame": 6,
+      "file": "assets/audio/sfx_impact.wav",
+      "offset_s": 0.0,
+      "duration_s": 3.0,
+      "volume": 0.4,
+      "source": "host"
+    },
+    {
+      "frame": 6,
+      "file": "assets/audio/sfx_pop.wav",
+      "offset_s": 1.6,
+      "duration_s": 0.5,
+      "volume": 0.5,
+      "source": "host"
+    },
+    {
+      "frame": 6,
+      "file": "assets/audio/sfx_shimmer.wav",
+      "offset_s": 1.8,
+      "duration_s": 3.0,
+      "volume": 0.4,
+      "source": "host"
+    }
+  ]
+}

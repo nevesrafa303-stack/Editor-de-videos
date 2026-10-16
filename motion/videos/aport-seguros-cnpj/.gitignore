@@ -1,0 +1,6 @@
+node_modules/
+renders/
+.hyperframes/artifacts/
+.hyperframes/render-outputs.json
+.hyperframes/video-state.json
+.hyperframes/history-id

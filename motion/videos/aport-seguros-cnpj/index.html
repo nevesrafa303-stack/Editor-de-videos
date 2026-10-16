@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #07122B;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="38.4"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div
+        id="el-01-hook"
+        class="scene"
+        data-composition-id="01-hook"
+        data-composition-src="compositions/frames/01-hook.html"
+        data-start="0"
+        data-duration="5.3"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-02-aport"
+        class="scene"
+        data-composition-id="02-aport"
+        data-composition-src="compositions/frames/02-aport.html"
+        data-start="4.8"
+        data-duration="5.4"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-03-bradesco"
+        class="scene"
+        data-composition-id="03-bradesco"
+        data-composition-src="compositions/frames/03-bradesco.html"
+        data-start="9.6"
+        data-duration="7.7"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-04-sulamerica"
+        class="scene"
+        data-composition-id="04-sulamerica"
+        data-composition-src="compositions/frames/04-sulamerica.html"
+        data-start="16.8"
+        data-duration="7.8"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-05-porto"
+        class="scene"
+        data-composition-id="05-porto"
+        data-composition-src="compositions/frames/05-porto.html"
+        data-start="24"
+        data-duration="7.7"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-06-cta"
+        class="scene"
+        data-composition-id="06-cta"
+        data-composition-src="compositions/frames/06-cta.html"
+        data-start="31.2"
+        data-duration="7.2"
+        data-track-index="1"
+      ></div>
+
+      <!-- BGM -->
+      <audio
+        id="el-bgm"
+        src="assets/audio/bgm.wav"
+        data-start="0"
+        data-duration="38.4"
+        data-track-index="11"
+        data-volume="0.8"
+      ></audio>
+
+      <!-- SFX -->
+      <audio
+        id="el-sfx-0"
+        src="assets/audio/sfx_impact.wav"
+        data-start="0"
+        data-duration="3"
+        data-track-index="20"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="el-sfx-1"
+        src="assets/audio/sfx_whoosh.wav"
+        data-start="4.5"
+        data-duration="1"
+        data-track-index="21"
+        data-volume="0.5"
+      ></audio>
+      <audio
+        id="el-sfx-2"
+        src="assets/audio/sfx_shimmer.wav"
+        data-start="5.4"
+        data-duration="3"
+        data-track-index="22"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="el-sfx-3"
+        src="assets/audio/sfx_tick.wav"
+        data-start="7.4"
+        data-duration="0.14"
+        data-track-index="23"
+        data-volume="0.35"
+      ></audio>
+      <audio
+        id="el-sfx-4"
+        src="assets/audio/sfx_whoosh.wav"
+        data-start="9.3"
+        data-duration="1"
+        data-track-index="24"
+        data-volume="0.5"
+      ></audio>
+      <audio
+        id="el-sfx-5"
+        src="assets/audio/sfx_tick.wav"
+        data-start="10.8"
+        data-duration="0.14"
+        data-track-index="25"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-6"
+        src="assets/audio/sfx_tick.wav"
+        data-start="11.4"
+        data-duration="0.14"
+        data-track-index="26"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-7"
+        src="assets/audio/sfx_tick.wav"
+        data-start="12"
+        data-duration="0.14"
+        data-track-index="27"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-8"
+        src="assets/audio/sfx_riser.wav"
+        data-start="12.8"
+        data-duration="1.6"
+        data-track-index="28"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="el-sfx-9"
+        src="assets/audio/sfx_impact.wav"
+        data-start="14.4"
+        data-duration="3"
+        data-track-index="29"
+        data-volume="0.55"
+      ></audio>
+      <audio
+        id="el-sfx-10"
+        src="assets/audio/sfx_whoosh.wav"
+        data-start="16.5"
+        data-duration="1"
+        data-track-index="30"
+        data-volume="0.5"
+      ></audio>
+      <audio
+        id="el-sfx-11"
+        src="assets/audio/sfx_tick.wav"
+        data-start="18"
+        data-duration="0.14"
+        data-track-index="31"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-12"
+        src="assets/audio/sfx_tick.wav"
+        data-start="18.6"
+        data-duration="0.14"
+        data-track-index="32"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-13"
+        src="assets/audio/sfx_riser.wav"
+        data-start="20"
+        data-duration="1.6"
+        data-track-index="33"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="el-sfx-14"
+        src="assets/audio/sfx_impact.wav"
+        data-start="21.6"
+        data-duration="3"
+        data-track-index="34"
+        data-volume="0.55"
+      ></audio>
+      <audio
+        id="el-sfx-15"
+        src="assets/audio/sfx_whoosh.wav"
+        data-start="23.7"
+        data-duration="1"
+        data-track-index="35"
+        data-volume="0.5"
+      ></audio>
+      <audio
+        id="el-sfx-16"
+        src="assets/audio/sfx_tick.wav"
+        data-start="25"
+        data-duration="0.14"
+        data-track-index="36"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-17"
+        src="assets/audio/sfx_tick.wav"
+        data-start="25.5"
+        data-duration="0.14"
+        data-track-index="37"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-18"
+        src="assets/audio/sfx_tick.wav"
+        data-start="26"
+        data-duration="0.14"
+        data-track-index="38"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-19"
+        src="assets/audio/sfx_tick.wav"
+        data-start="26.5"
+        data-duration="0.14"
+        data-track-index="39"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="el-sfx-20"
+        src="assets/audio/sfx_riser.wav"
+        data-start="27.2"
+        data-duration="1.6"
+        data-track-index="40"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="el-sfx-21"
+        src="assets/audio/sfx_impact.wav"
+        data-start="28.8"
+        data-duration="3"
+        data-track-index="41"
+        data-volume="0.55"
+      ></audio>
+      <audio
+        id="el-sfx-22"
+        src="assets/audio/sfx_whoosh.wav"
+        data-start="30.9"
+        data-duration="1"
+        data-track-index="42"
+        data-volume="0.5"
+      ></audio>
+      <audio
+        id="el-sfx-23"
+        src="assets/audio/sfx_impact.wav"
+        data-start="31.2"
+        data-duration="3"
+        data-track-index="43"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="el-sfx-24"
+        src="assets/audio/sfx_pop.wav"
+        data-start="32.8"
+        data-duration="0.5"
+        data-track-index="44"
+        data-volume="0.5"
+      ></audio>
+      <audio
+        id="el-sfx-25"
+        src="assets/audio/sfx_shimmer.wav"
+        data-start="33"
+        data-duration="3"
+        data-track-index="45"
+        data-volume="0.4"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // ── frame transitions (injected by transitions.mjs) ──
+      (function () { var tl = window.__timelines["main"];
+        tl.to("#el-01-hook", { scale: 2.5, opacity: 0, filter: "blur(8px)", duration: 0.5, ease: "power3.in" }, 4.8);
+        tl.fromTo("#el-02-aport", { scale: 0.5, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 4.8);
+        tl.to("#el-02-aport", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 9.6);
+        tl.fromTo("#el-03-bradesco", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 9.6);
+        tl.to("#el-03-bradesco", { scale: 2.5, opacity: 0, filter: "blur(8px)", duration: 0.5, ease: "power3.in" }, 16.8);
+        tl.fromTo("#el-04-sulamerica", { scale: 0.5, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 16.8);
+        tl.to("#el-04-sulamerica", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 24);
+        tl.fromTo("#el-05-porto", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 24);
+        tl.to("#el-05-porto", { scale: 2.5, opacity: 0, filter: "blur(8px)", duration: 0.5, ease: "power3.in" }, 31.2);
+        tl.fromTo("#el-06-cta", { scale: 0.5, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 31.2);
+        tl.to({}, { duration: 38.4 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+      })();
+    </script>
+  </body>
+</html>
