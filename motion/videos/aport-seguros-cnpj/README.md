@@ -33,6 +33,21 @@ Neste container o Chrome vem de `HYPERFRAMES_BROWSER_PATH` e o GSAP de `assets/v
   `node ~/.claude/skills/product-launch-video/scripts/audio.mjs --script ./SCRIPT.md --storyboard ./STORYBOARD.md --hyperframes . --out ./audio_meta.json --provider heygen --voice <id>`
   (mantém os efeitos `source: host`), `bash tools/assemble.sh` e render.
 
+## Locução feminina HeyGen (próxima sessão)
+
+Pré-requisitos no ambiente: `api.heygen.com` liberado em Network access e a variável
+`HEYGEN_API_KEY` configurada (as duas mudanças só valem em uma sessão nova).
+
+```bash
+cd motion && npm ci && npx hyperframes skills          # CLI + skills do HyperFrames
+cd videos/aport-seguros-cnpj && npm i --no-save @hyperframes/core@0.8.165
+export HYPERFRAMES_BROWSER_PATH=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell
+node ~/.claude/skills/media-use/audio/scripts/heygen-tts.mjs --list   # escolher voz feminina pt-BR
+```
+
+Depois: gerar a voz pelo `audio.mjs` (provider `heygen`), recolocar os SFX `source: host` no
+`audio_meta.json`, `bash tools/assemble.sh`, fazer o carve da trilha sob a voz e renderizar.
+
 ## Pendências
 
 - Logos oficiais (Bradesco, SulAmérica, Porto, Aport) — hoje são marcas em texto.
