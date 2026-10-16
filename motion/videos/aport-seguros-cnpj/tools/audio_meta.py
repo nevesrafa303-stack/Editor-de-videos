@@ -41,7 +41,7 @@ cue(6, 'sfx_shimmer', 5.5, 3.0, 0.32)
 voices = [{'frame': n, 'path': f'assets/voice/{n:02d}.wav'} for n in range(1, 7)
           if os.path.exists(os.path.join(ROOT, f'assets/voice/{n:02d}.wav'))]
 
-meta = {'bgm': {'path': 'assets/audio/bgm.wav', 'volume': 0.32, 'source': 'host'},
+meta = {'bgm': {'path': 'assets/audio/bgm.wav', 'volume': 0.55, 'source': 'host'},
         'voices': voices, 'sfx': sfx}
 json.dump(meta, open(os.path.join(ROOT, 'audio_meta.json'), 'w'), indent=2, ensure_ascii=False)
 print(f'audio_meta.json: {len(voices)} falas, {len(sfx)} SFX')

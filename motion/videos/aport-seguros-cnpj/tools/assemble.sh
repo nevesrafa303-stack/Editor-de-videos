@@ -17,5 +17,5 @@ grep -q 'assets/vendor/gsap.min.js' index.html
 # locução: um grupo só, e a trilha recebe o carve espectral sob ele
 if grep -q 'id="el-[0-9a-z-]*-voice"' index.html; then
   sed -i -E 's#(id="el-[0-9a-z-]+-voice")#\1\n        data-audio-group="voiceover"#' index.html
-  node "$SK/hyperframes-audio/scripts/carve.mjs" --comp ./index.html --bed el-bgm
+  node "$SK/hyperframes-audio/scripts/carve.mjs" --comp ./index.html --bed el-bgm --strength 0.5
 fi

@@ -1,7 +1,7 @@
 {
   "bgm": {
     "path": "assets/audio/bgm.wav",
-    "volume": 0.32,
+    "volume": 0.55,
     "source": "host"
   },
   "voices": [
