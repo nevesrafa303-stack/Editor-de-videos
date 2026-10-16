@@ -378,7 +378,7 @@ ${benefitsHtml}
 .${p}-eyebrow{position:absolute;left:0;right:0;top:438px;text-align:center;font-weight:700;font-size:28px;letter-spacing:0.36em;padding-left:0.36em;color:rgba(244,247,255,0.85);}
 .${p}-card{position:absolute;left:56px;right:56px;top:510px;padding:56px 56px 50px;border-radius:44px;background:linear-gradient(160deg,rgba(255,255,255,0.13),rgba(255,255,255,0.04));border:1.5px solid rgba(255,255,255,0.22);box-shadow:0 40px 90px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.25);backdrop-filter:blur(26px) saturate(1.2);}
 .${p}-bens{display:flex;flex-direction:column;gap:${gap}px;}
-.${p}-ben{display:flex;align-items:center;gap:28px;font-weight:700;font-size:${big}px;line-height:1.15;}
+.${p}-ben{display:flex;align-items:center;gap:28px;font-weight:700;font-size:${big}px;line-height:1.15;text-shadow:0 2px 14px rgba(0,0,0,0.45);}
 .${p}-check{flex:0 0 auto;width:${big + 12}px;height:${big + 12}px;filter:drop-shadow(0 0 16px ${c.color});}
 .${p}-hr{height:2px;margin:${n >= 4 ? 40 : 48}px 0 ${n >= 4 ? 30 : 36}px;background:linear-gradient(90deg,rgba(255,255,255,0.45),rgba(255,255,255,0));transform-origin:0 50%;}
 .${p}-lives{font-weight:500;font-size:44px;color:rgba(244,247,255,0.85);}
