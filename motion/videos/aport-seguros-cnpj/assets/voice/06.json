@@ -1,0 +1,86 @@
+{
+ "request": {
+  "text": "Faça agora a sua simulação gratuita, cem por cento online. Aport Seguros.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.0,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=7954ef01-a043-4a60-b2f1-f5c7522f4c28.wav",
+  "duration": 6.4,
+  "engine": "orca",
+  "request_id": "283cca4f1131484f9b40c8ff6a3f1d12",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.64,
+    "start": 0.213,
+    "word": "Faça"
+   },
+   {
+    "end": 1.0667,
+    "start": 0.725,
+    "word": "agora"
+   },
+   {
+    "end": 1.365,
+    "start": 1.152,
+    "word": "a"
+   },
+   {
+    "end": 1.5787,
+    "start": 1.408,
+    "word": "sua"
+   },
+   {
+    "end": 2.176,
+    "start": 1.621,
+    "word": "simulação"
+   },
+   {
+    "end": 2.987,
+    "start": 2.219,
+    "word": "gratuita,"
+   },
+   {
+    "end": 3.541,
+    "start": 3.285,
+    "word": "cem"
+   },
+   {
+    "end": 3.712,
+    "start": 3.584,
+    "word": "por"
+   },
+   {
+    "end": 4.0107,
+    "start": 3.755,
+    "word": "cento"
+   },
+   {
+    "end": 4.544,
+    "start": 4.096,
+    "word": "online."
+   },
+   {
+    "end": 5.376,
+    "start": 4.864,
+    "word": "Aport"
+   },
+   {
+    "end": 6.366,
+    "start": 5.547,
+    "word": "Seguros."
+   },
+   {
+    "end": 6.4,
+    "start": 6.4,
+    "word": "<end>"
+   }
+  ]
+ }
+}

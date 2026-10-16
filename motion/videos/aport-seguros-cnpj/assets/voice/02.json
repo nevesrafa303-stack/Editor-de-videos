@@ -1,0 +1,101 @@
+{
+ "request": {
+  "text": "Na Aport Seguros, o seu CNPJ tem plano de saúde a partir de três vidas.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.0,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=962dbc73-430d-45fa-8db4-357292467c14.wav",
+  "duration": 5.69469387755102,
+  "engine": "orca",
+  "request_id": "0970d102d2b44b55b059d46b81c7d290",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.4267,
+    "start": 0.256,
+    "word": "Na"
+   },
+   {
+    "end": 0.6827,
+    "start": 0.469,
+    "word": "Aport"
+   },
+   {
+    "end": 1.365,
+    "start": 0.768,
+    "word": "Seguros,"
+   },
+   {
+    "end": 1.664,
+    "start": 1.493,
+    "word": "o"
+   },
+   {
+    "end": 1.792,
+    "start": 1.707,
+    "word": "seu"
+   },
+   {
+    "end": 2.389,
+    "start": 1.835,
+    "word": "CNPJ"
+   },
+   {
+    "end": 2.7307,
+    "start": 2.603,
+    "word": "tem"
+   },
+   {
+    "end": 3.072,
+    "start": 2.773,
+    "word": "plano"
+   },
+   {
+    "end": 3.157,
+    "start": 3.115,
+    "word": "de"
+   },
+   {
+    "end": 3.6267,
+    "start": 3.243,
+    "word": "saúde"
+   },
+   {
+    "end": 3.797,
+    "start": 3.755,
+    "word": "a"
+   },
+   {
+    "end": 4.224,
+    "start": 3.84,
+    "word": "partir"
+   },
+   {
+    "end": 4.309,
+    "start": 4.267,
+    "word": "de"
+   },
+   {
+    "end": 4.7787,
+    "start": 4.437,
+    "word": "três"
+   },
+   {
+    "end": 5.646621315192744,
+    "start": 4.864,
+    "word": "vidas."
+   },
+   {
+    "end": 5.69469387755102,
+    "start": 5.69469387755102,
+    "word": "<end>"
+   }
+  ]
+ }
+}

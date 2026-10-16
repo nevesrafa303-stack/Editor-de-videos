@@ -17,6 +17,9 @@ const OUT = join(ROOT, "compositions/frames");
 const W = 1080;
 const H = 1920;
 
+// Locução: cada fala entra 0.3 s após o início da cena (tools/voice.py).
+// Os marcos abaixo vêm dos word_timestamps da HeyGen + esse 0.3 s.
+const HOOK_WORDS = [0.51, 0.81, 1.32, 1.71, 1.84, 2.13, 2.3, 2.86, 3.29];
 const NAVY = "#07122B";
 const GOLD = "#C9A86A";
 const PAPER = "#F4F7FF";
@@ -181,7 +184,7 @@ function hook() {
     stage.push(`<div class="${p}-line ${p}-${ln.cls}">`);
     for (const w of ln.words) {
       stage.push(`<span class="${p}-w" id="${p}-w${wi}">${w}</span>`);
-      const at = ln.cls === "l3" ? 1.75 + (wi - 7) * 0.16 : 0.45 + wi * 0.13;
+      const at = HOOK_WORDS[wi] - 0.08;
       wordTl.push(
         `tl.fromTo("#${p}-w${wi}",{opacity:0,y:46,filter:"blur(14px)"},{opacity:1,y:0,filter:"blur(0px)",duration:${ln.cls === "l3" ? 0.9 : 0.7},ease:"power3.out"},${r2(at)});`,
       );
@@ -212,7 +215,7 @@ function hook() {
     `tl.fromTo("#${p}-stage",{scale:1.0},{scale:1.06,duration:${D},ease:"none"},0);`,
     `tl.fromTo("#${p}-eyebrow",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.4,ease:"power2.out"},0.15);`,
     ...wordTl,
-    `tl.fromTo("#${p}-rule",{scaleX:0,opacity:0},{scaleX:1,opacity:1,duration:1.0,ease:"power2.inOut"},2.5);`,
+    `tl.fromTo("#${p}-rule",{scaleX:0,opacity:0},{scaleX:1,opacity:1,duration:1.0,ease:"power2.inOut"},3.7);`,
     grainTl(p, D, 901),
   ].join("\n");
   return { file: "01-hook.html", content: frameFile({ id: "01-hook", p, D, css, ground, stage: stage.join("\n"), tl }) };
@@ -222,10 +225,10 @@ function hook() {
 
 function brand() {
   const p = "h2";
-  const D = 4.8;
+  const D = 7.2;
   const atm = atmosphere(p, 202, { rays: 2, bokeh: 10, color: "232,210,160" });
   const stage = `
-<div class="${p}-mark" id="${p}-mark"><span class="${p}-aport" id="${p}-aport">APORT</span><span class="${p}-sweep" id="${p}-sweep"></span></div>
+<div class="${p}-mark" id="${p}-mark"><span class="${p}-aport" id="${p}-aport">APORT</span></div>
 <div class="${p}-seg" id="${p}-seg">SEGUROS</div>
 <div class="${p}-div" id="${p}-div"></div>
 <div class="${p}-plan"><div class="${p}-pl" id="${p}-pl0">Plano de Saúde</div><div class="${p}-pl ${p}-cnpj" id="${p}-pl1">para <em>CNPJ</em></div></div>
@@ -241,8 +244,7 @@ function brand() {
 .${p}-bg{background:radial-gradient(80% 55% at 50% 35%,#18346f 0%,#0b1b40 50%,${NAVY} 85%);}
 .${p}-halo{position:absolute;left:50%;top:560px;width:1200px;height:520px;margin-left:-600px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,168,106,0.28),rgba(201,168,106,0));filter:blur(10px);}
 .${p}-mark{position:absolute;left:0;right:0;top:420px;display:flex;justify-content:center;overflow:hidden;height:230px;}
-.${p}-aport{display:block;font-weight:900;font-size:210px;line-height:230px;letter-spacing:0.1em;padding-left:0.1em;background:linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.${p}-sweep{position:absolute;top:0;bottom:0;left:0;width:260px;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,236,190,0.85) 50%,rgba(255,255,255,0) 100%);mix-blend-mode:overlay;filter:blur(6px);}
+.${p}-aport{display:block;font-weight:900;font-size:210px;line-height:230px;letter-spacing:0.1em;padding-left:0.1em;background-image:linear-gradient(100deg,rgba(255,236,190,0) 42%,rgba(255,236,190,0.95) 50%,rgba(255,236,190,0) 58%),linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);background-size:250% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0%,0% 0%;-webkit-background-clip:text;background-clip:text;color:transparent;}
 .${p}-seg{position:absolute;left:0;right:0;top:668px;text-align:center;font-weight:600;font-size:42px;letter-spacing:0.62em;padding-left:0.62em;color:${GOLD};}
 .${p}-div{position:absolute;left:50%;top:780px;width:120px;height:3px;margin-left:-60px;background:${GOLD};}
 .${p}-plan{position:absolute;left:40px;right:40px;top:840px;text-align:center;}
@@ -261,14 +263,14 @@ function brand() {
     `tl.fromTo("#${p}-bg",{scale:1.1},{scale:1.0,duration:${D},ease:"sine.out"},0);`,
     `tl.fromTo("#${p}-stage",{scale:1.04},{scale:1.0,duration:${D},ease:"power1.out"},0);`,
     `tl.fromTo("#${p}-halo",{opacity:0,scaleX:0.4},{opacity:1,scaleX:1,duration:1.6,ease:"power2.out"},0.2);`,
-    `tl.fromTo("#${p}-aport",{yPercent:100,opacity:0},{yPercent:0,opacity:1,duration:0.9,ease:"expo.out"},0.15);`,
-    `tl.fromTo("#${p}-sweep",{x:-300,opacity:0},{x:1100,opacity:1,duration:1.1,ease:"power2.inOut"},0.6);`,
-    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.2,ease:"power3.out"},0.55);`,
-    `tl.fromTo("#${p}-div",{scaleX:0},{scaleX:1,duration:0.7,ease:"power2.out"},1.1);`,
-    `tl.fromTo("#${p}-pl0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},1.4);`,
-    `tl.fromTo("#${p}-pl1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},1.65);`,
-    `tl.fromTo("#${p}-badge",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.6,ease:"back.out(1.8)"},2.6);`,
-    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.18},3.3);`,
+    `tl.fromTo("#${p}-aport",{yPercent:100,opacity:0},{yPercent:0,opacity:1,duration:0.9,ease:"expo.out"},0.35);`,
+    `tl.fromTo("#${p}-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:1.2,ease:"power2.inOut",immediateRender:false},0.75);`,
+    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.2,ease:"power3.out"},0.9);`,
+    `tl.fromTo("#${p}-div",{scaleX:0},{scaleX:1,duration:0.7,ease:"power2.out"},1.4);`,
+    `tl.fromTo("#${p}-pl0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},1.95);`,
+    `tl.fromTo("#${p}-pl1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},2.15);`,
+    `tl.fromTo("#${p}-badge",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.6,ease:"back.out(1.8)"},4.05);`,
+    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.18},5.3);`,
     grainTl(p, D, 902),
   ].join("\n");
   return { file: "02-aport.html", content: frameFile({ id: "02-aport", p, D, css, ground, stage, tl }) };
@@ -290,6 +292,7 @@ const CARRIERS = [
     word: `<span class="W-wm" style="color:#CC092F">bradesco</span><span class="W-wm2" style="color:#CC092F">saúde</span>`,
     benefits: ["Ampla rede referenciada", "Telemedicina", "Suporte para pacientes com TEA"],
     price: "1.697,90",
+    marks: { benefits: [1.76, 2.82, 4.0], lives: 5.38 },
     seed: 303,
   },
   {
@@ -305,6 +308,7 @@ const CARRIERS = [
     word: `<span class="W-wm" style="color:#001E62">Sul<span style="color:#F26522">América</span></span>`,
     benefits: ["Atendimento Rede D'Or", "Plano odontológico"],
     price: "1.014,97",
+    marks: { benefits: [1.6, 3.55], lives: 5.06 },
     seed: 404,
   },
   {
@@ -319,22 +323,22 @@ const CARRIERS = [
     word: `<span class="W-wm" style="color:#0046C0">Porto</span><span class="W-wm2" style="color:#0046C0">saúde</span>`,
     benefits: ["Plano odontológico", "Seguro de vida", "Serviços ocupacionais", "Proteção antiácaro"],
     price: "942,80",
+    marks: { benefits: [1.24, 2.5, 3.76, 4.45], lives: 5.5 },
     seed: 505,
   },
 ];
 
 // marcos (tempo local) — usados também pelo audio_meta.json
+// trava do preço em 7.2 s = linha de compasso (impacto da trilha)
 export const CARRIER_MARKS = {
-  benefitAt: (n, i) => (n >= 4 ? 1.0 + i * 0.5 : 1.2 + i * 0.6),
-  livesAt: 2.9,
-  countFrom: 3.2,
-  lockAt: 4.8,
-  footAt: 5.3,
+  countFrom: 5.8,
+  lockAt: 7.2,
+  footAt: 7.9,
 };
 
 function carrier(c) {
   const { p } = c;
-  const D = 7.2;
+  const D = 9.6;
   const n = c.benefits.length;
   const atm = atmosphere(p, c.seed, { rays: 2, bokeh: 10, color: c.glow });
   const wheel = priceWheel(p, c.price);
@@ -420,16 +424,16 @@ tl.fromTo("#${p}-orb1",{x:0,y:0},{x:-180,y:-140,duration:${D},ease:"sine.inOut"}
     `tl.fromTo("#${p}-eyebrow",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power2.out"},0.5);`,
     `tl.fromTo("#${p}-card",{opacity:0,y:120,rotationX:18,transformPerspective:1400},{opacity:1,y:0,rotationX:0,duration:1.0,ease:"power3.out"},0.55);`,
     ...c.benefits.map((_, i) => {
-      const at = r2(M.benefitAt(n, i));
+      const at = r2(c.marks.benefits[i]);
       return `tl.fromTo("#${p}-b${i}",{opacity:0,x:-60},{opacity:1,x:0,duration:0.55,ease:"power3.out"},${r2(at - 0.15)});
 tl.fromTo("#${p}-ck${i}",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.35,ease:"power2.out"},${at});`;
     }),
-    `tl.fromTo("#${p}-hr",{scaleX:0},{scaleX:1,duration:0.7,ease:"power2.inOut"},${r2(M.livesAt - 0.3)});`,
-    `tl.fromTo("#${p}-lives",{opacity:0,y:24},{opacity:1,y:0,duration:0.5,ease:"power3.out"},${M.livesAt});`,
+    `tl.fromTo("#${p}-hr",{scaleX:0},{scaleX:1,duration:0.7,ease:"power2.inOut"},${r2(c.marks.lives - 0.3)});`,
+    `tl.fromTo("#${p}-lives",{opacity:0,y:24},{opacity:1,y:0,duration:0.5,ease:"power3.out"},${c.marks.lives});`,
     `tl.fromTo("#${p}-price",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},${M.countFrom});`,
     ...wheel.strips.map(
       (s, i) =>
-        `tl.fromTo("${s.sel}",{yPercent:0},{yPercent:${s.yp},duration:${r2(1.3 + i * 0.05)},ease:"power3.out"},${r2(M.countFrom + 0.05 + (wheel.strips.length - 1 - i) * 0.0)});`,
+        `tl.fromTo("${s.sel}",{yPercent:0},{yPercent:${s.yp},duration:${r2(M.lockAt - M.countFrom - 0.05 - (wheel.strips.length - 1 - i) * 0.05)},ease:"power3.out"},${r2(M.countFrom + 0.05)});`,
     ),
     `tl.fromTo("#${p}-price",{scale:1},{scale:1.06,duration:0.12,ease:"power2.out",transformOrigin:"0% 50%"},${M.lockAt});`,
     `tl.to("#${p}-price",{scale:1,duration:0.6,ease:"elastic.out(1,0.5)"},${r2(M.lockAt + 0.12)});`,
@@ -447,10 +451,10 @@ tl.fromTo("#${p}-ck${i}",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.35
 
 function cta() {
   const p = "h6";
-  const D = 7.2;
+  const D = 9.6;
   const atm = atmosphere(p, 606, { rays: 2, bokeh: 10, color: "232,210,160" });
   const stage = `
-<div class="${p}-mark" id="${p}-mark"><span class="${p}-aport">APORT</span><span class="${p}-sweep" id="${p}-sweep"></span></div>
+<div class="${p}-mark" id="${p}-mark"><span class="${p}-aport" id="${p}-aport">APORT</span></div>
 <div class="${p}-seg" id="${p}-seg">SEGUROS</div>
 <div class="${p}-head"><div class="${p}-h" id="${p}-h0">O plano certo</div><div class="${p}-h ${p}-hi" id="${p}-h1">para o seu CNPJ.</div></div>
 <div class="${p}-btn" id="${p}-btn"><span class="${p}-btn-shine" id="${p}-shine"></span><span class="${p}-btn-t">Simulação Gratuita 100% Online</span><span class="${p}-arrow">›</span></div>
@@ -469,8 +473,7 @@ function cta() {
 .${p}-bg{background:radial-gradient(85% 60% at 50% 40%,#16336f 0%,#0b1c42 48%,${NAVY} 85%);}
 .${p}-o{position:absolute;width:760px;height:760px;border-radius:50%;filter:blur(90px);mix-blend-mode:screen;opacity:0.75;}
 .${p}-mark{position:absolute;left:0;right:0;top:330px;display:flex;justify-content:center;overflow:hidden;height:180px;}
-.${p}-aport{display:block;font-weight:900;font-size:160px;line-height:180px;letter-spacing:0.1em;padding-left:0.1em;background:linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.${p}-sweep{position:absolute;top:0;bottom:0;left:0;width:220px;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,236,190,0.9) 50%,rgba(255,255,255,0) 100%);mix-blend-mode:overlay;filter:blur(6px);}
+.${p}-aport{display:block;font-weight:900;font-size:160px;line-height:180px;letter-spacing:0.1em;padding-left:0.1em;background-image:linear-gradient(100deg,rgba(255,236,190,0) 42%,rgba(255,236,190,0.95) 50%,rgba(255,236,190,0) 58%),linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);background-size:250% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0%,0% 0%;-webkit-background-clip:text;background-clip:text;color:transparent;}
 .${p}-seg{position:absolute;left:0;right:0;top:520px;text-align:center;font-weight:600;font-size:34px;letter-spacing:0.62em;padding-left:0.62em;color:${GOLD};}
 .${p}-head{position:absolute;left:40px;right:40px;top:660px;text-align:center;}
 .${p}-h{font-weight:800;font-size:96px;line-height:1.12;letter-spacing:-0.02em;}
@@ -500,17 +503,17 @@ ${atm.html}`;
     `tl.fromTo("#${p}-o1",{x:0,y:0,scale:1},{x:-420,y:290,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);`,
     `tl.fromTo("#${p}-o2",{x:0,y:0,scale:1},{x:0,y:-560,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);`,
     `tl.fromTo("#${p}-stage",{scale:1.03},{scale:1.0,duration:${D},ease:"power1.out"},0);`,
-    `tl.fromTo("#${p}-mark",{opacity:0,y:40,filter:"blur(16px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.9,ease:"power3.out"},0.35);`,
-    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power3.out"},0.6);`,
-    `tl.fromTo("#${p}-sweep",{x:-300,opacity:0},{x:1100,opacity:1,duration:1.1,ease:"power2.inOut"},1.8);`,
-    `tl.fromTo("#${p}-h0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.8);`,
-    `tl.fromTo("#${p}-h1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},1.05);`,
-    `tl.fromTo("#${p}-btn",{opacity:0,scale:0.6,y:40},{opacity:1,scale:1,y:0,duration:0.7,ease:"back.out(1.7)"},1.6);`,
-    `tl.fromTo("#${p}-btn",{scale:1},{scale:1.035,duration:0.6,ease:"sine.inOut",yoyo:true,repeat:7,immediateRender:false},2.4);`,
-    ...[2.5, 3.7, 4.9].map((t, i) => `tl.fromTo("#${p}-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut"${i ? ",immediateRender:false" : ""}},${t});`),
-    `tl.fromTo("#${p}-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.6,ease:"power3.out"},2.4);`,
-    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.15},2.7);`,
-    `tl.fromTo("#${p}-foot",{opacity:0},{opacity:1,duration:0.8,ease:"power1.out"},3.2);`,
+    `tl.fromTo("#${p}-mark",{opacity:0,y:40,filter:"blur(16px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.9,ease:"power3.out"},5.05);`,
+    `tl.fromTo("#${p}-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power3.out"},5.35);`,
+    `tl.fromTo("#${p}-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:1.2,ease:"power2.inOut",immediateRender:false},5.5);`,
+    `tl.fromTo("#${p}-h0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.35);`,
+    `tl.fromTo("#${p}-h1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.6);`,
+    `tl.fromTo("#${p}-btn",{opacity:0,scale:0.6,y:40},{opacity:1,scale:1,y:0,duration:0.7,ease:"back.out(1.7)"},1.85);`,
+    `tl.fromTo("#${p}-btn",{scale:1},{scale:1.035,duration:0.6,ease:"sine.inOut",yoyo:true,repeat:9,immediateRender:false},2.6);`,
+    ...[2.7, 4.2, 6.6].map((t, i) => `tl.fromTo("#${p}-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut"${i ? ",immediateRender:false" : ""}},${t});`),
+    `tl.fromTo("#${p}-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.6,ease:"power3.out"},2.9);`,
+    `tl.fromTo(["#${p}-c0","#${p}-c1","#${p}-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.15},3.2);`,
+    `tl.fromTo("#${p}-foot",{opacity:0},{opacity:1,duration:0.8,ease:"power1.out"},3.6);`,
     `tl.fromTo("#${p}-black",{opacity:0},{opacity:1,duration:0.8,ease:"power1.in"},${r2(D - 0.8)});`,
     grainTl(p, D, 906),
   ].join("\n");

@@ -1,0 +1,131 @@
+{
+ "request": {
+  "text": "Bradesco Saúde: ampla rede, telemedicina e suporte para TEA. A partir de mil seiscentos e noventa e sete reais e noventa.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.05,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=73533acc-3b85-40f3-a9de-d57bf39222bb.wav",
+  "duration": 9.11673469387755,
+  "engine": "orca",
+  "request_id": "42884958a0404df9bbee69905546daec",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.7314285714285714,
+    "start": 0.2847619047619047,
+    "word": "Bradesco"
+   },
+   {
+    "end": 1.381904761904762,
+    "start": 0.8123809523809523,
+    "word": "Saúde:"
+   },
+   {
+    "end": 1.991142857142857,
+    "start": 1.5438095238095237,
+    "word": "ampla"
+   },
+   {
+    "end": 2.458095238095238,
+    "start": 2.072380952380952,
+    "word": "rede,"
+   },
+   {
+    "end": 3.372380952380952,
+    "start": 2.6009523809523807,
+    "word": "telemedicina"
+   },
+   {
+    "end": 3.7380952380952377,
+    "start": 3.5352380952380953,
+    "word": "e"
+   },
+   {
+    "end": 4.185428571428571,
+    "start": 3.7790476190476188,
+    "word": "suporte"
+   },
+   {
+    "end": 4.469523809523809,
+    "start": 4.307619047619047,
+    "word": "para"
+   },
+   {
+    "end": 4.978095238095238,
+    "start": 4.551428571428571,
+    "word": "TEA."
+   },
+   {
+    "end": 5.363809523809524,
+    "start": 5.16095238095238,
+    "word": "A"
+   },
+   {
+    "end": 5.77047619047619,
+    "start": 5.404761904761904,
+    "word": "partir"
+   },
+   {
+    "end": 5.851428571428571,
+    "start": 5.81047619047619,
+    "word": "de"
+   },
+   {
+    "end": 6.1359047619047615,
+    "start": 5.932380952380952,
+    "word": "mil"
+   },
+   {
+    "end": 6.663809523809523,
+    "start": 6.1761904761904765,
+    "word": "seiscentos"
+   },
+   {
+    "end": 6.785714285714286,
+    "start": 6.704761904761904,
+    "word": "e"
+   },
+   {
+    "end": 7.11142857142857,
+    "start": 6.826666666666666,
+    "word": "noventa"
+   },
+   {
+    "end": 7.2333333333333325,
+    "start": 7.192380952380952,
+    "word": "e"
+   },
+   {
+    "end": 7.436190476190475,
+    "start": 7.2733333333333325,
+    "word": "sete"
+   },
+   {
+    "end": 7.8425714285714285,
+    "start": 7.5580952380952375,
+    "word": "reais"
+   },
+   {
+    "end": 8.208285714285715,
+    "start": 8.004761904761903,
+    "word": "e"
+   },
+   {
+    "end": 8.98190476190476,
+    "start": 8.248571428571427,
+    "word": "noventa."
+   },
+   {
+    "end": 9.11673469387755,
+    "start": 9.11673469387755,
+    "word": "<end>"
+   }
+  ]
+ }
+}

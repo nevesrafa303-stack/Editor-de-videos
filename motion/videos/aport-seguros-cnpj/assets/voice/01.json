@@ -1,0 +1,71 @@
+{
+ "request": {
+  "text": "Sua empresa merece um plano de saúde à altura.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.0,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=f4747d8d-8a8a-4832-a132-5ab4d9b4a29c.wav",
+  "duration": 3.8922448979591837,
+  "engine": "orca",
+  "request_id": "0c4b81acff5e4c5eaf6a94f160626358",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.469,
+    "start": 0.213,
+    "word": "Sua"
+   },
+   {
+    "end": 0.9387,
+    "start": 0.512,
+    "word": "empresa"
+   },
+   {
+    "end": 1.3227,
+    "start": 1.024,
+    "word": "merece"
+   },
+   {
+    "end": 1.493,
+    "start": 1.408,
+    "word": "um"
+   },
+   {
+    "end": 1.792,
+    "start": 1.536,
+    "word": "plano"
+   },
+   {
+    "end": 1.877,
+    "start": 1.835,
+    "word": "de"
+   },
+   {
+    "end": 2.389,
+    "start": 2.005,
+    "word": "saúde"
+   },
+   {
+    "end": 2.944,
+    "start": 2.56,
+    "word": "à"
+   },
+   {
+    "end": 3.858684807256236,
+    "start": 2.987,
+    "word": "altura."
+   },
+   {
+    "end": 3.8922448979591837,
+    "start": 3.8922448979591837,
+    "word": "<end>"
+   }
+  ]
+ }
+}

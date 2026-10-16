@@ -21,8 +21,7 @@
 .h6-bg{background:radial-gradient(85% 60% at 50% 40%,#16336f 0%,#0b1c42 48%,#07122B 85%);}
 .h6-o{position:absolute;width:760px;height:760px;border-radius:50%;filter:blur(90px);mix-blend-mode:screen;opacity:0.75;}
 .h6-mark{position:absolute;left:0;right:0;top:330px;display:flex;justify-content:center;overflow:hidden;height:180px;}
-.h6-aport{display:block;font-weight:900;font-size:160px;line-height:180px;letter-spacing:0.1em;padding-left:0.1em;background:linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.h6-sweep{position:absolute;top:0;bottom:0;left:0;width:220px;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,236,190,0.9) 50%,rgba(255,255,255,0) 100%);mix-blend-mode:overlay;filter:blur(6px);}
+.h6-aport{display:block;font-weight:900;font-size:160px;line-height:180px;letter-spacing:0.1em;padding-left:0.1em;background-image:linear-gradient(100deg,rgba(255,236,190,0) 42%,rgba(255,236,190,0.95) 50%,rgba(255,236,190,0) 58%),linear-gradient(180deg,#ffffff 0%,#dfe6f5 60%,#b9c4dc 100%);background-size:250% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0%,0% 0%;-webkit-background-clip:text;background-clip:text;color:transparent;}
 .h6-seg{position:absolute;left:0;right:0;top:520px;text-align:center;font-weight:600;font-size:34px;letter-spacing:0.62em;padding-left:0.62em;color:#C9A86A;}
 .h6-head{position:absolute;left:40px;right:40px;top:660px;text-align:center;}
 .h6-h{font-weight:800;font-size:96px;line-height:1.12;letter-spacing:-0.02em;}
@@ -41,8 +40,8 @@
 .h6-black{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;}
 
 </style>
-<div id="h6-root" data-composition-id="06-cta" data-start="0" data-duration="7.2" data-width="1080" data-height="1920">
-  <div class="clip h6-ground" id="h6-ground" data-start="0" data-duration="7.2" data-track-index="0">
+<div id="h6-root" data-composition-id="06-cta" data-start="0" data-duration="9.6" data-width="1080" data-height="1920">
+  <div class="clip h6-ground" id="h6-ground" data-start="0" data-duration="9.6" data-track-index="0">
 <div class="h6-bg" id="h6-bg" data-layout-allow-overflow></div>
 <div class="h6-o" id="h6-o0" style="left:-380px;top:120px;background:#CC092F"></div>
 <div class="h6-o" id="h6-o1" style="left:700px;top:260px;background:#F26522"></div>
@@ -51,7 +50,7 @@
   </div>
   <div class="h6-stage" id="h6-stage">
 
-<div class="h6-mark" id="h6-mark"><span class="h6-aport">APORT</span><span class="h6-sweep" id="h6-sweep"></span></div>
+<div class="h6-mark" id="h6-mark"><span class="h6-aport" id="h6-aport">APORT</span></div>
 <div class="h6-seg" id="h6-seg">SEGUROS</div>
 <div class="h6-head"><div class="h6-h" id="h6-h0">O plano certo</div><div class="h6-h h6-hi" id="h6-h1">para o seu CNPJ.</div></div>
 <div class="h6-btn" id="h6-btn"><span class="h6-btn-shine" id="h6-shine"></span><span class="h6-btn-t">Simulação Gratuita 100% Online</span><span class="h6-arrow">›</span></div>
@@ -71,37 +70,37 @@
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
-tl.fromTo("#h6-ray0",{x:0,rotation:-19.89},{x:70.71,rotation:-20.18,opacity:0.43,duration:7.2,ease:"sine.inOut"},0);
-tl.fromTo("#h6-ray1",{x:0,rotation:-16.84},{x:192.44,rotation:-19.43,opacity:0.49,duration:7.2,ease:"sine.inOut"},0);
-tl.fromTo("#h6-bk0",{x:0,y:0},{x:-21.58,y:-66.9,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk1",{x:0,y:0},{x:-10.01,y:-112.9,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk2",{x:0,y:0},{x:9.3,y:-103.35,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk3",{x:0,y:0},{x:27.95,y:-93.31,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk4",{x:0,y:0},{x:8,y:-95.55,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk5",{x:0,y:0},{x:-7.19,y:-71.38,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk6",{x:0,y:0},{x:-14.55,y:-61.49,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk7",{x:0,y:0},{x:-7.3,y:-44.26,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk8",{x:0,y:0},{x:-11.91,y:-29.41,duration:7.2,ease:"none"},0);
-tl.fromTo("#h6-bk9",{x:0,y:0},{x:14.78,y:-217.93,duration:7.2,ease:"none"},0);
+tl.fromTo("#h6-ray0",{x:0,rotation:-19.89},{x:70.71,rotation:-20.18,opacity:0.43,duration:9.6,ease:"sine.inOut"},0);
+tl.fromTo("#h6-ray1",{x:0,rotation:-16.84},{x:192.44,rotation:-19.43,opacity:0.49,duration:9.6,ease:"sine.inOut"},0);
+tl.fromTo("#h6-bk0",{x:0,y:0},{x:-21.58,y:-66.9,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk1",{x:0,y:0},{x:-10.01,y:-112.9,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk2",{x:0,y:0},{x:9.3,y:-103.35,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk3",{x:0,y:0},{x:27.95,y:-93.31,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk4",{x:0,y:0},{x:8,y:-95.55,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk5",{x:0,y:0},{x:-7.19,y:-71.38,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk6",{x:0,y:0},{x:-14.55,y:-61.49,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk7",{x:0,y:0},{x:-7.3,y:-44.26,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk8",{x:0,y:0},{x:-11.91,y:-29.41,duration:9.6,ease:"none"},0);
+tl.fromTo("#h6-bk9",{x:0,y:0},{x:14.78,y:-217.93,duration:9.6,ease:"none"},0);
 tl.fromTo("#h6-flash",{opacity:0.85},{opacity:0,duration:0.5,ease:"power2.out"},0);
 tl.fromTo("#h6-o0",{x:0,y:0,scale:1},{x:420,y:420,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);
 tl.fromTo("#h6-o1",{x:0,y:0,scale:1},{x:-420,y:290,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);
 tl.fromTo("#h6-o2",{x:0,y:0,scale:1},{x:0,y:-560,scale:0.55,opacity:0.35,duration:1.8,ease:"power3.inOut"},0);
-tl.fromTo("#h6-stage",{scale:1.03},{scale:1.0,duration:7.2,ease:"power1.out"},0);
-tl.fromTo("#h6-mark",{opacity:0,y:40,filter:"blur(16px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.9,ease:"power3.out"},0.35);
-tl.fromTo("#h6-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power3.out"},0.6);
-tl.fromTo("#h6-sweep",{x:-300,opacity:0},{x:1100,opacity:1,duration:1.1,ease:"power2.inOut"},1.8);
-tl.fromTo("#h6-h0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.8);
-tl.fromTo("#h6-h1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},1.05);
-tl.fromTo("#h6-btn",{opacity:0,scale:0.6,y:40},{opacity:1,scale:1,y:0,duration:0.7,ease:"back.out(1.7)"},1.6);
-tl.fromTo("#h6-btn",{scale:1},{scale:1.035,duration:0.6,ease:"sine.inOut",yoyo:true,repeat:7,immediateRender:false},2.4);
-tl.fromTo("#h6-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut"},2.5);
-tl.fromTo("#h6-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut",immediateRender:false},3.7);
-tl.fromTo("#h6-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut",immediateRender:false},4.9);
-tl.fromTo("#h6-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.6,ease:"power3.out"},2.4);
-tl.fromTo(["#h6-c0","#h6-c1","#h6-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.15},2.7);
-tl.fromTo("#h6-foot",{opacity:0},{opacity:1,duration:0.8,ease:"power1.out"},3.2);
-tl.fromTo("#h6-black",{opacity:0},{opacity:1,duration:0.8,ease:"power1.in"},6.4);
+tl.fromTo("#h6-stage",{scale:1.03},{scale:1.0,duration:9.6,ease:"power1.out"},0);
+tl.fromTo("#h6-mark",{opacity:0,y:40,filter:"blur(16px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.9,ease:"power3.out"},5.05);
+tl.fromTo("#h6-seg",{opacity:0,scale:1.12},{opacity:1,scale:1,duration:1.1,ease:"power3.out"},5.35);
+tl.fromTo("#h6-aport",{backgroundPosition:"160% 0%, 0% 0%"},{backgroundPosition:"-60% 0%, 0% 0%",duration:1.2,ease:"power2.inOut",immediateRender:false},5.5);
+tl.fromTo("#h6-h0",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.35);
+tl.fromTo("#h6-h1",{opacity:0,y:50,filter:"blur(12px)"},{opacity:1,y:0,filter:"blur(0px)",duration:0.8,ease:"power3.out"},0.6);
+tl.fromTo("#h6-btn",{opacity:0,scale:0.6,y:40},{opacity:1,scale:1,y:0,duration:0.7,ease:"back.out(1.7)"},1.85);
+tl.fromTo("#h6-btn",{scale:1},{scale:1.035,duration:0.6,ease:"sine.inOut",yoyo:true,repeat:9,immediateRender:false},2.6);
+tl.fromTo("#h6-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut"},2.7);
+tl.fromTo("#h6-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut",immediateRender:false},4.2);
+tl.fromTo("#h6-shine",{x:-260},{x:1100,duration:0.9,ease:"power2.inOut",immediateRender:false},6.6);
+tl.fromTo("#h6-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.6,ease:"power3.out"},2.9);
+tl.fromTo(["#h6-c0","#h6-c1","#h6-c2"],{opacity:0,y:30},{opacity:1,y:0,duration:0.55,ease:"power3.out",stagger:0.15},3.2);
+tl.fromTo("#h6-foot",{opacity:0},{opacity:1,duration:0.8,ease:"power1.out"},3.6);
+tl.fromTo("#h6-black",{opacity:0},{opacity:1,duration:0.8,ease:"power1.in"},8.8);
 tl.set("#h6-grain-tex",{x:9,y:74},0);
 tl.set("#h6-grain-tex",{x:-17,y:-143},0.08);
 tl.set("#h6-grain-tex",{x:11,y:-35},0.17);
@@ -189,6 +188,35 @@ tl.set("#h6-grain-tex",{x:-99,y:23},6.92);
 tl.set("#h6-grain-tex",{x:33,y:54},7);
 tl.set("#h6-grain-tex",{x:-75,y:56},7.08);
 tl.set("#h6-grain-tex",{x:-83,y:123},7.17);
+tl.set("#h6-grain-tex",{x:17,y:-97},7.25);
+tl.set("#h6-grain-tex",{x:100,y:-40},7.33);
+tl.set("#h6-grain-tex",{x:61,y:0},7.42);
+tl.set("#h6-grain-tex",{x:149,y:128},7.5);
+tl.set("#h6-grain-tex",{x:-25,y:-49},7.58);
+tl.set("#h6-grain-tex",{x:-71,y:60},7.67);
+tl.set("#h6-grain-tex",{x:-144,y:-75},7.75);
+tl.set("#h6-grain-tex",{x:123,y:54},7.83);
+tl.set("#h6-grain-tex",{x:-35,y:90},7.92);
+tl.set("#h6-grain-tex",{x:-24,y:-35},8);
+tl.set("#h6-grain-tex",{x:-46,y:-32},8.08);
+tl.set("#h6-grain-tex",{x:55,y:70},8.17);
+tl.set("#h6-grain-tex",{x:2,y:-109},8.25);
+tl.set("#h6-grain-tex",{x:-59,y:-22},8.33);
+tl.set("#h6-grain-tex",{x:43,y:-38},8.42);
+tl.set("#h6-grain-tex",{x:121,y:-72},8.5);
+tl.set("#h6-grain-tex",{x:121,y:-32},8.58);
+tl.set("#h6-grain-tex",{x:82,y:128},8.67);
+tl.set("#h6-grain-tex",{x:-107,y:148},8.75);
+tl.set("#h6-grain-tex",{x:140,y:53},8.83);
+tl.set("#h6-grain-tex",{x:-68,y:-140},8.92);
+tl.set("#h6-grain-tex",{x:133,y:-43},9);
+tl.set("#h6-grain-tex",{x:-24,y:-49},9.08);
+tl.set("#h6-grain-tex",{x:25,y:107},9.17);
+tl.set("#h6-grain-tex",{x:-86,y:-136},9.25);
+tl.set("#h6-grain-tex",{x:-31,y:46},9.33);
+tl.set("#h6-grain-tex",{x:101,y:-91},9.42);
+tl.set("#h6-grain-tex",{x:73,y:-12},9.5);
+tl.set("#h6-grain-tex",{x:-142,y:-99},9.58);
 window.__timelines["06-cta"] = tl;
 })();
 </script>

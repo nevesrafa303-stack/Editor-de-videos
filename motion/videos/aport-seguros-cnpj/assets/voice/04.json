@@ -1,0 +1,121 @@
+{
+ "request": {
+  "text": "SulAmérica: atendimento na Rede D'Or e plano odontológico. A partir de mil e catorze reais e noventa e sete.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.05,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=baca694d-6c6e-4a9a-ac64-f29b2a408e5f.wav",
+  "duration": 8.202448979591837,
+  "engine": "orca",
+  "request_id": "5ba01948536c46e398b561a76be1c9fe",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 1.199047619047619,
+    "start": 0.20285714285714285,
+    "word": "SulAmérica:"
+   },
+   {
+    "end": 2.1533333333333333,
+    "start": 1.381904761904762,
+    "word": "atendimento"
+   },
+   {
+    "end": 2.275238095238095,
+    "start": 2.194285714285714,
+    "word": "na"
+   },
+   {
+    "end": 2.4787619047619045,
+    "start": 2.316190476190476,
+    "word": "Rede"
+   },
+   {
+    "end": 2.8038095238095235,
+    "start": 2.6009523809523807,
+    "word": "D'Or"
+   },
+   {
+    "end": 3.2914285714285714,
+    "start": 2.966666666666667,
+    "word": "e"
+   },
+   {
+    "end": 3.697809523809523,
+    "start": 3.3323809523809524,
+    "word": "plano"
+   },
+   {
+    "end": 4.693333333333333,
+    "start": 3.7380952380952377,
+    "word": "odontológico."
+   },
+   {
+    "end": 5.079047619047619,
+    "start": 4.835238095238095,
+    "word": "A"
+   },
+   {
+    "end": 5.444761904761904,
+    "start": 5.12,
+    "word": "partir"
+   },
+   {
+    "end": 5.566666666666666,
+    "start": 5.526666666666666,
+    "word": "de"
+   },
+   {
+    "end": 5.851428571428571,
+    "start": 5.688571428571428,
+    "word": "mil"
+   },
+   {
+    "end": 5.973333333333334,
+    "start": 5.892380952380952,
+    "word": "e"
+   },
+   {
+    "end": 6.419999999999999,
+    "start": 6.014285714285714,
+    "word": "catorze"
+   },
+   {
+    "end": 6.745428571428571,
+    "start": 6.501904761904761,
+    "word": "reais"
+   },
+   {
+    "end": 6.948571428571428,
+    "start": 6.867619047619048,
+    "word": "e"
+   },
+   {
+    "end": 7.2330476190476185,
+    "start": 6.98952380952381,
+    "word": "noventa"
+   },
+   {
+    "end": 7.35495238095238,
+    "start": 7.314285714285713,
+    "word": "e"
+   },
+   {
+    "end": 8.053333333333333,
+    "start": 7.395238095238095,
+    "word": "sete."
+   },
+   {
+    "end": 8.202448979591837,
+    "start": 8.202448979591837,
+    "word": "<end>"
+   }
+  ]
+ }
+}

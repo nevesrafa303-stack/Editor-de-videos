@@ -4,16 +4,16 @@ Trilha + sound design do filme Aport Seguros (100% sintetizado, determinístico)
 
   python tools/synth_audio.py            -> assets/audio/{bgm,sfx_*}.wav
 
-Grade: 100 BPM, 1 compasso = 2.4 s, 16 compassos = 38.4 s (duração do filme).
+Grade: 100 BPM, 1 compasso = 2.4 s, 21 compassos = 50.4 s (duração do filme).
 Cortes de cena e travas de preço caem em barra (ver STORYBOARD.md), então a
-música "respira" junto com a montagem.
+música "respira" junto com a montagem e com a locução.
 
 Progressão (Ré maior, um acorde por compasso):
-  1-4  intro   Bm  G  D  A      piano esparso + pads, sem bateria
-  5-8  verso   Bm  G  D  A      + baixo, kick 1 e 3 (batida de coração)
-  9-12 build   Bm  G  D  A      + hats, kick em todo tempo
-  13   subida  G               caixa em rufo + prato reverso
-  14-16 final  D  A  D          tutti, filtro aberto, resolve
+  1-5   intro  (hook + marca)  piano esparso + pads, sem bateria
+  6-9   Bradesco               + baixo, kick 1 e 3 (batida de coração)
+  10-13 SulAmérica             + hats, kick em todo tempo
+  14-17 Porto                  + caixa 2 e 4; compasso 17 = rufo + prato reverso
+  18-21 CTA    D  A  G  D      tutti, filtro aberto, resolve
 """
 import os
 import sys
@@ -26,8 +26,10 @@ SR = 48000
 BPM = 100
 BEAT = 60 / BPM          # 0.6 s
 BAR = 4 * BEAT           # 2.4 s
-BARS = 16
-DUR = BARS * BAR         # 38.4 s
+BARS = 21
+DUR = BARS * BAR         # 50.4 s
+# seções (índice do compasso onde cada uma começa)
+VERSE, BUILD, PEAK, ROLL, CTA = 5, 9, 13, 16, 17
 RNG = np.random.default_rng(20261016)
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'assets', 'audio')
@@ -182,7 +184,7 @@ CHORDS = {
     'D': dict(bass=38, pad=[57, 62, 66, 69], arp=[66, 69, 74, 78]),
     'A': dict(bass=33, pad=[57, 61, 64, 69], arp=[64, 69, 73, 76]),
 }
-PROG = ['Bm', 'G', 'D', 'A'] * 3 + ['G', 'D', 'A', 'D']
+PROG = ['Bm', 'G', 'D', 'A'] * 4 + ['G'] + ['D', 'A', 'G', 'D']
 
 
 def bgm():
@@ -198,7 +200,7 @@ def bgm():
         t0 = b * BAR
         last = b == BARS - 1
         # pads: filtro abre ao longo do filme
-        cutoff = 1400 if b < 4 else 2000 if b < 8 else 2800 if b < 12 else 3400 if b < 13 else 4800
+        cutoff = 1400 if b < VERSE else 2000 if b < BUILD else 2800 if b < PEAK else 3400 if b < CTA else 4800
         L = BAR + 1.6 + (2.5 if last else 0)
         for i, m in enumerate(c['pad']):
             p = saw_pad(m, L, cutoff) * env_asr(int(L * SR), 0.7, 1.4 if not last else 3.0)
@@ -212,12 +214,12 @@ def bgm():
                 break
             m = c['arp'][pattern[s % 8]] if step < BEAT else c['arp'][[0, 2, 1, 3][s]]
             vel = 0.85 if s == 0 else 0.55 + 0.1 * (s % 2 == 0)
-            if b >= 13:
+            if b >= PEAK:
                 vel += 0.1
             note = piano(m, vel, length=2.6 if not last else 4.0)
             add(keys, stereo(note, pan=0.25 * np.sin(s)), t0 + s * step)
         # celesta: uma oitava acima, nos tempos, a partir do compasso 5
-        if b >= 4 and not last:
+        if b >= VERSE and not last:
             for q in range(4):
                 m = c['arp'][[3, 1, 2, 0][q]] + 12
                 add(keys, stereo(bell(m, 0.55 if q == 0 else 0.4), pan=0.6 * (-1) ** q), t0 + q * BEAT + BEAT / 2)
@@ -225,38 +227,38 @@ def bgm():
             for m in c['pad'] + [50]:
                 add(keys, stereo(piano(m, 0.8, 4.0), pan=0.0), t0)
         # baixo a partir do compasso 5
-        if b >= 4:
+        if b >= VERSE:
             add(bass, stereo(sub_note(c['bass'], BAR + 0.1 if not last else 3.0)), t0)
         # bateria
-        if 4 <= b < 13 or 13 <= b < 15:
-            beats = [0, 2] if b < 8 else [0, 1, 2, 3]
+        if VERSE <= b < BARS - 1:
+            beats = [0, 2] if b < BUILD else [0, 1, 2, 3]
             for q in beats:
                 add(drums, stereo(kick(1.0 if q == 0 else 0.8)), t0 + q * BEAT)
-        if 8 <= b < 12 or 13 <= b < 15:
+        if BUILD <= b < BARS - 1:
             for e in range(8):
                 add(drums, stereo(hat(0.55 if e % 2 else 0.35), pan=0.3), t0 + e * BEAT / 2)
-        if b == 12:
-            # rufo de caixa em crescendo na segunda metade do compasso 13
+        if b == ROLL:
+            # rufo de caixa em crescendo na segunda metade do compasso antes do CTA
             for k in range(16):
                 at = t0 + BAR / 2 + k * BAR / 32
                 add(drums, stereo(snare(0.15 + 0.6 * k / 15), pan=-0.1), at)
-        if 13 <= b < 15:
+        if PEAK <= b < BARS - 1 and b != ROLL:
             for q in (1, 3):
                 add(drums, stereo(snare(0.55)), t0 + q * BEAT)
         if last:
             add(drums, stereo(kick(1.1)), t0)
 
-    # prato reverso entrando no CTA (31.2 s) e crash na chegada
+    # prato reverso entrando no CTA (40.8 s) e crash na chegada
     swell_t = t_axis(BAR)
     swell = hp(RNG.standard_normal(len(swell_t)), 5000, 2) * (swell_t / BAR) ** 3 * 0.35
-    add(fx, stereo(swell), 13 * BAR - BAR)
+    add(fx, stereo(swell), CTA * BAR - BAR)
     crash_t = t_axis(3.0)
     crash = hp(RNG.standard_normal(len(crash_t)), 4000, 2) * np.exp(-crash_t / 0.9) * 0.3
-    add(fx, stereo(crash), 13 * BAR)
+    add(fx, stereo(crash), CTA * BAR)
 
     # sidechain leve: pads e baixo respiram com o kick a partir do compasso 5
     duck = np.ones(n)
-    for b in range(4, 15):
+    for b in range(VERSE, BARS - 1):
         for q in range(4):
             at = b * BAR + q * BEAT
             i = int(at * SR)

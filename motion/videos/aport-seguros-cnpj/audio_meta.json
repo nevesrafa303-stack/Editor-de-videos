@@ -1,7 +1,7 @@
 {
   "bgm": {
     "path": "assets/audio/bgm.wav",
-    "volume": 0.8,
+    "volume": 0.32,
     "source": "host"
   },
   "voices": [],
@@ -19,23 +19,23 @@
       "file": "assets/audio/sfx_whoosh.wav",
       "offset_s": -0.3,
       "duration_s": 1.0,
-      "volume": 0.5,
+      "volume": 0.4,
       "source": "host"
     },
     {
       "frame": 2,
       "file": "assets/audio/sfx_shimmer.wav",
-      "offset_s": 0.6,
+      "offset_s": 0.75,
       "duration_s": 3.0,
-      "volume": 0.4,
+      "volume": 0.32,
       "source": "host"
     },
     {
       "frame": 2,
       "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 2.6,
+      "offset_s": 4.05,
       "duration_s": 0.14,
-      "volume": 0.35,
+      "volume": 0.25,
       "source": "host"
     },
     {
@@ -43,47 +43,47 @@
       "file": "assets/audio/sfx_whoosh.wav",
       "offset_s": -0.3,
       "duration_s": 1.0,
-      "volume": 0.5,
-      "source": "host"
-    },
-    {
-      "frame": 3,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 1.2,
-      "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 3,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 1.8,
-      "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 3,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 2.4,
-      "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 3,
-      "file": "assets/audio/sfx_riser.wav",
-      "offset_s": 3.2,
-      "duration_s": 1.6,
       "volume": 0.4,
       "source": "host"
     },
     {
       "frame": 3,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.76,
+      "duration_s": 0.14,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 2.82,
+      "duration_s": 0.14,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 4.0,
+      "duration_s": 0.14,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 3,
+      "file": "assets/audio/sfx_riser.wav",
+      "offset_s": 5.6,
+      "duration_s": 1.6,
+      "volume": 0.3,
+      "source": "host"
+    },
+    {
+      "frame": 3,
       "file": "assets/audio/sfx_impact.wav",
-      "offset_s": 4.8,
+      "offset_s": 7.2,
       "duration_s": 3.0,
-      "volume": 0.55,
+      "volume": 0.5,
       "source": "host"
     },
     {
@@ -91,39 +91,39 @@
       "file": "assets/audio/sfx_whoosh.wav",
       "offset_s": -0.3,
       "duration_s": 1.0,
-      "volume": 0.5,
-      "source": "host"
-    },
-    {
-      "frame": 4,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 1.2,
-      "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 4,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 1.8,
-      "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 4,
-      "file": "assets/audio/sfx_riser.wav",
-      "offset_s": 3.2,
-      "duration_s": 1.6,
       "volume": 0.4,
       "source": "host"
     },
     {
       "frame": 4,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 1.6,
+      "duration_s": 0.14,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 3.55,
+      "duration_s": 0.14,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 4,
+      "file": "assets/audio/sfx_riser.wav",
+      "offset_s": 5.6,
+      "duration_s": 1.6,
+      "volume": 0.3,
+      "source": "host"
+    },
+    {
+      "frame": 4,
       "file": "assets/audio/sfx_impact.wav",
-      "offset_s": 4.8,
+      "offset_s": 7.2,
       "duration_s": 3.0,
-      "volume": 0.55,
+      "volume": 0.5,
       "source": "host"
     },
     {
@@ -131,31 +131,15 @@
       "file": "assets/audio/sfx_whoosh.wav",
       "offset_s": -0.3,
       "duration_s": 1.0,
-      "volume": 0.5,
+      "volume": 0.4,
       "source": "host"
     },
     {
       "frame": 5,
       "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 1.0,
+      "offset_s": 1.24,
       "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 5,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 1.5,
-      "duration_s": 0.14,
-      "volume": 0.32,
-      "source": "host"
-    },
-    {
-      "frame": 5,
-      "file": "assets/audio/sfx_tick.wav",
-      "offset_s": 2.0,
-      "duration_s": 0.14,
-      "volume": 0.32,
+      "volume": 0.25,
       "source": "host"
     },
     {
@@ -163,23 +147,39 @@
       "file": "assets/audio/sfx_tick.wav",
       "offset_s": 2.5,
       "duration_s": 0.14,
-      "volume": 0.32,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 3.76,
+      "duration_s": 0.14,
+      "volume": 0.25,
+      "source": "host"
+    },
+    {
+      "frame": 5,
+      "file": "assets/audio/sfx_tick.wav",
+      "offset_s": 4.45,
+      "duration_s": 0.14,
+      "volume": 0.25,
       "source": "host"
     },
     {
       "frame": 5,
       "file": "assets/audio/sfx_riser.wav",
-      "offset_s": 3.2,
+      "offset_s": 5.6,
       "duration_s": 1.6,
-      "volume": 0.4,
+      "volume": 0.3,
       "source": "host"
     },
     {
       "frame": 5,
       "file": "assets/audio/sfx_impact.wav",
-      "offset_s": 4.8,
+      "offset_s": 7.2,
       "duration_s": 3.0,
-      "volume": 0.55,
+      "volume": 0.5,
       "source": "host"
     },
     {
@@ -187,7 +187,7 @@
       "file": "assets/audio/sfx_whoosh.wav",
       "offset_s": -0.3,
       "duration_s": 1.0,
-      "volume": 0.5,
+      "volume": 0.4,
       "source": "host"
     },
     {
@@ -201,17 +201,17 @@
     {
       "frame": 6,
       "file": "assets/audio/sfx_pop.wav",
-      "offset_s": 1.6,
+      "offset_s": 1.85,
       "duration_s": 0.5,
-      "volume": 0.5,
+      "volume": 0.45,
       "source": "host"
     },
     {
       "frame": 6,
       "file": "assets/audio/sfx_shimmer.wav",
-      "offset_s": 1.8,
+      "offset_s": 5.5,
       "duration_s": 3.0,
-      "volume": 0.4,
+      "volume": 0.32,
       "source": "host"
     }
   ]
