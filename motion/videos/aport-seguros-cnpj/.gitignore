@@ -5,3 +5,4 @@ assets/voice/*.raw.wav
 .hyperframes/render-outputs.json
 .hyperframes/video-state.json
 .hyperframes/history-id
+__pycache__/
