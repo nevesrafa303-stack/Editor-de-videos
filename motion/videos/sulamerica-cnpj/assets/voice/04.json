@@ -1,0 +1,86 @@
+{
+ "request": {
+  "text": "Três vidas a partir de mil e catorze e noventa e sete.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.1,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=3fd13c54-60b9-466b-ba54-203da2432035.wav",
+  "duration": 4.25795918367347,
+  "engine": "orca",
+  "request_id": "42becb5edb9d41baa863e305d565f154",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.5042727272727272,
+    "start": 0.2718181818181818,
+    "word": "Três"
+   },
+   {
+    "end": 0.9309090909090909,
+    "start": 0.5818181818181818,
+    "word": "vidas"
+   },
+   {
+    "end": 1.318818181818182,
+    "start": 1.1636363636363636,
+    "word": "a"
+   },
+   {
+    "end": 1.7063636363636363,
+    "start": 1.3572727272727274,
+    "word": "partir"
+   },
+   {
+    "end": 1.8227272727272725,
+    "start": 1.7845454545454547,
+    "word": "de"
+   },
+   {
+    "end": 2.0945454545454543,
+    "start": 1.900909090909091,
+    "word": "mil"
+   },
+   {
+    "end": 2.2497272727272724,
+    "start": 2.1718181818181814,
+    "word": "e"
+   },
+   {
+    "end": 2.6763636363636363,
+    "start": 2.288181818181818,
+    "word": "catorze"
+   },
+   {
+    "end": 2.909090909090909,
+    "start": 2.7927272727272725,
+    "word": "e"
+   },
+   {
+    "end": 3.297272727272727,
+    "start": 2.948181818181818,
+    "word": "noventa"
+   },
+   {
+    "end": 3.4133636363636364,
+    "start": 3.3745454545454545,
+    "word": "e"
+   },
+   {
+    "end": 4.12,
+    "start": 3.4518181818181817,
+    "word": "sete."
+   },
+   {
+    "end": 4.25795918367347,
+    "start": 4.25795918367347,
+    "word": "<end>"
+   }
+  ]
+ }
+}

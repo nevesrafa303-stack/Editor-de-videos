@@ -1,0 +1,61 @@
+{
+ "request": {
+  "text": "Está pagando caro no plano de saúde?",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.1,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=de92508f-1ae8-4caf-8d21-20e1aa529ed8.wav",
+  "duration": 3.1085714285714285,
+  "engine": "orca",
+  "request_id": "1b8506464ada468e95796bcf8896549a",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.5042727272727272,
+    "start": 0.2718181818181818,
+    "word": "Está"
+   },
+   {
+    "end": 0.8918181818181817,
+    "start": 0.5427272727272727,
+    "word": "pagando"
+   },
+   {
+    "end": 1.3963636363636363,
+    "start": 0.97,
+    "word": "caro"
+   },
+   {
+    "end": 1.784272727272727,
+    "start": 1.4736363636363636,
+    "word": "no"
+   },
+   {
+    "end": 2.0554545454545456,
+    "start": 1.8227272727272725,
+    "word": "plano"
+   },
+   {
+    "end": 2.133363636363636,
+    "start": 2.0945454545454543,
+    "word": "de"
+   },
+   {
+    "end": 2.9696145124716553,
+    "start": 2.1718181818181814,
+    "word": "saúde?"
+   },
+   {
+    "end": 3.1085714285714285,
+    "start": 3.1085714285714285,
+    "word": "<end>"
+   }
+  ]
+ }
+}

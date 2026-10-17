@@ -1,0 +1,155 @@
+<template>
+<style>
+
+
+@font-face{font-family:"Lora";font-weight:500;font-style:italic;font-display:block;src:url("assets/fonts/Lora-500-Italic.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+#s3-root{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;color:#F4F7FF;font-family:"Montserrat",Arial,sans-serif;}
+.s3-ground{position:absolute;inset:0;overflow:hidden;background:#07122B;}
+.s3-bg{position:absolute;inset:-6%;}
+.s3-ray{position:absolute;top:-30%;width:260px;height:160%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.11),transparent);filter:blur(28px);mix-blend-mode:screen;}
+.s3-bokeh{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.25) 45%,rgba(255,255,255,0) 70%);mix-blend-mode:screen;}
+.s3-stage{position:absolute;inset:0;}
+.s3-grain{position:absolute;inset:0;overflow:hidden;pointer-events:none;mix-blend-mode:overlay;opacity:0.16;}
+.s3-grain-tex{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px 256px;}
+.s3-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 85% at 50% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,0.55) 100%);}
+.s3-tint{position:absolute;inset:0;background:transparent;}
+
+.s3-bg{background:#07122B;}
+.s3-blur{position:absolute;inset:-6%;background:url('assets/img/nursing-care.png') 50% 40%/cover no-repeat;filter:blur(28px) brightness(0.45) saturate(1.2);}
+.s3-tintb{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,30,98,0.55),rgba(7,18,43,0.85));}
+.s3-card{position:absolute;left:90px;right:90px;top:240px;height:900px;border-radius:44px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.55),0 0 0 3px rgba(255,255,255,0.18);}
+.s3-img{position:absolute;inset:-4%;background:url('assets/img/nursing-care.png') 50% 30%/cover no-repeat;filter:saturate(1.08) contrast(1.05);}
+.s3-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(7,18,43,0.85) 100%);}
+.s3-chip{position:absolute;left:36px;right:36px;bottom:36px;display:flex;align-items:center;gap:22px;padding:24px 30px;border-radius:28px;background:rgba(255,255,255,0.14);border:1.5px solid rgba(255,255,255,0.3);backdrop-filter:blur(18px);}
+.s3-pin{display:flex;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:#F26522;font-size:38px;font-weight:900;color:#fff;flex:0 0 auto;}
+.s3-chip b{display:block;font-weight:800;font-size:46px;line-height:1.1;}
+.s3-chip small{display:block;font-weight:600;font-size:30px;color:rgba(244,247,255,0.8);margin-top:4px;}
+.s3-list{position:absolute;left:100px;right:80px;top:1190px;display:flex;flex-direction:column;gap:26px;}
+.s3-ben{display:flex;align-items:center;gap:26px;font-weight:800;font-size:52px;line-height:1.1;text-shadow:0 2px 14px rgba(0,0,0,0.45);}
+.s3-check{flex:0 0 auto;width:64px;height:64px;filter:drop-shadow(0 0 16px #F26522);}
+
+</style>
+<div id="s3-root" data-composition-id="03-hospital" data-start="0" data-duration="6.35" data-width="1080" data-height="1920">
+  <div class="clip s3-ground" id="s3-ground" data-start="0" data-duration="6.35" data-track-index="0">
+<div class="s3-bg" id="s3-bg" data-layout-allow-overflow></div><div class="s3-blur" id="s3-blur" data-layout-allow-overflow></div><div class="s3-tintb"></div><div class="s3-ray" id="s3-ray0" data-layout-allow-overflow style="left:-66.83px;opacity:0.41"></div><div class="s3-ray" id="s3-ray1" data-layout-allow-overflow style="left:259px;opacity:0.37"></div><div class="s3-bokeh" id="s3-bk0" style="width:78.52px;height:78.52px;left:475.29px;top:1233.52px;filter:blur(11.78px);opacity:0.11;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk1" style="width:18.65px;height:18.65px;left:391.19px;top:1747.01px;filter:blur(1.54px);opacity:0.42;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk2" style="width:26.07px;height:26.07px;left:785.99px;top:766.28px;filter:blur(2.01px);opacity:0.32;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk3" style="width:40.11px;height:40.11px;left:538.87px;top:549.21px;filter:blur(2.08px);opacity:0.48;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk4" style="width:11.37px;height:11.37px;left:780.12px;top:1013.68px;filter:blur(0.24px);opacity:0.62;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk5" style="width:26.64px;height:26.64px;left:775.84px;top:1075.57px;filter:blur(1.35px);opacity:0.57;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk6" style="width:10.21px;height:10.21px;left:592.5px;top:884.99px;filter:blur(0.33px);opacity:0.1;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div><div class="s3-bokeh" id="s3-bk7" style="width:121.58px;height:121.58px;left:156.49px;top:1561.45px;filter:blur(7.4px);opacity:0.17;background:radial-gradient(circle,rgba(255,190,150,0.9) 0%,rgba(255,190,150,0.25) 45%,rgba(255,190,150,0) 70%)"></div>
+  </div>
+  <div class="s3-stage" id="s3-stage">
+
+<div class="s3-card" id="s3-card">
+  <div class="s3-img" id="s3-img" data-layout-allow-overflow></div>
+  <div class="s3-shade"></div>
+  <div class="s3-chip" id="s3-chip"><span class="s3-pin"><svg viewBox="0 0 40 40" width="38" height="38"><path d="M15 4h10v11h11v10H25v11H15V25H4V15h11z" fill="#fff"/></svg></span><span><b>Hospital Nursing Care</b><small>Hospital de referência</small></span></div>
+</div>
+<div class="s3-list">
+<div class="s3-ben" id="s3-b0"><svg class="s3-check" viewBox="0 0 56 56"><circle cx="28" cy="28" r="26" fill="#F26522"/><path id="s3-ck0" d="M16 29 l8 8 l16 -18" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg><span>Atendimento Rede D'Or</span></div>
+<div class="s3-ben" id="s3-b1"><svg class="s3-check" viewBox="0 0 56 56"><circle cx="28" cy="28" r="26" fill="#F26522"/><path id="s3-ck1" d="M16 29 l8 8 l16 -18" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg><span>Hospitais de referência</span></div>
+<div class="s3-ben" id="s3-b2"><svg class="s3-check" viewBox="0 0 56 56"><circle cx="28" cy="28" r="26" fill="#F26522"/><path id="s3-ck2" d="M16 29 l8 8 l16 -18" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40"/></svg><span>Plano odontológico</span></div>
+</div>
+  </div>
+  <div class="s3-vignette"></div><div class="s3-grain"><div class="s3-grain-tex" id="s3-grain-tex"></div></div>
+</div>
+<script src="assets/vendor/gsap.min.js"></script>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s3-ray0",{x:0,rotation:-19.62},{x:148.57,rotation:-21.22,opacity:0.28,duration:6,ease:"sine.inOut"},0);
+tl.fromTo("#s3-ray1",{x:0,rotation:-18.47},{x:82.58,rotation:-17.62,opacity:0.22,duration:6,ease:"sine.inOut"},0);
+tl.fromTo("#s3-bk0",{x:0,y:0},{x:15.26,y:-127.06,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk1",{x:0,y:0},{x:-18.23,y:-53.68,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk2",{x:0,y:0},{x:-23.79,y:-155.29,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk3",{x:0,y:0},{x:-3.36,y:-111.03,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk4",{x:0,y:0},{x:-3.25,y:-107.3,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk5",{x:0,y:0},{x:-26.01,y:-82.76,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk6",{x:0,y:0},{x:14.7,y:-65.9,duration:6,ease:"none"},0);
+tl.fromTo("#s3-bk7",{x:0,y:0},{x:2.81,y:-467.94,duration:6,ease:"none"},0);
+tl.fromTo("#s3-blur",{scale:1.1},{scale:1.2,duration:6,ease:"none"},0);
+tl.fromTo("#s3-card",{opacity:0,scale:0.86,y:60},{opacity:1,scale:1,y:0,duration:0.6,ease:"power3.out"},0.1);
+tl.fromTo("#s3-img",{scale:1.25},{scale:1.04,duration:6,ease:"power1.out"},0.1);
+tl.fromTo("#s3-chip",{opacity:0,y:40},{opacity:1,y:0,duration:0.45,ease:"back.out(1.6)"},0.55);
+tl.fromTo("#s3-b0",{opacity:0,x:-60},{opacity:1,x:0,duration:0.35,ease:"power3.out"},1.08);
+tl.fromTo("#s3-ck0",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.22,ease:"power2.out"},1.2);
+tl.fromTo("#s3-b1",{opacity:0,x:-60},{opacity:1,x:0,duration:0.35,ease:"power3.out"},1.93);
+tl.fromTo("#s3-ck1",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.22,ease:"power2.out"},2.05);
+tl.fromTo("#s3-b2",{opacity:0,x:-60},{opacity:1,x:0,duration:0.35,ease:"power3.out"},3.48);
+tl.fromTo("#s3-ck2",{strokeDashoffset:40},{strokeDashoffset:0,duration:0.22,ease:"power2.out"},3.6);
+tl.set("#s3-grain-tex",{x:-104,y:120},0);
+tl.set("#s3-grain-tex",{x:-72,y:-44},0.08);
+tl.set("#s3-grain-tex",{x:-98,y:115},0.17);
+tl.set("#s3-grain-tex",{x:-73,y:-38},0.25);
+tl.set("#s3-grain-tex",{x:53,y:92},0.33);
+tl.set("#s3-grain-tex",{x:-146,y:19},0.42);
+tl.set("#s3-grain-tex",{x:135,y:-145},0.5);
+tl.set("#s3-grain-tex",{x:22,y:36},0.58);
+tl.set("#s3-grain-tex",{x:-63,y:24},0.67);
+tl.set("#s3-grain-tex",{x:91,y:12},0.75);
+tl.set("#s3-grain-tex",{x:12,y:58},0.83);
+tl.set("#s3-grain-tex",{x:117,y:-59},0.92);
+tl.set("#s3-grain-tex",{x:-83,y:75},1);
+tl.set("#s3-grain-tex",{x:31,y:113},1.08);
+tl.set("#s3-grain-tex",{x:-131,y:-126},1.17);
+tl.set("#s3-grain-tex",{x:127,y:61},1.25);
+tl.set("#s3-grain-tex",{x:115,y:-46},1.33);
+tl.set("#s3-grain-tex",{x:67,y:-54},1.42);
+tl.set("#s3-grain-tex",{x:67,y:-19},1.5);
+tl.set("#s3-grain-tex",{x:92,y:79},1.58);
+tl.set("#s3-grain-tex",{x:149,y:87},1.67);
+tl.set("#s3-grain-tex",{x:-104,y:-111},1.75);
+tl.set("#s3-grain-tex",{x:-95,y:-72},1.83);
+tl.set("#s3-grain-tex",{x:-98,y:108},1.92);
+tl.set("#s3-grain-tex",{x:21,y:-114},2);
+tl.set("#s3-grain-tex",{x:-70,y:-83},2.08);
+tl.set("#s3-grain-tex",{x:-79,y:109},2.17);
+tl.set("#s3-grain-tex",{x:57,y:57},2.25);
+tl.set("#s3-grain-tex",{x:73,y:-94},2.33);
+tl.set("#s3-grain-tex",{x:-117,y:87},2.42);
+tl.set("#s3-grain-tex",{x:-7,y:101},2.5);
+tl.set("#s3-grain-tex",{x:2,y:-15},2.58);
+tl.set("#s3-grain-tex",{x:145,y:-76},2.67);
+tl.set("#s3-grain-tex",{x:72,y:-23},2.75);
+tl.set("#s3-grain-tex",{x:-72,y:128},2.83);
+tl.set("#s3-grain-tex",{x:105,y:118},2.92);
+tl.set("#s3-grain-tex",{x:-73,y:70},3);
+tl.set("#s3-grain-tex",{x:-56,y:-84},3.08);
+tl.set("#s3-grain-tex",{x:93,y:90},3.17);
+tl.set("#s3-grain-tex",{x:67,y:-91},3.25);
+tl.set("#s3-grain-tex",{x:105,y:2},3.33);
+tl.set("#s3-grain-tex",{x:-123,y:132},3.42);
+tl.set("#s3-grain-tex",{x:122,y:-16},3.5);
+tl.set("#s3-grain-tex",{x:52,y:-86},3.58);
+tl.set("#s3-grain-tex",{x:-87,y:-31},3.67);
+tl.set("#s3-grain-tex",{x:-123,y:52},3.75);
+tl.set("#s3-grain-tex",{x:-97,y:-106},3.83);
+tl.set("#s3-grain-tex",{x:-109,y:-15},3.92);
+tl.set("#s3-grain-tex",{x:86,y:29},4);
+tl.set("#s3-grain-tex",{x:-10,y:-105},4.08);
+tl.set("#s3-grain-tex",{x:-122,y:7},4.17);
+tl.set("#s3-grain-tex",{x:84,y:-61},4.25);
+tl.set("#s3-grain-tex",{x:18,y:-129},4.33);
+tl.set("#s3-grain-tex",{x:65,y:124},4.42);
+tl.set("#s3-grain-tex",{x:-61,y:87},4.5);
+tl.set("#s3-grain-tex",{x:-135,y:-57},4.58);
+tl.set("#s3-grain-tex",{x:76,y:48},4.67);
+tl.set("#s3-grain-tex",{x:91,y:-48},4.75);
+tl.set("#s3-grain-tex",{x:-101,y:83},4.83);
+tl.set("#s3-grain-tex",{x:-84,y:-69},4.92);
+tl.set("#s3-grain-tex",{x:89,y:29},5);
+tl.set("#s3-grain-tex",{x:72,y:83},5.08);
+tl.set("#s3-grain-tex",{x:107,y:-87},5.17);
+tl.set("#s3-grain-tex",{x:-85,y:67},5.25);
+tl.set("#s3-grain-tex",{x:-135,y:60},5.33);
+tl.set("#s3-grain-tex",{x:10,y:-131},5.42);
+tl.set("#s3-grain-tex",{x:144,y:60},5.5);
+tl.set("#s3-grain-tex",{x:142,y:-20},5.58);
+tl.set("#s3-grain-tex",{x:-146,y:52},5.67);
+tl.set("#s3-grain-tex",{x:-6,y:-137},5.75);
+tl.set("#s3-grain-tex",{x:-95,y:-136},5.83);
+tl.set("#s3-grain-tex",{x:136,y:45},5.92);
+tl.set("#s3-grain-tex",{x:-101,y:69},6);
+window.__timelines["03-hospital"] = tl;
+})();
+</script>
+</template>

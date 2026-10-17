@@ -1,0 +1,76 @@
+{
+ "request": {
+  "text": "Atendimento na Rede D'Or, hospitais de referência e plano odontológico.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.15,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=1b7894a8-4449-4a62-9e3e-79456072075e.wav",
+  "duration": 4.780408163265306,
+  "engine": "orca",
+  "request_id": "5204e7a17d024f8590c2e4e18403430a",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.8530434782608697,
+    "start": 0.26,
+    "word": "Atendimento"
+   },
+   {
+    "end": 1.0017391304347827,
+    "start": 0.9278260869565218,
+    "word": "na"
+   },
+   {
+    "end": 1.2243478260869565,
+    "start": 1.039130434782609,
+    "word": "Rede"
+   },
+   {
+    "end": 1.687826086956522,
+    "start": 1.2982608695652176,
+    "word": "D'Or,"
+   },
+   {
+    "end": 2.3747826086956523,
+    "start": 1.8921739130434785,
+    "word": "hospitais"
+   },
+   {
+    "end": 2.485826086956522,
+    "start": 2.448695652173913,
+    "word": "de"
+   },
+   {
+    "end": 3.153913043478261,
+    "start": 2.56,
+    "word": "referência"
+   },
+   {
+    "end": 3.4130434782608696,
+    "start": 3.190434782608696,
+    "word": "e"
+   },
+   {
+    "end": 3.6730434782608703,
+    "start": 3.450434782608696,
+    "word": "plano"
+   },
+   {
+    "end": 4.647619047619048,
+    "start": 3.7104347826086963,
+    "word": "odontológico."
+   },
+   {
+    "end": 4.780408163265306,
+    "start": 4.780408163265306,
+    "word": "<end>"
+   }
+  ]
+ }
+}

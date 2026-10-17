@@ -1,0 +1,86 @@
+{
+ "request": {
+  "text": "Com o seu CNPJ, você tem SulAmérica com valores abaixo do individual.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.15,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=b07ae63a-9ecc-4129-b34c-3fdc3c99fa57.wav",
+  "duration": 5.433469387755102,
+  "engine": "orca",
+  "request_id": "69dde701d8604d1bb70685a713b04880",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.371304347826087,
+    "start": 0.26,
+    "word": "Com"
+   },
+   {
+    "end": 0.4452173913043479,
+    "start": 0.4078260869565218,
+    "word": "o"
+   },
+   {
+    "end": 0.6304347826086957,
+    "start": 0.482608695652174,
+    "word": "seu"
+   },
+   {
+    "end": 1.3913043478260871,
+    "start": 0.7052173913043479,
+    "word": "CNPJ,"
+   },
+   {
+    "end": 1.7066956521739132,
+    "start": 1.5208695652173916,
+    "word": "você"
+   },
+   {
+    "end": 1.9293043478260872,
+    "start": 1.7434782608695654,
+    "word": "tem"
+   },
+   {
+    "end": 2.893913043478261,
+    "start": 2.0408695652173914,
+    "word": "SulAmérica"
+   },
+   {
+    "end": 3.339130434782609,
+    "start": 2.967826086956522,
+    "word": "com"
+   },
+   {
+    "end": 3.6730434782608703,
+    "start": 3.4130434782608696,
+    "word": "valores"
+   },
+   {
+    "end": 4.303478260869565,
+    "start": 3.8217391304347825,
+    "word": "abaixo"
+   },
+   {
+    "end": 4.452173913043479,
+    "start": 4.378260869565218,
+    "word": "do"
+   },
+   {
+    "end": 5.283478260869566,
+    "start": 4.489565217391305,
+    "word": "individual."
+   },
+   {
+    "end": 5.433469387755102,
+    "start": 5.433469387755102,
+    "word": "<end>"
+   }
+  ]
+ }
+}
