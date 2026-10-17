@@ -1,0 +1,66 @@
+{
+ "request": {
+  "text": "Faça sua simulação gratuita, cem por cento online.",
+  "voice_id": "94ec497104a04c87904a8aa138d6e46c",
+  "speed": 1.15,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/94ec497104a04c87904a8aa138d6e46c/id=385c537a-379d-4493-aa8d-75219de72267.wav",
+  "duration": 3.709387755102041,
+  "engine": "orca",
+  "request_id": "75a1f813d2fa4d22ad1ec478d7b450c1",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.5565217391304349,
+    "start": 0.22260869565217395,
+    "word": "Faça"
+   },
+   {
+    "end": 0.7791304347826088,
+    "start": 0.6304347826086957,
+    "word": "sua"
+   },
+   {
+    "end": 1.2982608695652176,
+    "start": 0.8165217391304348,
+    "word": "simulação"
+   },
+   {
+    "end": 2.021739130434783,
+    "start": 1.3356521739130436,
+    "word": "gratuita,"
+   },
+   {
+    "end": 2.448695652173913,
+    "start": 2.2260869565217396,
+    "word": "cem"
+   },
+   {
+    "end": 2.597130434782609,
+    "start": 2.4860869565217394,
+    "word": "por"
+   },
+   {
+    "end": 2.893913043478261,
+    "start": 2.633913043478261,
+    "word": "cento"
+   },
+   {
+    "end": 3.3869565217391306,
+    "start": 3.005217391304348,
+    "word": "online."
+   },
+   {
+    "end": 3.709387755102041,
+    "start": 3.709387755102041,
+    "word": "<end>"
+   }
+  ]
+ }
+}

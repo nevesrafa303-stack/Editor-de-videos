@@ -1,0 +1,96 @@
+{
+ "request": {
+  "text": "Três vidas a partir de mil e catorze reais e noventa e sete centavos.",
+  "voice_id": "94ec497104a04c87904a8aa138d6e46c",
+  "speed": 1.25,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/94ec497104a04c87904a8aa138d6e46c/id=0d321524-742c-4508-bcfc-6573230d4b33.wav",
+  "duration": 4.2057142857142855,
+  "engine": "orca",
+  "request_id": "978607cf76b443b5814ee8515fff5584",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.4096,
+    "start": 0.2392,
+    "word": "Três"
+   },
+   {
+    "end": 0.8192,
+    "start": 0.512,
+    "word": "vidas"
+   },
+   {
+    "end": 1.092,
+    "start": 0.9896000000000001,
+    "word": "a"
+   },
+   {
+    "end": 1.3992000000000002,
+    "start": 1.1264,
+    "word": "partir"
+   },
+   {
+    "end": 1.4677600000000002,
+    "start": 1.4336000000000002,
+    "word": "de"
+   },
+   {
+    "end": 1.67256,
+    "start": 1.5704000000000002,
+    "word": "mil"
+   },
+   {
+    "end": 1.77496,
+    "start": 1.7064000000000001,
+    "word": "e"
+   },
+   {
+    "end": 2.116,
+    "start": 1.8088000000000002,
+    "word": "catorze"
+   },
+   {
+    "end": 2.4232,
+    "start": 2.1504000000000003,
+    "word": "reais"
+   },
+   {
+    "end": 2.79896,
+    "start": 2.6624,
+    "word": "e"
+   },
+   {
+    "end": 3.1064000000000003,
+    "start": 2.8328,
+    "word": "noventa"
+   },
+   {
+    "end": 3.1744000000000003,
+    "start": 3.14,
+    "word": "e"
+   },
+   {
+    "end": 3.3448,
+    "start": 3.2088,
+    "word": "sete"
+   },
+   {
+    "end": 3.9055999999999997,
+    "start": 3.4136000000000006,
+    "word": "centavos."
+   },
+   {
+    "end": 4.2057142857142855,
+    "start": 4.2057142857142855,
+    "word": "<end>"
+   }
+  ]
+ }
+}

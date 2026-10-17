@@ -1,0 +1,231 @@
+<template>
+<style>
+@font-face{font-family:"Montserrat";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+#stage{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:#0C2153;font-family:"Montserrat",Arial,sans-serif;}
+.abs{position:absolute;}
+#cam{position:absolute;inset:0;transform-origin:700px 603px;}
+#plate{position:absolute;left:0;top:-120px;width:1080px;height:1920px;}
+#totem{position:absolute;left:81px;top:-37px;width:196px;height:641px;transform-origin:50% 100%;}
+#totem img{display:block;width:100%;height:100%;}
+#shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,33,83,0) 0px,rgba(12,33,83,0) 960px,rgba(12,33,83,0.78) 1260px,#0C2153 1480px);}
+#navy{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+#block{position:absolute;left:0;top:605px;width:743px;height:521px;background:#E3602A;border-radius:0 60px 60px 0;color:#fff;}
+#title{position:absolute;left:87px;top:28px;font-weight:700;font-size:57px;line-height:68px;letter-spacing:-0.005em;white-space:nowrap;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:8px 0 10px;margin:-8px 0 -10px;}
+.wi{display:inline-block;}
+#lives{position:absolute;left:87px;top:188px;font-weight:700;font-size:38px;line-height:46px;white-space:nowrap;}
+#price{position:absolute;left:84px;top:244px;height:80px;display:flex;align-items:flex-end;white-space:nowrap;}
+#price-z{position:relative;display:flex;align-items:flex-end;transform-origin:20% 80%;}
+#cur{font-weight:700;font-size:25px;line-height:1;margin:0 10px 9px 3px;}
+#num{font-weight:800;font-size:74px;line-height:1;letter-spacing:-0.01em;font-variant-numeric:tabular-nums;}
+#ast{font-weight:800;font-size:58px;line-height:1;margin-left:2px;align-self:flex-start;margin-top:-2px;}
+#flare{position:absolute;left:-60px;top:-70px;width:520px;height:220px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,0.55),rgba(255,214,170,0.22) 55%,rgba(255,255,255,0));opacity:0;}
+#card{position:absolute;left:0;top:945px;width:691px;height:410px;background:#fff;border-radius:0 50px 50px 0;box-shadow:0 18px 48px rgba(4,12,36,0.28);}
+.item{position:absolute;left:80px;height:0;display:flex;align-items:center;}
+.ck{width:46px;height:46px;flex:none;}
+.ck svg{display:block;}
+.it-t{margin-left:22px;font-weight:700;font-size:36px;line-height:46px;color:#0C2153;white-space:nowrap;}
+#logo{position:absolute;left:715px;top:1180px;width:297px;height:75.807px;}
+#logo img{position:absolute;left:0;top:0;width:100%;height:100%;}
+#foot{position:absolute;left:715px;top:1275px;width:340px;font-weight:500;font-size:20px;line-height:26px;color:rgba(255,255,255,0.94);}
+#cta{position:absolute;left:0;top:1395px;width:1080px;height:138px;background:#E3602A;}
+#cta-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+#cta-text{font-weight:800;font-size:40px;line-height:46px;letter-spacing:-0.015em;color:#fff;white-space:nowrap;}
+#btn-pop{position:relative;}
+#ring{position:absolute;inset:0;border-radius:999px;border:3px solid rgba(255,255,255,0.9);opacity:0;}
+#btn{position:relative;height:56px;padding:0 10px 0 30px;display:flex;align-items:center;gap:16px;border-radius:999px;background:#fff;box-shadow:0 8px 22px rgba(12,33,83,0.28);}
+#btn-t{font-weight:800;font-size:27px;line-height:1;color:#0C2153;white-space:nowrap;}
+#btn-a{width:40px;height:40px;border-radius:50%;background:#E3602A;display:flex;align-items:center;justify-content:center;}
+#btn-a svg{display:block;}
+</style>
+<div id="stage" data-composition-id="anuncio" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+  <div id="cam" data-layout-allow-overflow>
+    <img id="plate" src="assets/img/plate.png" alt="" data-layout-allow-overflow />
+    <div id="totem" data-layout-allow-overflow><img src="assets/img/totem.png" alt="" /></div>
+  </div>
+  <div id="shade"></div>
+  <svg id="navy" viewBox="0 0 1080 1920" width="1080" height="1920">
+    <defs>
+      <mask id="navy-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+        <rect x="0" y="465" width="1080" height="1455" fill="#fff" />
+        <rect x="0" y="0" width="700" height="866" fill="#000" />
+        <circle id="hole" cx="679" cy="-502.879" r="2452.879" fill="#000" />
+      </mask>
+    </defs>
+    <rect x="0" y="0" width="1080" height="1920" fill="#0C2153" mask="url(#navy-mask)" />
+  </svg>
+  <div id="block">
+    <div id="title"><div class="tl-line"><span class="w"><span class="wi" id="w0">Plano</span></span> <span class="w"><span class="wi" id="w1">de</span></span> <span class="w"><span class="wi" id="w2">Saúde</span></span></div><div class="tl-line"><span class="w"><span class="wi" id="w3">para</span></span> <span class="w"><span class="wi" id="w4">CNPJ</span></span></div></div>
+    <div id="lives">3 vidas a partir de</div>
+    <div id="price"><div id="price-z"><div id="flare"></div><span id="cur">R$</span><span id="num">0,00</span><span id="ast">*</span></div></div>
+  </div>
+  <div id="card">
+        <div class="item" style="top:147px">
+          <div class="ck" id="ck0"><svg viewBox="0 0 48 48" width="46" height="46"><circle cx="24" cy="24" r="24" fill="#E3602A"/><path id="ckp0" d="M14 24.5 l7 7 l13 -14" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="34" stroke-dashoffset="34"/></svg></div>
+          <div class="it-t" id="itt0">Atendimento Rede D'Or</div>
+        </div>
+        <div class="item" style="top:239px">
+          <div class="ck" id="ck1"><svg viewBox="0 0 48 48" width="46" height="46"><circle cx="24" cy="24" r="24" fill="#E3602A"/><path id="ckp1" d="M14 24.5 l7 7 l13 -14" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="34" stroke-dashoffset="34"/></svg></div>
+          <div class="it-t" id="itt1">Plano odontológico</div>
+        </div>
+  </div>
+  <div id="logo">
+    <img id="logo-wave" src="assets/img/logo-wave.png" alt="" />
+    <img id="logo-text" src="assets/img/logo-text.png" alt="SulAmérica" />
+  </div>
+  <div id="foot">*2 adultos até 38 anos e 1 jovem até 18 anos | Os valores podem variar conforme o perfil do beneficiário.</div>
+  <div id="cta" data-layout-allow-overflow>
+    <div id="cta-in">
+      <div id="cta-text">Simulação Gratuita 100% Online</div>
+      <div id="btn-pop">
+        <div id="ring"></div>
+        <div id="btn"><span id="btn-t">Simule agora</span><span id="btn-a"><svg id="btn-arrow" viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h12M12 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#cam",{scale:1},{scale:1.03,duration:1.5,ease:"power2.out"},0);
+tl.to("#cam",{scale:1.05,duration:12.5,ease:"sine.inOut"},1.5);
+tl.fromTo("#totem",{scale:1},{scale:1.035,duration:1.5,ease:"power2.out"},0);
+tl.to("#totem",{scale:1.05,duration:12.5,ease:"sine.inOut"},1.5);
+tl.fromTo("#block",{x:-783},{x:0,duration:0.6,ease:"power3.out"},0.12);
+tl.fromTo("#w0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},0.4);
+tl.fromTo("#w1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},0.52);
+tl.fromTo("#w2",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},0.64);
+tl.fromTo("#w3",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},0.86);
+tl.fromTo("#w4",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},1);
+tl.fromTo("#hole",{attr:{cy:-502.879}},{attr:{cy:-1452.879},duration:0.6,ease:"power3.out"},1.35);
+tl.fromTo("#lives",{opacity:0,y:22},{opacity:1,y:0,duration:0.4,ease:"power3.out"},1.5);
+tl.fromTo("#foot",{opacity:0,y:10},{opacity:1,y:0,duration:0.5,ease:"power2.out"},1.65);
+tl.fromTo("#price",{opacity:0,y:18},{opacity:1,y:0,duration:0.3,ease:"power3.out"},2);
+tl.set("#num",{textContent:"0,00"},2.1);
+tl.set("#num",{textContent:"43,49"},2.133);
+tl.set("#num",{textContent:"85,72"},2.167);
+tl.set("#num",{textContent:"126,71"},2.2);
+tl.set("#num",{textContent:"166,48"},2.233);
+tl.set("#num",{textContent:"205,04"},2.267);
+tl.set("#num",{textContent:"242,42"},2.3);
+tl.set("#num",{textContent:"278,63"},2.333);
+tl.set("#num",{textContent:"313,68"},2.367);
+tl.set("#num",{textContent:"347,61"},2.4);
+tl.set("#num",{textContent:"380,43"},2.433);
+tl.set("#num",{textContent:"412,15"},2.467);
+tl.set("#num",{textContent:"442,79"},2.5);
+tl.set("#num",{textContent:"472,38"},2.533);
+tl.set("#num",{textContent:"500,93"},2.567);
+tl.set("#num",{textContent:"528,47"},2.6);
+tl.set("#num",{textContent:"555,00"},2.633);
+tl.set("#num",{textContent:"580,54"},2.667);
+tl.set("#num",{textContent:"605,13"},2.7);
+tl.set("#num",{textContent:"628,77"},2.733);
+tl.set("#num",{textContent:"651,48"},2.767);
+tl.set("#num",{textContent:"673,28"},2.8);
+tl.set("#num",{textContent:"694,20"},2.833);
+tl.set("#num",{textContent:"714,24"},2.867);
+tl.set("#num",{textContent:"733,43"},2.9);
+tl.set("#num",{textContent:"751,78"},2.933);
+tl.set("#num",{textContent:"769,32"},2.967);
+tl.set("#num",{textContent:"786,07"},3);
+tl.set("#num",{textContent:"802,03"},3.033);
+tl.set("#num",{textContent:"817,23"},3.067);
+tl.set("#num",{textContent:"831,70"},3.1);
+tl.set("#num",{textContent:"845,44"},3.133);
+tl.set("#num",{textContent:"858,47"},3.167);
+tl.set("#num",{textContent:"870,82"},3.2);
+tl.set("#num",{textContent:"882,50"},3.233);
+tl.set("#num",{textContent:"893,54"},3.267);
+tl.set("#num",{textContent:"903,94"},3.3);
+tl.set("#num",{textContent:"913,73"},3.333);
+tl.set("#num",{textContent:"922,93"},3.367);
+tl.set("#num",{textContent:"931,55"},3.4);
+tl.set("#num",{textContent:"939,62"},3.433);
+tl.set("#num",{textContent:"947,15"},3.467);
+tl.set("#num",{textContent:"954,16"},3.5);
+tl.set("#num",{textContent:"960,67"},3.533);
+tl.set("#num",{textContent:"966,69"},3.567);
+tl.set("#num",{textContent:"972,26"},3.6);
+tl.set("#num",{textContent:"977,38"},3.633);
+tl.set("#num",{textContent:"982,07"},3.667);
+tl.set("#num",{textContent:"986,36"},3.7);
+tl.set("#num",{textContent:"990,25"},3.733);
+tl.set("#num",{textContent:"993,78"},3.767);
+tl.set("#num",{textContent:"996,95"},3.8);
+tl.set("#num",{textContent:"999,79"},3.833);
+tl.set("#num",{textContent:"1.002,31"},3.867);
+tl.set("#num",{textContent:"1.004,54"},3.9);
+tl.set("#num",{textContent:"1.006,49"},3.933);
+tl.set("#num",{textContent:"1.008,18"},3.967);
+tl.set("#num",{textContent:"1.009,63"},4);
+tl.set("#num",{textContent:"1.010,86"},4.033);
+tl.set("#num",{textContent:"1.011,88"},4.067);
+tl.set("#num",{textContent:"1.012,72"},4.1);
+tl.set("#num",{textContent:"1.013,39"},4.133);
+tl.set("#num",{textContent:"1.013,91"},4.167);
+tl.set("#num",{textContent:"1.014,30"},4.2);
+tl.set("#num",{textContent:"1.014,58"},4.233);
+tl.set("#num",{textContent:"1.014,77"},4.267);
+tl.set("#num",{textContent:"1.014,89"},4.3);
+tl.set("#num",{textContent:"1.014,95"},4.333);
+tl.set("#num",{textContent:"1.014,97"},4.367);
+tl.set("#num",{textContent:"1.014,97"},4.4);
+tl.fromTo("#price-z",{scale:1},{scale:1.07,duration:0.12,ease:"power2.out"},4.4);
+tl.to("#price-z",{scale:1,duration:0.45,ease:"power2.out"},4.52);
+tl.fromTo("#flare",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.14,ease:"power2.out"},4.4);
+tl.to("#flare",{opacity:0,scale:1.25,duration:0.8,ease:"power2.out"},4.54);
+tl.fromTo("#card",{y:420},{y:0,duration:0.6,ease:"power3.out"},4.55);
+tl.fromTo("#card",{opacity:0},{opacity:1,duration:0.15,ease:"power1.out"},4.55);
+tl.fromTo("#ck0",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.42,ease:"back.out(1.7)"},5.5);
+tl.fromTo("#ckp0",{attr:{"stroke-dashoffset":34}},{attr:{"stroke-dashoffset":0},duration:0.3,ease:"power2.out"},5.6);
+tl.fromTo("#itt0",{opacity:0,x:-26},{opacity:1,x:0,duration:0.45,ease:"power3.out"},5.56);
+tl.fromTo("#ck1",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.42,ease:"back.out(1.7)"},7.05);
+tl.fromTo("#ckp1",{attr:{"stroke-dashoffset":34}},{attr:{"stroke-dashoffset":0},duration:0.3,ease:"power2.out"},7.15);
+tl.fromTo("#itt1",{opacity:0,x:-26},{opacity:1,x:0,duration:0.45,ease:"power3.out"},7.11);
+tl.to("#hole",{attr:{cy:-97.29,r:1081.228},duration:0.029,ease:"none"},8.5);
+tl.to("#hole",{attr:{cy:226.451,r:742.763},duration:0.029,ease:"none"},8.529);
+tl.to("#hole",{attr:{cy:358.038,r:597.731},duration:0.029,ease:"none"},8.558);
+tl.to("#hole",{attr:{cy:421.95,r:521.597},duration:0.029,ease:"none"},8.588);
+tl.to("#hole",{attr:{cy:455.165,r:477.321},duration:0.029,ease:"none"},8.617);
+tl.to("#hole",{attr:{cy:472.492,r:450.039},duration:0.029,ease:"none"},8.646);
+tl.to("#hole",{attr:{cy:480.972,r:432.651},duration:0.029,ease:"none"},8.675);
+tl.to("#hole",{attr:{cy:484.343,r:421.361},duration:0.029,ease:"none"},8.704);
+tl.to("#hole",{attr:{cy:484.744,r:413.971},duration:0.029,ease:"none"},8.733);
+tl.to("#hole",{attr:{cy:483.463,r:409.135},duration:0.029,ease:"none"},8.763);
+tl.to("#hole",{attr:{cy:481.303,r:405.993},duration:0.029,ease:"none"},8.792);
+tl.to("#hole",{attr:{cy:478.77,r:403.98},duration:0.029,ease:"none"},8.821);
+tl.to("#hole",{attr:{cy:476.185,r:402.717},duration:0.029,ease:"none"},8.85);
+tl.to("#hole",{attr:{cy:473.747,r:401.946},duration:0.029,ease:"none"},8.879);
+tl.to("#hole",{attr:{cy:471.573,r:401.493},duration:0.029,ease:"none"},8.908);
+tl.to("#hole",{attr:{cy:469.723,r:401.24},duration:0.029,ease:"none"},8.938);
+tl.to("#hole",{attr:{cy:468.218,r:401.106},duration:0.029,ease:"none"},8.967);
+tl.to("#hole",{attr:{cy:467.052,r:401.042},duration:0.029,ease:"none"},8.996);
+tl.to("#hole",{attr:{cy:466.198,r:401.014},duration:0.029,ease:"none"},9.025);
+tl.to("#hole",{attr:{cy:465.617,r:401.004},duration:0.029,ease:"none"},9.054);
+tl.to("#hole",{attr:{cy:465.261,r:401.001},duration:0.029,ease:"none"},9.083);
+tl.to("#hole",{attr:{cy:465.077,r:401},duration:0.029,ease:"none"},9.113);
+tl.to("#hole",{attr:{cy:465.01,r:401},duration:0.029,ease:"none"},9.142);
+tl.to("#hole",{attr:{cy:465,r:401},duration:0.029,ease:"none"},9.171);
+tl.fromTo("#logo-wave",{clipPath:"inset(0% 100% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.75,ease:"power2.inOut"},9.05);
+tl.fromTo("#logo-text",{clipPath:"inset(100% 0% 0% 0%)",y:16},{clipPath:"inset(0% 0% 0% 0%)",y:0,duration:0.6,ease:"power3.out"},9.55);
+tl.fromTo("#cta",{y:545},{y:0,duration:0.55,ease:"power3.out"},11);
+tl.fromTo("#cta-text",{opacity:0,y:18},{opacity:1,y:0,duration:0.4,ease:"power3.out"},11.2);
+tl.fromTo("#btn-pop",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.4)"},11.45);
+tl.fromTo("#btn",{scale:1},{scale:1.045,duration:0.5,ease:"sine.inOut"},11.95);
+tl.to("#btn",{scale:1,duration:0.5,ease:"sine.inOut"},12.45);
+tl.fromTo("#btn-arrow",{x:0},{x:5,duration:0.5,ease:"sine.inOut"},11.95);
+tl.to("#btn-arrow",{x:0,duration:0.5,ease:"sine.inOut"},12.45);
+tl.fromTo("#btn",{scale:1},{scale:1.045,duration:0.5,ease:"sine.inOut",immediateRender:false},12.95);
+tl.to("#btn",{scale:1,duration:0.5,ease:"sine.inOut"},13.45);
+tl.fromTo("#btn-arrow",{x:0},{x:5,duration:0.5,ease:"sine.inOut",immediateRender:false},12.95);
+tl.to("#btn-arrow",{x:0,duration:0.5,ease:"sine.inOut"},13.45);
+tl.fromTo("#ring",{opacity:0.85,scale:1},{opacity:0,scale:1.28,duration:0.7,ease:"power2.out"},12.2);
+tl.fromTo("#ring",{opacity:0.85,scale:1},{opacity:0,scale:1.28,duration:0.7,ease:"power2.out",immediateRender:false},13.2);
+window.__timelines["anuncio"] = tl;
+})();
+</script>
+</template>

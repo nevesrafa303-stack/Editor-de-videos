@@ -1,0 +1,56 @@
+{
+ "request": {
+  "text": "Atendimento Rede D'Or e plano odontológico.",
+  "voice_id": "94ec497104a04c87904a8aa138d6e46c",
+  "speed": 1.2,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/94ec497104a04c87904a8aa138d6e46c/id=24a93688-e88f-46ff-a189-4ae921224d29.wav",
+  "duration": 2.9779591836734696,
+  "engine": "orca",
+  "request_id": "9267967b2ab14f4d80a638f814236913",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.8175,
+    "start": 0.21333333333333335,
+    "word": "Atendimento"
+   },
+   {
+    "end": 1.0308333333333335,
+    "start": 0.8891666666666667,
+    "word": "Rede"
+   },
+   {
+    "end": 1.3155833333333333,
+    "start": 1.1375,
+    "word": "D'Or"
+   },
+   {
+    "end": 1.6708333333333334,
+    "start": 1.4575000000000002,
+    "word": "e"
+   },
+   {
+    "end": 1.9908333333333332,
+    "start": 1.7066666666666668,
+    "word": "plano"
+   },
+   {
+    "end": 2.7025,
+    "start": 1.9908333333333332,
+    "word": "odontológico."
+   },
+   {
+    "end": 2.9779591836734696,
+    "start": 2.9779591836734696,
+    "word": "<end>"
+   }
+  ]
+ }
+}

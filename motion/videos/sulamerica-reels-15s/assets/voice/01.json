@@ -1,0 +1,61 @@
+{
+ "request": {
+  "text": "Plano de saúde para o seu CNPJ.",
+  "voice_id": "94ec497104a04c87904a8aa138d6e46c",
+  "speed": 1.25,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/94ec497104a04c87904a8aa138d6e46c/id=fc41d452-5bfa-4b58-b91a-7d3cd2e3378d.wav",
+  "duration": 2.84734693877551,
+  "engine": "orca",
+  "request_id": "c732ed6692e54e2ca3e5be19726df3ef",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.4776,
+    "start": 0.2048,
+    "word": "Plano"
+   },
+   {
+    "end": 0.54616,
+    "start": 0.512,
+    "word": "de"
+   },
+   {
+    "end": 0.9896000000000001,
+    "start": 0.6144000000000001,
+    "word": "saúde"
+   },
+   {
+    "end": 1.3992000000000002,
+    "start": 1.1264,
+    "word": "para"
+   },
+   {
+    "end": 1.468,
+    "start": 1.4336000000000002,
+    "word": "o"
+   },
+   {
+    "end": 1.67256,
+    "start": 1.5016,
+    "word": "seu"
+   },
+   {
+    "end": 2.5404444444444447,
+    "start": 1.7752,
+    "word": "CNPJ."
+   },
+   {
+    "end": 2.84734693877551,
+    "start": 2.84734693877551,
+    "word": "<end>"
+   }
+  ]
+ }
+}
