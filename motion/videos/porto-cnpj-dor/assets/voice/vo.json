@@ -1,0 +1,366 @@
+{
+ "request": {
+  "text": "Você pode estar pagando caro no seu plano de saúde? Muita gente já descobriu: com o CNPJ, a mensalidade pode cair bastante, com a mesma qualidade. Plano de saúde Porto para CNPJ: três vidas a partir de novecentos e quarenta e dois e oitenta, com plano odontológico, seguro de vida, serviços ocupacionais e proteção antiácaro. Faça sua simulação gratuita, cem por cento online, e descubra quanto pode economizar.",
+  "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802",
+  "speed": 1.25,
+  "language": "pt"
+ },
+ "response": {
+  "audio_url": "https://resource2.heygen.ai/text_to_speech/f13169aad67246f59c13ec95e683a96c/0edbc867be6f48c5be8ff8b0fbca0802/id=a6ca0a41-7c45-44ca-9c98-8d4ea6a181a4.wav",
+  "duration": 24.47673469387755,
+  "engine": "orca",
+  "request_id": "26a1ded2cff94037a8aa1710f10673c2",
+  "word_timestamps": [
+   {
+    "end": 0.0,
+    "start": 0.0,
+    "word": "<start>"
+   },
+   {
+    "end": 0.44376,
+    "start": 0.2392,
+    "word": "Você"
+   },
+   {
+    "end": 0.64856,
+    "start": 0.4776,
+    "word": "pode"
+   },
+   {
+    "end": 0.8872,
+    "start": 0.7168000000000001,
+    "word": "estar"
+   },
+   {
+    "end": 1.1944000000000001,
+    "start": 0.9216,
+    "word": "pagando"
+   },
+   {
+    "end": 1.4677600000000002,
+    "start": 1.2632,
+    "word": "caro"
+   },
+   {
+    "end": 1.604,
+    "start": 1.536,
+    "word": "no"
+   },
+   {
+    "end": 1.7064000000000001,
+    "start": 1.6384,
+    "word": "seu"
+   },
+   {
+    "end": 1.9456,
+    "start": 1.7408000000000001,
+    "word": "plano"
+   },
+   {
+    "end": 2.048,
+    "start": 1.9800000000000002,
+    "word": "de"
+   },
+   {
+    "end": 2.5944000000000003,
+    "start": 2.0824000000000003,
+    "word": "saúde?"
+   },
+   {
+    "end": 3.10616,
+    "start": 2.8672000000000004,
+    "word": "Muita"
+   },
+   {
+    "end": 3.31096,
+    "start": 3.14,
+    "word": "gente"
+   },
+   {
+    "end": 3.4816000000000003,
+    "start": 3.3792000000000004,
+    "word": "já"
+   },
+   {
+    "end": 4.0280000000000005,
+    "start": 3.516,
+    "word": "descobriu:"
+   },
+   {
+    "end": 4.3351999999999995,
+    "start": 4.1984,
+    "word": "com"
+   },
+   {
+    "end": 4.4032,
+    "start": 4.3688,
+    "word": "o"
+   },
+   {
+    "end": 5.034400000000001,
+    "start": 4.4376,
+    "word": "CNPJ,"
+   },
+   {
+    "end": 5.188000000000001,
+    "start": 5.1544,
+    "word": "a"
+   },
+   {
+    "end": 5.734400000000001,
+    "start": 5.2224,
+    "word": "mensalidade"
+   },
+   {
+    "end": 5.9733600000000004,
+    "start": 5.8368,
+    "word": "pode"
+   },
+   {
+    "end": 6.212,
+    "start": 6.0416,
+    "word": "cair"
+   },
+   {
+    "end": 6.844,
+    "start": 6.2808,
+    "word": "bastante,"
+   },
+   {
+    "end": 7.168000000000001,
+    "start": 7.065600000000001,
+    "word": "com"
+   },
+   {
+    "end": 7.2703999999999995,
+    "start": 7.202400000000001,
+    "word": "a"
+   },
+   {
+    "end": 7.50936,
+    "start": 7.3048,
+    "word": "mesma"
+   },
+   {
+    "end": 8.180800000000001,
+    "start": 7.543200000000001,
+    "word": "qualidade."
+   },
+   {
+    "end": 8.715200000000001,
+    "start": 8.442400000000001,
+    "word": "Plano"
+   },
+   {
+    "end": 8.783199999999999,
+    "start": 8.7496,
+    "word": "de"
+   },
+   {
+    "end": 9.15896,
+    "start": 8.852,
+    "word": "saúde"
+   },
+   {
+    "end": 9.5344,
+    "start": 9.2616,
+    "word": "Porto"
+   },
+   {
+    "end": 9.7392,
+    "start": 9.602400000000001,
+    "word": "para"
+   },
+   {
+    "end": 10.6096,
+    "start": 9.807200000000002,
+    "word": "CNPJ:"
+   },
+   {
+    "end": 11.10456,
+    "start": 10.8656,
+    "word": "três"
+   },
+   {
+    "end": 11.411760000000001,
+    "start": 11.1384,
+    "word": "vidas"
+   },
+   {
+    "end": 11.51416,
+    "start": 11.4456,
+    "word": "a"
+   },
+   {
+    "end": 11.8216,
+    "start": 11.548000000000002,
+    "word": "partir"
+   },
+   {
+    "end": 11.889600000000002,
+    "start": 11.855200000000002,
+    "word": "de"
+   },
+   {
+    "end": 12.4696,
+    "start": 11.992,
+    "word": "novecentos"
+   },
+   {
+    "end": 12.538160000000001,
+    "start": 12.504000000000001,
+    "word": "e"
+   },
+   {
+    "end": 12.8456,
+    "start": 12.572000000000001,
+    "word": "quarenta"
+   },
+   {
+    "end": 12.948,
+    "start": 12.9136,
+    "word": "e"
+   },
+   {
+    "end": 13.084000000000001,
+    "start": 12.9816,
+    "word": "dois"
+   },
+   {
+    "end": 13.2208,
+    "start": 13.1528,
+    "word": "e"
+   },
+   {
+    "end": 13.749600000000001,
+    "start": 13.2552,
+    "word": "oitenta,"
+   },
+   {
+    "end": 14.040000000000001,
+    "start": 13.903200000000002,
+    "word": "com"
+   },
+   {
+    "end": 14.3128,
+    "start": 14.0744,
+    "word": "plano"
+   },
+   {
+    "end": 15.1832,
+    "start": 14.3472,
+    "word": "odontológico,"
+   },
+   {
+    "end": 15.644,
+    "start": 15.303200000000002,
+    "word": "seguro"
+   },
+   {
+    "end": 15.71256,
+    "start": 15.6784,
+    "word": "de"
+   },
+   {
+    "end": 16.2072,
+    "start": 15.7808,
+    "word": "vida,"
+   },
+   {
+    "end": 16.770400000000002,
+    "start": 16.3608,
+    "word": "serviços"
+   },
+   {
+    "end": 17.45336,
+    "start": 16.8048,
+    "word": "ocupacionais"
+   },
+   {
+    "end": 17.8968,
+    "start": 17.6584,
+    "word": "e"
+   },
+   {
+    "end": 18.374959999999998,
+    "start": 17.9312,
+    "word": "proteção"
+   },
+   {
+    "end": 19.1368,
+    "start": 18.4088,
+    "word": "antiácaro."
+   },
+   {
+    "end": 19.62608,
+    "start": 19.319200000000002,
+    "word": "Faça"
+   },
+   {
+    "end": 19.864800000000002,
+    "start": 19.6944,
+    "word": "sua"
+   },
+   {
+    "end": 20.41112,
+    "start": 19.8992,
+    "word": "simulação"
+   },
+   {
+    "end": 20.974400000000003,
+    "start": 20.4456,
+    "word": "gratuita,"
+   },
+   {
+    "end": 21.3672,
+    "start": 21.128,
+    "word": "cem"
+   },
+   {
+    "end": 21.503200000000003,
+    "start": 21.435200000000002,
+    "word": "por"
+   },
+   {
+    "end": 21.776480000000003,
+    "start": 21.5376,
+    "word": "cento"
+   },
+   {
+    "end": 22.152,
+    "start": 21.844800000000003,
+    "word": "online,"
+   },
+   {
+    "end": 22.49328,
+    "start": 22.3912,
+    "word": "e"
+   },
+   {
+    "end": 22.90288,
+    "start": 22.5272,
+    "word": "descubra"
+   },
+   {
+    "end": 23.244,
+    "start": 22.9712,
+    "word": "quanto"
+   },
+   {
+    "end": 23.51728,
+    "start": 23.3128,
+    "word": "pode"
+   },
+   {
+    "end": 24.346400000000003,
+    "start": 23.62,
+    "word": "economizar."
+   },
+   {
+    "end": 24.47673469387755,
+    "start": 24.47673469387755,
+    "word": "<end>"
+   }
+  ]
+ }
+}
