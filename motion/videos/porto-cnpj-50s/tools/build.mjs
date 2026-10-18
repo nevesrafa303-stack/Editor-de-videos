@@ -848,7 +848,10 @@ function visEnd(key) {
     add(`tl.fromTo("#s5-big",{opacity:0,y:30},{opacity:1,y:0,duration:0.45,ease:"power3.out"},${r3(t3 - 0.1)});`);
     [0, 1].forEach((i) => add(`tl.fromTo("#s5-c${i}",{opacity:0,x:-20},{opacity:1,x:0,duration:0.35,ease:"power3.out"},${r3(t3 + 0.2 + i * 0.15)});`));
   }
-  add(`tl.fromTo("#s5-foot",{opacity:0},{opacity:1,duration:0.4,ease:"power1.out"},${r3(L(at("a", 2)))});`);
+  // o cartão do preço entra em "a partir de" (antes disso o valor ainda não foi dito)
+  const pIn = L(at("a", 2)) - 0.15;
+  add(`tl.fromTo("#s5-price",{opacity:0,y:${pick(70, 50)},scale:0.96},{opacity:1,y:0,scale:1,duration:0.5,ease:"power3.out"},${r3(pIn)});`);
+  add(`tl.fromTo("#s5-foot",{opacity:0},{opacity:1,duration:0.4,ease:"power1.out"},${r3(pIn + 0.2)});`);
   {
     const t0 = L(at("novecentos"));
     const t1 = L(LOCK);
