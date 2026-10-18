@@ -1,0 +1,71 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-900.woff2") format("woff2");}
+@font-face{font-family:"League Gothic";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/LeagueGothic-400.woff2") format("woff2");}
+#s3-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;}
+.s3-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.s3-row{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.s3-disp{font-family:"League Gothic",sans-serif;font-weight:400;text-transform:uppercase;line-height:0.92;letter-spacing:0.004em;}
+.s3-tag{position:absolute;left:72px;top:252px;font-weight:600;font-size:22px;letter-spacing:0.32em;white-space:nowrap;}
+.s3-tag i{display:inline-block;width:46px;height:2px;margin:0 16px 6px 0;vertical-align:middle;background:currentColor;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.02em 0.04em;margin:-0.1em -0.02em -0.04em;}
+.wi{display:inline-block;}
+
+#s3-bg{background:#F3F5FA;opacity:0;}
+#s3-grid{background-image:linear-gradient(rgba(10,22,48,.05) 2px,transparent 2px),linear-gradient(90deg,rgba(10,22,48,.05) 2px,transparent 2px);background-size:90px 90px;}
+#s3-tag{color:rgba(10,22,48,.68);}
+.s3-t{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+#s3-A{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+#s3-B{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:50% 860px;}
+#s3-strike{position:absolute;left:0;top:0;}
+#s3-ul{position:absolute;left:180px;top:1205px;width:720px;height:16px;border-radius:8px;background:#00A1FC;transform-origin:0 50%;}
+#s3-rise{position:absolute;left:0;top:0;opacity:.18;}
+</style>
+<div id="s3-root" data-composition-id="s3" data-start="0" data-duration="5.2" data-width="1080" data-height="1920">
+  <div id="s3-bg" class="s3-full">
+    <div id="s3-grid" class="s3-full"></div>
+    <svg id="s3-rise" viewBox="0 0 1080 1920" width="1080" height="1920"><path id="s3-rise-p" d="M40 1660 L300 1500 L460 1540 L700 1160 L860 1220 L1060 740" fill="none" stroke="#00A1FC" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2400 2500" stroke-dashoffset="2400"/></svg>
+    <div id="s3-tag" class="s3-tag"><i></i>03 · DECISÃO</div>
+    <div id="s3-A">
+      <div class="s3-t s3-disp" style="top:560px;font-size:150px;color:#0A1630"><span class="w"><span class="wi" id="s3a0">Plano</span></span> <span class="w"><span class="wi" id="s3a1">de</span></span> <span class="w"><span class="wi" id="s3a2">saúde</span></span></div>
+      <div class="s3-t s3-disp" style="top:700px;font-size:150px;color:#0A1630"><span class="w"><span class="wi" id="s3b0">não</span></span> <span class="w"><span class="wi" id="s3b1">é</span></span></div>
+      <div class="s3-t s3-disp" style="top:850px;font-size:330px;color:#FF5A4E"><span class="w"><span class="wi" id="s3c0">gasto.</span></span></div>
+      <svg id="s3-strike" viewBox="0 0 1080 1920" width="1080" height="1920"><path id="s3-strike-p" d="M150 1011.8 C 380 983.8, 640 1027.8, 930 995.8" fill="none" stroke="#0A1630" stroke-width="26" stroke-linecap="round" stroke-dasharray="900 1000" stroke-dashoffset="900"/></svg>
+    </div>
+    <div id="s3-B">
+      <div class="s3-t s3-disp" style="top:570px;font-size:200px;color:#2146C3"><span class="w"><span class="wi" id="s3d0">é</span></span> <span class="w"><span class="wi" id="s3d1">decisão</span></span></div>
+      <div class="s3-t s3-disp" style="top:780px;font-size:200px;color:#0A1630"><span class="w"><span class="wi" id="s3e0">financeira</span></span></div>
+      <div class="s3-t s3-disp" style="top:990px;font-size:200px;color:#0A84D6"><span class="w"><span class="wi" id="s3f0">inteligente.</span></span></div>
+      <div id="s3-ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s3-bg",{opacity:0},{opacity:1,duration:0.14,ease:"power1.out"},0);
+tl.fromTo("#s3-tag",{opacity:0},{opacity:1,duration:0.3},0.15);
+tl.fromTo("#s3a0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.148);
+tl.fromTo("#s3a1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.474);
+tl.fromTo("#s3a2",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.604);
+tl.fromTo("#s3b0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.019);
+tl.fromTo("#s3b1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.181);
+tl.fromTo("#s3c0",{yPercent:115,opacity:0,scale:1.25},{yPercent:0,opacity:1,scale:1,duration:0.45,ease:"back.out(1.5)"},1.303);
+tl.fromTo("#s3-strike-p",{attr:{"stroke-dashoffset":900}},{attr:{"stroke-dashoffset":0},duration:0.3,ease:"power2.in"},1.743);
+tl.to("#s3-A",{y:-160,opacity:0,duration:0.38,ease:"power3.in"},1.774);
+tl.fromTo("#s3d0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.994);
+tl.fromTo("#s3d1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.156);
+tl.fromTo("#s3e0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.604);
+tl.fromTo("#s3f0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.213);
+tl.fromTo("#s3-ul",{scaleX:0},{scaleX:1,duration:0.5,ease:"power3.out"},3.643);
+tl.fromTo("#s3-rise-p",{attr:{"stroke-dashoffset":2400}},{attr:{"stroke-dashoffset":0},duration:2.0,ease:"power2.inOut"},2.074);
+tl.fromTo("#s3-B",{scale:1},{scale:1.04,duration:1.907,ease:"sine.inOut"},3.293);
+window.__timelines["s3"] = tl;
+})();
+</script>
+</template>

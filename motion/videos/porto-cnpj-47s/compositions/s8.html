@@ -1,0 +1,112 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-900.woff2") format("woff2");}
+@font-face{font-family:"League Gothic";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/LeagueGothic-400.woff2") format("woff2");}
+#s8-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;}
+.s8-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.s8-row{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.s8-disp{font-family:"League Gothic",sans-serif;font-weight:400;text-transform:uppercase;line-height:0.92;letter-spacing:0.004em;}
+.s8-tag{position:absolute;left:72px;top:252px;font-weight:600;font-size:22px;letter-spacing:0.32em;white-space:nowrap;}
+.s8-tag i{display:inline-block;width:46px;height:2px;margin:0 16px 6px 0;vertical-align:middle;background:currentColor;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.02em 0.04em;margin:-0.1em -0.02em -0.04em;}
+.wi{display:inline-block;}
+
+#s8-lav{background:#E9ECF4;clip-path:inset(100% 0% 0% 0%);}
+#s8-ph{clip-path:inset(0% 0% 100% 0%);}
+#s8-cam{transform-origin:700px 250px;}
+#s8-photo{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+#s8-block{position:absolute;left:0;top:715px;width:755px;height:470px;background:#3A90EE;border-radius:0 60px 60px 0;color:#fff;}
+#s8-title{position:absolute;left:76px;top:12px;font-weight:600;font-size:52px;line-height:64px;white-space:nowrap;}
+#s8-lives{position:absolute;left:76px;top:178px;font-weight:600;font-size:40px;line-height:50px;white-space:nowrap;}
+#s8-price{position:absolute;left:74px;top:236px;height:86px;display:flex;align-items:flex-end;white-space:nowrap;}
+#s8-cur{font-weight:600;font-size:26px;line-height:1;margin:0 10px 10px 2px;}
+#s8-num{font-weight:600;font-size:72px;line-height:1;letter-spacing:-.005em;}
+#s8-ast{font-weight:600;font-size:60px;line-height:1;margin-left:4px;align-self:flex-start;}
+#s8-card{position:absolute;left:0;top:1058px;width:691px;height:316px;background:#2146C3;border-radius:0 48px 48px 0;}
+.s8-item{position:absolute;left:84px;height:0;display:flex;align-items:center;}
+.s8-ic{width:50px;height:50px;flex:none;border-radius:50%;background:#3A90EE;display:flex;align-items:center;justify-content:center;}
+.s8-it{margin-left:22px;font-weight:500;font-size:33px;line-height:44px;color:#fff;white-space:nowrap;letter-spacing:.01em;}
+#s8-logo{position:absolute;left:727px;top:1214px;width:294px;height:67.2px;}
+#s8-foot{position:absolute;left:723px;top:1290px;width:330px;font-weight:400;font-size:20px;line-height:26px;color:#2B3140;}
+#s8-cta{position:absolute;left:0;top:1402px;width:1080px;height:134px;background:#3A90EE;}
+#s8-cta-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+#s8-cta-text{font-weight:700;font-size:42px;line-height:48px;letter-spacing:-.02em;color:#fff;white-space:nowrap;}
+#s8-btn-pop{position:relative;}
+#s8-ring{position:absolute;inset:0;border-radius:999px;border:3px solid rgba(255,255,255,.95);opacity:0;}
+#s8-btn{position:relative;height:56px;padding:0 10px 0 30px;display:flex;align-items:center;gap:14px;border-radius:999px;background:#fff;box-shadow:0 8px 22px rgba(20,40,110,.25);}
+#s8-btn-t{font-weight:700;font-size:25px;line-height:1;color:#2146C3;white-space:nowrap;}
+#s8-btn-a{width:40px;height:40px;border-radius:50%;background:#2146C3;display:flex;align-items:center;justify-content:center;}
+#s8-hand{position:absolute;left:600px;top:1480px;width:96px;height:96px;opacity:0;}
+</style>
+<div id="s8-root" data-composition-id="s8" data-start="0" data-duration="9.1" data-width="1080" data-height="1920">
+  <div id="s8-lav" class="s8-full"></div>
+  <div id="s8-ph" class="s8-full"><div id="s8-cam" class="s8-full"><img id="s8-photo" src="assets/img/plate.png" alt="Hospital Dr. Beda" /></div></div>
+  <div id="s8-block" data-layout-allow-overflow>
+    <div id="s8-title"><div><span class="w"><span class="wi" id="s8t0">Plano</span></span> <span class="w"><span class="wi" id="s8t1">de</span></span> <span class="w"><span class="wi" id="s8t2">Saúde</span></span></div><div><span class="w"><span class="wi" id="s8u0">para</span></span> <span class="w"><span class="wi" id="s8u1">CNPJ</span></span></div></div>
+    <div id="s8-lives">3 vidas a partir de</div>
+    <div id="s8-price"><span id="s8-cur">R$</span><span id="s8-num">942,80</span><span id="s8-ast">*</span></div>
+  </div>
+  <div id="s8-card"><div class="s8-item" style="top:55px"><div class="s8-ic" id="s8-ic0"><svg  viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9c-4 0-6 3-6 7 0 4 2 6 3 10 1 4 1 9 3 9s2-5 4-8c1-1 2-1 3 0 2 3 2 8 4 8s2-5 3-9c1-4 3-6 3-10 0-4-2-7-6-7-3 0-4 2-6 2s-3-2-5-2z"/></svg></div><div class="s8-it" id="s8-it0">PLANO ODONTOLÓGICO</div></div><div class="s8-item" style="top:123px"><div class="s8-ic" id="s8-ic1"><svg  viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 38S8 28 8 17c0-5 4-8 8-8 3 0 6 2 8 5 2-3 5-5 8-5 4 0 8 3 8 8 0 11-16 21-16 21z"/><path d="M11 22h7l3-5 4 9 3-4h9"/></svg></div><div class="s8-it" id="s8-it1">SEGURO DE VIDA</div></div><div class="s8-item" style="top:191px"><div class="s8-ic" id="s8-ic2"><svg  viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="15" width="34" height="23" rx="4"/><path d="M18 15v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4M7 25h34M24 23v5"/></svg></div><div class="s8-it" id="s8-it2">SERVIÇOS OCUPACIONAIS</div></div><div class="s8-item" style="top:259px"><div class="s8-ic" id="s8-ic3"><svg  viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l15 5v11c0 9-6 16-15 20C15 38 9 31 9 22V11z"/><path d="M17 23l5 5 9-10"/></svg></div><div class="s8-it" id="s8-it3">PROTEÇÃO ANTIÁCARO</div></div></div>
+  <img id="s8-logo" src="assets/img/porto-logo.svg" alt="Porto" />
+  <div id="s8-foot">*2 adultos até 38 anos e 1 jovem até 18 anos | Os valores podem variar conforme o perfil do beneficiário.</div>
+  <div id="s8-cta" data-layout-allow-overflow>
+    <div id="s8-cta-in">
+      <div id="s8-cta-text">Simulação Gratuita 100% Online</div>
+      <div id="s8-btn-pop"><div id="s8-ring"></div><div id="s8-btn"><span id="s8-btn-t">Falar com especialista</span><span id="s8-btn-a"><svg id="s8-arrow" viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h12M12 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+    </div>
+  </div>
+  <div id="s8-hand"><svg style="filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));fill:#fff"  viewBox="0 0 48 48" width="96" height="96" fill="none" stroke="#0A1630" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 26V10a3 3 0 0 1 6 0v12m0-2a3 3 0 0 1 6 0v3m0-1a3 3 0 0 1 6 0v3m0-1a3 3 0 0 1 6 0v8c0 7-5 12-12 12h-3c-4 0-6-2-8-5l-6-9a3 3 0 0 1 5-3l3 4"/></svg></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s8-lav",{clipPath:"inset(100% 0% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.36,ease:"power3.inOut"},0);
+tl.fromTo("#s8-ph",{clipPath:"inset(0% 0% 100% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.6,ease:"power3.out"},0.12);
+tl.fromTo("#s8-cam",{scale:1.06},{scale:1.0,duration:7.7,ease:"power2.out"},0.12);
+tl.fromTo("#s8-block",{x:-795},{x:0,duration:0.5,ease:"power3.out"},0.2);
+tl.fromTo("#s8t0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.36);
+tl.fromTo("#s8t1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.43);
+tl.fromTo("#s8t2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.5);
+tl.fromTo("#s8u0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.58);
+tl.fromTo("#s8u1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.65);
+tl.fromTo("#s8-lives",{opacity:0,y:16},{opacity:1,y:0,duration:0.35,ease:"power3.out"},0.7);
+tl.fromTo("#s8-price",{opacity:0,y:16},{opacity:1,y:0,duration:0.35,ease:"power3.out"},0.78);
+tl.fromTo("#s8-card",{y:300,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.85);
+tl.fromTo("#s8-ic0",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)"},1);
+tl.fromTo("#s8-it0",{opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power3.out"},1.04);
+tl.fromTo("#s8-ic1",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)"},1.09);
+tl.fromTo("#s8-it1",{opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power3.out"},1.13);
+tl.fromTo("#s8-ic2",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)"},1.18);
+tl.fromTo("#s8-it2",{opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power3.out"},1.22);
+tl.fromTo("#s8-ic3",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)"},1.27);
+tl.fromTo("#s8-it3",{opacity:0,x:-24},{opacity:1,x:0,duration:0.35,ease:"power3.out"},1.31);
+tl.fromTo("#s8-logo",{clipPath:"inset(0% 100% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.5,ease:"power3.out"},1.0);
+tl.fromTo("#s8-foot",{opacity:0},{opacity:1,duration:0.4,ease:"power1.out"},1.2);
+tl.fromTo("#s8-cta",{y:538},{y:0,duration:0.5,ease:"power3.out"},0.382);
+tl.fromTo("#s8-cta-text",{opacity:0,y:14},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.7);
+tl.fromTo("#s8-btn-pop",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.5)"},1.42);
+tl.fromTo("#s8-hand",{opacity:0,x:120,y:120},{opacity:1,x:-40,y:-30,duration:0.35,ease:"power3.out"},3.408);
+tl.to("#s8-hand",{scale:0.86,duration:0.1,ease:"power2.in"},3.858);
+tl.to("#s8-hand",{scale:1,duration:0.2,ease:"power2.out"},3.958);
+tl.to("#s8-hand",{opacity:0,x:120,y:100,duration:0.35,ease:"power2.in"},4.358);
+tl.fromTo("#s8-btn",{scale:1},{scale:0.95,duration:0.1,ease:"power2.in"},3.858);
+tl.to("#s8-btn",{scale:1,duration:0.25,ease:"back.out(2)"},3.958);
+tl.fromTo("#s8-ring",{opacity:0.9,scale:1},{opacity:0,scale:1.3,duration:0.7,ease:"power2.out"},3.908);
+tl.fromTo("#s8-ring",{opacity:0.9,scale:1},{opacity:0,scale:1.3,duration:0.7,ease:"power2.out",immediateRender:false},4.966);
+tl.fromTo("#s8-btn",{scale:1},{scale:1.05,duration:0.5,ease:"sine.inOut",immediateRender:false},5.11);
+tl.to("#s8-btn",{scale:1,duration:0.5,ease:"sine.inOut"},5.61);
+tl.fromTo("#s8-arrow",{x:0},{x:5,duration:0.5,ease:"sine.inOut"},5.11);
+tl.to("#s8-arrow",{x:0,duration:0.5,ease:"sine.inOut"},5.61);
+tl.fromTo("#s8-btn",{scale:1},{scale:1.05,duration:0.5,ease:"sine.inOut",immediateRender:false},6.11);
+tl.to("#s8-btn",{scale:1,duration:0.5,ease:"sine.inOut"},6.61);
+tl.fromTo("#s8-arrow",{x:0},{x:5,duration:0.5,ease:"sine.inOut",immediateRender:false},6.11);
+tl.to("#s8-arrow",{x:0,duration:0.5,ease:"sine.inOut"},6.61);
+window.__timelines["s8"] = tl;
+})();
+</script>
+</template>

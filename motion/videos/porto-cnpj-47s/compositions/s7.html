@@ -1,0 +1,109 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-900.woff2") format("woff2");}
+@font-face{font-family:"League Gothic";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/LeagueGothic-400.woff2") format("woff2");}
+#s7-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;}
+.s7-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.s7-row{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.s7-disp{font-family:"League Gothic",sans-serif;font-weight:400;text-transform:uppercase;line-height:0.92;letter-spacing:0.004em;}
+.s7-tag{position:absolute;left:72px;top:252px;font-weight:600;font-size:22px;letter-spacing:0.32em;white-space:nowrap;}
+.s7-tag i{display:inline-block;width:46px;height:2px;margin:0 16px 6px 0;vertical-align:middle;background:currentColor;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.02em 0.04em;margin:-0.1em -0.02em -0.04em;}
+.wi{display:inline-block;}
+
+#s7-bg{clip-path:inset(0% 0% 0% 100%);background:#0A1630;}
+#s7-ph{background:url("assets/img/ai-consult.png") 50% 42%/cover no-repeat;transform-origin:50% 45%;}
+#s7-top{background:linear-gradient(180deg,rgba(6,14,36,.88) 0%,rgba(6,14,36,.55) 24%,rgba(6,14,36,0) 40%);}
+#s7-bot{background:linear-gradient(180deg,rgba(6,14,36,0) 46%,rgba(6,14,36,.75) 58%,rgba(6,14,36,.92) 100%);}
+#s7-tag{color:rgba(255,255,255,.6);}
+.s7-t{position:absolute;left:0px;width:1080px;text-align:center;font-size:112px;line-height:112px;white-space:nowrap;text-shadow:0 8px 26px rgba(0,0,0,.4);}
+#s7-card{position:absolute;left:72px;top:1060px;width:936px;height:440px;border-radius:32px;background:rgba(8,18,44,.86);border:1.5px solid rgba(255,255,255,.14);box-shadow:0 30px 80px rgba(0,0,0,.45);}
+#s7-hd{position:absolute;left:40px;top:32px;font-weight:700;font-size:21px;letter-spacing:.24em;color:#8CCBFF;}
+#s7-live{position:absolute;right:40px;top:34px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:.2em;color:rgba(255,255,255,.6);}
+#s7-dot{width:12px;height:12px;border-radius:50%;background:#2BD4A4;}
+.s7-rw{position:absolute;left:40px;width:856px;}
+.s7-lb{font-weight:600;font-size:24px;color:rgba(255,255,255,.88);}
+.s7-vl{position:absolute;right:0;top:0;font-weight:700;font-size:26px;color:#fff;font-variant-numeric:tabular-nums;}
+.s7-tr{position:relative;margin-top:12px;height:22px;border-radius:11px;background:rgba(255,255,255,.1);overflow:hidden;}
+.s7-fl{position:absolute;left:0;top:0;height:100%;border-radius:11px;transform-origin:0 50%;}
+#s7-eco{position:absolute;left:40px;top:300px;width:856px;height:96px;border-radius:48px;background:#2BD4A4;display:flex;align-items:center;justify-content:space-between;padding:0 34px;overflow:hidden;}
+#s7-eco b{font-weight:700;font-size:22px;letter-spacing:.2em;color:#0A1630;}
+#s7-eco span{font-weight:800;font-size:28px;color:#0A1630;white-space:nowrap;}
+#s7-eshine{position:absolute;left:-200px;top:0;width:140px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));}
+</style>
+<div id="s7-root" data-composition-id="s7" data-start="0" data-duration="6.15" data-width="1080" data-height="1920">
+  <div id="s7-bg" class="s7-full">
+    <div id="s7-ph" class="s7-full"></div>
+    <div id="s7-top" class="s7-full"></div>
+    <div id="s7-bot" class="s7-full"></div>
+    <div id="s7-tag" class="s7-tag"><i></i>07 · COMPARATIVO</div>
+    <div class="s7-t s7-disp" style="top:300px;color:#fff"><span class="w"><span class="wi" id="s7a0">A</span></span> <span class="w"><span class="wi" id="s7a1">gente</span></span> <span class="w"><span class="wi" id="s7a2">compara</span></span></div>
+    <div class="s7-t s7-disp" style="top:412px;color:#FFC2BC"><span class="w"><span class="wi" id="s7b0">seu</span></span> <span class="w"><span class="wi" id="s7b1">plano</span></span> <span class="w"><span class="wi" id="s7b2">atual</span></span></div>
+    <div class="s7-t s7-disp" style="top:524px;color:#8CCBFF"><span class="w"><span class="wi" id="s7c0">com</span></span> <span class="w"><span class="wi" id="s7c1">o</span></span> <span class="w"><span class="wi" id="s7c2">mercado</span></span></div>
+    <div id="s7-card">
+      <div id="s7-hd">ANÁLISE COMPARATIVA</div>
+      <div id="s7-live"><div id="s7-dot"></div>COM NÚMEROS</div>
+      <div class="s7-rw" style="top:96px"><div class="s7-lb">Seu plano atual</div><div class="s7-vl" id="s7-v0">R$ ●●●,●●</div><div class="s7-tr"><div class="s7-fl" id="s7-f0" style="width:92%;background:linear-gradient(90deg,#FF8A65,#FF5A4E)"></div></div></div>
+      <div class="s7-rw" style="top:190px"><div class="s7-lb">Plano para CNPJ</div><div class="s7-vl" id="s7-v1">R$ ●●●,●●</div><div class="s7-tr"><div class="s7-fl" id="s7-f1" style="width:58%;background:linear-gradient(90deg,#8CCBFF,#00A1FC)"></div></div></div>
+      <div id="s7-eco"><b>SUA ECONOMIA</b><span>Descubra na simulação</span><div id="s7-eshine"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s7-bg",{clipPath:"inset(0% 0% 0% 100%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.4,ease:"power3.inOut"},0);
+tl.fromTo("#s7-ph",{scale:1.0},{scale:1.08,duration:6.15,ease:"sine.inOut"},0);
+tl.fromTo("#s7-tag",{opacity:0},{opacity:1,duration:0.3},0.3);
+tl.fromTo("#s7a0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.1);
+tl.fromTo("#s7a1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.304);
+tl.fromTo("#s7a2",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.507);
+tl.fromTo("#s7b0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.036);
+tl.fromTo("#s7b1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.157);
+tl.fromTo("#s7b2",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.441);
+tl.fromTo("#s7c0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.735);
+tl.fromTo("#s7c1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.898);
+tl.fromTo("#s7c2",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.979);
+tl.fromTo("#s7-card",{opacity:0,y:60},{opacity:1,y:0,duration:0.5,ease:"power3.out"},0.916);
+tl.fromTo("#s7-f0",{scaleX:0},{scaleX:1,duration:0.8,ease:"power2.out"},1.421);
+tl.fromTo("#s7-f1",{scaleX:0},{scaleX:1,duration:0.8,ease:"power2.out"},2.009);
+tl.fromTo("#s7-dot",{opacity:1},{opacity:0.25,duration:0.5,ease:"sine.inOut",repeat:9,yoyo:true},1.316);
+tl.set("#s7-v0",{textContent:"R$ 1.855,68"},3.219);
+tl.set("#s7-v1",{textContent:"R$ 1.635,19"},3.219);
+tl.set("#s7-v0",{textContent:"R$ 2.444,05"},3.286);
+tl.set("#s7-v1",{textContent:"R$ 1.568,36"},3.286);
+tl.set("#s7-v0",{textContent:"R$ 2.962,64"},3.352);
+tl.set("#s7-v1",{textContent:"R$ 1.409,38"},3.352);
+tl.set("#s7-v0",{textContent:"R$ 1.244,85"},3.419);
+tl.set("#s7-v1",{textContent:"R$ 1.379,93"},3.419);
+tl.set("#s7-v0",{textContent:"R$ 2.879,29"},3.486);
+tl.set("#s7-v1",{textContent:"R$ 1.336,39"},3.486);
+tl.set("#s7-v0",{textContent:"R$ 2.328,68"},3.552);
+tl.set("#s7-v1",{textContent:"R$ 762,01"},3.552);
+tl.set("#s7-v0",{textContent:"R$ 2.741,18"},3.619);
+tl.set("#s7-v1",{textContent:"R$ 1.685,50"},3.619);
+tl.set("#s7-v0",{textContent:"R$ 2.298,46"},3.686);
+tl.set("#s7-v1",{textContent:"R$ 1.786,15"},3.686);
+tl.set("#s7-v0",{textContent:"R$ 2.126,02"},3.752);
+tl.set("#s7-v1",{textContent:"R$ 843,44"},3.752);
+tl.set("#s7-v0",{textContent:"R$ 2.837,12"},3.819);
+tl.set("#s7-v1",{textContent:"R$ 1.192,80"},3.819);
+tl.set("#s7-v0",{textContent:"R$ 1.237,22"},3.886);
+tl.set("#s7-v1",{textContent:"R$ 1.818,17"},3.886);
+tl.set("#s7-v0",{textContent:"R$ 1.761,06"},3.952);
+tl.set("#s7-v1",{textContent:"R$ 1.077,44"},3.952);
+tl.set("#s7-v0",{textContent:"R$ 2.267,28"},4.019);
+tl.set("#s7-v1",{textContent:"R$ 631,66"},4.019);
+tl.set("#s7-v0",{textContent:"R$ ?"},4.119);
+tl.set("#s7-v1",{textContent:"R$ ?"},4.119);
+tl.fromTo("#s7-eco",{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.6)"},4.639);
+tl.fromTo("#s7-eshine",{x:0},{x:1136,duration:0.8,ease:"power2.inOut"},4.989);
+window.__timelines["s7"] = tl;
+})();
+</script>
+</template>

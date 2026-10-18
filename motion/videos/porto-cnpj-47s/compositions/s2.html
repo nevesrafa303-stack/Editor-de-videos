@@ -1,0 +1,91 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-900.woff2") format("woff2");}
+@font-face{font-family:"League Gothic";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/LeagueGothic-400.woff2") format("woff2");}
+#s2-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;}
+.s2-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.s2-row{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.s2-disp{font-family:"League Gothic",sans-serif;font-weight:400;text-transform:uppercase;line-height:0.92;letter-spacing:0.004em;}
+.s2-tag{position:absolute;left:72px;top:252px;font-weight:600;font-size:22px;letter-spacing:0.32em;white-space:nowrap;}
+.s2-tag i{display:inline-block;width:46px;height:2px;margin:0 16px 6px 0;vertical-align:middle;background:currentColor;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.02em 0.04em;margin:-0.1em -0.02em -0.04em;}
+.wi{display:inline-block;}
+
+#s2-bg{background:radial-gradient(90% 55% at 50% 30%,#18306E 0%,#0A1630 62%);clip-path:inset(100% 0% 0% 0%);}
+#s2-tag{color:#8FA5D9;}
+#s2-grid{position:absolute;left:96px;top:330px;width:888px;height:822px;transform-origin:50% 50%;}
+.s2-rc{position:absolute;width:276px;height:186px;border-radius:18px;background:#fff;box-shadow:0 18px 40px rgba(0,0,0,.35);overflow:hidden;}
+.s2-lb{position:absolute;left:18px;top:16px;font-weight:600;font-size:14px;letter-spacing:.18em;color:#7A8499;}
+.s2-mo{position:absolute;left:16px;top:36px;font-size:66px;color:#0A1630;}
+.s2-am{position:absolute;left:18px;top:118px;font-weight:600;font-size:20px;color:#9AA3B5;}
+.s2-bc{position:absolute;right:18px;bottom:18px;width:108px;height:26px;background:repeating-linear-gradient(90deg,#0A1630 0 2px,transparent 2px 5px,#0A1630 5px 6px,transparent 6px 9px);opacity:.55;}
+.s2-sw{position:absolute;right:14px;top:22px;transform:rotate(-14deg);}
+.s2-st{padding:2px 12px 0;border:4px solid #FF5A4E;border-radius:8px;color:#FF5A4E;font-size:44px;opacity:0;}
+#s2-dim{background:rgba(10,22,48,.62);opacity:0;}
+#s2-x12{position:absolute;left:0;width:1080px;top:450px;text-align:center;font-size:460px;line-height:1;color:#fff;text-shadow:0 20px 60px rgba(0,0,0,.5);opacity:0;}
+#s2-x12 b{font-weight:400;color:#FF5A4E;}
+#s2-scan{position:absolute;left:76px;top:330px;width:928px;height:4px;background:#FF5A4E;box-shadow:0 0 24px 6px rgba(255,90,78,.55);opacity:0;}
+.s2-q{position:absolute;left:0;width:1080px;text-align:center;color:#fff;white-space:nowrap;}
+</style>
+<div id="s2-root" data-composition-id="s2" data-start="0" data-duration="4.45" data-width="1080" data-height="1920">
+  <div id="s2-bg" class="s2-full">
+    <div id="s2-tag" class="s2-tag"><i></i>02 · VEZES DOZE</div>
+    <div id="s2-grid"><div class="s2-rc" id="s2-rc0" style="left:0px;top:0px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">JAN</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st0">PAGO</div></div></div><div class="s2-rc" id="s2-rc1" style="left:306px;top:0px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">FEV</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st1">PAGO</div></div></div><div class="s2-rc" id="s2-rc2" style="left:612px;top:0px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">MAR</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st2">PAGO</div></div></div><div class="s2-rc" id="s2-rc3" style="left:0px;top:212px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">ABR</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st3">PAGO</div></div></div><div class="s2-rc" id="s2-rc4" style="left:306px;top:212px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">MAI</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st4">PAGO</div></div></div><div class="s2-rc" id="s2-rc5" style="left:612px;top:212px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">JUN</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st5">PAGO</div></div></div><div class="s2-rc" id="s2-rc6" style="left:0px;top:424px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">JUL</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st6">PAGO</div></div></div><div class="s2-rc" id="s2-rc7" style="left:306px;top:424px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">AGO</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st7">PAGO</div></div></div><div class="s2-rc" id="s2-rc8" style="left:612px;top:424px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">SET</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st8">PAGO</div></div></div><div class="s2-rc" id="s2-rc9" style="left:0px;top:636px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">OUT</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st9">PAGO</div></div></div><div class="s2-rc" id="s2-rc10" style="left:306px;top:636px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">NOV</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st10">PAGO</div></div></div><div class="s2-rc" id="s2-rc11" style="left:612px;top:636px"><div class="s2-lb">MENSALIDADE</div><div class="s2-mo s2-disp">DEZ</div><div class="s2-am">R$ ●●●,●●</div><div class="s2-bc"></div><div class="s2-sw"><div class="s2-st s2-disp" id="s2-st11">PAGO</div></div></div></div>
+    <div id="s2-scan"></div>
+    <div id="s2-dim" class="s2-full"></div>
+    <div id="s2-x12" class="s2-disp"><b>×</b>12</div>
+    <div class="s2-q s2-disp" style="top:1200px;font-size:104px;line-height:104px"><span class="w"><span class="wi" id="s2a0">Você</span></span> <span class="w"><span class="wi" id="s2a1">sabe</span></span> <span class="w"><span class="wi" id="s2a2">se</span></span> <span class="w"><span class="wi" id="s2a3">esse</span></span> <span class="w"><span class="wi" id="s2a4">valor</span></span></div>
+    <div class="s2-q s2-disp" style="top:1300px;font-size:190px;line-height:190px"><span class="w"><span class="wi" id="s2b0">é</span></span> <span class="w"><span class="wi" id="s2b1" style="color:#FF5A4E">justo?</span></span></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s2-bg",{clipPath:"inset(100% 0% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.34,ease:"power3.inOut"},0);
+tl.fromTo("#s2-tag",{opacity:0},{opacity:1,duration:0.3},0.25);
+tl.fromTo("#s2-rc0",{y:320,opacity:0,rotation:7},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.38);
+tl.fromTo("#s2-st0",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.091);
+tl.fromTo("#s2-rc1",{y:320,opacity:0,rotation:-2},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.43);
+tl.fromTo("#s2-st1",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.113);
+tl.fromTo("#s2-rc2",{y:320,opacity:0,rotation:3},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.48);
+tl.fromTo("#s2-st2",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.135);
+tl.fromTo("#s2-rc3",{y:320,opacity:0,rotation:3},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.53);
+tl.fromTo("#s2-st3",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.157);
+tl.fromTo("#s2-rc4",{y:320,opacity:0,rotation:10},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.58);
+tl.fromTo("#s2-st4",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.179);
+tl.fromTo("#s2-rc5",{y:320,opacity:0,rotation:-10},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.63);
+tl.fromTo("#s2-st5",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.201);
+tl.fromTo("#s2-rc6",{y:320,opacity:0,rotation:2},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.68);
+tl.fromTo("#s2-st6",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.223);
+tl.fromTo("#s2-rc7",{y:320,opacity:0,rotation:2},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.73);
+tl.fromTo("#s2-st7",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.245);
+tl.fromTo("#s2-rc8",{y:320,opacity:0,rotation:-2},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.78);
+tl.fromTo("#s2-st8",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.267);
+tl.fromTo("#s2-rc9",{y:320,opacity:0,rotation:-9},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.83);
+tl.fromTo("#s2-st9",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.289);
+tl.fromTo("#s2-rc10",{y:320,opacity:0,rotation:-5},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.88);
+tl.fromTo("#s2-st10",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.311);
+tl.fromTo("#s2-rc11",{y:320,opacity:0,rotation:0},{y:0,opacity:1,rotation:0,duration:0.45,ease:"power3.out"},0.93);
+tl.fromTo("#s2-st11",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power2.in"},1.333);
+tl.fromTo("#s2-dim",{opacity:0},{opacity:1,duration:0.25,ease:"power1.out"},1.161);
+tl.fromTo("#s2-x12",{scale:2.3,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.in"},1.011);
+tl.to("#s2-x12",{opacity:0.16,scale:0.92,duration:0.4,ease:"power2.out"},1.749);
+tl.fromTo("#s2-scan",{y:0,opacity:0},{y:822,opacity:1,duration:1.3,ease:"sine.inOut"},1.899);
+tl.to("#s2-scan",{opacity:0,duration:0.2},3.199);
+tl.fromTo("#s2a0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},1.819);
+tl.fromTo("#s2a1",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},2.143);
+tl.fromTo("#s2a2",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},2.468);
+tl.fromTo("#s2a3",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},2.59);
+tl.fromTo("#s2a4",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},2.753);
+tl.fromTo("#s2b0",{yPercent:115,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},3.038);
+tl.fromTo("#s2b1",{yPercent:115,opacity:0,scale:1.25},{yPercent:0,opacity:1,scale:1,duration:0.42,ease:"back.out(1.6)"},3.16);
+tl.to("#s2-grid",{scale:0.25,opacity:0,duration:0.32,ease:"power3.in"},4.03);
+window.__timelines["s2"] = tl;
+})();
+</script>
+</template>

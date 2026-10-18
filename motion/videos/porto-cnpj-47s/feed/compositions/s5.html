@@ -1,0 +1,152 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-900.woff2") format("woff2");}
+@font-face{font-family:"League Gothic";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/LeagueGothic-400.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.s5-row{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.s5-disp{font-family:"League Gothic",sans-serif;font-weight:400;text-transform:uppercase;line-height:0.92;letter-spacing:0.004em;}
+.s5-tag{position:absolute;left:60px;top:40px;font-weight:600;font-size:18px;letter-spacing:0.32em;white-space:nowrap;}
+.s5-tag i{display:inline-block;width:46px;height:2px;margin:0 16px 6px 0;vertical-align:middle;background:currentColor;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.02em 0.04em;margin:-0.1em -0.02em -0.04em;}
+.wi{display:inline-block;}
+
+#s5-bg{background:#E9ECF4;opacity:0;}
+#s5-c1{position:absolute;left:520px;top:380px;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(58,144,238,.22),rgba(58,144,238,0));}
+#s5-c2{position:absolute;left:-300px;top:-120px;width:600px;height:600px;border-radius:50%;border:2px solid rgba(33,70,195,.14);}
+#s5-tag{color:rgba(10,22,48,.68);left:auto;right:60px;}
+#s5-logo{position:absolute;left:60px;top:52px;width:240px;height:54.857px;}
+#s5-pill{position:absolute;left:60px;top:122px;}
+#s5-pill span{display:block;height:48px;line-height:48px;padding:0 26.400000000000002px;border-radius:24px;background:#2146C3;color:#fff;font-weight:700;font-size:19px;letter-spacing:.08em;white-space:nowrap;}
+#s5-three{position:absolute;left:520px;width:560px;top:180px;text-align:center;font-size:640px;line-height:1;color:#2146C3;opacity:0;}
+#s5-fam{position:absolute;left:540px;top:250px;width:502px;height:900px;}
+#s5-fam img{display:block;width:100%;height:100%;}
+.s5-lab{position:absolute;padding:8px 14px;border-radius:14px;background:#fff;box-shadow:0 12px 30px rgba(10,22,48,.18);text-align:center;white-space:nowrap;}
+.s5-lab b{display:block;font-weight:700;font-size:18px;letter-spacing:.12em;color:#0A1630;}
+.s5-lab span{display:block;font-weight:500;font-size:15px;color:#55607A;}
+#s5-leads{position:absolute;left:0;top:0;}
+#s5-price{position:absolute;left:60px;top:470px;width:470px;height:142px;border-radius:28px;background:#2146C3;color:#fff;box-shadow:0 26px 60px rgba(20,40,120,.3);}
+#s5-p3{position:absolute;left:34px;top:22px;font-size:54px;line-height:1;}
+#s5-pf{position:absolute;left:36px;top:30px;font-weight:600;font-size:18px;letter-spacing:.14em;color:rgba(255,255,255,.78);}
+#s5-pv{position:absolute;right:34px;left:34px;top:60px;display:flex;align-items:flex-end;white-space:nowrap;}
+#s5-pz{position:relative;display:flex;align-items:flex-end;transform-origin:80% 80%;}
+#s5-cur{font-weight:600;font-size:26px;line-height:1;margin:0 10px 12px 0;}
+#s5-num{font-weight:700;font-size:64px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+#s5-ast{font-weight:700;font-size:44px;line-height:1;align-self:flex-start;margin-left:4px;}
+#s5-flare{position:absolute;left:-60px;top:-60px;width:420px;height:200px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.6),rgba(255,255,255,0));opacity:0;}
+#s5-foot{position:absolute;left:60px;top:632px;width:470px;text-align:left;font-weight:400;font-size:17px;line-height:22px;color:#3B4150;}
+#s5-big{position:absolute;left:60px;top:196px;font-size:150px;line-height:1;color:#0A1630;}
+.s5-chip{position:absolute;left:60px;height:40px;line-height:40px;padding:0 18px;border-radius:20px;background:#fff;color:#0A1630;font-weight:600;font-size:17px;box-shadow:0 8px 20px rgba(10,22,48,.12);white-space:nowrap;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="7.15" data-width="1080" data-height="1080">
+  <div id="s5-bg" class="s5-full">
+    <div id="s5-c1"></div><div id="s5-c2" data-layout-allow-overflow></div>
+    <div id="s5-tag" class="s5-tag"><i></i>05 · A SOLUÇÃO</div>
+    <div id="s5-three" class="s5-disp" aria-hidden="true" data-layout-allow-occlusion>3</div>
+    <div id="s5-fam"><img src="assets/img/ai-family-cutout.png" alt="" /></div>
+    <svg id="s5-leads" viewBox="0 0 1080 1080" width="1080" height="1080"></svg>
+    <div id="s5-big" class="s5-disp">3 vidas</div><div class="s5-chip" id="s5-lab0" style="top:356px">2 adultos até 38 anos</div><div class="s5-chip" id="s5-lab1" style="top:404px">1 jovem até 18 anos</div>
+    <img id="s5-logo" src="assets/img/porto-logo.svg" alt="Porto" />
+    <div id="s5-pill"><span>PLANO DE SAÚDE PARA CNPJ</span></div>
+    <div id="s5-price"><div id="s5-pf">A PARTIR DE</div><div id="s5-pv"><div id="s5-pz"><div id="s5-flare"></div><span id="s5-cur">R$</span><span id="s5-num">0,00</span><span id="s5-ast">*</span></div></div></div>
+    <div id="s5-foot">*2 adultos até 38 anos e 1 jovem até 18 anos | Os valores podem variar conforme o perfil do beneficiário.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5-bg",{opacity:0},{opacity:1,duration:0.2,ease:"power1.out"},0);
+tl.fromTo("#s5-tag",{opacity:0},{opacity:1,duration:0.3},0.2);
+tl.fromTo("#s5-c2",{rotation:0},{rotation:40,duration:7.15,ease:"none"},0);
+tl.fromTo("#s5-logo",{clipPath:"inset(0% 100% 0% 0%)",scale:0.92},{clipPath:"inset(0% 0% 0% 0%)",scale:1,duration:0.55,ease:"power3.out"},0.305);
+tl.fromTo("#s5-pill",{opacity:0,y:16,scale:0.9},{opacity:1,y:0,scale:1,duration:0.4,ease:"back.out(1.6)"},1.065);
+tl.fromTo("#s5-three",{opacity:0,scale:0.8},{opacity:0.1,scale:1,duration:0.7,ease:"power3.out"},2.283);
+tl.fromTo("#s5-fam",{y:120,opacity:0},{y:0,opacity:1,duration:0.75,ease:"power3.out"},0.775);
+tl.fromTo("#s5-fam img",{scale:1},{scale:1.03,duration:5.625,ease:"sine.inOut"},1.525);
+tl.fromTo("#s5-big",{opacity:0,y:30},{opacity:1,y:0,duration:0.45,ease:"power3.out"},2.821);
+tl.fromTo("#s5-lab0",{opacity:0,x:-20},{opacity:1,x:0,duration:0.35,ease:"power3.out"},3.071);
+tl.fromTo("#s5-lab1",{opacity:0,x:-20},{opacity:1,x:0,duration:0.35,ease:"power3.out"},3.221);
+tl.fromTo("#s5-price",{opacity:0,y:50},{opacity:1,y:0,duration:0.45,ease:"power3.out"},3.662);
+tl.fromTo("#s5-foot",{opacity:0},{opacity:1,duration:0.4,ease:"power1.out"},3.912);
+tl.set("#s5-num",{textContent:"0,00"},4.413);
+tl.set("#s5-num",{textContent:"40,99"},4.446);
+tl.set("#s5-num",{textContent:"80,77"},4.48);
+tl.set("#s5-num",{textContent:"119,36"},4.513);
+tl.set("#s5-num",{textContent:"156,78"},4.547);
+tl.set("#s5-num",{textContent:"193,05"},4.58);
+tl.set("#s5-num",{textContent:"228,19"},4.614);
+tl.set("#s5-num",{textContent:"262,22"},4.647);
+tl.set("#s5-num",{textContent:"295,14"},4.681);
+tl.set("#s5-num",{textContent:"326,99"},4.714);
+tl.set("#s5-num",{textContent:"357,77"},4.748);
+tl.set("#s5-num",{textContent:"387,51"},4.781);
+tl.set("#s5-num",{textContent:"416,23"},4.815);
+tl.set("#s5-num",{textContent:"443,94"},4.848);
+tl.set("#s5-num",{textContent:"470,66"},4.882);
+tl.set("#s5-num",{textContent:"496,40"},4.915);
+tl.set("#s5-num",{textContent:"521,20"},4.949);
+tl.set("#s5-num",{textContent:"545,06"},4.982);
+tl.set("#s5-num",{textContent:"568,00"},5.016);
+tl.set("#s5-num",{textContent:"590,04"},5.049);
+tl.set("#s5-num",{textContent:"611,20"},5.083);
+tl.set("#s5-num",{textContent:"631,49"},5.116);
+tl.set("#s5-num",{textContent:"650,95"},5.15);
+tl.set("#s5-num",{textContent:"669,57"},5.183);
+tl.set("#s5-num",{textContent:"687,38"},5.217);
+tl.set("#s5-num",{textContent:"704,40"},5.25);
+tl.set("#s5-num",{textContent:"720,65"},5.284);
+tl.set("#s5-num",{textContent:"736,15"},5.317);
+tl.set("#s5-num",{textContent:"750,90"},5.351);
+tl.set("#s5-num",{textContent:"764,94"},5.384);
+tl.set("#s5-num",{textContent:"778,27"},5.418);
+tl.set("#s5-num",{textContent:"790,92"},5.451);
+tl.set("#s5-num",{textContent:"802,91"},5.485);
+tl.set("#s5-num",{textContent:"814,24"},5.518);
+tl.set("#s5-num",{textContent:"824,95"},5.552);
+tl.set("#s5-num",{textContent:"835,05"},5.585);
+tl.set("#s5-num",{textContent:"844,55"},5.618);
+tl.set("#s5-num",{textContent:"853,47"},5.652);
+tl.set("#s5-num",{textContent:"861,84"},5.685);
+tl.set("#s5-num",{textContent:"869,67"},5.719);
+tl.set("#s5-num",{textContent:"876,98"},5.752);
+tl.set("#s5-num",{textContent:"883,78"},5.786);
+tl.set("#s5-num",{textContent:"890,10"},5.819);
+tl.set("#s5-num",{textContent:"895,95"},5.853);
+tl.set("#s5-num",{textContent:"901,35"},5.886);
+tl.set("#s5-num",{textContent:"906,32"},5.92);
+tl.set("#s5-num",{textContent:"910,87"},5.953);
+tl.set("#s5-num",{textContent:"915,03"},5.987);
+tl.set("#s5-num",{textContent:"918,81"},6.02);
+tl.set("#s5-num",{textContent:"922,23"},6.054);
+tl.set("#s5-num",{textContent:"925,31"},6.087);
+tl.set("#s5-num",{textContent:"928,07"},6.121);
+tl.set("#s5-num",{textContent:"930,52"},6.154);
+tl.set("#s5-num",{textContent:"932,68"},6.188);
+tl.set("#s5-num",{textContent:"934,57"},6.221);
+tl.set("#s5-num",{textContent:"936,21"},6.255);
+tl.set("#s5-num",{textContent:"937,62"},6.288);
+tl.set("#s5-num",{textContent:"938,81"},6.322);
+tl.set("#s5-num",{textContent:"939,80"},6.355);
+tl.set("#s5-num",{textContent:"940,61"},6.389);
+tl.set("#s5-num",{textContent:"941,26"},6.422);
+tl.set("#s5-num",{textContent:"941,77"},6.456);
+tl.set("#s5-num",{textContent:"942,15"},6.489);
+tl.set("#s5-num",{textContent:"942,43"},6.523);
+tl.set("#s5-num",{textContent:"942,61"},6.556);
+tl.set("#s5-num",{textContent:"942,72"},6.59);
+tl.set("#s5-num",{textContent:"942,78"},6.623);
+tl.set("#s5-num",{textContent:"942,80"},6.657);
+tl.set("#s5-num",{textContent:"942,80"},6.69);
+tl.fromTo("#s5-pz",{scale:1},{scale:1.08,duration:0.12,ease:"power2.out"},6.69);
+tl.to("#s5-pz",{scale:1,duration:0.4,ease:"power2.out"},6.81);
+tl.fromTo("#s5-flare",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.14,ease:"power2.out"},6.69);
+tl.to("#s5-flare",{opacity:0,scale:1.25,duration:0.5,ease:"power2.out"},6.83);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>
