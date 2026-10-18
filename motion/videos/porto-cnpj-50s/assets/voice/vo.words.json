@@ -1,0 +1,637 @@
+[
+ {
+  "word": "Para",
+  "start": 0.15,
+  "end": 0.335
+ },
+ {
+  "word": "de",
+  "start": 0.425,
+  "end": 0.462
+ },
+ {
+  "word": "rolar.",
+  "start": 0.536,
+  "end": 1.056
+ },
+ {
+  "word": "Isso",
+  "start": 1.396,
+  "end": 1.544
+ },
+ {
+  "word": "aqui",
+  "start": 1.581,
+  "end": 1.767
+ },
+ {
+  "word": "é",
+  "start": 1.803,
+  "end": 1.841
+ },
+ {
+  "word": "pra",
+  "start": 1.878,
+  "end": 1.989
+ },
+ {
+  "word": "quem",
+  "start": 2.026,
+  "end": 2.137
+ },
+ {
+  "word": "tem",
+  "start": 2.175,
+  "end": 2.323
+ },
+ {
+  "word": "CNPJ.",
+  "start": 2.397,
+  "end": 3.232
+ },
+ {
+  "word": "Todo",
+  "start": 3.532,
+  "end": 3.755
+ },
+ {
+  "word": "mês",
+  "start": 3.845,
+  "end": 4.03
+ },
+ {
+  "word": "o",
+  "start": 4.067,
+  "end": 4.179
+ },
+ {
+  "word": "boleto",
+  "start": 4.216,
+  "end": 4.438
+ },
+ {
+  "word": "do",
+  "start": 4.528,
+  "end": 4.602
+ },
+ {
+  "word": "plano",
+  "start": 4.64,
+  "end": 4.825
+ },
+ {
+  "word": "de",
+  "start": 4.862,
+  "end": 4.899
+ },
+ {
+  "word": "saúde",
+  "start": 4.936,
+  "end": 5.233
+ },
+ {
+  "word": "chega,",
+  "start": 5.323,
+  "end": 5.824
+ },
+ {
+  "word": "você",
+  "start": 5.914,
+  "end": 6.136
+ },
+ {
+  "word": "paga",
+  "start": 6.174,
+  "end": 6.581
+ },
+ {
+  "word": "e",
+  "start": 6.619,
+  "end": 6.655
+ },
+ {
+  "word": "segue",
+  "start": 6.693,
+  "end": 6.915
+ },
+ {
+  "word": "rolando.",
+  "start": 7.005,
+  "end": 7.544
+ },
+ {
+  "word": "Mas",
+  "start": 7.744,
+  "end": 7.929
+ },
+ {
+  "word": "quando",
+  "start": 8.004,
+  "end": 8.226
+ },
+ {
+  "word": "foi",
+  "start": 8.264,
+  "end": 8.411
+ },
+ {
+  "word": "a",
+  "start": 8.449,
+  "end": 8.523
+ },
+ {
+  "word": "última",
+  "start": 8.56,
+  "end": 8.82
+ },
+ {
+  "word": "vez",
+  "start": 8.857,
+  "end": 9.005
+ },
+ {
+  "word": "que",
+  "start": 9.079,
+  "end": 9.117
+ },
+ {
+  "word": "você",
+  "start": 9.154,
+  "end": 9.339
+ },
+ {
+  "word": "comparou?",
+  "start": 9.377,
+  "end": 9.989
+ },
+ {
+  "word": "Você",
+  "start": 10.489,
+  "end": 10.711
+ },
+ {
+  "word": "pode",
+  "start": 10.749,
+  "end": 10.934
+ },
+ {
+  "word": "estar",
+  "start": 11.024,
+  "end": 11.21
+ },
+ {
+  "word": "pagando",
+  "start": 11.247,
+  "end": 11.581
+ },
+ {
+  "word": "caro.",
+  "start": 11.618,
+  "end": 12.151
+ },
+ {
+  "word": "E",
+  "start": 12.471,
+  "end": 12.508
+ },
+ {
+  "word": "muita",
+  "start": 12.582,
+  "end": 12.842
+ },
+ {
+  "word": "gente",
+  "start": 12.88,
+  "end": 13.065
+ },
+ {
+  "word": "já",
+  "start": 13.139,
+  "end": 13.25
+ },
+ {
+  "word": "descobriu:",
+  "start": 13.287,
+  "end": 13.844
+ },
+ {
+  "word": "usar",
+  "start": 13.993,
+  "end": 14.512
+ },
+ {
+  "word": "o",
+  "start": 14.586,
+  "end": 14.623
+ },
+ {
+  "word": "CNPJ",
+  "start": 14.661,
+  "end": 15.18
+ },
+ {
+  "word": "pode",
+  "start": 15.27,
+  "end": 15.418
+ },
+ {
+  "word": "reduzir",
+  "start": 15.508,
+  "end": 15.842
+ },
+ {
+  "word": "bastante",
+  "start": 15.916,
+  "end": 16.324
+ },
+ {
+  "word": "o",
+  "start": 16.414,
+  "end": 16.451
+ },
+ {
+  "word": "valor",
+  "start": 16.488,
+  "end": 16.71
+ },
+ {
+  "word": "da",
+  "start": 16.748,
+  "end": 16.822
+ },
+ {
+  "word": "mensalidade,",
+  "start": 16.859,
+  "end": 17.601
+ },
+ {
+  "word": "mantendo",
+  "start": 17.691,
+  "end": 18.099
+ },
+ {
+  "word": "a",
+  "start": 18.136,
+  "end": 18.211
+ },
+ {
+  "word": "mesma",
+  "start": 18.247,
+  "end": 18.507
+ },
+ {
+  "word": "qualidade.",
+  "start": 18.545,
+  "end": 19.398
+ },
+ {
+  "word": "Na",
+  "start": 19.848,
+  "end": 20.034
+ },
+ {
+  "word": "Porto,",
+  "start": 20.07,
+  "end": 20.497
+ },
+ {
+  "word": "o",
+  "start": 20.587,
+  "end": 20.736
+ },
+ {
+  "word": "plano",
+  "start": 20.773,
+  "end": 20.959
+ },
+ {
+  "word": "de",
+  "start": 20.996,
+  "end": 21.033
+ },
+ {
+  "word": "saúde",
+  "start": 21.107,
+  "end": 21.404
+ },
+ {
+  "word": "para",
+  "start": 21.478,
+  "end": 21.664
+ },
+ {
+  "word": "CNPJ",
+  "start": 21.7,
+  "end": 22.257
+ },
+ {
+  "word": "começa",
+  "start": 22.347,
+  "end": 22.681
+ },
+ {
+  "word": "com",
+  "start": 22.755,
+  "end": 22.866
+ },
+ {
+  "word": "três",
+  "start": 22.903,
+  "end": 23.126
+ },
+ {
+  "word": "vidas,",
+  "start": 23.2,
+  "end": 23.719
+ },
+ {
+  "word": "a",
+  "start": 23.809,
+  "end": 23.92
+ },
+ {
+  "word": "partir",
+  "start": 23.957,
+  "end": 24.254
+ },
+ {
+  "word": "de",
+  "start": 24.291,
+  "end": 24.328
+ },
+ {
+  "word": "novecentos",
+  "start": 24.402,
+  "end": 24.996
+ },
+ {
+  "word": "e",
+  "start": 25.033,
+  "end": 25.107
+ },
+ {
+  "word": "quarenta",
+  "start": 25.145,
+  "end": 25.367
+ },
+ {
+  "word": "e",
+  "start": 25.457,
+  "end": 25.494
+ },
+ {
+  "word": "dois",
+  "start": 25.531,
+  "end": 25.605
+ },
+ {
+  "word": "e",
+  "start": 25.695,
+  "end": 25.732
+ },
+ {
+  "word": "oitenta.",
+  "start": 25.77,
+  "end": 26.426
+ },
+ {
+  "word": "Com",
+  "start": 26.726,
+  "end": 26.875
+ },
+ {
+  "word": "plano",
+  "start": 26.911,
+  "end": 27.171
+ },
+ {
+  "word": "odontológico,",
+  "start": 27.209,
+  "end": 28.118
+ },
+ {
+  "word": "seguro",
+  "start": 28.208,
+  "end": 28.541
+ },
+ {
+  "word": "de",
+  "start": 28.615,
+  "end": 28.653
+ },
+ {
+  "word": "vida,",
+  "start": 28.727,
+  "end": 29.154
+ },
+ {
+  "word": "serviços",
+  "start": 29.244,
+  "end": 29.689
+ },
+ {
+  "word": "ocupacionais",
+  "start": 29.726,
+  "end": 30.357
+ },
+ {
+  "word": "e",
+  "start": 30.447,
+  "end": 30.669
+ },
+ {
+  "word": "proteção",
+  "start": 30.707,
+  "end": 31.189
+ },
+ {
+  "word": "antiácaro.",
+  "start": 31.226,
+  "end": 32.005
+ },
+ {
+  "word": "A",
+  "start": 32.355,
+  "end": 32.503
+ },
+ {
+  "word": "gente",
+  "start": 32.54,
+  "end": 32.689
+ },
+ {
+  "word": "compara",
+  "start": 32.763,
+  "end": 33.171
+ },
+ {
+  "word": "o",
+  "start": 33.208,
+  "end": 33.245
+ },
+ {
+  "word": "seu",
+  "start": 33.282,
+  "end": 33.393
+ },
+ {
+  "word": "plano",
+  "start": 33.431,
+  "end": 33.653
+ },
+ {
+  "word": "atual",
+  "start": 33.691,
+  "end": 33.838
+ },
+ {
+  "word": "com",
+  "start": 33.928,
+  "end": 34.225
+ },
+ {
+  "word": "o",
+  "start": 34.262,
+  "end": 34.299
+ },
+ {
+  "word": "mercado",
+  "start": 34.336,
+  "end": 34.781
+ },
+ {
+  "word": "e",
+  "start": 34.856,
+  "end": 35.264
+ },
+ {
+  "word": "mostra,",
+  "start": 35.301,
+  "end": 35.802
+ },
+ {
+  "word": "com",
+  "start": 35.892,
+  "end": 36.041
+ },
+ {
+  "word": "números,",
+  "start": 36.115,
+  "end": 36.69
+ },
+ {
+  "word": "quanto",
+  "start": 36.78,
+  "end": 37.039
+ },
+ {
+  "word": "você",
+  "start": 37.076,
+  "end": 37.299
+ },
+ {
+  "word": "pode",
+  "start": 37.336,
+  "end": 37.485
+ },
+ {
+  "word": "economizar.",
+  "start": 37.575,
+  "end": 38.354
+ },
+ {
+  "word": "Simulação",
+  "start": 38.754,
+  "end": 39.273
+ },
+ {
+  "word": "gratuita,",
+  "start": 39.31,
+  "end": 39.941
+ },
+ {
+  "word": "cem",
+  "start": 40.031,
+  "end": 40.253
+ },
+ {
+  "word": "por",
+  "start": 40.291,
+  "end": 40.365
+ },
+ {
+  "word": "cento",
+  "start": 40.402,
+  "end": 40.624
+ },
+ {
+  "word": "online.",
+  "start": 40.699,
+  "end": 41.088
+ },
+ {
+  "word": "Agora",
+  "start": 41.508,
+  "end": 41.879
+ },
+ {
+  "word": "pode",
+  "start": 41.917,
+  "end": 42.065
+ },
+ {
+  "word": "rolar.",
+  "start": 42.155,
+  "end": 42.562
+ },
+ {
+  "word": "Mas",
+  "start": 42.902,
+  "end": 43.087
+ },
+ {
+  "word": "antes,",
+  "start": 43.124,
+  "end": 43.643
+ },
+ {
+  "word": "toque",
+  "start": 43.733,
+  "end": 44.03
+ },
+ {
+  "word": "no",
+  "start": 44.12,
+  "end": 44.194
+ },
+ {
+  "word": "botão",
+  "start": 44.231,
+  "end": 44.603
+ },
+ {
+  "word": "e",
+  "start": 44.676,
+  "end": 44.825
+ },
+ {
+  "word": "fale",
+  "start": 44.862,
+  "end": 45.084
+ },
+ {
+  "word": "com",
+  "start": 45.174,
+  "end": 45.286
+ },
+ {
+  "word": "um",
+  "start": 45.323,
+  "end": 45.36
+ },
+ {
+  "word": "especialista.",
+  "start": 45.397,
+  "end": 46.303
+ }
+]

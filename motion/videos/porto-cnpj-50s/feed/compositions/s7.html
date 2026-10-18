@@ -1,0 +1,131 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#s7-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#0B1530;}
+.s7-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.s7-abs{position:absolute;}
+.s7-lbl{position:absolute;font-weight:600;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;}
+.s7-h{position:absolute;font-weight:700;letter-spacing:-.04em;line-height:1;white-space:nowrap;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.06em;margin:-0.12em -0.04em -0.06em;}
+.wi{display:inline-block;}
+
+#s7-vp{position:absolute;left:0;top:0;width:1080px;height:1080px;overflow:hidden;}
+#s7-pg{position:absolute;left:0;top:0;width:1080px;height:1180px;}
+
+#s7-sec{position:absolute;left:0;top:0;width:1080px;height:1180px;background:linear-gradient(180deg,#FFFFFF 0%,#F4F6FA 100%);}
+#s7-ph{position:absolute;left:60px;top:80px;width:440px;height:930px;border-radius:34px;overflow:hidden;box-shadow:0 30px 70px rgba(11,21,48,.16);}
+#s7-pi{position:absolute;left:0;top:-80px;width:100%;height:1090px;background:url("assets/img/ai-consult.png") 50% 42%/cover no-repeat;}
+#s7-t1{left:540px;top:92px;font-size:60px;color:#0B1530;}
+#s7-t2{left:532px;top:156px;font-size:92px;color:#F0483C;line-height:.95;}
+#s7-t3{left:540px;top:262px;font-size:60px;color:#0B1530;}
+#s7-card{position:absolute;left:540px;top:360px;width:480px;height:650px;border-radius:32px;background:#fff;border:1.5px solid #E3E8F2;box-shadow:0 30px 70px rgba(11,21,48,.12);}
+#s7-hd{position:absolute;left:32px;top:30px;font-weight:700;font-size:16px;letter-spacing:.16em;color:#0A6FD0;}
+#s7-live{position:absolute;right:32px;top:32px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:13px;letter-spacing:.16em;color:#5B6478;}
+#s7-dot{width:12px;height:12px;border-radius:50%;background:#2BD4A4;}
+.s7-rw{position:absolute;left:32px;width:416px;}
+.s7-lb{font-weight:600;font-size:21px;color:#0B1530;}
+.s7-vl{position:absolute;right:0;top:0;font-weight:700;font-size:21px;color:#0B1530;font-variant-numeric:tabular-nums;}
+.s7-tr{position:relative;margin-top:10px;height:18px;border-radius:11px;background:#EEF2F9;overflow:hidden;}
+.s7-fl{position:absolute;left:0;top:0;height:100%;border-radius:11px;transform-origin:0 50%;}
+#s7-eco{position:absolute;left:32px;top:470px;width:416px;height:140px;border-radius:28px;background:#2BD4A4;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:0 26px;overflow:hidden;}
+#s7-eco b{font-weight:700;font-size:15px;letter-spacing:.16em;color:#0B1530;}
+#s7-eco span{font-weight:800;font-size:24px;color:#0B1530;white-space:nowrap;}
+#s7-esh{position:absolute;left:-200px;top:0;width:140px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0));}
+</style>
+<div id="s7-root" data-composition-id="s7" data-start="0" data-duration="7.519" data-width="1080" data-height="1080">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="s7-vb" x="0" y="-5%" width="100%" height="110%"><feGaussianBlur id="s7-vb-g" stdDeviation="0 0"/></filter></svg>
+  <div id="s7-vp"><div id="s7-pg" data-layout-allow-overflow><div id="s7-sec">
+      <div id="s7-ph"><div id="s7-pi"></div></div>
+      <div id="s7-t1" class="s7-h"><span class="w"><span class="wi" id="s7a0">A</span></span> <span class="w"><span class="wi" id="s7a1">gente</span></span> <span class="w"><span class="wi" id="s7a2">compara</span></span></div>
+      <div id="s7-t2" class="s7-h"><span class="w"><span class="wi it" id="s7b0">seu</span></span> <span class="w"><span class="wi it" id="s7b1">plano</span></span> <span class="w"><span class="wi it" id="s7b2">atual</span></span></div>
+      <div id="s7-t3" class="s7-h"><span class="w"><span class="wi" id="s7c0">com</span></span> <span class="w"><span class="wi" id="s7c1">o</span></span> <span class="w"><span class="wi" id="s7c2">mercado.</span></span></div>
+      <div id="s7-card">
+        <div id="s7-hd">ANÁLISE COMPARATIVA</div>
+        <div id="s7-live"><div id="s7-dot"></div>COM NÚMEROS</div>
+        <div class="s7-rw" style="top:96px"><div class="s7-lb">Seu plano atual</div><div class="s7-vl" id="s7-v0">R$ ●●●,●●</div><div class="s7-tr"><div class="s7-fl" id="s7-f0" style="width:92%;background:linear-gradient(90deg,#FF8A65,#F0483C)"></div></div></div>
+        <div class="s7-rw" style="top:196px"><div class="s7-lb">Plano para CNPJ</div><div class="s7-vl" id="s7-v1">R$ ●●●,●●</div><div class="s7-tr"><div class="s7-fl" id="s7-f1" style="width:58%;background:linear-gradient(90deg,#8CCBFF,#0A6FD0)"></div></div></div>
+        <div id="s7-eco"><b>SUA ECONOMIA</b><span>Descubra na simulação →</span><div id="s7-esh"></div></div>
+      </div>
+    </div></div></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.set("#s7-pg",{y:1080},0);
+tl.fromTo("#s7-pg",{y:1080},{y:756.923,duration:0.14,ease:"power1.in",immediateRender:false},0.02);
+tl.fromTo("#s7-pg",{y:756.923},{y:0,duration:0.82,ease:"power4.out",immediateRender:false},0.16);
+tl.fromTo("#s7-pg",{y:0},{y:-16.304,duration:0.12,ease:"power1.in",immediateRender:false},2.546);
+tl.fromTo("#s7-pg",{y:-16.304},{y:-50,duration:0.62,ease:"power4.out",immediateRender:false},2.666);
+tl.fromTo("#s7-pg",{y:-50},{y:-66.304,duration:0.12,ease:"power1.in",immediateRender:false},4.355);
+tl.fromTo("#s7-pg",{y:-66.304},{y:-100,duration:0.62,ease:"power4.out",immediateRender:false},4.475);
+tl.fromTo("#s7-pg",{y:-100},{y:-412.397,duration:0.14,ease:"power1.in",immediateRender:false},6.419);
+tl.fromTo("#s7-pg",{y:-412.397},{y:-1180,duration:0.86,ease:"power4.out",immediateRender:false},6.559);
+tl.set("#s7-vp",{filter:"url(#s7-vb)"},0.02);
+tl.fromTo("#s7-vb-g",{attr:{stdDeviation:"0 0"}},{attr:{stdDeviation:"0 5"},duration:0.14,ease:"power1.in",immediateRender:false},0.02);
+tl.fromTo("#s7-vb-g",{attr:{stdDeviation:"0 5"}},{attr:{stdDeviation:"0 0"},duration:0.574,ease:"power3.out",immediateRender:false},0.16);
+tl.set("#s7-vp",{filter:"none"},0.734);
+tl.set("#s7-vp",{filter:"url(#s7-vb)"},6.419);
+tl.fromTo("#s7-vb-g",{attr:{stdDeviation:"0 0"}},{attr:{stdDeviation:"0 5"},duration:0.14,ease:"power1.in",immediateRender:false},6.419);
+tl.fromTo("#s7-vb-g",{attr:{stdDeviation:"0 5"}},{attr:{stdDeviation:"0 0"},duration:0.602,ease:"power3.out",immediateRender:false},6.559);
+tl.set("#s7-vp",{filter:"none"},7.161);
+tl.set("#s7-pi",{y:-226},0);
+tl.fromTo("#s7-pi",{y:-226},{y:-161.385,duration:0.14,ease:"power1.in",immediateRender:false},0.02);
+tl.fromTo("#s7-pi",{y:-161.385},{y:-10,duration:0.82,ease:"power4.out",immediateRender:false},0.16);
+tl.fromTo("#s7-pi",{y:-10},{y:-6.739,duration:0.12,ease:"power1.in",immediateRender:false},2.546);
+tl.fromTo("#s7-pi",{y:-6.739},{y:0,duration:0.62,ease:"power4.out",immediateRender:false},2.666);
+tl.fromTo("#s7-pi",{y:0},{y:3.261,duration:0.12,ease:"power1.in",immediateRender:false},4.355);
+tl.fromTo("#s7-pi",{y:3.261},{y:10,duration:0.62,ease:"power4.out",immediateRender:false},4.475);
+tl.fromTo("#s7-pi",{y:10},{y:72.479,duration:0.14,ease:"power1.in",immediateRender:false},6.419);
+tl.fromTo("#s7-pi",{y:72.479},{y:226,duration:0.86,ease:"power4.out",immediateRender:false},6.559);
+tl.fromTo("#s7a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.27);
+tl.fromTo("#s7a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.455);
+tl.fromTo("#s7a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.678);
+tl.fromTo("#s7b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.45,ease:"power3.out"},1.197);
+tl.fromTo("#s7b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.45,ease:"power3.out"},1.346);
+tl.fromTo("#s7b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.45,ease:"power3.out"},1.606);
+tl.fromTo("#s7c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.843);
+tl.fromTo("#s7c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.177);
+tl.fromTo("#s7c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.251);
+tl.fromTo("#s7-f0",{scaleX:0},{scaleX:1,duration:0.8,ease:"power2.out"},1.636);
+tl.fromTo("#s7-f1",{scaleX:0},{scaleX:1,duration:0.8,ease:"power2.out"},2.281);
+tl.fromTo("#s7-dot",{opacity:1},{opacity:0.25,duration:0.5,ease:"sine.inOut",repeat:12,yoyo:true},0.6);
+tl.set("#s7-v0",{textContent:"R$ 1.855,68"},4.01);
+tl.set("#s7-v1",{textContent:"R$ 1.635,19"},4.01);
+tl.set("#s7-v0",{textContent:"R$ 2.444,05"},4.077);
+tl.set("#s7-v1",{textContent:"R$ 1.568,36"},4.077);
+tl.set("#s7-v0",{textContent:"R$ 2.962,64"},4.143);
+tl.set("#s7-v1",{textContent:"R$ 1.409,38"},4.143);
+tl.set("#s7-v0",{textContent:"R$ 1.244,85"},4.21);
+tl.set("#s7-v1",{textContent:"R$ 1.379,93"},4.21);
+tl.set("#s7-v0",{textContent:"R$ 2.879,29"},4.277);
+tl.set("#s7-v1",{textContent:"R$ 1.336,39"},4.277);
+tl.set("#s7-v0",{textContent:"R$ 2.328,68"},4.343);
+tl.set("#s7-v1",{textContent:"R$ 762,01"},4.343);
+tl.set("#s7-v0",{textContent:"R$ 2.741,18"},4.41);
+tl.set("#s7-v1",{textContent:"R$ 1.685,50"},4.41);
+tl.set("#s7-v0",{textContent:"R$ 2.298,46"},4.477);
+tl.set("#s7-v1",{textContent:"R$ 1.786,15"},4.477);
+tl.set("#s7-v0",{textContent:"R$ 2.126,02"},4.543);
+tl.set("#s7-v1",{textContent:"R$ 843,44"},4.543);
+tl.set("#s7-v0",{textContent:"R$ 2.837,12"},4.61);
+tl.set("#s7-v1",{textContent:"R$ 1.192,80"},4.61);
+tl.set("#s7-v0",{textContent:"R$ 1.237,22"},4.677);
+tl.set("#s7-v1",{textContent:"R$ 1.818,17"},4.677);
+tl.set("#s7-v0",{textContent:"R$ 1.761,06"},4.743);
+tl.set("#s7-v1",{textContent:"R$ 1.077,44"},4.743);
+tl.set("#s7-v0",{textContent:"R$ 2.267,28"},4.81);
+tl.set("#s7-v1",{textContent:"R$ 631,66"},4.81);
+tl.set("#s7-v0",{textContent:"R$ ?"},4.91);
+tl.set("#s7-v1",{textContent:"R$ ?"},4.91);
+tl.fromTo("#s7-eco",{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.6)"},5.37);
+tl.fromTo("#s7-esh",{x:0},{x:680,duration:0.8,ease:"power2.inOut"},5.72);
+window.__timelines["s7"] = tl;
+})();
+</script>
+</template>

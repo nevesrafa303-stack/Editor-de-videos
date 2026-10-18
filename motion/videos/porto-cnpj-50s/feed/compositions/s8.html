@@ -1,0 +1,104 @@
+<template>
+<style>
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-700.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#s8-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#0B1530;}
+.s8-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.s8-abs{position:absolute;}
+.s8-lbl{position:absolute;font-weight:600;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;}
+.s8-h{position:absolute;font-weight:700;letter-spacing:-.04em;line-height:1;white-space:nowrap;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.06em;margin:-0.12em -0.04em -0.06em;}
+.wi{display:inline-block;}
+
+#s8-vp{position:absolute;left:0;top:0;width:1080px;height:1080px;overflow:hidden;}
+#s8-pg{position:absolute;left:0;top:0;width:1080px;height:2080px;}
+
+#s8-hsec{position:absolute;left:0;top:0;width:1080px;height:600px;background:linear-gradient(180deg,#F4F6FA 0%,#EEF2F9 100%);}
+#s8-lbl{left:60px;top:76px;font-size:18px;color:#5B6478;}
+#s8-h1{left:60px;top:110px;font-size:98px;color:#0B1530;}
+#s8-h2{left:50px;top:200px;font-size:152px;color:#0A6FD0;line-height:.95;}
+#s8-pill{position:absolute;left:60px;top:392px;height:76px;padding:0 32px 0 23px;border-radius:38px;background:#2146C3;display:flex;align-items:center;gap:14px;color:#fff;font-weight:700;font-size:34px;letter-spacing:-.02em;white-space:nowrap;box-shadow:0 20px 40px rgba(33,70,195,.3);}
+#s8-isec{position:absolute;left:0;top:600px;width:1080px;height:1480px;background:linear-gradient(180deg,#EEF2F9 0%,#EEF2F9 1080px,#DCE2EE 1080px,#DCE2EE 100%);}
+#s8-photo{position:absolute;left:0;top:600px;width:1080px;height:1080px;}
+#s8-block{position:absolute;left:0;top:915px;width:668px;height:478px;background:#3A90EE;border-radius:0 40px 40px 0;color:#fff;}
+#s8-title{position:absolute;left:90px;top:11px;font-weight:600;font-size:49px;line-height:60px;white-space:nowrap;}
+#s8-lives{position:absolute;left:90px;top:162px;font-weight:600;font-size:40px;line-height:50px;white-space:nowrap;}
+#s8-price{position:absolute;left:88px;top:221px;height:86px;display:flex;align-items:flex-end;white-space:nowrap;}
+#s8-cur{font-weight:600;font-size:26px;line-height:1;margin:0 10px 10px 2px;}
+#s8-num{font-weight:600;font-size:72px;line-height:1;letter-spacing:-.005em;}
+#s8-ast{font-weight:600;font-size:60px;line-height:1;margin-left:4px;align-self:flex-start;}
+#s8-card{position:absolute;left:0;top:1248px;width:593px;height:272px;background:#2146C3;border-radius:0 40px 40px 0;}
+.s8-item{position:absolute;left:66px;height:0;display:flex;align-items:center;}
+.s8-ic{width:42px;height:42px;flex:none;border-radius:50%;background:#3A90EE;display:flex;align-items:center;justify-content:center;}
+.s8-it{margin-left:18px;font-weight:500;font-size:27px;line-height:44px;color:#fff;white-space:nowrap;letter-spacing:.01em;}
+#s8-logo{position:absolute;left:662px;top:1412px;width:227px;height:51.886px;}
+#s8-foot{position:absolute;left:659px;top:1473px;width:400px;font-weight:400;font-size:18px;line-height:23px;color:#2B3140;}
+#s8-cta{position:absolute;left:0;top:1576px;width:1080px;height:104px;background:#3A90EE;}
+#s8-cta-in{position:absolute;inset:0;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:30px;}
+#s8-cta-text{font-weight:700;font-size:38px;line-height:44px;letter-spacing:-.02em;color:#fff;white-space:nowrap;}
+#s8-btn-pop{position:relative;}
+#s8-ring{position:absolute;inset:0;border-radius:999px;border:3px solid rgba(255,255,255,.95);opacity:0;}
+#s8-btn{position:relative;height:56px;padding:0 10px 0 30px;display:flex;align-items:center;gap:14px;border-radius:999px;background:#fff;box-shadow:0 8px 22px rgba(20,40,110,.25);}
+#s8-btn-t{font-weight:700;font-size:22px;line-height:1;color:#2146C3;white-space:nowrap;}
+#s8-btn-a{width:40px;height:40px;border-radius:50%;background:#2146C3;display:flex;align-items:center;justify-content:center;}
+</style>
+<div id="s8-root" data-composition-id="s8" data-start="0" data-duration="11.596" data-width="1080" data-height="1080">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="s8-vb" x="0" y="-5%" width="100%" height="110%"><feGaussianBlur id="s8-vb-g" stdDeviation="0 0"/></filter></svg>
+  <div id="s8-vp"><div id="s8-pg" data-layout-allow-overflow><div id="s8-hsec">
+      <div id="s8-lbl" class="s8-lbl">Próximo passo</div>
+      <div id="s8-h1" class="s8-h"><span class="w"><span class="wi" id="s8a0">Simulação</span></span></div>
+      <div id="s8-h2" class="s8-h"><span class="w"><span class="wi it" id="s8b0">gratuita,</span></span></div>
+      <div id="s8-pill"><svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="11" width="30" height="20" rx="3"/><path d="M5 37h38"/></svg><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="6" width="18" height="36" rx="4"/><path d="M22 36h4"/></svg><span>100% online</span></div>
+    </div>
+    <div id="s8-isec"></div>
+    <img id="s8-photo" src="assets/img/plate-feed.png" alt="Hospital Dr. Beda" />
+    <div id="s8-block" data-layout-allow-overflow>
+      <div id="s8-title"><div>Plano de Saúde</div><div>para CNPJ</div></div>
+      <div id="s8-lives">3 vidas a partir de</div>
+      <div id="s8-price"><span id="s8-cur">R$</span><span id="s8-num">942,80</span><span id="s8-ast">*</span></div>
+    </div>
+    <div id="s8-card"><div class="s8-item" style="top:41px"><div class="s8-ic"><svg viewBox="0 0 48 48" width="25" height="25" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9c-4 0-6 3-6 7 0 4 2 6 3 10 1 4 1 9 3 9s2-5 4-8c1-1 2-1 3 0 2 3 2 8 4 8s2-5 3-9c1-4 3-6 3-10 0-4-2-7-6-7-3 0-4 2-6 2s-3-2-5-2z"/></svg></div><div class="s8-it">PLANO ODONTOLÓGICO</div></div><div class="s8-item" style="top:106px"><div class="s8-ic"><svg viewBox="0 0 48 48" width="25" height="25" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 38S8 28 8 17c0-5 4-8 8-8 3 0 6 2 8 5 2-3 5-5 8-5 4 0 8 3 8 8 0 11-16 21-16 21z"/><path d="M11 22h7l3-5 4 9 3-4h9"/></svg></div><div class="s8-it">SEGURO DE VIDA</div></div><div class="s8-item" style="top:171px"><div class="s8-ic"><svg viewBox="0 0 48 48" width="25" height="25" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="15" width="34" height="23" rx="4"/><path d="M18 15v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4M7 25h34M24 23v5"/></svg></div><div class="s8-it">SERVIÇOS OCUPACIONAIS</div></div><div class="s8-item" style="top:234px"><div class="s8-ic"><svg viewBox="0 0 48 48" width="25" height="25" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l15 5v11c0 9-6 16-15 20C15 38 9 31 9 22V11z"/><path d="M17 23l5 5 9-10"/></svg></div><div class="s8-it">PROTEÇÃO ANTIÁCARO</div></div></div>
+    <img id="s8-logo" src="assets/img/porto-logo.svg" alt="Porto" />
+    <div id="s8-foot">*2 adultos até 38 anos e 1 jovem até 18 anos | Os valores podem variar conforme o perfil do beneficiário.</div>
+    <div id="s8-cta" data-layout-allow-overflow><div id="s8-cta-in"><div id="s8-cta-text">Simulação Gratuita 100% Online</div><div id="s8-btn-pop"><div id="s8-ring"></div><div id="s8-btn"><span id="s8-btn-t">Falar com especialista</span><span id="s8-btn-a"><svg id="s8-arrow" viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h12M12 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div></div></div></div></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.set("#s8-pg",{y:1080},0);
+tl.fromTo("#s8-pg",{y:1080},{y:767.603,duration:0.14,ease:"power1.in",immediateRender:false},0.02);
+tl.fromTo("#s8-pg",{y:767.603},{y:0,duration:0.86,ease:"power4.out",immediateRender:false},0.16);
+tl.fromTo("#s8-pg",{y:0},{y:-193.2,duration:0.14,ease:"power1.in",immediateRender:false},3.184);
+tl.fromTo("#s8-pg",{y:-193.2},{y:-690,duration:0.9,ease:"power4.out",immediateRender:false},3.324);
+tl.fromTo("#s8-pg",{y:-690},{y:-600,duration:0.4,ease:"power2.inOut",immediateRender:false},4.224);
+tl.set("#s8-vp",{filter:"url(#s8-vb)"},0.02);
+tl.fromTo("#s8-vb-g",{attr:{stdDeviation:"0 0"}},{attr:{stdDeviation:"0 5"},duration:0.14,ease:"power1.in",immediateRender:false},0.02);
+tl.fromTo("#s8-vb-g",{attr:{stdDeviation:"0 5"}},{attr:{stdDeviation:"0 0"},duration:0.602,ease:"power3.out",immediateRender:false},0.16);
+tl.set("#s8-vp",{filter:"none"},0.762);
+tl.fromTo("#s8-vb-g",{attr:{stdDeviation:"0 5"}},{attr:{stdDeviation:"0 0"},duration:0.63,ease:"power3.out",immediateRender:false},3.324);
+tl.set("#s8-vp",{filter:"none"},3.954);
+tl.fromTo("#s8a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},0.27);
+tl.fromTo("#s8b0",{yPercent:100,opacity:0},{yPercent:0,opacity:1,duration:0.55,ease:"power3.out"},0.806);
+tl.fromTo("#s8-lbl",{opacity:0},{opacity:1,duration:0.4},0.05);
+tl.fromTo("#s8-pill",{opacity:0,scale:0.7,x:-20},{opacity:1,scale:1,x:0,duration:0.5,ease:"back.out(1.7)"},1.527);
+tl.fromTo("#s8-btn",{scale:1},{scale:0.94,duration:0.1,ease:"power2.in"},5.807);
+tl.to("#s8-btn",{scale:1,duration:0.3,ease:"back.out(2)"},5.907);
+tl.fromTo("#s8-ring",{opacity:0.95,scale:1},{opacity:0,scale:1.35,duration:0.7,ease:"power2.out"},5.857);
+tl.fromTo("#s8-ring",{opacity:0.9,scale:1},{opacity:0,scale:1.35,duration:0.7,ease:"power2.out",immediateRender:false},7.043);
+tl.fromTo("#s8-btn",{scale:1},{scale:1.05,duration:0.5,ease:"sine.inOut",immediateRender:false},7.893);
+tl.to("#s8-btn",{scale:1,duration:0.5,ease:"sine.inOut"},8.393);
+tl.fromTo("#s8-arrow",{x:0},{x:5,duration:0.5,ease:"sine.inOut"},7.893);
+tl.to("#s8-arrow",{x:0,duration:0.5,ease:"sine.inOut"},8.393);
+tl.fromTo("#s8-btn",{scale:1},{scale:1.05,duration:0.5,ease:"sine.inOut",immediateRender:false},8.893);
+tl.to("#s8-btn",{scale:1,duration:0.5,ease:"sine.inOut"},9.393);
+tl.fromTo("#s8-arrow",{x:0},{x:5,duration:0.5,ease:"sine.inOut",immediateRender:false},8.893);
+tl.to("#s8-arrow",{x:0,duration:0.5,ease:"sine.inOut"},9.393);
+window.__timelines["s8"] = tl;
+})();
+</script>
+</template>
