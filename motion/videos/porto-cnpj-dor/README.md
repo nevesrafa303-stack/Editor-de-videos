@@ -1,7 +1,14 @@
 # Porto — Plano de Saúde para CNPJ (dor → desejo → solução)
 
-Motion graphic 1080×1920 (Reels/Stories), 24,5 s, 30 fps, com locução contínua. Termina na
-composição da peça "AD - Dr. Beda Preço Porto STORY" (em `assets/ref/`). Feito com HyperFrames.
+Motion graphic de 24,5 s, 30 fps, com locução contínua, em dois formatos (mesmo roteiro e áudio):
+
+- **Story 9:16 (1080×1920)** — este projeto (`index.html`). Termina na peça
+  "AD - Dr. Beda Preço Porto STORY", com tudo dentro das zonas seguras.
+- **Feed 1:1 (1080×1080)** — projeto em `feed/` (assets compartilhados por link). Termina na
+  peça de feed "AD - Dr. Beda Preço Porto", nas posições dela; a faixa do CTA traz texto e
+  botão lado a lado.
+
+Feito com HyperFrames. As referências estão em `assets/ref/`.
 
 | Tempo | Ato | O que acontece | Som |
 |---|---|---|---|
@@ -22,10 +29,13 @@ qualidade", "descubra quanto você pode economizar"). Preço, benefícios e roda
 python3 -I tools/prep_assets.py     # foto do Dr. Beda em tela cheia, recortada na curva da arte
 python3 -I tools/voice.py           # locução HeyGen em uma tomada, pausas encurtadas (opcional; cache em assets/voice/vo.json)
 python3 -I tools/synth_audio.py     # trilha tensa -> positiva + efeitos (numpy, scipy, soundfile)
-bash tools/assemble.sh              # compositions/filme.html + index.html + carve da trilha
-npx hyperframes check
+bash tools/assemble.sh              # story (index.html) + feed (feed/index.html) + carve da trilha
+npx hyperframes check && (cd feed && npx hyperframes check)
 npx hyperframes render --quality high --fps 30 --output renders/porto-cnpj-dor.mp4
+(cd feed && npx hyperframes render --quality high --fps 30 --output renders/porto-cnpj-dor-feed.mp4)
 ```
+
+A geometria de cada formato fica no objeto `GEO` de `tools/build.mjs`.
 
 Os tempos de todas as animações saem de `assets/voice/vo.words.json`: se a locução mudar,
 basta rodar `assemble.sh` de novo. Neste container o Chrome vem de `HYPERFRAMES_BROWSER_PATH`
@@ -37,6 +47,8 @@ e o GSAP de `assets/vendor/`. Masterização (−14 LUFS):
 - `assets/ref/`: peças da Porto no Drive (story, feed e "3 vidas"), em alta.
 - `assets/img/plate.png`: foto do Hospital Dr. Beda tirada da story (10 px abaixo para a placa
   ficar fora da faixa de cima), recortada pela curva vetorial da arte.
+- `assets/img/plate-feed.png`: a foto da peça de feed; abaixo da faixa de foto entra a story
+  alinhada por ORB (mesma foto, escala 0,742) para o cartão do ato 2 mostrar placa e banner.
 - `assets/img/porto-logo.svg`: logo oficial da Porto (vetor do site portoseguro.com.br).
 - Fonte Poppins (Google Fonts), a mesma da peça.
 - Locução: HeyGen "Sofia Brazil - Friendly" (pt-BR), uma fala só, silêncios limitados a 0,09 s

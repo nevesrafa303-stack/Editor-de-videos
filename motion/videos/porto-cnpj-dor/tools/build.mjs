@@ -1,7 +1,9 @@
 #!/usr/bin/env node
-// build.mjs — filme Porto "Plano de Saúde para CNPJ" (Reels/Stories), dor -> desejo -> solução.
+// build.mjs — filme Porto "Plano de Saúde para CNPJ", dor -> desejo -> solução.
 //
-//   node tools/build.mjs   -> compositions/filme.html + index.html   (depois: tools/assemble.sh)
+//   node tools/build.mjs          -> story 1080x1920: compositions/filme.html + index.html
+//   node tools/build.mjs feed     -> feed 1080x1080:  feed/compositions/filme-feed.html + feed/index.html
+//   (depois: tools/assemble.sh, que gera os dois e faz o carve da trilha)
 //
 // Ato 1 (dor): fundo escuro, notificação de fatura, "PAGANDO CARO" com glitch e
 //   um gráfico vermelho subindo. Ato 2 (virada): um interruptor CPF -> CNPJ vira a
@@ -16,8 +18,9 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const FMT = process.argv[2] === "feed" ? "feed" : "story";
 const W = 1080;
-const H = 1920;
+const H = FMT === "feed" ? 1080 : 1920;
 const FPS = 30;
 const r3 = (x) => Math.round(x * 1000) / 1000;
 
@@ -75,22 +78,100 @@ const T = {
 };
 T.still = r3(VO_END + 0.1);
 
-// ───────────── geometria final (peça + LAYOUT_DY, ver prep_assets.py) ─────────────
-// o banner do hospital fica inteiro acima do bloco (como na peça) e a parte de baixo
-// (cartão, logo, rodapé e faixa) é compactada para o CTA terminar antes de 1536 px
-const LDY = 8;
-const PHOTO_DY = 10;
-const BLOCK = { top: 707 + LDY, h: 470, w: 755, r: 60 };
-const CARD = { top: 1058, h: 316, w: 691, r: 48 };
-const LOGO = { left: 727, top: 1214, w: 294 };
-const FOOT = { left: 723, top: 1290, w: 330 };
-const CTA = { top: 1402, h: 134 };
-// moldura da foto no ato 2 (cartão) e escala da foto dentro dela
-const FRAME = { x0: 80, y0: 340, x1: 1000, y1: 940, r: 40 };
-const PHOTO_S = 0.86;
-const PHOTO_OY = r3((FRAME.y0 - PHOTO_DY * PHOTO_S) / (1 - PHOTO_S)); // 1ª linha da foto -> topo da moldura
+// ───────────── geometria por formato ─────────────
+// story: a peça "AD - Dr. Beda Preço Porto STORY" com a parte de baixo compactada para o
+// CTA terminar antes de 1536 px (zonas seguras); o banner do hospital fica inteiro.
+// feed: a peça "AD - Dr. Beda Preço Porto" (1080x1080) nas posições dela.
+const GEO = {
+  story: {
+    plate: "assets/img/plate.png",
+    notif: 250,
+    notifFrom: -70,
+    glow: { top: 640, h: 760 },
+    voce: [585, 60, 72],
+    pagando: [665, 150, 170],
+    caro: [840, 300, 330],
+    plano: [1185, 58, 72],
+    muita: [560, 64, 80],
+    up: [[80, 1470], [230, 1400], [340, 1430], [480, 1250], [600, 1290], [740, 1040], [860, 1080], [990, 760]],
+    down: [[80, 720], [220, 760], [330, 735], [470, 900], [600, 870], [730, 1060], [860, 1030], [990, 1230]],
+    grid: [700, 110],
+    swCy: 960,
+    badge: 330,
+    mens: [540, 62, 76],
+    cair: [1280, 78, 92],
+    bastante: [1360, 128, 150],
+    swoosh: 1490,
+    frame: { x0: 80, y0: 340, x1: 1000, y1: 940, r: 40 },
+    photoS: 0.86,
+    photoTY: 0,
+    plateDY: 10, // a foto da story desce 10 px (ver prep_assets.py)
+    cap: [985, 60, 76],
+    cam: [700, 250],
+    block: { top: 715, h: 470, w: 755, r: 60 },
+    title: { left: 76, top: 12, size: 52, lh: 64 },
+    lives: { top: 178, size: 40 },
+    price: { left: 74, top: 236, num: 72 },
+    card: { top: 1058, h: 316, w: 691, r: 48 },
+    items: { y: [55, 123, 191, 259], left: 84, size: 33, ic: 50 },
+    logo: { left: 727, top: 1214, w: 294 },
+    foot: { left: 723, top: 1290, w: 330, size: 20, lh: 26 },
+    pill: { cx: 540, cy: 1325, w: 540, h: 170, scale: 1.45 },
+    cta: { top: 1402, h: 134, row: false, text: 42 },
+  },
+  feed: {
+    plate: "assets/img/plate-feed.png",
+    notif: 36,
+    notifFrom: -24,
+    glow: { top: 300, h: 600 },
+    voce: [226, 54, 66],
+    pagando: [290, 128, 146],
+    caro: [432, 250, 280],
+    plano: [724, 50, 64],
+    muita: [200, 60, 76],
+    up: [[80, 960], [230, 905], [340, 930], [480, 790], [600, 820], [740, 620], [860, 650], [990, 390]],
+    down: [[80, 300], [220, 330], [330, 312], [470, 440], [600, 418], [730, 560], [860, 538], [990, 690]],
+    grid: [330, 92],
+    swCy: 560,
+    badge: 100,
+    mens: [190, 58, 72],
+    cair: [735, 70, 84],
+    bastante: [805, 112, 132],
+    swoosh: 935,
+    frame: { x0: 140, y0: 120, x1: 940, y1: 590, r: 36 },
+    photoS: 1,
+    photoTY: 96, // no cartão a foto desce 96 px (mostra a placa e o banner inteiros)
+    plateDY: 0,
+    cap: [625, 56, 72],
+    cam: [700, 150],
+    block: { top: 315, h: 478, w: 668, r: 40 },
+    title: { left: 90, top: 11, size: 49, lh: 60 },
+    lives: { top: 162, size: 40 },
+    price: { left: 88, top: 221, num: 72 },
+    card: { top: 648, h: 272, w: 593, r: 40 },
+    items: { y: [41, 106, 171, 234], left: 66, size: 27, ic: 42 },
+    logo: { left: 662, top: 812, w: 227 },
+    foot: { left: 659, top: 873, w: 400, size: 18, lh: 23 },
+    pill: { cx: 540, cy: 885, w: 460, h: 140, scale: 1.6 },
+    cta: { top: 976, h: 104, row: true, text: 38 },
+  },
+};
+const G = GEO[FMT];
+const BLOCK = G.block;
+const CARD = G.card;
+const LOGO = G.logo;
+const FOOT = G.foot;
+const CTA = G.cta;
+const LOGO_H = r3((LOGO.w * 32) / 140);
+// moldura da foto no ato 2 (cartão): story = foto reduzida (escala com origem distante),
+// feed = foto na escala final, só deslocada para baixo
+const FRAME = G.frame;
+const FRAME_CY = (FRAME.y0 + FRAME.y1) / 2;
+const PHOTO_S = G.photoS;
+const PHOTO_OY =
+  PHOTO_S < 1 ? r3((FRAME.y0 - G.plateDY * PHOTO_S) / (1 - PHOTO_S)) : r3(FRAME_CY - G.photoTY);
 // interruptor
-const SW = { cx: 540, cy: 960, w: 560, h: 200, knob: 168 };
+const SW = { cx: 540, cy: G.swCy, w: 560, h: 200, knob: 168 };
 const KNOB_L = SW.cx - SW.w / 2 + 16 + SW.knob / 2;
 const KNOB_R = SW.cx + SW.w / 2 - 16 - SW.knob / 2;
 
@@ -115,26 +196,8 @@ const FONTS = [400, 500, 600, 700, 800, 900]
   .join("\n");
 
 // gráfico do ato 1: mensalidade subindo; do ato 2: caindo
-const UP = [
-  [80, 1470],
-  [230, 1400],
-  [340, 1430],
-  [480, 1250],
-  [600, 1290],
-  [740, 1040],
-  [860, 1080],
-  [990, 760],
-];
-const DOWN = [
-  [80, 720],
-  [220, 760],
-  [330, 735],
-  [470, 900],
-  [600, 870],
-  [730, 1060],
-  [860, 1030],
-  [990, 1230],
-];
+const UP = G.up;
+const DOWN = G.down;
 const pathD = (pts) => pts.map(([x, y], i) => `${i ? "L" : "M"}${x} ${y}`).join(" ");
 const pathLen = (pts) => Math.round(pts.slice(1).reduce((s, p, i) => s + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0));
 const headAngle = (pts) => {
@@ -142,7 +205,7 @@ const headAngle = (pts) => {
   return r3((Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI);
 };
 const grid = (color) =>
-  Array.from({ length: 8 }, (_, i) => `<line x1="60" x2="1020" y1="${700 + i * 110}" y2="${700 + i * 110}" stroke="${color}" stroke-width="2"/>`).join("");
+  Array.from({ length: 8 }, (_, i) => `<line x1="60" x2="1020" y1="${G.grid[0] + i * G.grid[1]}" y2="${G.grid[0] + i * G.grid[1]}" stroke="${color}" stroke-width="2"/>`).join("");
 const chart = (id, pts, color, gridColor) => {
   const [ex, ey] = pts[pts.length - 1];
   return `<svg id="${id}" class="chart" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
@@ -175,11 +238,11 @@ const ITEMS = [
   ["SERVIÇOS OCUPACIONAIS", "case"],
   ["PROTEÇÃO ANTIÁCARO", "shield"],
 ];
-const ITEM_Y = [55, 123, 191, 259];
+const ITEM_Y = G.items.y;
 const itemsHtml = ITEMS.map(
   ([t, ic], i) => `
     <div class="item" style="top:${ITEM_Y[i]}px">
-      <div class="ic" id="ic${i}"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[ic]}</svg></div>
+      <div class="ic" id="ic${i}"><svg viewBox="0 0 48 48" width="${Math.round(G.items.ic * 0.6)}" height="${Math.round(G.items.ic * 0.6)}" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[ic]}</svg></div>
       <div class="it" id="it${i}">${t}</div>
     </div>`,
 ).join("");
@@ -197,9 +260,9 @@ ${FONTS}
 .chart{position:absolute;left:0;top:0;}
 /* ato 1 */
 #a1-bg{background:radial-gradient(120% 70% at 50% 55%,#151B2E 0%,${DARK} 60%,#04060C 100%);}
-#a1-glow{position:absolute;left:90px;top:640px;width:900px;height:760px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,59,48,0.42),rgba(255,59,48,0));opacity:0;}
+#a1-glow{position:absolute;left:90px;top:${G.glow.top}px;width:900px;height:${G.glow.h}px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,59,48,0.42),rgba(255,59,48,0));opacity:0;}
 #a1-chart{opacity:0.75;}
-#notif-wrap{position:absolute;left:60px;top:250px;width:960px;height:150px;}
+#notif-wrap{position:absolute;left:60px;top:${G.notif}px;width:960px;height:150px;}
 #notif{position:absolute;inset:0;display:flex;align-items:center;gap:26px;padding:0 30px;border-radius:34px;background:rgba(44,48,62,0.92);border:1.5px solid rgba(255,255,255,0.12);box-shadow:0 24px 60px rgba(0,0,0,0.55);}
 .n-icon{width:84px;height:84px;flex:none;border-radius:20px;background:linear-gradient(160deg,#FF6B5E,${RED});display:flex;align-items:center;justify-content:center;}
 .n-txt{flex:1;min-width:0;color:#fff;}
@@ -208,15 +271,15 @@ ${FONTS}
 .n-top span{font-size:24px;color:rgba(255,255,255,0.55);}
 .n-body{font-size:28px;line-height:38px;color:rgba(255,255,255,0.86);white-space:nowrap;}
 .a1t{text-shadow:0 6px 28px rgba(0,0,0,0.65);}
-#t-voce{top:585px;font-weight:600;font-size:60px;line-height:72px;color:rgba(255,255,255,0.9);}
-#t-pagando{top:665px;font-weight:900;font-size:150px;line-height:170px;letter-spacing:-0.02em;color:#fff;}
-#caro-box{position:absolute;left:0;top:840px;width:${W}px;height:330px;}
-.caro{position:absolute;left:0;top:0;width:${W}px;text-align:center;font-weight:900;font-size:300px;line-height:330px;letter-spacing:-0.03em;}
+#t-voce{top:${G.voce[0]}px;font-weight:600;font-size:${G.voce[1]}px;line-height:${G.voce[2]}px;color:rgba(255,255,255,0.9);}
+#t-pagando{top:${G.pagando[0]}px;font-weight:900;font-size:${G.pagando[1]}px;line-height:${G.pagando[2]}px;letter-spacing:-0.02em;color:#fff;}
+#caro-box{position:absolute;left:0;top:${G.caro[0]}px;width:${W}px;height:${G.caro[2]}px;}
+.caro{position:absolute;left:0;top:0;width:${W}px;text-align:center;font-weight:900;font-size:${G.caro[1]}px;line-height:${G.caro[2]}px;letter-spacing:-0.03em;}
 #caro{color:${RED};}
 #caro-c{color:#00E5FF;mix-blend-mode:screen;opacity:0;}
 #caro-m{color:#FF2D95;mix-blend-mode:screen;opacity:0;}
-#t-plano{top:1185px;font-weight:600;font-size:58px;line-height:72px;color:#fff;}
-#t-muita{top:560px;font-weight:700;font-size:64px;line-height:80px;color:#fff;}
+#t-plano{top:${G.plano[0]}px;font-weight:600;font-size:${G.plano[1]}px;line-height:${G.plano[2]}px;color:#fff;}
+#t-muita{top:${G.muita[0]}px;font-weight:700;font-size:${G.muita[1]}px;line-height:${G.muita[2]}px;color:#fff;}
 /* interruptor */
 #sw-wrap{position:absolute;left:${SW.cx - SW.w / 2}px;top:${SW.cy - SW.h / 2}px;width:${SW.w}px;height:${SW.h}px;}
 #sw{position:absolute;inset:0;border-radius:999px;background:rgba(255,255,255,0.08);border:3px solid rgba(255,255,255,0.35);}
@@ -230,39 +293,39 @@ ${FONTS}
 /* ato 2 */
 #a2{clip-path:circle(0px at ${KNOB_R}px ${SW.cy}px);}
 #a2-bg{background:linear-gradient(160deg,${LIGHT} 0%,#3B82F0 45%,${ROYAL} 100%);}
-#t-mens{top:540px;font-weight:600;font-size:62px;line-height:76px;color:#fff;}
-#t-cair{top:1280px;font-weight:700;font-size:78px;line-height:92px;color:#fff;}
-#t-bastante{top:1360px;font-weight:900;font-size:128px;line-height:150px;letter-spacing:-0.02em;color:#fff;}
-#swoosh{position:absolute;left:270px;top:1490px;}
+#t-mens{top:${G.mens[0]}px;font-weight:600;font-size:${G.mens[1]}px;line-height:${G.mens[2]}px;color:#fff;}
+#t-cair{top:${G.cair[0]}px;font-weight:700;font-size:${G.cair[1]}px;line-height:${G.cair[2]}px;color:#fff;}
+#t-bastante{top:${G.bastante[0]}px;font-weight:900;font-size:${G.bastante[1]}px;line-height:${G.bastante[2]}px;letter-spacing:-0.02em;color:#fff;}
+#swoosh{position:absolute;left:270px;top:${G.swoosh}px;}
 /* ato 3 */
 #lav{background:${LAV};opacity:0;}
 #ph-shadow{position:absolute;left:${FRAME.x0}px;top:${FRAME.y0}px;width:${FRAME.x1 - FRAME.x0}px;height:${FRAME.y1 - FRAME.y0}px;border-radius:${FRAME.r}px;box-shadow:0 30px 80px rgba(8,22,70,0.45),0 0 0 6px rgba(255,255,255,0.9);opacity:0;}
-#ph-wrap{clip-path:inset(${FRAME.y0 + 300}px ${W / 2}px ${H - FRAME.y0 - 300}px ${W / 2}px round ${FRAME.r}px);}
-#ph-cam{transform-origin:700px 250px;}
+#ph-wrap{clip-path:inset(${FRAME_CY}px ${W / 2}px ${H - FRAME_CY}px ${W / 2}px round ${FRAME.r}px);}
+#ph-cam{transform-origin:${G.cam[0]}px ${G.cam[1]}px;}
 #photo{position:absolute;left:0;top:0;width:${W}px;height:${H}px;transform-origin:${W / 2}px ${PHOTO_OY}px;}
 #shine{position:absolute;left:-500px;top:0;width:360px;height:${H}px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.45),rgba(255,255,255,0));}
-#cap{top:985px;font-weight:600;font-size:60px;line-height:76px;color:#fff;}
+#cap{top:${G.cap[0]}px;font-weight:600;font-size:${G.cap[1]}px;line-height:${G.cap[2]}px;color:#fff;}
 #cap b{font-weight:800;}
 #block{position:absolute;left:0;top:${BLOCK.top}px;width:${BLOCK.w}px;height:${BLOCK.h}px;background:${LIGHT};border-radius:0 ${BLOCK.r}px ${BLOCK.r}px 0;color:#fff;}
-#title{position:absolute;left:76px;top:12px;font-weight:600;font-size:52px;line-height:64px;white-space:nowrap;}
-#lives{position:absolute;left:76px;top:178px;font-weight:600;font-size:40px;line-height:50px;white-space:nowrap;}
-#price{position:absolute;left:74px;top:236px;height:86px;display:flex;align-items:flex-end;white-space:nowrap;}
+#title{position:absolute;left:${G.title.left}px;top:${G.title.top}px;font-weight:600;font-size:${G.title.size}px;line-height:${G.title.lh}px;white-space:nowrap;}
+#lives{position:absolute;left:${G.title.left}px;top:${G.lives.top}px;font-weight:600;font-size:${G.lives.size}px;line-height:50px;white-space:nowrap;}
+#price{position:absolute;left:${G.price.left}px;top:${G.price.top}px;height:86px;display:flex;align-items:flex-end;white-space:nowrap;}
 #price-z{position:relative;display:flex;align-items:flex-end;transform-origin:20% 80%;}
 #cur{font-weight:600;font-size:26px;line-height:1;margin:0 10px 10px 2px;}
-#num{font-weight:600;font-size:72px;line-height:1;letter-spacing:-0.005em;font-variant-numeric:tabular-nums;}
+#num{font-weight:600;font-size:${G.price.num}px;line-height:1;letter-spacing:-0.005em;font-variant-numeric:tabular-nums;}
 #ast{font-weight:600;font-size:60px;line-height:1;margin-left:4px;align-self:flex-start;}
 #flare{position:absolute;left:-80px;top:-80px;width:520px;height:240px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,0.6),rgba(255,255,255,0));opacity:0;}
 #card{position:absolute;left:0;top:${CARD.top}px;width:${CARD.w}px;height:${CARD.h}px;background:${ROYAL};border-radius:0 ${CARD.r}px ${CARD.r}px 0;}
-.item{position:absolute;left:84px;height:0;display:flex;align-items:center;}
-.ic{width:50px;height:50px;flex:none;border-radius:50%;background:${LIGHT};display:flex;align-items:center;justify-content:center;}
+.item{position:absolute;left:${G.items.left}px;height:0;display:flex;align-items:center;}
+.ic{width:${G.items.ic}px;height:${G.items.ic}px;flex:none;border-radius:50%;background:${LIGHT};display:flex;align-items:center;justify-content:center;}
 .ic svg{display:block;}
-.it{margin-left:22px;font-weight:500;font-size:33px;line-height:44px;color:#fff;white-space:nowrap;letter-spacing:0.01em;}
-#logo-pill{position:absolute;left:270px;top:1240px;width:540px;height:170px;border-radius:52px;background:#fff;box-shadow:0 18px 50px rgba(20,40,110,0.25);opacity:0;}
-#logo{position:absolute;left:${LOGO.left}px;top:${LOGO.top}px;width:${LOGO.w}px;height:${r3((LOGO.w * 32) / 140)}px;opacity:0;}
-#foot{position:absolute;left:${FOOT.left}px;top:${FOOT.top}px;width:${FOOT.w}px;font-weight:400;font-size:20px;line-height:26px;color:${INK};opacity:0;}
+.it{margin-left:${Math.round(G.items.size * 0.66)}px;font-weight:500;font-size:${G.items.size}px;line-height:44px;color:#fff;white-space:nowrap;letter-spacing:0.01em;}
+#logo-pill{position:absolute;left:${G.pill.cx - G.pill.w / 2}px;top:${G.pill.cy - G.pill.h / 2}px;width:${G.pill.w}px;height:${G.pill.h}px;border-radius:52px;background:#fff;box-shadow:0 18px 50px rgba(20,40,110,0.25);opacity:0;}
+#logo{position:absolute;left:${LOGO.left}px;top:${LOGO.top}px;width:${LOGO.w}px;height:${LOGO_H}px;opacity:0;}
+#foot{position:absolute;left:${FOOT.left}px;top:${FOOT.top}px;width:${FOOT.w}px;font-weight:400;font-size:${FOOT.size}px;line-height:${FOOT.lh}px;color:${INK};opacity:0;}
 #cta{position:absolute;left:0;top:${CTA.top}px;width:${W}px;height:${CTA.h}px;background:${LIGHT};}
-#cta-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
-#cta-text{font-weight:700;font-size:42px;line-height:48px;letter-spacing:-0.02em;color:#fff;white-space:nowrap;}
+#cta-in{position:absolute;inset:0;display:flex;flex-direction:${CTA.row ? "row" : "column"};align-items:center;justify-content:center;gap:${CTA.row ? 36 : 8}px;}
+#cta-text{font-weight:700;font-size:${CTA.text}px;line-height:${CTA.text + 6}px;letter-spacing:-0.02em;color:#fff;white-space:nowrap;}
 #btn-pop{position:relative;}
 #ring{position:absolute;inset:0;border-radius:999px;border:3px solid rgba(255,255,255,0.95);opacity:0;}
 #btn{position:relative;height:56px;padding:0 10px 0 32px;display:flex;align-items:center;gap:16px;border-radius:999px;background:#fff;box-shadow:0 8px 22px rgba(20,40,110,0.25);}
@@ -307,7 +370,7 @@ const body = `
   <div id="lav" class="full"></div>
   <div id="ph-shadow"></div>
   <div id="ph-wrap" class="full">
-    <div id="ph-cam" class="full"><img id="photo" src="assets/img/plate.png" alt="Hospital Dr. Beda" /></div>
+    <div id="ph-cam" class="full"><img id="photo" src="${G.plate}" alt="Hospital Dr. Beda" /></div>
     <div id="shine"></div>
   </div>
   <div id="cap" class="row">${wordSpans("cq", "com a mesma qualidade")}</div>
@@ -340,7 +403,7 @@ const words = (prefix, n, t0, gap, dur = 0.45) => {
 };
 
 // ATO 1 — dor
-add(`tl.fromTo("#notif-wrap",{y:-70,scale:0.94,opacity:0.55},{y:0,scale:1,opacity:1,duration:0.4,ease:"back.out(1.6)"},0);`);
+add(`tl.fromTo("#notif-wrap",{y:${G.notifFrom},scale:0.94,opacity:0.55},{y:0,scale:1,opacity:1,duration:0.4,ease:"back.out(1.6)"},0);`);
 add(`tl.fromTo("#a1-glow",{opacity:0.25,scale:0.8},{opacity:0.25,scale:0.8,duration:0.01},0);`);
 add(`tl.fromTo("#a1-chart-line",{attr:{"stroke-dashoffset":${Math.round(pathLen(UP) * 0.65)}}},{attr:{"stroke-dashoffset":0},duration:2.2,ease:"power2.inOut"},0);`);
 add(`tl.fromTo("#a1-chart-glow",{attr:{"stroke-dashoffset":${Math.round(pathLen(UP) * 0.65)}}},{attr:{"stroke-dashoffset":0},duration:2.2,ease:"power2.inOut"},0);`);
@@ -398,8 +461,8 @@ add(`tl.fromTo("#a2",{clipPath:"circle(0px at ${KNOB_R}px ${SW.cy}px)"},{clipPat
 add(`tl.fromTo("#burst",{scale:0.3,opacity:1},{scale:4.2,opacity:0,duration:0.7,ease:"power2.out",immediateRender:false},${r3(T.turn + 0.02)});`);
 add(`tl.set(["#t-muita","#a1-chart","#a1-glow"],{opacity:0},${r3(T.turn + 0.75)});`);
 // interruptor vira um selo no alto
-add(`tl.to("#sw-wrap",{scale:0.56,y:${330 - SW.cy},duration:0.5,ease:"power3.inOut"},${r3(T.turn + 0.55)});`);
-add(`tl.to("#sw-wrap",{opacity:0,y:${300 - SW.cy},duration:0.3,ease:"power2.in"},${r3(T.com1 - 0.2)});`);
+add(`tl.to("#sw-wrap",{scale:0.56,y:${G.badge - SW.cy},duration:0.5,ease:"power3.inOut"},${r3(T.turn + 0.55)});`);
+add(`tl.to("#sw-wrap",{opacity:0,y:${G.badge - 30 - SW.cy},duration:0.3,ease:"power2.in"},${r3(T.com1 - 0.2)});`);
 // mensalidade caindo
 words("me", 2, T.mens - 0.15, 0.12, 0.4);
 add(`tl.fromTo("#a2-chart-line",{attr:{"stroke-dashoffset":${pathLen(DOWN)}}},{attr:{"stroke-dashoffset":0},duration:1.3,ease:"power2.inOut"},${r3(T.mens - 0.1)});`);
@@ -413,17 +476,17 @@ const a2out = r3(T.com1 - 0.2);
 add(`tl.to(["#t-mens","#t-cair","#t-bastante","#swoosh","#a2-chart"],{opacity:0,y:-40,duration:0.3,ease:"power2.in"},${a2out});`);
 const frameIn = r3(T.com1 - 0.05);
 add(
-  `tl.fromTo("#ph-wrap",{clipPath:"inset(640px 540px 1280px 540px round ${FRAME.r}px)"},{clipPath:"inset(${FRAME.y0}px ${W - FRAME.x1}px ${H - FRAME.y1}px ${FRAME.x0}px round ${FRAME.r}px)",duration:0.55,ease:"power3.out"},${frameIn});`,
+  `tl.fromTo("#ph-wrap",{clipPath:"inset(${FRAME_CY}px 540px ${H - FRAME_CY}px 540px round ${FRAME.r}px)"},{clipPath:"inset(${FRAME.y0}px ${W - FRAME.x1}px ${H - FRAME.y1}px ${FRAME.x0}px round ${FRAME.r}px)",duration:0.55,ease:"power3.out"},${frameIn});`,
 );
 add(`tl.fromTo("#ph-shadow",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.55,ease:"power3.out"},${frameIn});`);
-add(`tl.fromTo("#photo",{scale:${PHOTO_S - 0.03}},{scale:${PHOTO_S},duration:${r3(T.plano1 - 0.12 - frameIn - 0.02)},ease:"power2.out"},${frameIn});`);
+add(`tl.fromTo("#photo",{scale:${PHOTO_S - 0.03},y:${G.photoTY}},{scale:${PHOTO_S},y:${G.photoTY},duration:${r3(T.plano1 - 0.12 - frameIn - 0.02)},ease:"power2.out"},${frameIn});`);
 words("cq", 4, T.com1, 0.1, 0.4);
 add(`tl.fromTo("#shine",{x:0},{x:1900,duration:0.8,ease:"power2.inOut"},${r3(T.qualidade)});`);
 
 // ATO 3 — a foto abre em tela cheia e a peça se monta
 const open = r3(T.plano1 - 0.12);
 add(`tl.to("#ph-wrap",{clipPath:"inset(0px 0px 0px 0px round 0px)",duration:0.75,ease:"power3.inOut"},${open});`);
-add(`tl.to("#photo",{scale:1,duration:0.75,ease:"power3.inOut"},${open});`);
+add(`tl.to("#photo",{scale:1,y:0,duration:0.75,ease:"power3.inOut"},${open});`);
 add(`tl.to("#ph-shadow",{opacity:0,duration:0.3,ease:"power1.out"},${open});`);
 add(`tl.to("#cap",{opacity:0,y:30,duration:0.25,ease:"power2.in"},${open});`);
 add(`tl.fromTo("#lav",{opacity:0},{opacity:1,duration:0.45,ease:"power1.inOut"},${r3(open + 0.1)});`);
@@ -433,9 +496,9 @@ words("tt", 3, r3(open + 0.45), 0.12, 0.42);
 words("tp", 2, r3(T.para - 0.05), 0.18, 0.42);
 // logo da Porto: pop grande no centro, depois vai para o canto da peça
 const logoMove = r3(T.tres - 0.45);
-const LS = 1.45; // escala do logo no pop
-const lx = 540 - (LOGO.left + LOGO.w / 2);
-const ly = 1325 - (LOGO.top + (LOGO.w * 32) / 140 / 2);
+const LS = G.pill.scale; // escala do logo no pop
+const lx = G.pill.cx - (LOGO.left + LOGO.w / 2);
+const ly = G.pill.cy - (LOGO.top + LOGO_H / 2);
 add(`tl.fromTo("#logo-pill",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.42,ease:"back.out(1.7)"},${r3(T.porto - 0.08)});`);
 add(`tl.fromTo("#logo",{x:${r3(lx)},y:${r3(ly)},scale:${LS * 0.6},opacity:0},{x:${r3(lx)},y:${r3(ly)},scale:${LS},opacity:1,duration:0.42,ease:"back.out(1.7)"},${r3(T.porto - 0.05)});`);
 add(`tl.to("#logo-pill",{scale:0.6,opacity:0,duration:0.35,ease:"power2.in"},${logoMove});`);
@@ -464,7 +527,7 @@ add(`tl.fromTo("#flare",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.14,e
 add(`tl.to("#flare",{opacity:0,scale:1.25,duration:0.8,ease:"power2.out"},${r3(T.lock + 0.14)});`);
 // benefícios
 const cardIn = r3(T.items[0] - 0.35);
-add(`tl.fromTo("#card",{y:380,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},${cardIn});`);
+add(`tl.fromTo("#card",{y:${FMT === "feed" ? 240 : 380},opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},${cardIn});`);
 T.items.forEach((t, i) => {
   add(`tl.fromTo("#ic${i}",{scale:0.2,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(1.8)"},${r3(t - 0.05)});`);
   add(`tl.fromTo("#it${i}",{opacity:0,x:-30},{opacity:1,x:0,duration:0.42,ease:"power3.out"},${r3(t)});`);
@@ -557,15 +620,16 @@ const audioTags = [
   ),
 ].join("\n      ");
 
+const COMP = FMT === "feed" ? "filme-feed" : "filme";
 const scene = `<template>
 <style>${css}</style>
-<div id="stage" data-composition-id="filme" data-start="0" data-duration="${D}" data-width="${W}" data-height="${H}">${body}
+<div id="stage" data-composition-id="${COMP}" data-start="0" data-duration="${D}" data-width="${W}" data-height="${H}">${body}
 </div>
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
 ${tl.join("\n")}
-window.__timelines["filme"] = tl;
+window.__timelines["${COMP}"] = tl;
 })();
 </script>
 </template>
@@ -586,7 +650,7 @@ const html = `<!doctype html>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="${D}" data-width="${W}" data-height="${H}">
-      <div id="el-filme" class="scene" data-composition-id="filme" data-composition-src="compositions/filme.html" data-start="0" data-duration="${D}" data-track-index="0"></div>
+      <div id="el-filme" class="scene" data-composition-id="${COMP}" data-composition-src="compositions/${COMP}.html" data-start="0" data-duration="${D}" data-track-index="0"></div>
       ${audioTags}
     </div>
     <script>
@@ -597,7 +661,10 @@ const html = `<!doctype html>
 </html>
 `;
 
-mkdirSync(join(ROOT, "compositions"), { recursive: true });
-writeFileSync(join(ROOT, "compositions/filme.html"), scene);
-writeFileSync(join(ROOT, "index.html"), html);
-console.log(`filme: ${D}s, virada em ${T.turn}s, trava do preço em ${r3(T.lock)}s; ${tl.length} comandos, ${SFX.length} SFX`);
+// o feed é um projeto à parte em feed/ (um projeto só pode ter uma composição raiz);
+// feed/assets aponta para os assets deste projeto
+const OUT = FMT === "feed" ? join(ROOT, "feed") : ROOT;
+mkdirSync(join(OUT, "compositions"), { recursive: true });
+writeFileSync(join(OUT, `compositions/${COMP}.html`), scene);
+writeFileSync(join(OUT, "index.html"), html);
+console.log(`${FMT} ${W}x${H}: ${D}s, virada em ${T.turn}s, trava do preço em ${r3(T.lock)}s; ${tl.length} comandos, ${SFX.length} SFX`);
