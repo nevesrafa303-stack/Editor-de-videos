@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="premium.css">
+<style>
+  .canvas { background: linear-gradient(180deg, #0d1328 0%, var(--night) 60%); }
+  .frame { position: absolute; left: var(--m); right: var(--m); top: 316px; height: 700px; overflow: hidden; border-radius: 4px; }
+  .frame .photo { position: absolute; inset: 0; background: url(../assets/fotos/empresaria.jpg) 50% 18% / cover; filter: saturate(.8) contrast(1.05); }
+  .frame::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px rgba(243,238,228,.12); background: linear-gradient(180deg, rgba(10,15,31,0) 70%, rgba(10,15,31,.35) 100%); }
+  .row { position: absolute; left: var(--m); right: var(--m); top: 1062px; display: flex; align-items: flex-end; gap: 30px; }
+  .row .big { font-size: 270px; margin-left: -10px; }
+  .row .big sup { color: var(--accent); }
+  .row .sub { font-size: 62px; line-height: 1; padding-bottom: 12px; }
+  .rule-a { position: absolute; left: var(--m); right: var(--m); top: 1292px; }
+  .meta { position: absolute; left: var(--m); right: var(--m); top: 1293px; }
+  .meta > div { padding-top: 20px; }
+  .meta p { font-size: 29px; }
+  .note { position: absolute; left: var(--m); right: var(--m); top: 1436px; font-size: 25px; }
+  .p-cta { position: absolute; left: var(--m); top: 1490px; height: 88px; font-size: 28px; }
+  .p-legal { position: absolute; left: var(--m); right: var(--m); top: 1600px; font-size: 16px; }
+
+  body.feed .frame { left: 0; right: auto; width: 470px; top: 0; height: 100%; border-radius: 0; }
+  body.feed .frame .photo { background-position: 55% 20%; }
+  body.feed .p-top { left: 530px; flex-direction: column; align-items: flex-start; gap: 26px; }
+  body.feed .p-top .logo { order: -1; }
+  body.feed .row { left: 530px; right: 72px; top: 250px; flex-direction: column; align-items: flex-start; gap: 18px; }
+  body.feed .row .big { font-size: 250px; }
+  body.feed .row .sub { font-size: 56px; padding: 0; }
+  body.feed .rule-a { left: 530px; right: 72px; top: 650px; }
+  body.feed .meta { left: 530px; right: 72px; top: 651px; grid-template-columns: 1fr; }
+  body.feed .meta > div + div { padding-left: 0; border-left: 0; padding-top: 16px; }
+  body.feed .meta p { font-size: 26px; }
+  body.feed .note { left: 530px; right: 72px; top: 905px; font-size: 23px; }
+  body.feed .p-cta { left: 530px; top: 1010px; height: 78px; font-size: 23px; padding: 0 26px 0 30px; gap: 14px; }
+  body.feed .p-legal { left: 530px; right: 72px; top: 1130px; font-size: 14px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="p-top"><span class="tag">Planos de Saúde para CNPJ</span><span class="logo"></span></div>
+  <div class="frame"><div class="photo"></div></div>
+  <div class="row"><div class="big num">50<sup>%</sup></div><div class="sub it">de desconto na<br>1ª e 2ª fatura</div></div>
+  <div class="rule rule-a"></div>
+  <div class="meta">
+    <div><small>A partir de</small><p><b>2 vidas</b></p></div>
+    <div><small>Desconto</small><p>de 50% na primeira e na segunda fatura</p></div>
+  </div>
+  <p class="note">Oferta válida só para contratações neste mês de <b>outubro</b>.</p>
+  <span class="p-cta">Simulação Gratuita 100% Online</span>
+  <p class="p-legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

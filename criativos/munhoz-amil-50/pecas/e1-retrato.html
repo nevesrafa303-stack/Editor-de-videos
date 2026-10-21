@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="premium.css">
+<style>
+  .photo { position: absolute; left: 0; right: 0; top: 110px; height: 1250px; background: url(../assets/fotos/empresario-retrato.jpg) 30% 0 / cover;
+           filter: saturate(.75) contrast(1.06) brightness(.95); transform: scaleX(-1); }
+  .shade { position: absolute; left: 0; right: 0; top: 110px; height: 1250px;
+    background: linear-gradient(180deg, var(--night) 0%, rgba(10,15,31,0) 14%, rgba(10,15,31,0) 50%, rgba(10,15,31,.9) 74%, var(--night) 92%),
+                linear-gradient(90deg, rgba(10,15,31,.6) 0%, rgba(10,15,31,0) 50%); }
+  .big { position: absolute; left: calc(var(--m) - 14px); top: 760px; font-size: 400px; }
+  .big sup { color: var(--accent); }
+  .sub { position: absolute; left: var(--m); top: 1086px; font-size: 68px; line-height: 1; }
+  .rule-a { position: absolute; left: var(--m); right: var(--m); top: 1196px; }
+  .meta { position: absolute; left: var(--m); right: var(--m); top: 1197px; }
+  .meta p { font-size: 30px; }
+  .note { position: absolute; left: var(--m); right: var(--m); top: 1360px; font-size: 26px; }
+  .p-cta { position: absolute; left: var(--m); top: 1428px; }
+  .sign { position: absolute; right: var(--m); top: 1452px; width: 132px; }
+  .p-legal { position: absolute; left: var(--m); right: var(--m); top: 1556px; }
+
+  body.feed .photo { top: 0; height: 100%; background-position: 31% 0; }
+  body.feed .shade { top: 0; height: 100%; background: linear-gradient(90deg, var(--night) 0%, rgba(10,15,31,.85) 32%, rgba(10,15,31,0) 58%), linear-gradient(0deg, rgba(10,15,31,.75) 0%, rgba(10,15,31,0) 32%); }
+  body.feed .big { top: 172px; font-size: 300px; }
+  body.feed .sub { top: 420px; font-size: 60px; right: 480px; }
+  body.feed .rule-a { top: 580px; right: 520px; }
+  body.feed .meta { top: 581px; right: 520px; grid-template-columns: 1fr; }
+  body.feed .meta > div + div { padding-left: 0; border-left: 0; padding-top: 18px; }
+  body.feed .meta p { font-size: 28px; }
+  body.feed .note { top: 905px; right: 520px; font-size: 24px; }
+  body.feed .p-cta { top: 1020px; }
+  body.feed .sign { top: 1258px; right: auto; left: var(--m); width: 108px; }
+  body.feed .p-legal { top: 1150px; right: 300px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="photo"></div><div class="shade"></div>
+  <div class="p-top"><span class="tag">Planos de Saúde para CNPJ</span></div>
+  <div class="big num">50<sup>%</sup></div>
+  <div class="sub it">de desconto na 1ª e 2ª fatura</div>
+  <div class="rule rule-a"></div>
+  <div class="meta">
+    <div><small>A partir de</small><p><b>2 vidas</b></p></div>
+    <div><small>Desconto</small><p>de 50% na primeira e na segunda fatura</p></div>
+  </div>
+  <p class="note">Oferta válida só para contratações neste mês de <b>outubro</b>.</p>
+  <span class="p-cta">Simulação Gratuita 100% Online</span>
+  <span class="logo sign"></span>
+  <p class="p-legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

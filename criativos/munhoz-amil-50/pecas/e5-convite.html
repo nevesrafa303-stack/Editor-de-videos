@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="premium.css">
+<style>
+  body { background: var(--ivory); color: var(--night); --line: rgba(10,15,31,.2); --ivory-2: rgba(10,15,31,.6); --accent: #2b45c9; }
+  .canvas { background: radial-gradient(900px 900px at 50% 40%, #f8f5ee, transparent 75%), #efe9dd; }
+  .note b { color: var(--night); }
+  .grain::after { mix-blend-mode: multiply; opacity: .14; }
+  .border { position: absolute; left: 60px; right: 60px; top: 190px; bottom: 270px; border: 1px solid rgba(10,15,31,.3); }
+  .border::after { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(10,15,31,.14); }
+  .center { position: absolute; left: 110px; right: 110px; text-align: center; }
+  .logo { width: 150px; color: var(--night); margin: 0 auto; }
+  .lg { top: 350px; }
+  .tag { top: 462px; font-size: 24px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; }
+  .orn { top: 518px; display: flex; justify-content: center; align-items: center; gap: 18px; }
+  .orn i { width: 90px; height: 1px; background: rgba(10,15,31,.35); }
+  .orn span { width: 8px; height: 8px; transform: rotate(45deg); border: 1px solid rgba(10,15,31,.5); }
+  .big { top: 580px; font-size: 440px; }
+  .big sup { color: var(--accent); }
+  .sub { top: 950px; font-size: 76px; line-height: 1; }
+  .vidas { top: 1090px; }
+  .vidas small { display: block; font-size: 22px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ivory-2); }
+  .vidas b { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 92px; line-height: 1; color: var(--accent); margin-top: 8px; }
+  .desc { top: 1230px; font-size: 32px; font-weight: 500; }
+  .note { top: 1288px; font-size: 26px; }
+  .ctaw { top: 1380px; }
+  .p-cta { background: var(--night); color: var(--ivory); }
+  .p-legal { position: absolute; left: 110px; right: 110px; top: 1680px; text-align: center; color: rgba(10,15,31,.5); }
+
+  body.feed .border { top: 44px; bottom: 44px; left: 44px; right: 44px; }
+  body.feed .lg { top: 100px; }
+  body.feed .logo { width: 124px; }
+  body.feed .tag { top: 178px; font-size: 20px; }
+  body.feed .orn { top: 224px; }
+  body.feed .big { top: 268px; font-size: 330px; }
+  body.feed .sub { top: 545px; font-size: 62px; }
+  body.feed .vidas { top: 650px; }
+  body.feed .vidas small { font-size: 19px; }
+  body.feed .vidas b { font-size: 74px; }
+  body.feed .desc { top: 770px; font-size: 28px; }
+  body.feed .note { top: 818px; font-size: 23px; }
+  body.feed .ctaw { top: 890px; }
+  body.feed .p-legal { top: 1010px; left: 120px; right: 120px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="border"></div>
+  <div class="center lg"><span class="logo"></span></div>
+  <div class="center tag">Planos de Saúde para CNPJ</div>
+  <div class="center orn"><i></i><span></span><i></i></div>
+  <div class="center big num">50<sup>%</sup></div>
+  <div class="center sub it">de desconto na 1ª e 2ª fatura</div>
+  <div class="center vidas"><small>A partir de</small><b>2 vidas</b></div>
+  <p class="center desc">Desconto de 50% na primeira e na segunda fatura</p>
+  <p class="center note">Oferta válida só para contratações neste mês de <b>outubro</b>.</p>
+  <div class="center ctaw"><span class="p-cta">Simulação Gratuita 100% Online</span></div>
+  <p class="p-legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

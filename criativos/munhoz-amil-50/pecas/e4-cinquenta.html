@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="premium.css">
+<style>
+  .canvas { background: radial-gradient(900px 800px at 92% 18%, #1b2650 0%, transparent 70%), radial-gradient(700px 700px at 0% 100%, #141c3c 0%, transparent 70%), var(--night); }
+  .orbit { position: absolute; left: 560px; top: 610px; width: 980px; height: 980px; margin: -490px 0 0 -490px; border-radius: 50%; border: 1.5px solid rgba(143,220,236,.28); }
+  .orbit.two { width: 760px; height: 760px; margin: -380px 0 0 -380px; border-color: rgba(243,238,228,.1); }
+  .big { position: absolute; left: calc(var(--m) - 18px); top: 380px; font-size: 520px; }
+  .big sup { color: var(--accent); }
+  .sub { position: absolute; left: var(--m); top: 806px; font-size: 96px; line-height: .98; }
+  .rule-a { position: absolute; left: var(--m); right: var(--m); top: 1060px; }
+  .meta { position: absolute; left: var(--m); right: var(--m); top: 1061px; }
+  .note { position: absolute; left: var(--m); right: var(--m); top: 1268px; }
+  .p-cta { position: absolute; left: var(--m); top: 1392px; }
+  .p-legal { position: absolute; left: var(--m); right: var(--m); top: 1532px; }
+
+  body.feed .orbit { left: 600px; top: 380px; width: 760px; height: 760px; margin: -380px 0 0 -380px; }
+  body.feed .orbit.two { width: 580px; height: 580px; margin: -290px 0 0 -290px; }
+  body.feed .big { top: 182px; font-size: 400px; }
+  body.feed .sub { top: 512px; font-size: 76px; }
+  body.feed .rule-a { top: 712px; }
+  body.feed .meta { top: 713px; }
+  body.feed .meta p { font-size: 29px; }
+  body.feed .note { top: 918px; font-size: 25px; }
+  body.feed .p-cta { top: 1022px; }
+  body.feed .p-legal { top: 1160px; right: 240px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="orbit"></div><div class="orbit two"></div>
+  <div class="p-top"><span class="tag">Planos de Saúde para CNPJ</span><span class="logo"></span></div>
+  <div class="big num">50<sup>%</sup></div>
+  <div class="sub it">de desconto na<br>1ª e 2ª fatura</div>
+  <div class="rule rule-a"></div>
+  <div class="meta">
+    <div><small>A partir de</small><p><b>2 vidas</b></p></div>
+    <div><small>Desconto</small><p>de 50% na primeira e na segunda fatura</p></div>
+  </div>
+  <p class="note">Oferta válida só para contratações neste mês de <b>outubro</b>.</p>
+  <span class="p-cta">Simulação Gratuita 100% Online</span>
+  <p class="p-legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

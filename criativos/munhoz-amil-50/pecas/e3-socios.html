@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="premium.css">
+<style>
+  body { background: var(--ivory); color: var(--night); --line: rgba(10,15,31,.18); --ivory-2: rgba(10,15,31,.62); --accent: #2b45c9; }
+  .canvas { background: var(--ivory); }
+  .note b { color: var(--night); }
+  .grain::after { mix-blend-mode: multiply; opacity: .12; }
+  .p-top .logo { color: var(--night); }
+  .photo { position: absolute; left: 0; right: 0; top: 320px; height: 700px; background: url(../assets/fotos/socios-executivos.jpg) 62% 30% / cover; filter: saturate(.85) contrast(1.03); }
+  .big { position: absolute; left: calc(var(--m) - 14px); top: 1072px; font-size: 300px; }
+  .sub { position: absolute; left: 560px; right: var(--m); top: 1118px; font-size: 62px; line-height: 1; }
+  .rule-a { position: absolute; left: var(--m); right: var(--m); top: 1316px; }
+  .meta { position: absolute; left: var(--m); right: var(--m); top: 1317px; }
+  .meta > div { padding-top: 20px; }
+  .meta p { font-size: 29px; }
+  .note { position: absolute; left: var(--m); right: var(--m); top: 1452px; font-size: 25px; }
+  .p-cta { position: absolute; left: var(--m); top: 1500px; height: 88px; font-size: 28px; background: var(--night); color: var(--ivory); }
+  .p-legal { position: absolute; left: var(--m); right: var(--m); top: 1608px; font-size: 16px; color: rgba(10,15,31,.5); }
+
+  body.feed .photo { top: 0; height: 600px; background-position: 62% 32%; }
+  body.feed .p-top { background: var(--ivory); left: 0; right: 0; top: 0; height: 0; }
+  body.feed .p-top .tag, body.feed .p-top .logo { position: absolute; top: 640px; }
+  body.feed .p-top .tag { left: var(--m); }
+  body.feed .p-top .logo { right: var(--m); top: 628px; }
+  body.feed .big { top: 712px; font-size: 250px; }
+  body.feed .sub { left: 470px; top: 752px; font-size: 54px; }
+  body.feed .rule-a { top: 930px; }
+  body.feed .meta { top: 931px; }
+  body.feed .meta > div { padding-top: 16px; }
+  body.feed .meta p { font-size: 25px; }
+  body.feed .note { top: 1056px; font-size: 22px; }
+  body.feed .p-cta { top: 1110px; height: 76px; font-size: 23px; padding: 0 26px 0 30px; gap: 14px; }
+  body.feed .p-legal { top: 1206px; font-size: 14px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="p-top"><span class="tag">Planos de Saúde para CNPJ</span><span class="logo"></span></div>
+  <div class="photo"></div>
+  <div class="big num">50%</div>
+  <div class="sub it">de desconto na<br>1ª e 2ª fatura</div>
+  <div class="rule rule-a"></div>
+  <div class="meta">
+    <div><small>A partir de</small><p><b>2 vidas</b></p></div>
+    <div><small>Desconto</small><p>de 50% na primeira e na segunda fatura</p></div>
+  </div>
+  <p class="note">Oferta válida só para contratações neste mês de <b>outubro</b>.</p>
+  <span class="p-cta">Simulação Gratuita 100% Online</span>
+  <p class="p-legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

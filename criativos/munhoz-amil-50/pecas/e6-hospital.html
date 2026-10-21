@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="premium.css">
+<style>
+  .photo { position: absolute; inset: 0; background: url(../assets/fotos/hospital-corredor.jpg) 58% 50% / cover; filter: grayscale(.5) contrast(1.1) brightness(.9); }
+  .tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,15,31,.7) 0%, rgba(10,15,31,.12) 22%, rgba(10,15,31,.3) 40%, rgba(10,15,31,.92) 58%, var(--night) 72%); }
+  .tint::before { content: ''; position: absolute; inset: 0; background: #16234f; mix-blend-mode: color; opacity: .55; }
+  .center { position: absolute; left: var(--m); right: var(--m); text-align: center; }
+  .big { top: 820px; font-size: 400px; }
+  .big sup { color: var(--accent); }
+  .sub { top: 1140px; font-size: 70px; line-height: 1; }
+  .rule-a { position: absolute; left: 200px; right: 200px; top: 1252px; }
+  .meta { position: absolute; left: var(--m); right: var(--m); top: 1253px; text-align: center; }
+  .meta p { font-size: 29px; }
+  .note { top: 1392px; font-size: 25px; }
+  .ctaw { top: 1446px; }
+  .p-legal { position: absolute; left: var(--m); right: var(--m); top: 1570px; text-align: center; font-size: 16px; }
+
+  body.feed .photo { background-position: 58% 40%; }
+  body.feed .tint { background: linear-gradient(180deg, rgba(10,15,31,.75) 0%, rgba(10,15,31,.3) 14%, rgba(10,15,31,.7) 32%, rgba(10,15,31,.95) 48%, var(--night) 62%); }
+  body.feed .big { top: 250px; font-size: 330px; }
+  body.feed .sub { top: 520px; font-size: 60px; }
+  body.feed .rule-a { top: 630px; }
+  body.feed .meta { top: 631px; }
+  body.feed .meta p { font-size: 26px; }
+  body.feed .note { top: 790px; font-size: 23px; }
+  body.feed .ctaw { top: 850px; }
+  body.feed .p-legal { top: 980px; left: 150px; right: 150px; font-size: 14px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="photo"></div><div class="tint"></div>
+  <div class="p-top"><span class="tag">Planos de Saúde para CNPJ</span><span class="logo"></span></div>
+  <div class="center big num">50<sup>%</sup></div>
+  <div class="center sub it">de desconto na 1ª e 2ª fatura</div>
+  <div class="rule rule-a"></div>
+  <div class="meta">
+    <div><small>A partir de</small><p><b>2 vidas</b></p></div>
+    <div><small>Desconto</small><p>de 50% na primeira e na segunda fatura</p></div>
+  </div>
+  <p class="center note">Oferta válida só para contratações neste mês de <b>outubro</b>.</p>
+  <div class="center ctaw"><span class="p-cta">Simulação Gratuita 100% Online</span></div>
+  <p class="p-legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

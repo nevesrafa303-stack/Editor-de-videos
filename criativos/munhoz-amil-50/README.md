@@ -20,6 +20,23 @@ Na Story, nada importante fica acima de y=220 nem abaixo de y=1600.
 
 `final/_visao-geral.jpg` mostra as 12 peças lado a lado.
 
+## Linha empresários (e1–e6)
+
+Mesma copy da peça original, com linguagem de private banking para público de maior valor:
+azul quase preto `#0a0f1f`, marfim `#f3eee4`, Instrument Serif nos números e Instrument Sans no texto
+(`pecas/premium.css`). Visão geral em `final/_visao-geral-empresarios.jpg`.
+
+| Peça | Conceito |
+|---|---|
+| `e1-retrato` | Retrato de empresário em fundo escuro (foto espelhada), 50% em serifa |
+| `e2-executiva` | Executiva em moldura editorial, estilo revista |
+| `e3-socios` | Dois sócios em reunião, fundo marfim |
+| `e4-cinquenta` | Tipográfica, sem foto, com órbitas finas (eco dos anéis da peça original) |
+| `e5-convite` | Cartão-convite marfim com moldura dupla e tipografia centralizada |
+| `e6-hospital` | Arquitetura hospitalar em duotone azul |
+
+Fotos Adobe Stock (licença gratuita, sem IA): 394364278, 1202072654, 539120828, 570162129.
+
 ## Gerar de novo
 
 ```bash
