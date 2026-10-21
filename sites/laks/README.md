@@ -14,6 +14,15 @@ npm run dev                  # http://localhost:3000
 npm run build && npm start   # produção local
 ```
 
+## Prévia em arquivo único (para enviar ao cliente)
+Gera `entregas/laks-preview.html` (~8,5 MB) com imagens, fontes, animações e vídeos embutidos; abre direto
+no navegador, sem servidor. O formulário só valida (não envia) e os vídeos vão em qualidade reduzida.
+
+```bash
+cd sites/laks && npm run build && npm start          # em outro terminal
+cd sites/_fontes/laks && npm install && node preview/build-preview.mjs http://localhost:3000
+```
+
 ## Publicar na Vercel
 1. Importe o repositório e defina **Root Directory = `sites/laks`** (framework: Next.js).
 2. Em *Environment Variables*, cadastre as variáveis de `.env.example`:
@@ -49,7 +58,7 @@ Tudo que depende do cliente está em `src/content/site.ts`, marcado com **CONFIR
 |---|---|
 | Textos, números, depoimentos, contatos | `src/content/site.ts` |
 | Seções da página | `src/components/*.tsx` (ordem em `src/app/page.tsx`) |
-| Animações de rolagem | `src/components/Motion.tsx` (as seções marcam o que anima com `data-*`) |
+| Animações de rolagem | `src/lib/motion.ts` (as seções marcam o que anima com `data-*`; usado também pela prévia) |
 | Cores e fontes | `src/app/globals.css` (`@theme`) e `src/app/layout.tsx` |
 | Cabeçalhos de segurança (CSP etc.) | `next.config.ts` |
 | Imagem de compartilhamento e ícone | `../_fontes/laks/og-src.html`, `icon-src.html` → `node render-og.mjs` |

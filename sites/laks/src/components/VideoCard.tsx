@@ -47,6 +47,7 @@ export function VideoCard({ id, nome, empresa, citacao, duracao }: Props) {
         ) : (
           <button
             type="button"
+            data-video={id}
             onClick={() => {
               setAtivo(true);
               track("depoimento_play", { depoimento: id });
