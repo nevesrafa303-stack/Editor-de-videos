@@ -2,19 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { nav } from "@/content/site";
+import { iniciarCabecalho } from "@/lib/cabecalho";
 import { track } from "@/lib/tracking";
 import { Logo } from "./Logo";
 
 export function Header() {
-  const [rolou, setRolou] = useState(false);
   const [menu, setMenu] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setRolou(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useEffect(() => iniciarCabecalho(), []);
 
   useEffect(() => {
     if (!menu) return;
@@ -25,16 +20,16 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
-        rolou || menu ? "border-b border-white/[0.07] bg-ink/75 backdrop-blur-xl" : "border-b border-transparent"
-      }`}
+      data-header
+      data-menu={menu}
+      className="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[transform,background-color,border-color] duration-500 ease-out-expo data-[menu=true]:border-white/[0.07] data-[menu=true]:bg-ink/90 data-[menu=true]:backdrop-blur-xl data-[oculto=true]:-translate-y-full data-[rolou=true]:border-white/[0.07] data-[rolou=true]:bg-ink/80 data-[rolou=true]:backdrop-blur-xl"
     >
       <div className="container-site flex h-16 items-center justify-between md:h-20">
         <a href="#topo" className="text-fog" aria-label="LAKS Company, voltar ao início" onClick={() => setMenu(false)}>
           <Logo className="h-5 w-auto md:h-6" />
         </a>
 
-        <nav aria-label="Principal" className="hidden items-center gap-9 md:flex">
+        <nav aria-label="Principal" className="hidden items-center gap-10 md:flex">
           {nav.map((item) => (
             <a key={item.href} href={item.href} className="text-sm font-medium text-mute transition hover:text-white">
               {item.label}
@@ -52,7 +47,7 @@ export function Header() {
           </a>
           <button
             type="button"
-            className="grid size-11 place-items-center rounded-full border border-white/10 md:hidden"
+            className="grid size-11 place-items-center rounded-full border border-white/15 md:hidden"
             aria-expanded={menu}
             aria-controls="menu-mobile"
             aria-label={menu ? "Fechar menu" : "Abrir menu"}
@@ -66,12 +61,7 @@ export function Header() {
         </div>
       </div>
 
-      <nav
-        id="menu-mobile"
-        aria-label="Menu"
-        hidden={!menu}
-        className="container-site border-t border-white/[0.07] pb-6 pt-2 md:hidden"
-      >
+      <nav id="menu-mobile" aria-label="Menu" hidden={!menu} className="container-site pb-6 pt-2 md:hidden">
         <ul className="flex flex-col">
           {nav.map((item) => (
             <li key={item.href}>
@@ -96,6 +86,10 @@ export function Header() {
           Quero meu diagnóstico gratuito
         </a>
       </nav>
+
+      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px overflow-hidden">
+        <span data-progresso className="block h-full w-full origin-left bg-laranja" style={{ transform: "scaleX(0)" }} />
+      </span>
     </header>
   );
 }

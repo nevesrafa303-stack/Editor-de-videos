@@ -1,6 +1,7 @@
 import { Checklist } from "@/components/Checklist";
 import { Clientes } from "@/components/Clientes";
 import { Depoimentos } from "@/components/Depoimentos";
+import { Faixa } from "@/components/Faixa";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -9,6 +10,7 @@ import { Manifesto } from "@/components/Manifesto";
 import { Mapa } from "@/components/Mapa";
 import { MotionLazy } from "@/components/MotionLazy";
 import { Numeros } from "@/components/Numeros";
+import { Proposito } from "@/components/Proposito";
 import { QuemSomos } from "@/components/QuemSomos";
 import { empresa } from "@/content/site";
 import { siteUrl } from "@/lib/site-url";
@@ -34,9 +36,11 @@ export default function Home() {
         <Clientes />
         <Numeros />
         <Manifesto />
+        <Faixa />
         <Mapa />
         <Depoimentos />
         <QuemSomos />
+        <Proposito />
         <Checklist />
         <LeadSection />
       </main>

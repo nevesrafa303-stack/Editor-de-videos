@@ -59,12 +59,20 @@ Tudo que depende do cliente está em `src/content/site.ts`, marcado com **CONFIR
 | Textos, números, depoimentos, contatos | `src/content/site.ts` |
 | Seções da página | `src/components/*.tsx` (ordem em `src/app/page.tsx`) |
 | Animações de rolagem | `src/lib/motion.ts` (as seções marcam o que anima com `data-*`; usado também pela prévia) |
+| Cabeçalho na rolagem (fundo, some/volta, barra de progresso) | `src/lib/cabecalho.ts` |
 | Cores e fontes | `src/app/globals.css` (`@theme`) e `src/app/layout.tsx` |
 | Cabeçalhos de segurança (CSP etc.) | `next.config.ts` |
 | Imagem de compartilhamento e ícone | `../_fontes/laks/og-src.html`, `icon-src.html` → `node render-og.mjs` |
 
 Fotos originais e vídeos-fonte ficam em `../_fontes/laks/`. Os depoimentos foram comprimidos para web (H.264, ~19 MB no total)
 e só carregam quando o visitante clica em assistir.
+
+## Movimentos de rolagem
+- Títulos entram linha a linha (SplitText); hero com foto que aproxima e cubos das operadoras em profundidade (seguem o mouse no desktop).
+- Manifesto em cena fixa com as palavras acendendo; faixa de texto grande correndo em sentidos opostos.
+- Método MAPA em cartões que se empilham; depoimentos em rolagem horizontal com barra de progresso (desktop).
+- Foto do fundador que abre até a largura total; propósito em faixa laranja com palavras em movimento; marca gigante no rodapé.
+- Botões principais magnéticos (só com mouse); cabeçalho some ao descer, volta ao subir e mostra o progresso da leitura.
 
 ## Acessibilidade e movimento
 Com "reduzir movimento" ativado no sistema, a rolagem suave e as animações são desligadas e o conteúdo aparece completo.

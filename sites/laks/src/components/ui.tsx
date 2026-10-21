@@ -11,31 +11,33 @@ export function Seta({ className = "size-4" }: { className?: string }) {
   );
 }
 
-type CtaProps = ComponentProps<"a"> & { variante?: "primario" | "secundario"; children: ReactNode };
+type CtaProps = ComponentProps<"a"> & { variante?: "primario" | "link"; children: ReactNode };
 
+// Primário: botão laranja que "puxa" o cursor no desktop (data-magnetic). Link: texto sublinhado.
 export function Cta({ variante = "primario", className = "", children, ...props }: CtaProps) {
-  const base =
-    "group inline-flex items-center justify-center gap-3 rounded-full px-6 py-4 text-[0.95rem] font-semibold tracking-tight transition duration-300 ease-out-expo md:px-7";
-  const estilos =
-    variante === "primario"
-      ? "bg-laranja text-ink shadow-[0_10px_40px_-10px] shadow-laranja/70 hover:bg-laranja-claro hover:shadow-laranja"
-      : "border border-white/15 bg-white/[0.03] text-fog backdrop-blur hover:border-white/40 hover:bg-white/[0.06]";
+  if (variante === "link") {
+    return (
+      <a
+        className={`group inline-flex items-center gap-2 py-2 text-[0.95rem] font-semibold text-fog transition hover:text-white ${className}`}
+        {...props}
+      >
+        <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:100%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-500 ease-out-expo group-hover:bg-[length:0%_1px]">
+          {children}
+        </span>
+        <Seta className="size-4 transition duration-300 ease-out-expo group-hover:translate-x-1" />
+      </a>
+    );
+  }
   return (
-    <a className={`${base} ${estilos} ${className}`} {...props}>
-      {children}
-      <span className="grid size-7 place-items-center rounded-full bg-black/15 transition duration-300 ease-out-expo group-hover:translate-x-1">
-        <Seta />
+    <a
+      data-magnetic
+      className={`group inline-flex items-center justify-center gap-3 rounded-full bg-laranja px-7 py-[1.05rem] text-[0.95rem] font-semibold text-ink transition-colors duration-300 hover:bg-laranja-claro ${className}`}
+      {...props}
+    >
+      <span data-magnetic-texto className="inline-flex items-center gap-3">
+        {children}
+        <Seta className="size-4 transition duration-300 ease-out-expo group-hover:translate-x-1" />
       </span>
     </a>
-  );
-}
-
-export function Eyebrow({ numero, children }: { numero?: string; children: ReactNode }) {
-  return (
-    <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-mute">
-      {numero && <span className="font-expanded text-laranja">{numero}</span>}
-      <span className="h-px w-8 bg-white/25" aria-hidden="true" />
-      {children}
-    </p>
   );
 }

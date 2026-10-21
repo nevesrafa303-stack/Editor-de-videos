@@ -1,8 +1,17 @@
 // Logo oficial da LAKS (vetor extraído do site atual, lakscompany.com.br).
 
-export function Logo({ className = "", title = "LAKS Company" }: { className?: string; title?: string }) {
+export function Logo({
+  className = "",
+  title = "LAKS Company",
+  decorativo = false,
+}: {
+  className?: string;
+  title?: string;
+  decorativo?: boolean;
+}) {
+  const a11y = decorativo ? { "aria-hidden": true } : { role: "img", "aria-label": title };
   return (
-    <svg viewBox="0 0 126 25" className={className} role="img" aria-label={title} fill="none">
+    <svg viewBox="0 0 126 25" className={className} fill="none" {...a11y}>
       <path d="M33.541 3.52344L41.588 23.0647C41.8583 23.7191 42.4969 24.1457 43.2043 24.1457H46.8873L38.8403 4.60449C38.5701 3.95003 37.9315 3.52344 37.224 3.52344H33.541Z" fill="currentColor" />
       <path d="M20.1973 24.1457H23.8803C24.5877 24.1457 25.2263 23.7191 25.4966 23.0647L33.5436 3.52344H29.8606C29.1531 3.52344 28.5145 3.95003 28.2443 4.60449L20.9047 22.4261L20.1973 24.1457Z" fill="currentColor" />
       <path d="M18.9776 20.2931C18.8213 19.9142 18.453 19.6678 18.045 19.6678H5.13318L6.59049 3.52344H2.53916C2.08607 3.52344 1.70982 3.87054 1.67007 4.32098L0.00344274 23.1945C-0.0416015 23.7059 0.361146 24.1457 0.87253 24.1457H20.5939L18.9803 20.2931H18.9776Z" fill="currentColor" />

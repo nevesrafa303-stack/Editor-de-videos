@@ -3,7 +3,6 @@ import { diagnostico } from "@/content/site";
 import fundador from "@/assets/img/fundador-camisa-laranja.webp";
 import brilho from "@/assets/img/fundo-brilho-laranja.webp";
 import { LeadForm } from "./LeadForm";
-import { Eyebrow } from "./ui";
 
 export function LeadSection() {
   return (
@@ -17,9 +16,8 @@ export function LeadSection() {
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-auto w-full opacity-90"
       />
       <div className="container-site grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20">
-        <div data-reveal>
-          <Eyebrow numero="07">Diagnóstico gratuito</Eyebrow>
-          <h2 id="form-titulo" className="font-expanded mt-6 text-[clamp(2.4rem,5.6vw,5rem)] font-bold uppercase leading-[0.95] tracking-tight text-white">
+        <div>
+          <h2 id="form-titulo" data-split className="font-expanded text-[clamp(2.6rem,6.4vw,5.6rem)] font-bold uppercase leading-[0.95] tracking-tight text-white">
             {diagnostico.titulo}
           </h2>
           <p className="mt-6 max-w-lg text-mute md:text-lg">{diagnostico.intro}</p>

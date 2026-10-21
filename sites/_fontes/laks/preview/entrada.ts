@@ -1,7 +1,8 @@
 // Script da prévia em arquivo único (sem servidor, sem React). As animações e as regras do formulário
 // são as mesmas do site (src/lib/motion.ts e src/lib/lead.ts); aqui só ficam as interações que no site
-// o React faz: cabeçalho, menu, vídeos e formulário (que na prévia não envia nada).
+// o React faz: menu, vídeos e formulário (que na prévia não envia nada).
 import { formatarWhatsapp, leadQualificado, type LeadErros, validarLead } from "../../../laks/src/lib/lead";
+import { iniciarCabecalho } from "../../../laks/src/lib/cabecalho";
 import { iniciarAnimacoes, iniciarRolagemSuave } from "../../../laks/src/lib/motion";
 
 declare global {
@@ -14,35 +15,27 @@ const $ = <T extends Element = HTMLElement>(sel: string, root: ParentNode = docu
 const $$ = <T extends Element = HTMLElement>(sel: string, root: ParentNode = document) =>
   Array.from(root.querySelectorAll<T>(sel));
 
-function cabecalho() {
-  const header = $("header");
-  if (!header) return;
-  const fixo = ["border-white/[0.07]", "bg-ink/75", "backdrop-blur-xl"];
+function menuCelular() {
+  const header = $("[data-header]");
   const menuBtn = $<HTMLButtonElement>('[aria-controls="menu-mobile"]');
   const menu = $<HTMLElement>("#menu-mobile");
+  if (!header || !menuBtn || !menu) return;
+  const linhas = $$("span span", menuBtn);
   let aberto = false;
-  const pintar = () => {
-    const ativo = window.scrollY > 24 || aberto;
-    header.classList.toggle("border-transparent", !ativo);
-    fixo.forEach((c) => header.classList.toggle(c, ativo));
-  };
-  const linhas = menuBtn ? $$("span span", menuBtn) : [];
   const alternar = (v: boolean) => {
     aberto = v;
-    if (menu) menu.hidden = !v;
-    menuBtn?.setAttribute("aria-expanded", String(v));
-    menuBtn?.setAttribute("aria-label", v ? "Fechar menu" : "Abrir menu");
+    header.dataset.menu = String(v);
+    menu.hidden = !v;
+    menuBtn.setAttribute("aria-expanded", String(v));
+    menuBtn.setAttribute("aria-label", v ? "Fechar menu" : "Abrir menu");
     linhas[0]?.classList.toggle("translate-y-[5px]", v);
     linhas[0]?.classList.toggle("rotate-45", v);
     linhas[1]?.classList.toggle("-translate-y-[5px]", v);
     linhas[1]?.classList.toggle("-rotate-45", v);
-    pintar();
   };
-  menuBtn?.addEventListener("click", () => alternar(!aberto));
-  menu?.addEventListener("click", (e) => (e.target as Element).closest("a") && alternar(false));
+  menuBtn.addEventListener("click", () => alternar(!aberto));
+  menu.addEventListener("click", (e) => (e.target as Element).closest("a") && alternar(false));
   window.addEventListener("keydown", (e) => e.key === "Escape" && alternar(false));
-  window.addEventListener("scroll", pintar, { passive: true });
-  pintar();
 }
 
 function videos() {
@@ -115,7 +108,8 @@ function avisoLinks() {
   );
 }
 
-cabecalho();
+iniciarCabecalho();
+menuCelular();
 videos();
 formulario();
 avisoLinks();

@@ -1,22 +1,23 @@
 import Image from "next/image";
 import { checklist } from "@/content/site";
 import fundo from "@/assets/img/fundo-escritorio-desfocado.webp";
-import { Cta, Eyebrow } from "./ui";
+import { Cta } from "./ui";
 
 export function Checklist() {
   return (
-    <section aria-labelledby="check-titulo" className="relative isolate overflow-hidden py-24 md:py-36">
+    <section aria-labelledby="check-titulo" className="relative isolate overflow-clip py-24 md:py-36">
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <Image src={fundo} alt="" fill sizes="100vw" className="object-cover opacity-50" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
       </div>
-      <div className="container-site grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-20">
-        <div data-reveal>
-          <Eyebrow numero="06">Ainda em dúvida?</Eyebrow>
-          <h2 id="check-titulo" className="font-expanded mt-6 text-[clamp(1.9rem,3.8vw,3.4rem)] font-bold uppercase leading-[1] tracking-tight text-white">
-            {checklist.titulo}
-          </h2>
-        </div>
+      <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+        <h2
+          id="check-titulo"
+          data-split
+          className="font-expanded max-w-[14ch] self-start text-[clamp(2rem,4.2vw,3.6rem)] font-bold uppercase leading-[0.98] tracking-tight text-white lg:sticky lg:top-28"
+        >
+          {checklist.titulo}
+        </h2>
         <div>
           <ul data-checklist className="divide-y divide-white/10 border-y border-white/10">
             {checklist.itens.map((item) => (
@@ -30,7 +31,7 @@ export function Checklist() {
               </li>
             ))}
           </ul>
-          <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <p className="font-expanded text-lg font-semibold uppercase text-white">{checklist.fechamento}</p>
             <Cta href="#forms" data-cta="checklist" className="shrink-0">
               Vamos conversar

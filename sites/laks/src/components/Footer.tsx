@@ -48,6 +48,11 @@ export function Footer({ ancoras = true }: { ancoras?: boolean }) {
           </ul>
         </div>
       </div>
+      <div aria-hidden="true" className="container-site overflow-hidden pb-6 md:pb-10">
+        <div data-rodape-marca>
+          <Logo decorativo className="h-auto w-full text-fog" />
+        </div>
+      </div>
       <div className="border-t border-white/[0.07]">
         <div className="container-site flex flex-col gap-3 py-6 text-xs text-mute md:flex-row md:items-center md:justify-between">
           <p>

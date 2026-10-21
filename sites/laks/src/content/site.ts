@@ -24,22 +24,26 @@ export const nav = [
 ] as const;
 
 export const hero = {
-  selo: "#1 aceleradora de marketing & vendas de planos de saúde",
-  // A palavra em `destaque` ganha o gradiente laranja.
+  // A palavra em `destaque` vai em laranja.
   titulo: ["Aumentamos o", "faturamento da", "sua corretora."],
   destaque: "faturamento",
   subtitulo:
-    "Leads qualificados, anúncios que convertem e um processo comercial que fecha. O time de Marketing e Vendas da LAKS jogando no time da sua corretora de planos de saúde e seguros.",
+    "A #1 aceleradora de marketing e vendas de planos de saúde. Leads qualificados, anúncios que convertem e um processo comercial que fecha.",
   ctaPrincipal: "Quero meu diagnóstico gratuito",
   ctaSecundario: "Ver resultados",
 } as const;
 
-export const numeros = [
-  { valor: 400, prefixo: "", sufixo: "+", rotulo: "corretoras ativas" },
-  { valor: 50, prefixo: "R$ ", sufixo: " mi+", rotulo: "investidos em anúncios" },
-  { valor: 70, prefixo: "", sufixo: " mil+", rotulo: "leads gerados por mês para clientes" },
-  { valor: 70, prefixo: "", sufixo: "+", rotulo: "especialistas no time" },
-] as const;
+// Algarismo grande, prefixo e unidade em corpo menor (fica legível em duas colunas no celular).
+export const numeros = {
+  titulo: "Números de",
+  destaque: "camisa 10.",
+  itens: [
+    { prefixo: "", valor: 400, unidade: "+", rotulo: "corretoras ativas" },
+    { prefixo: "R$", valor: 50, unidade: "mi+", rotulo: "investidos em anúncios" },
+    { prefixo: "", valor: 70, unidade: "mil+", rotulo: "leads por mês para clientes" },
+    { prefixo: "", valor: 70, unidade: "+", rotulo: "especialistas no time" },
+  ],
+} as const;
 
 export const manifesto = {
   antes:
@@ -47,10 +51,16 @@ export const manifesto = {
   virada: "A LAKS existe para virar esse jogo.",
 } as const;
 
+// Faixa de texto grande que corre com a rolagem, entre o manifesto e o método.
+export const faixa = [
+  ["Leads qualificados", "Anúncios que convertem", "Time comercial que fecha"],
+  ["Planos de saúde", "Seguros", "PME", "Adesão", "Individual", "Empresarial"],
+] as const;
+
 export const mapa = {
   titulo: "Método MAPA",
   intro:
-    "O nosso método proprietário para construir um canal de aquisição de clientes previsível no digital, feito exclusivamente para corretoras de seguros e planos de saúde.",
+    "Método proprietário para construir um canal previsível de aquisição de clientes no digital, feito exclusivamente para corretoras de seguros e planos de saúde.",
   passos: [
     {
       letra: "M",
@@ -132,11 +142,16 @@ export const quemSomos = {
   lema: "Vivemos o que vendemos.",
   texto:
     "Somos um time obcecado por resultado. Criamos soluções sob medida, lado a lado com cada cliente, unindo marketing digital, tráfego pago e a estruturação do processo de vendas para colocar a sua corretora em outro patamar.",
-  proposito: ["Impulsionar", "Educar", "Acelerar"],
-  propositoComplemento: "empresas. Esse é o nosso propósito.",
   sede: "Sede física em Balneário Camboriú",
+  sedeTexto:
+    "Mais de 70 especialistas em marketing, tráfego e vendas trabalhando no mesmo lugar, com rotina, método e acompanhamento semanal de cada cliente.",
   // CONFIRMAR: nome e cargo do fundador (aparece só como legenda da foto).
   fundador: { nome: "", cargo: "Fundador da LAKS" },
+} as const;
+
+export const proposito = {
+  palavras: ["Impulsionar", "Educar", "Acelerar"],
+  complemento: "Esse é o propósito da LAKS com cada corretora que entra no time.",
 } as const;
 
 export const checklist = {
