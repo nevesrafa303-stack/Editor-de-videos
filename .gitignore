@@ -14,7 +14,7 @@ assets/sfx/*
 !assets/sfx/.gitkeep
 assets/logo/*
 !assets/logo/.gitkeep
-public/
+/public/
 *.log
 .DS_Store
 data/silences.txt

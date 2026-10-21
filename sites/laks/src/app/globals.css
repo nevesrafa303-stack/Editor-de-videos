@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-ink: #020202;
+  --color-carbon: #0b0b0b;
+  --color-graphite: #151515;
+  --color-fog: #ececec;
+  --color-mute: #a3a3a3;
+  --color-laranja: #ff4200;
+  --color-laranja-claro: #ff6a2c;
+  --color-ambar: #fab205;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-jakarta), ui-sans-serif, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-fog);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-laranja);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-laranja);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@utility font-expanded {
+  font-family: var(--font-display);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Granulação sutil sobre tudo: dá textura de foto ao preto. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Entrada do hero em CSS puro: não depende do JavaScript para aparecer (bom para o LCP). */
+.hero-rise {
+  animation: hero-rise 1.1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 110ms + 150ms);
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.6em, 0);
+    filter: blur(6px);
+  }
+}
+.hero-media {
+  animation: hero-media 1.8s var(--ease-out-expo) both;
+}
+/* Só escala: com opacidade 0 no início, o navegador atrasaria a medição do LCP. */
+@keyframes hero-media {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* Faixas de logos em loop. O conteúdo é duplicado no HTML; o segundo bloco é aria-hidden. */
+.marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-dur, 40s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Cubos das operadoras flutuando (o deslocamento por rolagem é feito pelo GSAP no elemento pai). */
+.float {
+  animation: float var(--float-dur, 7s) ease-in-out infinite alternate;
+}
+@keyframes float {
+  from {
+    transform: translate3d(0, -8px, 0) rotate(-3deg);
+  }
+  to {
+    transform: translate3d(0, 10px, 0) rotate(4deg);
+  }
+}
+
+/* Checklist: o traço do check é desenhado quando o item recebe .is-checked. */
+.check-box path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 0.5s var(--ease-out-expo) 0.15s;
+}
+.check-box {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease;
+}
+.is-checked .check-box {
+  background-color: var(--color-laranja);
+  border-color: var(--color-laranja);
+}
+.is-checked .check-box path {
+  stroke-dashoffset: 0;
+}
+.check-item {
+  transition: color 0.4s ease;
+}
+.is-checked.check-item {
+  color: #fff;
+}
+
+/* Palavras do manifesto acendem com a rolagem (opacidade controlada pelo GSAP). */
+.manifesto-w {
+  opacity: var(--w-op, 1);
+}
+html.js-motion .manifesto-w {
+  --w-op: 0.4;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #fff 10%, #ffd0bb 45%, var(--color-laranja) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-media,
+  .marquee-track,
+  .float {
+    animation: none !important;
+  }
+  .marquee-track {
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+  }
+  .marquee-dup {
+    display: none;
+  }
+  .marquee {
+    mask-image: none;
+  }
+  .check-box path,
+  .check-box,
+  .check-item {
+    transition: none;
+  }
+}
+
+@keyframes scroll-cue {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
