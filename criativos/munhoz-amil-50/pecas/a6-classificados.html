@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="atencao.css">
+<style>
+  body { background: #ebe5d6; color: #1c1a17; }
+  .canvas { background: radial-gradient(1100px 1000px at 50% 45%, #f1ecdf, #ddd5c2 100%); }
+  .grain::after { mix-blend-mode: multiply; opacity: .22; }
+  .paper { position: absolute; left: 40px; right: 40px; top: 250px; }
+  .mast { text-align: center; border-top: 6px double #1c1a17; border-bottom: 2px solid #1c1a17; padding: 10px 0 4px; }
+  .mast h1 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 118px; line-height: 1; letter-spacing: .01em; }
+  .dateline { display: flex; justify-content: space-between; font-family: 'Libre Caslon', serif; font-size: 22px; padding: 8px 4px; border-bottom: 1px solid #1c1a17; }
+  .cols { columns: 3; column-gap: 26px; column-rule: 1px solid rgba(28,26,23,.4); margin-top: 18px; font-family: 'Libre Caslon', serif; font-size: 23px; line-height: 1.24; color: rgba(28,26,23,.86); text-align: left; }
+  .ad { break-inside: avoid; margin-bottom: 16px; }
+  .ad b { font-weight: 700; letter-spacing: .02em; }
+  .star { column-span: all; position: relative; margin: 34px 30px 34px; background: #f6f1e4; border: 3px solid #1c1a17; padding: 22px 30px 26px; text-align: center; color: #1c1a17; }
+  .star h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 64px; line-height: 1.02; letter-spacing: -.005em; }
+  .star .big { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 128px; line-height: 1; margin: 6px 0 2px; }
+  .star .big i { font-style: italic; font-weight: 700; font-size: .5em; vertical-align: .5em; }
+  .star p { font-size: 33px; line-height: 1.25; color: #1c1a17; text-align: center; }
+  .star p b { font-weight: 700; }
+  .star .sm { font-size: 23px; margin-top: 10px; letter-spacing: .04em; text-transform: uppercase; }
+  .marker { position: absolute; left: -46px; top: -40px; width: calc(100% + 92px); height: calc(100% + 80px); overflow: visible; mix-blend-mode: multiply; pointer-events: none; }
+  .note { position: absolute; right: -14px; top: -98px; color: #c8202a; font-size: 64px; transform: rotate(-6deg); mix-blend-mode: multiply; white-space: nowrap; }
+  .bar { position: absolute; left: 0; right: 0; top: 1360px; bottom: 0; background: linear-gradient(180deg, rgba(235,229,214,0) 0, #ebe5d6 60px); }
+  .cta { position: absolute; left: var(--m); top: 1412px; background: var(--royal); color: #fff; }
+  .sign { position: absolute; right: var(--m); top: 1436px; width: 132px; color: var(--royal); }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1546px; color: rgba(28,26,23,.6); }
+
+  body.feed .paper { top: 36px; left: 34px; right: 34px; }
+  body.feed .mast h1 { font-size: 92px; }
+  body.feed .dateline { font-size: 18px; }
+  body.feed .cols { font-size: 19px; column-gap: 20px; }
+  body.feed .star { margin: 26px 34px 26px; padding: 14px 22px 18px; }
+  body.feed .star h2 { font-size: 48px; }
+  body.feed .star .big { font-size: 96px; }
+  body.feed .star p { font-size: 26px; }
+  body.feed .star .sm { font-size: 18px; }
+  body.feed .note { font-size: 52px; top: -80px; }
+  body.feed .bar { top: 880px; }
+  body.feed .cta { top: 1010px; }
+  body.feed .sign { top: 1032px; width: 116px; }
+  body.feed .legal { top: 1136px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="paper">
+    <div class="mast"><h1>Classificados</h1></div>
+    <div class="dateline"><span>Caderno de Negócios</span><span>Outubro de 2026</span></div>
+    <div class="cols">
+      <p class="ad"><b>ALUGA-SE</b> sala comercial 42 m², 2 vagas, próximo ao centro. Pronta p/ uso. Tratar c/ proprietário.</p>
+      <p class="ad"><b>CONTADOR</b> p/ MEI e pequenas empresas. Abertura de CNPJ, folha e imposto de renda.</p>
+      <p class="ad"><b>VENDE-SE</b> cadeiras de escritório, 8 unid., semi-novas, estofado preto.</p>
+      <p class="ad"><b>PRECISA-SE</b> de auxiliar administrativo, meio período, c/ experiência em planilhas.</p>
+      <p class="ad"><b>GRÁFICA</b> rápida: cartões de visita, banners e adesivos. Entrega em 48 h.</p>
+      <p class="ad"><b>MANUTENÇÃO</b> de ar-condicionado. Contratos mensais p/ empresas e comércio.</p>
+      <p class="ad"><b>FRETES</b> e mudanças comerciais. Orçamento sem compromisso, todo o estado.</p>
+      <p class="ad"><b>ALUGA-SE</b> galpão 300 m², pé-direito alto, 2 docas, fácil acesso.</p>
+      <p class="ad"><b>CURSO</b> de Excel p/ empresas. Turmas aos sábados, certificado.</p>
+  <div class="star">
+    <h2>PLANO DE SAÚDE P/ CNPJ</h2>
+    <div class="big">50%<i> off</i></div>
+    <p>Amil c/ <b>50% de desconto na 1ª e na 2ª fatura</b>.<br>A partir de <b>2 vidas</b>. Só p/ contratações em outubro.</p>
+    <p class="sm">Simulação grátis, 100% online</p>
+  
+  <svg class="marker" viewBox="0 0 1012 560" preserveAspectRatio="none" fill="none" stroke="#c8202a" stroke-linecap="round">
+    <path d="M520 18 C 250 10, 40 60, 22 250 C 6 430, 230 540, 520 542 C 800 544, 1000 470, 996 280 C 992 90, 760 22, 470 30 C 380 33, 300 44, 250 60" stroke-width="9" opacity=".9"/>
+    <path d="M540 30 C 280 26, 60 76, 40 256 C 26 420, 250 526, 520 528 C 790 530, 982 458, 980 282" stroke-width="4" opacity=".5"/>
+  </svg>
+    <div class="note hand">é esse!!</div>
+  </div>
+      <p class="ad"><b>VENDE-SE</b> impressora multifuncional laser, ótimo estado, c/ toner.</p>
+      <p class="ad"><b>LIMPEZA</b> pós-obra e comercial. Equipe treinada e uniformizada.</p>
+      <p class="ad"><b>COWORKING</b>: estações por mês, sala de reunião e endereço fiscal.</p>
+      <p class="ad"><b>SEGURANÇA</b> eletrônica: câmeras e alarmes p/ lojas e escritórios.</p>
+      <p class="ad"><b>VENDE-SE</b> ponto comercial, padaria em funcionamento, clientela formada.</p>
+      <p class="ad"><b>MARCENARIA</b> sob medida p/ escritórios, balcões e recepções.</p>
+      <p class="ad"><b>ALUGA-SE</b> conjunto de salas, andar alto, vista livre, 3 vagas.</p>
+      <p class="ad"><b>TRADUÇÕES</b> técnicas e juramentadas. Inglês e espanhol.</p>
+      <p class="ad"><b>VENDE-SE</b> mesa de reunião p/ 10 lugares, madeira maciça.</p>
+      <p class="ad"><b>DESPACHANTE</b>: licenciamento, alvarás e regularização de empresas.</p>
+      <p class="ad"><b>FOTÓGRAFO</b> p/ eventos corporativos e retratos profissionais.</p>
+      <p class="ad"><b>ALUGA-SE</b> loja térrea 60 m² em avenida movimentada, c/ vitrine.</p>
+      <p class="ad"><b>CONSERTO</b> de notebooks e redes p/ escritórios. Atendimento no local.</p>
+      <p class="ad"><b>VENDE-SE</b> arquivo de aço 4 gavetas e armários, ótimo estado.</p>
+      <p class="ad"><b>JARDINAGEM</b> e paisagismo p/ condomínios e empresas.</p>
+      <p class="ad"><b>ALUGA-SE</b> sala p/ consultório, recepção compartilhada.</p>
+      <p class="ad"><b>ASSESSORIA</b> em marketing p/ pequenos negócios. Primeira conversa grátis.</p>
+      <p class="ad"><b>VENDE-SE</b> frigobar e micro-ondas, usados, funcionando.</p>
+    </div>
+  </div>
+  <div class="bar"></div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <span class="logo sign"></span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

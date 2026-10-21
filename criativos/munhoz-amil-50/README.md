@@ -37,6 +37,24 @@ azul quase preto `#0a0f1f`, marfim `#f3eee4`, Instrument Serif nos números e In
 
 Fotos Adobe Stock (licença gratuita, sem IA): 394364278, 1202072654, 539120828, 570162129.
 
+## Linha atenção (a1–a6)
+
+Objetos e situações do dia a dia como gancho, para parar a rolagem sem cara de anúncio gerado.
+Fontes extras em `pecas/atencao.css`. Visão geral em `final/_visao-geral-atencao.jpg`.
+
+| Peça | Gancho | Título |
+|---|---|---|
+| `a1-maca` | Foto real: maçã inteira e maçã cortada, com anotações à mão | Saúde inteira. Fatura pela metade. |
+| `a2-fatura-cortada` | A palavra FATURA cortada ao meio com tesoura, fundo ciano | Sua 1ª e 2ª fatura pela metade. |
+| `a3-post-it` | Post-it escrito à mão na tela do notebook (foto real, texto original apagado) | Lembrete de outubro. |
+| `a4-conversa` | Conversa entre sócios | A mensagem que todo sócio precisa receber em outubro. |
+| `a5-cupom` | Cupom de recortar, estilo varejo antigo | Recorte e economize. |
+| `a6-classificados` | Página de classificados com o anúncio circulado à caneta | Plano de saúde p/ CNPJ — 50% off |
+
+Fotos Adobe Stock (licença gratuita, sem IA): 401175887 (maçãs), 315425981 (post-it; o texto
+original foi removido em `assets/fotos/postit-notebook-limpo.jpg`). Os anúncios vizinhos do
+classificado são fictícios, sem telefone nem nome.
+
 ## Gerar de novo
 
 ```bash

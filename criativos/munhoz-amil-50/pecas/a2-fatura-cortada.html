@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="atencao.css">
+<style>
+  body { background: var(--cyan); color: var(--ink); }
+  .canvas { background: var(--cyan); }
+  .grain::after { mix-blend-mode: multiply; opacity: .12; }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 140px; color: var(--ink); }
+  .k1, .k2 { position: absolute; left: var(--m); font-size: 168px; line-height: .86; letter-spacing: -.005em; }
+  .k1 { top: 350px; font-size: 190px; }
+  .k2 { top: 930px; font-size: 190px; }
+  .word { position: absolute; left: 0; top: 550px; width: 1080px; height: 400px; overflow: visible; }
+  .word text { font-family: 'Anton'; font-size: 349px; fill: var(--ink); }
+  .body { position: absolute; left: var(--m); right: var(--m); top: 1160px; font-size: 40px; font-weight: 600; line-height: 1.22; letter-spacing: -.01em; }
+  .body b { font-weight: 800; }
+  .cta { position: absolute; left: var(--m); top: 1380px; background: var(--ink); color: var(--cyan); }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1516px; color: rgba(7,5,92,.62); }
+
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 124px; }
+  body.feed .k1 { top: 140px; font-size: 150px; }
+  body.feed .word { top: 300px; }
+  body.feed .k2 { top: 660px; font-size: 150px; }
+  body.feed .body { top: 840px; font-size: 33px; }
+  body.feed .cta { top: 1010px; }
+  body.feed .legal { top: 1140px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="top"><span class="eyebrow">Plano de saúde Amil para CNPJ</span><span class="logo"></span></div>
+  <div class="k1 anton">Sua 1ª e 2ª</div>
+  <svg class="word" viewBox="0 0 1080 400">
+    <defs>
+      <clipPath id="up"><rect x="-100" y="-100" width="1280" height="270"/></clipPath>
+      <clipPath id="down"><rect x="-100" y="170" width="1280" height="400"/></clipPath>
+    </defs>
+    <text x="540" y="320" text-anchor="middle" clip-path="url(#up)">FATURA</text>
+    <g transform="translate(26 16) rotate(1.2 540 250)"><text x="540" y="320" text-anchor="middle" clip-path="url(#down)">FATURA</text></g>
+    <line x1="0" x2="1080" y1="178" y2="178" stroke="#07055c" stroke-width="5" stroke-dasharray="18 12"/>
+    <g transform="translate(38 140) scale(3.4)"><circle cx="12" cy="12" r="13" fill="#3fe0f9"/>
+      <path transform="rotate(180 12 12)" fill="#07055c" d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3z"/></g>
+  </svg>
+  <div class="k2 anton">pela metade.</div>
+  <p class="body">Plano de saúde Amil para CNPJ, <b>a partir de 2 vidas</b>, com <b>50% de desconto na 1ª e na 2ª fatura</b>. Só para contratações em outubro.</p>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

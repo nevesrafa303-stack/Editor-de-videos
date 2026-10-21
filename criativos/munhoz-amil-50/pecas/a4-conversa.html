@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="atencao.css">
+<style>
+  body { background: #e9ecf4; color: var(--ink); }
+  .canvas { background: radial-gradient(900px 700px at 20% 10%, #f4f6fb, transparent 70%), #e6e9f2; }
+  .grain::after { mix-blend-mode: multiply; opacity: .06; }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 140px; color: var(--royal); }
+  h1 { position: absolute; left: var(--m); right: var(--m); top: 310px; font-weight: 800; font-size: 74px; line-height: .98; letter-spacing: -.04em; }
+  h1 em { font-style: normal; color: var(--royal); }
+  .chat { position: absolute; left: 64px; right: 64px; top: 540px; display: flex; flex-direction: column; gap: 18px; }
+  .who { font-size: 24px; font-weight: 600; color: rgba(7,5,92,.5); margin: 0 0 -8px 20px; }
+  .b { max-width: 760px; padding: 22px 30px 24px; border-radius: 34px; font-size: 40px; font-weight: 500; line-height: 1.18; letter-spacing: -.01em;
+       box-shadow: 0 1px 1px rgba(7,5,92,.08), 0 6px 18px -8px rgba(7,5,92,.18); position: relative; }
+  .b small { display: inline-block; margin-left: 14px; font-size: 21px; font-weight: 500; opacity: .5; vertical-align: -2px; }
+  .b b { font-weight: 800; }
+  .l { align-self: flex-start; background: #fff; border-bottom-left-radius: 10px; }
+  .r { align-self: flex-end; background: var(--royal); color: #fff; border-bottom-right-radius: 10px; }
+  .r b { color: var(--cyan); }
+  .cta { position: absolute; left: var(--m); top: 1424px; background: var(--ink); color: #fff; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1556px; }
+
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 124px; }
+  body.feed h1 { top: 130px; font-size: 60px; }
+  body.feed .chat { top: 290px; gap: 15px; left: 56px; right: 56px; }
+  body.feed .who { font-size: 20px; }
+  body.feed .b { font-size: 37px; padding: 18px 27px 20px; border-radius: 30px; max-width: 760px; }
+  body.feed .b small { font-size: 18px; }
+  body.feed .l { border-bottom-left-radius: 8px; }
+  body.feed .r { border-bottom-right-radius: 8px; }
+  body.feed .cta { top: 1056px; }
+  body.feed .legal { top: 1180px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <h1>A mensagem que todo sócio <em>precisa receber em outubro.</em></h1>
+  <div class="chat">
+    <div class="who">Sócio</div>
+    <div class="b l">Viu? Amil pra CNPJ com <b>50% de desconto na 1ª e na 2ª fatura</b><small>10:41</small></div>
+    <div class="b r">Mas a empresa é só nós dois…<small>10:42</small></div>
+    <div class="b l">Então dá! É <b>a partir de 2 vidas</b><small>10:42</small></div>
+    <div class="b r">Fechou. Vale até quando?<small>10:43</small></div>
+    <div class="b l">Só pra quem contratar <b>em outubro</b><small>10:43</small></div>
+    <div class="b r">Então faz a simulação hoje<small>10:44</small></div>
+  </div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal legal-dark">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

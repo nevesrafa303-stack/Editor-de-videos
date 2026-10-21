@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="atencao.css">
+<style>
+  .canvas { background: radial-gradient(900px 900px at 50% 45%, #3b30ff, transparent 75%), var(--royal); }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 140px; }
+  h1 { position: absolute; left: var(--m); right: var(--m); top: 316px; font-size: 150px; line-height: .9; letter-spacing: 0; }
+  h1 em { font-style: normal; color: var(--cyan); }
+  .cut { position: absolute; left: 70px; right: 70px; top: 640px; height: 700px; border: 5px dashed rgba(255,255,255,.9); border-radius: 18px; transform: rotate(-2.5deg); }
+  .scissors { position: absolute; left: 140px; top: -46px; width: 86px; height: 86px; color: #fff; background: var(--royal); padding: 6px; transform: rotate(-90deg); }
+  .coupon { position: absolute; inset: 22px; background: #fbf6e8; color: var(--ink); border-radius: 8px; display: grid; grid-template-columns: 130px 1fr;
+            box-shadow: 0 30px 60px -20px rgba(0,0,30,.55); overflow: hidden; }
+  .coupon::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .5; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .42  0 0 0 .35 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .stub { background: var(--ink); color: #fbf6e8; display: flex; align-items: center; justify-content: center; position: relative; }
+  .stub span { transform: rotate(-90deg); font-size: 96px; letter-spacing: .06em; white-space: nowrap; }
+  .stub::after { content: ''; position: absolute; right: -9px; top: 0; bottom: 0; width: 18px;
+    background: radial-gradient(circle at 9px 14px, #fbf6e8 6px, transparent 6.5px) 0 0 / 18px 28px; }
+  .main { padding: 40px 44px 34px 52px; display: flex; flex-direction: column; }
+  .main .pct { font-size: 300px; line-height: .84; color: var(--royal); letter-spacing: -.01em; }
+  .main .off { font-size: 74px; line-height: 1; margin-top: 4px; }
+  .main .fat { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 38px; margin-top: 14px; }
+  .main .det { font-family: 'Courier Prime', monospace; font-size: 27px; line-height: 1.3; margin-top: 18px; padding-top: 16px; border-top: 2px dashed rgba(7,5,92,.35); }
+  .main .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; font-family: 'Courier Prime', monospace; font-size: 22px; color: rgba(7,5,92,.7); }
+  .main .foot .logo { width: 104px; color: var(--royal); }
+  .cta { position: absolute; left: var(--m); top: 1404px; color: var(--royal); }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1540px; color: rgba(255,255,255,.66); }
+
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 124px; }
+  body.feed h1 { top: 118px; font-size: 104px; }
+  body.feed .cut { top: 392px; height: 580px; left: 64px; right: 64px; }
+  body.feed .coupon { grid-template-columns: 110px 1fr; }
+  body.feed .stub span { font-size: 80px; }
+  body.feed .main { padding: 30px 36px 26px 42px; }
+  body.feed .main .pct { font-size: 236px; }
+  body.feed .main .off { font-size: 60px; }
+  body.feed .main .fat { font-size: 32px; margin-top: 10px; }
+  body.feed .main .det { font-size: 23px; margin-top: 14px; padding-top: 12px; }
+  body.feed .main .foot { font-size: 19px; }
+  body.feed .main .foot .logo { width: 90px; }
+  body.feed .cta { top: 1046px; }
+  body.feed .legal { top: 1170px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <h1 class="anton">Recorte e<br><em>economize.</em></h1>
+  <div class="cut">
+    <svg class="scissors" viewBox="0 0 24 24" fill="currentColor"><path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3z"/></svg>
+    <div class="coupon">
+      <div class="stub"><span class="anton">Vale</span></div>
+      <div class="main">
+        <div class="pct anton">50%</div>
+        <div class="off anton">de desconto</div>
+        <div class="fat">na 1ª e na 2ª fatura</div>
+        <div class="det">Plano de saúde Amil para CNPJ.<br>A partir de 2 vidas.</div>
+        <div class="foot"><span>Válido para contratações<br>em outubro/2026</span><span class="logo"></span></div>
+      </div>
+    </div>
+  </div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

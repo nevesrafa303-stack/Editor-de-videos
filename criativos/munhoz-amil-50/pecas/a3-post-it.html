@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="atencao.css">
+<style>
+  body { background: #111; }
+  .scene { position: absolute; left: 0; top: 0; width: 3418px; height: 2282px; transform-origin: 0 0; transform: translate(-1397px, -636px) scale(1.25); }
+  .scene img { position: absolute; left: 0; top: 0; width: 3418px; height: 2282px; }
+  /* escrita à mão no post-it, nas coordenadas da foto (canto sup. esq. 1287,741; inclinação 2,7°) */
+  .note { position: absolute; left: 1312px; top: 786px; width: 470px; height: 470px; transform: rotate(2.7deg); color: #1d2950;
+          mix-blend-mode: multiply; opacity: .92; filter: blur(.35px); font-size: 58px; line-height: 1.0; }
+  .note .l { display: block; white-space: nowrap; }
+  .note .big { font-size: 86px; line-height: 1; margin: 4px 0 6px; position: relative; }
+  .note .big svg { position: absolute; left: 166px; top: 80px; overflow: visible; }
+  .note .date { position: relative; display: inline-block; }
+  .note .date svg { position: absolute; left: -22px; top: -10px; overflow: visible; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 54%, rgba(8,8,14,.88) 66%, rgba(8,8,14,.96) 100%); }
+  .eyebrow { position: absolute; left: var(--m); top: 1150px; color: var(--cyan); }
+  h2 { position: absolute; left: var(--m); right: var(--m); top: 1200px; color: #fff; font-weight: 800; font-size: 76px; line-height: .96; letter-spacing: -.04em; }
+  .body { position: absolute; left: var(--m); right: var(--m); top: 1300px; font-size: 33px; font-weight: 500; line-height: 1.26; color: rgba(255,255,255,.82); }
+  .body b { color: #fff; font-weight: 800; }
+  .cta { position: absolute; left: var(--m); top: 1440px; color: var(--royal); }
+  .sign { position: absolute; right: var(--m); top: 1466px; width: 132px; color: #fff; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1572px; font-size: 17px; color: rgba(255,255,255,.55); }
+
+  body.feed .scene { transform: translate(-923px, -594px) scale(.95); }
+  body.feed .shade { background: linear-gradient(180deg, rgba(0,0,0,0) 46%, rgba(8,8,14,.9) 57%, rgba(8,8,14,.97) 100%); }
+  body.feed .eyebrow { top: 790px; }
+  body.feed h2 { top: 836px; font-size: 64px; }
+  body.feed .body { top: 920px; font-size: 28px; }
+  body.feed .cta { top: 1040px; }
+  body.feed .sign { top: 1062px; width: 116px; }
+  body.feed .legal { top: 1160px; font-size: 15px; right: 200px; }
+</style></head>
+<body><div class="canvas">
+  <div class="scene">
+    <img src="../assets/fotos/postit-notebook-limpo.jpg" alt="">
+    <div class="note hand">
+      <span class="l">Plano de saúde</span>
+      <span class="l">da empresa:</span>
+      <span class="l big">Amil 50% OFF
+        <svg width="290" height="24"><path d="M2 14 C 70 4, 160 2, 286 10" fill="none" stroke="#1d2950" stroke-width="5" stroke-linecap="round"/></svg></span>
+      <span class="l">na 1ª e na 2ª fatura!</span>
+      <span class="l">(com 2 vidas já dá)</span>
+      <span class="l">só até <span class="date">31/10
+        <svg width="150" height="82"><path d="M78 5 C 24 2, -4 34, 14 58 C 34 84, 128 80, 144 48 C 156 18, 108 0, 54 9" fill="none" stroke="#c4262e" stroke-width="4.5" stroke-linecap="round"/></svg></span></span>
+    </div>
+  </div>
+  <div class="shade"></div>
+  <span class="eyebrow">Plano de saúde Amil para CNPJ</span>
+  <h2>Lembrete de outubro.</h2>
+  <p class="body"><b>50% de desconto na 1ª e na 2ª fatura</b>, a partir de 2 vidas. Só para contratações em outubro.</p>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <span class="logo sign"></span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

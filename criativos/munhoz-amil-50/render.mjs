@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
 const port = server.address().port;
 
 const filter = process.argv[2] || '';
-const pieces = fs.readdirSync(path.join(ROOT, 'pecas')).filter(f => /^(v\d|e\d|ads01).*\.html$/.test(f) && f.includes(filter)).sort();
+const pieces = fs.readdirSync(path.join(ROOT, 'pecas')).filter(f => /^(v\d|e\d|a\d|ads01).*\.html$/.test(f) && f.includes(filter)).sort();
 fs.mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();
