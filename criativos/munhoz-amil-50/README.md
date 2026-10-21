@@ -55,6 +55,32 @@ Fotos Adobe Stock (licença gratuita, sem IA): 401175887 (maçãs), 315425981 (p
 original foi removido em `assets/fotos/postit-notebook-limpo.jpg`). Os anúncios vizinhos do
 classificado são fictícios, sem telefone nem nome.
 
+## Linha Figma no sistema visual da Amil (C1–C5)
+
+Feita no Figma, editável: https://www.figma.com/design/UpR5IhAWqlVhUWCZNFi2lM
+PNGs exportados do Figma em `final/figma/`, visão geral em `final/figma/_visao-geral-figma.jpg`.
+
+Sistema visual tirado do site oficial da Amil (CSS de institucional.amil.com.br):
+violeta `#461BFF`, violeta claro `#5C3CFF`, azul-noite `#0F0D59`, ciano `#00ADFF`, verde `#00D896`
+(botões) e anéis concêntricos atrás de pessoas recortadas, como nos banners da própria Amil.
+A fonte da Amil (Amil Typeface) é proprietária; no lugar dela usamos **Lexend**, a gratuita mais
+parecida (82% de sobreposição de formas no teste). Se a Munhoz tiver o kit de marca da Amil, é só
+trocar a fonte no Figma.
+
+No arquivo: página **Base** com variáveis de cor e componentes (logo, botão de simulação com texto
+editável, selo 50%); página **Criativos** com uma seção por conceito (Story e Feed lado a lado).
+
+| Peça | Conceito | Título |
+|---|---|---|
+| `C1-dois-ja-e-empresa` | Dupla de sócios (2 vidas) | Dois já é empresa. E já é plano Amil. |
+| `C2-familia` | Pai e filha (titular e dependente) | Sua empresa. Sua família. Um plano Amil. |
+| `C3-50-em-camadas` | 50% gigante atrás da modelo | 50% de desconto na 1ª e na 2ª fatura. |
+| `C4-metade` | Close de meio rosto (a foto é a metade) | Metade. É o que você paga na 1ª e na 2ª fatura. |
+| `C5-empresario` | Empresário com selo | Empresário, a 1ª e a 2ª fatura saem pela metade. |
+
+Fotos Adobe Stock (licença gratuita, sem IA): 204746182, 214903170, 873259401, 675869823, 510257064.
+Recortes feitos no Photoshop (Adobe para criatividade); versões usadas no Figma em `assets/fotos/figma/`.
+
 ## Gerar de novo
 
 ```bash
