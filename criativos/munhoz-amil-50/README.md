@@ -9,7 +9,8 @@ Na Story, nada importante fica acima de y=220 nem abaixo de y=1600.
 
 | Peça | Ângulo | Título |
 |---|---|---|
-| `ADS01 … - 2 vidas.png` | Original | Peça original com "A partir de 2 vidas" |
+| `ADS01 … STORY - 2 vidas.png` | Original | PNG original com "A partir de 2 vidas" |
+| `ADS01 … FEED - 2 vidas.png` | Original | Mesma peça remontada em 4:5 (`pecas/ads01-original.html`) |
 | `v1-metade` | Oferta tipográfica | 50% de desconto na 1ª e na 2ª fatura |
 | `v2-voce-mais-1` | 2 vidas = você + 1 (foto) | Você +1. Já dá para ter Amil pelo seu CNPJ. |
 | `v3-fatura` | A fatura pela metade (fundo claro) | Suas 2 primeiras faturas *pela metade.* |

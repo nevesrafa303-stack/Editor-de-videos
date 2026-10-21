@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  /* Feed da peça original "ADS01 - Amil 50% primeira e segunda parcela" (a Story é o PNG original editado). */
+  .canvas { background:
+      radial-gradient(520px 520px at 0% 0%, rgba(176,20,255,.95), transparent 70%),
+      radial-gradient(560px 520px at 100% 0%, rgba(0,150,255,.9), transparent 70%),
+      radial-gradient(700px 600px at 0% 100%, rgba(120,20,255,.75), transparent 70%),
+      radial-gradient(700px 600px at 100% 100%, rgba(0,60,255,.8), transparent 70%),
+      linear-gradient(180deg, #2a06f0 0%, #12048f 40%, #0b0377 62%, #1a06c8 100%); }
+  .ring { position: absolute; left: 540px; top: 322px; width: 0; height: 0; }
+  .ring > div { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); }
+  .halo { width: 720px; height: 720px; background: radial-gradient(closest-side, #05025a 0%, #08037a 70%, rgba(8,3,122,.0) 100%); }
+  .outer { width: 636px; height: 636px;
+    background: conic-gradient(from 0deg, #3fe0f9 0deg, #2a8dff 70deg, #2a3bff 120deg, rgba(42,31,240,.15) 170deg, rgba(42,31,240,.0) 260deg, rgba(42,31,240,.25) 330deg, #3fe0f9 360deg);
+    -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 52px), #000 calc(100% - 50px), #000 99%, transparent 100%);
+    filter: drop-shadow(0 0 18px rgba(63,224,249,.55)); }
+  .inner { width: 520px; height: 520px;
+    background: conic-gradient(from 200deg, #c02cff, #7a2bff 25%, #3a3bff 50%, #2a6bff 70%, #7a2bff 90%, #c02cff);
+    -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 12px), #000 calc(100% - 11px), #000 99%, transparent 100%);
+    filter: drop-shadow(0 0 14px rgba(170,60,255,.7)); opacity: .95; }
+  .disk { width: 496px; height: 496px; background: radial-gradient(closest-side, #050268 0%, #0b0590 75%, #1a0cc0 100%); }
+  .shine { width: 496px; height: 496px; background: radial-gradient(260px 200px at 30% 25%, rgba(120,90,255,.35), transparent 70%); }
+
+  .hero { position: absolute; left: 0; right: 0; top: 92px; text-align: center; text-shadow: 0 6px 24px rgba(5,2,90,.45); }
+  .hero .pct { font-weight: 900; font-size: 330px; line-height: .8; letter-spacing: -.07em; margin-left: -10px; }
+  .hero .pct sup { font-size: .5em; vertical-align: top; position: relative; top: -.02em; letter-spacing: 0; margin-left: .02em; }
+  .hero .de { font-weight: 900; font-size: 78px; line-height: 1; letter-spacing: -.005em; margin-top: 16px; }
+  .hero .fat { font-weight: 800; font-size: 74px; line-height: 1.02; letter-spacing: -.035em; }
+  .hero .fat em { font-style: normal; color: var(--cyan); }
+  .hero .fat sup, .hero .fat .o { font-size: .55em; vertical-align: top; position: relative; top: .1em; }
+
+  .head { position: absolute; left: 0; right: 0; top: 666px; text-align: center; font-weight: 800; font-size: 86px; line-height: .98; letter-spacing: -.045em; }
+  .head em { font-style: normal; color: var(--cyan); }
+  .pill { position: absolute; left: 50%; top: 852px; transform: translateX(-50%); border: 3px solid var(--cyan); border-radius: 999px;
+          padding: 10px 56px 14px; font-size: 54px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap;
+          background: rgba(5,2,90,.55); box-shadow: 0 0 22px rgba(63,224,249,.35), inset 0 0 18px rgba(63,224,249,.12); }
+  .pill b { color: var(--cyan); font-weight: 800; }
+  .body { position: absolute; left: 140px; right: 120px; top: 962px; font-size: 37px; font-weight: 500; line-height: 1.18; letter-spacing: -.01em; }
+  .body b { font-weight: 800; }
+  .body small { display: block; margin-top: 14px; font-size: 29px; font-weight: 400; color: rgba(255,255,255,.88); }
+  .body small b { color: #fff; }
+  .body i { display: block; width: 92px; height: 5px; margin-top: 16px; border-radius: 3px; background: linear-gradient(90deg, #c02cff, #2a6bff); }
+  .cta { position: absolute; left: 50%; top: 1110px; transform: translateX(-50%); height: 84px; font-size: 36px; padding: 0 40px 0 52px; white-space: nowrap; color: #1a10d8; }
+  .cta svg { width: 30px; height: 30px; }
+  .logo { position: absolute; left: 50%; top: 1222px; width: 170px; transform: translateX(-50%); }
+  .wave { position: absolute; inset: 0; pointer-events: none; }
+</style></head>
+<body><div class="canvas grain">
+  <svg class="wave" viewBox="0 0 1080 1350" fill="none">
+    <path d="M-40 1150 C 160 1180, 300 1260, 420 1380" stroke="url(#wl)" stroke-width="3" opacity=".7"/>
+    <path d="M-40 1210 C 140 1230, 260 1300, 340 1380" stroke="url(#wl)" stroke-width="2" opacity=".45"/>
+    <path d="M1120 1120 C 960 1150, 800 1260, 720 1380" stroke="url(#wr)" stroke-width="4" opacity=".75"/>
+    <path d="M1120 1190 C 990 1210, 880 1290, 830 1380" stroke="url(#wr)" stroke-width="2" opacity=".45"/>
+    <defs>
+      <linearGradient id="wl" x1="0" x2="1"><stop offset="0" stop-color="#c02cff"/><stop offset="1" stop-color="#5a3bff"/></linearGradient>
+      <linearGradient id="wr" x1="1" x2="0"><stop offset="0" stop-color="#3fe0f9"/><stop offset="1" stop-color="#2a6bff"/></linearGradient>
+    </defs>
+  </svg>
+  <div class="ring"><div class="halo"></div><div class="outer"></div><div class="inner"></div><div class="disk"></div><div class="shine"></div></div>
+  <div class="hero">
+    <div class="pct">50<sup>%</sup></div>
+    <div class="de">DE DESCONTO</div>
+    <div class="fat">na 1<span class="o">a</span> e 2<span class="o">a</span> <em>fatura</em></div>
+  </div>
+  <div class="head">Planos de Saúde<br><em>para CNPJ</em></div>
+  <div class="pill">A Partir de <b>2 vidas</b></div>
+  <div class="body">Desconto de <b>50%</b> na primeira e na segunda fatura<i></i><small>Oferta válida só para contratações neste mês de <b>outubro</b></small></div>
+  <span class="cta">Simulação Gratuita 100% Online</span>
+  <span class="logo"></span>
+</div><script src="base.js"></script></body></html>

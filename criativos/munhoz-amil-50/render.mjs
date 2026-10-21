@@ -24,17 +24,20 @@ const server = http.createServer((req, res) => {
 const port = server.address().port;
 
 const filter = process.argv[2] || '';
-const pieces = fs.readdirSync(path.join(ROOT, 'pecas')).filter(f => /^v\d.*\.html$/.test(f) && f.includes(filter)).sort();
+const pieces = fs.readdirSync(path.join(ROOT, 'pecas')).filter(f => /^(v\d|ads01).*\.html$/.test(f) && f.includes(filter)).sort();
 fs.mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();
 for (const piece of pieces) {
-  for (const [fmt, [w, h]] of Object.entries(FORMATS)) {
+  // a Story da peça original é o PNG editado; daqui sai só o Feed dela
+  const formats = piece.startsWith('ads01') ? { feed: FORMATS.feed } : FORMATS;
+  for (const [fmt, [w, h]] of Object.entries(formats)) {
     const page = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     await page.goto(`http://localhost:${port}/pecas/${piece}#${fmt}`);
     await page.waitForFunction(() => window.__ready === true);
     await page.evaluate(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))));
-    const name = `${piece.replace('.html', '')}-${fmt}.png`;
+    const name = piece.startsWith('ads01') ? 'ADS01 - Amil 50% primeira e segunda parcela FEED - 2 vidas.png'
+      : `${piece.replace('.html', '')}-${fmt}.png`;
     await page.screenshot({ path: path.join(OUT, name) });
     console.log('ok', name);
     await page.close();
