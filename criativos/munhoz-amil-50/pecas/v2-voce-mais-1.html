@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  .photo { position: absolute; left: 0; top: 330px; width: 100%; height: 900px; background: url(../assets/fotos/casal-floricultura.jpg) 47% 22% / cover; filter: saturate(.92) contrast(1.04); }
+  .photo::after { content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(7,5,92,0) 16%, rgba(7,5,92,0) 45%, rgba(7,5,92,.85) 82%, var(--ink) 100%); }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 150px; }
+  .badge { position: absolute; left: 60px; top: 400px; width: 270px; height: 270px; border-radius: 50%; background: var(--cyan); color: var(--ink);
+           display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-8deg); text-align: center;
+           box-shadow: 0 18px 40px rgba(0,0,0,.25); }
+  .badge b { font-size: 112px; font-weight: 900; letter-spacing: -.06em; line-height: .85; }
+  .badge span { font-size: 25px; font-weight: 700; line-height: 1.1; margin-top: 8px; }
+  .head { position: absolute; left: var(--m); right: var(--m); top: 1030px; }
+  .head h1 { font-size: 196px; font-weight: 900; letter-spacing: -.06em; line-height: .86; }
+  .head h1 em { font-style: normal; color: var(--cyan); }
+  .head h2 { margin-top: 26px; font-size: 64px; font-weight: 700; letter-spacing: -.03em; line-height: 1.02; }
+  .head p { margin-top: 26px; font-size: 34px; font-weight: 500; line-height: 1.3; color: var(--muted); max-width: 820px; }
+  .head p b { color: var(--white); font-weight: 700; }
+  .cta { position: absolute; left: var(--m); top: 1452px; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1590px; }
+
+  body.feed .photo { top: 0; height: 720px; background-position: 47% 28%; }
+  body.feed .photo::after { background: linear-gradient(180deg, rgba(7,5,92,.45) 0%, rgba(7,5,92,0) 22%, rgba(7,5,92,0) 60%, var(--ink) 100%); }
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 128px; }
+  body.feed .head { top: 640px; }
+  body.feed .head h1 { font-size: 150px; }
+  body.feed .head h2 { font-size: 50px; margin-top: 20px; }
+  body.feed .head p { font-size: 30px; margin-top: 20px; }
+  body.feed .badge { left: auto; right: 60px; top: 470px; width: 230px; height: 230px; }
+  body.feed .badge b { font-size: 94px; }
+  body.feed .badge span { font-size: 21px; }
+  body.feed .cta { top: 1040px; }
+  body.feed .legal { top: 1175px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="photo"></div>
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <div class="badge"><b>50%</b><span>off na 1ª e<br>na 2ª fatura</span></div>
+  <div class="head">
+    <h1>Você <em>+1.</em></h1>
+    <h2>Já dá para ter Amil<br>pelo seu CNPJ.</h2>
+    <p>Sócio, cônjuge ou funcionário. <b>A partir de 2 vidas.</b></p>
+  </div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  .photo { position: absolute; left: 0; right: 0; top: 300px; bottom: 0; background: url(../assets/fotos/socios-cafe.jpg) 50% 30% / cover; filter: saturate(.92) contrast(1.04); }
+  .photo::after { content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(7,5,92,0) 12%, rgba(7,5,92,0) 40%, rgba(7,5,92,.85) 56%, var(--ink) 70%); }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 150px; }
+  h1 { position: absolute; left: var(--m); right: var(--m); top: 1010px; font-weight: 800; font-size: 104px; line-height: .95; letter-spacing: -.045em; }
+  h1 u { text-decoration: none; background: linear-gradient(transparent 70%, rgba(63,224,249,.9) 70%, rgba(63,224,249,.9) 88%, transparent 88%); padding: 0 4px; margin: 0 -4px; }
+  .answer { position: absolute; left: var(--m); right: var(--m); top: 1250px; display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: start; }
+  .answer .bar { width: 8px; height: 100%; background: var(--cyan); border-radius: 4px; }
+  .answer p { font-size: 38px; font-weight: 500; line-height: 1.22; color: rgba(255,255,255,.88); }
+  .answer b { color: #fff; font-weight: 800; }
+  .answer em { font-style: normal; color: var(--cyan); font-weight: 800; }
+  .cta { position: absolute; left: var(--m); top: 1430px; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1568px; }
+
+  body.feed .photo { top: 0; background-position: 50% 22%; }
+  body.feed .photo::after { background: linear-gradient(180deg, rgba(7,5,92,.5) 0%, rgba(7,5,92,0) 18%, rgba(7,5,92,0) 34%, rgba(7,5,92,.85) 52%, var(--ink) 66%); }
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 128px; }
+  body.feed h1 { top: 600px; font-size: 82px; }
+  body.feed .answer { top: 800px; gap: 22px; }
+  body.feed .answer p { font-size: 34px; }
+  body.feed .cta { top: 1010px; }
+  body.feed .legal { top: 1140px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="photo"></div>
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <h1>Ainda paga plano como <u>pessoa física?</u></h1>
+  <div class="answer"><span class="bar"></span><p>Com CNPJ e <b>a partir de 2 vidas</b>, você contrata Amil empresarial. E paga <em>metade na 1ª e na 2ª fatura.</em></p></div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

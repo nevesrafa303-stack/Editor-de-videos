@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  body { background: var(--paper); color: var(--ink); }
+  .canvas { background: radial-gradient(900px 700px at 80% 55%, #e4e2f6, transparent 70%), var(--paper); }
+  .grain::after { opacity: .1; mix-blend-mode: multiply; }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 150px; color: var(--royal); }
+  h1 { position: absolute; left: var(--m); right: var(--m); top: 330px; font-weight: 800; font-size: 104px; line-height: .95; letter-spacing: -.045em; }
+  h1 em { display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 1.42em; letter-spacing: -.02em; color: var(--royal); line-height: .9; margin-top: 6px; }
+
+  .stack { position: absolute; left: var(--m); right: var(--m); top: 700px; height: 560px; }
+  .card { position: absolute; left: 0; right: 40px; background: #fff; border-radius: 30px; padding: 40px 48px 44px;
+          box-shadow: 0 2px 0 rgba(7,5,92,.04), 0 30px 60px -20px rgba(7,5,92,.28); }
+  .card.back { top: 0; transform: rotate(3.2deg) translate(30px, -14px); opacity: .96; }
+  .card.front { top: 54px; transform: rotate(-1.6deg); }
+  .card header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 22px; border-bottom: 2px dashed #d9d7ea; margin-bottom: 18px; }
+  .card header b { font-size: 46px; font-weight: 800; letter-spacing: -.03em; }
+  .card header span { font-size: 24px; font-weight: 600; color: #6b6a8f; letter-spacing: .08em; text-transform: uppercase; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; font-size: 32px; font-weight: 500; padding: 12px 0; color: #3b3a64; }
+  .row s { color: #8b8aa8; }
+  .row.off { color: var(--royal); font-weight: 700; }
+  .row.total { border-top: 2px solid #ecebf5; margin-top: 10px; padding-top: 22px; color: var(--ink); font-weight: 800; }
+  .row.total strong { font-size: 76px; letter-spacing: -.04em; line-height: .9; }
+  .stamp { position: absolute; right: -34px; top: -78px; width: 180px; height: 180px; border-radius: 50%; background: var(--royal); color: #fff;
+           display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-12deg);
+           box-shadow: inset 0 0 0 10px var(--royal), inset 0 0 0 13px rgba(255,255,255,.55); }
+  .stamp b { font-size: 62px; font-weight: 900; letter-spacing: -.05em; line-height: .9; }
+  .stamp span { font-size: 22px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+  .chip { position: absolute; left: var(--m); top: 1300px; border-color: var(--royal); color: var(--ink); font-size: 36px; }
+  .chip b { color: var(--royal); }
+  .cta { position: absolute; left: var(--m); top: 1400px; background: var(--royal); color: #fff; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1540px; color: rgba(7,5,92,.6); }
+
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 128px; }
+  body.feed h1 { top: 140px; font-size: 76px; }
+  body.feed .stack { top: 420px; height: 470px; transform: scale(.82); transform-origin: top left; right: -110px; }
+  body.feed .chip { top: 935px; font-size: 30px; }
+  body.feed .cta { top: 1040px; }
+  body.feed .legal { top: 1170px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <h1>Suas 2 primeiras faturas <em>pela metade.</em></h1>
+  <div class="stack">
+    <div class="card back">
+      <header><b>2ª fatura</b><span>Amil Empresarial</span></header>
+      <div class="row"><span>Mensalidade</span><s>100%</s></div>
+      <div class="row off"><span>Desconto de outubro</span><span>−50%</span></div>
+    </div>
+    <div class="card front">
+      <header><b>1ª fatura</b><span></span></header>
+      <div class="row"><span>Mensalidade</span><s>100%</s></div>
+      <div class="row off"><span>Desconto de outubro</span><span>−50%</span></div>
+      <div class="row total"><span>Você paga</span><strong>50%</strong></div>
+      <div class="stamp"><b>50%</b><span>off</span></div>
+    </div>
+  </div>
+  <div class="chip">A partir de <b>2 vidas</b> no CNPJ</div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

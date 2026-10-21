@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  .canvas { background: var(--royal); }
+  .photo { position: absolute; left: 0; top: 330px; width: 100%; height: 780px; background: url(../assets/fotos/dona-mercado.jpg) 56% 30% / cover; filter: saturate(.95) contrast(1.03); }
+  .photo::after { content: ''; position: absolute; inset: 0; background: none; }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; z-index: 2; }
+  .top .logo { width: 150px; }
+  .tag { position: absolute; right: var(--m); top: 1040px; z-index: 3; background: var(--cyan); color: var(--ink); border-radius: 22px; padding: 18px 28px 20px;
+         font-weight: 800; font-size: 34px; line-height: 1.02; letter-spacing: -.01em; text-align: left; transform: rotate(-3deg); box-shadow: 0 16px 34px rgba(7,5,92,.3); }
+  .tag b { display: block; font-size: 84px; font-weight: 900; letter-spacing: -.05em; line-height: .86; }
+  .panel { position: absolute; left: 0; right: 0; top: 1110px; bottom: 0; background: var(--royal); }
+  h1 { position: absolute; left: var(--m); right: var(--m); top: 1170px; font-weight: 800; font-size: 92px; line-height: .95; letter-spacing: -.045em; }
+  .sub { position: absolute; left: var(--m); right: var(--m); top: 1370px; font-size: 38px; font-weight: 500; line-height: 1.25; color: rgba(255,255,255,.88); }
+  .sub b { font-weight: 800; color: #fff; }
+  .cta { position: absolute; left: var(--m); top: 1452px; height: 96px; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1576px; color: rgba(255,255,255,.7); }
+
+  body.feed .photo { top: 0; height: 640px; background-position: 58% 32%; }
+  body.feed .photo::after { background: linear-gradient(180deg, rgba(7,5,92,.62) 0%, rgba(7,5,92,0) 26%); }
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 128px; }
+  body.feed .panel { top: 640px; }
+  body.feed .tag { top: 572px; font-size: 28px; padding: 14px 24px 16px; }
+  body.feed .tag b { font-size: 70px; }
+  body.feed h1 { top: 700px; font-size: 76px; }
+  body.feed .sub { top: 870px; font-size: 32px; }
+  body.feed .cta { top: 1010px; height: 88px; }
+  body.feed .legal { top: 1140px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="photo"></div>
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <div class="panel"></div>
+  <div class="tag"><b>50%</b>off na 1ª e<br>na 2ª fatura</div>
+  <h1>Seu CNPJ vale<br>um plano Amil.</h1>
+  <p class="sub">É você e mais uma pessoa: <b>a partir de 2 vidas.</b></p>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div><script src="base.js"></script></body></html>

@@ -1,0 +1,55 @@
+/* Sistema visual da campanha Amil 50% (Munhoz Corretora).
+   Story 1080x1920: conteúdo importante entre y=220 e y=1600 (zonas do Instagram).
+   Feed 1080x1350: margem de 72 px. */
+
+@font-face { font-family: 'Gabarito'; font-weight: 400; src: url(../assets/fonts/Gabarito-400.ttf); }
+@font-face { font-family: 'Gabarito'; font-weight: 500; src: url(../assets/fonts/Gabarito-500.ttf); }
+@font-face { font-family: 'Gabarito'; font-weight: 600; src: url(../assets/fonts/Gabarito-600.ttf); }
+@font-face { font-family: 'Gabarito'; font-weight: 700; src: url(../assets/fonts/Gabarito-700.ttf); }
+@font-face { font-family: 'Gabarito'; font-weight: 800; src: url(../assets/fonts/Gabarito-800.ttf); }
+@font-face { font-family: 'Gabarito'; font-weight: 900; src: url(../assets/fonts/Gabarito-900.ttf); }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; src: url(../assets/fonts/InstrumentSerif-Italic.woff2); }
+
+:root {
+  --ink: #07055c;        /* fundo profundo da campanha */
+  --ink-2: #0c0a82;
+  --royal: #2a1ff0;      /* azul elétrico da peça original */
+  --cyan: #3fe0f9;       /* destaque da peça original */
+  --paper: #f3f1ea;
+  --white: #ffffff;
+  --muted: rgba(255,255,255,.72);
+  --m: 88px;             /* margem lateral */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; overflow: hidden; }
+body { font-family: 'Gabarito', sans-serif; color: var(--white); background: var(--ink);
+       -webkit-font-smoothing: antialiased; font-kerning: normal; font-feature-settings: 'kern', 'liga'; }
+body.story { height: 1920px; }
+body.feed  { height: 1350px; --m: 72px; }
+.only-story, .only-feed { display: none; }
+body.story .only-story, body.feed .only-feed { display: revert; }
+
+.canvas { position: relative; width: 1080px; height: 100%; overflow: hidden; }
+
+/* grão fotográfico leve para tirar o aspecto de vetor chapado */
+.grain::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 50; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
+
+.logo { display: block; color: var(--white); }
+.logo svg { display: block; width: 100%; height: auto; }
+
+.eyebrow { font-weight: 600; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; }
+
+.cta { display: inline-flex; align-items: center; gap: 22px; background: var(--white); color: var(--royal);
+       font-weight: 700; font-size: 38px; letter-spacing: -.01em; height: 104px; padding: 0 44px 0 52px; border-radius: 999px; }
+.cta svg { width: 30px; height: 30px; }
+body.feed .cta { font-size: 32px; height: 88px; padding: 0 36px 0 42px; gap: 18px; }
+body.feed .cta svg { width: 26px; height: 26px; }
+
+.legal { font-weight: 400; font-size: 19px; line-height: 1.4; color: rgba(255,255,255,.62); }
+body.feed .legal { font-size: 16px; }
+
+.chip { display: inline-flex; align-items: baseline; gap: .32em; border: 3px solid var(--cyan); border-radius: 999px;
+        padding: 14px 34px 16px; font-weight: 600; font-size: 40px; }
+.chip b { color: var(--cyan); font-weight: 800; }

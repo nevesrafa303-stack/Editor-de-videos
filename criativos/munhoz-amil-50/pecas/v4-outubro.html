@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  .canvas { background: radial-gradient(1000px 800px at 50% 62%, rgba(42,31,240,.55), transparent 70%), var(--ink); }
+  .top { position: absolute; left: var(--m); right: var(--m); top: 236px; display: flex; justify-content: space-between; align-items: center; }
+  .top .logo { width: 150px; }
+  h1 { position: absolute; left: var(--m); right: var(--m); top: 330px; font-weight: 800; font-size: 116px; line-height: .94; letter-spacing: -.045em; }
+  .sub { position: absolute; left: var(--m); right: var(--m); top: 570px; font-size: 56px; font-weight: 700; letter-spacing: -.03em; line-height: 1.05; color: var(--cyan); }
+  h1 em { font-style: normal; color: var(--cyan); }
+  .cal { position: absolute; left: var(--m); right: var(--m); top: 740px; background: rgba(255,255,255,.06); border: 2px solid rgba(255,255,255,.14);
+         border-radius: 36px; padding: 36px 40px 40px; }
+  .cal header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 22px; }
+  .cal header b { font-size: 46px; font-weight: 800; letter-spacing: -.02em; }
+  .cal header span { font-size: 30px; font-weight: 600; color: var(--muted); }
+  .cal header span em { font-style: normal; color: var(--cyan); font-weight: 800; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 10px; text-align: center; }
+  .grid i { font-style: normal; font-size: 24px; font-weight: 700; color: rgba(255,255,255,.45); letter-spacing: .08em; padding-bottom: 8px; }
+  .grid span { font-size: 38px; font-weight: 600; height: 74px; line-height: 74px; color: rgba(255,255,255,.88); position: relative; }
+  .grid span.we { color: rgba(255,255,255,.45); }
+  .grid span.last { color: var(--ink); font-weight: 900; }
+  .grid span.last::before { content: ''; position: absolute; left: 50%; top: 50%; width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; background: var(--cyan); z-index: -1; }
+  .grid span.last::after { content: 'último dia'; position: absolute; left: 50%; top: 82px; transform: translateX(-50%); white-space: nowrap; font-size: 22px; font-weight: 700; color: var(--cyan); line-height: 1; letter-spacing: .02em; }
+  .grid span.last { z-index: 1; isolation: isolate; }
+  .chip { position: absolute; left: var(--m); top: 1300px; font-size: 36px; }
+  .cta { position: absolute; left: var(--m); top: 1392px; }
+  .legal { position: absolute; left: var(--m); right: var(--m); top: 1530px; }
+
+  body.feed .top { top: 64px; }
+  body.feed .top .logo { width: 128px; }
+  body.feed h1 { top: 140px; font-size: 82px; }
+  body.feed .sub { top: 310px; font-size: 42px; }
+  body.feed .cal { top: 395px; left: var(--m); right: var(--m); padding: 26px 34px 30px; border-radius: 30px; }
+  body.feed .cal header { margin-bottom: 12px; }
+  body.feed .cal header b { font-size: 38px; }
+  body.feed .cal header span { font-size: 26px; }
+  body.feed .grid { row-gap: 4px; }
+  body.feed .grid i { font-size: 20px; padding-bottom: 4px; }
+  body.feed .grid span { font-size: 32px; height: 70px; line-height: 70px; }
+  body.feed .grid span.last::before { width: 74px; height: 74px; margin: -37px 0 0 -37px; }
+  body.feed .grid span.last::after { top: 72px; font-size: 19px; }
+  body.feed .cta { top: 1000px; }
+  body.feed .legal { top: 1135px; right: 200px; }
+</style></head>
+<body><div class="canvas grain">
+  <div class="top"><span class="eyebrow">Plano de saúde para CNPJ</span><span class="logo"></span></div>
+  <h1>Contrate até<br>31 de outubro.</h1>
+  <p class="sub">e pague metade na 1ª e na 2ª fatura.</p>
+  <div class="cal">
+    <header><b>Outubro 2026</b><span class="vidas">A partir de <em>2 vidas</em></span></header>
+    <div class="grid" id="grid"><i>S</i><i>T</i><i>Q</i><i>Q</i><i>S</i><i>S</i><i>D</i></div>
+  </div>
+  <span class="cta">Simulação gratuita 100% online</span>
+  <p class="legal">Desconto de 50% na 1ª e na 2ª mensalidade para novos contratos PME Amil firmados em outubro de 2026. Mínimo de 2 vidas. Sujeito às regras de elegibilidade, carências e condições contratuais da operadora. Amil · ANS nº 326305.</p>
+</div>
+<script>
+  // outubro de 2026 começa numa quinta (semana iniciando na segunda)
+  const g = document.getElementById('grid');
+  for (let i = 0; i < 3; i++) g.append(document.createElement('span'));
+  for (let d = 1; d <= 31; d++) {
+    const s = document.createElement('span'); s.textContent = d;
+    const col = (d + 2) % 7; if (col === 5 || col === 6) s.className = 'we';
+    if (d === 31) s.className = 'last';
+    g.append(s);
+  }
+</script>
+<script src="base.js"></script></body></html>
