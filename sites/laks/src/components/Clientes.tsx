@@ -37,7 +37,7 @@ export function Clientes() {
         Corretoras que aceleram com a LAKS
       </p>
       <div className="marquee overflow-hidden">
-        <div className="marquee-track">
+        <div data-marquee className="marquee-track">
           {lista(false)}
           {lista(true)}
         </div>

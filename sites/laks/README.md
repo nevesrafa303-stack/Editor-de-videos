@@ -70,7 +70,10 @@ e só carregam quando o visitante clica em assistir.
 ## Movimentos de rolagem
 - Títulos entram linha a linha (SplitText); hero com foto que aproxima e cubos das operadoras em profundidade (seguem o mouse no desktop).
 - Manifesto em cena fixa com as palavras acendendo; faixa de texto grande correndo em sentidos opostos.
-- Método MAPA em cartões que se empilham; depoimentos em rolagem horizontal com barra de progresso (desktop).
+- Método MAPA com título fixo, indicador M·A·P·A e etapas que acendem; depoimentos em rolagem horizontal com
+  barra de progresso e vídeos que giram e crescem ao entrar (desktop).
+- Tudo ligado à rolagem em tempo real: ao subir, os movimentos se desfazem; ao descer de novo, acontecem outra vez
+  (inclusive os contadores). A faixa de logos troca de sentido com a rolagem e os textos grandes inclinam com a velocidade.
 - Foto do fundador que abre até a largura total; propósito em faixa laranja com palavras em movimento; marca gigante no rodapé.
 - Botões principais magnéticos (só com mouse); cabeçalho some ao descer, volta ao subir e mostra o progresso da leitura.
 

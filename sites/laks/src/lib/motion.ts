@@ -26,7 +26,9 @@ export function iniciarRolagemSuave() {
   };
 }
 
-/** Animações de rolagem (GSAP + ScrollTrigger + SplitText). Devolve a função de limpeza. */
+/** Animações de rolagem (GSAP + ScrollTrigger + SplitText). Devolve a função de limpeza.
+ *  Tudo é ligado à posição da rolagem (scrub): ao subir a página, os movimentos se desfazem e,
+ *  ao descer de novo, acontecem outra vez. */
 export function iniciarAnimacoes() {
   const mm = gsap.matchMedia();
 
@@ -50,16 +52,24 @@ export function iniciarAnimacoes() {
       const root = document.documentElement;
       root.classList.add("js-motion");
 
+      // Entrada ligada à rolagem: começa quando o elemento aparece e termina antes do meio da tela.
+      const entrada = (trigger: Element, inicio = "top 92%", fim = "top 62%") => ({
+        trigger,
+        start: inicio,
+        end: fim,
+        scrub: 0.6,
+      });
+
       // Hero: a foto aproxima e o texto sobe enquanto a página rola; cubos em profundidades diferentes.
       const hero = document.querySelector<HTMLElement>("[data-hero]");
       const cubos = $$("[data-depth]");
       if (hero) {
         const st = { trigger: hero, start: "top top", end: "bottom top", scrub: true };
-        gsap.to("[data-hero-media]", { scale: 1.18, yPercent: 10, ease: "none", scrollTrigger: st });
-        gsap.to("[data-hero-content]", { yPercent: -18, autoAlpha: 0, ease: "none", scrollTrigger: { ...st, end: "bottom 15%" } });
+        gsap.to("[data-hero-media]", { scale: 1.22, yPercent: 12, ease: "none", scrollTrigger: st });
+        gsap.to("[data-hero-content]", { yPercent: -22, autoAlpha: 0, ease: "none", scrollTrigger: { ...st, end: "bottom 15%" } });
         cubos.forEach((el) => {
           const d = Number(el.dataset.depth) || 0.5;
-          gsap.to(el, { y: () => -window.innerHeight * d * 0.7, rotate: d * 14, ease: "none", scrollTrigger: st });
+          gsap.to(el, { y: () => -window.innerHeight * d * 0.7, rotate: d * 18, ease: "none", scrollTrigger: st });
         });
         // No desktop os cubos também acompanham o mouse, cada um na sua profundidade.
         if (mouse) {
@@ -79,34 +89,52 @@ export function iniciarAnimacoes() {
         }
       }
 
-      // Títulos entram linha a linha, saindo de uma máscara.
+      // Faixa de logos: anda sozinha, troca de sentido junto com a rolagem e acelera com a velocidade.
+      $$("[data-marquee]").forEach((faixa) => {
+        faixa.classList.add("marquee-js");
+        const loop = gsap.to(faixa, { xPercent: -50, ease: "none", duration: 38, repeat: -1 });
+        // Começa "longe" do zero para poder andar para trás sem parar no início.
+        loop.totalTime(loop.duration() * 100);
+        let sentido = 1;
+        const st = ScrollTrigger.create({
+          onUpdate: (self) => {
+            sentido = self.direction;
+            const extra = Math.min(5, Math.abs(self.getVelocity()) / 350);
+            gsap.to(loop, { timeScale: sentido * (1 + extra), duration: 0.25, overwrite: true });
+          },
+        });
+        const devagar = () => gsap.to(loop, { timeScale: sentido, duration: 1.2, overwrite: true });
+        ScrollTrigger.addEventListener("scrollEnd", devagar);
+        limpezas.push(() => {
+          ScrollTrigger.removeEventListener("scrollEnd", devagar);
+          st.kill();
+          faixa.classList.remove("marquee-js");
+        });
+      });
+
+      // Títulos entram linha a linha, saindo de uma máscara, no ritmo da rolagem.
       $$("[data-split]").forEach((el) => {
         SplitText.create(el, {
           type: "lines",
           mask: "lines",
           autoSplit: true,
           onSplit: (self) =>
-            gsap.from(self.lines, {
-              yPercent: 115,
-              duration: 1.15,
-              stagger: 0.09,
-              ease: "expo.out",
-              scrollTrigger: { trigger: el, start: "top 88%", once: true },
-            }),
+            gsap.fromTo(
+              self.lines,
+              { yPercent: 115 },
+              { yPercent: 0, stagger: 0.14, ease: "power2.out", scrollTrigger: entrada(el, "top 94%", "top 60%") },
+            ),
         });
       });
 
-      // Entradas genéricas.
+      // Blocos de texto e listas sobem e aparecem com a rolagem (e somem ao voltar).
       $$("[data-reveal]").forEach((el) => {
         const alvos = el.dataset.reveal === "stagger" ? Array.from(el.children) : el;
-        gsap.from(alvos, {
-          y: 40,
-          autoAlpha: 0,
-          duration: 1.1,
-          stagger: 0.09,
-          ease: "expo.out",
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
-        });
+        gsap.fromTo(
+          alvos,
+          { y: 56, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, stagger: 0.12, ease: "power2.out", scrollTrigger: entrada(el) },
+        );
       });
 
       // Paralaxe de fundos.
@@ -137,16 +165,15 @@ export function iniciarAnimacoes() {
         );
       });
 
-      // Contadores.
+      // Contadores: sobem conforme a rolagem desce e voltam a zero ao subir.
       $$("[data-count]").forEach((el) => {
         const alvo = Number(el.dataset.count);
         const obj = { v: 0 };
         el.textContent = "0";
         gsap.to(obj, {
           v: alvo,
-          duration: 2.2,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 92%", once: true },
+          ease: "power1.out",
+          scrollTrigger: entrada(el, "top 95%", "top 55%"),
           onUpdate: () => {
             el.textContent = Math.round(obj.v).toLocaleString("pt-BR");
           },
@@ -188,51 +215,73 @@ export function iniciarAnimacoes() {
         );
       });
 
-      // Método MAPA: o título revela da esquerda e as etapas se empilham; a de baixo recua e escurece.
-      const mapa = document.querySelector<HTMLElement>("[data-mapa]");
-      const pilha = mapa?.querySelector<HTMLElement>("[data-mapa-pilha]");
-      if (mapa && pilha) {
-        gsap.fromTo(
-          "[data-mapa-titulo]",
-          { clipPath: "inset(0 100% 0 0)" },
-          {
-            clipPath: "inset(0 0% 0 0)",
-            duration: 1.6,
-            ease: "expo.inOut",
-            scrollTrigger: { trigger: "[data-mapa-titulo]", start: "top 85%", once: true },
-          },
-        );
-        pilha.dataset.pilha = "true";
-        limpezas.push(() => delete pilha.dataset.pilha);
-        const cartoes = $$("[data-mapa-cartao] > article", pilha);
-        const tl = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: desktop ? mapa : pilha,
-            start: desktop ? "top top" : "top 16%",
-            end: () => `+=${(cartoes.length - 1) * window.innerHeight * 0.7}`,
-            pin: true,
-            scrub: 0.6,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
+      // Textos grandes inclinam com a velocidade da rolagem (para um lado ao descer, para o outro ao subir).
+      const inclinaveis = $$("[data-kinetic]");
+      if (inclinaveis.length) {
+        const inclinar = inclinaveis.map((el) => gsap.quickTo(el, "skewX", { duration: 0.45, ease: "power3.out" }));
+        const st = ScrollTrigger.create({
+          onUpdate: (self) => {
+            const v = gsap.utils.clamp(-10, 10, self.getVelocity() / -260);
+            inclinar.forEach((f) => f(v));
           },
         });
-        cartoes.forEach((card, i) => {
-          if (i === 0) return;
-          const anterior = cartoes[i - 1];
-          tl.fromTo(card, { yPercent: 115 }, { yPercent: 0, duration: 1 }, i - 1)
-            .to(anterior, { scale: 0.92, yPercent: -4, duration: 1 }, i - 1)
-            .to(anterior.querySelector("[data-mapa-sombra]"), { opacity: 0.6, duration: 1 }, i - 1);
+        const endireitar = () => inclinar.forEach((f) => f(0));
+        ScrollTrigger.addEventListener("scrollEnd", endireitar);
+        limpezas.push(() => {
+          ScrollTrigger.removeEventListener("scrollEnd", endireitar);
+          st.kill();
         });
       }
 
-      // Cases: a seção fixa e os depoimentos correm na horizontal; a barra mostra o progresso.
+      // Método MAPA: título revela da esquerda; etapas acendem e o indicador acompanha.
+      const mapa = document.querySelector("[data-mapa]");
+      if (mapa) {
+        gsap.fromTo(
+          "[data-mapa-titulo]",
+          { clipPath: "inset(0 100% 0 0)" },
+          { clipPath: "inset(0 0% 0 0)", ease: "power2.inOut", scrollTrigger: entrada(mapa.querySelector("[data-mapa-titulo]")!, "top 90%", "top 50%") },
+        );
+        const passos = $$("[data-mapa-passo]", mapa);
+        const chips = $$("[data-mapa-chip]", mapa);
+        passos.forEach((passo, i) => {
+          const card = passo.firstElementChild;
+          gsap.fromTo(
+            card,
+            { autoAlpha: 0.25, y: 60, scale: 0.96 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: { trigger: passo, start: "top 92%", end: tablet ? "center 55%" : "top 55%", scrub: true },
+            },
+          );
+          ScrollTrigger.create({
+            trigger: passo,
+            start: "top center",
+            end: "bottom center",
+            onToggle: (self) => {
+              if (self.isActive) chips.forEach((c, j) => (c.dataset.ativo = String(j === i)));
+            },
+          });
+        });
+        if (passos.length) {
+          gsap.to("[data-mapa-progresso]", {
+            scaleX: 1,
+            ease: "none",
+            scrollTrigger: { trigger: passos[0].parentElement, start: "top center", end: "bottom center", scrub: true },
+          });
+        }
+      }
+
+      // Cases: no desktop a seção fixa, os depoimentos correm na horizontal e cada vídeo gira e cresce ao entrar.
       const track = document.querySelector<HTMLElement>("[data-cases-track]");
+      const cartoesCases = track ? (Array.from(track.children) as HTMLElement[]).filter((c) => c.querySelector("figure")) : [];
       if (track && desktop) {
         track.dataset.pinned = "true";
         const barra = document.querySelector<HTMLElement>("[data-cases-progresso]");
         const distancia = () => Math.max(0, track.scrollWidth - track.clientWidth);
-        gsap.to(track, {
+        const horizontal = gsap.to(track, {
           x: () => -distancia(),
           ease: "none",
           scrollTrigger: {
@@ -246,6 +295,25 @@ export function iniciarAnimacoes() {
             onUpdate: (self) => barra && gsap.set(barra, { scaleX: self.progress }),
           },
         });
+        cartoesCases.forEach((cartao) => {
+          gsap.fromTo(
+            cartao,
+            { rotate: 7, scale: 0.86, yPercent: 10 },
+            {
+              rotate: 0,
+              scale: 1,
+              yPercent: 0,
+              ease: "none",
+              scrollTrigger: { trigger: cartao, containerAnimation: horizontal, start: "left right", end: "left 60%", scrub: true },
+            },
+          );
+        });
+      } else if (track) {
+        gsap.fromTo(
+          cartoesCases,
+          { y: 70, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, stagger: 0.1, ease: "power2.out", scrollTrigger: entrada(track, "top 95%", "top 55%") },
+        );
       }
 
       // Foto do fundador: abre de um quadro recortado até a largura total.
@@ -260,22 +328,19 @@ export function iniciarAnimacoes() {
         gsap.fromTo("[data-expand-img]", { scale: 1.3 }, { scale: 1, ease: "none", scrollTrigger: st });
       }
 
-      // Polaroid da equipe "cai" e balança até assentar.
-      gsap.fromTo(
-        "[data-polaroid]",
-        { rotate: -16, y: -80, autoAlpha: 0 },
-        {
-          rotate: 0,
-          y: 0,
-          autoAlpha: 1,
-          duration: 1.8,
-          ease: "elastic.out(1, 0.45)",
-          scrollTrigger: { trigger: "[data-polaroid]", start: "top 82%", once: true },
-        },
-      );
+      // Polaroid da equipe "cai" girando e assenta conforme a rolagem.
+      const polaroid = document.querySelector("[data-polaroid]");
+      if (polaroid) {
+        gsap.fromTo(
+          polaroid,
+          { rotate: -18, y: -120, autoAlpha: 0 },
+          { rotate: 0, y: 0, autoAlpha: 1, ease: "back.out(1.8)", scrollTrigger: entrada(polaroid, "top 95%", "top 45%") },
+        );
+      }
 
-      // Checklist marca item a item.
+      // Checklist: cada item desliza para o lugar e é marcado quando chega ao meio da tela.
       $$("[data-check]").forEach((el) => {
+        gsap.fromTo(el, { x: 48, autoAlpha: 0.2 }, { x: 0, autoAlpha: 1, ease: "power2.out", scrollTrigger: entrada(el, "top 96%", "top 75%") });
         ScrollTrigger.create({
           trigger: el,
           start: "top 72%",

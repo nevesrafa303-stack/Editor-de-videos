@@ -107,6 +107,10 @@
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
+/* Com animação ativa, quem move a faixa é o GSAP (reage ao sentido e à velocidade da rolagem). */
+.marquee-track.marquee-js {
+  animation: none;
+}
 @keyframes marquee {
   to {
     transform: translate3d(-50%, 0, 0);
@@ -157,20 +161,6 @@
 }
 html.js-motion .manifesto-w {
   --w-op: 0.4;
-}
-
-/* Pilha do Método MAPA: com animação ativa, os cartões ocupam a mesma célula e entram um sobre o outro. */
-[data-pilha="true"] {
-  display: grid;
-  /* Corta só embaixo: o cartão seguinte sobe "de dentro" da pilha. */
-  clip-path: inset(-40% -6% 0 -6%);
-}
-[data-pilha="true"] > li {
-  grid-area: 1 / 1;
-}
-/* Todos os cartões com a altura do maior: o próximo fica inteiro escondido abaixo até subir. */
-[data-pilha="true"] > li > article {
-  height: 100%;
 }
 
 /* Texto vazado (só o contorno), usado na faixa cinética. */

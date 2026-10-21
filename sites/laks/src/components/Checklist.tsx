@@ -31,7 +31,7 @@ export function Checklist() {
               </li>
             ))}
           </ul>
-          <div className="mt-10 flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div data-reveal className="mt-10 flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
             <p className="font-expanded text-lg font-semibold uppercase text-white">{checklist.fechamento}</p>
             <Cta href="#forms" data-cta="checklist" className="shrink-0">
               Vamos conversar

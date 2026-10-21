@@ -18,7 +18,7 @@ export function Proposito() {
           </p>
         ))}
       </div>
-      <p className="container-site mt-10 max-w-xl text-lg font-semibold leading-snug md:mt-14 md:text-2xl">
+      <p data-reveal className="container-site mt-10 max-w-xl text-lg font-semibold leading-snug md:mt-14 md:text-2xl">
         {proposito.complemento}
       </p>
     </section>

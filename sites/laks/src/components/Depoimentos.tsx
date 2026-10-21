@@ -16,8 +16,8 @@ export function Depoimentos() {
           >
             {depoimentos.titulo}
           </h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-mute lg:text-lg">{depoimentos.intro}</p>
-          <ul className="mt-8 grid max-w-xl border-t border-white/10 lg:mt-10">
+          <p data-reveal className="mt-5 max-w-md text-base leading-relaxed text-mute lg:text-lg">{depoimentos.intro}</p>
+          <ul data-reveal="stagger" className="mt-8 grid max-w-xl border-t border-white/10 lg:mt-10">
             {depoimentos.destaques.map((d) => (
               <li key={d.fonte} className="flex items-end justify-between gap-4 border-b border-white/10 py-3.5">
                 <div>

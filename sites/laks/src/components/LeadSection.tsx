@@ -20,9 +20,9 @@ export function LeadSection() {
           <h2 id="form-titulo" data-split className="font-expanded text-[clamp(2.6rem,6.4vw,5.6rem)] font-bold uppercase leading-[0.95] tracking-tight text-white">
             {diagnostico.titulo}
           </h2>
-          <p className="mt-6 max-w-lg text-mute md:text-lg">{diagnostico.intro}</p>
+          <p data-reveal className="mt-6 max-w-lg text-mute md:text-lg">{diagnostico.intro}</p>
 
-          <ol className="mt-10 grid gap-5">
+          <ol data-reveal="stagger" className="mt-10 grid gap-5">
             {diagnostico.passos.map((p, i) => (
               <li key={p.titulo} className="flex gap-4">
                 <span className="font-expanded grid size-10 shrink-0 place-items-center rounded-full border border-laranja/50 text-sm font-bold text-laranja">
@@ -36,7 +36,7 @@ export function LeadSection() {
             ))}
           </ol>
 
-          <div className="mt-12 flex items-center gap-5 rounded-3xl border border-white/10 bg-white/[0.03] p-4 pr-6">
+          <div data-reveal className="mt-12 flex items-center gap-5 rounded-3xl border border-white/10 bg-white/[0.03] p-4 pr-6">
             <Image
               src={fundador}
               alt="Fundador da LAKS de camisa laranja com a frase Vivemos o que vendemos"
@@ -50,7 +50,7 @@ export function LeadSection() {
           </div>
         </div>
 
-        <div className="relative">
+        <div data-reveal className="relative">
           <div className="rounded-[2rem] border border-white/10 bg-graphite/80 p-6 shadow-2xl shadow-black/50 backdrop-blur-xl md:p-10">
             <p className="font-expanded mb-8 text-xl font-bold uppercase text-white">Agende sua consultoria gratuita</p>
             <LeadForm />
