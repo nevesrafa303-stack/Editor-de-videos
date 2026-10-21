@@ -504,6 +504,8 @@ const CARD4 = pick({ x: 190, y0: 560, dy: 104, w: 700, h: 420, k: 1 }, { x: 260,
   // o cartão Black cresce até cobrir a tela e se abre no hospital
   const ins = `${s4last.y}px ${W - s4last.x - s4last.w}px ${H - s4last.y - s4last.h}px ${s4last.x}px round ${Math.round(34 * CARD4.k)}px`;
   add(`tl.fromTo("#s5-wipe",{clipPath:"inset(${ins})"},{clipPath:"inset(0px 0px 0px 0px round 0px)",duration:0.5,ease:"power3.inOut"},0);`);
+  // o fundo do hospital só aparece quando o preto já cobriu a tela
+  add(`tl.fromTo(["#s5-bg","#s5-shade"],{opacity:0},{opacity:1,duration:0.05,ease:"none"},0.45);`);
   add(`tl.to("#s5-wipe",{opacity:0,duration:0.35,ease:"power1.out"},0.5);`);
   add(`tl.fromTo("#s5-band",{clipPath:"inset(50% 0% 50% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.6,ease:"power3.out"},0.45);`);
   add(`tl.fromTo("#s5-img",{scale:1.14},{scale:1,duration:${r3(dur - 0.45)},ease:"power1.out"},0.45);`);
