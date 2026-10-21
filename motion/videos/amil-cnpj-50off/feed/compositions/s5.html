@@ -1,0 +1,73 @@
+<template>
+<style>
+@font-face{font-family:"Sora";font-weight:100 800;font-style:normal;font-display:block;src:url("assets/fonts/Sora-Variable.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Sora",Arial,sans-serif;color:#fff;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.s5-lbl{position:absolute;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+.s5-h{position:absolute;font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;}
+.s5-c{left:0;width:1080px;text-align:center;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.08em;margin:-0.12em -0.04em -0.08em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+
+#s5-bg{background:url("assets/img/einstein-bg-feed.jpg") 50% 50%/cover no-repeat;}
+#s5-shade{background:linear-gradient(180deg,rgba(6,5,30,.72) 0%,rgba(6,5,30,.45) 30%,rgba(6,5,30,.7) 60%,rgba(6,5,30,.92) 100%);}
+#s5-wipe{position:absolute;left:0;top:0;width:1080px;height:1080px;background:#121216;}
+#s5-chip{position:absolute;left:0;width:1080px;top:56px;display:flex;justify-content:center;}
+#s5-chip span{display:flex;align-items:center;gap:14px;height:46px;padding:0 22px;border-radius:99px;background:#0B0B10;border:1.5px solid rgba(255,255,255,.35);font-weight:700;font-size:18px;letter-spacing:.2em;}
+#s5-chip i{width:70px;height:27px;background:#fff;}
+#s5-acc{top:112px;font-size:40px;font-weight:600;letter-spacing:-.03em;color:rgba(255,255,255,.9);}
+#s5-band{position:absolute;left:0;top:168px;width:1080px;height:400px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+#s5-img{position:absolute;left:0px;top:0;width:1080px;height:400px;background:url("assets/img/einstein.png") 50% 50%/cover no-repeat;transform-origin:50% 45%;}
+#s5-bandsh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,5,30,0) 60%,rgba(6,5,30,.55) 100%);}
+#s5-tag{position:absolute;left:32px;bottom:22px;font-weight:600;font-size:16px;letter-spacing:.2em;color:rgba(255,255,255,.85);}
+#s5-name{top:594px;font-size:108px;color:#fff;line-height:1;text-shadow:0 10px 40px rgba(0,0,0,.4);}
+#s5-more{position:absolute;left:0;width:1080px;top:732px;display:flex;justify-content:center;gap:14px;}
+.s5-pl{height:64px;padding:0 26px;border-radius:32px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);font-weight:700;font-size:30px;letter-spacing:-.02em;white-space:nowrap;}
+.s5-pl b{color:#4FE3F7;font-weight:800;}
+#s5-ben{position:absolute;left:60px;right:60px;top:828px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px 24px;}
+.s5-b{display:flex;align-items:center;gap:12px;font-weight:600;font-size:22px;color:rgba(255,255,255,.85);white-space:nowrap;}
+.s5-bi{width:40px;height:40px;border-radius:50%;background:rgba(79,227,247,.16);display:flex;align-items:center;justify-content:center;}
+#s5-foot{left:0;width:1080px;text-align:center;top:1000px;font-weight:400;font-size:15px;color:rgba(255,255,255,.6);letter-spacing:0;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="5.435" data-width="1080" data-height="1080">
+  <div id="s5-bg" class="s5-full"></div>
+  <div id="s5-shade" class="s5-full"></div>
+  <div id="s5-wrap" class="s5-full">
+    <div id="s5-chip"><span>LINHA <i class="logo"></i> BLACK</span></div>
+    <div id="s5-acc" class="s5-h s5-c"><span class="w"><span class="wi" id="s5a0">Você</span></span> <span class="w"><span class="wi" id="s5a1">tem</span></span> <span class="w"><span class="wi" id="s5a2">acesso</span></span> <span class="w"><span class="wi" id="s5a3">ao</span></span></div>
+    <div id="s5-band"><div id="s5-img"></div><div id="s5-bandsh"></div><div id="s5-tag">HOSPITAL DE REFERÊNCIA · SÃO PAULO</div></div>
+    <div id="s5-name" class="s5-h s5-c it"><span class="w"><span class="wi it" id="s5n0">Albert</span></span> <span class="w"><span class="wi it" id="s5n1">Einstein</span></span></div>
+    <div id="s5-more"><div class="s5-pl" id="s5-m0"><b>+</b>Sírio-Libanês</div><div class="s5-pl" id="s5-m1"><b>+</b>Fleury</div></div>
+    <div id="s5-ben"><div class="s5-b" id="s5-b0"><span class="s5-bi"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="#4FE3F7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 36V12M5 28h38v8M43 28v-4a6 6 0 0 0-6-6H22v10"/><circle cx="13" cy="22" r="4"/></svg></span>Apartamento</div><div class="s5-b" id="s5-b1"><span class="s5-bi"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="#4FE3F7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17z"/></svg></span>Cobertura nacional</div><div class="s5-b" id="s5-b2"><span class="s5-bi"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="#4FE3F7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M42 10L6 24l13 4 4 13 6-9 9 6z"/><path d="M19 28l23-18"/></svg></span>Assistência viagem internacional</div></div>
+    <div id="s5-foot" class="s5-h">Linha Amil Black · rede conforme o plano contratado.</div>
+  </div>
+  <div id="s5-wipe"></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5-wipe",{clipPath:"inset(550px 260px 194px 260px round 27px)"},{clipPath:"inset(0px 0px 0px 0px round 0px)",duration:0.5,ease:"power3.inOut"},0);
+tl.to("#s5-wipe",{opacity:0,duration:0.35,ease:"power1.out"},0.5);
+tl.fromTo("#s5-band",{clipPath:"inset(50% 0% 50% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.6,ease:"power3.out"},0.45);
+tl.fromTo("#s5-img",{scale:1.14},{scale:1,duration:4.985,ease:"power1.out"},0.45);
+tl.fromTo("#s5-chip",{opacity:0,y:-14},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.403);
+tl.fromTo("#s5a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.004);
+tl.fromTo("#s5a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.276);
+tl.fromTo("#s5a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.431);
+tl.fromTo("#s5a3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.935);
+tl.fromTo("#s5n0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},2.129);
+tl.fromTo("#s5n1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.5,ease:"power3.out"},2.491);
+tl.fromTo("#s5-m0",{opacity:0,y:20,scale:0.9},{opacity:1,y:0,scale:1,duration:0.4,ease:"back.out(1.8)"},3.257);
+tl.fromTo("#s5-m1",{opacity:0,y:20,scale:0.9},{opacity:1,y:0,scale:1,duration:0.4,ease:"back.out(1.8)"},4.55);
+tl.fromTo("#s5-b0",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},4.204);
+tl.fromTo("#s5-b1",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},4.324);
+tl.fromTo("#s5-b2",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},4.444);
+tl.fromTo("#s5-foot",{opacity:0},{opacity:1,duration:0.4},4.604);
+tl.to("#s5-root",{opacity:0,y:-70,scale:0.97,duration:0.26,ease:"power2.in"},5.175);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>

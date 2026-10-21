@@ -1,0 +1,53 @@
+<template>
+<style>
+@font-face{font-family:"Sora";font-weight:100 800;font-style:normal;font-display:block;src:url("assets/fonts/Sora-Variable.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#s4-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Sora",Arial,sans-serif;color:#fff;}
+.s4-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.s4-lbl{position:absolute;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+.s4-h{position:absolute;font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;}
+.s4-c{left:0;width:1080px;text-align:center;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.08em;margin:-0.12em -0.04em -0.08em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+
+#s4-lbl{left:0;width:1080px;text-align:center;top:286px;font-size:24px;color:#4FE3F7;}
+#s4-tt{position:absolute;left:0;width:1080px;text-align:center;top:330px;font-weight:800;font-size:86px;letter-spacing:-.045em;line-height:1;white-space:nowrap;}
+#s4-tt .it{font-size:1.2em;color:#4FE3F7;}
+.s4-cd{position:absolute;left:190px;width:700px;height:420px;border-radius:34px;overflow:hidden;box-shadow:0 30px 70px rgba(4,3,30,.55),0 0 0 1px rgba(255,255,255,.15) inset;}
+.s4-nm{position:absolute;left:40px;top:26px;font-weight:800;font-size:46px;letter-spacing:-.035em;line-height:1;}
+.s4-lg{position:absolute;right:38px;top:30px;width:118px;height:46px;}
+.s4-chip{position:absolute;left:40px;top:160px;width:86px;height:64px;border-radius:12px;background:linear-gradient(135deg,#FFF3C4,#C9A44A);opacity:.92;}
+.s4-pme{position:absolute;left:40px;bottom:34px;font-weight:600;font-size:22px;letter-spacing:.2em;}
+.s4-off{position:absolute;right:38px;bottom:28px;font-weight:800;font-size:40px;letter-spacing:-.03em;}
+.s4-sheen{position:absolute;left:-60%;top:-20%;width:40%;height:140%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.45),rgba(255,255,255,0));transform:rotate(18deg);}
+</style>
+<div id="s4-root" data-composition-id="s4" data-start="0" data-duration="4.677" data-width="1080" data-height="1920">
+  <div id="s4-wrap" class="s4-full">
+    <div id="s4-lbl" class="s4-lbl">Linhas com o desconto</div>
+    <div id="s4-tt">Do Bronze ao <span class="it">Black</span></div>
+    <div class="s4-cd" id="s4-c0" style="top:560px;background:linear-gradient(135deg,#E9B27B 0%,#B06A32 45%,#6E3B17 100%);color:#fff"><div class="s4-nm">Bronze</div><span class="logo s4-lg" style="background:rgba(255,255,255,.9)"></span><div class="s4-chip"></div><div class="s4-sheen" id="s4-sh0"></div></div><div class="s4-cd" id="s4-c1" style="top:664px;background:linear-gradient(135deg,#FAFBFC 0%,#C7CDD5 50%,#8A94A2 100%);color:#0E0A55"><div class="s4-nm">Prata</div><span class="logo s4-lg" style="background:#0E0A55"></span><div class="s4-chip"></div><div class="s4-sheen" id="s4-sh1"></div></div><div class="s4-cd" id="s4-c2" style="top:768px;background:linear-gradient(135deg,#FFE9A8 0%,#D8A73A 50%,#946812 100%);color:#2E2104"><div class="s4-nm">Ouro</div><span class="logo s4-lg" style="background:#2E2104"></span><div class="s4-chip"></div><div class="s4-sheen" id="s4-sh2"></div></div><div class="s4-cd" id="s4-c3" style="top:872px;background:linear-gradient(135deg,#F6F7FB 0%,#CCD6EA 45%,#8796B8 100%);color:#0E0A55"><div class="s4-nm">Platinum</div><span class="logo s4-lg" style="background:#0E0A55"></span><div class="s4-chip"></div><div class="s4-sheen" id="s4-sh3"></div></div><div class="s4-cd" id="s4-c4" style="top:976px;background:linear-gradient(135deg,#34343D 0%,#121216 55%,#000 100%);color:#fff"><div class="s4-nm">Amil Black</div><span class="logo s4-lg" style="background:#fff"></span><div class="s4-chip"></div><div class="s4-pme">PME · CNPJ</div><div class="s4-off">50% OFF*</div><div class="s4-sheen" id="s4-sh4"></div></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s4-wrap",{opacity:0,y:90},{opacity:1,y:0,duration:0.32,ease:"power3.out"},0);
+tl.fromTo("#s4-tt",{opacity:0,y:30},{opacity:1,y:0,duration:0.45,ease:"power3.out"},0.333);
+tl.fromTo("#s4-c0",{x:820,y:30,rotation:10,opacity:0},{x:0,y:0,rotation:-2,opacity:1,duration:0.42,ease:"power3.out"},0.673);
+tl.fromTo("#s4-sh0",{x:0},{x:1680,duration:0.7,ease:"power2.inOut"},0.993);
+tl.fromTo("#s4-c1",{x:820,y:30,rotation:10,opacity:0},{x:0,y:0,rotation:1.5,opacity:1,duration:0.42,ease:"power3.out"},1.326);
+tl.fromTo("#s4-sh1",{x:0},{x:1680,duration:0.7,ease:"power2.inOut"},1.646);
+tl.fromTo("#s4-c2",{x:820,y:30,rotation:10,opacity:0},{x:0,y:0,rotation:-1,opacity:1,duration:0.42,ease:"power3.out"},1.94);
+tl.fromTo("#s4-sh2",{x:0},{x:1680,duration:0.7,ease:"power2.inOut"},2.26);
+tl.fromTo("#s4-c3",{x:820,y:30,rotation:10,opacity:0},{x:0,y:0,rotation:1,opacity:1,duration:0.42,ease:"power3.out"},2.65);
+tl.fromTo("#s4-sh3",{x:0},{x:1680,duration:0.7,ease:"power2.inOut"},2.97);
+tl.fromTo("#s4-c4",{x:820,y:60,rotation:14,opacity:0},{x:0,y:0,rotation:0,opacity:1,duration:0.55,ease:"back.out(1.3)"},3.89);
+tl.fromTo("#s4-sh4",{x:0},{x:1680,duration:0.7,ease:"power2.inOut"},4.21);
+tl.to("#s4-c4",{scale:1.04,duration:0.4,ease:"power2.out"},4.46);
+tl.to(["#s4-c0","#s4-c1","#s4-c2","#s4-c3","#s4-tt","#s4-lbl"],{opacity:0,duration:0.25,ease:"power1.in"},4.377);
+window.__timelines["s4"] = tl;
+})();
+</script>
+</template>

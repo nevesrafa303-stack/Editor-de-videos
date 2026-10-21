@@ -1,0 +1,94 @@
+<template>
+<style>
+@font-face{font-family:"Sora";font-weight:100 800;font-style:normal;font-display:block;src:url("assets/fonts/Sora-Variable.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#s2-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Sora",Arial,sans-serif;color:#fff;}
+.s2-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.s2-lbl{position:absolute;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+.s2-h{position:absolute;font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;}
+.s2-c{left:0;width:1080px;text-align:center;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.08em;margin:-0.12em -0.04em -0.08em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+
+.s2-inv{position:relative;box-sizing:border-box;border-radius:27px;background:#F4F1EA;color:#0E0A55;box-shadow:0 40px 90px rgba(5,4,40,.45);overflow:hidden;}
+.s2-row{display:flex;justify-content:space-between;align-items:center;white-space:nowrap;}
+.s2-strike{position:absolute;left:-4%;top:50%;width:108%;height:3px;background:#0E0A55;transform-origin:0 50%;}
+
+#s2-ring{position:absolute;left:298px;top:88px;filter:drop-shadow(0 0 26px rgba(79,227,247,.55));}
+#s2-pct{position:absolute;left:0;width:1080px;top:221.6px;text-align:center;font-weight:800;font-size:220px;letter-spacing:-.06em;line-height:1;color:#fff;font-variant-numeric:tabular-nums;}
+#s2-pct sup{font-size:.42em;vertical-align:.95em;margin-left:.02em;letter-spacing:0;}
+#s2-dd{top:590px;font-size:54px;}
+.s2-card{position:absolute;top:672px;}
+.s2-badge{position:absolute;right:-13px;top:-19px;width:104px;height:104px;border-radius:50%;background:#2A1BE0;box-shadow:0 0 0 4px rgba(255,255,255,.9) inset,0 20px 40px rgba(20,10,120,.45);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transform:rotate(-12deg);}
+.s2-badge b{font-weight:800;font-size:33px;letter-spacing:-.04em;line-height:1;}
+.s2-badge span{font-weight:700;font-size:13px;letter-spacing:.16em;}
+</style>
+<div id="s2-root" data-composition-id="s2" data-start="0" data-duration="4.255" data-width="1080" data-height="1080">
+  <div id="s2-wrap" class="s2-full">
+    <svg id="s2-ring" viewBox="0 0 484 484" width="484" height="484" >
+    <defs><linearGradient id="s2-ring-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FE3F7"/><stop offset=".55" stop-color="#5B6BFF"/><stop offset="1" stop-color="#9B3BFF"/></linearGradient></defs>
+    <circle cx="242" cy="242" r="220" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="22"/>
+    <circle cx="242" cy="242" r="184.8" fill="rgba(10,6,70,.35)" stroke="rgba(155,59,255,.35)" stroke-width="2"/>
+    <circle id="s2-ring-arc" cx="242" cy="242" r="220" fill="none" stroke="url(#s2-ring-g)" stroke-width="22" stroke-linecap="round" stroke-dasharray="1382.301 1382.301" stroke-dashoffset="1382.301" transform="rotate(-90 242 242)"/>
+  </svg>
+    <div id="s2-pct"><span id="s2-num">0</span><sup>%</sup></div>
+    <div id="s2-dd" class="s2-h s2-c"><span class="w"><span class="wi" id="s2a0">DE</span></span> <span class="w"><span class="wi" id="s2a1">DESCONTO</span></span></div>
+    <div class="s2-card" id="s2-c0" style="left:70px"><div class="s2-inv" id="s2-inv0" style="width:440px;height:360px;padding:33px 33px">
+      <div style="font-weight:800;font-size:33px;letter-spacing:-.03em;color:#0E0A55">1ª fatura</div>
+      <div style="margin-top:16px;border-top:2px dashed #D6D1E6"></div>
+      <div class="s2-row" style="margin-top:19px;font-size:20px"><span style="color:#5B5F7A;font-weight:500">Mensalidade</span><span class="s2-full100" style="position:relative;color:#8A86A6;font-weight:700">100%<i class="s2-strike"></i></span></div>
+      <div class="s2-row s2-disc" style="margin-top:13px;font-size:20px;color:#2A1BE0;font-weight:700"><span>Desconto de outubro</span><span>−50%</span></div>
+      <div style="margin-top:15px;border-top:2px solid #E6E2F0"></div>
+      <div class="s2-row s2-pay" style="margin-top:13px;align-items:flex-end"><span style="font-weight:700;font-size:21px;color:#0E0A55">Você paga</span><span style="font-weight:800;font-size:56px;letter-spacing:-.04em;color:#0E0A55;line-height:.9">50%</span></div>
+    </div><div class="s2-bw" id="s2-bw0" style="position:absolute;right:0;top:0"><div class="s2-badge"><b>50%</b><span>OFF</span></div></div></div><div class="s2-card" id="s2-c1" style="left:570px"><div class="s2-inv" id="s2-inv1" style="width:440px;height:360px;padding:33px 33px">
+      <div style="font-weight:800;font-size:33px;letter-spacing:-.03em;color:#0E0A55">2ª fatura</div>
+      <div style="margin-top:16px;border-top:2px dashed #D6D1E6"></div>
+      <div class="s2-row" style="margin-top:19px;font-size:20px"><span style="color:#5B5F7A;font-weight:500">Mensalidade</span><span class="s2-full100" style="position:relative;color:#8A86A6;font-weight:700">100%<i class="s2-strike"></i></span></div>
+      <div class="s2-row s2-disc" style="margin-top:13px;font-size:20px;color:#2A1BE0;font-weight:700"><span>Desconto de outubro</span><span>−50%</span></div>
+      <div style="margin-top:15px;border-top:2px solid #E6E2F0"></div>
+      <div class="s2-row s2-pay" style="margin-top:13px;align-items:flex-end"><span style="font-weight:700;font-size:21px;color:#0E0A55">Você paga</span><span style="font-weight:800;font-size:56px;letter-spacing:-.04em;color:#0E0A55;line-height:.9">50%</span></div>
+    </div><div class="s2-bw" id="s2-bw1" style="position:absolute;right:0;top:0"><div class="s2-badge"><b>50%</b><span>OFF</span></div></div></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s2-wrap",{opacity:0,y:60},{opacity:1,y:0,duration:0.32,ease:"power3.out"},0);
+tl.fromTo("#s2-ring-arc",{attr:{"stroke-dashoffset":1382.301}},{attr:{"stroke-dashoffset":691.151},duration:0.7,ease:"power3.out"},0.25);
+tl.fromTo("#s2-pct",{scale:1.35,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"power4.out"},0.2);
+tl.set("#s2-num",{textContent:"0"},0.25);
+tl.set("#s2-num",{textContent:"9"},0.29);
+tl.set("#s2-num",{textContent:"17"},0.33);
+tl.set("#s2-num",{textContent:"24"},0.37);
+tl.set("#s2-num",{textContent:"30"},0.41);
+tl.set("#s2-num",{textContent:"35"},0.45);
+tl.set("#s2-num",{textContent:"39"},0.49);
+tl.set("#s2-num",{textContent:"42"},0.53);
+tl.set("#s2-num",{textContent:"45"},0.57);
+tl.set("#s2-num",{textContent:"47"},0.61);
+tl.set("#s2-num",{textContent:"48"},0.65);
+tl.set("#s2-num",{textContent:"49"},0.69);
+tl.set("#s2-num",{textContent:"50"},0.73);
+tl.set("#s2-num",{textContent:"50"},0.77);
+tl.set("#s2-num",{textContent:"50"},0.81);
+tl.set("#s2-num",{textContent:"50"},0.85);
+tl.fromTo("#s2-ring",{rotation:-30},{rotation:0,duration:1.2,ease:"power3.out"},0.25);
+tl.fromTo("#s2a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.14);
+tl.fromTo("#s2a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.256);
+tl.fromTo("#s2-c0",{y:120,opacity:0,rotation:-4},{y:0,opacity:1,rotation:-1.5,duration:0.5,ease:"power3.out"},1.834);
+tl.fromTo("#s2-inv0 .s2-strike",{scaleX:0},{scaleX:1,duration:0.22,ease:"power2.out"},2.154);
+tl.fromTo("#s2-inv0 .s2-disc",{opacity:0,x:-20},{opacity:1,x:0,duration:0.3,ease:"power3.out"},2.254);
+tl.fromTo("#s2-inv0 .s2-pay",{opacity:0,y:16},{opacity:1,y:0,duration:0.35,ease:"power3.out"},2.384);
+tl.fromTo("#s2-c1",{y:120,opacity:0,rotation:4},{y:0,opacity:1,rotation:1.5,duration:0.5,ease:"power3.out"},2.583);
+tl.fromTo("#s2-inv1 .s2-strike",{scaleX:0},{scaleX:1,duration:0.22,ease:"power2.out"},2.903);
+tl.fromTo("#s2-inv1 .s2-disc",{opacity:0,x:-20},{opacity:1,x:0,duration:0.3,ease:"power3.out"},3.003);
+tl.fromTo("#s2-inv1 .s2-pay",{opacity:0,y:16},{opacity:1,y:0,duration:0.35,ease:"power3.out"},3.133);
+tl.fromTo("#s2-bw0",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.2,ease:"power3.in"},3.161);
+tl.fromTo("#s2-bw1",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.2,ease:"power3.in"},3.331);
+tl.to("#s2-wrap",{opacity:0,y:-70,scale:0.97,duration:0.26,ease:"power2.in"},3.995);
+window.__timelines["s2"] = tl;
+})();
+</script>
+</template>

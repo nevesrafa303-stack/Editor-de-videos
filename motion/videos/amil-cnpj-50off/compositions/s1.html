@@ -1,0 +1,106 @@
+<template>
+<style>
+@font-face{font-family:"Sora";font-weight:100 800;font-style:normal;font-display:block;src:url("assets/fonts/Sora-Variable.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#s1-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Sora",Arial,sans-serif;color:#fff;}
+.s1-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.s1-lbl{position:absolute;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+.s1-h{position:absolute;font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;}
+.s1-c{left:0;width:1080px;text-align:center;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.08em;margin:-0.12em -0.04em -0.08em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+
+.s1-inv{position:relative;box-sizing:border-box;border-radius:36px;background:#F4F1EA;color:#0E0A55;box-shadow:0 40px 90px rgba(5,4,40,.45);overflow:hidden;}
+.s1-row{display:flex;justify-content:space-between;align-items:center;white-space:nowrap;}
+.s1-strike{position:absolute;left:-4%;top:50%;width:108%;height:4px;background:#0E0A55;transform-origin:0 50%;}
+
+.s1-half{position:absolute;left:140px;top:600px;width:800px;height:520px;}
+#s1-ha .s1-inv{clip-path:polygon(0 0,100% 0,100% -3.83px,0 523.83px);}
+#s1-hb .s1-inv{clip-path:polygon(0 523.83px,100% -3.83px,100% 100%,0 100%);}
+#s1-cut{position:absolute;left:0;top:0;filter:drop-shadow(0 0 14px rgba(79,227,247,.95)) drop-shadow(0 0 40px rgba(79,227,247,.6));}
+#s1-flash{background:radial-gradient(60% 40% at 50% 45%,rgba(140,240,255,.55),rgba(140,240,255,0));opacity:0;}
+#s1-met{position:absolute;left:0;width:1080px;top:1170px;text-align:center;font-size:300px;line-height:1;color:#fff;text-shadow:0 0 40px rgba(79,227,247,.55),0 10px 40px rgba(0,0,0,.35);}
+.s1-l{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;letter-spacing:-.035em;line-height:1;}
+#s1-la{top:850px;font-size:56px;font-weight:600;color:rgba(255,255,255,.82);}
+#s1-lb{top:930px;font-size:92px;font-weight:800;}
+#s1-lb .hl{color:#4FE3F7;}
+#s1-lc{top:1050px;font-size:56px;font-weight:600;color:rgba(255,255,255,.82);}
+#s1-ld{top:1130px;display:flex;justify-content:center;align-items:center;gap:22px;font-size:64px;font-weight:800;}
+#s1-logo{width:190px;height:74px;background:#fff;}
+#s1-ld .hl{color:#4FE3F7;}
+</style>
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="6.454" data-width="1080" data-height="1920">
+  <div id="s1-flash" class="s1-full"></div>
+  <div id="s1-ha" class="s1-half"><div class="s1-inv" style="width:800px;height:520px;padding:44px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div style="font-weight:700;font-size:32px;letter-spacing:.14em;color:#0E0A55">FATURA</div><div style="margin-top:10px;font-weight:500;font-size:24px;color:#5B5F7A">Plano de saúde · CNPJ</div></div>
+        <span class="logo" style="width:130px;height:50px;background:#2A1BE0"></span>
+      </div>
+      <div style="margin-top:40px;border-top:3px dashed #D6D1E6"></div>
+      <div style="margin-top:30px;display:flex;justify-content:space-between;align-items:flex-end">
+        <span style="font-weight:500;font-size:28px;color:#5B5F7A">Mensalidade</span>
+        <span style="font-weight:800;font-size:60px;letter-spacing:-.03em;color:#0E0A55;font-variant-numeric:tabular-nums">R$ ●.●●●,●●</span>
+      </div>
+      <div style="margin-top:18px;display:flex;justify-content:space-between;font-weight:500;font-size:24px;color:#5B5F7A"><span>Vencimento</span><span>●●/●●/2026</span></div>
+      <div style="position:absolute;left:44px;right:44px;bottom:44px;height:70px;background:repeating-linear-gradient(90deg,#0E0A55 0 3px,transparent 3px 7px,#0E0A55 7px 8px,transparent 8px 12px,#0E0A55 12px 16px,transparent 16px 19px);opacity:.85"></div>
+    </div></div>
+  <div id="s1-hb" class="s1-half"><div class="s1-inv" style="width:800px;height:520px;padding:44px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div style="font-weight:700;font-size:32px;letter-spacing:.14em;color:#0E0A55">FATURA</div><div style="margin-top:10px;font-weight:500;font-size:24px;color:#5B5F7A">Plano de saúde · CNPJ</div></div>
+        <span class="logo" style="width:130px;height:50px;background:#2A1BE0"></span>
+      </div>
+      <div style="margin-top:40px;border-top:3px dashed #D6D1E6"></div>
+      <div style="margin-top:30px;display:flex;justify-content:space-between;align-items:flex-end">
+        <span style="font-weight:500;font-size:28px;color:#5B5F7A">Mensalidade</span>
+        <span style="font-weight:800;font-size:60px;letter-spacing:-.03em;color:#0E0A55;font-variant-numeric:tabular-nums">R$ ●.●●●,●●</span>
+      </div>
+      <div style="margin-top:18px;display:flex;justify-content:space-between;font-weight:500;font-size:24px;color:#5B5F7A"><span>Vencimento</span><span>●●/●●/2026</span></div>
+      <div style="position:absolute;left:44px;right:44px;bottom:44px;height:70px;background:repeating-linear-gradient(90deg,#0E0A55 0 3px,transparent 3px 7px,#0E0A55 7px 8px,transparent 8px 12px,#0E0A55 12px 16px,transparent 16px 19px);opacity:.85"></div>
+    </div></div>
+  <svg id="s1-cut" viewBox="0 0 1080 1920" width="1080" height="1920"><path id="s1-cutp" d="M70 1170 L1010 550" stroke="#BFF8FF" stroke-width="7" stroke-linecap="round" fill="none" stroke-dasharray="1126 1166" stroke-dashoffset="1126"/></svg>
+  <div id="s1-met" class="it">Metade.</div>
+  <div id="s1-la" class="s1-l"><span class="w"><span class="wi" id="s1a0">É</span></span> <span class="w"><span class="wi" id="s1a1">isso</span></span> <span class="w"><span class="wi" id="s1a2">que</span></span> <span class="w"><span class="wi" id="s1a3">você</span></span> <span class="w"><span class="wi" id="s1a4">paga</span></span></div>
+  <div id="s1-lb" class="s1-l"><span class="w"><span class="wi" id="s1b0">nas</span></span> <span class="w"><span class="wi hl" id="s1b1">2</span></span> <span class="w"><span class="wi" id="s1b2">primeiras</span></span> <span class="w"><span class="wi" id="s1b3">faturas</span></span></div>
+  <div id="s1-lc" class="s1-l"><span class="w"><span class="wi" id="s1c0">do</span></span> <span class="w"><span class="wi" id="s1c1">plano</span></span> <span class="w"><span class="wi" id="s1c2">de</span></span> <span class="w"><span class="wi" id="s1c3">saúde</span></span></div>
+  <div id="s1-ld" class="s1-l"><span class="w"><span class="wi logo" id="s1-logo"></span></span><span class="w"><span class="wi" id="s1d0">para</span></span><span class="w"><span class="wi hl" id="s1d1">CNPJ.</span></span></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo(".s1-half",{scale:1.18,opacity:0,rotation:-3},{scale:1,opacity:1,rotation:0,duration:0.22,ease:"power3.out"},0);
+tl.fromTo("#s1-cutp",{attr:{"stroke-dashoffset":1126}},{attr:{"stroke-dashoffset":0},duration:0.2,ease:"power2.in"},0.15);
+tl.fromTo("#s1-flash",{opacity:0},{opacity:1,duration:0.08},0.35);
+tl.to("#s1-flash",{opacity:0,duration:0.5,ease:"power2.out"},0.43);
+tl.to("#s1-cut",{opacity:0,duration:0.3},0.45);
+tl.to("#s1-ha",{x:-330,y:-260,rotation:-16,opacity:0,duration:0.7,ease:"power2.in"},0.39);
+tl.fromTo("#s1-hb",{x:0,y:0},{x:26,y:16,duration:0.25,ease:"power2.out"},0.37);
+tl.fromTo("#s1-met",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"power4.out"},0.41);
+tl.set("#s1-root",{x:10,y:-6},0.41);
+tl.set("#s1-root",{x:-8,y:5},0.443);
+tl.set("#s1-root",{x:5,y:-3},0.477);
+tl.set("#s1-root",{x:0,y:0},0.51);
+tl.to("#s1-hb",{y:420,rotation:9,opacity:0,duration:0.6,ease:"power2.in"},1.167);
+tl.to("#s1-met",{y:-700,duration:0.6,ease:"power3.inOut"},1.167);
+tl.fromTo("#s1a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.207);
+tl.fromTo("#s1a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.402);
+tl.fromTo("#s1a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.635);
+tl.fromTo("#s1a3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.751);
+tl.fromTo("#s1a4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.022);
+tl.fromTo("#s1b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.5);
+tl.fromTo("#s1b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.849);
+tl.fromTo("#s1b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.159);
+tl.fromTo("#s1b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.586);
+tl.fromTo("#s1c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},4.013);
+tl.fromTo("#s1c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},4.129);
+tl.fromTo("#s1c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},4.401);
+tl.fromTo("#s1c3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},4.478);
+tl.fromTo("#s1-logo",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.45,ease:"power3.out"},4.866);
+tl.fromTo("#s1d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},5.137);
+tl.fromTo("#s1d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},5.37);
+tl.to("#s1-root",{opacity:0,y:-110,scale:0.97,duration:0.26,ease:"power2.in"},6.194);
+window.__timelines["s1"] = tl;
+})();
+</script>
+</template>

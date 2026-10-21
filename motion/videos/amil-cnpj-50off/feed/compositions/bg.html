@@ -1,0 +1,45 @@
+<template>
+<style>
+@font-face{font-family:"Sora";font-weight:100 800;font-style:normal;font-display:block;src:url("assets/fonts/Sora-Variable.woff2") format("woff2");}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+#bg-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Sora",Arial,sans-serif;color:#fff;}
+.bg-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.bg-lbl{position:absolute;font-weight:600;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+.bg-h{position:absolute;font-weight:800;letter-spacing:-.045em;line-height:1;white-space:nowrap;}
+.bg-c{left:0;width:1080px;text-align:center;}
+.it{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.12em 0.04em 0.08em;margin:-0.12em -0.04em -0.08em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+
+#bg-base{background:linear-gradient(160deg,#170C78 0%,#2116C8 42%,#1530C8 68%,#0A0F55 100%);}
+.bg-blob{position:absolute;border-radius:50%;}
+#bg-b1{left:-380px;top:-420px;width:1000px;height:1000px;background:radial-gradient(closest-side,rgba(155,59,255,.75),rgba(155,59,255,0));}
+#bg-b2{left:480px;top:520px;width:1000px;height:1000px;background:radial-gradient(closest-side,rgba(47,211,243,.55),rgba(47,211,243,0));}
+#bg-b3{left:180px;top:160px;width:760px;height:760px;background:radial-gradient(closest-side,rgba(70,90,255,.45),rgba(70,90,255,0));}
+#bg-arcs{position:absolute;left:0;top:0;}
+#bg-vig{background:radial-gradient(120% 80% at 50% 45%,rgba(0,0,0,0) 55%,rgba(4,3,30,.55) 100%);}
+</style>
+<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="39" data-width="1080" data-height="1080">
+  <div id="bg-base" class="bg-full"></div>
+  <div id="bg-b1" class="bg-blob" data-layout-allow-overflow></div><div id="bg-b2" class="bg-blob" data-layout-allow-overflow></div><div id="bg-b3" class="bg-blob" data-layout-allow-overflow></div>
+  <svg id="bg-arcs" data-layout-allow-overflow viewBox="0 0 1080 1080" width="1080" height="1080">
+    <g id="bg-arc1"><circle cx="-260" cy="1300" r="700" fill="none" stroke="rgba(160,120,255,.45)" stroke-width="3"/></g>
+    <g id="bg-arc2"><circle cx="1400" cy="1350" r="560" fill="none" stroke="rgba(79,227,247,.5)" stroke-width="4"/></g>
+    <g id="bg-arc3"><circle cx="1400" cy="1350" r="630" fill="none" stroke="rgba(79,227,247,.22)" stroke-width="2"/></g>
+  </svg>
+  <div id="bg-vig" class="bg-full"></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#bg-b1",{x:0,y:0},{x:120,y:120,duration:9.75,ease:"sine.inOut",repeat:3,yoyo:true},0);
+tl.fromTo("#bg-b2",{x:0,y:0},{x:-160,y:-140,duration:7.8,ease:"sine.inOut",repeat:4,yoyo:true},0);
+tl.fromTo("#bg-b3",{scale:1,opacity:.7},{scale:1.25,opacity:1,duration:6.5,ease:"sine.inOut",repeat:5,yoyo:true},0);
+tl.fromTo("#bg-arc1",{rotation:0},{rotation:18,duration:39,ease:"none",svgOrigin:"-260 1300"},0);
+tl.fromTo("#bg-arc2",{rotation:0},{rotation:-14,duration:39,ease:"none",svgOrigin:"1400 1350"},0);
+tl.fromTo("#bg-arc3",{rotation:0},{rotation:-9,duration:39,ease:"none",svgOrigin:"1400 1350"},0);
+window.__timelines["bg"] = tl;
+})();
+</script>
+</template>
