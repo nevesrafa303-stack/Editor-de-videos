@@ -96,7 +96,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero-rise mt-10 flex items-center gap-5 border-t border-white/10 pt-6 md:mt-14" style={vars({ "--i": 6 })}>
+        <div className="hero-rise mt-10 flex items-center justify-center gap-5 border-t border-white/10 pt-6 md:mt-14 md:justify-start" style={vars({ "--i": 6 })}>
           <Image src={seloMeta} alt="Meta Business Partners" className="h-7 w-auto shrink-0 opacity-90 md:h-8" sizes="140px" />
           <span className="h-8 w-px shrink-0 bg-white/15" aria-hidden="true" />
           <p className="text-sm leading-tight text-mute">
