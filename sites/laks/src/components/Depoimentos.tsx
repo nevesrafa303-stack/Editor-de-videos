@@ -39,8 +39,8 @@ export function Depoimentos() {
             className="flex w-full min-w-0 snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:scroll-px-8 md:gap-6 md:px-8 lg:pl-10 lg:pr-8 data-[pinned=true]:snap-none data-[pinned=true]:overflow-visible data-[pinned=true]:pb-0"
           >
             {depoimentos.videos.map((v) => (
-              <div key={v.id} className="w-[70vw] max-w-[18rem] shrink-0 snap-start md:w-[17rem] lg:w-[min(17.5rem,calc((100svh-20rem)*0.5625))] lg:max-w-none">
-                <VideoCard {...v} />
+              <div key={v.id} className="w-[70vw] max-w-[18rem] shrink-0 snap-start md:w-[17rem] lg:w-[17.5rem] lg:max-w-none">
+                <VideoCard {...v} alturaDaTela />
               </div>
             ))}
             <div className="w-px shrink-0 lg:w-[6vw]" aria-hidden="true" />

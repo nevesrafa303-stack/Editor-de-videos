@@ -9,11 +9,13 @@ type Props = {
   empresa: string;
   citacao: string;
   duracao: string;
+  // Na seção de cases (fixa na tela no desktop) a altura do vídeo acompanha a altura da janela.
+  alturaDaTela?: boolean;
 };
 
 const EVENTO_PLAY = "laks:depoimento-play";
 
-export function VideoCard({ id, nome, empresa, citacao, duracao }: Props) {
+export function VideoCard({ id, nome, empresa, citacao, duracao, alturaDaTela = false }: Props) {
   const [ativo, setAtivo] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
 
@@ -30,7 +32,12 @@ export function VideoCard({ id, nome, empresa, citacao, duracao }: Props) {
 
   return (
     <figure className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-graphite">
-      <div className="relative aspect-[9/16] w-full overflow-hidden bg-black">
+      {/* Com alturaDaTela, no desktop o card inteiro (vídeo + depoimento) cabe na janela sem encostar nas bordas. */}
+      <div
+        className={`relative aspect-[9/16] w-full overflow-hidden bg-black ${
+          alturaDaTela ? "lg:aspect-auto lg:h-[clamp(12rem,calc(100svh-23rem),31.1rem)]" : ""
+        }`}
+      >
         {ativo ? (
           <video
             ref={video}
@@ -40,7 +47,7 @@ export function VideoCard({ id, nome, empresa, citacao, duracao }: Props) {
             autoPlay
             playsInline
             preload="metadata"
-            className="size-full object-cover"
+            className="size-full object-contain"
             onPlay={() => window.dispatchEvent(new CustomEvent(EVENTO_PLAY, { detail: id }))}
             aria-label={`Depoimento em vídeo de ${nome}, ${empresa}`}
           />
