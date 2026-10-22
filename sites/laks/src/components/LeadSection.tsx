@@ -17,7 +17,7 @@ export function LeadSection() {
       />
       <div className="container-site grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20">
         <div>
-          <h2 id="form-titulo" data-split className="font-expanded text-[clamp(2.6rem,6.4vw,5.6rem)] font-bold uppercase leading-[0.95] tracking-tight text-white">
+          <h2 id="form-titulo" data-split className="font-expanded text-[clamp(2.6rem,6.4vw,5.6rem)] font-bold uppercase lg:text-[clamp(2.6rem,calc(5.7vw-0.5rem),4.2rem)] leading-[0.95] tracking-tight text-white">
             {diagnostico.titulo}
           </h2>
           <p data-reveal className="mt-6 max-w-lg text-mute md:text-lg">{diagnostico.intro}</p>
