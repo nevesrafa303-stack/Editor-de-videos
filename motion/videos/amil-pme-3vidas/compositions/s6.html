@@ -1,0 +1,57 @@
+<template>
+<style>
+@font-face{font-family:"SairaSC";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-300.woff2") format("woff2");}
+@font-face{font-family:"SairaSC";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"SairaSC";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"SairaSC";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/Poppins-italic-400.woff2") format("woff2");}
+#s6-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s6-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"SairaSC",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+
+#s6-e{position:absolute;left:0;width:1080px;top:690px;text-align:center;font-weight:500;font-size:58px;color:#B7A8FF;line-height:1;}
+#s6-n{position:absolute;left:0;width:1080px;top:780px;text-align:center;font-weight:700;font-size:112px;line-height:1;}
+#s6-aw{position:absolute;left:0;width:1080px;top:905px;text-align:center;}
+#s6-a{display:inline-block;position:relative;font-weight:800;font-size:232px;line-height:1;}
+#s6-x{position:absolute;left:-3%;top:52%;width:106%;height:19px;border-radius:20px;background:#4B2BFF;box-shadow:0 0 30px rgba(75,43,255,.9);transform-origin:0 50%;}
+.s6-q{position:absolute;font-weight:300;color:rgba(183,168,255,.35);line-height:1;}
+</style>
+<div id="s6-root" data-composition-id="s6" data-start="0" data-duration="1.68" data-width="1080" data-height="1920">
+  <div id="s6-wrap" class="s6-full">
+    <div class="s6-q d" id="s6-q0" style="left:130px;top:520px;font-size:120px" aria-hidden="true"><span style="display:inline-block;transform:rotate(-12deg)">?</span></div><div class="s6-q d" id="s6-q1" style="left:880px;top:600px;font-size:150px" aria-hidden="true"><span style="display:inline-block;transform:rotate(10deg)">?</span></div><div class="s6-q d" id="s6-q2" style="left:170px;top:1250px;font-size:140px" aria-hidden="true"><span style="display:inline-block;transform:rotate(8deg)">?</span></div><div class="s6-q d" id="s6-q3" style="left:860px;top:1300px;font-size:110px" aria-hidden="true"><span style="display:inline-block;transform:rotate(-10deg)">?</span></div><div class="s6-q d" id="s6-q4" style="left:520px;top:430px;font-size:90px" aria-hidden="true"><span style="display:inline-block;transform:rotate(4deg)">?</span></div>
+    <div id="s6-e"><span class="w"><span class="wi" id="s6e0">Então</span></span></div>
+    <div id="s6-n" class="d"><span class="w"><span class="wi" id="s6n0">não</span></span> <span class="w"><span class="wi" id="s6n1">fica</span></span> <span class="w"><span class="wi" id="s6n2">no</span></span></div>
+    <div id="s6-aw"><span id="s6-a" class="d"><span class="w"><span class="wi" id="s6a0">achismo.</span></span><span id="s6-x"></span></span></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s6-q0",{opacity:0,y:30},{opacity:1,y:-20,duration:0.9,ease:"sine.out"},0.05);
+tl.fromTo("#s6-q1",{opacity:0,y:30},{opacity:1,y:-20,duration:0.9,ease:"sine.out"},0.13);
+tl.fromTo("#s6-q2",{opacity:0,y:30},{opacity:1,y:-20,duration:0.9,ease:"sine.out"},0.21);
+tl.fromTo("#s6-q3",{opacity:0,y:30},{opacity:1,y:-20,duration:0.9,ease:"sine.out"},0.29);
+tl.fromTo("#s6-q4",{opacity:0,y:30},{opacity:1,y:-20,duration:0.9,ease:"sine.out"},0.37);
+tl.fromTo("#s6e0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.14);
+tl.fromTo("#s6n0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.34,ease:"power3.out"},0.44);
+tl.fromTo("#s6n1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.34,ease:"power3.out"},0.68);
+tl.fromTo("#s6n2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.34,ease:"power3.out"},0.9);
+tl.fromTo("#s6a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1);
+tl.fromTo("#s6-x",{scaleX:0},{scaleX:1,duration:0.22,ease:"power3.out"},1.45);
+tl.to("#s6-q0",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},1.5);
+tl.to("#s6-q1",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},1.5);
+tl.to("#s6-q2",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},1.5);
+tl.to("#s6-q3",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},1.5);
+tl.to("#s6-q4",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},1.5);
+tl.to("#s6-wrap",{y:-160,opacity:0,duration:0.26,ease:"power3.in"},1.42);
+window.__timelines["s6"] = tl;
+})();
+</script>
+</template>

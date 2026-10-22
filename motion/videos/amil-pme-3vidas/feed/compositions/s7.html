@@ -1,0 +1,105 @@
+<template>
+<style>
+@font-face{font-family:"SairaSC";font-weight:300;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-300.woff2") format("woff2");}
+@font-face{font-family:"SairaSC";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"SairaSC";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"SairaSC";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/Poppins-italic-400.woff2") format("woff2");}
+#s7-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s7-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"SairaSC",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+
+#s7-ph{position:absolute;left:30px;top:30px;width:1020px;height:380px;border-radius:30px;overflow:hidden;box-shadow:0 30px 70px rgba(3,2,30,.5);}
+#s7-img{position:absolute;left:0px;top:-48px;width:1020px;height:477px;background:url('assets/img/hospital-wide.jpg') center/cover no-repeat;transform-origin:62% 50%;}
+#s7-tab{position:absolute;left:0;top:0;width:240px;height:88px;background:#fff;border-radius:0 0 48px 0;display:flex;align-items:center;padding-left:30px;}
+#s7-logo{width:156px;height:48px;background:#4B2BFF;}
+#s7-card{position:absolute;left:30px;top:318px;width:500px;height:506px;border-radius:28px;background:#fff;color:#0E0A55;box-shadow:0 30px 70px rgba(3,2,30,.5);}
+#s7-pill{position:absolute;left:28px;top:22px;width:444px;height:104px;border-radius:16px;background:#4B2BFF;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:44px;line-height:1.0;}
+#s7-vid{position:absolute;left:28px;top:140px;font-weight:300;font-size:112px;line-height:1;white-space:nowrap;}
+#s7-ap{position:absolute;left:28px;top:262px;font-size:36px;line-height:1;}
+#s7-line{position:absolute;left:222px;top:284px;width:250px;height:3px;background:#0E0A55;}
+#s7-pr{position:absolute;left:26px;top:0;font-weight:800;font-size:94px;line-height:1;letter-spacing:-.02em;white-space:nowrap;}
+#s7-prw{position:absolute;left:0;top:306px;width:100%;height:94px;overflow:hidden;}
+#s7-fn{position:absolute;left:28px;top:418px;width:444px;font-style:italic;font-size:18px;line-height:1.35;color:#2E2A66;}
+#s7-ex{position:absolute;left:560px;top:428px;width:490px;height:58px;border-radius:12px;background:#4B2BFF;display:flex;align-items:center;justify-content:center;font-weight:500;font-size:32px;letter-spacing:.02em;}
+#s7-bp{position:absolute;left:560px;top:504px;width:490px;height:320px;border-radius:28px;background:#4B2BFF;box-shadow:0 30px 70px rgba(40,20,200,.4);}
+#s7-bph{position:absolute;left:24px;top:24px;height:48px;padding:0 22px;border-radius:48px;background:#fff;color:#4B2BFF;display:flex;align-items:center;font-weight:700;font-size:25px;white-space:nowrap;}
+.s7-row{position:absolute;left:28px;display:flex;align-items:center;gap:16px;font-weight:500;font-size:26px;white-space:nowrap;}
+.s7-cb{width:34px;height:34px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;}
+#s7-va{position:absolute;left:0;width:1080px;top:846px;text-align:center;font-weight:500;font-size:28px;letter-spacing:.02em;}
+#s7-bw{position:absolute;left:190px;top:890px;width:700px;height:108px;}
+#s7-ring{position:absolute;inset:0;border-radius:30px;border:4px solid rgba(183,168,255,.95);opacity:0;}
+#s7-btn{position:absolute;inset:0;border-radius:30px;background:#4B2BFF;display:flex;align-items:center;justify-content:center;gap:18px;font-weight:700;font-size:50px;box-shadow:0 20px 50px rgba(75,43,255,.55),inset 0 2px 0 rgba(255,255,255,.25);overflow:hidden;}
+#s7-ans{position:absolute;left:0;width:1080px;top:1022px;text-align:center;font-size:18px;color:rgba(255,255,255,.72);}
+</style>
+<div id="s7-root" data-composition-id="s7" data-start="0" data-duration="7.4" data-width="1080" data-height="1080">
+  <div id="s7-cam" class="s7-full">
+  <div id="s7-wrap" class="s7-full">
+    <div id="s7-ph" data-layout-allow-overlap><div id="s7-img"></div><div id="s7-sw" class="sweep" aria-hidden="true"></div>
+      <div id="s7-tab"><span id="s7-logo" class="logo" role="img" aria-label="Amil"></span></div></div>
+    <div id="s7-card" data-layout-allow-overlap>
+      <div id="s7-pill" class="d"><span>Plano de Saúde</span><span>Empresarial</span></div>
+      <div id="s7-vid" class="d">3 vidas</div>
+      <div id="s7-ap">a partir de</div><div id="s7-line"></div>
+      <div id="s7-prw"><div id="s7-pr" class="d">R$ 1.166,21</div><div id="s7-psw" class="sweep" aria-hidden="true"></div></div>
+      <div id="s7-fn">3 vidas sendo: 2 adultos até 38 anos e 1 jovem até 18 anos.</div>
+    </div>
+    <div id="s7-ex" class="d">EXCLUSIVO PARA CNPJ</div>
+    <div id="s7-bp"><div id="s7-bph" class="d">BENEFÍCIOS EXCLUSIVOS:</div>
+      <div class="s7-row" id="s7-r0" style="top:98px"><span class="s7-cb"><svg viewBox="0 0 48 48" width="27" height="27" fill="none" stroke="#4B2BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></span>Acesso ao Norte D’Or</div><div class="s7-row" id="s7-r1" style="top:164px"><span class="s7-cb"><svg viewBox="0 0 48 48" width="27" height="27" fill="none" stroke="#4B2BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></span>Acomodação Quarto</div><div class="s7-row" id="s7-r2" style="top:230px"><span class="s7-cb"><svg viewBox="0 0 48 48" width="27" height="27" fill="none" stroke="#4B2BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></span>Cobertura Nacional</div>
+    </div>
+    <div id="s7-va" class="d">VALORES SUJEITOS À FAIXA ETÁRIA E REGIÃO.</div>
+    <div id="s7-bw"><div id="s7-ring"></div><div id="s7-btn" class="d"><span>Solicite sua cotação</span><svg id="s7-arrow" viewBox="0 0 48 48" width="45" height="45" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 24h28M28 14l10 10-10 10"/></svg><div id="s7-bsw" class="sweep" aria-hidden="true"></div></div></div>
+    <div id="s7-ans">Imagem ilustrativa. Amil · ANS nº 326305</div>
+  </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s7-cam",{scale:1},{scale:1.015,duration:7.4,ease:"none"},0);
+tl.fromTo("#s7-ph",{clipPath:"inset(0% 0% 100% 0% round 30px)"},{clipPath:"inset(0% 0% 0% 0% round 30px)",duration:0.6,ease:"expo.out"},0.1);
+tl.fromTo("#s7-img",{scale:1.25},{scale:1,duration:1.0,ease:"expo.out"},0.1);
+tl.to("#s7-img",{scale:1.08,duration:6.2,ease:"none"},1.1);
+tl.fromTo("#s7-tab",{xPercent:-100},{xPercent:0,duration:0.45,ease:"power3.out"},0.3);
+tl.fromTo("#s7-card",{y:160,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.22);
+tl.fromTo("#s7-ex",{x:180,opacity:0},{x:0,opacity:1,duration:0.45,ease:"power3.out"},0.34);
+tl.fromTo("#s7-bp",{x:200,opacity:0},{x:0,opacity:1,duration:0.5,ease:"power3.out"},0.42);
+tl.fromTo("#s7-r0",{x:30,opacity:0},{x:0,opacity:1,duration:0.35,ease:"power3.out"},0.62);
+tl.fromTo("#s7-r1",{x:30,opacity:0},{x:0,opacity:1,duration:0.35,ease:"power3.out"},0.72);
+tl.fromTo("#s7-r2",{x:30,opacity:0},{x:0,opacity:1,duration:0.35,ease:"power3.out"},0.82);
+tl.fromTo("#s7-va",{opacity:0},{opacity:1,duration:0.4},0.75);
+tl.fromTo("#s7-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"back.out(1.8)"},0.46);
+tl.fromTo("#s7-bsw",{xPercent:-100},{xPercent:100,duration:0.9,ease:"power2.inOut"},0.78);
+tl.fromTo("#s7-ans",{opacity:0},{opacity:1,duration:0.5},1.0);
+tl.fromTo("#s7-sw",{xPercent:-100},{xPercent:100,duration:1.1,ease:"power2.inOut"},0.5);
+tl.fromTo("#s7-btn",{scale:1},{scale:0.94,duration:0.1,ease:"power2.in"},1.96);
+tl.to("#s7-btn",{scale:1,duration:0.3,ease:"back.out(2)"},2.06);
+tl.fromTo("#s7-ring",{opacity:0.95,scale:1},{opacity:0,scale:1.25,duration:0.7,ease:"power2.out"},2.01);
+tl.fromTo("#s7-psw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},3.18);
+tl.fromTo("#s7-btn",{scale:1},{scale:1.04,duration:0.5,ease:"sine.inOut",immediateRender:false},2.96);
+tl.to("#s7-btn",{scale:1,duration:0.5,ease:"sine.inOut"},3.46);
+tl.fromTo("#s7-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.2,duration:0.9,ease:"power2.out",immediateRender:false},2.96);
+tl.fromTo("#s7-arrow",{x:0},{x:8,duration:0.5,ease:"sine.inOut"},2.96);
+tl.to("#s7-arrow",{x:0,duration:0.5,ease:"sine.inOut"},3.46);
+tl.fromTo("#s7-btn",{scale:1},{scale:1.04,duration:0.5,ease:"sine.inOut",immediateRender:false},3.96);
+tl.to("#s7-btn",{scale:1,duration:0.5,ease:"sine.inOut"},4.46);
+tl.fromTo("#s7-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.2,duration:0.9,ease:"power2.out",immediateRender:false},3.96);
+tl.fromTo("#s7-arrow",{x:0},{x:8,duration:0.5,ease:"sine.inOut",immediateRender:false},3.96);
+tl.to("#s7-arrow",{x:0,duration:0.5,ease:"sine.inOut"},4.46);
+tl.fromTo("#s7-btn",{scale:1},{scale:1.04,duration:0.5,ease:"sine.inOut",immediateRender:false},4.96);
+tl.to("#s7-btn",{scale:1,duration:0.5,ease:"sine.inOut"},5.46);
+tl.fromTo("#s7-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.2,duration:0.9,ease:"power2.out",immediateRender:false},4.96);
+tl.fromTo("#s7-arrow",{x:0},{x:8,duration:0.5,ease:"sine.inOut",immediateRender:false},4.96);
+tl.to("#s7-arrow",{x:0,duration:0.5,ease:"sine.inOut"},5.46);
+window.__timelines["s7"] = tl;
+})();
+</script>
+</template>
