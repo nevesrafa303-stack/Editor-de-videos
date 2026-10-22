@@ -180,24 +180,84 @@ export function iniciarAnimacoes() {
         });
       });
 
-      // Manifesto: a tela segura e as palavras acendem uma a uma; a virada entra no fim.
-      const manifesto = document.querySelector("[data-manifesto]");
-      if (manifesto) {
-        const palavras = $$(".manifesto-w", manifesto);
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: "[data-manifesto-pin]",
-              start: "top top",
-              end: "+=150%",
-              pin: true,
-              scrub: 0.6,
-              anticipatePin: 1,
-            },
-          })
-          .fromTo(palavras, { opacity: 0.4 }, { opacity: 1, stagger: 0.1, duration: 0.1, ease: "none" })
-          .from("[data-virada]", { yPercent: 50, autoAlpha: 0, duration: 0.5, ease: "power2.out" }, ">-0.05")
-          .to({}, { duration: 0.3 });
+      // Cena "o jogo": a tela fixa, cada lance entra gigante e vira gol contra no placar; no fim a tela
+      // gira como uma placa e mostra o verso laranja, onde a corretora vira o jogo. Tudo segue a rolagem.
+      const jogo = document.querySelector<HTMLElement>("[data-jogo]");
+      if (jogo) {
+        const q = <T extends Element = HTMLElement>(sel: string) => jogo.querySelector<T>(sel);
+        const lances = $$("[data-lance]", jogo);
+        const sumula = $$("[data-sumula-item]", jogo);
+        const palavras = $$("[data-virada-palavra]", jogo);
+        const placar = {
+          fora: q("[data-placar='fora']"),
+          tempo: q("[data-placar='tempo']"),
+          viradaCasa: q("[data-placar='virada-casa']"),
+        };
+        const originais = Object.fromEntries(Object.entries(placar).map(([k, el]) => [k, el?.textContent ?? ""]));
+        const total = lances.length;
+        const golsVirada = Number(originais.viradaCasa) || total + 1;
+
+        jogo.dataset.cena = "ativa";
+        limpezas.push(() => {
+          delete jogo.dataset.cena;
+          Object.entries(placar).forEach(([k, el]) => el && (el.textContent = originais[k]));
+        });
+
+        // Troca o número rolando (para cima ao subir o placar, para baixo ao voltar).
+        const rolar = (el: HTMLElement | null, valor: string, subiu: boolean) => {
+          if (!el || el.textContent === valor) return;
+          el.textContent = valor;
+          gsap.fromTo(el, { yPercent: subiu ? 90 : -90, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.35, ease: "back.out(2.2)", overwrite: true });
+        };
+
+        const golEm: number[] = [];
+        const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+        lances.forEach((lance, i) => {
+          tl.fromTo(lance, { autoAlpha: 0, y: 80, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.42 }, i);
+          golEm.push(i + 0.32);
+          if (i < total - 1) tl.to(lance, { autoAlpha: 0, y: -80, scale: 1.05, duration: 0.32, ease: "power2.in" }, i + 0.72);
+          if (sumula[i]) tl.fromTo(sumula[i], { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.25 }, i + 0.72);
+        });
+        // O último lance (o mais longo) fica mais tempo na tela antes da virada.
+        const virada = total - 1 + 1.3;
+        const contagem = [virada + 0.75, virada + 1.65];
+        // A placa inteira gira (o verso já está de costas no CSS) e recua um pouco no meio do giro.
+        tl.fromTo("[data-jogo-cena]", { rotateX: 0 }, { rotateX: 180, duration: 1, ease: "power2.inOut" }, virada)
+          .fromTo("[data-jogo-cena]", { scale: 1 }, { scale: 0.82, duration: 0.5, ease: "power2.out", yoyo: true, repeat: 1 }, virada)
+          .fromTo(palavras, { yPercent: 115 }, { yPercent: 0, stagger: 0.07, duration: 0.5 }, virada + 0.7)
+          .fromTo("[data-virada-link]", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.35 }, virada + 1.3)
+          .to({}, { duration: 0.7 });
+
+        let golsAntes = -1;
+        const atualizar = () => {
+          const t = tl.time();
+          const gols = golEm.filter((g) => t >= g).length;
+          if (gols !== golsAntes) {
+            const subiu = gols > golsAntes;
+            rolar(placar.fora, String(gols), subiu);
+            if (subiu && golsAntes >= 0 && gols > 0) {
+              gsap.fromTo("[data-jogo-flash]", { opacity: 0.32 }, { opacity: 0, duration: 0.7, ease: "power2.out", overwrite: true });
+            }
+            golsAntes = gols;
+          }
+          if (placar.tempo) placar.tempo.textContent = `Ao vivo · ${gols ? lances[gols - 1].dataset.minuto : "0'"}`;
+          const p = gsap.utils.clamp(0, 1, (t - contagem[0]) / (contagem[1] - contagem[0]));
+          const casa = String(Math.round(p * golsVirada));
+          rolar(placar.viradaCasa, casa, Number(casa) > Number(placar.viradaCasa?.textContent ?? 0));
+        };
+        tl.eventCallback("onUpdate", atualizar);
+        atualizar();
+
+        ScrollTrigger.create({
+          animation: tl,
+          trigger: "[data-jogo-palco]",
+          start: "top top",
+          end: () => `+=${tl.duration() * window.innerHeight * 0.55}`,
+          pin: true,
+          scrub: 0.7,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        });
       }
 
       // Faixas de texto grande: andam em sentidos opostos com a rolagem.

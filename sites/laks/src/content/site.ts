@@ -45,10 +45,20 @@ export const numeros = {
   ],
 } as const;
 
+// Cena "o jogo": cada dor é um gol contra no placar; no fim a tela vira e a LAKS vira o jogo.
 export const manifesto = {
-  antes:
-    "Lead caro. Lead frio. Contato da cidade errada, curioso sem perfil, cotação que nunca vira contrato. E o dono da corretora fazendo marketing no intervalo entre uma reunião e outra.",
+  titulo: "O jogo que a sua corretora está perdendo",
+  placar: { casa: "Sua corretora", fora: "O mercado", placarVirada: 7 },
+  lances: [
+    { minuto: "08'", texto: "Lead caro." },
+    { minuto: "21'", texto: "Lead frio." },
+    { minuto: "34'", texto: "Contato da cidade errada." },
+    { minuto: "52'", texto: "Curioso sem perfil." },
+    { minuto: "67'", texto: "Cotação que nunca vira contrato." },
+    { minuto: "88'", texto: "E o dono fazendo marketing no intervalo entre uma reunião e outra." },
+  ],
   virada: "A LAKS existe para virar esse jogo.",
+  viradaLink: "Veja como no Método MAPA",
 } as const;
 
 // Faixa de texto grande que corre com a rolagem, entre o manifesto e o método.

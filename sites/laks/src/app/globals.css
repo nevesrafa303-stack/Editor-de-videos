@@ -155,12 +155,123 @@
   color: #fff;
 }
 
-/* Palavras do manifesto acendem com a rolagem (opacidade controlada pelo GSAP). */
-.manifesto-w {
-  opacity: var(--w-op, 1);
+/* ===== Cena "o jogo" (manifesto) =====
+   Sem animação: súmula estática. Com data-cena="ativa" (motion.ts): tela fixa com duas faces que viram. */
+.jogo-campo,
+.jogo-flash,
+.jogo-sumula {
+  display: none;
 }
-html.js-motion .manifesto-w {
-  --w-op: 0.4;
+[data-jogo][data-cena="ativa"] .jogo-palco {
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1800px;
+}
+[data-jogo][data-cena="ativa"] .jogo-cena {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+[data-jogo][data-cena="ativa"] .jogo-frente,
+[data-jogo][data-cena="ativa"] .jogo-verso {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+[data-jogo][data-cena="ativa"] .jogo-verso {
+  transform: rotateX(180deg);
+}
+[data-jogo][data-cena="ativa"] .jogo-frente {
+  max-width: none;
+  padding-inline: max(1.25rem, calc((100vw - 82rem) / 2 + 2rem));
+  background:
+    radial-gradient(60% 45% at 50% 0%, rgb(255 255 255 / 0.07), transparent 70%),
+    var(--color-ink);
+}
+[data-jogo][data-cena="ativa"] .jogo-campo {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: rgb(255 255 255 / 0.07);
+  stroke: currentColor;
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+[data-jogo][data-cena="ativa"] .jogo-flash {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 60% at 50% 50%, var(--color-laranja), transparent 75%);
+  opacity: 0;
+  pointer-events: none;
+}
+[data-jogo][data-cena="ativa"] .jogo-lances {
+  position: relative;
+  flex: 1;
+  margin-top: 0;
+  border: 0;
+}
+[data-jogo][data-cena="ativa"] .jogo-lance {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 0;
+  border: 0;
+}
+[data-jogo][data-cena="ativa"] .jogo-minuto {
+  width: auto;
+  font-size: clamp(1rem, 2.6vw, 1.75rem);
+}
+[data-jogo][data-cena="ativa"] .jogo-texto {
+  max-width: 14em;
+  font-size: clamp(2.2rem, min(10vw, 11svh), 6.4rem);
+  line-height: 0.92;
+}
+[data-jogo][data-cena="ativa"] [data-tamanho="curto"] .jogo-texto {
+  font-size: clamp(2.8rem, min(15vw, 16svh), 9rem);
+}
+[data-jogo][data-cena="ativa"] [data-tamanho="longo"] .jogo-texto {
+  max-width: 17em;
+  font-size: clamp(1.9rem, min(8.4vw, 8svh), 4.6rem);
+  line-height: 1;
+}
+/* Súmula dos gols sofridos, em linha no rodapé da cena: no celular e tablet só os minutos; no desktop
+   minuto e lance, como a barra de uma transmissão. */
+[data-jogo][data-cena="ativa"] .jogo-sumula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  position: absolute;
+  left: max(1.25rem, calc((100vw - 82rem) / 2 + 2rem));
+  right: max(1.25rem, calc((100vw - 82rem) / 2 + 2rem));
+  bottom: 2rem;
+}
+.jogo-sumula-texto {
+  display: none;
+}
+@media (width >= 64rem) {
+  [data-jogo][data-cena="ativa"] .jogo-frente {
+    padding-bottom: 0;
+  }
+  [data-jogo][data-cena="ativa"] .jogo-lances {
+    margin-bottom: 6.5rem;
+  }
+  [data-jogo][data-cena="ativa"] .jogo-sumula {
+    gap: 0.5rem 1.75rem;
+    bottom: 2.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+  }
+  .jogo-sumula-texto {
+    display: inline;
+  }
 }
 
 /* Texto vazado (só o contorno), usado na faixa cinética. */
