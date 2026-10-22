@@ -470,6 +470,7 @@ const scenes = [];
   cin.forEach((t, i) => add(`tl.fromTo("#s3-c${i}",{y:${pick(140, 100)},opacity:0,rotationY:-35},{y:0,opacity:1,rotationY:0,duration:0.55,ease:"power3.out",transformPerspective:900},${r3(L(t) - 0.12)});`));
   // idades contam até 38 / 18 quando são ditas
   const cnt = (i, to, t) => {
+    add(`tl.fromTo("#s3-n${i}",{opacity:0},{opacity:1,duration:0.08},${r3(L(t))});`);
     for (let s = 0; s <= 12; s++) add(`tl.set("#s3-n${i}",{textContent:"${Math.round(to * (1 - Math.pow(1 - s / 12, 3)))}"},${r3(L(t) + (s / 12) * 0.5)});`);
   };
   cnt(0, 38, T.trinta);
@@ -837,36 +838,36 @@ const BTN = pick({ x: 160, y: 1316, w: 760, h: 136 }, { x: 190, y: 890, w: 700, 
 // efeitos do ElevenLabs: o build alinha o golpe de cada arquivo (sfx_hits.json) ao instante pedido
 const HITS = JSON.parse(readFileSync(join(ROOT, "assets/audio/sfx_hits.json"), "utf8"));
 const SFX = [
-  ["drone", 0.0, 0.5],
-  ["shimmer", T.psiu, 0.18],
-  ["impact", T.cnpj1, 0.6],
+  ["drone", 0.0, 0.22],
+  ["shimmer", T.psiu, 0.07],
+  ["impact", T.cnpj1 - 0.08, 0.36],
   ["whoosh", T.sabia - 0.3, 0.42],
   ["shimmer", T.sabia - 0.15, 0.32],
-  ["card", T.plano - 0.25, 0.4],
+  ["card", T.plano - 0.25, 0.3],
   ["shimmer", T.amil, 0.32],
-  ["tap", T.tres, 0.32],
-  ["tap", T.tres + 0.13, 0.3],
-  ["tap", T.tres + 0.26, 0.3],
-  ["riser", T.mil - 0.02, 0.5],
-  ["impact", T.mil, 0.72],
-  ["counter", T.mil + 0.02, 0.3],
+  ["tap", T.tres, 0.22],
+  ["tap", T.tres + 0.13, 0.2],
+  ["tap", T.tres + 0.26, 0.2],
+  ["riser", T.mil - 0.02, 0.4],
+  ["impact", T.mil - 0.03, 0.55],
+  ["counter", T.mil + 0.02, 0.2],
   ["shimmer", T.centavos, 0.28],
   ["whoosh", T.esse - 0.3, 0.42],
-  ["card", T.dois - 0.12, 0.38],
-  ["card", T.adultos - 0.12, 0.38],
-  ["card", T.jovem - 0.12, 0.38],
-  ["check", end("dezoito") - 0.05, 0.4],
+  ["card", T.dois - 0.12, 0.28],
+  ["card", T.adultos - 0.12, 0.28],
+  ["card", T.jovem - 0.12, 0.28],
+  ["check", end("dezoito") - 0.05, 0.3],
   ["whoosh", T.olha - 0.32, 0.36],
   ["shimmer", T.olha, 0.28],
-  ["card", T.acesso - 0.2, 0.4],
-  ["pin", T.norte + 0.2, 0.5],
-  ["check", T.dor2 + 0.05, 0.45],
-  ["card", T.acomodacao - 0.2, 0.4],
-  ["check", T.quarto + 0.15, 0.45],
-  ["card", T.cobertura - 0.2, 0.4],
-  ["check", T.nacional + 0.2, 0.45],
+  ["card", T.acesso - 0.2, 0.26],
+  ["pin", T.norte + 0.2, 0.32],
+  ["check", T.dor2 + 0.05, 0.3],
+  ["card", T.acomodacao - 0.2, 0.26],
+  ["check", T.quarto + 0.15, 0.3],
+  ["card", T.cobertura - 0.2, 0.26],
+  ["check", T.nacional + 0.2, 0.3],
   ["whoosh", T.so - 0.3, 0.32],
-  ["stamp", T.exclusivo, 0.85],
+  ["stamp", T.exclusivo, 0.7],
   ["impact", T.exclusivo + 0.02, 0.3],
   ["tap", T.valores - 0.05, 0.3],
   ["card", T.faixa - 0.25, 0.32],
@@ -909,7 +910,7 @@ const mounts = scenes
   )
   .join("\n      ");
 const audio = [
-  `<audio id="el-bgm" src="assets/audio/bgm.wav" data-start="0" data-duration="${D}" data-track-index="20" data-volume="0.55"></audio>`,
+  `<audio id="el-bgm" src="assets/audio/bgm.wav" data-start="0" data-duration="${D}" data-track-index="20" data-volume="0.46"></audio>`,
   `<audio id="el-vo-voice" data-audio-group="voiceover" src="assets/voice/vo.wav" data-start="0" data-duration="${Math.min(voDur, D)}" data-track-index="21" data-volume="1"></audio>`,
   ...sfxItems.map(
     (x, i) =>

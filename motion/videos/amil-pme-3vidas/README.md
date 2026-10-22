@@ -38,6 +38,7 @@ D'Or. No vídeo o Norte D'Or aparece só no mapa com a localização, e o cartã
 
 ```bash
 python3 -I tools/prep_assets.py     # foto da fachada sem a aba do logo (hospital.jpg / hospital-wide.jpg)
+bash tools/prep_voice.sh            # locução: passa-altas, sussurro +5 dB, compressão leve
 python3 -I tools/synth_audio.py     # efeitos do ElevenLabs cortados no golpe + trilha (~121 BPM)
 bash tools/assemble.sh              # story (index.html) + feed (feed/index.html) + carve da trilha
 npx hyperframes check && (cd feed && npx hyperframes check)
@@ -56,7 +57,7 @@ tempos saem de `assets/voice/vo.words.json`. Neste container o Chrome vem de
   texto: `[whispers]` no gancho, `[curious]`, `[confident]` no preço, `[warmly]`, `[excited]`
   nos benefícios e no CTA, `[serious]` no "Só um detalhe". Duas tomadas; ficou a A (33,2 s,
   mais variação de altura). Original em `assets/voice/vo.raw.mp3`; `vo.wav` leva passa-altas,
-  compressão leve e presença.
+  compressão leve, presença e +5 dB no sussurro do gancho (`tools/prep_voice.sh`).
 - **Tempos**: Scribe v1 numa transcrição sem texto de referência (confirma a pronúncia de
   "mil cento e sessenta e seis reais e vinte e um centavos" e "Norte D'Or, da Rede D'Or").
 - **Efeitos** (Sound Effects v2, `assets/audio/src/`): impacto grave, whoosh, riser,
