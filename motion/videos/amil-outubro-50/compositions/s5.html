@@ -1,0 +1,45 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+
+#s5-sw{position:absolute;left:90px;top:700px;width:900px;height:460px;}
+#s5-st{position:absolute;inset:0;border-radius:44px;background:#3020F0;box-shadow:0 40px 90px rgba(40,20,200,.5);transform:rotate(-4deg);}
+#s5-st::after{content:"";position:absolute;inset:22px;border-radius:28px;border:5px dashed rgba(255,255,255,.55);}
+#s5-s1{position:absolute;left:0;width:100%;top:74px;text-align:center;font-weight:800;font-size:80px;line-height:1;letter-spacing:.04em;}
+#s5-s2{position:absolute;left:0;width:100%;top:160px;text-align:center;font-weight:900;font-size:270px;line-height:1;letter-spacing:-.03em;}
+#s5-ring{position:absolute;left:30px;top:640px;width:1020px;height:580px;border-radius:70px;border:6px solid rgba(183,168,255,.8);opacity:0;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="2.27" data-width="1080" data-height="1920">
+  <div id="s5-wrap" class="s5-full">
+    <div id="s5-ring" aria-hidden="true" data-layout-allow-overflow></div>
+    <div id="s5-sw"><div id="s5-st"><div id="s5-s1" class="d">EXCLUSIVO PARA</div><div id="s5-s2" class="d">CNPJ</div></div></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5-sw",{scale:2,opacity:0},{scale:1,opacity:1,duration:0.2,ease:"power4.in"},0.11);
+tl.fromTo("#s5-ring",{scale:0.85,opacity:0.9},{scale:1.15,opacity:0,duration:0.7,ease:"power2.out",immediateRender:false},0.31);
+tl.set("#s5-wrap",{x:14,y:-8.4},0.31);
+tl.set("#s5-wrap",{x:-11.2,y:6.72},0.343);
+tl.set("#s5-wrap",{x:7,y:-4.2},0.377);
+tl.set("#s5-wrap",{x:-3.5,y:2.1},0.41);
+tl.set("#s5-wrap",{x:0,y:0},0.443);
+tl.fromTo("#s5-s2",{scale:1},{scale:1.08,duration:0.18,ease:"power2.out"},1.29);
+tl.to("#s5-s2",{scale:1,duration:0.35,ease:"power2.inOut"},1.47);
+tl.to("#s5-wrap",{scale:0.9,opacity:0,duration:0.2,ease:"power2.in"},2.07);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>

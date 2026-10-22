@@ -1,0 +1,72 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s3-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s3-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.dc{position:relative;display:inline-block;height:188px;overflow:hidden;vertical-align:top;}
+.sz{display:inline-block;line-height:188px;visibility:hidden;}
+.ds{position:absolute;left:0;right:0;top:0;text-align:center;line-height:188px;}
+.pr-rs,.pr-pt{display:inline-block;line-height:188px;vertical-align:top;}
+.pr-sp{display:inline-block;width:.22em;}
+#s3-pill{position:absolute;left:100px;top:90px;width:880px;height:180px;border-radius:40px;background:#3020F0;box-shadow:0 30px 70px rgba(48,32,240,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:60px;line-height:1.12;letter-spacing:-.01em;}
+#s3-a{position:absolute;left:0;width:1080px;top:330px;text-align:center;font-weight:800;font-size:40px;letter-spacing:.14em;line-height:1;}
+#s3-rw{position:absolute;left:0;width:1080px;top:385px;height:208px;text-align:center;overflow:hidden;}
+#s3-pr{display:inline-block;margin-top:10px;font-weight:900;font-size:188px;letter-spacing:-.045em;white-space:nowrap;text-shadow:0 0 50px rgba(90,70,255,.8);}
+#s3-cw{position:absolute;left:0;width:1080px;top:650px;text-align:center;}
+#s3-chip{display:inline-flex;align-items:center;gap:14px;height:84px;padding:0 42px;border-radius:84px;background:#FFC542;color:#0E0A55;font-weight:600;font-size:34px;box-shadow:0 0 40px rgba(255,197,66,.4);}
+#s3-chip b{font-family:"Mont",Arial,sans-serif;font-weight:900;}
+</style>
+<div id="s3-root" data-composition-id="s3" data-start="0" data-duration="6.22" data-width="1080" data-height="1080">
+  <div id="s3-cam" class="s3-full">
+  <div id="s3-wrap" class="s3-full">
+    <div id="s3-pill" class="d"><span><span class="w"><span class="wi" id="s3p0">Plano</span></span> <span class="w"><span class="wi" id="s3p1">para</span></span> <span class="w"><span class="wi" id="s3p2">3</span></span> <span class="w"><span class="wi" id="s3p3">Vidas</span></span></span><span><span class="w"><span class="wi" id="s3q0">com</span></span> <span class="w"><span class="wi" id="s3q1">coparticipação</span></span></span></div>
+    <div id="s3-a" class="d"><span class="w"><span class="wi" id="s3a0">A</span></span> <span class="w"><span class="wi" id="s3a1">PARTIR</span></span> <span class="w"><span class="wi" id="s3a2">DE</span></span></div>
+    <div id="s3-rw"><span id="s3-pr" class="d"><span id="s3-rs" class="pr-rs">R$</span><span class="pr-sp"></span><span class="dc"><span class="sz">1</span><span class="ds" id="s3-ds0">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1</span></span><span class="pr-pt">.</span><span class="dc"><span class="sz">1</span><span class="ds" id="s3-ds1">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1</span></span><span class="dc"><span class="sz">2</span><span class="ds" id="s3-ds2">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2</span></span><span class="dc"><span class="sz">3</span><span class="ds" id="s3-ds3">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3</span></span><span class="pr-pt">,</span><span class="dc"><span class="sz">1</span><span class="ds" id="s3-ds4">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1</span></span><span class="dc"><span class="sz">7</span><span class="ds" id="s3-ds5">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7</span></span></span><div id="s3-psw" class="sweep" aria-hidden="true"></div></div>
+    <div id="s3-cw"><span id="s3-chip"><b>50% OFF</b> nas 2 primeiras mensalidades</span></div>
+  </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s3-cam",{scale:1},{scale:1.02,duration:6.22,ease:"none"},0);
+tl.fromTo("#s3-wrap",{x:280,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},0);
+tl.fromTo("#s3-pill",{scaleX:0.3,opacity:0},{scaleX:1,opacity:1,duration:0.45,ease:"power3.out"},0.1);
+tl.fromTo("#s3p0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.24);
+tl.fromTo("#s3p1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.54);
+tl.fromTo("#s3p2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.82);
+tl.fromTo("#s3p3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},1.16);
+tl.fromTo("#s3q0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.54);
+tl.fromTo("#s3q1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.72);
+tl.fromTo("#s3a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.34,ease:"power3.out"},2.74);
+tl.fromTo("#s3a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.34,ease:"power3.out"},2.82);
+tl.fromTo("#s3a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.34,ease:"power3.out"},3.16);
+tl.fromTo("#s3-pr",{opacity:0},{opacity:1,duration:0.08},3.38);
+tl.fromTo("#s3-rs",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"power4.out"},3.38);
+tl.fromTo("#s3-ds0",{y:0},{y:-3948,duration:0.22,ease:"power3.out"},3.38);
+tl.fromTo("#s3-ds1",{y:0},{y:-3948,duration:0.48,ease:"power3.out"},3.38);
+tl.fromTo("#s3-ds2",{y:0},{y:-4136,duration:0.78,ease:"power3.out"},3.38);
+tl.fromTo("#s3-ds3",{y:0},{y:-4324,duration:1,ease:"power3.out"},3.38);
+tl.fromTo("#s3-ds4",{y:0},{y:-3948,duration:1.66,ease:"power3.out"},3.38);
+tl.fromTo("#s3-ds5",{y:0},{y:-5076,duration:1.94,ease:"power3.out"},3.38);
+tl.set("#s3-wrap",{x:7,y:-4.2},3.46);
+tl.set("#s3-wrap",{x:-5.6,y:3.36},3.493);
+tl.set("#s3-wrap",{x:3.5,y:-2.1},3.527);
+tl.set("#s3-wrap",{x:-1.75,y:1.05},3.56);
+tl.set("#s3-wrap",{x:0,y:0},3.593);
+tl.fromTo("#s3-psw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},5.47);
+tl.fromTo("#s3-chip",{y:40,opacity:0},{y:0,opacity:1,duration:0.4,ease:"back.out(1.8)"},5.57);
+tl.to("#s3-wrap",{y:-60,opacity:0,scale:0.96,duration:0.24,ease:"power2.in"},5.98);
+window.__timelines["s3"] = tl;
+})();
+</script>
+</template>

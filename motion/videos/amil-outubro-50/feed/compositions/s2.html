@@ -1,0 +1,87 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s2-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s2-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.logo{display:inline-block;-webkit-mask:url("assets/img/amil-logo.png") center/contain no-repeat;mask:url("assets/img/amil-logo.png") center/contain no-repeat;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+
+#s2-lw{position:absolute;left:0;width:1080px;top:34px;text-align:center;}
+#s2-logo{width:180px;height:58px;background:#fff;}
+#s2-t{position:absolute;left:0;width:1080px;top:110px;text-align:center;font-weight:800;font-size:72px;line-height:1;letter-spacing:-.02em;}
+#s2-pw{position:absolute;left:0;width:1080px;top:190px;text-align:center;}
+#s2-pct{display:inline-block;font-weight:900;font-size:250px;line-height:1;letter-spacing:-.05em;text-shadow:0 0 60px rgba(90,70,255,.9);}
+#s2-pct sup{font-size:.5em;vertical-align:.7em;letter-spacing:0;}
+#s2-burst{position:absolute;left:140px;top:-85px;width:800px;height:800px;opacity:0;}
+#s2-d{position:absolute;left:0;width:1080px;top:470px;text-align:center;font-weight:900;font-size:52px;line-height:1;letter-spacing:.02em;color:#FFC542;}
+.s2-c{position:absolute;top:570px;width:430px;height:260px;border-radius:32px;background:#fff;color:#0E0A55;box-shadow:0 30px 70px rgba(3,2,30,.45);}
+.s2-n{position:absolute;left:36px;top:42px;font-weight:900;font-size:100px;line-height:1;color:#3020F0;}
+.s2-l{position:absolute;left:38px;top:144px;font-weight:600;font-size:22px;color:#3A3870;letter-spacing:.06em;}
+.s2-st{position:absolute;right:22px;top:36px;width:146px;height:146px;}
+.s2-sti{position:absolute;inset:0;border-radius:50%;background:#3020F0;border:6px dashed rgba(255,255,255,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transform:rotate(-12deg);box-shadow:0 14px 30px rgba(48,32,240,.45);}
+.s2-sti b{font-family:"Mont",Arial,sans-serif;font-weight:900;font-size:43px;line-height:1;letter-spacing:-.03em;}
+.s2-sti span{font-family:"Mont",Arial,sans-serif;font-weight:900;font-size:18px;letter-spacing:.14em;}
+</style>
+<div id="s2-root" data-composition-id="s2" data-start="0" data-duration="5.38" data-width="1080" data-height="1080">
+  <div id="s2-cam" class="s2-full">
+  <div id="s2-wrap" class="s2-full">
+    <div id="s2-lw"><span id="s2-logo" class="logo" role="img" aria-label="Amil"></span></div>
+    <div id="s2-t" class="d"><span class="w"><span class="wi" id="s2t0">Plano</span></span> <span class="w"><span class="wi" id="s2t1">Empresarial</span></span></div>
+    <svg id="s2-burst" viewBox="0 0 800 800" aria-hidden="true" data-layout-allow-overflow><g stroke="#B7A8FF" stroke-width="8" stroke-linecap="round"><path d="M630 400 L780 400"/><path d="M612.492 488.017 L751.074 545.42"/><path d="M562.635 562.635 L668.701 668.701"/><path d="M488.017 612.492 L545.42 751.074"/><path d="M400 630 L400 780"/><path d="M311.983 612.492 L254.58 751.074"/><path d="M237.365 562.635 L131.299 668.701"/><path d="M187.508 488.017 L48.926 545.42"/><path d="M170 400 L20 400"/><path d="M187.508 311.983 L48.926 254.58"/><path d="M237.365 237.365 L131.299 131.299"/><path d="M311.983 187.508 L254.58 48.926"/><path d="M400 170 L400 20"/><path d="M488.017 187.508 L545.42 48.926"/><path d="M562.635 237.365 L668.701 131.299"/><path d="M612.492 311.983 L751.074 254.58"/></g></svg>
+    <div id="s2-pw"><span id="s2-pct" class="d"><span id="s2-num">0</span><sup>%</sup></span></div>
+    <div id="s2-d" class="d"><span class="w"><span class="wi" id="s2d0">DE</span></span> <span class="w"><span class="wi" id="s2d1">DESCONTO</span></span></div>
+    <div class="s2-c" id="s2-c0" style="left:70px"><div class="s2-n d">1ª</div><div class="s2-l">MENSALIDADE</div>
+      <div class="s2-st" id="s2-st0"><div class="s2-sti"><b>−50%</b><span>OFF</span></div></div></div><div class="s2-c" id="s2-c1" style="left:580px"><div class="s2-n d">2ª</div><div class="s2-l">MENSALIDADE</div>
+      <div class="s2-st" id="s2-st1"><div class="s2-sti"><b>−50%</b><span>OFF</span></div></div></div>
+  </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s2-cam",{scale:1},{scale:1.02,duration:5.38,ease:"none"},0);
+tl.fromTo("#s2-wrap",{scale:0.8,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"power3.out"},0);
+tl.fromTo("#s2t0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.34);
+tl.fromTo("#s2t1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.56);
+tl.fromTo("#s2-logo",{opacity:0,y:-20},{opacity:1,y:0,duration:0.45,ease:"power3.out"},1.12);
+tl.fromTo("#s2-pct",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"power4.out"},1.88);
+tl.set("#s2-num",{textContent:"0"},1.94);
+tl.set("#s2-num",{textContent:"9"},1.977);
+tl.set("#s2-num",{textContent:"17"},2.013);
+tl.set("#s2-num",{textContent:"24"},2.05);
+tl.set("#s2-num",{textContent:"30"},2.087);
+tl.set("#s2-num",{textContent:"35"},2.123);
+tl.set("#s2-num",{textContent:"39"},2.16);
+tl.set("#s2-num",{textContent:"42"},2.197);
+tl.set("#s2-num",{textContent:"45"},2.233);
+tl.set("#s2-num",{textContent:"47"},2.27);
+tl.set("#s2-num",{textContent:"48"},2.307);
+tl.set("#s2-num",{textContent:"49"},2.343);
+tl.set("#s2-num",{textContent:"50"},2.38);
+tl.set("#s2-num",{textContent:"50"},2.417);
+tl.set("#s2-num",{textContent:"50"},2.453);
+tl.set("#s2-num",{textContent:"50"},2.49);
+tl.fromTo("#s2-burst",{scale:0.5,opacity:1,rotation:0},{scale:1.25,opacity:0,rotation:20,duration:0.8,ease:"power2.out",immediateRender:false},1.96);
+tl.set("#s2-wrap",{x:10,y:-6},1.99);
+tl.set("#s2-wrap",{x:-8,y:4.8},2.023);
+tl.set("#s2-wrap",{x:5,y:-3},2.057);
+tl.set("#s2-wrap",{x:-2.5,y:1.5},2.09);
+tl.set("#s2-wrap",{x:0,y:0},2.123);
+tl.fromTo("#s2d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.92);
+tl.fromTo("#s2d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},3.02);
+tl.fromTo("#s2-c0",{y:150,opacity:0,rotation:-6},{y:0,opacity:1,rotation:-2,duration:0.5,ease:"power3.out"},3.69);
+tl.fromTo("#s2-c1",{y:150,opacity:0,rotation:6},{y:0,opacity:1,rotation:2,duration:0.5,ease:"power3.out"},3.97);
+tl.fromTo("#s2-st0",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.18,ease:"power4.in"},4.52);
+tl.fromTo("#s2-st1",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.18,ease:"power4.in"},4.74);
+tl.to("#s2-wrap",{x:-280,opacity:0,duration:0.24,ease:"power3.in"},5.14);
+window.__timelines["s2"] = tl;
+})();
+</script>
+</template>

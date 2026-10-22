@@ -1,0 +1,462 @@
+[
+{
+"word": "Atenção",
+"start": 0.06,
+"end": 0.5
+},
+{
+"word": "isso",
+"start": 0.8,
+"end": 0.94
+},
+{
+"word": "aqui",
+"start": 0.96,
+"end": 1.16
+},
+{
+"word": "só",
+"start": 1.22,
+"end": 1.34
+},
+{
+"word": "vale",
+"start": 1.48,
+"end": 1.66
+},
+{
+"word": "em",
+"start": 1.7,
+"end": 1.76
+},
+{
+"word": "outubro",
+"start": 1.82,
+"end": 2.34
+},
+{
+"word": "O",
+"start": 2.68,
+"end": 2.72
+},
+{
+"word": "plano",
+"start": 2.9,
+"end": 3.08
+},
+{
+"word": "empresarial",
+"start": 3.12,
+"end": 3.66
+},
+{
+"word": "Amil",
+"start": 3.72,
+"end": 3.94
+},
+{
+"word": "está",
+"start": 3.98,
+"end": 4.2
+},
+{
+"word": "com",
+"start": 4.22,
+"end": 4.38
+},
+{
+"word": "cinquenta",
+"start": 4.44,
+"end": 4.96
+},
+{
+"word": "por",
+"start": 5.06,
+"end": 5.18
+},
+{
+"word": "cento",
+"start": 5.22,
+"end": 5.44
+},
+{
+"word": "de",
+"start": 5.48,
+"end": 5.54
+},
+{
+"word": "desconto",
+"start": 5.58,
+"end": 6.0
+},
+{
+"word": "nas",
+"start": 6.04,
+"end": 6.22
+},
+{
+"word": "duas",
+"start": 6.34,
+"end": 6.6
+},
+{
+"word": "primeiras",
+"start": 6.62,
+"end": 6.98
+},
+{
+"word": "mensalidades",
+"start": 7.02,
+"end": 7.76
+},
+{
+"word": "Plano",
+"start": 8.1,
+"end": 8.38
+},
+{
+"word": "para",
+"start": 8.4,
+"end": 8.66
+},
+{
+"word": "três",
+"start": 8.68,
+"end": 8.96
+},
+{
+"word": "vidas",
+"start": 9.02,
+"end": 9.32
+},
+{
+"word": "com",
+"start": 9.4,
+"end": 9.48
+},
+{
+"word": "coparticipação",
+"start": 9.58,
+"end": 10.56
+},
+{
+"word": "a",
+"start": 10.6,
+"end": 10.62
+},
+{
+"word": "partir",
+"start": 10.68,
+"end": 11.0
+},
+{
+"word": "de",
+"start": 11.02,
+"end": 11.14
+},
+{
+"word": "mil",
+"start": 11.26,
+"end": 11.4
+},
+{
+"word": "cento",
+"start": 11.54,
+"end": 11.74
+},
+{
+"word": "e",
+"start": 11.76,
+"end": 11.8
+},
+{
+"word": "vinte",
+"start": 11.82,
+"end": 11.98
+},
+{
+"word": "e",
+"start": 12.0,
+"end": 12.06
+},
+{
+"word": "três",
+"start": 12.08,
+"end": 12.28
+},
+{
+"word": "reais",
+"start": 12.32,
+"end": 12.6
+},
+{
+"word": "e",
+"start": 12.62,
+"end": 12.66
+},
+{
+"word": "dezessete",
+"start": 12.72,
+"end": 13.28
+},
+{
+"word": "centavos",
+"start": 13.32,
+"end": 13.9
+},
+{
+"word": "Esse",
+"start": 14.22,
+"end": 14.4
+},
+{
+"word": "valor",
+"start": 14.42,
+"end": 14.72
+},
+{
+"word": "é",
+"start": 14.76,
+"end": 14.84
+},
+{
+"word": "pra",
+"start": 14.86,
+"end": 14.94
+},
+{
+"word": "uma",
+"start": 14.96,
+"end": 15.14
+},
+{
+"word": "vida",
+"start": 15.16,
+"end": 15.34
+},
+{
+"word": "de",
+"start": 15.4,
+"end": 15.46
+},
+{
+"word": "dezoito",
+"start": 15.52,
+"end": 16.04
+},
+{
+"word": "anos",
+"start": 16.12,
+"end": 16.379
+},
+{
+"word": "um",
+"start": 16.54,
+"end": 16.6
+},
+{
+"word": "adulto",
+"start": 16.66,
+"end": 17.0
+},
+{
+"word": "de",
+"start": 17.02,
+"end": 17.08
+},
+{
+"word": "trinta",
+"start": 17.14,
+"end": 17.34
+},
+{
+"word": "e",
+"start": 17.38,
+"end": 17.4
+},
+{
+"word": "três",
+"start": 17.48,
+"end": 17.76
+},
+{
+"word": "e",
+"start": 17.9,
+"end": 17.98
+},
+{
+"word": "mais",
+"start": 18.06,
+"end": 18.34
+},
+{
+"word": "um",
+"start": 18.4,
+"end": 18.48
+},
+{
+"word": "de",
+"start": 18.52,
+"end": 18.56
+},
+{
+"word": "até",
+"start": 18.62,
+"end": 18.9
+},
+{
+"word": "trinta",
+"start": 18.92,
+"end": 19.16
+},
+{
+"word": "e",
+"start": 19.18,
+"end": 19.22
+},
+{
+"word": "oito",
+"start": 19.34,
+"end": 19.58
+},
+{
+"word": "Exclusivo",
+"start": 19.9,
+"end": 20.6
+},
+{
+"word": "para",
+"start": 20.64,
+"end": 20.86
+},
+{
+"word": "CNPJ",
+"start": 20.94,
+"end": 21.8
+},
+{
+"word": "Mas",
+"start": 22.04,
+"end": 22.26
+},
+{
+"word": "corre",
+"start": 22.3,
+"end": 22.58
+},
+{
+"word": "porque",
+"start": 22.68,
+"end": 22.82
+},
+{
+"word": "a",
+"start": 22.86,
+"end": 22.86
+},
+{
+"word": "promoção",
+"start": 22.92,
+"end": 23.32
+},
+{
+"word": "termina",
+"start": 23.36,
+"end": 23.64
+},
+{
+"word": "em",
+"start": 23.66,
+"end": 23.82
+},
+{
+"word": "31",
+"start": 23.94,
+"end": 24.3
+},
+{
+"word": "de",
+"start": 24.32,
+"end": 24.36
+},
+{
+"word": "outubro",
+"start": 24.4,
+"end": 24.8
+},
+{
+"word": "Toque",
+"start": 25.12,
+"end": 25.36
+},
+{
+"word": "em",
+"start": 25.38,
+"end": 25.5
+},
+{
+"word": "Solicite",
+"start": 25.5,
+"end": 26.02
+},
+{
+"word": "uma",
+"start": 26.06,
+"end": 26.2
+},
+{
+"word": "cotação",
+"start": 26.22,
+"end": 26.68
+},
+{
+"word": "personalizada",
+"start": 26.7,
+"end": 27.48
+},
+{
+"word": "e",
+"start": 27.54,
+"end": 27.58
+},
+{
+"word": "aproveite",
+"start": 27.62,
+"end": 28.06
+},
+{
+"word": "os",
+"start": 28.08,
+"end": 28.18
+},
+{
+"word": "cinquenta",
+"start": 28.22,
+"end": 28.7
+},
+{
+"word": "por",
+"start": 28.78,
+"end": 28.86
+},
+{
+"word": "cento",
+"start": 28.98,
+"end": 29.22
+},
+{
+"word": "ainda",
+"start": 29.28,
+"end": 29.54
+},
+{
+"word": "este",
+"start": 29.56,
+"end": 29.74
+},
+{
+"word": "mês",
+"start": 29.8,
+"end": 30.14
+}
+]
