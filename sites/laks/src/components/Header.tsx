@@ -41,7 +41,7 @@ export function Header() {
           <a
             href="#forms"
             onClick={() => track("cta_clique", { local: "header" })}
-            className="hidden rounded-full bg-laranja px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-laranja-claro sm:inline-flex"
+            className="cta-borda hidden rounded-full px-5 py-2.5 text-sm font-semibold text-white sm:inline-flex"
           >
             Diagnóstico gratuito
           </a>

@@ -274,6 +274,79 @@
   }
 }
 
+/* Botão transparente do topo: contorno fino e, ao passar o mouse, uma luz laranja correndo pela borda. */
+@property --borda-angulo {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.cta-borda {
+  position: relative;
+  isolation: isolate;
+  background-color: rgb(255 255 255 / 0.03);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.cta-borda::before,
+.cta-borda::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1.5px;
+  border-radius: inherit;
+  pointer-events: none;
+  /* Só a faixa da borda aparece: o miolo do botão é recortado. */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+.cta-borda::before {
+  background: rgb(255 255 255 / 0.28);
+  transition: background-color 0.4s ease;
+}
+.cta-borda::after {
+  background: conic-gradient(
+    from var(--borda-angulo),
+    transparent 0%,
+    transparent 40%,
+    rgb(255 66 0 / 0.2) 60%,
+    var(--color-laranja) 84%,
+    #ffc2a6 94%,
+    transparent 100%
+  );
+  padding: 2px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borda-gira 2.2s linear infinite paused;
+}
+.cta-borda:hover,
+.cta-borda:focus-visible {
+  background-color: rgb(255 66 0 / 0.08);
+  box-shadow: 0 0 28px -8px rgb(255 66 0 / 0.7);
+}
+.cta-borda:hover::before,
+.cta-borda:focus-visible::before {
+  background: rgb(255 255 255 / 0.12);
+}
+.cta-borda:hover::after,
+.cta-borda:focus-visible::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+@keyframes borda-gira {
+  to {
+    --borda-angulo: 360deg;
+  }
+}
+
 /* Texto vazado (só o contorno), usado na faixa cinética. */
 .text-outline {
   color: transparent;
@@ -302,6 +375,11 @@
   .check-box,
   .check-item {
     transition: none;
+  }
+  /* Sem movimento: a borda só acende em laranja, parada. */
+  .cta-borda::after {
+    animation: none;
+    background: var(--color-laranja);
   }
 }
 
