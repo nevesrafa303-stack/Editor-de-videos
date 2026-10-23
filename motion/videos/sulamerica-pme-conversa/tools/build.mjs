@@ -95,13 +95,14 @@ T.faco = at("faco");
 T.clica = at("clica");
 T.botao = at("botao");
 T.whats = at("whatsapp");
+T.whatsEnd = end("whatsapp");
 
 const HOOK_OUT = r3(Math.min(3.1, T.cnpj + 0.9));
 const O2_IN = r3(T.sula - 0.42);
 const O2_OUT = r3(LN.c2.start - 0.42);
 const O3_IN = r3(T.serio2 + 0.3);
 const O3_OUT = r3(LN.c3.start - 0.42);
-const TAP = r3(T.whats + 0.2);
+const TAP = r3(T.whatsEnd + 0.05); // o toque cai depois da palavra, sem mascarar a fala
 const END_IN = r3(TAP + 0.42);
 
 // ───────────── utilidades ─────────────
@@ -781,7 +782,7 @@ const CAP = [
 const HITS = JSON.parse(readFileSync(join(ROOT, "assets/audio/sfx_hits.json"), "utf8"));
 const SFX = [
   ["shimmer", 0.1, 0.22],
-  ...MSG.filter((m) => m.type !== "chip").map((m) => (m.spk === "cliente" ? ["pop", m.t + 0.02, 0.32] : ["chime", m.t, 0.3])),
+  ...MSG.filter((m) => m.type !== "chip").map((m) => (m.spk === "cliente" ? ["pop", m.t + 0.02, 0.32] : m.id === "m8" ? ["pop", m.t, 0.14] : ["chime", m.t, 0.24])),
   ...LINES.map((l) => ["tap", l.start - 0.06, 0.16]),
   ["card", msg("m3").t + 0.02, 0.2],
   ["whoosh", O2_IN, 0.28],
@@ -800,8 +801,8 @@ const SFX = [
   ...[T.abr, T.apt, T.cop, T.ree, T.sem].map((t) => ["check", t + 0.05, 0.24]),
   ["whoosh", O3_OUT, 0.2],
   ["pop", T.amei, 0.34],
-  ["tap", TAP, 0.7],
-  ["check", TAP + 0.05, 0.28],
+  ["tap", TAP, 0.42],
+  ["check", TAP + 0.05, 0.18],
   ["whoosh", END_IN, 0.28],
   ["impact", END_IN + 0.1, 0.3],
   ["shimmer", END_IN + 0.35, 0.26],

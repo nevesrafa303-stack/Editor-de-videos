@@ -16,7 +16,7 @@ DROP = primeiro áudio do consultor, CTA = "Clica no botão", 11 compassos entre
   0–6      groove leve: bumbo do lo-fi, estalo no 2 e no 4, chimbal com swing, baixo, piano (oferta)
   7–9      + palmas e dedilhado (idades e benefícios)
   10       respiro em Lá, só piano e subida ("Amei! E como é que eu faço?")
-  11–12    refrão do CTA, com sinos
+  11–12    refrão do CTA, com sinos (contido sob a última fala, cresce quando ela termina)
   13       acorde final em Ré, soa até o fim
 """
 import json
@@ -327,7 +327,7 @@ def bgm():
                 add(drums, stereo(snare(0.08 + 0.32 * k / 15), pan=-0.1), tk)
     # varredura e prato no CTA, prato suave no drop
     crash_t = t_axis(3.0)
-    crash = hp(RNG.standard_normal(len(crash_t)), 4000, 2) * np.exp(-crash_t / 0.9) * 0.22
+    crash = hp(RNG.standard_normal(len(crash_t)), 4000, 2) * np.exp(-crash_t / 0.9) * 0.1
     add(fx, stereo(crash * 0.6), at_bar(0))
     add(fx, stereo(crash), at_bar(CHORUS))
     sw_t = t_axis(BAR)
@@ -340,8 +340,10 @@ def bgm():
     mix = lp(mix, 9000)          # cor lo-fi: topo mais macio
     mix = mix[: int(TOTAL * SR)]
     tt = np.arange(len(mix)) / SR
-    g = np.interp(tt, [0, at_bar(BREAK) - 0.05, at_bar(BREAK) + 0.3, CTA - 0.02, CTA + 0.05, TOTAL],
-                  [1.0, 1.0, 0.8, 0.9, 1.1, 1.1])
+    # refrão contido enquanto o consultor ainda fala; cresce depois da última palavra
+    vo_end = _LINES[-1]["end"]
+    g = np.interp(tt, [0, at_bar(BREAK) - 0.05, at_bar(BREAK) + 0.3, CTA - 0.02, CTA + 0.05, vo_end, vo_end + 0.5, TOTAL],
+                  [1.0, 1.0, 0.8, 0.85, 0.72, 0.72, 1.12, 1.12])
     mix *= g[:, None]
     fade = np.ones(len(mix))
     f0 = int((TOTAL - 1.4) * SR)
@@ -356,6 +358,7 @@ def bgm():
 SFX_START = {'check': 0.55, 'tap': None, 'card': None, 'riser': 0.80, 'whoosh': 0.0,
              'impact': 0.0, 'shimmer': 0.0, 'counter': 0.0, 'stamp': None,
              'pop': None, 'boing': None, 'chime': None}
+SFX_MAXLEN = {'chime': 0.5}   # notificação só com as duas primeiras notas (a terceira cairia sobre a fala)
 SFX_HIT_AT_PEAK = {'riser'}   # o golpe do riser é o fim da subida (o pico)
 
 
@@ -377,7 +380,7 @@ def prep_sfx():
         i0 = int(start * SR)
         x, env = x[i0:], env[i0:]
         tail = len(env) - np.argmax(env[::-1] > env.max() * 0.01)
-        x = x[: min(len(x), tail + int(0.05 * SR))]
+        x = x[: min(len(x), tail + int(0.05 * SR), int(SFX_MAXLEN.get(name, 99) * SR))]
         x[-int(0.03 * SR):] *= np.linspace(1, 0, int(0.03 * SR))[:, None]
         peak_t = np.argmax(env[: len(x)]) / SR
         hit = peak_t if name in SFX_HIT_AT_PEAK else max(0.0, np.argmax(env > env.max() * 0.3) / SR)
