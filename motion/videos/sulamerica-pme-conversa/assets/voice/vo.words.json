@@ -1,0 +1,646 @@
+[
+{
+"word": "Oi,",
+"start": 0.57,
+"end": 0.79,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "tudo",
+"start": 1.13,
+"end": 1.33,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "bem?",
+"start": 1.37,
+"end": 1.61,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "Eu",
+"start": 2.13,
+"end": 2.21,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "tenho",
+"start": 2.35,
+"end": 2.55,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "CNPJ.",
+"start": 2.95,
+"end": 3.77,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "Será",
+"start": 4.81,
+"end": 4.99,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "que",
+"start": 5.05,
+"end": 5.09,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "eu",
+"start": 5.11,
+"end": 5.19,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "consigo",
+"start": 5.23,
+"end": 5.65,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "um",
+"start": 5.69,
+"end": 5.83,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "plano",
+"start": 5.85,
+"end": 6.11,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "de",
+"start": 6.17,
+"end": 6.27,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "saúde",
+"start": 6.31,
+"end": 6.57,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "empresarial",
+"start": 6.61,
+"end": 7.27,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "pra",
+"start": 7.29,
+"end": 7.39,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "minha",
+"start": 7.43,
+"end": 7.57,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "família?",
+"start": 7.61,
+"end": 8.05,
+"line": "c1",
+"spk": "cliente"
+},
+{
+"word": "Oi,",
+"start": 8.83,
+"end": 9.05,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "consegue",
+"start": 9.37,
+"end": 9.85,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "sim.",
+"start": 9.99,
+"end": 10.25,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "Olha",
+"start": 10.69,
+"end": 10.85,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "só",
+"start": 11.03,
+"end": 11.13,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "a",
+"start": 11.15,
+"end": 11.17,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "cotação",
+"start": 11.25,
+"end": 11.67,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "que",
+"start": 11.69,
+"end": 11.73,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "eu",
+"start": 11.75,
+"end": 11.81,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "fiz",
+"start": 11.85,
+"end": 11.97,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "pra",
+"start": 11.99,
+"end": 12.11,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "você.",
+"start": 12.13,
+"end": 12.47,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "Sulamérica",
+"start": 13.01,
+"end": 13.65,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "PME,",
+"start": 13.85,
+"end": 14.47,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "três",
+"start": 14.77,
+"end": 15.01,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "vidas,",
+"start": 15.09,
+"end": 15.43,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "por",
+"start": 15.73,
+"end": 15.85,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "mil",
+"start": 16.01,
+"end": 16.15,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "setecentos",
+"start": 16.25,
+"end": 16.809,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 16.85,
+"end": 16.87,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "setenta",
+"start": 16.95,
+"end": 17.29,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "reais",
+"start": 17.37,
+"end": 17.67,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 17.69,
+"end": 17.73,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "trinta",
+"start": 17.91,
+"end": 18.15,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "centavos",
+"start": 18.25,
+"end": 18.73,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "por",
+"start": 18.75,
+"end": 18.87,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "mês,",
+"start": 18.95,
+"end": 19.25,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "já",
+"start": 19.75,
+"end": 19.87,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "com",
+"start": 19.99,
+"end": 20.15,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "IOF.",
+"start": 20.25,
+"end": 20.83,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "Sério?",
+"start": 21.685,
+"end": 22.146,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "Pra",
+"start": 22.466,
+"end": 22.686,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "três",
+"start": 22.726,
+"end": 22.966,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "pessoas?",
+"start": 23.046,
+"end": 23.746,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "Sério,",
+"start": 24.806,
+"end": 25.186,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "pra",
+"start": 25.566,
+"end": 25.646,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "essas",
+"start": 25.706,
+"end": 25.886,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "idades",
+"start": 25.926,
+"end": 26.206,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "aqui,",
+"start": 26.266,
+"end": 26.486,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "ó.",
+"start": 26.566,
+"end": 26.666,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "Abrangência",
+"start": 27.066,
+"end": 27.546,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "nacional,",
+"start": 27.586,
+"end": 28.185,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "apartamento,",
+"start": 28.386,
+"end": 29.166,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "coparticipação,",
+"start": 29.346,
+"end": 30.406,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "reembolso",
+"start": 30.526,
+"end": 31.186,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 31.506,
+"end": 31.546,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "sem",
+"start": 31.746,
+"end": 32.006,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "taxa",
+"start": 32.046,
+"end": 32.286,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "de",
+"start": 32.326,
+"end": 32.366,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "inscrição.",
+"start": 32.406,
+"end": 32.906,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "Amei!",
+"start": 33.442,
+"end": 34.062,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "E",
+"start": 34.382,
+"end": 34.442,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "como",
+"start": 34.482,
+"end": 34.602,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "é",
+"start": 34.622,
+"end": 34.662,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "que",
+"start": 34.682,
+"end": 34.722,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "eu",
+"start": 34.742,
+"end": 34.802,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "faço?",
+"start": 34.902,
+"end": 35.322,
+"line": "c3",
+"spk": "cliente"
+},
+{
+"word": "Clica",
+"start": 35.988,
+"end": 36.188,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "no",
+"start": 36.228,
+"end": 36.308,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "botão",
+"start": 36.328,
+"end": 36.648,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 36.668,
+"end": 36.708,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "me",
+"start": 36.748,
+"end": 36.848,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "chama",
+"start": 36.868,
+"end": 37.068,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "no",
+"start": 37.088,
+"end": 37.168,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "WhatsApp,",
+"start": 37.188,
+"end": 37.628,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "que",
+"start": 37.848,
+"end": 37.888,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "eu",
+"start": 37.908,
+"end": 37.988,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "vejo",
+"start": 38.008,
+"end": 38.148,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "as",
+"start": 38.188,
+"end": 38.268,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "condições",
+"start": 38.288,
+"end": 38.708,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "de",
+"start": 38.748,
+"end": 38.788,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "contratação",
+"start": 38.828,
+"end": 39.388,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "pra",
+"start": 39.428,
+"end": 39.528,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "você",
+"start": 39.548,
+"end": 39.848,
+"line": "k3",
+"spk": "consultor"
+}
+]
