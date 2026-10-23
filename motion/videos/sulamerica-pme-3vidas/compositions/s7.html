@@ -1,0 +1,76 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s7-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s7-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.lg{position:relative;display:inline-block;}
+.lg img{position:absolute;left:0;top:0;width:100%;height:100%;}
+
+#s7-lw{position:absolute;left:0;width:1080px;top:270px;text-align:center;}
+#s7-t{position:absolute;left:0;width:1080px;top:440px;text-align:center;font-weight:900;font-size:74px;line-height:1.08;letter-spacing:-.02em;}
+#s7-t .hl{color:#FF9A4D;}
+#s7-c{position:absolute;left:70px;top:640px;width:940px;height:360px;border-radius:36px;background:#fff;color:#001E62;box-shadow:0 30px 70px rgba(0,8,30,.5);text-align:center;}
+#s7-cl{position:absolute;left:0;width:100%;top:30px;font-weight:800;font-size:40px;}
+#s7-cp{position:absolute;left:0;width:100%;top:84px;font-weight:900;font-size:112px;line-height:1;letter-spacing:-.045em;}
+#s7-cp small{font-size:.36em;letter-spacing:0;font-weight:700;margin-left:.15em;}
+#s7-ci{position:absolute;left:0;width:100%;top:208px;}
+#s7-ci span{display:inline-block;padding:6px 18px;border-radius:20px;background:#F26522;color:#fff;font-family:"Mont",Arial,sans-serif;font-weight:800;font-size:29px;}
+#s7-ck{position:absolute;left:30px;right:30px;top:268px;line-height:1.35;font-weight:500;font-size:24px;color:#4A5578;}
+#s7-bw{position:absolute;left:90px;top:1036px;width:900px;height:140px;}
+#s7-ring{position:absolute;inset:0;border-radius:140px;border:5px solid rgba(37,211,102,.9);opacity:0;}
+#s7-btn{position:absolute;inset:0;border-radius:140px;background:#0E9F4A;display:flex;align-items:center;justify-content:center;gap:22px;font-weight:800;font-size:50px;box-shadow:0 20px 50px rgba(14,159,74,.5),inset 0 2px 0 rgba(255,255,255,.3);overflow:hidden;}
+#s7-f{position:absolute;left:70px;width:940px;top:1206px;text-align:center;font-size:19px;line-height:1.4;color:rgba(255,255,255,.8);}
+</style>
+<div id="s7-root" data-composition-id="s7" data-start="0" data-duration="7.1" data-width="1080" data-height="1920">
+  <div id="s7-cam" class="s7-full">
+  <div id="s7-wrap" class="s7-full">
+    <div id="s7-lw"><span class="lg" id="s7-logo" style="width:520px;height:133px"><img id="s7-lgw" src="assets/img/logo-wave.png" alt="" /><img id="s7-lgt" src="assets/img/logo-text.png" alt="SulAmérica" /></span></div>
+    <div id="s7-t" class="d"><span class="w"><span class="wi" id="s7a0">Cuide</span></span> <span class="w"><span class="wi" id="s7a1">da</span></span> <span class="w"><span class="wi" id="s7a2">saúde</span></span><br><span class="w"><span class="wi hl" id="s7b0">antes</span></span> <span class="w"><span class="wi hl" id="s7b1">de</span></span> <span class="w"><span class="wi hl" id="s7b2">precisar</span></span></div>
+    <div id="s7-c">
+      <div id="s7-cl" class="d">SulAmérica PME · 3 vidas</div>
+      <div id="s7-cp" class="d">R$ 1.770,30<small>/mês</small></div>
+      <div id="s7-ci"><span>já com IOF</span></div>
+      <div id="s7-ck">Nacional · Apartamento · Coparticipação · Reembolso · Sem taxa de inscrição</div>
+    </div>
+    <div id="s7-bw"><div id="s7-ring"></div><div id="s7-btn" class="d"><svg id="s7-chat" viewBox="0 0 48 48" width="63" height="63" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6C13 6 5 13.5 5 23c0 3.6 1.2 7 3.3 9.7L6 42l9.7-3.1c2.5 1.2 5.3 1.9 8.3 1.9 11 0 19-7.5 19-17S35 6 24 6z"/><path d="M17 20c0 6 5 11 11 11l3-3-4-2-2 2c-2-1-4-3-5-5l2-2-2-4z"/></svg><span>Fale comigo no WhatsApp</span><div id="s7-bsw" class="sweep" aria-hidden="true"></div></div></div>
+    <div id="s7-f">Cotação SulAmérica PME | Capital – 03 a 04 vidas – Apólice 12 meses · Especial Vital QP R1 · Compulsório · 30% de coparticipação · Reembolso. Valores para 3 beneficiários (0 a 18, 29 a 33 e 34 a 38 anos): R$ 1.729,15 + IOF de 2,38% = R$ 1.770,30/mês. Sem taxa de inscrição. Contratação sujeita à análise e às condições da operadora.</div>
+  </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s7-cam",{scale:1},{scale:1.015,duration:7.1,ease:"none"},0);
+tl.fromTo("#s7-lgw",{clipPath:"inset(0% 100% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.6,ease:"power2.inOut"},0.05);
+tl.fromTo("#s7-lgt",{opacity:0},{opacity:1,duration:0.4},0.3);
+tl.fromTo("#s7a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.24);
+tl.fromTo("#s7a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.38);
+tl.fromTo("#s7a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},1.22);
+tl.fromTo("#s7b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},1.66);
+tl.fromTo("#s7b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},1.82);
+tl.fromTo("#s7b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.04);
+tl.fromTo("#s7-c",{y:200,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.4);
+tl.fromTo("#s7-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"back.out(1.8)"},0.7);
+tl.fromTo("#s7-f",{opacity:0},{opacity:1,duration:0.5},0.9);
+tl.fromTo("#s7-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},3.16);
+tl.fromTo("#s7-chat",{rotation:0},{rotation:14,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},3.26);
+tl.fromTo("#s7-btn",{scale:1},{scale:0.95,duration:0.1,ease:"power2.in"},3.72);
+tl.to("#s7-btn",{scale:1,duration:0.3,ease:"back.out(2)"},3.82);
+tl.fromTo("#s7-ring",{opacity:0.95,scale:1},{opacity:0,scale:1.15,duration:0.7,ease:"power2.out"},3.77);
+tl.fromTo("#s7-btn",{scale:1},{scale:1.04,duration:0.5,ease:"sine.inOut",immediateRender:false},4.72);
+tl.to("#s7-btn",{scale:1,duration:0.5,ease:"sine.inOut"},5.22);
+tl.fromTo("#s7-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},4.72);
+window.__timelines["s7"] = tl;
+})();
+</script>
+</template>
