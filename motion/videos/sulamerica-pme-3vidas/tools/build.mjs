@@ -261,8 +261,8 @@ const scenes = [];
   const dur = T.olha - 0.3;
   const { a, L, add, shake } = TL(st);
   const g = pick(
-    { cx: 120, cy: 330, cw: 840, ch: 330, cs: 130, ix: 150, py: 760, ph: 300, ps: 64, sx: 620, sy: 620, sw: 400, ss: 92, fz: 130 },
-    { cx: 160, cy: 70, cw: 760, ch: 280, cs: 110, ix: 120, py: 410, ph: 250, ps: 54, sx: 600, sy: 360, sw: 360, ss: 80, fz: 110 },
+    { cx: 120, cy: 330, cw: 840, ch: 330, cs: 130, ix: 150, py: 760, ph: 300, ps: 58, bz: 88, sx: 340, sy: 1110, sw: 400, ss: 92, fz: 130, h: [[760, 1180], [800, 1260], [140, 1220]] },
+    { cx: 160, cy: 70, cw: 760, ch: 280, cs: 110, ix: 120, py: 410, ph: 250, ps: 50, bz: 80, sx: 370, sy: 712, sw: 340, ss: 76, fz: 110, h: [[730, 760], [760, 840], [190, 800]] },
   );
   const css =
     base(p) +
@@ -275,10 +275,10 @@ const scenes = [];
 #s1-cl{position:absolute;left:${44 + g.ix + 44}px;top:${Math.round(g.ch / 2 + g.cs * 0.45)}px;font-weight:500;font-size:${Math.round(g.cs * 0.25)}px;color:${MUTED};}
 #s1-ok{position:absolute;right:40px;top:50%;margin-top:-48px;width:96px;height:96px;border-radius:50%;background:${ORANGE};display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(242,101,34,.45);}
 #s1-pt{position:absolute;left:${44 + g.ix + 40}px;top:${Math.round(g.ph / 2 - g.ps * 1.08)}px;font-weight:800;font-size:${g.ps}px;line-height:1.08;color:${NAVY};letter-spacing:-.02em;}
-#s1-box{position:absolute;right:44px;top:50%;margin-top:-50px;width:100px;height:100px;border-radius:24px;border:6px dashed #B9C3DD;display:flex;align-items:center;justify-content:center;font-family:"Mont",Arial,sans-serif;font-weight:900;font-size:70px;color:${ORANGE};}
+#s1-box{position:absolute;right:34px;top:50%;margin-top:-${g.bz / 2}px;width:${g.bz}px;height:${g.bz}px;border-radius:22px;border:6px dashed #B9C3DD;display:flex;align-items:center;justify-content:center;font-family:"Mont",Arial,sans-serif;font-weight:900;font-size:${Math.round(g.bz * 0.7)}px;color:${ORANGE};}
 #s1-sw{position:absolute;left:${g.sx}px;top:${g.sy}px;width:${g.sw}px;height:${Math.round(g.sw * 0.56)}px;}
 #s1-st{position:absolute;inset:0;border-radius:40px;background:${ORANGE};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:${g.ss}px;letter-spacing:-.02em;box-shadow:0 20px 50px rgba(0,8,30,.5);transform:rotate(-8deg);}
-#s1-st::after{content:"";position:absolute;left:60px;bottom:-34px;border-left:26px solid transparent;border-right:26px solid transparent;border-top:40px solid ${ORANGE};}
+#s1-st::after{content:"";position:absolute;left:60px;top:-34px;border-left:26px solid transparent;border-right:26px solid transparent;border-bottom:40px solid ${ORANGE};}
 #s1-fw{position:absolute;left:${g.sx - Math.round(g.fz * 0.55)}px;top:${g.sy - Math.round(g.fz * 0.55)}px;}
 .s1-ha{position:absolute;font-weight:800;font-size:${pick(46, 40)}px;color:${HL};}
 `;
@@ -291,9 +291,7 @@ const scenes = [];
       <div id="s1-pt" class="d">Plano de saúde<br>empresarial</div><div id="s1-box"><span id="s1-q">?</span></div></div>
     <div id="s1-sw"><div id="s1-st" class="d">Sério?!</div></div>
     <div id="s1-fw">${face(g.fz, "s1-face")}</div>
-    <div class="s1-ha d" id="s1-h0" style="left:${g.sx + g.sw - 60}px;top:${g.sy - 20}px" aria-hidden="true" data-layout-allow-overlap>haha</div>
-    <div class="s1-ha d" id="s1-h1" style="left:${g.sx + g.sw * 0.45}px;top:${g.sy - 60}px" aria-hidden="true" data-layout-allow-overlap>ha</div>
-    <div class="s1-ha d" id="s1-h2" style="left:${g.sx + 30}px;top:${g.sy - 30}px" aria-hidden="true" data-layout-allow-overlap>haha</div>
+    ${["haha", "ha", "haha"].map((t, i) => `<div class="s1-ha d" id="s1-h${i}" style="left:${g.h[i][0]}px;top:${g.h[i][1]}px" aria-hidden="true" data-layout-allow-overlap>${t}</div>`).join("\n    ")}
   </div>`;
   // "Ei, você tem CNPJ?" — o cartão da empresa sobe e ganha o check
   add(`tl.fromTo("#s1-c1",{y:${pick(160, 120)},opacity:0,rotation:-3},{y:0,opacity:1,rotation:0,duration:0.55,ease:"back.out(1.5)"},${r3(L(T.voce) - 0.2)});`);
@@ -303,7 +301,7 @@ const scenes = [];
   add(`tl.fromTo("#s1-c2",{y:${pick(160, 120)},opacity:0,rotation:3},{y:0,opacity:1,rotation:0,duration:0.55,ease:"back.out(1.5)"},${r3(L(T.plano) - 0.25)});`);
   add(`tl.fromTo("#s1-q",{scale:0},{scale:1,duration:0.35,ease:"back.out(3)"},${r3(L(T.empresarial) + 0.1)});`);
   add(`tl.fromTo("#s1-q",{scale:1},{scale:1.25,duration:0.22,ease:"sine.inOut",repeat:3,yoyo:true,immediateRender:false},${r3(L(T.empresarial) + 0.45)});`);
-  // "Sério?!" — balão e rosto surpreso; a risada sacode o balão
+  // "Sério?!" — balão embaixo do cartão do plano, apontando para ele; a risada sacode o balão
   const ts = L(T.serio);
   add(`tl.fromTo("#s1-sw",{scale:0.2,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.6)"},${r3(ts - 0.1)});`);
   add(`tl.fromTo("#s1-fw",{scale:0,rotation:-40},{scale:1,rotation:0,duration:0.4,ease:"back.out(2.6)"},${r3(ts)});`);
