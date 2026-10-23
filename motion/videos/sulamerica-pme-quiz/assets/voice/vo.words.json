@@ -1,0 +1,366 @@
+[
+{
+"word": "Ei",
+"start": 0.37,
+"end": 0.61,
+"line": "h1",
+"spk": "consultor"
+},
+{
+"word": "você",
+"start": 1.07,
+"end": 1.33,
+"line": "h1",
+"spk": "consultor"
+},
+{
+"word": "tem",
+"start": 1.39,
+"end": 1.79,
+"line": "h1",
+"spk": "consultor"
+},
+{
+"word": "CNPJ",
+"start": 1.87,
+"end": 2.71,
+"line": "h1",
+"spk": "consultor"
+},
+{
+"word": "Sulamérica",
+"start": 6.749,
+"end": 7.389,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "PME,",
+"start": 7.589,
+"end": 8.209,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "três",
+"start": 8.509,
+"end": 8.749,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "vidas,",
+"start": 8.829,
+"end": 9.169,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "por",
+"start": 9.469,
+"end": 9.589,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "mil",
+"start": 9.749,
+"end": 9.889,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "setecentos",
+"start": 9.989,
+"end": 10.548,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 10.589,
+"end": 10.609,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "setenta",
+"start": 10.689,
+"end": 11.029,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "reais",
+"start": 11.109,
+"end": 11.409,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 11.429,
+"end": 11.469,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "trinta",
+"start": 11.649,
+"end": 11.889,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "centavos",
+"start": 11.989,
+"end": 12.469,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "por",
+"start": 12.489,
+"end": 12.609,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "mês,",
+"start": 12.689,
+"end": 12.989,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "já",
+"start": 13.489,
+"end": 13.609,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "com",
+"start": 13.729,
+"end": 13.889,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "IOF.",
+"start": 13.989,
+"end": 14.569,
+"line": "k1",
+"spk": "consultor"
+},
+{
+"word": "Sério?",
+"start": 15.404,
+"end": 15.865,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "Pra",
+"start": 16.185,
+"end": 16.405,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "três",
+"start": 16.445,
+"end": 16.685,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "pessoas?",
+"start": 16.765,
+"end": 17.465,
+"line": "c2",
+"spk": "cliente"
+},
+{
+"word": "Sério,",
+"start": 18.445,
+"end": 18.825,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "pra",
+"start": 19.205,
+"end": 19.285,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "essas",
+"start": 19.345,
+"end": 19.525,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "idades",
+"start": 19.565,
+"end": 19.845,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "aqui,",
+"start": 19.905,
+"end": 20.125,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "ó.",
+"start": 20.205,
+"end": 20.305,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "Abrangência",
+"start": 20.705,
+"end": 21.185,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "nacional,",
+"start": 21.225,
+"end": 21.824,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "apartamento,",
+"start": 22.025,
+"end": 22.805,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "coparticipação,",
+"start": 22.985,
+"end": 24.045,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "reembolso",
+"start": 24.165,
+"end": 24.825,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 25.145,
+"end": 25.185,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "sem",
+"start": 25.385,
+"end": 25.645,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "taxa",
+"start": 25.685,
+"end": 25.925,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "de",
+"start": 25.965,
+"end": 26.005,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "inscrição.",
+"start": 26.045,
+"end": 26.545,
+"line": "k2",
+"spk": "consultor"
+},
+{
+"word": "Toca",
+"start": 27.124,
+"end": 27.334,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "no",
+"start": 27.344,
+"end": 27.434,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "botão",
+"start": 27.444,
+"end": 27.734,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "aqui",
+"start": 27.744,
+"end": 27.944,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "embaixo",
+"start": 27.964,
+"end": 28.334,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 28.344,
+"end": 28.464,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "faz",
+"start": 28.484,
+"end": 28.664,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "a",
+"start": 28.684,
+"end": 28.744,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "sua",
+"start": 28.764,
+"end": 28.904,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "cotação",
+"start": 28.924,
+"end": 29.464,
+"line": "k3",
+"spk": "consultor"
+}
+]

@@ -1,0 +1,71 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s2-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s2-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.lg{position:relative;display:inline-block;}
+.lg img{position:absolute;left:0;top:0;width:100%;height:100%;}
+
+#s2-pw{position:absolute;left:0;width:1080px;top:270px;text-align:center;}
+#s2-pill{display:inline-flex;align-items:center;height:64px;padding:0 32px;border-radius:64px;background:#F26522;font-weight:800;font-size:30px;letter-spacing:.1em;}
+#s2-q{position:absolute;left:70px;width:940px;top:370px;text-align:center;font-weight:900;font-size:68px;line-height:1.1;letter-spacing:-.015em;}
+#s2-q .hl{color:#FF9A4D;}
+#s2-rw{position:absolute;left:465px;top:700px;width:150px;height:150px;}
+#s2-ring{position:absolute;left:0;top:0;}
+.s2-n{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:72px;opacity:0;}
+.s2-o{position:absolute;left:90px;width:900px;height:130px;border-radius:130px;background:#fff;color:#001E62;box-shadow:0 18px 40px rgba(0,8,30,.4);}
+.s2-l{position:absolute;left:18px;top:18px;width:94px;height:94px;border-radius:50%;background:#001E62;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:46px;}
+.s2-t{position:absolute;left:138px;top:38px;font-weight:800;font-size:44px;line-height:1.1;white-space:nowrap;}
+#s2-ok{position:absolute;inset:0;border-radius:130px;background:#0E9F4A;opacity:0;}
+#s2-okt{position:absolute;left:138px;top:38px;font-weight:800;font-size:44px;line-height:1.1;white-space:nowrap;color:#fff;}
+#s2-okc{position:absolute;right:26px;top:22px;width:86px;height:86px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;}
+</style>
+<div id="s2-root" data-composition-id="s2" data-start="0" data-duration="3.949" data-width="1080" data-height="1920">
+  <div id="s2-wrap" class="s2-full">
+    <div id="s2-pw"><span id="s2-pill" class="d">QUIZ RÁPIDO</span></div>
+    <div id="s2-q" class="d">Quanto custa um plano de saúde empresarial pra <span class="hl">3&nbsp;pessoas?</span></div>
+    <div id="s2-rw"><svg id="s2-ring" viewBox="0 0 150 150" width="150" height="150" aria-hidden="true">
+      <circle cx="75" cy="75" r="67" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.25)" stroke-width="10"/>
+      <circle id="s2-arc" cx="75" cy="75" r="67" fill="none" stroke="#F7941D" stroke-width="10" stroke-linecap="round" stroke-dasharray="420.973 420.973" stroke-dashoffset="0" transform="rotate(-90 75 75)"/></svg>
+      <div class="s2-n d" id="s2-n0">3</div><div class="s2-n d" id="s2-n1">2</div><div class="s2-n d" id="s2-n2">1</div></div>
+    <div class="s2-o" id="s2-o0" style="top:880px"><div class="s2-l d">A</div><div class="s2-t d">Mais de R$ 2.500</div></div>
+    <div class="s2-o" id="s2-o1" style="top:1040px"><div class="s2-l d">B</div><div class="s2-t d">Entre R$ 2.000 e R$ 2.500</div></div>
+    <div class="s2-o" id="s2-o2" style="top:1200px"><div class="s2-l d">C</div><div class="s2-t d">Menos de R$ 1.800</div><div id="s2-ok" data-layout-allow-overlap><div class="s2-l d" style="background:#fff;color:#0E9F4A">C</div><div id="s2-okt" class="d">Menos de R$ 1.800</div><div id="s2-okc"><svg viewBox="0 0 48 48" width="55" height="55" fill="none" stroke="#0E9F4A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s2-pill",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},0.12);
+tl.fromTo("#s2-q",{y:40,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.18);
+tl.fromTo("#s2-o0",{x:-1100},{x:0,duration:0.42,ease:"power4.out"},0.4);
+tl.fromTo("#s2-o1",{x:1100},{x:0,duration:0.42,ease:"power4.out"},0.65);
+tl.fromTo("#s2-o2",{x:-1100},{x:0,duration:0.42,ease:"power4.out"},0.9);
+tl.fromTo("#s2-rw",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2)"},0.8);
+tl.fromTo("#s2-arc",{attr:{"stroke-dashoffset":0}},{attr:{"stroke-dashoffset":420.973},duration:2.449,ease:"none"},1.05);
+tl.fromTo("#s2-n0",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.2,ease:"power3.out"},1.05);
+tl.to("#s2-n0",{opacity:0,duration:0.1},1.8);
+tl.fromTo("#s2-n1",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.2,ease:"power3.out"},1.9);
+tl.to("#s2-n1",{opacity:0,duration:0.1},2.65);
+tl.fromTo("#s2-n2",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.2,ease:"power3.out"},2.75);
+tl.to("#s2-n2",{opacity:0,duration:0.1},3.399);
+tl.fromTo("#s2-ok",{opacity:0},{opacity:1,duration:0.15},3.499);
+tl.fromTo("#s2-o2",{scale:1},{scale:1.06,duration:0.15,ease:"power2.out"},3.499);
+tl.to("#s2-o2",{scale:1,duration:0.3,ease:"back.out(2)"},3.649);
+tl.to(["#s2-o0","#s2-o1"],{opacity:0.35,duration:0.2},3.499);
+tl.to("#s2-rw",{scale:0,opacity:0,duration:0.2,ease:"power2.in"},3.499);
+tl.to("#s2-wrap",{y:-140,opacity:0,duration:0.3,ease:"power3.in"},3.649);
+window.__timelines["s2"] = tl;
+})();
+</script>
+</template>

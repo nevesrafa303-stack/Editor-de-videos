@@ -1,0 +1,262 @@
+{
+"words": [
+{
+"text": "Quer",
+"type": "word",
+"start": 0.08,
+"end": 0.17
+},
+{
+"text": "saber",
+"type": "word",
+"start": 0.25,
+"end": 0.51
+},
+{
+"text": "se",
+"type": "word",
+"start": 0.58,
+"end": 0.68
+},
+{
+"text": "você",
+"type": "word",
+"start": 0.7,
+"end": 0.96
+},
+{
+"text": "pode",
+"type": "word",
+"start": 0.98,
+"end": 1.18
+},
+{
+"text": "contratar",
+"type": "word",
+"start": 1.22,
+"end": 1.65
+},
+{
+"text": "Preenche",
+"type": "word",
+"start": 2.2,
+"end": 2.54
+},
+{
+"text": "o",
+"type": "word",
+"start": 2.57,
+"end": 2.64
+},
+{
+"text": "formulário",
+"type": "word",
+"start": 2.65,
+"end": 3.14
+},
+{
+"text": "que",
+"type": "word",
+"start": 3.19,
+"end": 3.23
+},
+{
+"text": "eu",
+"type": "word",
+"start": 3.25,
+"end": 3.3
+},
+{
+"text": "te",
+"type": "word",
+"start": 3.34,
+"end": 3.41
+},
+{
+"text": "ajudo",
+"type": "word",
+"start": 3.47,
+"end": 3.77
+},
+{
+"text": "a",
+"type": "word",
+"start": 3.79,
+"end": 3.85
+},
+{
+"text": "ver",
+"type": "word",
+"start": 3.91,
+"end": 4.0
+},
+{
+"text": "as",
+"type": "word",
+"start": 4.04,
+"end": 4.14
+},
+{
+"text": "condições",
+"type": "word",
+"start": 4.18,
+"end": 4.68
+},
+{
+"text": "pra",
+"type": "word",
+"start": 4.71,
+"end": 4.83
+},
+{
+"text": "você",
+"type": "word",
+"start": 4.87,
+"end": 5.4
+},
+{
+"text": "e",
+"type": "word",
+"start": 5.45,
+"end": 5.52
+},
+{
+"text": "pra",
+"type": "word",
+"start": 5.54,
+"end": 5.68
+},
+{
+"text": "sua",
+"type": "word",
+"start": 5.7,
+"end": 5.85
+},
+{
+"text": "família",
+"type": "word",
+"start": 5.89,
+"end": 6.29
+},
+{
+"text": "Não",
+"type": "word",
+"start": 6.89,
+"end": 6.99
+},
+{
+"text": "deixa",
+"type": "word",
+"start": 7.06,
+"end": 7.3
+},
+{
+"text": "pra",
+"type": "word",
+"start": 7.32,
+"end": 7.46
+},
+{
+"text": "pensar",
+"type": "word",
+"start": 7.48,
+"end": 7.78
+},
+{
+"text": "na",
+"type": "word",
+"start": 7.8,
+"end": 7.87
+},
+{
+"text": "saúde",
+"type": "word",
+"start": 7.98,
+"end": 8.44
+},
+{
+"text": "só",
+"type": "word",
+"start": 8.5,
+"end": 8.67
+},
+{
+"text": "quando",
+"type": "word",
+"start": 8.69,
+"end": 8.88
+},
+{
+"text": "precisar",
+"type": "word",
+"start": 8.92,
+"end": 9.41
+},
+{
+"text": "tá",
+"type": "word",
+"start": 9.54,
+"end": 9.66
+},
+{
+"text": "Toca",
+"type": "word",
+"start": 10.08,
+"end": 10.29
+},
+{
+"text": "no",
+"type": "word",
+"start": 10.3,
+"end": 10.39
+},
+{
+"text": "botão",
+"type": "word",
+"start": 10.4,
+"end": 10.69
+},
+{
+"text": "aqui",
+"type": "word",
+"start": 10.7,
+"end": 10.9
+},
+{
+"text": "embaixo",
+"type": "word",
+"start": 10.92,
+"end": 11.29
+},
+{
+"text": "e",
+"type": "word",
+"start": 11.3,
+"end": 11.42
+},
+{
+"text": "faz",
+"type": "word",
+"start": 11.44,
+"end": 11.62
+},
+{
+"text": "a",
+"type": "word",
+"start": 11.64,
+"end": 11.7
+},
+{
+"text": "sua",
+"type": "word",
+"start": 11.72,
+"end": 11.86
+},
+{
+"text": "cotação",
+"type": "word",
+"start": 11.88,
+"end": 12.42
+}
+]
+}

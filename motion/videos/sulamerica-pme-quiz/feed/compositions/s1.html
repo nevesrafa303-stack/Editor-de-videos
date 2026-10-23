@@ -1,0 +1,46 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s1-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s1-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.lg{position:relative;display:inline-block;}
+.lg img{position:absolute;left:0;top:0;width:100%;height:100%;}
+
+#s1-bg{background:linear-gradient(160deg,#F26522 0%,#E4571A 55%,#C2410C 100%);}
+#s1-st{position:absolute;left:-200px;top:-200px;width:1480px;height:1480px;background:repeating-linear-gradient(135deg,rgba(0,0,0,.06) 0 26px,rgba(0,0,0,0) 26px 64px);}
+#s1-e{position:absolute;left:0;width:1080px;top:200px;text-align:center;font-weight:800;font-size:64px;line-height:1.1;}
+#s1-t{position:absolute;left:0;width:1080px;top:300px;text-align:center;font-weight:900;font-size:100px;line-height:1.1;letter-spacing:-.02em;}
+#s1-c{position:absolute;left:0;width:1080px;top:430px;text-align:center;font-weight:900;font-size:190px;line-height:1;letter-spacing:-.03em;color:#001E62;}
+</style>
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="3.08" data-width="1080" data-height="1080">
+  <div id="s1-wrap" class="s1-full">
+    <div id="s1-bg" class="s1-full"></div>
+    <div id="s1-st" data-layout-allow-overflow aria-hidden="true"></div>
+    <div id="s1-e" class="d"><span class="w"><span class="wi" id="s1e0">Ei…</span></span></div>
+    <div id="s1-t" class="d"><span class="w"><span class="wi" id="s1t0">você</span></span> <span class="w"><span class="wi" id="s1t1">tem</span></span></div>
+    <div id="s1-c" class="d"><span class="w"><span class="wi" id="s1c0">CNPJ?</span></span></div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s1-st",{x:0},{x:-90,duration:3.08,ease:"none"},0);
+tl.fromTo("#s1e0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},0.31);
+tl.fromTo("#s1t0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.01);
+tl.fromTo("#s1t1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.33);
+tl.fromTo("#s1c0",{scale:2.4,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"power4.out"},1.82);
+tl.to("#s1-wrap",{yPercent:-100,duration:0.4,ease:"power3.inOut"},2.66);
+window.__timelines["s1"] = tl;
+})();
+</script>
+</template>

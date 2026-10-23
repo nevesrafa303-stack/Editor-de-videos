@@ -1,0 +1,43 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#bg-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.bg-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.lg{position:relative;display:inline-block;}
+.lg img{position:absolute;left:0;top:0;width:100%;height:100%;}
+
+#bg-base{background:radial-gradient(90% 60% at 50% 22%,#0A2C80 0%,#001E62 45%,#00123D 100%);}
+#bg-glow{position:absolute;left:420px;top:640px;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(242,101,34,.28),rgba(242,101,34,0));}
+#bg-w{position:absolute;left:0;top:0;}
+#bg-vig{background:radial-gradient(110% 75% at 50% 45%,rgba(0,0,0,0) 55%,rgba(0,8,30,.55) 100%);}
+</style>
+<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="31.9" data-width="1080" data-height="1080">
+  <div id="bg-base" class="bg-full"></div>
+  <div id="bg-glow" data-layout-allow-overflow aria-hidden="true"></div>
+  <svg id="bg-w" viewBox="0 0 1080 1080" width="1080" height="1080" aria-hidden="true" data-layout-allow-overflow>
+    <defs><linearGradient id="bg-g" x1="0" x2="1"><stop offset="0" stop-color="#F7941D" stop-opacity="0"/><stop offset=".4" stop-color="#F7941D" stop-opacity=".55"/><stop offset="1" stop-color="#F26522" stop-opacity=".2"/></linearGradient></defs>
+    <g id="bg-w1"><path d="M-200 960 C-4 910 164 1010 360 960 C556 910 724 1010 920 960 C1116 910 1284 1010 1480 960" fill="none" stroke="url(#bg-g)" stroke-width="5"/></g>
+    <g id="bg-w2"><path d="M-200 1010 C-53 974 73 1046 220 1010 C367 974 493 1046 640 1010 C787 974 913 1046 1060 1010 C1207 974 1333 1046 1480 1010" fill="none" stroke="url(#bg-g)" stroke-width="3" opacity=".6"/></g>
+  </svg>
+  <div id="bg-vig" class="bg-full"></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#bg-w1",{x:0},{x:-560,duration:31.9,ease:"none"},0);
+tl.fromTo("#bg-w2",{x:-420},{x:0,duration:31.9,ease:"none"},0);
+tl.fromTo("#bg-glow",{x:0,y:0,scale:1},{x:-140,y:-120,scale:1.2,duration:8,ease:"sine.inOut",repeat:3,yoyo:true},0);
+window.__timelines["bg"] = tl;
+})();
+</script>
+</template>
