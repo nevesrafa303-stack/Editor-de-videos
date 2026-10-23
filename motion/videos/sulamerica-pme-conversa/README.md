@@ -1,4 +1,4 @@
-# SulAmérica PME — variação "conversa em áudios" (42,6 s)
+# SulAmérica PME — variação "conversa em áudios" (45,6 s)
 
 Segunda versão do anúncio SulAmérica PME para 3 vidas (R$ 1.770,30/mês com IOF), para testar
 contra `../sulamerica-pme-3vidas`. A peça inteira é uma conversa: a cliente manda áudios
@@ -13,6 +13,9 @@ mesmo roteiro e o mesmo áudio:
 Feito com HyperFrames + GSAP a partir da cotação enviada (`assets/ref/cotacao-sulamerica.jpg`).
 Vozes, transcrição e efeitos pelo ElevenLabs (flow "SulAmérica PME — variação conversa em áudios").
 
+**CTA para formulário**: os anúncios rodam com formulário de cadastro, então a última resposta do
+consultor manda tocar no botão do anúncio e preencher o formulário (não há mais menção a WhatsApp).
+
 ## Roteiro
 
 | Tempo | Quem | Fala | Na tela |
@@ -22,7 +25,7 @@ Vozes, transcrição e efeitos pelo ElevenLabs (flow "SulAmérica PME — varia�
 | 21,4–23,9 s | Cliente | "Sério?! Pra três pessoas?!" | reação de surpresa no anexo, a conversa dá um soquinho |
 | 24,4–33,1 s | Consultor | *(risada)* "Sério! Pra essas idades aqui, ó. Abrangência nacional, apartamento, coparticipação, reembolso… e sem taxa de inscrição!" | a cotação abre de novo: faixas 0 a 18, 29 a 33 e 34 a 38 com os valores, circuladas a caneta no "essas idades aqui, ó"; total com IOF; cada benefício entra quando é dito |
 | 33,4–35,4 s | Cliente | "Amei! E como é que eu faço?" | coração no áudio do consultor |
-| 35,9–40,0 s | Consultor | "Clica no botão e me chama no WhatsApp, que eu vejo as condições de contratação pra você!" | bolha com o botão "Fale comigo no WhatsApp"; o dedo toca; cartão final: logo, "Tem CNPJ? Faça sua cotação", preço, botão pulsando, texto legal |
+| 35,9–43,0 s | Consultor | "Preenche o formulário que eu te ajudo a ver as condições pra você e pra sua família. Toca no botão aqui embaixo e faz a sua cotação!" | chega o cartão "Formulário de cotação" (Nome, Telefone, E-mail), os campos acendem enquanto ele fala e o dedo toca "Preencher formulário"; no "Toca no botão" entra o cartão final: logo, "Tem CNPJ? Faça sua cotação", preço, botão "Preencha o formulário" e, no "aqui embaixo", setas "Toque no botão abaixo" descendo para o botão do anúncio; texto legal |
 
 Legendas palavra a palavra em todo o vídeo, com etiqueta de quem fala (CLIENTE em verde,
 CONSULTOR em laranja), para quem assiste sem som. As barras de cada bolha de áudio são a forma de
@@ -35,7 +38,7 @@ compulsório, 30% de coparticipação, reembolso; acomodação apartamento; abra
 sem taxa de inscrição; IOF de 2,38%; 0 a 18 R$ 379,08, 29 a 33 R$ 652,21, 34 a 38 R$ 697,86;
 total R$ 1.729,15; total + IOF R$ 1.770,30. O número de registro na ANS não foi incluído
 (confirme qual operadora do grupo emite esse produto antes de acrescentar). Nomes e horários da
-conversa são ilustrativos.
+conversa e os campos do formulário na tela são ilustrativos.
 
 ## Gerar de novo
 
@@ -61,15 +64,19 @@ partir delas); grupos de legenda na lista `CAP`. Masterização (−14 LUFS):
     `[excited]`;
   - consultor: "Kaique – VSL Conversational & Persuasive", com `[warmly]`, `[cheerful]`,
     `[impressed]`, `[laughs]`, `[confident]`.
-  Originais em `assets/voice/takes/`.
+  Originais em `assets/voice/takes/`. A última resposta (CTA do formulário) junta duas frases da
+  tomada `cta-formulario`, gravada com a mesma voz para a versão 1 (os créditos do ElevenLabs
+  acabaram antes de uma tomada própria).
 - **Tempos**: Scribe v1 sem texto de referência (`takes/*.words.json`), conferindo
-  "mil setecentos e setenta reais e trinta centavos".
+  "mil setecentos e setenta reais e trinta centavos"; os da tomada do CTA vêm do alinhamento em
+  `../sulamerica-pme-3vidas/tools/align_words.py` (DTW contra a locução original + marcação manual).
 - **Efeitos** (Sound Effects v2): os das versões anteriores (bolha, toque, cartão, contador,
   carimbo, checks, whoosh, brilho, impacto, reação) mais um novo: notificação de mensagem
   recebida (`chime`), a cada áudio do consultor.
 - **Trilha**: sintetizada em `tools/synth_audio.py` (a conexão do ElevenLabs deste ambiente não
   gera música), lo-fi leve: piano sozinho na pergunta da cliente, groove a partir da primeira
-  resposta, respiro no "Amei! E como é que eu faço?", refrão no "Clica no botão".
+  resposta, respiro no "Amei! E como é que eu faço?", refrão na resposta do formulário (contido
+  enquanto ele fala, cresce quando termina).
 
 ## Assets
 

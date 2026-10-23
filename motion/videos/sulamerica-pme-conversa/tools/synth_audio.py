@@ -11,13 +11,14 @@ cada efeito, quanto tempo depois do início do arquivo fica o golpe.
 
 Trilha sintetizada (a conexão do ElevenLabs deste ambiente não gera música), lo-fi leve, por baixo
 da conversa e presa a ela (assets/voice/vo.lines.json e vo.words.json):
-DROP = primeiro áudio do consultor, CTA = "Clica no botão", 11 compassos entre os dois (~97 BPM).
+DROP = primeiro áudio do consultor, CTA = a última resposta dele ("Preenche o formulário…"),
+11 compassos entre os dois (~97 BPM).
   -4..-1   piano sozinho, acordes abertos em Ré (a pergunta da cliente)
   0–6      groove leve: bumbo do lo-fi, estalo no 2 e no 4, chimbal com swing, baixo, piano (oferta)
   7–9      + palmas e dedilhado (idades e benefícios)
   10       respiro em Lá, só piano e subida ("Amei! E como é que eu faço?")
-  11–12    refrão do CTA, com sinos (contido sob a última fala, cresce quando ela termina)
-  13       acorde final em Ré, soa até o fim
+  11–13    refrão do CTA, com sinos (contido sob a última fala, cresce quando ela termina)
+  14       acorde final em Ré, soa até o fim
 """
 import json
 import os
@@ -244,11 +245,11 @@ VOICE = os.path.join(ROOT, "assets", "voice")
 _LINES = json.load(open(os.path.join(VOICE, "vo.lines.json")))
 _WORDS = json.load(open(os.path.join(VOICE, "vo.words.json")))
 DROP = next(l["start"] for l in _LINES if l["spk"] == "consultor")
-CTA = next(w["start"] for w in _WORDS if w["word"].lower().startswith("clica"))
+CTA = next(w["start"] for w in _WORDS if w["line"] == "k3")
 BAR = (CTA - DROP) / 11
 BEAT = BAR / 4
 TOTAL = round(_LINES[-1]["end"] + 2.6, 1)
-PRE, BREAK, CHORUS, LAST = -4, 10, 11, 13
+PRE, BREAK, CHORUS, LAST = -4, 10, 11, 14
 SW = 0.16                    # swing das colcheias
 
 
@@ -263,7 +264,7 @@ CHORDS = {
     'A': dict(bass=33, pad=[57, 61, 64, 69], arp=[61, 64, 69, 73]),
 }
 PROG = {-4: 'D', -3: 'Bm', -2: 'G', -1: 'A', 0: 'D', 1: 'Bm', 2: 'G', 3: 'A', 4: 'D', 5: 'Bm', 6: 'G', 7: 'A',
-        8: 'D', 9: 'Bm', 10: 'A', 11: 'D', 12: 'G', 13: 'D'}
+        8: 'D', 9: 'Bm', 10: 'A', 11: 'D', 12: 'G', 13: 'A', 14: 'D'}
 
 
 def swing(e):

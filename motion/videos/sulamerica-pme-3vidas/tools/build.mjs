@@ -21,7 +21,6 @@ const ST = FMT === "story";
 const W = 1080;
 const H = ST ? 1920 : 1080;
 const FPS = 30;
-const D = 44.0;
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const pick = (s, f) => (ST ? s : f);
 
@@ -38,6 +37,7 @@ const HL = "#FF9A4D"; // palavra ativa da legenda (laranja claro, contraste no m
 
 // ───────────── locução ─────────────
 const WORDS = JSON.parse(readFileSync(join(ROOT, "assets/voice/vo.words.json"), "utf8"));
+const D = Math.round((WORDS[WORDS.length - 1].end + 2.2) * 10) / 10; // fim da locução + 2,2 s (igual à trilha)
 const norm = (s) =>
   s
     .toLowerCase()
@@ -90,18 +90,22 @@ T.sem = at("sem");
 T.inscricao = at("inscricao");
 T.quer = at("quer");
 T.contratar = at("contratar");
-T.me = at("me");
-T.whatsapp = at("whatsapp");
+T.preenche = at("preenche");
+T.formulario = at("formulario");
 T.ajudo = at("ajudo");
 T.condicoes = at("condicoes");
+T.voce3 = at("voce", T.condicoes);
 T.familia = at("familia");
 T.nao2 = at("nao", T.familia);
 T.saude2 = at("saude", T.nao2);
 T.precisar = at("precisar");
-T.clica = at("clica");
+T.toca = at("toca");
 T.botao = at("botao");
-T.comigo = at("comigo");
-const TAP = r3(T.botao + 0.12);
+T.embaixo = at("embaixo");
+T.cotacao = at("cotacao");
+// formulário da cena 6: os campos se preenchem enquanto ele fala e o dedo toca "Enviar"
+const FILL = [r3(T.formulario + 0.25), r3(T.ajudo), r3(T.condicoes)];
+const SEND = r3(T.voce3 + 0.1);
 
 // ───────────── utilidades ─────────────
 const FONTS = [
@@ -188,6 +192,8 @@ const ICONS = {
   chat: `<path d="M24 6C13 6 5 13.5 5 23c0 3.6 1.2 7 3.3 9.7L6 42l9.7-3.1c2.5 1.2 5.3 1.9 8.3 1.9 11 0 19-7.5 19-17S35 6 24 6z"/><path d="M17 20c0 6 5 11 11 11l3-3-4-2-2 2c-2-1-4-3-5-5l2-2-2-4z"/>`,
   person: `<circle cx="24" cy="16" r="8"/><path d="M8 44c0-9 7-15 16-15s16 6 16 15"/>`,
   send: `<path d="M8 24L42 8 34 42 24 28z"/><path d="M24 28L42 8"/>`,
+  form: `<rect x="10" y="8" width="28" height="36" rx="4"/><path d="M18 8V5h12v3M16 20h16M16 28h16M16 36h10"/>`,
+  down: `<path d="M12 10l12 12 12-12M12 24l12 12 12-12"/>`,
 };
 const icon = (name, size, { id = "", sw = 3.4, color = "#fff", fill = "none" } = {}) =>
   `<svg ${id ? `id="${id}" ` : ""}viewBox="0 0 48 48" width="${size}" height="${size}" fill="${fill}" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
@@ -523,7 +529,7 @@ const scenes = [];
 {
   const p = "s5";
   const st = T.quer - 0.2;
-  const dur = T.me - 0.1 - st;
+  const dur = T.preenche - 0.1 - st;
   const { a, L, add, words } = TL(st);
   const g = pick({ cy: 420, cw: 620, ch: 300, cs: 110, ty: 840, ts: 92, ms: 230 }, { cy: 110, cw: 560, ch: 260, cs: 96, ty: 520, ts: 78, ms: 200 });
   const cx = (W - g.cw) / 2;
@@ -552,71 +558,88 @@ const scenes = [];
   scenes.push({ st, track: 5, ...scene(p, dur, css, body, a) });
 }
 
-// ═════════════ 6 · conversa no WhatsApp: "Me chama no WhatsApp que eu te ajudo…" ═════════════
+// ═════════════ 6 · formulário: "Preenche o formulário que eu te ajudo a ver as condições…" ═════════════
+const PH = pick({ x: 190, y: 270, w: 700, h: 1070, br: 70 }, { x: 300, y: 26, w: 480, h: 890, br: 56 });
+const FQ = (PH.w - 32) / 668; // a tela do celular é desenhada a 668 px de largura e escalada
+const FS = (v) => Math.round(v * FQ);
+const SEND_BTN = { x: PH.x + 16 + FS(40), y: PH.y + 16 + FS(826), w: FS(588), h: FS(96) };
 {
   const p = "s6";
-  const st = T.me - 0.2;
+  const st = T.preenche - 0.2;
   const dur = T.nao2 - 0.15 - st;
   const { a, L, add, drift } = TL(st);
-  const g = pick(
-    { x: 190, y: 270, w: 700, h: 1070, br: 70, hh: 130, ms: 32, b1: 220, b2: 420, ty: 420, b3: 420, iy: 950 },
-    { x: 300, y: 26, w: 480, h: 890, br: 56, hh: 104, ms: 24, b1: 170, b2: 330, ty: 330, b3: 330, iy: 800 },
-  );
-  const sw = g.w - 32;
+  const fields = [
+    ["Nome completo", 300],
+    ["Telefone", 240],
+    ["E-mail", 340],
+  ];
   const css =
     base(p) +
     `
-#s6-ph{position:absolute;left:${g.x}px;top:${g.y}px;width:${g.w}px;height:${g.h}px;border-radius:${g.br}px;background:#10162B;padding:16px;box-shadow:0 50px 100px rgba(0,8,30,.6),inset 0 0 0 3px rgba(255,255,255,.12);}
-#s6-sc{position:relative;width:100%;height:100%;border-radius:${g.br - 14}px;overflow:hidden;background:#EFEAE2;color:#1B1F2A;}
-#s6-hd{position:absolute;left:0;top:0;width:100%;height:${g.hh}px;background:${NAVY};display:flex;align-items:center;gap:20px;padding:24px 28px 0;}
-#s6-av{width:${Math.round(g.hh * 0.56)}px;height:${Math.round(g.hh * 0.56)}px;border-radius:50%;background:${ORANGE};display:flex;align-items:center;justify-content:center;}
-#s6-nm{color:#fff;font-weight:600;font-size:${Math.round(g.ms * 0.95)}px;line-height:1.2;}
-#s6-nm span{display:block;font-weight:400;font-size:${Math.round(g.ms * 0.7)}px;color:#BFE9CF;}
-.s6-b{position:absolute;max-width:${Math.round(sw * 0.78)}px;padding:${Math.round(g.ms * 0.6)}px ${Math.round(g.ms * 0.8)}px;border-radius:${Math.round(g.ms * 0.8)}px;font-size:${g.ms}px;line-height:1.3;box-shadow:0 2px 0 rgba(0,0,0,.08);}
-#s6-b1{right:24px;top:${g.b1}px;background:#D9FDD3;border-top-right-radius:6px;}
-#s6-b2{left:24px;top:${g.b2}px;background:#fff;border-top-left-radius:6px;}
-#s6-ty{position:absolute;left:24px;top:${g.ty}px;background:#fff;border-radius:${Math.round(g.ms * 0.8)}px;padding:${Math.round(g.ms * 0.55)}px ${Math.round(g.ms * 0.8)}px;display:flex;gap:10px;}
-.s6-d{width:${Math.round(g.ms * 0.4)}px;height:${Math.round(g.ms * 0.4)}px;border-radius:50%;background:#9AA3B5;}
-.s6-tk{display:block;text-align:right;font-size:${Math.round(g.ms * 0.62)}px;color:#5B8DEF;margin-top:4px;}
-#s6-in{position:absolute;left:18px;right:18px;top:${g.iy}px;height:${Math.round(g.ms * 2.6)}px;display:flex;gap:14px;align-items:center;}
-#s6-if{flex:1;height:100%;border-radius:${g.ms * 2}px;background:#fff;color:#8A93A6;font-size:${g.ms}px;display:flex;align-items:center;padding-left:26px;}
-#s6-sd{width:${Math.round(g.ms * 2.6)}px;height:${Math.round(g.ms * 2.6)}px;border-radius:50%;background:${GREEN};display:flex;align-items:center;justify-content:center;}
+#s6-ph{position:absolute;left:${PH.x}px;top:${PH.y}px;width:${PH.w}px;height:${PH.h}px;border-radius:${PH.br}px;background:#10162B;padding:16px;box-shadow:0 50px 100px rgba(0,8,30,.6),inset 0 0 0 3px rgba(255,255,255,.12);}
+#s6-sc{position:relative;width:100%;height:100%;border-radius:${PH.br - 14}px;overflow:hidden;background:#fff;color:${INK};}
+#s6-top{position:absolute;left:0;top:0;width:100%;height:${FS(330)}px;background:radial-gradient(90% 90% at 50% 10%,#0A2C80 0%,${NAVY} 55%,${DEEP} 100%);color:#fff;text-align:center;}
+#s6-lw{position:absolute;left:0;width:100%;top:${FS(56)}px;}
+#s6-tt{position:absolute;left:0;width:100%;top:${FS(168)}px;font-weight:900;font-size:${FS(46)}px;line-height:1.1;}
+#s6-st{position:absolute;left:0;width:100%;top:${FS(238)}px;font-weight:500;font-size:${FS(25)}px;color:rgba(255,255,255,.85);}
+.s6-lb{position:absolute;left:${FS(40)}px;font-weight:600;font-size:${FS(24)}px;color:${MUTED};}
+.s6-in{position:absolute;left:${FS(40)}px;width:${FS(588)}px;height:${FS(76)}px;border-radius:${FS(16)}px;border:${Math.max(2, FS(3))}px solid #D5DCEE;background:#F7F9FD;}
+.s6-ty{position:absolute;left:${FS(22)}px;top:${FS(26)}px;height:${FS(20)}px;border-radius:${FS(10)}px;background:${NAVY};opacity:.7;}
+.s6-ck{position:absolute;right:${FS(16)}px;top:${FS(15)}px;width:${FS(42)}px;height:${FS(42)}px;border-radius:50%;background:${GREEN};display:flex;align-items:center;justify-content:center;}
+#s6-bw{position:absolute;left:${FS(40)}px;top:${FS(826)}px;width:${FS(588)}px;height:${FS(96)}px;}
+#s6-bt{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:${FS(48)}px;background:${ORANGE};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:${FS(38)}px;box-shadow:0 ${FS(12)}px ${FS(28)}px rgba(242,101,34,.35);}
+#s6-dn{position:absolute;left:0;top:${FS(330)}px;width:100%;height:${FS(720)}px;background:#fff;text-align:center;opacity:0;}
+#s6-dc{position:absolute;left:50%;top:${FS(110)}px;margin-left:-${FS(80)}px;width:${FS(160)}px;height:${FS(160)}px;border-radius:50%;background:${GREEN};display:flex;align-items:center;justify-content:center;box-shadow:0 ${FS(16)}px ${FS(40)}px rgba(14,159,74,.35);}
+#s6-dt{position:absolute;left:0;width:100%;top:${FS(310)}px;font-weight:900;font-size:${FS(58)}px;color:${NAVY};}
+#s6-ds{position:absolute;left:${FS(56)}px;right:${FS(56)}px;top:${FS(400)}px;font-weight:500;font-size:${FS(29)}px;line-height:1.38;color:${MUTED};}
 `;
   const body = `
   <div id="s6-cam" class="${p}-full">
   <div id="s6-wrap" class="${p}-full">
     <div id="s6-ph"><div id="s6-sc">
-      <div id="s6-hd"><div id="s6-av">${icon("person", Math.round(g.hh * 0.34), { color: "#fff", sw: 3.6 })}</div><div id="s6-nm">Seu consultor SulAmérica PME<span>online</span></div></div>
-      <div class="s6-b" id="s6-b1">Oi! Tenho CNPJ e quero a cotação do SulAmérica PME.<span class="s6-tk" id="s6-tk"><svg viewBox="0 0 36 20" width="${Math.round(g.ms * 1.1)}" height="${Math.round(g.ms * 0.62)}" aria-hidden="true"><path d="M2 11l5 5 11-12M14 14l2 2 11-12" fill="none" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-      <div id="s6-ty"><span class="s6-d" id="s6-d0"></span><span class="s6-d" id="s6-d1"></span><span class="s6-d" id="s6-d2"></span></div>
-      <div class="s6-b" id="s6-b2">Oi! Eu te ajudo a ver as condições pra você e pra sua família.</div>
-      <div id="s6-in"><div id="s6-if">Mensagem</div><div id="s6-sd">${icon("send", Math.round(g.ms * 1.2), { color: "#fff", sw: 3.4 })}</div></div>
+      <div id="s6-top"><div id="s6-lw">${logo(p, FS(330))}</div><div id="s6-tt" class="d">Solicite sua cotação</div><div id="s6-st">SulAmérica PME · Capital · 3 vidas</div></div>
+      ${fields
+        .map(
+          ([f, w], i) => `<div class="s6-lb" style="top:${FS(370 + i * 140)}px">${f}</div>
+      <div class="s6-in" id="s6-in${i}" style="top:${FS(404 + i * 140)}px"><div class="s6-ty" id="s6-ty${i}" style="width:${FS(w)}px"></div><div class="s6-ck" id="s6-ck${i}">${icon("check", FS(30), { color: "#fff", sw: 5 })}</div></div>`,
+        )
+        .join("")}
+      <div id="s6-bw"><div id="s6-bt" class="d">Enviar</div></div>
+      <div id="s6-dn"><div id="s6-dc">${icon("check", FS(96), { color: "#fff", sw: 5 })}</div><div id="s6-dt" class="d">Recebido!</div><div id="s6-ds">Agora é comigo: vou ver as condições pra você e pra sua família.</div></div>
     </div></div>
   </div>
   </div>`;
   drift("#s6-cam", dur, 1.02);
   add(`tl.fromTo("#s6-ph",{y:${pick(500, 400)},rotation:-6,opacity:0},{y:0,rotation:0,opacity:1,duration:0.55,ease:"power4.out"},0.02);`);
-  add(`tl.fromTo("#s6-b1",{scale:0.5,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.35,ease:"back.out(2)",transformOrigin:"100% 100%"},${r3(L(T.whatsapp))});`);
-  add(`tl.fromTo("#s6-tk",{opacity:0},{opacity:1,duration:0.2},${r3(L(T.whatsapp) + 0.5)});`);
-  // digitando… e a resposta do consultor quando ele diz "eu te ajudo"
-  add(`tl.fromTo("#s6-ty",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.18,ease:"back.out(2)"},${r3(L(T.whatsapp) + 0.4)});`);
-  [0, 1, 2].forEach((i) => add(`tl.fromTo("#s6-d${i}",{y:0},{y:-10,duration:0.18,ease:"sine.inOut",repeat:3,yoyo:true},${r3(L(T.whatsapp) + 0.5 + i * 0.1)});`));
-  add(`tl.to("#s6-ty",{opacity:0,duration:0.1},${r3(L(T.ajudo) - 0.05)});`);
-  add(`tl.fromTo("#s6-b2",{scale:0.5,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.35,ease:"back.out(2)",transformOrigin:"0% 100%"},${r3(L(T.ajudo) - 0.02)});`);
+  add(`tl.fromTo("#s6-lgw",{clipPath:"inset(0% 100% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.6,ease:"power2.inOut"},0.3);`);
+  add(`tl.fromTo("#s6-lgt",{opacity:0},{opacity:1,duration:0.4},0.5);`);
+  // os campos se preenchem enquanto ele fala ("formulário", "ajudo", "condições")
+  FILL.forEach((t, i) => {
+    add(`tl.set("#s6-in${i}",{borderColor:"${ORANGE}"},${r3(L(t) - 0.05)});`);
+    add(`tl.fromTo("#s6-ty${i}",{clipPath:"inset(0% 100% 0% 0%)"},{clipPath:"inset(0% 0% 0% 0%)",duration:0.45,ease:"steps(9)"},${L(t)});`);
+    add(`tl.fromTo("#s6-ck${i}",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.6)"},${r3(L(t) + 0.45)});`);
+    add(`tl.set("#s6-in${i}",{borderColor:"#9FD9B4"},${r3(L(t) + 0.5)});`);
+  });
+  // "Enviar" (o dedo toca, camada ui) e confirmação
+  add(`tl.fromTo("#s6-bt",{scale:1},{scale:0.94,duration:0.1,ease:"power2.in"},${L(SEND)});`);
+  add(`tl.to("#s6-bt",{scale:1,duration:0.28,ease:"back.out(2)"},${r3(L(SEND) + 0.1)});`);
+  add(`tl.fromTo("#s6-dn",{opacity:0},{opacity:1,duration:0.3,ease:"power2.out"},${r3(L(SEND) + 0.3)});`);
+  add(`tl.fromTo("#s6-dc",{scale:0},{scale:1,duration:0.45,ease:"back.out(2.4)"},${r3(L(SEND) + 0.35)});`);
+  add(`tl.fromTo(["#s6-dt","#s6-ds"],{opacity:0,y:20},{opacity:1,y:0,duration:0.35,ease:"power3.out",stagger:0.12},${r3(L(SEND) + 0.5)});`);
   add(`tl.to("#s6-wrap",{y:-${pick(160, 100)},opacity:0,duration:0.26,ease:"power3.in"},${r3(dur - 0.26)});`);
   scenes.push({ st, track: 6, ...scene(p, dur, css, body, a) });
 }
 
-// ═════════════ 7 · CTA: "Clica no botão e fala comigo!" ═════════════
-const BTN = pick({ x: 90, y: 1036, w: 900, h: 140 }, { x: 140, y: 584, w: 800, h: 104 });
+// ═════════════ 7 · CTA: "Toca no botão aqui embaixo e faz a sua cotação!" ═════════════
+const BTN = pick({ x: 90, y: 1024, w: 900, h: 120 }, { x: 140, y: 578, w: 800, h: 84 });
 {
   const p = "s7";
   const st = T.nao2 - 0.3;
   const dur = D - st;
   const { a, L, add, words, drift } = TL(st);
   const g = pick(
-    { lw: 520, ly: 270, ty: 440, ts: 74, cy: 640, ch: 360, cl: 40, cp: 112, cx: 70, cw: 940, ks: 24, bt: 50, fy: 1206, fs: 19, y1: 30, y2: 84, y3: 208, y4: 268 },
-    { lw: 360, ly: 26, ty: 130, ts: 54, cy: 282, ch: 284, cl: 32, cp: 88, cx: 140, cw: 800, ks: 20, bt: 42, fy: 712, fs: 17, y1: 22, y2: 66, y3: 164, y4: 212 },
+    { lw: 520, ly: 270, ty: 440, ts: 74, cy: 640, ch: 360, cl: 40, cp: 112, cx: 70, cw: 940, ks: 24, bt: 46, by: 1156, bs: 30, fy: 1206, fs: 19, y1: 30, y2: 84, y3: 208, y4: 268 },
+    { lw: 360, ly: 26, ty: 130, ts: 54, cy: 282, ch: 284, cl: 32, cp: 88, cx: 140, cw: 800, ks: 20, bt: 38, by: 672, bs: 21, fy: 712, fs: 17, y1: 22, y2: 66, y3: 164, y4: 212 },
   );
   const css =
     base(p) +
@@ -632,8 +655,10 @@ const BTN = pick({ x: 90, y: 1036, w: 900, h: 140 }, { x: 140, y: 584, w: 800, h
 #s7-ci span{display:inline-block;padding:6px 18px;border-radius:20px;background:${ORANGE};color:#fff;font-family:"Mont",Arial,sans-serif;font-weight:800;font-size:${Math.round(g.cl * 0.72)}px;}
 #s7-ck{position:absolute;left:30px;right:30px;top:${g.y4}px;line-height:1.35;font-weight:500;font-size:${g.ks}px;color:${MUTED};}
 #s7-bw{position:absolute;left:${BTN.x}px;top:${BTN.y}px;width:${BTN.w}px;height:${BTN.h}px;}
-#s7-ring{position:absolute;inset:0;border-radius:${BTN.h}px;border:5px solid rgba(37,211,102,.9);opacity:0;}
-#s7-btn{position:absolute;inset:0;border-radius:${BTN.h}px;background:${GREEN};display:flex;align-items:center;justify-content:center;gap:22px;font-weight:800;font-size:${g.bt}px;box-shadow:0 20px 50px rgba(14,159,74,.5),inset 0 2px 0 rgba(255,255,255,.3);overflow:hidden;}
+#s7-ring{position:absolute;inset:0;border-radius:${BTN.h}px;border:5px solid rgba(247,148,29,.9);opacity:0;}
+#s7-btn{position:absolute;inset:0;border-radius:${BTN.h}px;background:${ORANGE};display:flex;align-items:center;justify-content:center;gap:20px;font-weight:800;font-size:${g.bt}px;box-shadow:0 20px 50px rgba(242,101,34,.45),inset 0 2px 0 rgba(255,255,255,.3);overflow:hidden;}
+#s7-lb{position:absolute;left:0;width:${W}px;top:${g.by}px;display:flex;justify-content:center;align-items:center;gap:${pick(16, 12)}px;font-weight:800;font-size:${g.bs}px;color:#fff;}
+.s7-ar{display:inline-flex;}
 #s7-f{position:absolute;left:${pick(70, 60)}px;width:${W - pick(140, 120)}px;top:${g.fy}px;text-align:center;font-size:${g.fs}px;line-height:1.4;color:rgba(255,255,255,.8);}
 `;
   const body = `
@@ -647,7 +672,8 @@ const BTN = pick({ x: 90, y: 1036, w: 900, h: 140 }, { x: 140, y: 584, w: 800, h
       <div id="s7-ci"><span>já com IOF</span></div>
       <div id="s7-ck">Nacional · Apartamento · Coparticipação · Reembolso · Sem taxa de inscrição</div>
     </div>
-    <div id="s7-bw"><div id="s7-ring"></div><div id="s7-btn" class="d">${icon("chat", Math.round(g.bt * 1.25), { id: "s7-chat", color: "#fff", sw: 3.2 })}<span>Fale comigo no WhatsApp</span><div id="s7-bsw" class="sweep" aria-hidden="true"></div></div></div>
+    <div id="s7-bw"><div id="s7-ring"></div><div id="s7-btn" class="d">${icon("form", Math.round(g.bt * 1.2), { id: "s7-ic", color: "#fff", sw: 3.2 })}<span>Preencha o formulário</span><div id="s7-bsw" class="sweep" aria-hidden="true"></div></div></div>
+    <div id="s7-lb" class="d"><span class="s7-ar" id="s7-a0">${icon("down", Math.round(g.bs * 1.3), { color: HL, sw: 4.4 })}</span><span>Toque no botão abaixo</span><span class="s7-ar" id="s7-a1">${icon("down", Math.round(g.bs * 1.3), { color: HL, sw: 4.4 })}</span></div>
     <div id="s7-f">Cotação SulAmérica PME | Capital – 03 a 04 vidas – Apólice 12 meses · Especial Vital QP R1 · Compulsório · 30% de coparticipação · Reembolso. Valores para 3 beneficiários (0 a 18, 29 a 33 e 34 a 38 anos): R$ 1.729,15 + IOF de 2,38% = R$ 1.770,30/mês. Sem taxa de inscrição. Contratação sujeita à análise e às condições da operadora.</div>
   </div>
   </div>`;
@@ -659,14 +685,17 @@ const BTN = pick({ x: 90, y: 1036, w: 900, h: 140 }, { x: 140, y: 584, w: 800, h
   add(`tl.fromTo("#s7-c",{y:${pick(200, 150)},opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.4);`);
   add(`tl.fromTo("#s7-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"back.out(1.8)"},0.7);`);
   add(`tl.fromTo("#s7-f",{opacity:0},{opacity:1,duration:0.5},0.9);`);
-  // "Clica no botão" — brilho, toque e pulsos
-  add(`tl.fromTo("#s7-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},${r3(L(T.clica) - 0.1)});`);
-  add(`tl.fromTo("#s7-chat",{rotation:0},{rotation:14,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},${r3(L(T.clica))});`);
-  const tp = L(TAP);
-  add(`tl.fromTo("#s7-btn",{scale:1},{scale:0.95,duration:0.1,ease:"power2.in"},${tp});`);
-  add(`tl.to("#s7-btn",{scale:1,duration:0.3,ease:"back.out(2)"},${r3(tp + 0.1)});`);
+  // "Toca no botão aqui embaixo e faz a sua cotação!" — brilho no botão e setas descendo para o
+  // botão do anúncio (que abre o formulário)
+  add(`tl.fromTo("#s7-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},${r3(L(T.toca) - 0.1)});`);
+  add(`tl.fromTo("#s7-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},${r3(L(T.toca))});`);
+  const ar = r3(L(T.embaixo) - 0.25);
+  add(`tl.fromTo("#s7-lb",{opacity:0,y:-14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${ar});`);
+  const nb = Math.floor((dur - ar - 0.4) / 0.5);
+  add(`tl.fromTo(["#s7-a0","#s7-a1"],{y:0},{y:${pick(14, 10)},duration:0.25,ease:"sine.inOut",repeat:${nb * 2 - 1},yoyo:true},${ar});`);
+  const tp = L(T.cotacao);
   add(`tl.fromTo("#s7-ring",{opacity:0.95,scale:1},{opacity:0,scale:1.15,duration:0.7,ease:"power2.out"},${r3(tp + 0.05)});`);
-  for (let t = tp + 1.0, i = 0; t + 1.0 <= dur - 0.9; t += 1.0, i++) {
+  for (let t = tp + 1.0, i = 0; t + 1.0 <= dur - 0.6; t += 1.0, i++) {
     add(`tl.fromTo("#s7-btn",{scale:1},{scale:1.04,duration:0.5,ease:"sine.inOut",immediateRender:false},${r3(t)});`);
     add(`tl.to("#s7-btn",{scale:1,duration:0.5,ease:"sine.inOut"},${r3(t + 0.5)});`);
     add(`tl.fromTo("#s7-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},${r3(t)});`);
@@ -697,15 +726,16 @@ const CAP = [
   [["e", 72], ["sem", 73], ["taxa", 74], ["de", 75], ["inscrição.", 76]],
   [["Quer", 77], ["saber", 78], ["se", 79], ["você", 80]],
   [["pode", 81], ["contratar?", 82]],
-  [["Me", 83], ["chama", 84], ["no", 85], ["WhatsApp", 86]],
-  [["que", 87], ["eu", 88], ["te", 89], ["ajudo", 90]],
-  [["a", 91], ["ver", 92], ["as", 93], ["condições", 94]],
-  [["pra", 95], ["você", 96], ["e", 97], ["pra", 98], ["sua", 99], ["família.", 100]],
-  [["Não", 101], ["deixa", 102], ["pra", 103], ["pensar", 104]],
-  [["na", 105], ["saúde", 106], ["só", 107]],
-  [["quando", 108], ["precisar,", 109], ["tá?", 110]],
-  [["Clica", 111], ["no", 112], ["botão", 113]],
-  [["e", 114], ["fala", 115], ["comigo!", 116]],
+  [["Preenche", 83], ["o", 84], ["formulário", 85]],
+  [["que", 86], ["eu", 87], ["te", 88], ["ajudo", 89]],
+  [["a", 90], ["ver", 91], ["as", 92], ["condições", 93]],
+  [["pra", 94], ["você", 95], ["e", 96], ["pra", 97], ["sua", 98], ["família.", 99]],
+  [["Não", 100], ["deixa", 101], ["pra", 102], ["pensar", 103]],
+  [["na", 104], ["saúde", 105], ["só", 106]],
+  [["quando", 107], ["precisar,", 108], ["tá?", 109]],
+  [["Toca", 110], ["no", 111], ["botão", 112]],
+  [["aqui", 113], ["embaixo", 114]],
+  [["e", 115], ["faz", 116], ["a", 117], ["sua", 118], ["cotação!", 119]],
 ];
 {
   const p = "cap";
@@ -749,8 +779,8 @@ const CAP = [
   const p = "ui";
   const { a, add } = TL(0);
   const FS = pick(96, 82);
-  const fx = BTN.x + BTN.w * 0.7;
-  const fy = BTN.y + BTN.h * 0.56;
+  const fx = SEND_BTN.x + SEND_BTN.w * 0.7;
+  const fy = SEND_BTN.y + SEND_BTN.h * 0.56;
   const NOISE =
     "data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
   const css = `#ui-root{position:absolute;inset:0;width:${W}px;height:${H}px;overflow:hidden;pointer-events:none;}
@@ -765,10 +795,10 @@ const CAP = [
     add(`tl.fromTo("#ui-fl",{opacity:0},{opacity:${o},duration:0.08,ease:"power2.out"${i ? ",immediateRender:false" : ""}},${r3(t)});`);
     add(`tl.to("#ui-fl",{opacity:0,duration:0.45,ease:"power2.out"},${r3(t + 0.08)});`);
   });
-  add(`tl.fromTo("#ui-f",{opacity:0,x:${pick(150, 120)},y:${pick(200, 150)},scale:1.15},{opacity:1,x:0,y:0,scale:1,duration:0.5,ease:"power3.out"},${r3(TAP - 0.55)});`);
-  add(`tl.to("#ui-f",{scale:0.82,duration:0.1,ease:"power2.in"},${r3(TAP)});`);
-  add(`tl.to("#ui-f",{scale:1,duration:0.18,ease:"power2.out"},${r3(TAP + 0.12)});`);
-  add(`tl.to("#ui-f",{opacity:0,x:${pick(90, 70)},y:${pick(120, 90)},duration:0.4,ease:"power2.in"},${r3(TAP + 0.5)});`);
+  add(`tl.fromTo("#ui-f",{opacity:0,x:${pick(150, 120)},y:${pick(200, 150)},scale:1.15},{opacity:1,x:0,y:0,scale:1,duration:0.5,ease:"power3.out"},${r3(SEND - 0.55)});`);
+  add(`tl.to("#ui-f",{scale:0.82,duration:0.1,ease:"power2.in"},${r3(SEND)});`);
+  add(`tl.to("#ui-f",{scale:1,duration:0.18,ease:"power2.out"},${r3(SEND + 0.12)});`);
+  add(`tl.to("#ui-f",{opacity:0,x:${pick(90, 70)},y:${pick(120, 90)},duration:0.4,ease:"power2.in"},${r3(SEND + 0.5)});`);
   let s = 53;
   const R = () => ((s = (s * 1103515245 + 12345) % 2147483648) / 2147483648);
   const pos = [];
@@ -814,14 +844,16 @@ const SFX = [
   ["check", T.sem + 0.3, 0.26],
   ["whoosh", T.quer - 0.2, 0.28],
   ["tap", T.quer + 0.4, 0.2],
-  ["whoosh", T.me - 0.2, 0.3],
-  ["pop", T.whatsapp, 0.42],
-  ["pop", T.ajudo, 0.42],
+  ["whoosh", T.preenche - 0.2, 0.3],
+  ...FILL.map((t) => ["pop", t, 0.2]),
+  ...FILL.map((t) => ["check", t + 0.45, 0.16]),
+  ["tap", SEND, 0.3],
+  ["check", SEND + 0.3, 0.2],
   ["whoosh", T.nao2 - 0.3, 0.26],
   ["shimmer", T.nao2 - 0.2, 0.26],
-  ["shimmer", T.clica, 0.28],
-  ["tap", TAP, 0.75],
-  ["check", TAP + 0.05, 0.3],
+  ["shimmer", T.toca, 0.22],
+  ["pop", T.embaixo, 0.16],
+  ["shimmer", T.cotacao, 0.2],
 ];
 const SFX_DUR = { counter: 2.4 };
 function allocTracks(items, first) {
@@ -885,5 +917,5 @@ const html = `<!doctype html>
 </html>
 `;
 writeFileSync(join(OUT, "index.html"), html);
-writeFileSync(join(ROOT, "tools", "timing.json"), JSON.stringify({ ...T, tap: TAP, end: D }, null, 1));
+writeFileSync(join(ROOT, "tools", "timing.json"), JSON.stringify({ ...T, fill: FILL, send: SEND, end: D }, null, 1));
 console.log(`${FMT} ${W}x${H}: ${D}s, ${scenes.length} composições, ${SFX.length} SFX, ${CAP.length} grupos de legenda`);

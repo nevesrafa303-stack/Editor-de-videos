@@ -10,8 +10,10 @@ duas vozes e posiciona tudo numa linha do tempo única.
        assets/voice/vo.dur
 
 Tomadas (Eleven v4): cliente = "Adriane" (tomada A), consultor = "Kaique" (tomada A, a mesma voz da
-versão 1). Tempos das palavras: Scribe v1 sem texto de referência (assets/voice/takes/*.words.json).
-Os cortes caem nos silêncios entre as falas (conferidos no envelope de cada tomada).
+versão 1). A última resposta do consultor (CTA do formulário) vem da tomada cta-formulario, gravada
+para a versão 1, juntando duas frases dela. Tempos das palavras: Scribe v1 sem texto de referência
+(assets/voice/takes/*.words.json); os da tomada do CTA saem de ../sulamerica-pme-3vidas/tools/
+align_words.py. Os cortes caem nos silêncios entre as falas (conferidos no envelope de cada tomada).
 """
 import json
 import os
@@ -25,17 +27,19 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 VOICE = os.path.join(ROOT, "assets", "voice")
 TAKES = os.path.join(VOICE, "takes")
 
-# (id, quem fala, tomada, corte início, corte fim) em segundos da tomada
+# (id, quem fala, tomada, trechos [(início, fim), …] em segundos da tomada)
 LINES = [
-    ("c1", "cliente", "cliente-A", 0.00, 7.78),      # "Oi! Tudo bem? Eu tenho CNPJ… será que eu consigo…?"
-    ("k1", "consultor", "consultor-A", 0.00, 12.42),  # "Oi! Consegue sim! Olha só a cotação… já com IOF!"
-    ("c2", "cliente", "cliente-A", 7.80, 10.30),     # "Sério?! Pra três pessoas?!"
-    ("k2", "consultor", "consultor-A", 12.42, 21.20),  # (risada) "Sério! Pra essas idades aqui, ó…"
-    ("c3", "cliente", "cliente-A", 10.30, 12.52),    # "Amei! E como é que eu faço?"
-    ("k3", "consultor", "consultor-A", 21.20, 25.47),  # "Clica no botão e me chama no WhatsApp…"
+    ("c1", "cliente", "cliente-A", [(0.00, 7.78)]),       # "Oi! Tudo bem? Eu tenho CNPJ… será que eu consigo…?"
+    ("k1", "consultor", "consultor-A", [(0.00, 12.42)]),  # "Oi! Consegue sim! Olha só a cotação… já com IOF!"
+    ("c2", "cliente", "cliente-A", [(7.80, 10.30)]),      # "Sério?! Pra três pessoas?!"
+    ("k2", "consultor", "consultor-A", [(12.42, 21.20)]),  # (risada) "Sério! Pra essas idades aqui, ó…"
+    ("c3", "cliente", "cliente-A", [(10.30, 12.52)]),     # "Amei! E como é que eu faço?"
+    # "Preenche o formulário que eu te ajudo… pra sua família." + "Toca no botão aqui embaixo e faz a sua cotação!"
+    ("k3", "consultor", "cta-formulario", [(2.10, 6.45), (9.95, 12.59)]),
 ]
 START = 0.45                                 # primeiro áudio começa aqui
 GAP = {"consultor": 0.5, "cliente": 0.32}    # respiro antes de cada áudio, por quem responde
+INNER = 0.38                                 # pausa entre dois trechos da mesma fala
 BARS = 34                                    # barras da forma de onda em cada bolha
 TARGET_DB = -20.0                            # RMS dos trechos falados, igual para as duas vozes
 CHAIN = "highpass=f=75,acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,equalizer=f=3200:t=q:w=1.2:g=1.5"
@@ -65,20 +69,32 @@ def main():
     t = START
     prev = None
     lines, ws = [], []
-    for lid, spk, take, a, b in LINES:
-        x = takes[take][int(a * SR):int(b * SR)]
-        e = env_db(x)
-        on = max(0, np.argmax(e > -45) - int(0.04 * SR))
-        off = min(len(x), len(x) - np.argmax(e[::-1] > -45) + int(0.08 * SR))
-        seg = x[on:off].copy()
-        f = int(0.008 * SR)
-        seg[:f] *= np.linspace(0, 1, f)
-        seg[-f:] *= np.linspace(1, 0, f)
+    for lid, spk, take, cuts in LINES:
         if prev is not None:
             t = prev + GAP[spk]
+        parts, tt = [], 0.0
+        for a, b in cuts:
+            x = takes[take][int(a * SR):int(b * SR)]
+            e = env_db(x)
+            on = max(0, np.argmax(e > -45) - int(0.04 * SR))
+            off = min(len(x), len(x) - np.argmax(e[::-1] > -45) + int(0.08 * SR))
+            piece = x[on:off].copy()
+            f = int(0.008 * SR)
+            piece[:f] *= np.linspace(0, 1, f)
+            piece[-f:] *= np.linspace(1, 0, f)
+            if parts:
+                parts.append(np.zeros(int(INNER * SR)))
+                tt += INNER
+            t0 = a + on / SR                 # instante da tomada que cai em t + tt
+            for w in words[take]:
+                if w["type"] == "word" and a <= w["start"] < b:
+                    ws.append(dict(word=w["text"], start=round(w["start"] - t0 + t + tt, 3),
+                                   end=round(w["end"] - t0 + t + tt, 3), line=lid, spk=spk))
+            parts.append(piece)
+            tt += len(piece) / SR
+        seg = np.concatenate(parts)
         i = int(round(t * SR))
         out[i:i + len(seg)] += seg
-        t0 = a + on / SR                     # instante da tomada que cai em t
         dur = len(seg) / SR
         # forma de onda real da fala, em BARS barras
         chunks = np.array_split(seg, BARS)
@@ -86,10 +102,6 @@ def main():
         bars = np.clip((20 * np.log10(rms + 1e-9) + 42) / 30, 0.12, 1.0)
         lines.append(dict(id=lid, spk=spk, start=round(t, 3), end=round(t + dur, 3), dur=round(dur, 3),
                           bars=[round(float(v), 3) for v in bars]))
-        for w in words[take]:
-            if w["type"] == "word" and a <= w["start"] < b:
-                ws.append(dict(word=w["text"], start=round(w["start"] - t0 + t, 3), end=round(w["end"] - t0 + t, 3),
-                               line=lid, spk=spk))
         prev = t + dur
     total = prev + 0.1
     out = out[:int(total * SR)]

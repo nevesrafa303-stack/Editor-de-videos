@@ -21,7 +21,7 @@
 #bg-w{position:absolute;left:0;top:0;}
 #bg-vig{background:radial-gradient(110% 75% at 50% 45%,rgba(0,0,0,0) 55%,rgba(0,8,30,.55) 100%);}
 </style>
-<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="44" data-width="1080" data-height="1080">
+<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="45.7" data-width="1080" data-height="1080">
   <div id="bg-base" class="bg-full"></div>
   <div id="bg-glow" data-layout-allow-overflow aria-hidden="true"></div>
   <svg id="bg-w" viewBox="0 0 1080 1080" width="1080" height="1080" aria-hidden="true" data-layout-allow-overflow>
@@ -35,9 +35,9 @@
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
-tl.fromTo("#bg-w1",{x:0},{x:-560,duration:44,ease:"none"},0);
-tl.fromTo("#bg-w2",{x:-420},{x:0,duration:44,ease:"none"},0);
-tl.fromTo("#bg-w3",{x:0},{x:-500,duration:44,ease:"none"},0);
+tl.fromTo("#bg-w1",{x:0},{x:-560,duration:45.7,ease:"none"},0);
+tl.fromTo("#bg-w2",{x:-420},{x:0,duration:45.7,ease:"none"},0);
+tl.fromTo("#bg-w3",{x:0},{x:-500,duration:45.7,ease:"none"},0);
 tl.fromTo("#bg-glow",{x:0,y:0,scale:1},{x:-140,y:-120,scale:1.2,duration:11,ease:"sine.inOut",repeat:3,yoyo:true},0);
 window.__timelines["bg"] = tl;
 })();

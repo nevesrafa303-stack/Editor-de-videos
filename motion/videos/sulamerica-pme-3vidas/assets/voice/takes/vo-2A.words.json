@@ -1,0 +1,587 @@
+[
+{
+"word": "Ei",
+"start": 0.12,
+"end": 0.36
+},
+{
+"word": "você",
+"start": 0.82,
+"end": 1.08
+},
+{
+"word": "tem",
+"start": 1.14,
+"end": 1.54
+},
+{
+"word": "CNPJ",
+"start": 1.62,
+"end": 2.46
+},
+{
+"word": "E",
+"start": 3.3,
+"end": 3.36
+},
+{
+"word": "ainda",
+"start": 3.42,
+"end": 3.68
+},
+{
+"word": "não",
+"start": 3.76,
+"end": 3.94
+},
+{
+"word": "tem",
+"start": 3.98,
+"end": 4.16
+},
+{
+"word": "plano",
+"start": 4.2,
+"end": 4.42
+},
+{
+"word": "de",
+"start": 4.46,
+"end": 4.56
+},
+{
+"word": "saúde",
+"start": 4.6,
+"end": 4.8
+},
+{
+"word": "empresarial",
+"start": 4.84,
+"end": 5.48
+},
+{
+"word": "Sério",
+"start": 5.98,
+"end": 6.42
+},
+{
+"word": "Então",
+"start": 7.6,
+"end": 7.9
+},
+{
+"word": "presta",
+"start": 7.94,
+"end": 8.14
+},
+{
+"word": "atenção",
+"start": 8.16,
+"end": 8.62
+},
+{
+"word": "Olha",
+"start": 9.02,
+"end": 9.14
+},
+{
+"word": "só",
+"start": 9.26,
+"end": 9.4
+},
+{
+"word": "Sulamérica",
+"start": 9.9,
+"end": 10.54
+},
+{
+"word": "PME",
+"start": 10.74,
+"end": 11.36
+},
+{
+"word": "pra",
+"start": 11.4,
+"end": 11.66
+},
+{
+"word": "três",
+"start": 11.7,
+"end": 11.96
+},
+{
+"word": "vidas",
+"start": 12.06,
+"end": 12.4
+},
+{
+"word": "por",
+"start": 12.54,
+"end": 12.74
+},
+{
+"word": "mil",
+"start": 12.84,
+"end": 12.98
+},
+{
+"word": "setecentos",
+"start": 13.08,
+"end": 13.64
+},
+{
+"word": "e",
+"start": 13.68,
+"end": 13.7
+},
+{
+"word": "setenta",
+"start": 13.78,
+"end": 14.12
+},
+{
+"word": "reais",
+"start": 14.2,
+"end": 14.48
+},
+{
+"word": "e",
+"start": 14.5,
+"end": 14.54
+},
+{
+"word": "trinta",
+"start": 14.68,
+"end": 14.92
+},
+{
+"word": "centavos",
+"start": 15.0,
+"end": 15.5
+},
+{
+"word": "por",
+"start": 15.54,
+"end": 15.74
+},
+{
+"word": "mês",
+"start": 15.78,
+"end": 16.079
+},
+{
+"word": "já",
+"start": 16.54,
+"end": 16.74
+},
+{
+"word": "com",
+"start": 16.78,
+"end": 16.88
+},
+{
+"word": "IOF",
+"start": 16.96,
+"end": 17.46
+},
+{
+"word": "hein",
+"start": 17.48,
+"end": 17.64
+},
+{
+"word": "É",
+"start": 18.14,
+"end": 18.2
+},
+{
+"word": "pra",
+"start": 18.22,
+"end": 18.28
+},
+{
+"word": "uma",
+"start": 18.34,
+"end": 18.46
+},
+{
+"word": "pessoa",
+"start": 18.48,
+"end": 18.82
+},
+{
+"word": "de",
+"start": 18.88,
+"end": 18.94
+},
+{
+"word": "zero",
+"start": 19.08,
+"end": 19.28
+},
+{
+"word": "a",
+"start": 19.3,
+"end": 19.32
+},
+{
+"word": "dezoito",
+"start": 19.38,
+"end": 19.76
+},
+{
+"word": "anos",
+"start": 19.84,
+"end": 20.1
+},
+{
+"word": "uma",
+"start": 20.38,
+"end": 20.52
+},
+{
+"word": "de",
+"start": 20.58,
+"end": 20.68
+},
+{
+"word": "vinte",
+"start": 20.72,
+"end": 20.9
+},
+{
+"word": "e",
+"start": 21.0,
+"end": 21.0
+},
+{
+"word": "nove",
+"start": 21.04,
+"end": 21.26
+},
+{
+"word": "a",
+"start": 21.28,
+"end": 21.3
+},
+{
+"word": "trinta",
+"start": 21.38,
+"end": 21.56
+},
+{
+"word": "e",
+"start": 21.58,
+"end": 21.62
+},
+{
+"word": "três",
+"start": 21.7,
+"end": 22.02
+},
+{
+"word": "e",
+"start": 22.24,
+"end": 22.28
+},
+{
+"word": "outra",
+"start": 22.4,
+"end": 22.6
+},
+{
+"word": "de",
+"start": 22.66,
+"end": 22.72
+},
+{
+"word": "trinta",
+"start": 22.82,
+"end": 23.02
+},
+{
+"word": "e",
+"start": 23.04,
+"end": 23.14
+},
+{
+"word": "quatro",
+"start": 23.18,
+"end": 23.46
+},
+{
+"word": "a",
+"start": 23.48,
+"end": 23.52
+},
+{
+"word": "trinta",
+"start": 23.6,
+"end": 23.8
+},
+{
+"word": "e",
+"start": 23.82,
+"end": 23.86
+},
+{
+"word": "oito",
+"start": 23.92,
+"end": 24.18
+},
+{
+"word": "Tem",
+"start": 24.58,
+"end": 24.68
+},
+{
+"word": "abrangência",
+"start": 24.72,
+"end": 25.2
+},
+{
+"word": "nacional",
+"start": 25.24,
+"end": 25.84
+},
+{
+"word": "apartamento",
+"start": 26.02,
+"end": 26.82
+},
+{
+"word": "coparticipação",
+"start": 27.0,
+"end": 28.04
+},
+{
+"word": "reembolso",
+"start": 28.2,
+"end": 28.94
+},
+{
+"word": "e",
+"start": 29.24,
+"end": 29.32
+},
+{
+"word": "sem",
+"start": 29.48,
+"end": 29.74
+},
+{
+"word": "taxa",
+"start": 29.76,
+"end": 30.02
+},
+{
+"word": "de",
+"start": 30.08,
+"end": 30.12
+},
+{
+"word": "inscrição",
+"start": 30.16,
+"end": 30.68
+},
+{
+"word": "Quer",
+"start": 31.18,
+"end": 31.26
+},
+{
+"word": "saber",
+"start": 31.32,
+"end": 31.52
+},
+{
+"word": "se",
+"start": 31.56,
+"end": 31.62
+},
+{
+"word": "você",
+"start": 31.64,
+"end": 31.86
+},
+{
+"word": "pode",
+"start": 31.88,
+"end": 32.06
+},
+{
+"word": "contratar",
+"start": 32.1,
+"end": 32.5
+},
+{
+"word": "Me",
+"start": 33.04,
+"end": 33.12
+},
+{
+"word": "chama",
+"start": 33.14,
+"end": 33.32
+},
+{
+"word": "no",
+"start": 33.36,
+"end": 33.42
+},
+{
+"word": "WhatsApp",
+"start": 33.44,
+"end": 33.88
+},
+{
+"word": "que",
+"start": 33.92,
+"end": 33.96
+},
+{
+"word": "eu",
+"start": 33.98,
+"end": 34.02
+},
+{
+"word": "te",
+"start": 34.06,
+"end": 34.12
+},
+{
+"word": "ajudo",
+"start": 34.18,
+"end": 34.44
+},
+{
+"word": "a",
+"start": 34.46,
+"end": 34.5
+},
+{
+"word": "ver",
+"start": 34.56,
+"end": 34.64
+},
+{
+"word": "as",
+"start": 34.68,
+"end": 34.78
+},
+{
+"word": "condições",
+"start": 34.82,
+"end": 35.28
+},
+{
+"word": "pra",
+"start": 35.3,
+"end": 35.42
+},
+{
+"word": "você",
+"start": 35.46,
+"end": 35.9
+},
+{
+"word": "e",
+"start": 35.94,
+"end": 36.0
+},
+{
+"word": "pra",
+"start": 36.02,
+"end": 36.16
+},
+{
+"word": "sua",
+"start": 36.18,
+"end": 36.32
+},
+{
+"word": "família",
+"start": 36.36,
+"end": 36.72
+},
+{
+"word": "Não",
+"start": 37.2,
+"end": 37.3
+},
+{
+"word": "deixa",
+"start": 37.34,
+"end": 37.56
+},
+{
+"word": "pra",
+"start": 37.58,
+"end": 37.7
+},
+{
+"word": "pensar",
+"start": 37.72,
+"end": 38.0
+},
+{
+"word": "na",
+"start": 38.02,
+"end": 38.08
+},
+{
+"word": "saúde",
+"start": 38.18,
+"end": 38.58
+},
+{
+"word": "só",
+"start": 38.62,
+"end": 38.76
+},
+{
+"word": "quando",
+"start": 38.78,
+"end": 38.96
+},
+{
+"word": "precisar",
+"start": 39.0,
+"end": 39.46
+},
+{
+"word": "tá",
+"start": 39.56,
+"end": 39.68
+},
+{
+"word": "Clica",
+"start": 40.16,
+"end": 40.36
+},
+{
+"word": "no",
+"start": 40.38,
+"end": 40.46
+},
+{
+"word": "botão",
+"start": 40.5,
+"end": 40.94
+},
+{
+"word": "e",
+"start": 40.98,
+"end": 41.12
+},
+{
+"word": "fala",
+"start": 41.16,
+"end": 41.36
+},
+{
+"word": "comigo",
+"start": 41.38,
+"end": 41.76
+}
+]

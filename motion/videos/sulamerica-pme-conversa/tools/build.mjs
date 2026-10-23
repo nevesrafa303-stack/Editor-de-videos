@@ -92,18 +92,24 @@ T.sem = at("sem");
 T.insc = at("inscricao");
 T.amei = at("amei");
 T.faco = at("faco");
-T.clica = at("clica");
+T.preenche = at("preenche");
+T.formulario = at("formulario");
+T.que3 = at("que", T.formulario);
+T.ajudo = at("ajudo");
+T.condicoes = at("condicoes");
+T.familiaEnd = end("familia", T.formulario);
+T.toca = at("toca");
 T.botao = at("botao");
-T.whats = at("whatsapp");
-T.whatsEnd = end("whatsapp");
+T.embaixo = at("embaixo");
+T.cotacao2 = at("cotacao", T.toca);
 
 const HOOK_OUT = r3(Math.min(3.1, T.cnpj + 0.9));
 const O2_IN = r3(T.sula - 0.42);
 const O2_OUT = r3(LN.c2.start - 0.42);
 const O3_IN = r3(T.serio2 + 0.3);
 const O3_OUT = r3(LN.c3.start - 0.42);
-const TAP = r3(T.whatsEnd + 0.05); // o toque cai depois da palavra, sem mascarar a fala
-const END_IN = r3(TAP + 0.42);
+const TAP = r3(T.familiaEnd + 0.06); // o toque cai na pausa antes de "Toca no botão", sem mascarar a fala
+const END_IN = r3(T.toca - 0.12);
 
 // ───────────── utilidades ─────────────
 const FONTS = [
@@ -189,6 +195,8 @@ const ICONS = {
   back: `<path d="M30 10L16 24l14 14"/>`,
   video: `<rect x="5" y="14" width="26" height="20" rx="4"/><path d="M31 21l12-7v20l-12-7"/>`,
   phone: `<path d="M14 6l6 10-4 4c2 5 6 9 11 11l4-4 10 6-3 7C24 40 8 24 7 9z"/>`,
+  form: `<rect x="10" y="8" width="28" height="36" rx="4"/><path d="M18 8V5h12v3M16 20h16M16 28h16M16 36h10"/>`,
+  down: `<path d="M12 10l12 12 12-12M12 24l12 12 12-12"/>`,
 };
 const icon = (name, size, { id = "", sw = 3.4, color = "#fff", fill = "none" } = {}) =>
   `<svg ${id ? `id="${id}" ` : ""}viewBox="0 0 48 48" width="${size}" height="${size}" fill="${fill}" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
@@ -229,7 +237,7 @@ const G = pick(
   { hdH: 380, hdC: 300, av: 84, nm: 38, stt: 27, ib: 44, vpTop: 380, vpBot: 1340, inY: 1560, inH: 112, capY: 1378, capH: 104, capFs: 50, lbH: 36, lbFs: 21 },
   { hdH: 118, hdC: 59, av: 64, nm: 30, stt: 21, ib: 34, vpTop: 118, vpBot: 866, inY: 1004, inH: 62, capY: 900, capH: 86, capFs: 40, lbH: 30, lbFs: 17 },
 );
-const HG = { chip: 50, voice: 140, quote: 500, cta: 250 };
+const HG = { chip: 50, voice: 140, quote: 500, cta: 384 };
 const MSG = [
   { id: "m0", type: "chip", t: 0 },
   { id: "m1", type: "voice", line: "c1", t: LN.c1.start - 0.3, time: "19:42" },
@@ -239,7 +247,7 @@ const MSG = [
   { id: "m5", type: "voice", line: "k2", t: LN.k2.start - 0.12, time: "19:44", react: { t: T.amei, kind: "heart" } },
   { id: "m6", type: "voice", line: "c3", t: LN.c3.start - 0.28, time: "19:45" },
   { id: "m7", type: "voice", line: "k3", t: LN.k3.start - 0.12, time: "19:45" },
-  { id: "m8", type: "cta", spk: "consultor", t: T.botao - 0.05, time: "19:45" },
+  { id: "m8", type: "cta", spk: "consultor", t: T.formulario - 0.1, time: "19:46" },
 ];
 {
   let y = K(24);
@@ -330,11 +338,14 @@ const UNDER = "data-layout-allow-occlusion data-layout-allow-overlap";
 .q-dt b{display:block;font-weight:600;font-size:${K(25)}px;line-height:1.25;background:#fff;}
 .q-dt span{display:block;font-size:${K(20)}px;color:${META};background:#fff;}
 .q-tx{position:absolute;left:${K(22)}px;top:${K(404)}px;font-size:${K(27)}px;background:inherit;}
-.c-tx{position:absolute;left:${K(24)}px;top:${K(22)}px;font-size:${K(27)}px;background:inherit;}
-.c-bw{position:absolute;left:${K(20)}px;top:${K(76)}px;width:${K(580)}px;height:${K(100)}px;}
-.c-ring{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:${K(50)}px;border:${K(5)}px solid rgba(37,211,102,.9);opacity:0;}
-.c-bt{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:${K(50)}px;background:${GREEN};color:#fff;display:flex;align-items:center;justify-content:center;gap:${K(14)}px;font-weight:800;font-size:${K(31)}px;box-shadow:0 ${K(8)}px ${K(20)}px rgba(14,159,74,.35);}
-.c-sb{position:absolute;left:${K(24)}px;top:${K(192)}px;font-size:${K(20)}px;color:${META};background:inherit;}
+.fm{overflow:hidden;}
+.fm-hd{position:absolute;left:0;top:0;width:100%;height:${K(64)}px;background:${NAVY};color:#fff;display:flex;align-items:center;gap:${K(12)}px;padding-left:${K(22)}px;font-weight:700;font-size:${K(26)}px;}
+.fm-sb{position:absolute;left:${K(24)}px;top:${K(78)}px;font-size:${K(21)}px;color:${META};background:inherit;}
+.fm-f{position:absolute;left:${K(24)}px;width:${K(572)}px;height:${K(46)}px;border-radius:${K(10)}px;background:#F0F2F5;color:${META};font-size:${K(22)}px;display:flex;align-items:center;padding-left:${K(16)}px;}
+.fm-h{position:absolute;left:${K(24)}px;width:${K(572)}px;height:${K(46)}px;border-radius:${K(10)}px;border:${K(3)}px solid ${ORANGE};opacity:0;}
+.fm-bw{position:absolute;left:${K(24)}px;top:${K(282)}px;width:${K(572)}px;height:${K(60)}px;}
+.fm-ring{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:${K(30)}px;border:${K(5)}px solid rgba(242,101,34,.9);opacity:0;}
+.fm-bt{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:${K(30)}px;background:${ORANGE};color:#fff;display:flex;align-items:center;justify-content:center;gap:${K(12)}px;font-weight:800;font-size:${K(27)}px;box-shadow:0 ${K(8)}px ${K(20)}px rgba(242,101,34,.3);}
 .rx{position:absolute;width:${K(78)}px;height:${K(52)}px;border-radius:${K(26)}px;background:#fff;border:${K(3)}px solid ${CHAT};box-shadow:0 2px 6px rgba(11,20,26,.18);display:flex;align-items:center;justify-content:center;}
 #ch-in{position:absolute;left:0;top:${G.inY}px;width:${W}px;height:${H - G.inY}px;}
 #ch-if{position:absolute;left:${K(24)}px;top:0;width:${W - K(24) * 2 - G.inH - K(14)}px;height:${G.inH}px;border-radius:${G.inH}px;background:#fff;color:#8A96A0;font-size:${Math.round(G.inH * 0.3)}px;display:flex;align-items:center;padding-left:${Math.round(G.inH * 0.35)}px;box-shadow:0 1px 1.5px rgba(11,20,26,.12);}
@@ -379,11 +390,12 @@ const UNDER = "data-layout-allow-occlusion data-layout-allow-overlap";
       <div class="q-tx" ${UNDER}>Segue a cotação pra 3 vidas</div>
       <div class="tm" style="right:${K(20)}px;top:${K(458)}px" ${UNDER}>${m.time}</div>
     </div>`;
-    return `<div class="${cls}" id="${m.id}" style="${st}">
-      <div class="c-tx" ${UNDER}>Toque no botão e fale comigo:</div>
-      <div class="c-bw"><div class="c-ring" id="c-ring"></div><div class="c-bt d" id="c-bt">${icon("chat", K(44), { color: "#fff", sw: 3.2 })}<span ${UNDER}>Fale comigo no WhatsApp</span></div></div>
-      <div class="c-sb" ${UNDER}>Cotação SulAmérica PME · 3 vidas</div>
-      <div class="tm" style="right:${K(20)}px;top:${K(214)}px" ${UNDER}>${m.time}</div>
+    return `<div class="${cls} fm" id="${m.id}" style="${st}">
+      <div class="fm-hd">${icon("form", K(34), { color: "#fff", sw: 3.4 })}<span ${UNDER}>Formulário de cotação</span></div>
+      <div class="fm-sb" ${UNDER}>SulAmérica PME · 3 vidas</div>
+      ${["Nome", "Telefone", "E-mail"].map((f, i) => `<div class="fm-f" style="top:${K(114 + i * 54)}px" ${UNDER}>${f}</div><div class="fm-h" id="fm-h${i}" style="top:${K(114 + i * 54)}px"></div>`).join("")}
+      <div class="fm-bw"><div class="fm-ring" id="fm-ring"></div><div class="fm-bt d" id="fm-bt">${icon("form", K(34), { color: "#fff", sw: 3.4 })}<span ${UNDER}>Preencher formulário</span></div></div>
+      <div class="tm" style="right:${K(20)}px;top:${K(350)}px" ${UNDER}>${m.time}</div>
     </div>`;
   };
   const reacts = MSG.filter((m) => m.react)
@@ -447,10 +459,15 @@ const UNDER = "data-layout-allow-occlusion data-layout-allow-overlap";
   // "Sério?!" da cliente: a conversa dá um soquinho
   add(`tl.fromTo("#ch-cam",{scale:1},{scale:1.03,duration:0.16,ease:"power2.out"},${r3(T.serio1)});`);
   add(`tl.to("#ch-cam",{scale:1,duration:0.6,ease:"power2.inOut"},${r3(T.serio1 + 0.16)});`);
-  // "Clica no botão": brilho e toque no botão da bolha
-  add(`tl.fromTo("#c-bt",{scale:1},{scale:0.94,duration:0.1,ease:"power2.in"},${TAP});`);
-  add(`tl.to("#c-bt",{scale:1,duration:0.28,ease:"back.out(2)"},${r3(TAP + 0.1)});`);
-  add(`tl.fromTo("#c-ring",{opacity:0.95,scale:1},{opacity:0,scale:1.12,duration:0.6,ease:"power2.out"},${r3(TAP + 0.04)});`);
+  // formulário: os três campos acendem enquanto ele fala ("que eu te ajudo a ver as condições") e o
+  // dedo toca "Preencher formulário" na pausa antes de "Toca no botão aqui embaixo"
+  [T.que3, T.ajudo, T.condicoes].forEach((t, i) => {
+    add(`tl.fromTo("#fm-h${i}",{opacity:0},{opacity:1,duration:0.18,ease:"power2.out"},${r3(t)});`);
+    add(`tl.to("#fm-h${i}",{opacity:0.35,duration:0.4,ease:"power2.inOut"},${r3(t + 0.35)});`);
+  });
+  add(`tl.fromTo("#fm-bt",{scale:1},{scale:0.94,duration:0.1,ease:"power2.in"},${TAP});`);
+  add(`tl.to("#fm-bt",{scale:1,duration:0.28,ease:"back.out(2)"},${r3(TAP + 0.1)});`);
+  add(`tl.fromTo("#fm-ring",{opacity:0.95,scale:1},{opacity:0,scale:1.12,duration:0.6,ease:"power2.out"},${r3(TAP + 0.04)});`);
   scenes.push({ st: 0, track: 0, ...scene(p, END_IN + 0.6, css, body, a) });
 }
 
@@ -606,15 +623,15 @@ const UNDER = "data-layout-allow-occlusion data-layout-allow-overlap";
 }
 
 // ═════════════ 3 · cartão final ═════════════
-const BTN = pick({ x: 90, y: 1030, w: 900, h: 136 }, { x: 140, y: 580, w: 800, h: 100 });
+const BTN = pick({ x: 90, y: 1004, w: 900, h: 120 }, { x: 140, y: 572, w: 800, h: 84 });
 {
   const p = "en";
   const st = END_IN;
   const dur = D - st;
   const { a, add } = TL(st);
   const g = pick(
-    { lw: 500, ly: 270, ty: 430, ts: 84, cy: 650, ch: 340, cl: 38, cp: 108, cx: 70, cw: 940, ks: 24, bt: 48, fy: 1196, fs: 19, y1: 30, y2: 82, y3: 200, y4: 256 },
-    { lw: 340, ly: 24, ty: 134, ts: 56, cy: 284, ch: 270, cl: 30, cp: 84, cx: 140, cw: 800, ks: 19, bt: 40, fy: 702, fs: 16, y1: 22, y2: 64, y3: 158, y4: 204 },
+    { lw: 500, ly: 270, ty: 430, ts: 84, cy: 640, ch: 340, cl: 38, cp: 108, cx: 70, cw: 940, ks: 24, bt: 46, by: 1138, bs: 30, fy: 1196, fs: 19, y1: 30, y2: 82, y3: 200, y4: 256 },
+    { lw: 340, ly: 24, ty: 134, ts: 56, cy: 284, ch: 270, cl: 30, cp: 84, cx: 140, cw: 800, ks: 19, bt: 38, by: 664, bs: 21, fy: 702, fs: 16, y1: 22, y2: 64, y3: 158, y4: 204 },
   );
   const css =
     base(p) +
@@ -631,8 +648,10 @@ const BTN = pick({ x: 90, y: 1030, w: 900, h: 136 }, { x: 140, y: 580, w: 800, h
 #en-ci span{display:inline-block;padding:6px 18px;border-radius:20px;background:${ORANGE};color:#fff;font-family:"Mont",Arial,sans-serif;font-weight:800;font-size:${Math.round(g.cl * 0.72)}px;}
 #en-ck{position:absolute;left:30px;right:30px;top:${g.y4}px;line-height:1.35;font-weight:500;font-size:${g.ks}px;color:${MUTED};}
 #en-bw{position:absolute;left:${BTN.x}px;top:${BTN.y}px;width:${BTN.w}px;height:${BTN.h}px;}
-#en-ring{position:absolute;inset:0;border-radius:${BTN.h}px;border:5px solid rgba(37,211,102,.9);opacity:0;}
-#en-btn{position:absolute;inset:0;border-radius:${BTN.h}px;background:${GREEN};display:flex;align-items:center;justify-content:center;gap:22px;font-weight:800;font-size:${g.bt}px;box-shadow:0 20px 50px rgba(14,159,74,.5),inset 0 2px 0 rgba(255,255,255,.3);overflow:hidden;}
+#en-ring{position:absolute;inset:0;border-radius:${BTN.h}px;border:5px solid rgba(247,148,29,.9);opacity:0;}
+#en-btn{position:absolute;inset:0;border-radius:${BTN.h}px;background:${ORANGE};display:flex;align-items:center;justify-content:center;gap:20px;font-weight:800;font-size:${g.bt}px;box-shadow:0 20px 50px rgba(242,101,34,.45),inset 0 2px 0 rgba(255,255,255,.3);overflow:hidden;}
+#en-lb{position:absolute;left:0;width:${W}px;top:${g.by}px;display:flex;justify-content:center;align-items:center;gap:${K(16)}px;font-weight:800;font-size:${g.bs}px;color:#fff;}
+.en-ar{display:inline-flex;}
 #en-f{position:absolute;left:${pick(70, 60)}px;width:${W - pick(140, 120)}px;top:${g.fy}px;text-align:center;font-size:${g.fs}px;line-height:1.4;color:rgba(255,255,255,.8);}
 `;
   const body = `
@@ -645,7 +664,8 @@ const BTN = pick({ x: 90, y: 1030, w: 900, h: 136 }, { x: 140, y: 580, w: 800, h
       <div id="en-ci"><span>já com IOF</span></div>
       <div id="en-ck">Nacional · Apartamento · Coparticipação · Reembolso · Sem taxa de inscrição</div>
     </div>
-    <div id="en-bw"><div id="en-ring"></div><div id="en-btn" class="d">${icon("chat", Math.round(g.bt * 1.25), { id: "en-chat", color: "#fff", sw: 3.2 })}<span>Fale comigo no WhatsApp</span><div id="en-bsw" class="sweep" aria-hidden="true"></div></div></div>
+    <div id="en-bw"><div id="en-ring"></div><div id="en-btn" class="d">${icon("form", Math.round(g.bt * 1.2), { id: "en-ic", color: "#fff", sw: 3.2 })}<span>Preencha o formulário</span><div id="en-bsw" class="sweep" aria-hidden="true"></div></div></div>
+    <div id="en-lb" class="d"><span class="en-ar" id="en-a0">${icon("down", Math.round(g.bs * 1.3), { color: HL, sw: 4.4 })}</span><span>Toque no botão abaixo</span><span class="en-ar" id="en-a1">${icon("down", Math.round(g.bs * 1.3), { color: HL, sw: 4.4 })}</span></div>
     <div id="en-f">Cotação SulAmérica PME | Capital – 03 a 04 vidas – Apólice 12 meses · Especial Vital QP R1 · Compulsório · 30% de coparticipação · Reembolso. Valores para 3 beneficiários (0 a 18, 29 a 33 e 34 a 38 anos): R$ 1.729,15 + IOF de 2,38% = R$ 1.770,30/mês. Sem taxa de inscrição. Contratação sujeita à análise e às condições da operadora.</div>
   </div>`;
   add(`tl.fromTo("#en-wrap",{yPercent:100},{yPercent:0,duration:0.55,ease:"power3.out"},0);`);
@@ -656,9 +676,14 @@ const BTN = pick({ x: 90, y: 1030, w: 900, h: 136 }, { x: 140, y: 580, w: 800, h
   add(`tl.fromTo("#en-c",{y:${pick(200, 150)},opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.6);`);
   add(`tl.fromTo("#en-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"back.out(1.8)"},0.9);`);
   add(`tl.fromTo("#en-f",{opacity:0},{opacity:1,duration:0.5},1.1);`);
-  add(`tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},1.3);`);
-  add(`tl.fromTo("#en-chat",{rotation:0},{rotation:14,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},1.4);`);
-  for (let t = 1.9; t + 1.0 <= dur - 0.6; t += 1.0) {
+  // "aqui embaixo": setas descendo para o botão do anúncio; "cotação": brilho no botão
+  const ar = r3(Math.max(0.75, T.embaixo - st - 0.25));
+  add(`tl.fromTo("#en-lb",{opacity:0,y:-14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${ar});`);
+  const nb = Math.floor((dur - ar - 0.4) / 0.5);
+  add(`tl.fromTo(["#en-a0","#en-a1"],{y:0},{y:${pick(14, 10)},duration:0.25,ease:"sine.inOut",repeat:${nb * 2 - 1},yoyo:true},${ar});`);
+  add(`tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},${r3(Math.max(1.0, T.cotacao2 - st - 0.1))});`);
+  add(`tl.fromTo("#en-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},${r3(Math.max(1.0, T.cotacao2 - st))});`);
+  for (let t = Math.max(1.9, T.cotacao2 - st + 0.9); t + 1.0 <= dur - 0.6; t += 1.0) {
     add(`tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.5,ease:"sine.inOut",immediateRender:false},${r3(t)});`);
     add(`tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},${r3(t + 0.5)});`);
     add(`tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},${r3(t)});`);
@@ -693,10 +718,13 @@ const CAP = [
   [["e", 63], ["sem", 64], ["taxa", 65], ["de", 66], ["inscrição!", 67]],
   [["Amei!", 68]],
   [["E", 69], ["como", 70], ["é", 71], ["que", 72], ["eu", 73], ["faço?", 74]],
-  [["Clica", 75], ["no", 76], ["botão", 77]],
-  [["e", 78], ["me", 79], ["chama", 80], ["no", 81], ["WhatsApp,", 82]],
-  [["que", 83], ["eu", 84], ["vejo", 85], ["as", 86], ["condições", 87]],
-  [["de", 88], ["contratação", 89], ["pra", 90], ["você!", 91]],
+  [["Preenche", 75], ["o", 76], ["formulário", 77]],
+  [["que", 78], ["eu", 79], ["te", 80], ["ajudo", 81]],
+  [["a", 82], ["ver", 83], ["as", 84], ["condições", 85]],
+  [["pra", 86], ["você", 87], ["e", 88], ["pra", 89], ["sua", 90], ["família.", 91]],
+  [["Toca", 92], ["no", 93], ["botão", 94]],
+  [["aqui", 95], ["embaixo", 96]],
+  [["e", 97], ["faz", 98], ["a", 99], ["sua", 100], ["cotação!", 101]],
 ];
 {
   const p = "cap";
@@ -757,8 +785,8 @@ const CAP = [
   const { a, add } = TL(0);
   const FS = pick(96, 76);
   const m8 = msg("m8");
-  const fx = m8.x + K(20) + Math.round(K(580) * 0.72);
-  const fy = G.vpTop + m8.y - scrollAt(TAP) + K(76) + K(56);
+  const fx = m8.x + K(24) + Math.round(K(572) * 0.7);
+  const fy = G.vpTop + m8.y - scrollAt(TAP) + K(282) + K(32);
   const NOISE =
     "data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
   const css = `#ui-root{position:absolute;inset:0;width:${W}px;height:${H}px;overflow:hidden;pointer-events:none;}
@@ -782,7 +810,7 @@ const CAP = [
 const HITS = JSON.parse(readFileSync(join(ROOT, "assets/audio/sfx_hits.json"), "utf8"));
 const SFX = [
   ["shimmer", 0.1, 0.22],
-  ...MSG.filter((m) => m.type !== "chip").map((m) => (m.spk === "cliente" ? ["pop", m.t + 0.02, 0.32] : m.id === "m8" ? ["pop", m.t, 0.14] : ["chime", m.t, 0.24])),
+  ...MSG.filter((m) => m.type !== "chip").map((m) => (m.spk === "cliente" ? ["pop", m.t + 0.02, 0.32] : m.id === "m8" ? ["card", m.t, 0.22] : ["chime", m.t, 0.24])),
   ...LINES.map((l) => ["tap", l.start - 0.06, 0.16]),
   ["card", msg("m3").t + 0.02, 0.2],
   ["whoosh", O2_IN, 0.28],
@@ -801,11 +829,13 @@ const SFX = [
   ...[T.abr, T.apt, T.cop, T.ree, T.sem].map((t) => ["check", t + 0.05, 0.24]),
   ["whoosh", O3_OUT, 0.2],
   ["pop", T.amei, 0.34],
+  ...[T.que3, T.ajudo, T.condicoes].map((t) => ["pop", t, 0.12]),
   ["tap", TAP, 0.42],
   ["check", TAP + 0.05, 0.18],
-  ["whoosh", END_IN, 0.28],
-  ["impact", END_IN + 0.1, 0.3],
-  ["shimmer", END_IN + 0.35, 0.26],
+  ["whoosh", END_IN, 0.22],
+  ["impact", END_IN + 0.1, 0.2],
+  ["pop", T.embaixo, 0.16],
+  ["shimmer", T.cotacao2, 0.2],
 ];
 const SFX_DUR = { counter: 2.4 };
 function allocTracks(items, first) {

@@ -525,121 +525,191 @@
 "spk": "cliente"
 },
 {
-"word": "Clica",
-"start": 35.988,
-"end": 36.188,
+"word": "Preenche",
+"start": 35.97,
+"end": 36.31,
 "line": "k3",
 "spk": "consultor"
 },
 {
-"word": "no",
-"start": 36.228,
-"end": 36.308,
+"word": "o",
+"start": 36.34,
+"end": 36.41,
 "line": "k3",
 "spk": "consultor"
 },
 {
-"word": "botão",
-"start": 36.328,
-"end": 36.648,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "e",
-"start": 36.668,
-"end": 36.708,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "me",
-"start": 36.748,
-"end": 36.848,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "chama",
-"start": 36.868,
-"end": 37.068,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "no",
-"start": 37.088,
-"end": 37.168,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "WhatsApp,",
-"start": 37.188,
-"end": 37.628,
+"word": "formulário",
+"start": 36.42,
+"end": 36.91,
 "line": "k3",
 "spk": "consultor"
 },
 {
 "word": "que",
-"start": 37.848,
-"end": 37.888,
+"start": 36.96,
+"end": 37.0,
 "line": "k3",
 "spk": "consultor"
 },
 {
 "word": "eu",
-"start": 37.908,
-"end": 37.988,
+"start": 37.02,
+"end": 37.07,
 "line": "k3",
 "spk": "consultor"
 },
 {
-"word": "vejo",
-"start": 38.008,
-"end": 38.148,
+"word": "te",
+"start": 37.11,
+"end": 37.18,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "ajudo",
+"start": 37.24,
+"end": 37.54,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "a",
+"start": 37.56,
+"end": 37.62,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "ver",
+"start": 37.68,
+"end": 37.77,
 "line": "k3",
 "spk": "consultor"
 },
 {
 "word": "as",
-"start": 38.188,
-"end": 38.268,
+"start": 37.81,
+"end": 37.91,
 "line": "k3",
 "spk": "consultor"
 },
 {
 "word": "condições",
-"start": 38.288,
-"end": 38.708,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "de",
-"start": 38.748,
-"end": 38.788,
-"line": "k3",
-"spk": "consultor"
-},
-{
-"word": "contratação",
-"start": 38.828,
-"end": 39.388,
+"start": 37.95,
+"end": 38.45,
 "line": "k3",
 "spk": "consultor"
 },
 {
 "word": "pra",
-"start": 39.428,
-"end": 39.528,
+"start": 38.48,
+"end": 38.6,
 "line": "k3",
 "spk": "consultor"
 },
 {
 "word": "você",
-"start": 39.548,
-"end": 39.848,
+"start": 38.64,
+"end": 39.17,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 39.22,
+"end": 39.29,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "pra",
+"start": 39.31,
+"end": 39.45,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "sua",
+"start": 39.47,
+"end": 39.62,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "família",
+"start": 39.66,
+"end": 40.06,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "Toca",
+"start": 40.556,
+"end": 40.766,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "no",
+"start": 40.776,
+"end": 40.866,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "botão",
+"start": 40.876,
+"end": 41.166,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "aqui",
+"start": 41.176,
+"end": 41.376,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "embaixo",
+"start": 41.396,
+"end": 41.766,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "e",
+"start": 41.776,
+"end": 41.896,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "faz",
+"start": 41.916,
+"end": 42.096,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "a",
+"start": 42.116,
+"end": 42.176,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "sua",
+"start": 42.196,
+"end": 42.336,
+"line": "k3",
+"spk": "consultor"
+},
+{
+"word": "cotação",
+"start": 42.356,
+"end": 42.896,
 "line": "k3",
 "spk": "consultor"
 }

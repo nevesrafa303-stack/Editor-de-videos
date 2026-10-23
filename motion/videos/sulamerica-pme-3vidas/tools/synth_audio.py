@@ -10,15 +10,15 @@ cortados no ataque, nivelados e convertidos para 48 kHz. assets/audio/sfx_hits.j
 cada efeito, quanto tempo depois do início do arquivo fica o golpe.
 
 Trilha sintetizada (a conexão do ElevenLabs deste ambiente não gera música), leve e amigável,
-presa à locução: DROP = 9,90 s ("SulAmérica") e CTA = 33,04 s ("Me chama no WhatsApp"),
-12 compassos entre os dois (~124 BPM).
+presa à locução: DROP = 9,90 s ("SulAmérica") e CTA = 33,04 s (logo antes de "Preenche o
+formulário", 33,30 s), 12 compassos entre os dois (~124 BPM); duração = fim da locução + 2,2 s.
   0–4,1       pad claro em Lá maior, quase só ambiente (a conversa do gancho)
   -3..-1      pré: plucks com filtro abrindo, pulso de baixo, riser até o logo
   0–9         drop: kick 4/4, baixo, plucks; palmas do 2, chimbal 16 do 4 (oferta, cotação, benefícios)
   10          respiro ("sem taxa de inscrição", "Quer saber se você pode contratar?")
-  11          subida até o WhatsApp
-  12–15       refrão do CTA
-  16          acorde final em Lá, soa até o fim
+  11          subida até o formulário
+  12–16       refrão do CTA (um pouco contido sob a fala, cresce quando ela termina)
+  17          acorde final em Lá no "faz a sua cotação", soa até o fim
 """
 import json
 import os
@@ -242,11 +242,13 @@ def norm(x, peak):
 # ───────────────────────── grade da trilha ─────────────────────────
 
 DROP = 9.90                  # "SulAmérica" (o logo)
-CTA = 33.04                  # "Me chama no WhatsApp"
+CTA = 33.04                  # logo antes de "Preenche o formulário"
 BAR = (CTA - DROP) / 12      # 1,928 s -> ~124 BPM
 BEAT = BAR / 4
-TOTAL = 44.0
-PRE, BREAK, BUILD, CHORUS, LAST = -3, 10, 11, 12, 16
+_WORDS = json.load(open(os.path.join(ROOT, "assets", "voice", "vo.words.json")))
+VO_END = _WORDS[-1]["end"]
+TOTAL = round(VO_END + 2.2, 1)
+PRE, BREAK, BUILD, CHORUS, LAST = -3, 10, 11, 12, 17
 
 
 def at_bar(b):
@@ -260,7 +262,7 @@ CHORDS = {
     'D': dict(bass=38, pad=[57, 62, 66, 69], arp=[62, 66, 69, 74]),
 }
 PROG = {-3: 'D', -2: 'E', -1: 'E', 0: 'A', 1: 'E', 2: 'F#m', 3: 'D', 4: 'A', 5: 'E', 6: 'F#m', 7: 'D',
-        8: 'A', 9: 'E', 10: 'D', 11: 'E', 12: 'A', 13: 'E', 14: 'F#m', 15: 'D', 16: 'A'}
+        8: 'A', 9: 'E', 10: 'D', 11: 'E', 12: 'A', 13: 'E', 14: 'F#m', 15: 'D', 16: 'E', 17: 'A'}
 
 
 def intro():
@@ -376,8 +378,9 @@ def bgm():
     mix = mix[: int(TOTAL * SR)]
     # dinâmica por seção: respiro sério mais baixo, subida volta ao nível, refrão um pouco acima
     tt = np.arange(len(mix)) / SR
-    g = np.interp(tt, [0, at_bar(BREAK) - 0.05, at_bar(BREAK) + 0.4, at_bar(BUILD), CTA - 0.02, CTA + 0.05, TOTAL],
-                  [1.0, 1.0, 0.62, 0.66, 0.95, 1.12, 1.12])
+    g = np.interp(tt, [0, at_bar(BREAK) - 0.05, at_bar(BREAK) + 0.4, at_bar(BUILD), CTA - 0.02, CTA + 0.05,
+                       VO_END, VO_END + 0.5, TOTAL],
+                  [1.0, 1.0, 0.62, 0.66, 0.95, 1.0, 1.0, 1.12, 1.12])
     mix *= g[:, None]
     fade = np.ones(len(mix))
     f0 = int((TOTAL - 1.4) * SR)
