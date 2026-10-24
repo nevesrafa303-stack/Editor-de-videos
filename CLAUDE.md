@@ -36,6 +36,8 @@ Usar o texto **exatamente** como está (sem reescrever, encurtar ou trocar palav
 
 ### Como aplicar nos vídeos
 
+- **Só por escrito:** as observações entram apenas como texto na tela. Não vão para a locução
+  (o narrador não fala) nem para as legendas da fala.
 - **Cartão final:** o texto legal do fim reúne todas as observações que valem para o vídeo
   inteiro, além dos dados da cotação (operadora, produto, faixas, valores, IOF etc.).
 - **Na cena:** quando o preço aparece grande no meio do vídeo, colocar logo abaixo dele, em letra
