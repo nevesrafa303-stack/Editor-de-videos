@@ -1,0 +1,147 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s1-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s1-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:70px;width:940px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#s1-a1{top:290px;font-weight:900;font-size:104px;line-height:1.05;letter-spacing:-.02em;}
+#s1-a2{top:410px;font-weight:900;font-size:84px;line-height:1.05;letter-spacing:-.02em;}
+#s1-pw{position:absolute;left:0;width:1080px;top:536px;text-align:center;}
+#s1-pill{display:inline-flex;align-items:center;gap:12px;height:64px;padding:0 32px;border-radius:64px;background:#F5B83D;color:#0B1626;font-weight:900;font-size:30px;letter-spacing:.04em;}
+#s1-ow{position:absolute;left:160px;top:640px;width:760px;height:430px;}
+#s1-oc{position:absolute;inset:0;border-radius:36px;background:linear-gradient(135deg,#E9EDF2 0%,#C9D1DC 100%);color:#0B1626;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden;}
+#s1-oic{position:absolute;left:40px;top:40px;width:88px;height:88px;border-radius:50%;background:#8D99AA;display:flex;align-items:center;justify-content:center;}
+#s1-ot1{position:absolute;left:150px;top:48px;font-weight:900;font-size:36px;letter-spacing:.06em;}
+#s1-ot2{position:absolute;left:150px;top:94px;font-weight:500;font-size:26px;color:#4F5F75;}
+#s1-ochip{position:absolute;left:40px;top:176px;width:100px;height:76px;border-radius:14px;background:linear-gradient(135deg,#C9CED6,#9AA3B0);}
+.s1-obar{position:absolute;left:40px;height:22px;border-radius:11px;background:#A9B4C3;}
+#s1-b1{top:286px;font-weight:800;font-size:58px;line-height:1.1;color:#B9C5D6;}
+#s1-b1i{position:relative;display:inline-block;}
+#s1-bx{position:absolute;left:-3%;top:50%;width:106%;height:8px;margin-top:-2px;border-radius:6px;background:#FF7A6B;}
+.s1-b2{font-weight:900;font-size:80px;line-height:1.1;letter-spacing:-.02em;}
+.s1-c{font-weight:900;font-size:70px;line-height:1.1;letter-spacing:-.02em;}
+#s1-nw{position:absolute;left:90px;top:660px;width:900px;height:690px;}
+#s1-nc{position:absolute;inset:0;border-radius:36px;background:#fff;color:#0B1626;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 5px rgba(255,210,122,.85);overflow:hidden;}
+#s1-nh{position:absolute;left:0;top:0;width:100%;height:110px;background:linear-gradient(135deg,#FFD27A,#F5B83D);display:flex;align-items:center;gap:18px;padding-left:34px;}
+#s1-nhi{width:70px;height:70px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;}
+#s1-nht{font-weight:900;font-size:40px;letter-spacing:.05em;}
+#s1-nl{position:absolute;left:34px;top:128px;font-weight:700;font-size:30px;color:#4F5F75;letter-spacing:.04em;}
+.s1-r{position:absolute;left:24px;right:24px;height:154px;border-radius:25px;background:#F1F4F8;}
+.s1-pb{position:absolute;left:15px;top:46px;height:22px;border-radius:12px;background:#DCE2EA;}
+.s1-rc{position:absolute;inset:0;opacity:0;}
+.s1-t{left:15px;top:15px;width:210px;height:124px;border-radius:15px;}
+.s1-ti{position:absolute;left:15px;top:15px;width:210px;height:124px;border-radius:15px;background:linear-gradient(135deg,#FFD27A,#F5B83D);display:flex;align-items:center;justify-content:center;}
+.s1-n{position:absolute;left:246px;top:0;height:154px;display:flex;align-items:center;font-weight:800;font-size:36px;line-height:1.12;}
+.s1-n.sm{font-size:29px;}
+.s1-k{position:absolute;right:15px;top:45px;width:64px;height:64px;border-radius:50%;background:#1F9D5C;display:flex;align-items:center;justify-content:center;}
+</style>
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="15.218" data-width="1080" data-height="1920">
+  <div id="s1-wrap" class="s1-full">
+    <div id="s1-A" class="s1-full">
+      <div id="s1-a1" class="ln d"><span class="w"><span class="wi" id="s1a0">Você</span></span> <span class="w"><span class="wi" id="s1a1">tinha</span></span></div>
+      <div id="s1-a2" class="ln d"><span id="s1-a2i" style="display:inline-block">Select em <span class="coral">Recife?</span></span></div>
+      <div id="s1-pw"><span id="s1-pill" class="d"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="#0B1626" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 44s14-13.5 14-24a14 14 0 0 0-28 0c0 10.5 14 24 14 24z"/><circle cx="24" cy="20" r="5"/></svg>Presta atenção</span></div>
+    </div>
+    <div id="s1-ow" data-layout-allow-overflow><div id="s1-oc">
+      <div id="s1-oic"><svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 41S7 31 7 18.5A9.5 9.5 0 0 1 24 13a9.5 9.5 0 0 1 17 5.5C41 31 24 41 24 41z"/><path d="M24 20v10M19 25h10"/></svg></div>
+      <div id="s1-ot1" class="d">PLANO ANTERIOR</div>
+      <div id="s1-ot2">Carteirinha</div>
+      <div id="s1-ochip"></div>
+      <div class="s1-obar" style="top:300px;width:380px"></div>
+      <div class="s1-obar" style="top:344px;width:250px"></div></div></div>
+    <div id="s1-B" class="s1-full">
+      <div id="s1-b1" class="ln d"><span id="s1-b1i" data-layout-allow-occlusion><span class="w"><span class="wi" id="s1b0">A</span></span> <span class="w"><span class="wi" id="s1b1">Select</span></span> <span class="w"><span class="wi" id="s1b2">saiu,</span></span><i id="s1-bx" data-layout-allow-overlap aria-hidden="true"></i></span></div>
+      <div class="ln d s1-b2" style="top:356px"><span class="w"><span class="wi" id="s1c0">Trocar</span></span> <span class="w"><span class="wi" id="s1c1">de</span></span> <span class="w"><span class="wi" id="s1c2">plano</span></span></div>
+      <div class="ln d s1-b2" style="top:444px"><span class="w"><span class="wi" id="s1d0">não</span></span> <span class="w"><span class="wi" id="s1d1">significa</span></span></div>
+      <div class="ln d s1-b2" style="top:532px"><span class="w"><span class="wi gold" id="s1e0">trocar</span></span> <span class="w"><span class="wi gold" id="s1e1">de</span></span> <span class="w"><span class="wi gold" id="s1e2">hospital.</span></span></div>
+    </div>
+    <div id="s1-C" class="s1-full">
+      <div class="ln d s1-c" style="top:400px"><span class="w"><span class="wi" id="s1f0">Existem</span></span> <span class="w"><span class="wi" id="s1f1">planos</span></span> <span class="w"><span class="wi" id="s1f2">com</span></span></div>
+      <div class="ln d s1-c" style="top:486px"><span class="w"><span class="wi" id="s1g0">atendimento</span></span> <span class="w"><span class="wi" id="s1g1">no:</span></span></div>
+    </div>
+    <div id="s1-nw" data-layout-allow-overflow><div id="s1-nc">
+      <div id="s1-nh"><div id="s1-nhi"><svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="#0B1626" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 41S7 31 7 18.5A9.5 9.5 0 0 1 24 13a9.5 9.5 0 0 1 17 5.5C41 31 24 41 24 41z"/><path d="M24 20v10M19 25h10"/></svg></div><div id="s1-nht" class="d">NOVO PLANO</div></div>
+      <div id="s1-nl">REDE HOSPITALAR</div>
+      <div class="s1-r" style="top:178px"><div class="s1-pb" id="s1-pb0" style="width:450px"></div>
+        <div class="s1-rc" id="s1-rc0"><div class="ph s1-t"><img id="s1-i0" src="assets/img/real-hospital-portugues.jpg" alt="Real Hospital Português" style="object-position:80% 32%" /></div><div class="s1-n d">Real Hospital<br>Português</div></div>
+        <div class="s1-k" id="s1-k0"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+      <div class="s1-r" style="top:342px"><div class="s1-pb" id="s1-pb1" style="width:396px"></div>
+        <div class="s1-rc" id="s1-rc1"><div class="ph s1-t"><img id="s1-i1" src="assets/img/santa-joana-fachada.jpg" alt="Hospital Santa Joana" style="object-position:50% 62%" /></div><div class="s1-n d">Hospital<br>Santa Joana</div></div>
+        <div class="s1-k" id="s1-k1"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+      <div class="s1-r" style="top:506px"><div class="s1-pb" id="s1-pb2" style="width:342px"></div>
+        <div class="s1-rc" id="s1-rc2"><div class="s1-ti"><svg viewBox="0 0 48 48" width="74" height="74" fill="none" stroke="#0B1626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 42V12h30v30M4 42h40M20 42v-8h8v8M24 17v9M19.5 21.5h9"/></svg></div><div class="s1-n d sm">E outros hospitais<br>de referência do Recife</div></div>
+        <div class="s1-k" id="s1-k2"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+    </div></div>
+    <div class="legal" id="s1-lg" style="top:1384px">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s1-a1",{scale:1.08},{scale:1,duration:0.5,ease:"power3.out"},0);
+tl.fromTo("#s1-a2i",{scale:1.8,opacity:0},{scale:1,opacity:1,duration:0.26,ease:"power4.out"},0.638);
+tl.set("#s1-A",{x:12,y:-7.2},0.878);
+tl.set("#s1-A",{x:-9.6,y:5.76},0.911);
+tl.set("#s1-A",{x:6,y:-3.6},0.945);
+tl.set("#s1-A",{x:-3,y:1.8},0.978);
+tl.set("#s1-A",{x:0,y:0},1.011);
+tl.fromTo("#s1-ow",{y:240,opacity:0,rotation:-4},{y:0,opacity:1,rotation:-2,duration:0.5,ease:"power3.out"},1.264);
+tl.fromTo("#s1-pill",{scale:0.4,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(2.2)"},2.146);
+tl.to("#s1-A",{y:-80,opacity:0,duration:0.26,ease:"power3.in"},3.352);
+tl.fromTo("#s1b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.592);
+tl.fromTo("#s1b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.836);
+tl.fromTo("#s1b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.24);
+tl.fromTo("#s1-bx",{scaleX:0},{scaleX:1,duration:0.3,ease:"power3.inOut",transformOrigin:"0% 50%"},4.829);
+tl.to("#s1-b1i",{opacity:0.5,duration:0.3},5.009);
+tl.to("#s1-ow",{x:-1250,rotation:-14,opacity:0.6,duration:0.5,ease:"power3.in"},4.709);
+tl.fromTo("#s1-nw",{x:1250,rotation:8},{x:0,rotation:0,duration:0.55,ease:"power3.out"},4.809);
+tl.set("#s1-nw",{x:8,y:-4.8},5.379);
+tl.set("#s1-nw",{x:-6.4,y:3.84},5.412);
+tl.set("#s1-nw",{x:4,y:-2.4},5.446);
+tl.set("#s1-nw",{x:-2,y:1.2},5.479);
+tl.set("#s1-nw",{x:0,y:0},5.512);
+tl.fromTo("#s1c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.113);
+tl.fromTo("#s1c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.437);
+tl.fromTo("#s1c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.598);
+tl.fromTo("#s1d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.882);
+tl.fromTo("#s1d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.126);
+tl.fromTo("#s1e0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.693);
+tl.fromTo("#s1e1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.018);
+tl.fromTo("#s1e2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.14);
+tl.to("#s1-B",{y:-60,opacity:0,duration:0.24,ease:"power3.in"},7.918);
+tl.fromTo("#s1f0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.158);
+tl.fromTo("#s1f1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.687);
+tl.fromTo("#s1f2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.012);
+tl.fromTo("#s1g0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.174);
+tl.fromTo("#s1g1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.743);
+tl.to("#s1-pb0",{opacity:0,duration:0.15},9.805);
+tl.fromTo("#s1-rc0",{opacity:0,x:40},{opacity:1,x:0,duration:0.35,ease:"power3.out"},9.825);
+tl.fromTo("#s1-k0",{scale:0},{scale:1,duration:0.3,ease:"back.out(2.6)"},10.225);
+tl.to("#s1-pb1",{opacity:0,duration:0.15},11.426);
+tl.fromTo("#s1-rc1",{opacity:0,x:40},{opacity:1,x:0,duration:0.35,ease:"power3.out"},11.446);
+tl.fromTo("#s1-k1",{scale:0},{scale:1,duration:0.3,ease:"back.out(2.6)"},11.846);
+tl.to("#s1-pb2",{opacity:0,duration:0.15},12.684);
+tl.fromTo("#s1-rc2",{opacity:0,x:40},{opacity:1,x:0,duration:0.35,ease:"power3.out"},12.704);
+tl.fromTo("#s1-k2",{scale:0},{scale:1,duration:0.3,ease:"back.out(2.6)"},13.104);
+tl.fromTo("#s1-lg",{opacity:0},{opacity:1,duration:0.4},10.225);
+tl.to("#s1-wrap",{y:-140,opacity:0,duration:0.3,ease:"power3.in"},14.918);
+window.__timelines["s1"] = tl;
+})();
+</script>
+</template>

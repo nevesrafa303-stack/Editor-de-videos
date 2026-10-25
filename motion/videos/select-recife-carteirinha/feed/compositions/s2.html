@@ -1,0 +1,120 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s2-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s2-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:16px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+.s2-h{font-weight:900;font-size:46px;line-height:1.1;letter-spacing:-.02em;}
+#s2-tb{position:absolute;left:120px;top:168px;width:840px;height:294px;border-radius:24px;background:#fff;color:#0B1626;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden;}
+.s2-hc{position:absolute;top:0;height:70px;width:180px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:26px;background:#E4EAF2;}
+#s2-h0{position:absolute;left:0;top:0;width:300px;height:70px;background:#E4EAF2;display:flex;align-items:center;padding-left:18px;font-weight:700;font-size:18px;color:#4F5F75;letter-spacing:.04em;}
+.s2-rl{position:absolute;left:0;width:300px;height:112px;display:flex;align-items:center;gap:12px;padding-left:14px;font-weight:800;font-size:22px;line-height:1.1;border-top:2px solid #E4EAF2;}
+.s2-th{width:66px;height:66px;border-radius:13px;flex:none;}
+.s2-cl{position:absolute;width:180px;height:112px;display:flex;align-items:center;justify-content:center;border-top:2px solid #E4EAF2;border-left:2px solid #E4EAF2;}
+.s2-m{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.s2-m.ok{background:#1F9D5C;}
+.s2-m.no{background:#9AA6B6;}
+.s2-sc{position:absolute;top:0;width:180px;height:294px;background:rgba(245,184,61,.22);}
+#s2-win{position:absolute;left:594px;top:162px;width:192px;height:306px;border-radius:14px;border:6px solid #F5B83D;opacity:0;}
+#s2-wb{position:absolute;left:658.8px;top:134.4px;width:62px;height:62px;border-radius:50%;background:#F5B83D;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.35);}
+#s2-e1{top:480px;font-weight:700;font-size:34px;line-height:1.1;}
+#s2-e2{top:524px;font-weight:900;font-size:38px;line-height:1.1;letter-spacing:-.01em;}
+#s2-f{top:596px;font-weight:500;font-size:28px;color:#B9C5D6;}
+#s2-pr{position:absolute;left:0;width:1080px;top:640px;display:flex;justify-content:center;align-items:center;gap:18px;}
+.s2-p{width:230px;height:70px;border-radius:70px;border:3px solid #F5B83D;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:28px;color:#fff;background:rgba(245,184,61,.14);}
+#s2-ou{font-weight:600;font-size:22px;color:#B9C5D6;}
+</style>
+<div id="s2-root" data-composition-id="s2" data-start="0" data-duration="12.285" data-width="1080" data-height="1080">
+  <div id="s2-wrap" class="s2-full">
+    <div id="s2-H1" class="s2-full">
+      <div class="ln d s2-h" style="top:24px" data-layout-allow-overlap><span class="w"><span class="wi" id="s2a0">Não</span></span> <span class="w"><span class="wi" id="s2a1">precisa</span></span> <span class="w"><span class="wi" id="s2a2">fazer</span></span> <span class="w"><span class="wi" id="s2a3">essa</span></span></div>
+      <div class="ln d s2-h" style="top:84px" data-layout-allow-overlap><span class="w"><span class="wi" id="s2b0">busca</span></span> <span class="w"><span class="wi" id="s2b1">por</span></span> <span class="w"><span class="wi" id="s2b2">conta</span></span> <span class="w"><span class="wi" id="s2b3">própria:</span></span></div>
+    </div>
+    <div id="s2-H2" class="s2-full">
+      <div class="ln d s2-h" style="top:24px" data-layout-allow-overlap><span class="w"><span class="wi" id="s2c0">O</span></span> <span class="w"><span class="wi" id="s2c1">consultor</span></span> <span class="w"><span class="wi gold" id="s2c2">compara</span></span></div>
+      <div class="ln d s2-h" style="top:84px" data-layout-allow-overlap><span class="w"><span class="wi" id="s2d0">as</span></span> <span class="w"><span class="wi" id="s2d1">operadoras</span></span></div>
+    </div>
+    <div id="s2-tb">
+      <div id="s2-h0">HOSPITAL</div>
+      <div class="s2-sc" id="s2-sc0" style="left:300px;opacity:0" aria-hidden="true"></div><div class="s2-sc" id="s2-sc1" style="left:480px;opacity:0" aria-hidden="true"></div><div class="s2-sc" id="s2-sc2" style="left:660px;opacity:0" aria-hidden="true"></div>
+      <div class="s2-hc d" style="left:300px">Plano A</div><div class="s2-hc d" style="left:480px">Plano B</div><div class="s2-hc d" style="left:660px">Plano C</div>
+      <div class="s2-rl d" style="top:70px"><div class="s2-th" style="background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"></div><span>Real Hospital<br>Português</span></div><div class="s2-cl" style="left:300px;top:70px"><div class="s2-m ok" id="s2-m00"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="s2-cl" style="left:480px;top:70px"><div class="s2-m ok" id="s2-m10"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="s2-cl" style="left:660px;top:70px"><div class="s2-m no" id="s2-m20"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l16 16M32 16L16 32"/></svg></div></div>
+      <div class="s2-rl d" style="top:182px"><div class="s2-th" style="background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"></div><span>Hospital<br>Santa Joana</span></div><div class="s2-cl" style="left:300px;top:182px"><div class="s2-m no" id="s2-m01"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l16 16M32 16L16 32"/></svg></div></div><div class="s2-cl" style="left:480px;top:182px"><div class="s2-m ok" id="s2-m11"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="s2-cl" style="left:660px;top:182px"><div class="s2-m ok" id="s2-m21"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+    </div>
+    <div id="s2-win" aria-hidden="true" data-layout-allow-overlap></div>
+    <div id="s2-wb" data-layout-allow-overlap><svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="#0B1626" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div>
+    <div id="s2-e1" class="ln d"><span class="w"><span class="wi" id="s2e0">e</span></span> <span class="w"><span class="wi" id="s2e1">encontra</span></span> <span class="w"><span class="wi" id="s2e2">o</span></span> <span class="w"><span class="wi" id="s2e3">plano</span></span> <span class="w"><span class="wi" id="s2e4">que</span></span> <span class="w"><span class="wi" id="s2e5">mantém</span></span></div>
+    <div id="s2-e2" class="ln d gold"><span class="w"><span class="wi" id="s2f0">seus</span></span> <span class="w"><span class="wi" id="s2f1">hospitais</span></span> <span class="w"><span class="wi" id="s2f2">de</span></span> <span class="w"><span class="wi" id="s2f3">confiança,</span></span></div>
+    <div id="s2-f" class="ln">pro perfil da sua</div>
+    <div id="s2-pr"><div class="s2-p d" id="s2-p0"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#F5B83D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="14" r="6"/><circle cx="33" cy="17" r="5"/><path d="M5 42c0-8 5-14 12-14s12 6 12 14M27 42c0-6 3-11 7-11s9 5 9 11"/></svg>família</div><span id="s2-ou">ou</span><div class="s2-p d" id="s2-p1"><svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="#F5B83D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 42V10l16-5v37M24 16l16 5v21M4 42h40M14 16h4M14 23h4M14 30h4M30 26h4M30 33h4"/></svg>empresa</div></div>
+    <div class="legal" id="s2-lg" style="top:740px">Consulte condições e elegibilidade. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s2a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.614);
+tl.fromTo("#s2a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.777);
+tl.fromTo("#s2a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.265);
+tl.fromTo("#s2a3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.59);
+tl.fromTo("#s2b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.834);
+tl.fromTo("#s2b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.158);
+tl.fromTo("#s2b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.321);
+tl.fromTo("#s2b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.606);
+tl.fromTo("#s2-tb",{y:100,opacity:0},{y:0,opacity:1,duration:0.45,ease:"power3.out"},1.894);
+tl.to("#s2-H1",{y:-30,opacity:0,duration:0.22,ease:"power3.in"},3.175);
+tl.fromTo("#s2c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.365);
+tl.fromTo("#s2c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.772);
+tl.fromTo("#s2c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.421);
+tl.fromTo("#s2d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.867);
+tl.fromTo("#s2d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.948);
+tl.fromTo("#s2-sc0",{opacity:0},{opacity:1,duration:0.15},4.431);
+tl.to("#s2-sc0",{opacity:0,duration:0.25},4.981);
+tl.fromTo("#s2-m00",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},4.581);
+tl.fromTo("#s2-m01",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},4.681);
+tl.fromTo("#s2-sc1",{opacity:0},{opacity:1,duration:0.15},4.958);
+tl.to("#s2-sc1",{opacity:0,duration:0.25},5.508);
+tl.fromTo("#s2-m10",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},5.108);
+tl.fromTo("#s2-m11",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},5.208);
+tl.fromTo("#s2-sc2",{opacity:0},{opacity:1,duration:0.15},5.77);
+tl.to("#s2-sc2",{opacity:0,duration:0.25},6.32);
+tl.fromTo("#s2-m20",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},5.92);
+tl.fromTo("#s2-m21",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},6.02);
+tl.fromTo("#s2-win",{opacity:0,scale:1.08},{opacity:1,scale:1,duration:0.3,ease:"back.out(2)"},7.061);
+tl.fromTo("#s2-wb",{scale:0,rotation:-30},{scale:1,rotation:0,duration:0.35,ease:"back.out(2.6)"},7.161);
+tl.fromTo("#s2e0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.76);
+tl.fromTo("#s2e1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.206);
+tl.fromTo("#s2e2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.572);
+tl.fromTo("#s2e3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.653);
+tl.fromTo("#s2e4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.979);
+tl.fromTo("#s2e5",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.101);
+tl.fromTo("#s2f0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.588);
+tl.fromTo("#s2f1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.75);
+tl.fromTo("#s2f2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.238);
+tl.fromTo("#s2f3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.32);
+tl.fromTo("#s2-f",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},9.232);
+tl.fromTo("#s2-p0",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},10.216);
+tl.fromTo("#s2-ou",{opacity:0},{opacity:1,duration:0.2},10.806);
+tl.fromTo("#s2-p1",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},11.354);
+tl.fromTo("#s2-lg",{opacity:0},{opacity:1,duration:0.4},4.881);
+tl.to("#s2-wrap",{y:-90,opacity:0,duration:0.3,ease:"power3.in"},11.985);
+window.__timelines["s2"] = tl;
+})();
+</script>
+</template>

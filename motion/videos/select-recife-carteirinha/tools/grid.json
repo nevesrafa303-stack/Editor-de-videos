@@ -1,0 +1,29 @@
+{
+ "drop": 4.929,
+ "cta": 32.507,
+ "bar": 2.5071,
+ "n": 11,
+ "pre": -2,
+ "last": 14,
+ "fin": 40.028,
+ "total": 42.0,
+ "kinds": {
+  "-2": "pain",
+  "-1": "build",
+  "0": "groove",
+  "1": "groove",
+  "2": "groove",
+  "3": "groove",
+  "4": "groove",
+  "5": "groove",
+  "6": "groove",
+  "7": "groove",
+  "8": "groove",
+  "9": "pain",
+  "10": "build",
+  "11": "chorus",
+  "12": "chorus",
+  "13": "chorus",
+  "14": "last"
+ }
+}

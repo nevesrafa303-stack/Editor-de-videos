@@ -1,0 +1,63 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s3-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s3-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:70px;width:940px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#s3-e{top:330px;font-weight:800;font-size:50px;line-height:1.1;color:#F5B83D;}
+.s3-l{font-weight:900;font-size:80px;line-height:1.1;letter-spacing:-.02em;}
+#s3-k{position:absolute;left:70px;top:790px;}
+</style>
+<div id="s3-root" data-composition-id="s3" data-start="0" data-duration="5.104" data-width="1080" data-height="1920">
+  <div id="s3-wrap" class="s3-full">
+    <div id="s3-e" class="ln d"><span class="w"><span class="wi" id="s3a0">Só</span></span> <span class="w"><span class="wi" id="s3a1">não</span></span> <span class="w"><span class="wi" id="s3a2">deixa</span></span> <span class="w"><span class="wi" id="s3a3">pra</span></span> <span class="w"><span class="wi" id="s3a4">depois:</span></span></div>
+    <div class="ln d s3-l" style="top:420px"><span class="w"><span class="wi" id="s3b0">Cada</span></span> <span class="w"><span class="wi" id="s3b1">dia</span></span> <span class="w"><span class="wi" id="s3b2">sem</span></span> <span class="w"><span class="wi" id="s3b3">plano</span></span></div>
+    <div class="ln d s3-l" style="top:512px"><span class="w"><span class="wi" id="s3c0">é</span></span> <span class="w"><span class="wi" id="s3c1">um</span></span> <span class="w"><span class="wi" id="s3c2">dia</span></span> <span class="w"><span class="wi" id="s3c3">de</span></span> <span class="w"><span class="wi coral" id="s3c4">risco</span></span></div>
+    <div class="ln d s3-l" style="top:604px"><span class="w"><span class="wi" id="s3d0">pra</span></span> <span class="w"><span class="wi" id="s3d1">família.</span></span></div>
+    <svg id="s3-k" viewBox="0 0 940 300" width="940" height="300" aria-hidden="true">
+      <path d="M0 150 H940" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+      <path id="s3-kp" d="M0 150 L30 150 L46 114 L62 150 L80 150 L94 192 L112 15 L132 246 L148 150 L176 150 L200 120 L226 150 L294 150 L324 150 L340 114 L356 150 L374 150 L388 192 L406 15 L426 246 L442 150 L470 150 L494 120 L520 150 L588 150 L618 150 L634 114 L650 150 L668 150 L682 192 L700 15 L720 246 L736 150 L764 150 L788 120 L814 150 L940 150" fill="none" stroke="#FF7A6B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+    </svg>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s3a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.29);
+tl.fromTo("#s3a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.534);
+tl.fromTo("#s3a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.696);
+tl.fromTo("#s3a3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.9);
+tl.fromTo("#s3a4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.103);
+tl.fromTo("#s3b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.781);
+tl.fromTo("#s3b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.145);
+tl.fromTo("#s3b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.388);
+tl.fromTo("#s3b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.551);
+tl.fromTo("#s3c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.958);
+tl.fromTo("#s3c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.242);
+tl.fromTo("#s3c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.324);
+tl.fromTo("#s3c3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.527);
+tl.fromTo("#s3c4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.648);
+tl.fromTo("#s3d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.971);
+tl.fromTo("#s3d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.134);
+tl.to("#s3-kp",{attr:{"stroke-dashoffset":0},duration:3.163,ease:"none"},1.641);
+tl.to("#s3-wrap",{opacity:0,duration:0.3,ease:"power2.in"},4.804);
+window.__timelines["s3"] = tl;
+})();
+</script>
+</template>

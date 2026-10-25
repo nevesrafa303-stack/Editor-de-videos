@@ -1,0 +1,136 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#r2-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.r2-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:70px;width:940px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#r2-pw{position:absolute;left:0;width:1080px;top:246px;text-align:center;}
+#r2-pill{display:inline-flex;align-items:center;height:60px;padding:0 30px;border-radius:60px;background:#F5B83D;color:#0B1626;font-weight:900;font-size:28px;letter-spacing:.08em;}
+#r2-cw{position:absolute;left:70px;top:350px;width:940px;height:230px;}
+#r2-card{position:absolute;inset:0;border-radius:36px;background:#fff;color:#0B1626;box-shadow:0 30px 70px rgba(0,0,0,.5);}
+#r2-qm{position:absolute;left:25px;top:3px;font-family:Georgia,serif;font-weight:700;font-size:130px;line-height:1;color:#B07F22;}
+#r2-tx{position:absolute;left:90px;right:50px;top:0;height:230px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:60px;line-height:1.15;letter-spacing:-.01em;}
+#r2-stw{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+#r2-st{padding:14px 40px;border-radius:24px;background:#E0483B;color:#fff;font-weight:900;font-size:96px;letter-spacing:.04em;border:6px solid #fff;box-shadow:0 18px 40px rgba(0,0,0,.45);white-space:nowrap;}
+
+.r2-l{top:640px;font-weight:800;font-size:50px;line-height:1.1;}
+.r2-c{position:absolute;top:730px;width:300px;height:380px;}
+.r2-cb{position:absolute;inset:0;border-radius:27px;background:#fff;color:#0B1626;overflow:hidden;box-shadow:0 24px 54px rgba(0,0,0,.45);}
+.r2-hd{position:absolute;left:0;top:0;width:100%;height:76px;background:#E4EAF2;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:34px;}
+.r2-t{left:18px;width:264px;height:108px;border-radius:15px;}
+.r2-nm{position:absolute;left:11px;bottom:11px;padding:4px 11px;border-radius:8px;background:#0B1626;color:#fff;font-weight:700;font-size:21px;white-space:nowrap;}
+.r2-m{position:absolute;right:11px;top:11px;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.r2-m.ok{background:#1F9D5C;}
+.r2-m.no{background:#9AA6B6;}
+#r2-ring{position:absolute;left:-10px;top:-10px;right:-10px;bottom:-10px;border-radius:33px;border:7px solid #F5B83D;opacity:0;}
+#r2-win{position:absolute;right:-23px;top:-23px;width:60px;height:60px;border-radius:50%;background:#F5B83D;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.35);}
+#r2-lp{position:absolute;left:150px;top:831px;width:140px;height:140px;}
+#r2-e1{top:1150px;font-weight:700;font-size:42px;line-height:1.1;}
+#r2-e2{top:1206px;font-weight:900;font-size:46px;line-height:1.1;letter-spacing:-.01em;}
+</style>
+<div id="r2-root" data-composition-id="r2" data-start="0" data-duration="12.727" data-width="1080" data-height="1920">
+  <div id="r2-wrap" class="r2-full">
+    <div id="r2-pw"><span id="r2-pill" class="d">MITO OU VERDADE? · 2/3</span></div>
+    <div id="r2-cw" data-layout-allow-overlap>
+      <div id="r2-card"><div id="r2-qm" aria-hidden="true">“</div>
+        <div id="r2-tx" class="d" data-layout-allow-occlusion><div><span class="w"><span class="wi" data-layout-allow-occlusion id="r2q0">Todo</span></span> <span class="w"><span class="wi" data-layout-allow-occlusion id="r2q1">plano</span></span> <span class="w"><span class="wi" data-layout-allow-occlusion id="r2q2">tem</span></span> <span class="w"><span class="wi" data-layout-allow-occlusion id="r2q3">os</span></span> <span class="w"><span class="wi" data-layout-allow-occlusion id="r2q4">mesmos</span></span> <span class="w"><span class="wi" data-layout-allow-occlusion id="r2q5">hospitais.</span></span></div></div></div>
+      <div id="r2-stw"><div id="r2-st" class="d">MITO!</div></div>
+    </div>
+    
+    <div id="r2-l1" class="ln d r2-l" data-layout-allow-overlap><span class="w"><span class="wi" id="r2a0">A</span></span> <span class="w"><span class="wi" id="r2a1">rede</span></span> <span class="w"><span class="wi" id="r2a2">muda</span></span> <span class="w"><span class="wi" id="r2a3">de</span></span> <span class="w"><span class="wi" id="r2a4">um</span></span> <span class="w"><span class="wi" id="r2a5">plano</span></span> <span class="w"><span class="wi" id="r2a6">pro</span></span> <span class="w"><span class="wi" id="r2a7">outro.</span></span></div>
+    <div id="r2-l2" class="ln d r2-l" data-layout-allow-overlap><span class="w"><span class="wi" id="r2b0">O</span></span> <span class="w"><span class="wi" id="r2b1">consultor</span></span> <span class="w"><span class="wi gold" id="r2b2">compara</span></span> <span class="w"><span class="wi" id="r2c0">as</span></span> <span class="w"><span class="wi" id="r2c1">operadoras</span></span></div>
+    <div class="r2-c" id="r2-c0" style="left:70px"><div class="r2-cb"><div class="r2-hd d">Plano A</div>
+      <div class="ph r2-t" style="top:96px;background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"><div class="r2-nm">Português</div><div class="r2-m ok" id="r2-m00"><svg viewBox="0 0 48 48" width="29" height="29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="ph r2-t" style="top:220px;background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"><div class="r2-nm">Santa Joana</div><div class="r2-m no" id="r2-m01"><svg viewBox="0 0 48 48" width="29" height="29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l16 16M32 16L16 32"/></svg></div></div></div></div>
+    <div class="r2-c" id="r2-c1" style="left:390px" data-layout-allow-overlap><div id="r2-ring" aria-hidden="true"></div><div class="r2-cb"><div class="r2-hd d">Plano B</div>
+      <div class="ph r2-t" style="top:96px;background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"><div class="r2-nm">Português</div><div class="r2-m ok" id="r2-m10"><svg viewBox="0 0 48 48" width="29" height="29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="ph r2-t" style="top:220px;background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"><div class="r2-nm">Santa Joana</div><div class="r2-m ok" id="r2-m11"><svg viewBox="0 0 48 48" width="29" height="29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div></div><div id="r2-win"><svg viewBox="0 0 48 48" width="37" height="37" fill="none" stroke="#0B1626" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+    <div class="r2-c" id="r2-c2" style="left:710px"><div class="r2-cb"><div class="r2-hd d">Plano C</div>
+      <div class="ph r2-t" style="top:96px;background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"><div class="r2-nm">Português</div><div class="r2-m no" id="r2-m20"><svg viewBox="0 0 48 48" width="29" height="29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l16 16M32 16L16 32"/></svg></div></div><div class="ph r2-t" style="top:220px;background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"><div class="r2-nm">Santa Joana</div><div class="r2-m ok" id="r2-m21"><svg viewBox="0 0 48 48" width="29" height="29" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div></div></div>
+    <svg id="r2-lp" viewBox="0 0 100 100" width="140" height="140" aria-hidden="true" data-layout-allow-overlap>
+      <circle cx="42" cy="42" r="28" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="7"/>
+      <path d="M63 63l22 22" stroke="#fff" stroke-width="11" stroke-linecap="round"/></svg>
+    <div id="r2-e1" class="ln d"><span class="w"><span class="wi" id="r2d0">e</span></span> <span class="w"><span class="wi" id="r2d1">encontra</span></span> <span class="w"><span class="wi" id="r2d2">o</span></span> <span class="w"><span class="wi" id="r2d3">plano</span></span> <span class="w"><span class="wi" id="r2d4">que</span></span> <span class="w"><span class="wi" id="r2d5">mantém</span></span></div>
+    <div id="r2-e2" class="ln d gold"><span class="w"><span class="wi" id="r2e0">seus</span></span> <span class="w"><span class="wi" id="r2e1">hospitais</span></span> <span class="w"><span class="wi" id="r2e2">de</span></span> <span class="w"><span class="wi" id="r2e3">confiança.</span></span></div>
+    <div class="legal" id="r2-lg" style="top:1300px">Consulte condições e elegibilidade. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#r2-pill",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2)"},0.05);
+tl.fromTo("#r2-cw",{y:120,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.08);
+tl.fromTo("#r2q0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.29);
+tl.fromTo("#r2q1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.556);
+tl.fromTo("#r2q2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.899);
+tl.fromTo("#r2q3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.127);
+tl.fromTo("#r2q4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.28);
+tl.fromTo("#r2q5",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.89);
+tl.fromTo("#r2-st",{scale:2.6,opacity:0,rotation:-10},{scale:1,opacity:1,rotation:-8,duration:0.18,ease:"power4.in"},2.923);
+tl.set("#r2-cw",{x:10,y:-6},3.103);
+tl.set("#r2-cw",{x:-8,y:4.8},3.136);
+tl.set("#r2-cw",{x:5,y:-3},3.17);
+tl.set("#r2-cw",{x:-2.5,y:1.5},3.203);
+tl.set("#r2-cw",{x:0,y:0},3.236);
+tl.to("#r2-tx",{color:"#4F5F75",duration:0.3},3.083);
+tl.fromTo("#r2a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.796);
+tl.fromTo("#r2a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.063);
+tl.fromTo("#r2a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.367);
+tl.fromTo("#r2a3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.748);
+tl.fromTo("#r2a4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.863);
+tl.fromTo("#r2a5",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.015);
+tl.fromTo("#r2a6",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.32);
+tl.fromTo("#r2a7",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.472);
+tl.fromTo("#r2-c0",{y:140,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},4.123);
+tl.fromTo("#r2-c1",{y:140,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},4.243);
+tl.fromTo("#r2-c2",{y:140,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},4.363);
+tl.fromTo("#r2-m00",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},4.577);
+tl.fromTo("#r2-m01",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},4.657);
+tl.fromTo("#r2-m10",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},4.797);
+tl.fromTo("#r2-m11",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},4.877);
+tl.fromTo("#r2-m20",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},5.017);
+tl.fromTo("#r2-m21",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},5.097);
+tl.to("#r2-l1",{y:-30,opacity:0,duration:0.22,ease:"power3.in"},6.232);
+tl.fromTo("#r2b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.691);
+tl.fromTo("#r2b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},6.767);
+tl.fromTo("#r2b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.263);
+tl.fromTo("#r2c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.796);
+tl.fromTo("#r2c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.872);
+tl.fromTo("#r2-lp",{scale:0,x:0},{scale:1,x:0,duration:0.25,ease:"back.out(2)"},7.273);
+tl.to("#r2-lp",{x:320,duration:0.32,ease:"power2.inOut"},7.882);
+tl.to("#r2-lp",{x:640,duration:0.32,ease:"power2.inOut"},8.568);
+tl.to("#r2-lp",{scale:0,duration:0.2,ease:"power2.in"},9.375);
+tl.to(["#r2-c0","#r2-c2"],{opacity:0.42,scale:0.95,duration:0.3,ease:"power2.out"},10.1);
+tl.to("#r2-c1",{y:-22,scale:1.05,duration:0.35,ease:"back.out(2)"},10.08);
+tl.to("#r2-ring",{opacity:1,duration:0.2},10.08);
+tl.fromTo("#r2-win",{scale:0,rotation:-30},{scale:1,rotation:0,duration:0.35,ease:"back.out(2.6)"},10.16);
+tl.fromTo("#r2d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.558);
+tl.fromTo("#r2d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.015);
+tl.fromTo("#r2d2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.548);
+tl.fromTo("#r2d3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.624);
+tl.fromTo("#r2d4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},10.005);
+tl.fromTo("#r2d5",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},10.12);
+tl.fromTo("#r2e0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},10.805);
+tl.fromTo("#r2e1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},10.958);
+tl.fromTo("#r2e2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},11.491);
+tl.fromTo("#r2e3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},11.567);
+tl.fromTo("#r2-lg",{opacity:0},{opacity:1,duration:0.4},7.623);
+tl.to("#r2-wrap",{y:-140,opacity:0,duration:0.3,ease:"power3.in"},12.427);
+window.__timelines["r2"] = tl;
+})();
+</script>
+</template>
