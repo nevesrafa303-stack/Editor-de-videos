@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// build.mjs — motion "A Select saiu. O Português fica. Troque de plano, não de hospital." (32,5 s,
-// sem locução), story 9:16 e feed 1:1.
+// build.mjs — motion "A Select saiu. O Português fica. Troque de plano, não de hospital." com
+// locução (HeyGen), story 9:16 e feed 1:1.
 //
 //   node tools/build.mjs story   -> compositions/*.html + index.html
 //   node tools/build.mjs feed    -> feed/compositions/*.html + feed/index.html
@@ -8,8 +8,9 @@
 // Roteiro do brief "A saída da Select de Recife": o que aconteceu, a dor (perder o hospital), a
 // virada ("O Português fica."), a saída (trocar de plano sem trocar de hospital), o consultor que
 // compara as operadoras e o cartão final com a chamada "Fale com um consultor" no botão do
-// formulário do anúncio. Sem logo, cores ou identidade da Select; sem preço. As cenas caem na grade
-// da trilha (96 BPM, compasso de 2,5 s, tools/synth_audio.py).
+// formulário do anúncio. Sem logo, cores ou identidade da Select; sem preço. Cada texto entra na
+// palavra falada (assets/voice/vo.words.json, tools/voice.py); a trilha usa a mesma âncora
+// (tools/synth_audio.py: drop em "O Português fica.", refrão em "Troque de plano").
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -35,10 +36,77 @@ const SLATE = "#4F5F75";
 const MUTED = "#B9C5D6";
 const GREEN = "#1F9D5C";
 
-// ───────────── grade (igual à de tools/synth_audio.py) ─────────────
-const BAR = 2.5;
-const T = { s2: 2 * BAR, s3: 4 * BAR, drop: 5 * BAR, s4: 6 * BAR, s5: 8 * BAR, en: 10 * BAR, fin: 12 * BAR };
-const D = 13 * BAR; // 32,5 s
+// ───────────── locução ─────────────
+const WORDS = JSON.parse(readFileSync(join(ROOT, "assets/voice/vo.words.json"), "utf8"));
+const VO_END = WORDS[WORDS.length - 1].end;
+const D = Math.round((VO_END + 2.6) * 10) / 10; // igual ao TOTAL da trilha
+const norm = (s) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+function word(text, after = 0) {
+  const w = WORDS.find((x) => norm(x.word) === norm(text) && x.start >= after - 0.001);
+  if (!w) throw new Error(`palavra não encontrada: ${text} depois de ${after}`);
+  return w;
+}
+const at = (t, after = 0) => word(t, after).start;
+const end = (t, after = 0) => word(t, after).end;
+// inícios de uma sequência de palavras faladas, a partir de `after`
+function seq(text, after = 0) {
+  const out = [];
+  let t = after;
+  for (const w of text.split(" ")) {
+    t = at(w, t);
+    out.push(t);
+    t += 0.01;
+  }
+  return out;
+}
+
+const T = {};
+T.de = at("de");
+T.recife = at("recife");
+T.muitas = at("muitas");
+T.sem = at("sem");
+T.mas = at("mas");
+T.s2 = r3(T.mas - 0.25);
+T.oHosp = seq("o medo e perder o hospital", T.mas)[4];
+T.cada = at("cada");
+T.atencao = at("atencao");
+T.a3 = at("a", T.atencao);
+T.s3 = r3(T.a3 - 0.3);
+T.saiuEnd = end("saiu", T.a3);
+T.drop = at("o", T.saiuEnd); // "O Português fica." (mesma âncora da trilha)
+T.fica = at("fica");
+T.trocar = at("trocar");
+T.existem = at("existem");
+T.s4 = r3(T.existem - 0.3);
+T.real = at("real");
+T.santa = at("santa");
+T.outros = at("outros");
+T.o5 = at("o", end("recife", T.outros));
+T.s5 = r3(T.o5 - 0.3);
+T.compara = at("compara");
+T.operadoras = at("operadoras");
+T.e5 = at("e", T.operadoras);
+T.plano5 = at("plano", T.e5);
+T.mantem = at("mantem");
+T.acordo = at("acordo");
+T.familia = at("familia", T.acordo);
+T.ou = at("ou", T.acordo);
+T.empresa = at("empresa", T.acordo);
+T.troque = at("troque");
+T.en = r3(T.troque - 0.3);
+T.nao = at("nao", T.troque);
+T.hosp3 = at("hospital", T.troque);
+T.toca = at("toca");
+T.aqui = at("aqui", T.toca);
+T.preenche = at("preenche");
+T.formulario = at("formulario");
+T.consultor2 = at("consultor", T.formulario);
+T.fin = r3(T.drop + (11 * (T.troque - T.drop)) / 8); // acorde final da trilha
 
 // ───────────── utilidades ─────────────
 const FONTS = [
@@ -102,10 +170,11 @@ function TL(st) {
   const L = (g) => r3(g - st);
   const add = (s) => a.push(s);
   // palavras de uma linha subindo em sequência (tempo absoluto do vídeo)
-  const words = (p, n, t0, step = 0.09, dur = 0.42) => {
-    for (let i = 0; i < n; i++)
-      add(`tl.fromTo("#${p}${i}",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:${dur},ease:"power3.out"},${r3(Math.max(0, L(t0) + i * step))});`);
-  };
+  // palavras de uma linha subindo cada uma na hora em que é falada (tempos absolutos)
+  const words = (p, times, dur = 0.4) =>
+    times.forEach((t, i) =>
+      add(`tl.fromTo("#${p}${i}",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:${dur},ease:"power3.out"},${r3(Math.max(0, L(t) - 0.06))});`),
+    );
   const shake = (sel, t, amp = 10) =>
     [1, -0.8, 0.5, -0.25, 0].forEach((q, i) => add(`tl.set("${sel}",{x:${r3(q * amp)},y:${r3(-q * amp * 0.6)}},${r3(t + i / FPS)});`));
   return { a, L, add, words, shake };
@@ -182,8 +251,8 @@ const scenes = [];
   const dur = r3(T.s2 + 0.1);
   const { a, L, add, words, shake } = TL(st);
   const g = pick(
-    { py: 290, pz: 56, pf: 38, ay: 384, as: 112, by: 505, bs: 150, uy: 676, uw: 560, cy: 782, cw: 760, ty: 1262, tsz: 62, qy: 790, qs: 210 },
-    { py: 36, pz: 46, pf: 32, ay: 100, as: 84, by: 190, bs: 112, uy: 318, uw: 420, cy: 362, cw: 600, ty: 718, tsz: 48, qy: 420, qs: 170 },
+    { py: 290, pz: 56, pf: 38, ay: 384, as: 112, by: 505, bs: 150, uy: 676, uw: 560, cy: 782, cw: 760, ty: 1262, tsz: 62 },
+    { py: 36, pz: 46, pf: 32, ay: 100, as: 84, by: 190, bs: 112, uy: 318, uw: 420, cy: 362, cw: 600, ty: 718, tsz: 48 },
   );
   const k = g.cw / 760;
   const q = (v) => Math.round(v * k);
@@ -206,7 +275,6 @@ const scenes = [];
 .s1-bar{position:absolute;left:${q(40)}px;height:${q(22)}px;border-radius:${q(11)}px;background:#C7D1DE;}
 #s1-st{position:absolute;left:${q(150)}px;top:${q(150)}px;padding:${q(10)}px ${q(26)}px;border:${q(8)}px solid ${CORAL};border-radius:${q(18)}px;color:${CORAL};font-weight:900;font-size:${q(66)}px;letter-spacing:.04em;background:rgba(255,255,255,.92);white-space:nowrap;}
 #s1-tx{position:absolute;left:0;width:${W}px;top:${g.ty}px;text-align:center;font-weight:800;font-size:${g.tsz}px;line-height:1.18;}
-#s1-q{top:${g.qy}px;font-weight:900;font-size:${g.qs}px;line-height:1;letter-spacing:-.03em;opacity:0;}
 `;
   const body = `
   <div id="s1-main" class="${p}-full">
@@ -227,26 +295,22 @@ const scenes = [];
       </div>
       <div id="s1-st" class="d" data-layout-allow-overlap>SEM PLANO</div>
     </div>
-    <div id="s1-tx" class="d">${wspans("s1x", "Famílias e empresas")}<br>${wspans("s1y", "perderam o plano.")}</div>
-  </div>
-  <div id="s1-q" class="ln d">E agora?</div>`;
-  // primeira linha já na tela no quadro 0 (miniatura e autoplay), "de Recife." bate logo depois
+    <div id="s1-tx" class="d">${wspans("s1x", "Famílias e empresas")}<br>${wspans("s1y", "ficaram sem plano.")}</div>
+  </div>`;
+  // "A Select saiu" já na tela no quadro 0 (miniatura e autoplay); "de Recife." bate quando é dito
   add(`tl.fromTo("#s1-pin",{y:-12},{y:0,duration:0.45,ease:"power3.out"},0);`);
   add(`tl.fromTo("#s1-a",{scale:1.08},{scale:1,duration:0.5,ease:"power3.out"},0);`);
-  add(`tl.fromTo("#s1-bi",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.out"},0.28);`);
-  shake("#s1-main", 0.52, pick(12, 9));
-  add(`tl.fromTo("#s1-u",{scaleX:0},{scaleX:1,duration:0.35,ease:"power3.out",transformOrigin:"0% 50%"},0.55);`);
-  // a carteirinha chega e leva o carimbo
-  add(`tl.fromTo("#s1-cw",{y:${pick(240, 180)},opacity:0,rotation:-4},{y:0,opacity:1,rotation:0,duration:0.5,ease:"power3.out"},1.2);`);
-  add(`tl.fromTo("#s1-st",{scale:2.4,opacity:0,rotation:-12},{scale:1,opacity:1,rotation:-12,duration:0.18,ease:"power4.in"},2.0);`);
-  add(`tl.fromTo("#s1-card",{filter:"grayscale(0) brightness(1)"},{filter:"grayscale(1) brightness(0.72)",duration:0.3,ease:"power2.out"},2.18);`);
-  shake("#s1-cw", 2.18, pick(10, 8));
-  words("s1x", 3, 2.35, 0.09, 0.36);
-  words("s1y", 3, 2.62, 0.09, 0.36);
-  // "E agora?"
-  add(`tl.to("#s1-main",{y:-110,opacity:0,duration:0.28,ease:"power3.in"},3.9);`);
-  add(`tl.fromTo("#s1-q",{scale:1.7,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"power4.out"},4.12);`);
-  add(`tl.to("#s1-q",{opacity:0,duration:0.2},${r3(dur - 0.22)});`);
+  add(`tl.fromTo("#s1-bi",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.out"},${L(T.de - 0.04)});`);
+  shake("#s1-main", r3(L(T.de) + 0.2), pick(12, 9));
+  add(`tl.fromTo("#s1-u",{scaleX:0},{scaleX:1,duration:0.4,ease:"power3.out",transformOrigin:"0% 50%"},${L(T.recife + 0.2)});`);
+  // a carteirinha chega e leva o carimbo no "sem plano"
+  add(`tl.fromTo("#s1-cw",{y:${pick(240, 180)},opacity:0,rotation:-4},{y:0,opacity:1,rotation:0,duration:0.5,ease:"power3.out"},${L(T.muitas - 0.2)});`);
+  words("s1x", seq("familias e empresas", T.muitas));
+  words("s1y", seq("ficaram sem plano", T.muitas));
+  add(`tl.fromTo("#s1-st",{scale:2.4,opacity:0,rotation:-12},{scale:1,opacity:1,rotation:-12,duration:0.18,ease:"power4.in"},${L(T.sem - 0.06)});`);
+  add(`tl.fromTo("#s1-card",{filter:"grayscale(0) brightness(1)"},{filter:"grayscale(1) brightness(0.72)",duration:0.3,ease:"power2.out"},${L(T.sem + 0.12)});`);
+  shake("#s1-cw", r3(L(T.sem) + 0.12), pick(10, 8));
+  add(`tl.to("#s1-main",{y:-90,opacity:0,duration:0.3,ease:"power3.in"},${r3(dur - 0.32)});`);
   scenes.push({ st, track: 1, ...scene(p, dur, css, body, a) });
 }
 
@@ -289,7 +353,7 @@ const scenes = [];
     <div id="s2-B" class="${p}-full">
       <div class="ln d s2-l" style="top:${g.c[0]}px">${wspans("s2d", "Cada dia sem plano")}</div>
       <div class="ln d s2-l" style="top:${g.c[1]}px">${wspans("s2e", "é um dia de")} <span class="w"><span class="wi coral" id="s2e4">risco</span></span></div>
-      <div class="ln d s2-l" style="top:${g.c[2]}px">${wspans("s2f", "para a família.")}</div>
+      <div class="ln d s2-l" style="top:${g.c[2]}px">${wspans("s2f", "pra família.")}</div>
       <div id="s2-tile"><div id="s2-th" class="d">DIAS SEM PLANO</div>
         <div id="s2-nw"><div id="s2-nc" class="d" data-layout-allow-overflow data-layout-allow-occlusion>${[1, 2, 3, 4, 5, 6, 7, 8, 9].join("<br>")}</div></div>
         <div id="s2-nl">e contando…</div></div>
@@ -299,19 +363,20 @@ const scenes = [];
   add(`tl.fromTo("#s2-ph",{opacity:0},{opacity:1,duration:0.35,ease:"power2.out"},0);`);
   add(`tl.fromTo("#s2-lg",{opacity:0},{opacity:1,duration:0.4},0.3);`);
   add(`tl.fromTo("#s2-img",{scale:1.16},{scale:1,duration:${dur},ease:"none"},0);`);
-  words("s2a", 3, 5.12, 0.1);
-  words("s2b", 3, 5.4, 0.1);
-  words("s2c", 4, 5.95, 0.1);
-  add(`tl.fromTo("#s2-hi",{scale:1.7,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},${L(6.45)});`);
-  add(`tl.to("#s2-A",{y:-70,opacity:0,duration:0.26,ease:"power3.in"},${L(7.38)});`);
-  words("s2d", 4, 7.6, 0.09);
-  words("s2e", 4, 7.95, 0.09);
-  add(`tl.fromTo("#s2e4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},${L(8.31)});`);
-  words("s2f", 3, 8.42, 0.09);
-  add(`tl.fromTo("#s2-tile",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(1.8)"},${L(7.95)});`);
-  // contador de dias: um passo por meia batida
-  for (let i = 1; i < 9; i++) add(`tl.to("#s2-nc",{y:${-i * LH},duration:0.1,ease:"power2.out"},${r3(L(8.25) + (i - 1) * 0.18)});`);
-  add(`tl.fromTo("#s2-nl",{opacity:0},{opacity:1,duration:0.3},${L(8.6)});`);
+  const sA = seq("mais do que perder o plano o medo e perder o hospital", T.mas);
+  words("s2a", sA.slice(0, 3));
+  words("s2b", sA.slice(3, 6));
+  words("s2c", sA.slice(6, 10));
+  add(`tl.fromTo("#s2-hi",{scale:1.7,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},${L(T.oHosp - 0.04)});`);
+  add(`tl.to("#s2-A",{y:-70,opacity:0,duration:0.24,ease:"power3.in"},${L(T.cada - 0.3)});`);
+  const sB = seq("cada dia sem plano e um dia de risco pra familia", T.cada);
+  words("s2d", sB.slice(0, 4));
+  words("s2e", sB.slice(4, 9));
+  words("s2f", sB.slice(9, 11));
+  add(`tl.fromTo("#s2-tile",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(1.8)"},${L(T.cada + 0.4)});`);
+  // contador de dias subindo enquanto ela fala
+  for (let i = 1; i < 9; i++) add(`tl.to("#s2-nc",{y:${-i * LH},duration:0.1,ease:"power2.out"},${r3(L(T.cada + 0.75) + (i - 1) * 0.2)});`);
+  add(`tl.fromTo("#s2-nl",{opacity:0},{opacity:1,duration:0.3},${L(T.cada + 1.2)});`);
   add(`tl.to("#s2-wrap",{opacity:0,duration:0.3,ease:"power2.in"},${r3(dur - 0.3)});`);
   scenes.push({ st, track: 2, ...scene(p, dur, css, body, a) });
 }
@@ -326,6 +391,7 @@ const scenes = [];
     { ay: 296, as: 96, by: 430, bs: 124, cy: 566, pw: 900, py: 740, ly: 1424 },
     { ay: 60, as: 62, by: 160, bs: 84, cy: 0, pw: 760, py: 290, ly: 868 },
   );
+  const HL = pick({ h: [270, 362, 454], hs: 84 }, { h: [40, 108, 176], hs: 58 }); // igual ao título da cena 4
   const ph = Math.round((g.pw * 783) / 1080);
   const css =
     base(p) +
@@ -334,6 +400,7 @@ const scenes = [];
 #s3-ai{position:relative;display:inline-block;}
 #s3-x{position:absolute;left:-3%;top:50%;width:106%;height:${pick(12, 9)}px;margin-top:-${pick(4, 3)}px;border-radius:8px;background:${CORAL};}
 .s3-b{font-weight:900;font-size:${g.bs}px;line-height:1.05;letter-spacing:-.03em;}
+.s3-h{font-weight:900;font-size:${HL.hs}px;line-height:1.1;letter-spacing:-.02em;}
 #s3-pw{position:absolute;left:${(W - g.pw) / 2}px;top:${g.py}px;width:${g.pw}px;height:${ph}px;}
 #s3-ph{left:0;top:0;width:${g.pw}px;height:${ph}px;border-radius:${pick(34, 28)}px;box-shadow:0 34px 80px rgba(0,0,0,.55),0 0 0 ${pick(6, 5)}px rgba(255,210,122,.9);}
 `;
@@ -343,23 +410,38 @@ const scenes = [];
     : `<div class="ln d s3-b" style="top:${g.by}px"><span id="s3-b0" style="display:inline-block">O Português</span> <span id="s3-b1" class="gold" style="display:inline-block">fica.</span></div>`;
   const body = `
   <div id="s3-wrap" class="${p}-full">
+    <div id="s3-top" class="${p}-full">
     <div id="s3-a" class="ln d"><span id="s3-ai" data-layout-allow-occlusion>${wspans("s3a", "A Select saiu.")}<i id="s3-x" data-layout-allow-overlap aria-hidden="true"></i></span></div>
     ${bLine}
+    </div>
+    <div class="ln d s3-h" style="top:${HL.h[0]}px" data-layout-allow-overlap>${wspans("s3h", "Trocar de plano")}</div>
+    <div class="ln d s3-h" style="top:${HL.h[1]}px" data-layout-allow-overlap>${wspans("s3i", "não significa")}</div>
+    <div class="ln d s3-h" style="top:${HL.h[2]}px" data-layout-allow-overlap>${wspans("s3j", "trocar de hospital.", "gold")}</div>
     <div id="s3-pw"><div class="ph" id="s3-ph">${photo("s3-img", "rhp", "60% 50%")}<div id="s3-sw" class="sweep" aria-hidden="true"></div></div></div>
     <div class="legal" id="${p}-lg" style="top:${g.ly}px">${OBS.rede} ${OBS.varia} ${OBS.img}</div>
   </div>`;
-  words("s3a", 3, 10.1, 0.12, 0.36);
-  add(`tl.fromTo("#s3-x",{scaleX:0},{scaleX:1,duration:0.32,ease:"power3.inOut",transformOrigin:"0% 50%"},${L(11.45)});`);
-  add(`tl.to("#s3-ai",{opacity:0.42,duration:0.3},${L(11.62)});`);
+  // "A Select saiu." entra grande no meio da tela e sobe para o topo no drop
+  add(`tl.fromTo("#s3-a",{y:${pick(520, 360)},scale:1.3},{y:0,scale:1,duration:0.4,ease:"power3.inOut",immediateRender:false},${L(T.drop - 0.3)});`);
+  add(`tl.set("#s3-a",{y:${pick(520, 360)},scale:1.3},0);`);
+  words("s3a", seq("a select saiu", T.atencao));
+  add(`tl.fromTo("#s3-x",{scaleX:0},{scaleX:1,duration:0.32,ease:"power3.inOut",transformOrigin:"0% 50%"},${L(T.saiuEnd + 0.04)});`);
+  add(`tl.to("#s3-ai",{opacity:0.42,duration:0.3},${L(T.saiuEnd + 0.2)});`);
   // drop: "O Português fica." e a foto do hospital
   add(`tl.fromTo("#s3-b0",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},${L(T.drop - 0.04)});`);
-  add(`tl.fromTo("#s3-b1",{scale:1.8,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},${L(T.drop + 0.16)});`);
+  add(`tl.fromTo("#s3-b1",{scale:1.8,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},${L(T.fica - 0.04)});`);
   shake("#s3-wrap", r3(L(T.drop) + 0.02), pick(10, 8));
   add(`tl.fromTo("#s3-pw",{y:${pick(260, 200)},opacity:0},{y:0,opacity:1,duration:0.55,ease:"power3.out"},${L(T.drop + 0.06)});`);
   add(`tl.fromTo("#s3-img",{scale:1.14},{scale:1,duration:${r3(dur - L(T.drop))},ease:"none"},${L(T.drop)});`);
-  add(`tl.fromTo("#s3-sw",{xPercent:-100},{xPercent:100,duration:0.9,ease:"power2.inOut"},${L(T.drop + 0.5)});`);
-  add(`tl.fromTo("#s3-lg",{opacity:0},{opacity:1,duration:0.4},${L(T.drop + 0.4)});`);
-  add(`tl.to("#s3-wrap",{y:${-pick(140, 90)},opacity:0,duration:0.3,ease:"power3.in"},${r3(dur - 0.3)});`);
+  add(`tl.fromTo("#s3-sw",{xPercent:-100},{xPercent:100,duration:0.9,ease:"power2.inOut"},${L(T.fica + 0.2)});`);
+  add(`tl.fromTo("#s3-lg",{opacity:0},{opacity:1,duration:0.4},${L(T.drop + 0.5)});`);
+  // "Trocar de plano não significa trocar de hospital." toma o lugar do título, sobre a mesma foto
+  add(`tl.to("#s3-top",{y:-60,opacity:0,duration:0.24,ease:"power3.in"},${L(T.trocar - 0.28)});`);
+  const sH = seq("trocar de plano nao significa trocar de hospital", T.trocar);
+  words("s3h", sH.slice(0, 3));
+  words("s3i", sH.slice(3, 5));
+  words("s3j", sH.slice(5, 8));
+  // a foto sai; o título fica (a cena 4 começa com ele parado no mesmo lugar)
+  add(`tl.to(["#s3-pw","#s3-lg"],{y:${pick(160, 120)},opacity:0,duration:0.3,ease:"power3.in"},${r3(dur - 0.38)});`);
   scenes.push({ st, track: 1, ...scene(p, dur, css, body, a) });
 }
 
@@ -370,7 +452,7 @@ const scenes = [];
   const dur = r3(T.s5 + 0.1 - st);
   const { a, L, add, words } = TL(st);
   const g = pick(
-    { h: [270, 368, 466], hs: 84, ey: 606, es: 40, cx: 70, cw: 940, chh: 200, cy: [680, 900, 1120], tw: 260, ns: 44, n3: 34, ck: 80, ly: 1352 },
+    { h: [270, 362, 454], hs: 84, ey: 600, es: 40, cx: 70, cw: 940, chh: 200, cy: [670, 885, 1100], tw: 260, ns: 44, n3: 34, ck: 80, ly: 1330 },
     { h: [40, 108, 176], hs: 58, ey: 262, es: 30, cx: 140, cw: 800, chh: 150, cy: [318, 486, 654], tw: 200, ns: 34, n3: 27, ck: 60, ly: 830 },
   );
   const pad = Math.round(g.chh * 0.08);
@@ -408,15 +490,13 @@ const scenes = [];
       .join("\n    ")}
     <div class="legal" id="${p}-lg" style="top:${g.ly}px">${OBS.rede} ${OBS.varia} ${OBS.img}</div>
   </div>`;
-  words("s4a", 3, 15.08, 0.08);
-  words("s4b", 2, 15.34, 0.08);
-  words("s4c", 3, 15.55, 0.09);
-  add(`tl.fromTo("#s4-e",{opacity:0,y:16},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${L(16.05)});`);
-  [16.3, 16.6, 16.9].forEach((t, i) => {
+  // o título chega pronto da cena 3; os hospitais entram quando são ditos
+  add(`tl.fromTo("#s4-e",{opacity:0,y:16},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${L(T.existem - 0.05)});`);
+  [T.real - 0.15, T.santa - 0.15, T.outros - 0.15].forEach((t, i) => {
     add(`tl.fromTo("#s4-c${i}",{x:${i % 2 ? -1100 : 1100}},{x:0,duration:0.45,ease:"power4.out"},${L(t)});`);
     add(`tl.fromTo("#s4-k${i}",{scale:0},{scale:1,duration:0.3,ease:"back.out(2.6)"},${L(t + 0.35)});`);
   });
-  add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.4},${L(17.35)});`);
+  add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.4},${L(T.outros + 0.5)});`);
   add(`tl.to("#s4-wrap",{y:${-pick(140, 90)},opacity:0,duration:0.3,ease:"power3.in"},${r3(dur - 0.3)});`);
   scenes.push({ st, track: 2, ...scene(p, dur, css, body, a) });
 }
@@ -487,7 +567,7 @@ const scenes = [];
   };
   const body = `
   <div id="s5-wrap" class="${p}-full">
-    <div class="ln d s5-h" style="top:${g.h[0]}px">${wspans("s5a", "Um consultor")} <span class="w"><span class="wi gold" id="s5a2">compara</span></span></div>
+    <div class="ln d s5-h" style="top:${g.h[0]}px">${wspans("s5a", "O consultor")} <span class="w"><span class="wi gold" id="s5a2">compara</span></span></div>
     <div class="ln d s5-h" style="top:${g.h[1]}px">${wspans("s5b", "as operadoras")}</div>
     ${[0, 1, 2].map(card).join("\n    ")}
     <svg id="s5-lp" viewBox="0 0 100 100" width="${g.mg}" height="${g.mg}" aria-hidden="true" data-layout-allow-overlap>
@@ -499,31 +579,31 @@ const scenes = [];
     <div id="s5-pr"><div class="s5-p d" id="s5-p0">${icon("family", Math.round(g.pf * 1.3), { color: GOLD, sw: 3.4 })}família</div><span id="s5-ou">ou</span><div class="s5-p d" id="s5-p1">${icon("building", Math.round(g.pf * 1.2), { color: GOLD, sw: 3.4 })}empresa</div></div>
     <div class="legal" id="${p}-lg" style="top:${g.ly}px">${OBS.eleg} ${OBS.varia} ${OBS.img}</div>
   </div>`;
-  words("s5a", 2, 20.1, 0.09);
-  add(`tl.fromTo("#s5a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},${L(20.28)});`);
-  words("s5b", 2, 20.4, 0.09);
-  [0, 1, 2].forEach((i) => add(`tl.fromTo("#s5-c${i}",{y:${pick(140, 100)},opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},${L(20.45 + i * 0.12)});`));
-  // a lupa passa pelos três planos e marca cada hospital
+  words("s5a", seq("o consultor", T.s5));
+  add(`tl.fromTo("#s5a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},${L(T.compara - 0.06)});`);
+  words("s5b", seq("as operadoras", T.compara));
+  [0, 1, 2].forEach((i) => add(`tl.fromTo("#s5-c${i}",{y:${pick(140, 100)},opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},${L(T.o5 + 0.05 + i * 0.12)});`));
+  // a lupa passa pelos três planos ("compara as operadoras e encontra") e marca cada hospital
   const step = g.cw + g.cg;
-  add(`tl.fromTo("#s5-lp",{scale:0,x:0},{scale:1,x:0,duration:0.25,ease:"back.out(2)"},${L(20.8)});`);
-  add(`tl.to("#s5-lp",{x:${step},duration:0.32,ease:"power2.inOut"},${L(21.2)});`);
-  add(`tl.to("#s5-lp",{x:${2 * step},duration:0.32,ease:"power2.inOut"},${L(21.6)});`);
-  add(`tl.to("#s5-lp",{scale:0,duration:0.2,ease:"power2.in"},${L(22.0)});`);
-  [21.0, 21.4, 21.8].forEach((t, i) =>
+  add(`tl.fromTo("#s5-lp",{scale:0,x:0},{scale:1,x:0,duration:0.25,ease:"back.out(2)"},${L(T.compara - 0.05)});`);
+  add(`tl.to("#s5-lp",{x:${step},duration:0.32,ease:"power2.inOut"},${L(T.operadoras - 0.05)});`);
+  add(`tl.to("#s5-lp",{x:${2 * step},duration:0.32,ease:"power2.inOut"},${L(T.e5 - 0.05)});`);
+  add(`tl.to("#s5-lp",{scale:0,duration:0.2,ease:"power2.in"},${L(T.plano5)});`);
+  [T.compara + 0.2, T.operadoras + 0.3, T.e5 + 0.3].forEach((t, i) =>
     [0, 1].forEach((r) => add(`tl.fromTo("#s5-m${i}${r}",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},${L(t + r * 0.08)});`)),
   );
-  // o plano B (os dois hospitais) se destaca
-  add(`tl.to(["#s5-c0","#s5-c2"],{opacity:0.42,scale:0.95,duration:0.3,ease:"power2.out"},${L(22.12)});`);
-  add(`tl.to("#s5-c1",{y:${-pick(26, 18)},scale:1.05,duration:0.35,ease:"back.out(2)"},${L(22.1)});`);
-  add(`tl.to("#s5-ring",{opacity:1,duration:0.2},${L(22.1)});`);
-  add(`tl.fromTo("#s5-win",{scale:0,rotation:-30},{scale:1,rotation:0,duration:0.35,ease:"back.out(2.6)"},${L(22.18)});`);
-  words("s5c", 6, 22.3, 0.07);
-  words("s5d", 4, 22.72, 0.09);
-  add(`tl.fromTo("#s5-f",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${L(23.25)});`);
-  add(`tl.fromTo("#s5-p0",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},${L(23.48)});`);
-  add(`tl.fromTo("#s5-ou",{opacity:0},{opacity:1,duration:0.2},${L(23.56)});`);
-  add(`tl.fromTo("#s5-p1",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},${L(23.64)});`);
-  add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.4},${L(21.1)});`);
+  // "mantém": o plano B (os dois hospitais) se destaca
+  add(`tl.to(["#s5-c0","#s5-c2"],{opacity:0.42,scale:0.95,duration:0.3,ease:"power2.out"},${L(T.mantem - 0.08)});`);
+  add(`tl.to("#s5-c1",{y:${-pick(26, 18)},scale:1.05,duration:0.35,ease:"back.out(2)"},${L(T.mantem - 0.1)});`);
+  add(`tl.to("#s5-ring",{opacity:1,duration:0.2},${L(T.mantem - 0.1)});`);
+  add(`tl.fromTo("#s5-win",{scale:0,rotation:-30},{scale:1,rotation:0,duration:0.35,ease:"back.out(2.6)"},${L(T.mantem - 0.02)});`);
+  words("s5c", seq("e encontra o plano que mantem", T.operadoras));
+  words("s5d", seq("seus hospitais de confianca", T.mantem));
+  add(`tl.fromTo("#s5-f",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${L(T.acordo - 0.2)});`);
+  add(`tl.fromTo("#s5-p0",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},${L(T.familia - 0.05)});`);
+  add(`tl.fromTo("#s5-ou",{opacity:0},{opacity:1,duration:0.2},${L(T.ou - 0.03)});`);
+  add(`tl.fromTo("#s5-p1",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},${L(T.empresa - 0.05)});`);
+  add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.4},${L(T.compara + 0.4)});`);
   add(`tl.to("#s5-wrap",{y:${-pick(140, 90)},opacity:0,duration:0.3,ease:"power3.in"},${r3(dur - 0.3)});`);
   scenes.push({ st, track: 1, ...scene(p, dur, css, body, a) });
 }
@@ -574,28 +654,31 @@ const BTN = pick({ x: 90, y: 1040, w: 900, h: 150 }, { x: 140, y: 626, w: 800, h
     <div id="en-lb" class="d"><span class="en-ar" id="en-a0">${icon("down", Math.round(g.lf * 1.3), { color: GOLD, sw: 4.4 })}</span><span>Toque no botão abaixo</span><span class="en-ar" id="en-a1">${icon("down", Math.round(g.lf * 1.3), { color: GOLD, sw: 4.4 })}</span></div>
     <div class="legal" id="${p}-lg" style="top:${g.fy}px">${OBS.rede} ${OBS.varia} ${OBS.eleg} ${OBS.analise} ${OBS.img}</div>
   </div>`;
-  add(`tl.fromTo("#en-ai",{y:20,opacity:0},{y:0,opacity:1,duration:0.35,ease:"power3.out"},0.1);`);
-  add(`tl.fromTo("#en-x",{scaleX:0},{scaleX:1,duration:0.3,ease:"power3.inOut",transformOrigin:"0% 50%"},0.35);`);
-  add(`tl.fromTo("#en-bi",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"power4.out"},0.3);`);
-  add(`tl.fromTo("#en-c0",{y:50,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.55);`);
-  add(`tl.fromTo("#en-c1",{y:50,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.78);`);
-  add(`tl.fromTo("#en-ul",{scaleX:0},{scaleX:1,duration:0.4,ease:"power3.out",transformOrigin:"0% 50%"},1.1);`);
+  add(`tl.fromTo("#en-ai",{y:20,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},0.05);`);
+  add(`tl.fromTo("#en-x",{scaleX:0},{scaleX:1,duration:0.3,ease:"power3.inOut",transformOrigin:"0% 50%"},0.28);`);
+  add(`tl.fromTo("#en-bi",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"power4.out"},0.16);`);
+  // "Troque de plano, não de hospital." no ritmo da fala
+  add(`tl.fromTo("#en-c0",{y:50,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},${r3(L(T.troque) - 0.06)});`);
+  add(`tl.fromTo("#en-c1",{y:50,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},${r3(L(T.nao) - 0.06)});`);
+  add(`tl.fromTo("#en-ul",{scaleX:0},{scaleX:1,duration:0.4,ease:"power3.out",transformOrigin:"0% 50%"},${r3(L(T.hosp3) + 0.15)});`);
+  const tp = r3(L(end("hospital", T.troque)) - 0.1);
   [0, 1].forEach((i) => {
-    add(`tl.fromTo("#en-p${i}",{y:60,opacity:0},{y:0,opacity:1,duration:0.45,ease:"power3.out"},${r3(1.0 + i * 0.12)});`);
-    add(`tl.fromTo("#en-i${i}",{scale:1.12},{scale:1,duration:${r3(dur - 1.0)},ease:"none"},1.0);`);
+    add(`tl.fromTo("#en-p${i}",{y:60,opacity:0},{y:0,opacity:1,duration:0.45,ease:"power3.out"},${r3(tp + i * 0.12)});`);
+    add(`tl.fromTo("#en-i${i}",{scale:1.12},{scale:1,duration:${r3(dur - tp)},ease:"none"},${tp});`);
   });
-  add(`tl.fromTo("#en-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"back.out(1.8)"},1.3);`);
-  add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.5},1.6);`);
-  // setas apontando para o botão do anúncio; brilho e pulso no botão
-  const ar = 1.95;
+  // "Toca no botão aqui embaixo, preenche o formulário e fala com um consultor."
+  add(`tl.fromTo("#en-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"back.out(1.8)"},${r3(L(T.toca) - 0.12)});`);
+  add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.5},${r3(L(T.toca) + 0.4)});`);
+  const ar = r3(L(T.aqui) - 0.08);
   add(`tl.fromTo("#en-lb",{opacity:0,y:-14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},${ar});`);
   const nb = Math.floor((dur - ar - 0.4) / 0.625);
   add(`tl.fromTo(["#en-a0","#en-a1"],{y:0},{y:${pick(14, 10)},duration:0.3125,ease:"sine.inOut",repeat:${nb * 2 - 1},yoyo:true},${ar});`);
-  [2.3, r3(L(T.fin))].forEach((t, i) => {
+  add(`tl.fromTo("#en-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},${r3(L(T.preenche))});`);
+  add(`tl.fromTo("#en-b2",{scale:1.2},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},${r3(L(T.formulario) - 0.04)});`);
+  [r3(L(T.consultor2)), r3(L(T.fin))].forEach((t, i) => {
     add(`tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"${i ? ",immediateRender:false" : ""}},${t});`);
   });
-  add(`tl.fromTo("#en-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},2.35);`);
-  for (let t = 3.2; t + 1.25 <= dur - 0.3; t += 1.25) {
+  for (let t = L(T.consultor2) + 0.9; t + 1.25 <= dur - 0.3; t += 1.25) {
     add(`tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},${r3(t)});`);
     add(`tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},${r3(t + 0.31)});`);
     add(`tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},${r3(t)});`);
@@ -614,7 +697,7 @@ const BTN = pick({ x: 90, y: 1040, w: 900, h: 150 }, { x: 140, y: 626, w: 800, h
 #ui-tex{position:absolute;left:-128px;top:-128px;width:${W + 256}px;height:${H + 256}px;background:url("${NOISE}") 0 0/256px 256px repeat;opacity:.05;mix-blend-mode:overlay;}`;
   const body = `<div id="ui-fl" aria-hidden="true"></div><div id="ui-tex" data-layout-allow-overflow aria-hidden="true"></div>`;
   [
-    [0.28, 0.22],
+    [T.de, 0.22],
     [T.drop, 0.5],
     [T.en, 0.28],
   ].forEach(([t, o], i) => {
@@ -630,40 +713,39 @@ const BTN = pick({ x: 90, y: 1040, w: 900, h: 150 }, { x: 140, y: 626, w: 800, h
   scenes.push({ st: 0, track: 9, ...scene(p, D, css, body, a) });
 }
 
-// ═════════════ áudio (trilha + efeitos; sem locução) ═════════════
+// ═════════════ áudio (locução + trilha + efeitos) ═════════════
 const HITS = JSON.parse(readFileSync(join(ROOT, "assets/audio/sfx_hits.json"), "utf8"));
 const SFX = [
-  ["impact", 0.28, 0.26],
-  ["card", 1.22, 0.3],
-  ["stamp", 2.02, 0.42],
-  ["whoosh", 3.9, 0.18],
-  ["impact", 4.12, 0.22],
-  ["whoosh", T.s2 - 0.05, 0.2],
-  ["impact", 6.45, 0.16],
-  ["whoosh", 7.38, 0.14],
-  ["card", 7.95, 0.26],
-  ...[1, 2, 3, 4, 5, 6, 7, 8].map((i) => ["tap", 8.25 + (i - 1) * 0.18, 0.28]),
-  ["whoosh", T.s3 - 0.05, 0.2],
-  ["impact", 10.1, 0.24],
-  ["whoosh", 11.45, 0.16],
-  ["riser", T.drop, 0.26],
-  ["impact", T.drop, 0.34],
-  ["shimmer", T.drop + 0.16, 0.26],
-  ["card", T.drop + 0.08, 0.2],
-  ["whoosh", T.s4 - 0.05, 0.22],
-  ...[16.3, 16.6, 16.9].map((t) => ["card", t, 0.3]),
-  ...[16.65, 16.95, 17.25].map((t) => ["check", t, 0.26]),
-  ["whoosh", T.s5 - 0.05, 0.22],
-  ...[20.45, 20.57, 20.69].map((t) => ["pop", t, 0.22]),
-  ...[21.0, 21.4, 21.8].map((t) => ["check", t, 0.24]),
-  ["chime", 22.12, 0.28],
-  ["pop", 23.48, 0.22],
-  ["pop", 23.64, 0.22],
-  ["whoosh", T.en - 0.05, 0.22],
-  ["impact", T.en + 0.02, 0.26],
-  ["pop", T.en + 1.3, 0.2],
-  ["pop", T.en + 1.95, 0.14],
-  ["shimmer", T.en + 2.3, 0.2],
+  ["impact", T.de, 0.22],
+  ["card", T.muitas - 0.18, 0.26],
+  ["stamp", T.sem - 0.06, 0.36],
+  ["whoosh", T.s2 - 0.05, 0.18],
+  ["impact", T.oHosp, 0.12],
+  ["whoosh", T.cada - 0.3, 0.12],
+  ["card", T.cada + 0.4, 0.22],
+  ...[1, 2, 3, 4, 5, 6, 7, 8].map((i) => ["tap", T.cada + 0.75 + (i - 1) * 0.2, 0.16]),
+  ["whoosh", T.s3 - 0.05, 0.18],
+  ["impact", T.a3, 0.18],
+  ["whoosh", T.saiuEnd + 0.04, 0.14],
+  ["riser", T.drop, 0.22],
+  ["impact", T.drop, 0.3],
+  ["card", T.drop + 0.08, 0.18],
+  ["shimmer", T.fica, 0.2],
+  ["whoosh", T.trocar - 0.28, 0.12],
+  ["whoosh", T.s4 - 0.05, 0.16],
+  ...[T.real, T.santa, T.outros].map((t) => ["card", t - 0.15, 0.24]),
+  ...[T.real, T.santa, T.outros].map((t) => ["check", t + 0.2, 0.2]),
+  ["whoosh", T.s5 - 0.05, 0.18],
+  ...[0, 1, 2].map((i) => ["pop", T.o5 + 0.05 + i * 0.12, 0.18]),
+  ...[T.compara + 0.2, T.operadoras + 0.3, T.e5 + 0.3].map((t) => ["check", t, 0.18]),
+  ["chime", T.mantem - 0.1, 0.2],
+  ["pop", T.familia - 0.05, 0.18],
+  ["pop", T.empresa - 0.05, 0.18],
+  ["whoosh", T.en - 0.05, 0.2],
+  ["impact", T.en + 0.02, 0.2],
+  ["pop", T.toca - 0.12, 0.18],
+  ["pop", T.aqui - 0.08, 0.12],
+  ["shimmer", T.consultor2, 0.16],
   ["shimmer", T.fin, 0.22],
 ];
 const SFX_DUR = { impact: 1.2 };
@@ -682,6 +764,7 @@ const sfxItems = SFX.map(([name, t, vol]) => {
   return { name, at: at0, vol, dur: r3(Math.min(SFX_DUR[name] ?? h.dur, h.dur, D - at0)) };
 }).sort((x, y) => x.at - y.at);
 const sfxTracks = allocTracks(sfxItems, 30);
+const voDur = r3(Number(readFileSync(join(ROOT, "assets/voice/vo.dur"), "utf8")));
 
 // ═════════════ saída ═════════════
 const OUT = ST ? ROOT : join(ROOT, "feed");
@@ -694,7 +777,8 @@ const mounts = scenes
   )
   .join("\n      ");
 const audio = [
-  `<audio id="el-bgm" src="assets/audio/bgm.wav" data-start="0" data-duration="${D}" data-track-index="20" data-volume="0.8"></audio>`,
+  `<audio id="el-bgm" src="assets/audio/bgm.wav" data-start="0" data-duration="${D}" data-track-index="20" data-volume="0.75"></audio>`,
+  `<audio id="el-vo-voice" data-audio-group="voiceover" src="assets/voice/vo.wav" data-start="0" data-duration="${Math.min(voDur, D)}" data-track-index="21" data-volume="1"></audio>`,
   ...sfxItems.map(
     (x, i) =>
       `<audio id="el-sfx-${i}" src="assets/audio/sfx_${x.name}.wav" data-start="${x.at}" data-duration="${x.dur}" data-track-index="${sfxTracks[i]}" data-volume="${x.vol}"></audio>`,

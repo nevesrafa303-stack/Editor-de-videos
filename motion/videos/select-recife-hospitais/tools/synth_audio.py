@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Trilha + tratamento dos efeitos do motion "A Select saiu. O Português fica." (32,5 s, sem locução).
+Trilha + tratamento dos efeitos do motion "A Select saiu. O Português fica." (com locução).
 
   python -I tools/synth_audio.py   -> assets/audio/bgm.wav e assets/audio/sfx_*.wav
 
@@ -9,13 +9,14 @@ assets/audio/src/*.mp3; aqui são cortados no ataque, nivelados e convertidos pa
 assets/audio/sfx_hits.json guarda, para cada efeito, quanto tempo depois do início do arquivo fica
 o golpe.
 
-Trilha sintetizada (a conexão do ElevenLabs deste ambiente não gera música). Sem locução, é ela
-que dá o ritmo: 96 BPM, compasso de 2,5 s, e as cenas de tools/build.mjs caem na mesma grade.
-  0–3    dor, em Lá menor (Am F Dm E): piano esparso, pad escuro, batida de coração
-  4      "A Select saiu.": subida em Sol, rufo e varredura
-  5–9    "O Português fica." em Dó maior (C G Am F G): groove leve, plucks, palmas
-  10–11  cartão final (F G): refrão mais aberto
-  12     acorde final em Dó, soa até o fim
+Trilha sintetizada (a conexão do ElevenLabs deste ambiente não gera música), presa à locução
+(assets/voice/vo.words.json): DROP = "O Português fica.", CTA = "Troque de plano", 8 compassos
+entre os dois (~95 BPM); duração = fim da locução + 2,6 s.
+  -7..-2  dor, em Lá menor (Am F Dm E): piano esparso, pad escuro, batida de coração
+  -1      "Só que presta atenção: a Select saiu.": subida em Sol, rufo e varredura
+  0–7     "O Português fica." em Dó maior (C G Am F): groove leve, plucks, palmas
+  8–10    cartão final (C F G): refrão mais aberto, contido enquanto ela fala
+  11      acorde final em Dó, depois do "fala com um consultor", soa até o fim
 """
 import json
 import os
@@ -228,16 +229,32 @@ def norm(x, peak):
     return x / (np.max(np.abs(x)) + 1e-9) * peak
 
 
-# ───────────────────────── grade da trilha (igual à de tools/build.mjs) ─────────────────────────
+# ───────────────────────── grade da trilha (presa à locução) ─────────────────────────
 
-BAR = 2.5            # 96 BPM
+_WORDS = json.load(open(os.path.join(ROOT, "assets", "voice", "vo.words.json")))
+
+
+def _norm(w):
+    import unicodedata
+    w = unicodedata.normalize('NFD', w.lower())
+    return ''.join(ch for ch in w if ch.isalnum() and not unicodedata.combining(ch))
+
+
+def wat(text, after=0.0):
+    return next(w['start'] for w in _WORDS if _norm(w['word']) == text and w['start'] >= after - 1e-3)
+
+
+DROP = wat('o', wat('saiu', wat('atencao')))     # "O Português fica."
+CTA = wat('troque')                              # cartão final
+VO_END = _WORDS[-1]['end']
+TOTAL = round(VO_END + 2.6, 1)
+BAR = (CTA - DROP) / 8                           # ~2,53 s -> ~95 BPM
 BEAT = BAR / 4
-TOTAL = 32.5
-BUILD, DROP, CHORUS, LAST = 4, 5, 10, 12
+PRE, BUILD, CHORUS, LAST = -7, -1, 8, 11
 
 
 def at_bar(b):
-    return b * BAR
+    return DROP + b * BAR
 
 
 CHORDS = {
@@ -248,25 +265,26 @@ CHORDS = {
     'G': dict(bass=31, pad=[55, 59, 62, 67], arp=[62, 67, 71, 74]),
     'C': dict(bass=36, pad=[55, 60, 64, 67], arp=[64, 67, 72, 76]),
 }
-PROG = {0: 'Am', 1: 'F', 2: 'Dm', 3: 'E', 4: 'G', 5: 'C', 6: 'G', 7: 'Am', 8: 'F', 9: 'G',
-        10: 'F', 11: 'G', 12: 'C'}
-# motivo do piano na dor (tempo em batidas dentro do compasso, nota)
-MOTIF = {0: [(1.0, 76), (2.5, 72)], 1: [(1.0, 77), (2.5, 72)], 2: [(1.0, 74), (2.5, 69)],
-         3: [(1.0, 71), (2.0, 68), (3.0, 64)]}
+PROG = {-7: 'Am', -6: 'Am', -5: 'F', -4: 'Dm', -3: 'E', -2: 'F', -1: 'G',
+        0: 'C', 1: 'G', 2: 'Am', 3: 'F', 4: 'C', 5: 'G', 6: 'Am', 7: 'F',
+        8: 'C', 9: 'F', 10: 'G', 11: 'C'}
+# motivo do piano na dor, por acorde (tempo em batidas dentro do compasso, nota)
+MOTIF = {'Am': [(1.0, 76), (2.5, 72)], 'F': [(1.0, 77), (2.5, 72)], 'Dm': [(1.0, 74), (2.5, 69)],
+         'E': [(1.0, 71), (2.0, 68), (3.0, 64)]}
 
 
 def bgm():
     n = int((TOTAL + 4.0) * SR)
     pads, keys, drums, bass, fx = (np.zeros((n, 2)) for _ in range(5))
-    for b in range(0, LAST + 1):
+    for b in range(PRE, LAST + 1):
         c = CHORDS[PROG[b]]
         t0 = at_bar(b)
         pain, build, last = b < BUILD, b == BUILD, b == LAST
         chorus = CHORUS <= b < LAST
-        cutoff = 700 + 120 * b if pain else 1000 if build else 4800 if chorus else 3400
+        cutoff = 700 + 120 * (b - PRE) if pain else 1000 if build else 4800 if chorus else 3400
         L = BAR + 1.3 + (2.6 if last else 0)
         for i, m in enumerate(c['pad']):
-            env = env_asr(int(L * SR), 0.9 if pain else 0.12 if b in (DROP, CHORUS) else 0.4, 1.2 if not last else 2.6)
+            env = env_asr(int(L * SR), 0.9 if pain else 0.12 if b in (0, CHORUS) else 0.4, 1.2 if not last else 2.6)
             p = saw_pad(m, L, cutoff) * env
             if build:  # filtro abrindo até o drop
                 p = saw_pad(m, L, 1000) * env * 0.5 + saw_pad(m, L, 3200) * env * np.linspace(0, 0.7, len(env))
@@ -275,7 +293,7 @@ def bgm():
         if pain:
             for m in (c['pad'][0] - 12, c['pad'][1] - 12, c['pad'][2] - 12):
                 add(keys, stereo(piano(m, 0.38, 3.2), pan=-0.15), t0)
-            for q, m in MOTIF[b]:
+            for q, m in MOTIF.get(PROG[b], []):
                 add(keys, stereo(piano(m, 0.5, 2.8), pan=0.2), t0 + q * BEAT)
         elif build:
             for s_ in range(8):
@@ -329,25 +347,25 @@ def bgm():
                 add(drums, stereo(kick(1.0 if q == 0 else 0.85)), t0 + q * BEAT)
             for e in range(16 if chorus else 8):
                 add(drums, stereo(hat(0.4 if e % 2 else 0.24), pan=0.3), t0 + e * BAR / (16 if chorus else 8))
-            if b > DROP:
+            if b > 0:
                 for q in (1, 3):
                     add(drums, stereo(clap(0.55), pan=-0.05), t0 + q * BEAT)
     # pratos e varreduras
     crash_t = t_axis(3.0)
     crash = hp(RNG.standard_normal(len(crash_t)), 4000, 2) * np.exp(-crash_t / 0.9) * 0.3
-    for b in (DROP, CHORUS, LAST):
+    for b in (0, CHORUS, LAST):
         add(fx, stereo(crash), at_bar(b))
-    for b in (DROP, CHORUS):
+    for b in (0, CHORUS):
         sw_t = t_axis(BAR)
         sw = moving_band_noise(BAR, lambda v: 500 * (16 ** (v ** 1.7)), 0.5, seed=40 + b)
-        add(fx, stereo(sw * (sw_t / BAR) ** 3 * (0.36 if b == DROP else 0.26)), at_bar(b) - BAR)
+        add(fx, stereo(sw * (sw_t / BAR) ** 3 * (0.36 if b == 0 else 0.26)), at_bar(b) - BAR)
     # ar grave no gancho
     air_t = t_axis(BAR * 2)
     air = moving_band_noise(BAR * 2, lambda u: 180 * (3 ** u), 0.6, seed=31) * 0.1 * np.minimum(1, air_t / 0.6)
     add(fx, stereo(air), 0.0)
     # bombeamento do kick nos pads no groove
     duck = np.ones(n)
-    for b in range(DROP, LAST):
+    for b in range(0, LAST):
         for q in range(4):
             i = int((at_bar(b) + q * BEAT) * SR)
             k = np.arange(int(0.3 * SR))
@@ -361,10 +379,12 @@ def bgm():
     mix = hp(mix, 28)
     mix = mix - 0.3 * bp(mix, 180, 450) + 1.0 * hp(mix, 2500, 2) + 0.5 * hp(mix, 7000, 2)
     mix = mix[: int(TOTAL * SR)]
-    # dinâmica: dor um pouco abaixo, subida até o drop, refrão do cartão final acima
+    # dinâmica: dor um pouco abaixo, subida até o drop, groove e refrão contidos sob a voz, e o
+    # acorde final aberto depois que ela termina
     tt = np.arange(len(mix)) / SR
-    g = np.interp(tt, [0, at_bar(BUILD), at_bar(DROP) - 0.05, at_bar(DROP) + 0.05, at_bar(CHORUS) - 0.05, at_bar(CHORUS) + 0.05, TOTAL],
-                  [0.86, 0.86, 1.0, 1.0, 0.98, 1.08, 1.08])
+    g = np.interp(tt, [0, at_bar(BUILD), at_bar(0) - 0.05, at_bar(0) + 0.6, at_bar(CHORUS) - 0.05, at_bar(CHORUS) + 0.05,
+                       VO_END, VO_END + 0.5, TOTAL],
+                  [0.86, 0.86, 1.0, 0.82, 0.82, 0.86, 0.86, 1.12, 1.12])
     mix *= g[:, None]
     fade = np.ones(len(mix))
     f0 = int((TOTAL - 1.4) * SR)

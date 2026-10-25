@@ -35,9 +35,8 @@
 .s1-bar{position:absolute;left:40px;height:22px;border-radius:11px;background:#C7D1DE;}
 #s1-st{position:absolute;left:150px;top:150px;padding:10px 26px;border:8px solid #FF7A6B;border-radius:18px;color:#FF7A6B;font-weight:900;font-size:66px;letter-spacing:.04em;background:rgba(255,255,255,.92);white-space:nowrap;}
 #s1-tx{position:absolute;left:0;width:1080px;top:1262px;text-align:center;font-weight:800;font-size:62px;line-height:1.18;}
-#s1-q{top:790px;font-weight:900;font-size:210px;line-height:1;letter-spacing:-.03em;opacity:0;}
 </style>
-<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="5.1" data-width="1080" data-height="1920">
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="5.126" data-width="1080" data-height="1920">
   <div id="s1-main" class="s1-full">
     <div id="s1-pin"><svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="#FF7A6B" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 44s14-13.5 14-24a14 14 0 0 0-28 0c0 10.5 14 24 14 24z"/><circle cx="24" cy="20" r="5"/></svg><span>Recife · PE</span></div>
     <div id="s1-a" class="ln d"><span class="w"><span class="wi" id="s1a0">A</span></span> <span class="w"><span class="wi" id="s1a1">Select</span></span> <span class="w"><span class="wi" id="s1a2">saiu</span></span></div>
@@ -56,39 +55,36 @@
       </div>
       <div id="s1-st" class="d" data-layout-allow-overlap>SEM PLANO</div>
     </div>
-    <div id="s1-tx" class="d"><span class="w"><span class="wi" id="s1x0">Famílias</span></span> <span class="w"><span class="wi" id="s1x1">e</span></span> <span class="w"><span class="wi" id="s1x2">empresas</span></span><br><span class="w"><span class="wi" id="s1y0">perderam</span></span> <span class="w"><span class="wi" id="s1y1">o</span></span> <span class="w"><span class="wi" id="s1y2">plano.</span></span></div>
+    <div id="s1-tx" class="d"><span class="w"><span class="wi" id="s1x0">Famílias</span></span> <span class="w"><span class="wi" id="s1x1">e</span></span> <span class="w"><span class="wi" id="s1x2">empresas</span></span><br><span class="w"><span class="wi" id="s1y0">ficaram</span></span> <span class="w"><span class="wi" id="s1y1">sem</span></span> <span class="w"><span class="wi" id="s1y2">plano.</span></span></div>
   </div>
-  <div id="s1-q" class="ln d">E agora?</div>
 </div>
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
 tl.fromTo("#s1-pin",{y:-12},{y:0,duration:0.45,ease:"power3.out"},0);
 tl.fromTo("#s1-a",{scale:1.08},{scale:1,duration:0.5,ease:"power3.out"},0);
-tl.fromTo("#s1-bi",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.out"},0.28);
-tl.set("#s1-main",{x:12,y:-7.2},0.52);
-tl.set("#s1-main",{x:-9.6,y:5.76},0.553);
-tl.set("#s1-main",{x:6,y:-3.6},0.587);
-tl.set("#s1-main",{x:-3,y:1.8},0.62);
-tl.set("#s1-main",{x:0,y:0},0.653);
-tl.fromTo("#s1-u",{scaleX:0},{scaleX:1,duration:0.35,ease:"power3.out",transformOrigin:"0% 50%"},0.55);
-tl.fromTo("#s1-cw",{y:240,opacity:0,rotation:-4},{y:0,opacity:1,rotation:0,duration:0.5,ease:"power3.out"},1.2);
-tl.fromTo("#s1-st",{scale:2.4,opacity:0,rotation:-12},{scale:1,opacity:1,rotation:-12,duration:0.18,ease:"power4.in"},2.0);
-tl.fromTo("#s1-card",{filter:"grayscale(0) brightness(1)"},{filter:"grayscale(1) brightness(0.72)",duration:0.3,ease:"power2.out"},2.18);
-tl.set("#s1-cw",{x:10,y:-6},2.18);
-tl.set("#s1-cw",{x:-8,y:4.8},2.213);
-tl.set("#s1-cw",{x:5,y:-3},2.247);
-tl.set("#s1-cw",{x:-2.5,y:1.5},2.28);
-tl.set("#s1-cw",{x:0,y:0},2.313);
-tl.fromTo("#s1x0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.35);
-tl.fromTo("#s1x1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.44);
-tl.fromTo("#s1x2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.53);
-tl.fromTo("#s1y0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.62);
-tl.fromTo("#s1y1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.71);
-tl.fromTo("#s1y2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},2.8);
-tl.to("#s1-main",{y:-110,opacity:0,duration:0.28,ease:"power3.in"},3.9);
-tl.fromTo("#s1-q",{scale:1.7,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"power4.out"},4.12);
-tl.to("#s1-q",{opacity:0,duration:0.2},4.88);
+tl.fromTo("#s1-bi",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.out"},1.138);
+tl.set("#s1-main",{x:12,y:-7.2},1.378);
+tl.set("#s1-main",{x:-9.6,y:5.76},1.411);
+tl.set("#s1-main",{x:6,y:-3.6},1.445);
+tl.set("#s1-main",{x:-3,y:1.8},1.478);
+tl.set("#s1-main",{x:0,y:0},1.511);
+tl.fromTo("#s1-u",{scaleX:0},{scaleX:1,duration:0.4,ease:"power3.out",transformOrigin:"0% 50%"},1.497);
+tl.fromTo("#s1-cw",{y:240,opacity:0,rotation:-4},{y:0,opacity:1,rotation:0,duration:0.5,ease:"power3.out"},2.207);
+tl.fromTo("#s1x0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.703);
+tl.fromTo("#s1x1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.177);
+tl.fromTo("#s1x2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.335);
+tl.fromTo("#s1y0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.73);
+tl.fromTo("#s1y1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.125);
+tl.fromTo("#s1y2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.322);
+tl.fromTo("#s1-st",{scale:2.4,opacity:0,rotation:-12},{scale:1,opacity:1,rotation:-12,duration:0.18,ease:"power4.in"},4.125);
+tl.fromTo("#s1-card",{filter:"grayscale(0) brightness(1)"},{filter:"grayscale(1) brightness(0.72)",duration:0.3,ease:"power2.out"},4.305);
+tl.set("#s1-cw",{x:10,y:-6},4.305);
+tl.set("#s1-cw",{x:-8,y:4.8},4.338);
+tl.set("#s1-cw",{x:5,y:-3},4.372);
+tl.set("#s1-cw",{x:-2.5,y:1.5},4.405);
+tl.set("#s1-cw",{x:0,y:0},4.438);
+tl.to("#s1-main",{y:-90,opacity:0,duration:0.3,ease:"power3.in"},4.806);
 window.__timelines["s1"] = tl;
 })();
 </script>

@@ -27,7 +27,7 @@
 #bg-dots{position:absolute;left:0;top:-72px;}
 #bg-vig{background:radial-gradient(110% 75% at 50% 45%,rgba(0,0,0,0) 55%,rgba(2,6,14,.6) 100%);}
 </style>
-<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="32.5" data-width="1080" data-height="1920">
+<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="45.9" data-width="1080" data-height="1920">
   <div id="bg-base" class="bg-full"></div>
   <div id="bg-red" class="bg-gl" data-layout-allow-overflow aria-hidden="true"></div>
   <div id="bg-gold" class="bg-gl" data-layout-allow-overflow aria-hidden="true"></div>
@@ -39,11 +39,11 @@
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
-tl.fromTo("#bg-dots",{y:0},{y:72,duration:32.5,ease:"none"},0);
-tl.fromTo("#bg-red",{x:0,y:0,scale:1},{x:160,y:-180,scale:1.15,duration:12.5,ease:"sine.inOut"},0);
-tl.to("#bg-red",{opacity:0,duration:0.8,ease:"power2.out"},12.3);
-tl.to("#bg-gold",{opacity:1,duration:0.6,ease:"power2.out"},12.5);
-tl.fromTo("#bg-gold",{x:0,y:0,scale:1},{x:-160,y:160,scale:1.15,duration:20,ease:"sine.inOut"},12.5);
+tl.fromTo("#bg-dots",{y:0},{y:72,duration:45.9,ease:"none"},0);
+tl.fromTo("#bg-red",{x:0,y:0,scale:1},{x:160,y:-180,scale:1.15,duration:16.274,ease:"sine.inOut"},0);
+tl.to("#bg-red",{opacity:0,duration:0.8,ease:"power2.out"},16.074);
+tl.to("#bg-gold",{opacity:1,duration:0.6,ease:"power2.out"},16.274);
+tl.fromTo("#bg-gold",{x:0,y:0,scale:1},{x:-160,y:160,scale:1.15,duration:29.626,ease:"sine.inOut"},16.274);
 window.__timelines["bg"] = tl;
 })();
 </script>

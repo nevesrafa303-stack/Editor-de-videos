@@ -1,0 +1,607 @@
+[
+ {
+  "word": "A",
+  "start": 0.15,
+  "end": 0.268
+ },
+ {
+  "word": "Select",
+  "start": 0.307,
+  "end": 0.624
+ },
+ {
+  "word": "saiu",
+  "start": 0.744,
+  "end": 1.139
+ },
+ {
+  "word": "de",
+  "start": 1.178,
+  "end": 1.218
+ },
+ {
+  "word": "Recife.",
+  "start": 1.297,
+  "end": 1.929
+ },
+ {
+  "word": "E",
+  "start": 2.249,
+  "end": 2.328
+ },
+ {
+  "word": "muitas",
+  "start": 2.407,
+  "end": 2.684
+ },
+ {
+  "word": "famílias",
+  "start": 2.763,
+  "end": 3.197
+ },
+ {
+  "word": "e",
+  "start": 3.237,
+  "end": 3.355
+ },
+ {
+  "word": "empresas",
+  "start": 3.395,
+  "end": 3.751
+ },
+ {
+  "word": "ficaram",
+  "start": 3.79,
+  "end": 4.145
+ },
+ {
+  "word": "sem",
+  "start": 4.185,
+  "end": 4.343
+ },
+ {
+  "word": "plano.",
+  "start": 4.382,
+  "end": 4.856
+ },
+ {
+  "word": "Mas,",
+  "start": 5.276,
+  "end": 5.671
+ },
+ {
+  "word": "mais",
+  "start": 5.791,
+  "end": 5.988
+ },
+ {
+  "word": "do",
+  "start": 6.068,
+  "end": 6.186
+ },
+ {
+  "word": "que",
+  "start": 6.225,
+  "end": 6.304
+ },
+ {
+  "word": "perder",
+  "start": 6.344,
+  "end": 6.62
+ },
+ {
+  "word": "o",
+  "start": 6.66,
+  "end": 6.699
+ },
+ {
+  "word": "plano,",
+  "start": 6.739,
+  "end": 7.075
+ },
+ {
+  "word": "o",
+  "start": 7.134,
+  "end": 7.41
+ },
+ {
+  "word": "medo",
+  "start": 7.45,
+  "end": 7.687
+ },
+ {
+  "word": "é",
+  "start": 7.807,
+  "end": 8.004
+ },
+ {
+  "word": "perder",
+  "start": 8.044,
+  "end": 8.36
+ },
+ {
+  "word": "o",
+  "start": 8.4,
+  "end": 8.518
+ },
+ {
+  "word": "hospital.",
+  "start": 8.557,
+  "end": 9.071
+ },
+ {
+  "word": "Cada",
+  "start": 9.411,
+  "end": 9.608
+ },
+ {
+  "word": "dia",
+  "start": 9.728,
+  "end": 9.925
+ },
+ {
+  "word": "sem",
+  "start": 9.965,
+  "end": 10.084
+ },
+ {
+  "word": "plano",
+  "start": 10.162,
+  "end": 10.439
+ },
+ {
+  "word": "é",
+  "start": 10.518,
+  "end": 10.716
+ },
+ {
+  "word": "um",
+  "start": 10.755,
+  "end": 10.834
+ },
+ {
+  "word": "dia",
+  "start": 10.874,
+  "end": 11.032
+ },
+ {
+  "word": "de",
+  "start": 11.111,
+  "end": 11.15
+ },
+ {
+  "word": "risco",
+  "start": 11.229,
+  "end": 11.427
+ },
+ {
+  "word": "pra",
+  "start": 11.546,
+  "end": 11.664
+ },
+ {
+  "word": "família.",
+  "start": 11.703,
+  "end": 12.276
+ },
+ {
+  "word": "Só",
+  "start": 12.826,
+  "end": 13.063
+ },
+ {
+  "word": "que",
+  "start": 13.103,
+  "end": 13.221
+ },
+ {
+  "word": "presta",
+  "start": 13.261,
+  "end": 13.537
+ },
+ {
+  "word": "atenção:",
+  "start": 13.616,
+  "end": 14.111
+ },
+ {
+  "word": "a",
+  "start": 14.291,
+  "end": 14.567
+ },
+ {
+  "word": "Select",
+  "start": 14.606,
+  "end": 14.962
+ },
+ {
+  "word": "saiu.",
+  "start": 15.082,
+  "end": 15.674
+ },
+ {
+  "word": "O",
+  "start": 16.274,
+  "end": 16.551
+ },
+ {
+  "word": "Português",
+  "start": 16.591,
+  "end": 17.065
+ },
+ {
+  "word": "fica.",
+  "start": 17.144,
+  "end": 17.582
+ },
+ {
+  "word": "Trocar",
+  "start": 18.062,
+  "end": 18.417
+ },
+ {
+  "word": "de",
+  "start": 18.496,
+  "end": 18.536
+ },
+ {
+  "word": "plano",
+  "start": 18.654,
+  "end": 18.97
+ },
+ {
+  "word": "não",
+  "start": 19.01,
+  "end": 19.168
+ },
+ {
+  "word": "significa",
+  "start": 19.207,
+  "end": 19.681
+ },
+ {
+  "word": "trocar",
+  "start": 19.8,
+  "end": 20.117
+ },
+ {
+  "word": "de",
+  "start": 20.155,
+  "end": 20.195
+ },
+ {
+  "word": "hospital.",
+  "start": 20.274,
+  "end": 20.768
+ },
+ {
+  "word": "Existem",
+  "start": 21.028,
+  "end": 21.463
+ },
+ {
+  "word": "planos",
+  "start": 21.502,
+  "end": 21.819
+ },
+ {
+  "word": "com",
+  "start": 21.858,
+  "end": 21.977
+ },
+ {
+  "word": "atendimento",
+  "start": 22.016,
+  "end": 22.49
+ },
+ {
+  "word": "no",
+  "start": 22.609,
+  "end": 22.688
+ },
+ {
+  "word": "Real",
+  "start": 22.727,
+  "end": 22.925
+ },
+ {
+  "word": "Hospital",
+  "start": 23.004,
+  "end": 23.201
+ },
+ {
+  "word": "Português,",
+  "start": 23.321,
+  "end": 24.012
+ },
+ {
+  "word": "no",
+  "start": 24.132,
+  "end": 24.211
+ },
+ {
+  "word": "Santa",
+  "start": 24.251,
+  "end": 24.488
+ },
+ {
+  "word": "Joana",
+  "start": 24.566,
+  "end": 24.843
+ },
+ {
+  "word": "e",
+  "start": 24.963,
+  "end": 25.319
+ },
+ {
+  "word": "em",
+  "start": 25.358,
+  "end": 25.397
+ },
+ {
+  "word": "outros",
+  "start": 25.437,
+  "end": 25.674
+ },
+ {
+  "word": "hospitais",
+  "start": 25.713,
+  "end": 26.108
+ },
+ {
+  "word": "de",
+  "start": 26.187,
+  "end": 26.227
+ },
+ {
+  "word": "referência",
+  "start": 26.267,
+  "end": 26.78
+ },
+ {
+  "word": "do",
+  "start": 26.82,
+  "end": 26.898
+ },
+ {
+  "word": "Recife.",
+  "start": 26.898,
+  "end": 27.487
+ },
+ {
+  "word": "O",
+  "start": 27.887,
+  "end": 28.045
+ },
+ {
+  "word": "consultor",
+  "start": 28.084,
+  "end": 28.558
+ },
+ {
+  "word": "compara",
+  "start": 28.637,
+  "end": 29.111
+ },
+ {
+  "word": "as",
+  "start": 29.19,
+  "end": 29.23
+ },
+ {
+  "word": "operadoras",
+  "start": 29.27,
+  "end": 29.862
+ },
+ {
+  "word": "e",
+  "start": 29.941,
+  "end": 30.257
+ },
+ {
+  "word": "encontra",
+  "start": 30.296,
+  "end": 30.652
+ },
+ {
+  "word": "o",
+  "start": 30.692,
+  "end": 30.731
+ },
+ {
+  "word": "plano",
+  "start": 30.771,
+  "end": 31.008
+ },
+ {
+  "word": "que",
+  "start": 31.047,
+  "end": 31.126
+ },
+ {
+  "word": "mantém",
+  "start": 31.166,
+  "end": 31.521
+ },
+ {
+  "word": "os",
+  "start": 31.6,
+  "end": 31.64
+ },
+ {
+  "word": "seus",
+  "start": 31.68,
+  "end": 31.798
+ },
+ {
+  "word": "hospitais",
+  "start": 31.837,
+  "end": 32.193
+ },
+ {
+  "word": "de",
+  "start": 32.311,
+  "end": 32.351
+ },
+ {
+  "word": "confiança,",
+  "start": 32.391,
+  "end": 33.121
+ },
+ {
+  "word": "de",
+  "start": 33.241,
+  "end": 33.32
+ },
+ {
+  "word": "acordo",
+  "start": 33.36,
+  "end": 33.715
+ },
+ {
+  "word": "com",
+  "start": 33.794,
+  "end": 33.913
+ },
+ {
+  "word": "o",
+  "start": 33.953,
+  "end": 33.991
+ },
+ {
+  "word": "perfil",
+  "start": 34.031,
+  "end": 34.308
+ },
+ {
+  "word": "da",
+  "start": 34.347,
+  "end": 34.466
+ },
+ {
+  "word": "sua",
+  "start": 34.505,
+  "end": 34.584
+ },
+ {
+  "word": "família",
+  "start": 34.624,
+  "end": 35.058
+ },
+ {
+  "word": "ou",
+  "start": 35.098,
+  "end": 35.216
+ },
+ {
+  "word": "da",
+  "start": 35.256,
+  "end": 35.335
+ },
+ {
+  "word": "sua",
+  "start": 35.375,
+  "end": 35.454
+ },
+ {
+  "word": "empresa.",
+  "start": 35.493,
+  "end": 36.066
+ },
+ {
+  "word": "Troque",
+  "start": 36.486,
+  "end": 36.761
+ },
+ {
+  "word": "de",
+  "start": 36.841,
+  "end": 36.88
+ },
+ {
+  "word": "plano,",
+  "start": 36.999,
+  "end": 37.434
+ },
+ {
+  "word": "não",
+  "start": 37.552,
+  "end": 37.749
+ },
+ {
+  "word": "de",
+  "start": 37.789,
+  "end": 37.829
+ },
+ {
+  "word": "hospital.",
+  "start": 37.948,
+  "end": 38.436
+ },
+ {
+  "word": "Toca",
+  "start": 38.796,
+  "end": 39.033
+ },
+ {
+  "word": "no",
+  "start": 39.113,
+  "end": 39.192
+ },
+ {
+  "word": "botão",
+  "start": 39.232,
+  "end": 39.508
+ },
+ {
+  "word": "aqui",
+  "start": 39.547,
+  "end": 39.705
+ },
+ {
+  "word": "embaixo,",
+  "start": 39.745,
+  "end": 40.239
+ },
+ {
+  "word": "preenche",
+  "start": 40.359,
+  "end": 40.833
+ },
+ {
+  "word": "o",
+  "start": 40.873,
+  "end": 40.912
+ },
+ {
+  "word": "formulário",
+  "start": 40.952,
+  "end": 41.504
+ },
+ {
+  "word": "e",
+  "start": 41.544,
+  "end": 41.86
+ },
+ {
+  "word": "fala",
+  "start": 41.94,
+  "end": 42.255
+ },
+ {
+  "word": "com",
+  "start": 42.295,
+  "end": 42.414
+ },
+ {
+  "word": "um",
+  "start": 42.453,
+  "end": 42.492
+ },
+ {
+  "word": "consultor.",
+  "start": 42.532,
+  "end": 43.333
+ }
+]
