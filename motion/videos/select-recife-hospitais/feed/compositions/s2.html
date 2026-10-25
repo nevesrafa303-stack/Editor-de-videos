@@ -1,0 +1,98 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s2-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s2-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:16px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#s2-ph{left:0;top:0;width:1080px;height:1080px;}
+#s2-scr{background:linear-gradient(180deg,rgba(6,14,26,.9) 0%,rgba(6,14,26,.62) 40%,rgba(6,14,26,.55) 62%,rgba(6,14,26,.92) 100%);}
+.s2-l{font-weight:800;font-size:60px;line-height:1.1;}
+#s2-hb{top:362px;font-weight:900;font-size:110px;line-height:1;letter-spacing:-.03em;}
+#s2-tile{position:absolute;left:390px;top:370px;width:300px;height:332px;border-radius:27px;background:#fff;color:#0B1626;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.55);}
+#s2-th{position:absolute;left:0;top:0;width:100%;height:76px;background:#C8382B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;letter-spacing:.06em;}
+#s2-nw{position:absolute;left:0;width:100%;top:103px;height:189px;overflow:hidden;text-align:center;}
+#s2-nc{position:absolute;left:0;width:100%;top:0;font-weight:900;font-size:174px;line-height:189px;letter-spacing:-.04em;}
+#s2-nl{position:absolute;left:0;width:100%;top:286px;text-align:center;font-weight:600;font-size:22px;color:#4F5F75;}
+</style>
+<div id="s2-root" data-composition-id="s2" data-start="0" data-duration="5.15" data-width="1080" data-height="1080">
+  <div id="s2-wrap" class="s2-full">
+    <div class="ph" id="s2-ph"><img id="s2-img" src="assets/img/santa-joana-fachada.jpg" alt="Hospital Santa Joana" style="object-position:50% 38%" /></div>
+    <div id="s2-scr" class="s2-full"></div>
+    <div id="s2-A" class="s2-full">
+      <div class="ln d s2-l" style="top:110px"><span class="w"><span class="wi" id="s2a0">Mais</span></span> <span class="w"><span class="wi" id="s2a1">do</span></span> <span class="w"><span class="wi" id="s2a2">que</span></span></div>
+      <div class="ln d s2-l" style="top:180px"><span class="w"><span class="wi" id="s2b0">perder</span></span> <span class="w"><span class="wi" id="s2b1">o</span></span> <span class="w"><span class="wi" id="s2b2">plano,</span></span></div>
+      <div class="ln d s2-l" style="top:290px"><span class="w"><span class="wi" id="s2c0">o</span></span> <span class="w"><span class="wi" id="s2c1">medo</span></span> <span class="w"><span class="wi" id="s2c2">é</span></span> <span class="w"><span class="wi" id="s2c3">perder</span></span></div>
+      <div id="s2-hb" class="ln d coral"><span id="s2-hi" style="display:inline-block">o hospital.</span></div>
+    </div>
+    <div id="s2-B" class="s2-full">
+      <div class="ln d s2-l" style="top:110px"><span class="w"><span class="wi" id="s2d0">Cada</span></span> <span class="w"><span class="wi" id="s2d1">dia</span></span> <span class="w"><span class="wi" id="s2d2">sem</span></span> <span class="w"><span class="wi" id="s2d3">plano</span></span></div>
+      <div class="ln d s2-l" style="top:180px"><span class="w"><span class="wi" id="s2e0">é</span></span> <span class="w"><span class="wi" id="s2e1">um</span></span> <span class="w"><span class="wi" id="s2e2">dia</span></span> <span class="w"><span class="wi" id="s2e3">de</span></span> <span class="w"><span class="wi coral" id="s2e4">risco</span></span></div>
+      <div class="ln d s2-l" style="top:250px"><span class="w"><span class="wi" id="s2f0">para</span></span> <span class="w"><span class="wi" id="s2f1">a</span></span> <span class="w"><span class="wi" id="s2f2">família.</span></span></div>
+      <div id="s2-tile"><div id="s2-th" class="d">DIAS SEM PLANO</div>
+        <div id="s2-nw"><div id="s2-nc" class="d" data-layout-allow-overflow data-layout-allow-occlusion>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div></div>
+        <div id="s2-nl">e contando…</div></div>
+    </div>
+    <div class="legal" id="s2-lg" style="top:1000px">Imagem meramente ilustrativa. A rede credenciada pode variar conforme plano contratado.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s2-ph",{opacity:0},{opacity:1,duration:0.35,ease:"power2.out"},0);
+tl.fromTo("#s2-lg",{opacity:0},{opacity:1,duration:0.4},0.3);
+tl.fromTo("#s2-img",{scale:1.16},{scale:1,duration:5.15,ease:"none"},0);
+tl.fromTo("#s2a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.17);
+tl.fromTo("#s2a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.27);
+tl.fromTo("#s2a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.37);
+tl.fromTo("#s2b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.45);
+tl.fromTo("#s2b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.55);
+tl.fromTo("#s2b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.65);
+tl.fromTo("#s2c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1);
+tl.fromTo("#s2c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.1);
+tl.fromTo("#s2c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.2);
+tl.fromTo("#s2c3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.3);
+tl.fromTo("#s2-hi",{scale:1.7,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},1.5);
+tl.to("#s2-A",{y:-70,opacity:0,duration:0.26,ease:"power3.in"},2.43);
+tl.fromTo("#s2d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.65);
+tl.fromTo("#s2d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.74);
+tl.fromTo("#s2d2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.83);
+tl.fromTo("#s2d3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.92);
+tl.fromTo("#s2e0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3);
+tl.fromTo("#s2e1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.09);
+tl.fromTo("#s2e2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.18);
+tl.fromTo("#s2e3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.27);
+tl.fromTo("#s2e4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.36);
+tl.fromTo("#s2f0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.47);
+tl.fromTo("#s2f1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.56);
+tl.fromTo("#s2f2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.65);
+tl.fromTo("#s2-tile",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(1.8)"},3);
+tl.to("#s2-nc",{y:-189,duration:0.1,ease:"power2.out"},3.3);
+tl.to("#s2-nc",{y:-378,duration:0.1,ease:"power2.out"},3.48);
+tl.to("#s2-nc",{y:-567,duration:0.1,ease:"power2.out"},3.66);
+tl.to("#s2-nc",{y:-756,duration:0.1,ease:"power2.out"},3.84);
+tl.to("#s2-nc",{y:-945,duration:0.1,ease:"power2.out"},4.02);
+tl.to("#s2-nc",{y:-1134,duration:0.1,ease:"power2.out"},4.2);
+tl.to("#s2-nc",{y:-1323,duration:0.1,ease:"power2.out"},4.38);
+tl.to("#s2-nc",{y:-1512,duration:0.1,ease:"power2.out"},4.56);
+tl.fromTo("#s2-nl",{opacity:0},{opacity:1,duration:0.3},3.65);
+tl.to("#s2-wrap",{opacity:0,duration:0.3,ease:"power2.in"},4.85);
+window.__timelines["s2"] = tl;
+})();
+</script>
+</template>

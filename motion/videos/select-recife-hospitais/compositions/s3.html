@@ -1,0 +1,62 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s3-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s3-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:70px;width:940px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#s3-a{top:296px;font-weight:900;font-size:96px;line-height:1.05;letter-spacing:-.02em;}
+#s3-ai{position:relative;display:inline-block;}
+#s3-x{position:absolute;left:-3%;top:50%;width:106%;height:12px;margin-top:-4px;border-radius:8px;background:#FF7A6B;}
+.s3-b{font-weight:900;font-size:124px;line-height:1.05;letter-spacing:-.03em;}
+#s3-pw{position:absolute;left:90px;top:740px;width:900px;height:653px;}
+#s3-ph{left:0;top:0;width:900px;height:653px;border-radius:34px;box-shadow:0 34px 80px rgba(0,0,0,.55),0 0 0 6px rgba(255,210,122,.9);}
+</style>
+<div id="s3-root" data-composition-id="s3" data-start="0" data-duration="5.15" data-width="1080" data-height="1920">
+  <div id="s3-wrap" class="s3-full">
+    <div id="s3-a" class="ln d"><span id="s3-ai" data-layout-allow-occlusion><span class="w"><span class="wi" id="s3a0">A</span></span> <span class="w"><span class="wi" id="s3a1">Select</span></span> <span class="w"><span class="wi" id="s3a2">saiu.</span></span><i id="s3-x" data-layout-allow-overlap aria-hidden="true"></i></span></div>
+    <div class="ln d s3-b" style="top:430px"><span id="s3-b0" style="display:inline-block">O Português</span></div>
+    <div class="ln d s3-b gold" style="top:566px"><span id="s3-b1" style="display:inline-block">fica.</span></div>
+    <div id="s3-pw"><div class="ph" id="s3-ph"><img id="s3-img" src="assets/img/real-hospital-portugues.jpg" alt="Real Hospital Português" style="object-position:60% 50%" /><div id="s3-sw" class="sweep" aria-hidden="true"></div></div></div>
+    <div class="legal" id="s3-lg" style="top:1424px">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s3a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.15);
+tl.fromTo("#s3a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.27);
+tl.fromTo("#s3a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.36,ease:"power3.out"},0.39);
+tl.fromTo("#s3-x",{scaleX:0},{scaleX:1,duration:0.32,ease:"power3.inOut",transformOrigin:"0% 50%"},1.5);
+tl.to("#s3-ai",{opacity:0.42,duration:0.3},1.67);
+tl.fromTo("#s3-b0",{scale:1.6,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},2.51);
+tl.fromTo("#s3-b1",{scale:1.8,opacity:0},{scale:1,opacity:1,duration:0.28,ease:"power4.out"},2.71);
+tl.set("#s3-wrap",{x:10,y:-6},2.57);
+tl.set("#s3-wrap",{x:-8,y:4.8},2.603);
+tl.set("#s3-wrap",{x:5,y:-3},2.637);
+tl.set("#s3-wrap",{x:-2.5,y:1.5},2.67);
+tl.set("#s3-wrap",{x:0,y:0},2.703);
+tl.fromTo("#s3-pw",{y:260,opacity:0},{y:0,opacity:1,duration:0.55,ease:"power3.out"},2.61);
+tl.fromTo("#s3-img",{scale:1.14},{scale:1,duration:2.6,ease:"none"},2.55);
+tl.fromTo("#s3-sw",{xPercent:-100},{xPercent:100,duration:0.9,ease:"power2.inOut"},3.05);
+tl.fromTo("#s3-lg",{opacity:0},{opacity:1,duration:0.4},2.95);
+tl.to("#s3-wrap",{y:-140,opacity:0,duration:0.3,ease:"power3.in"},4.85);
+window.__timelines["s3"] = tl;
+})();
+</script>
+</template>

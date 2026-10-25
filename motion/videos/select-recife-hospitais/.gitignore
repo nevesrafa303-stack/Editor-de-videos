@@ -1,0 +1,9 @@
+node_modules/
+renders/
+assets/voice/*.raw.wav
+.hyperframes/artifacts/
+.hyperframes/render-outputs.json
+.hyperframes/video-state.json
+.hyperframes/history-id
+__pycache__/
+node_modules

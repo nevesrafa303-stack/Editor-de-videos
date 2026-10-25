@@ -1,0 +1,113 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1080px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1080px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.gold{color:#F5B83D;}
+.coral{color:#FF7A6B;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.ph{position:absolute;overflow:hidden;background:#0B1C30;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:16px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+.s5-h{font-weight:900;font-size:58px;line-height:1.1;letter-spacing:-.02em;}
+.s5-c{position:absolute;top:220px;width:280px;height:320px;}
+.s5-cb{position:absolute;inset:0;border-radius:25px;background:#fff;color:#0B1626;overflow:hidden;box-shadow:0 24px 54px rgba(0,0,0,.45);}
+.s5-hd{position:absolute;left:0;top:0;width:100%;height:64px;background:#E4EAF2;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;}
+.s5-t{left:17px;width:246px;height:92px;border-radius:13px;}
+.s5-nm{position:absolute;left:10px;bottom:10px;padding:4px 9px;border-radius:7px;background:#0B1626;color:#fff;font-weight:700;font-size:18px;white-space:nowrap;}
+.s5-m{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.s5-m.ok{background:#1F9D5C;}
+.s5-m.no{background:#9AA6B6;}
+.s5-bar{position:absolute;left:17px;height:11px;border-radius:8px;background:#D6DEE8;}
+#s5-ring{position:absolute;left:-8px;top:-8px;right:-8px;bottom:-8px;border-radius:31px;border:6px solid #F5B83D;opacity:0;}
+#s5-win{position:absolute;right:-20px;top:-20px;width:52px;height:52px;border-radius:50%;background:#F5B83D;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.35);}
+#s5-lp{position:absolute;left:180px;top:294px;width:120px;height:120px;}
+#s5-e1{top:562px;font-weight:700;font-size:38px;line-height:1.1;}
+#s5-e2{top:616px;font-weight:900;font-size:42px;line-height:1.1;letter-spacing:-.01em;}
+#s5-f{top:700px;font-weight:500;font-size:30px;color:#B9C5D6;}
+#s5-pr{position:absolute;left:0;width:1080px;top:752px;display:flex;justify-content:center;align-items:center;gap:18px;}
+.s5-p{width:240px;height:74px;border-radius:74px;border:3px solid #F5B83D;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:30px;color:#fff;background:rgba(245,184,61,.14);}
+#s5-ou{font-weight:600;font-size:24px;color:#B9C5D6;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="5.15" data-width="1080" data-height="1080">
+  <div id="s5-wrap" class="s5-full">
+    <div class="ln d s5-h" style="top:22px"><span class="w"><span class="wi" id="s5a0">Um</span></span> <span class="w"><span class="wi" id="s5a1">consultor</span></span> <span class="w"><span class="wi gold" id="s5a2">compara</span></span></div>
+    <div class="ln d s5-h" style="top:92px"><span class="w"><span class="wi" id="s5b0">as</span></span> <span class="w"><span class="wi" id="s5b1">operadoras</span></span></div>
+    <div class="s5-c" id="s5-c0" style="left:100px"><div class="s5-cb"><div class="s5-hd d">Plano A</div>
+      <div class="ph s5-t" style="top:72px;background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"><div class="s5-nm">Português</div><div class="s5-m ok" id="s5-m00"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="ph s5-t" style="top:174px;background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"><div class="s5-nm">Santa Joana</div><div class="s5-m no" id="s5-m01"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l16 16M32 16L16 32"/></svg></div></div>
+      <div class="s5-bar" style="top:285px;width:197px"></div>
+      <div class="s5-bar" style="top:304px;width:135px"></div></div></div>
+    <div class="s5-c" id="s5-c1" style="left:400px" data-layout-allow-overlap><div id="s5-ring" aria-hidden="true"></div><div class="s5-cb"><div class="s5-hd d">Plano B</div>
+      <div class="ph s5-t" style="top:72px;background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"><div class="s5-nm">Português</div><div class="s5-m ok" id="s5-m10"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div><div class="ph s5-t" style="top:174px;background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"><div class="s5-nm">Santa Joana</div><div class="s5-m ok" id="s5-m11"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+      <div class="s5-bar" style="top:285px;width:197px"></div>
+      <div class="s5-bar" style="top:304px;width:135px"></div></div><div id="s5-win"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="#0B1626" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+    <div class="s5-c" id="s5-c2" style="left:700px"><div class="s5-cb"><div class="s5-hd d">Plano C</div>
+      <div class="ph s5-t" style="top:72px;background:url('assets/img/real-hospital-portugues-2.jpg') 60% 40%/cover no-repeat"><div class="s5-nm">Português</div><div class="s5-m no" id="s5-m20"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 16l16 16M32 16L16 32"/></svg></div></div><div class="ph s5-t" style="top:174px;background:url('assets/img/santa-joana-aerea.jpg') 45% 45%/cover no-repeat"><div class="s5-nm">Santa Joana</div><div class="s5-m ok" id="s5-m21"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div></div>
+      <div class="s5-bar" style="top:285px;width:197px"></div>
+      <div class="s5-bar" style="top:304px;width:135px"></div></div></div>
+    <svg id="s5-lp" viewBox="0 0 100 100" width="120" height="120" aria-hidden="true" data-layout-allow-overlap>
+      <circle cx="42" cy="42" r="28" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="7"/>
+      <path d="M63 63l22 22" stroke="#fff" stroke-width="11" stroke-linecap="round"/></svg>
+    <div id="s5-e1" class="ln d"><span class="w"><span class="wi" id="s5c0">e</span></span> <span class="w"><span class="wi" id="s5c1">encontra</span></span> <span class="w"><span class="wi" id="s5c2">o</span></span> <span class="w"><span class="wi" id="s5c3">plano</span></span> <span class="w"><span class="wi" id="s5c4">que</span></span> <span class="w"><span class="wi" id="s5c5">mantém</span></span></div>
+    <div id="s5-e2" class="ln d gold"><span class="w"><span class="wi" id="s5d0">seus</span></span> <span class="w"><span class="wi" id="s5d1">hospitais</span></span> <span class="w"><span class="wi" id="s5d2">de</span></span> <span class="w"><span class="wi" id="s5d3">confiança,</span></span></div>
+    <div id="s5-f" class="ln">de acordo com o perfil da sua</div>
+    <div id="s5-pr"><div class="s5-p d" id="s5-p0"><svg viewBox="0 0 48 48" width="39" height="39" fill="none" stroke="#F5B83D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="14" r="6"/><circle cx="33" cy="17" r="5"/><path d="M5 42c0-8 5-14 12-14s12 6 12 14M27 42c0-6 3-11 7-11s9 5 9 11"/></svg>família</div><span id="s5-ou">ou</span><div class="s5-p d" id="s5-p1"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#F5B83D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 42V10l16-5v37M24 16l16 5v21M4 42h40M14 16h4M14 23h4M14 30h4M30 26h4M30 33h4"/></svg>empresa</div></div>
+    <div class="legal" id="s5-lg" style="top:870px">Consulte condições e elegibilidade. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.15);
+tl.fromTo("#s5a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.24);
+tl.fromTo("#s5a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.33);
+tl.fromTo("#s5b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.45);
+tl.fromTo("#s5b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.54);
+tl.fromTo("#s5-c0",{y:100,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},0.5);
+tl.fromTo("#s5-c1",{y:100,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},0.62);
+tl.fromTo("#s5-c2",{y:100,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.5)"},0.74);
+tl.fromTo("#s5-lp",{scale:0,x:0},{scale:1,x:0,duration:0.25,ease:"back.out(2)"},0.85);
+tl.to("#s5-lp",{x:300,duration:0.32,ease:"power2.inOut"},1.25);
+tl.to("#s5-lp",{x:600,duration:0.32,ease:"power2.inOut"},1.65);
+tl.to("#s5-lp",{scale:0,duration:0.2,ease:"power2.in"},2.05);
+tl.fromTo("#s5-m00",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},1.05);
+tl.fromTo("#s5-m01",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},1.13);
+tl.fromTo("#s5-m10",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},1.45);
+tl.fromTo("#s5-m11",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},1.53);
+tl.fromTo("#s5-m20",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},1.85);
+tl.fromTo("#s5-m21",{scale:0},{scale:1,duration:0.26,ease:"back.out(2.6)"},1.93);
+tl.to(["#s5-c0","#s5-c2"],{opacity:0.42,scale:0.95,duration:0.3,ease:"power2.out"},2.17);
+tl.to("#s5-c1",{y:-18,scale:1.05,duration:0.35,ease:"back.out(2)"},2.15);
+tl.to("#s5-ring",{opacity:1,duration:0.2},2.15);
+tl.fromTo("#s5-win",{scale:0,rotation:-30},{scale:1,rotation:0,duration:0.35,ease:"back.out(2.6)"},2.23);
+tl.fromTo("#s5c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.35);
+tl.fromTo("#s5c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.42);
+tl.fromTo("#s5c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.49);
+tl.fromTo("#s5c3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.56);
+tl.fromTo("#s5c4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.63);
+tl.fromTo("#s5c5",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.7);
+tl.fromTo("#s5d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.77);
+tl.fromTo("#s5d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.86);
+tl.fromTo("#s5d2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.95);
+tl.fromTo("#s5d3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},3.04);
+tl.fromTo("#s5-f",{opacity:0,y:14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},3.3);
+tl.fromTo("#s5-p0",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},3.53);
+tl.fromTo("#s5-ou",{opacity:0},{opacity:1,duration:0.2},3.61);
+tl.fromTo("#s5-p1",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},3.69);
+tl.fromTo("#s5-lg",{opacity:0},{opacity:1,duration:0.4},1.15);
+tl.to("#s5-wrap",{y:-90,opacity:0,duration:0.3,ease:"power3.in"},4.85);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>
