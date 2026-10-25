@@ -1,0 +1,290 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-ink: #050505;
+  --color-carbon: #0d0c0b;
+  --color-graphite: #171512;
+  --color-fog: #edebe8;
+  --color-mute: #a8a29e;
+  /* Cores do logo da RISE (degradê laranja → âmbar → laranja). */
+  --color-brasa: #ff8a45;
+  --color-ouro: #f7be56;
+  --color-papel: #efeeec;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-jakarta), ui-sans-serif, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-fog);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-brasa);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ouro);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@utility font-expanded {
+  font-family: var(--font-display);
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Degradê do logo aplicado a textos e fundos. */
+@utility texto-ouro {
+  background-image: linear-gradient(100deg, var(--color-brasa) 0%, var(--color-ouro) 50%, var(--color-brasa) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-ouro {
+  background-image: linear-gradient(100deg, var(--color-brasa) 0%, var(--color-ouro) 55%, var(--color-brasa) 100%);
+  background-size: 200% 100%;
+}
+
+/* Granulação sutil sobre tudo: dá textura de foto ao preto. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Entrada do hero em CSS puro: não depende do JavaScript para aparecer (bom para o LCP). */
+.hero-rise {
+  animation: hero-rise 1.1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 110ms + 150ms);
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.6em, 0);
+    filter: blur(6px);
+  }
+}
+.hero-media {
+  animation: hero-media 1.8s var(--ease-out-expo) both;
+}
+/* Só escala: com opacidade 0 no início, o navegador atrasaria a medição do LCP. */
+@keyframes hero-media {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* O degradê dourado dos destaques corre devagar, como luz batendo em metal. */
+.brilho {
+  animation: brilho 6s ease-in-out infinite alternate;
+}
+@keyframes brilho {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+/* Botão transparente do topo: contorno fino e, ao passar o mouse, uma luz dourada correndo pela borda. */
+@property --borda-angulo {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.cta-borda {
+  position: relative;
+  isolation: isolate;
+  background-color: rgb(255 255 255 / 0.03);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.cta-borda::before,
+.cta-borda::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1.5px;
+  border-radius: inherit;
+  pointer-events: none;
+  /* Só a faixa da borda aparece: o miolo do botão é recortado. */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+.cta-borda::before {
+  background: rgb(255 255 255 / 0.28);
+  transition: background-color 0.4s ease;
+}
+.cta-borda::after {
+  background: conic-gradient(
+    from var(--borda-angulo),
+    transparent 0%,
+    transparent 40%,
+    rgb(255 138 69 / 0.2) 60%,
+    var(--color-brasa) 80%,
+    var(--color-ouro) 92%,
+    transparent 100%
+  );
+  padding: 2px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borda-gira 2.2s linear infinite paused;
+}
+.cta-borda:hover,
+.cta-borda:focus-visible {
+  background-color: rgb(255 138 69 / 0.08);
+  box-shadow: 0 0 28px -8px rgb(255 138 69 / 0.7);
+}
+.cta-borda:hover::before,
+.cta-borda:focus-visible::before {
+  background: rgb(255 255 255 / 0.12);
+}
+.cta-borda:hover::after,
+.cta-borda:focus-visible::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+@keyframes borda-gira {
+  to {
+    --borda-angulo: 360deg;
+  }
+}
+
+/* Texto vazado (só o contorno), usado na faixa cinética. */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.32);
+}
+
+/* Diagnóstico (seção "Você já tem cliente"): cada gargalo acende quando a linha de leitura passa. */
+.gargalo-sinal {
+  transition:
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.gargalo-texto {
+  transition: color 0.35s ease;
+}
+[data-gargalo][data-detectado="true"] .gargalo-sinal {
+  background-color: var(--color-brasa);
+  box-shadow: 0 0 0 6px rgb(255 138 69 / 0.18);
+}
+[data-gargalo][data-detectado="true"] .gargalo-texto {
+  color: #fff;
+}
+.gargalo-tag {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s var(--ease-out-expo);
+}
+[data-gargalo]:not([data-detectado="true"]) .gargalo-tag {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+/* Sem animação, a linha de leitura não existe e todos os gargalos já aparecem acesos. */
+html:not(.js-motion) [data-gargalo] .gargalo-sinal {
+  background-color: var(--color-brasa);
+}
+html:not(.js-motion) [data-gargalo] .gargalo-texto {
+  color: #fff;
+}
+html:not(.js-motion) [data-gargalo] .gargalo-tag {
+  opacity: 1;
+  transform: none;
+}
+
+/* Listas "para quem é": o traço do ícone é desenhado quando o item recebe .is-checked. */
+.marca path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 0.5s var(--ease-out-expo) 0.1s;
+}
+.is-checked .marca path,
+html:not(.js-motion) .marca path {
+  stroke-dashoffset: 0;
+}
+
+/* Ingressos das entregas: picote com recortes nas laterais. */
+.ingresso {
+  --furo: 11px;
+  -webkit-mask:
+    radial-gradient(circle var(--furo) at 0 var(--picote), #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--furo) at 100% var(--picote), #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--furo) at 0 var(--picote), #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--furo) at 100% var(--picote), #0000 98%, #000) right / 51% 100% no-repeat;
+}
+
+/* Focos da mentoria: o texto dourado "enche" por cima do contorno com a rolagem. */
+.foco-cheio {
+  clip-path: inset(0 0 0 0);
+}
+html.js-motion .foco-cheio {
+  clip-path: inset(0 100% 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-media,
+  .brilho {
+    animation: none !important;
+  }
+  .marca path,
+  .gargalo-sinal,
+  .gargalo-texto,
+  .gargalo-tag {
+    transition: none;
+  }
+  /* Sem movimento: a borda do botão só acende, parada. */
+  .cta-borda::after {
+    animation: none;
+    background: var(--color-brasa);
+  }
+}
+
+@keyframes scroll-cue {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}

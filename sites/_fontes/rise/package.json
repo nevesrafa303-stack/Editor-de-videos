@@ -1,0 +1,11 @@
+{
+  "name": "rise-fontes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node preview/build-preview.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

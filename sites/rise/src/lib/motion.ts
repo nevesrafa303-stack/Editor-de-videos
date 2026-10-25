@@ -1,0 +1,446 @@
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import Lenis from "lenis";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
+const $$ = <T extends HTMLElement = HTMLElement>(sel: string, root: ParentNode = document) =>
+  Array.from(root.querySelectorAll<T>(sel));
+
+// Toda a coreografia de rolagem da home, em JavaScript puro (usada pelo componente Motion e pela
+// prévia em arquivo único). As seções marcam o que anima com atributos data-*; sem JavaScript,
+// ou com "reduzir movimento", o conteúdo aparece completo.
+
+/** Rolagem suave (Lenis) sincronizada com o ScrollTrigger. Devolve a função de limpeza. */
+export function iniciarRolagemSuave() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  const lenis = new Lenis({ lerp: 0.11, anchors: { offset: -72 }, allowNestedScroll: true });
+  lenis.on("scroll", ScrollTrigger.update);
+  const tick = (time: number) => lenis.raf(time * 1000);
+  gsap.ticker.add(tick);
+  gsap.ticker.lagSmoothing(0);
+  return () => {
+    gsap.ticker.remove(tick);
+    lenis.destroy();
+  };
+}
+
+/** Animações de rolagem (GSAP + ScrollTrigger + SplitText). Devolve a função de limpeza.
+ *  Tudo é ligado à posição da rolagem (scrub): ao subir a página, os movimentos se desfazem e,
+ *  ao descer de novo, acontecem outra vez. */
+export function iniciarAnimacoes() {
+  const mm = gsap.matchMedia();
+
+  mm.add(
+    {
+      motion: "(prefers-reduced-motion: no-preference)",
+      reduce: "(prefers-reduced-motion: reduce)",
+      desktop: "(min-width: 1024px)",
+      tablet: "(min-width: 768px)",
+      mouse: "(hover: hover) and (pointer: fine)",
+    },
+    (ctx) => {
+      const { reduce, desktop, mouse } = ctx.conditions as Record<string, boolean>;
+      const limpezas: (() => void)[] = [];
+
+      if (reduce) {
+        $$("[data-check]").forEach((el) => el.classList.add("is-checked"));
+        return;
+      }
+
+      const root = document.documentElement;
+      root.classList.add("js-motion");
+
+      // Entrada ligada à rolagem: começa quando o elemento aparece e termina antes do meio da tela.
+      const entrada = (trigger: Element, inicio = "top 92%", fim = "top 62%") => ({
+        trigger,
+        start: inicio,
+        end: fim,
+        scrub: 0.6,
+      });
+
+      // Hero: a foto aproxima e o texto sobe enquanto a página rola; no desktop a foto acompanha o mouse.
+      const hero = document.querySelector<HTMLElement>("[data-hero]");
+      if (hero) {
+        const st = { trigger: hero, start: "top top", end: "bottom top", scrub: true };
+        gsap.to("[data-hero-media]", { scale: 1.15, yPercent: 8, ease: "none", scrollTrigger: st });
+        gsap.to("[data-hero-content]", { yPercent: -18, autoAlpha: 0, ease: "none", scrollTrigger: { ...st, end: "bottom 15%" } });
+        if (mouse && desktop) {
+          const foto = hero.querySelector("[data-hero-media] picture");
+          const x = gsap.quickTo(foto, "xPercent", { duration: 1.4, ease: "power3.out" });
+          const y = gsap.quickTo(foto, "yPercent", { duration: 1.4, ease: "power3.out" });
+          const onMove = (e: PointerEvent) => {
+            x(((e.clientX / window.innerWidth) * 2 - 1) * -1.6);
+            y(((e.clientY / window.innerHeight) * 2 - 1) * -1.2);
+          };
+          hero.addEventListener("pointermove", onMove);
+          limpezas.push(() => hero.removeEventListener("pointermove", onMove));
+        }
+      }
+
+      // Títulos entram linha a linha, saindo de uma máscara, no ritmo da rolagem.
+      $$("[data-split]").forEach((el) => {
+        SplitText.create(el, {
+          type: "lines",
+          mask: "lines",
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.fromTo(
+              self.lines,
+              { yPercent: 115 },
+              { yPercent: 0, stagger: 0.14, ease: "power2.out", scrollTrigger: entrada(el, "top 94%", "top 60%") },
+            ),
+        });
+      });
+
+      // Blocos de texto e listas sobem e aparecem com a rolagem (e somem ao voltar).
+      $$("[data-reveal]").forEach((el) => {
+        const alvos = el.dataset.reveal === "stagger" ? Array.from(el.children) : el;
+        gsap.fromTo(
+          alvos,
+          { y: 56, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, stagger: 0.12, ease: "power2.out", scrollTrigger: entrada(el) },
+        );
+      });
+
+      // Paralaxe de fundos e molduras.
+      $$("[data-parallax]").forEach((el) => {
+        const v = Number(el.dataset.parallax) || 10;
+        gsap.fromTo(
+          el,
+          { yPercent: -v / 2 },
+          {
+            yPercent: v / 2,
+            ease: "none",
+            scrollTrigger: { trigger: el.closest("section") ?? el, start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+      });
+
+      // Contadores: sobem conforme a rolagem desce (terminam logo depois de aparecer) e voltam a zero ao subir.
+      $$("[data-count]").forEach((el) => {
+        const alvo = Number(el.dataset.count);
+        const obj = { v: 0 };
+        el.textContent = "0";
+        gsap.to(obj, {
+          v: alvo,
+          ease: "power1.out",
+          scrollTrigger: entrada(el, "top 98%", "top 78%"),
+          onUpdate: () => {
+            el.textContent = Math.round(obj.v).toLocaleString("pt-BR");
+          },
+        });
+      });
+
+      // Faixas de texto grande: andam em sentidos opostos com a rolagem.
+      const faixas = $$("[data-kinetic]");
+      faixas.forEach((el) => {
+        const dir = el.dataset.kinetic === "direita" ? 1 : -1;
+        const forca = Number(el.dataset.forca) || 0.18;
+        gsap.fromTo(
+          el,
+          { x: () => -dir * window.innerWidth * forca },
+          {
+            x: () => dir * window.innerWidth * forca,
+            ease: "none",
+            scrollTrigger: { trigger: el.closest("section") ?? el, start: "top bottom", end: "bottom top", scrub: 0.4, invalidateOnRefresh: true },
+          },
+        );
+      });
+      // ...e inclinam com a velocidade da rolagem (para um lado ao descer, para o outro ao subir).
+      if (faixas.length) {
+        const inclinar = faixas.map((el) => gsap.quickTo(el, "skewX", { duration: 0.45, ease: "power3.out" }));
+        const st = ScrollTrigger.create({
+          onUpdate: (self) => {
+            const v = gsap.utils.clamp(-10, 10, self.getVelocity() / -260);
+            inclinar.forEach((f) => f(v));
+          },
+        });
+        const endireitar = () => inclinar.forEach((f) => f(0));
+        ScrollTrigger.addEventListener("scrollEnd", endireitar);
+        limpezas.push(() => {
+          ScrollTrigger.removeEventListener("scrollEnd", endireitar);
+          st.kill();
+        });
+      }
+
+      // Diagnóstico: uma linha de leitura desce pela lista e acende cada gargalo ao passar por ele.
+      $$("[data-scan]").forEach((scan) => {
+        const linha = scan.querySelector<HTMLElement>("[data-scan-linha]");
+        const itens = $$("[data-gargalo]", scan);
+        if (!linha || !itens.length) return;
+        linha.classList.remove("hidden");
+        const marcar = (p: number) => {
+          itens.forEach((item, i) => (item.dataset.detectado = String(p >= (i + 0.55) / itens.length)));
+        };
+        marcar(0);
+        gsap.fromTo(
+          linha,
+          { y: 0, autoAlpha: 0 },
+          {
+            y: () => scan.offsetHeight,
+            autoAlpha: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: scan,
+              start: "top 70%",
+              end: "bottom 45%",
+              scrub: 0.5,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => marcar(self.progress),
+            },
+          },
+        );
+        limpezas.push(() => {
+          linha.classList.add("hidden");
+          itens.forEach((item) => delete item.dataset.detectado);
+        });
+      });
+
+      // "A RISE não é fuga. É método.": a tela fixa, o risco corta "fuga" e "método" sobe em dourado.
+      const manifesto = document.querySelector<HTMLElement>("[data-manifesto]");
+      if (manifesto) {
+        const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+        tl.fromTo("[data-manifesto-foto]", { scale: 1.18 }, { scale: 1, duration: 3, ease: "none" }, 0)
+          .fromTo("[data-fuga]", { opacity: 1 }, { opacity: 0.35, duration: 0.6 }, 0.55)
+          .fromTo("[data-fuga-risco]", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 0.4)
+          .fromTo("[data-metodo-palavra]", { yPercent: 110 }, { yPercent: 0, stagger: 0.18, duration: 0.7 }, 1.1)
+          .fromTo("[data-manifesto-texto]", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.9)
+          .to({}, { duration: 0.6 });
+        ScrollTrigger.create({
+          animation: tl,
+          trigger: "[data-manifesto-palco]",
+          start: "top top",
+          end: () => `+=${window.innerHeight * 1.5}`,
+          pin: true,
+          scrub: 0.6,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        });
+      }
+
+      // Frase da estrutura: a primeira parte apaga palavra por palavra e a segunda acende.
+      $$("[data-preencher]").forEach((frase) => {
+        const antes = $$("[data-antes]", frase);
+        const depois = $$("[data-depois]", frase);
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: frase, start: "top 75%", end: "bottom 40%", scrub: 0.6 },
+        });
+        tl.fromTo(antes, { opacity: 1 }, { opacity: 0.22, stagger: 0.1, ease: "none" }, 0).fromTo(
+          depois,
+          { opacity: 0.1 },
+          { opacity: 1, stagger: 0.12, ease: "none" },
+          0.35,
+        );
+      });
+
+      // Ingressos das entregas.
+      const entregas = document.querySelector<HTMLElement>("[data-entregas]");
+      const ingressos = $$("[data-ingresso-cartao]");
+      if (entregas && ingressos.length) {
+        const giros = [-9, 5, -4, 10];
+        if (desktop) {
+          // Saem de um monte no centro da lista e se espalham até o lugar de cada um.
+          const lista = entregas.querySelector<HTMLElement>("[data-ingressos]")!;
+          const paraOCentro = (el: HTMLElement) => {
+            const l = lista.getBoundingClientRect();
+            const r = (el.parentElement as HTMLElement).getBoundingClientRect();
+            return l.left + l.width / 2 - (r.left + r.width / 2);
+          };
+          const tl = gsap.timeline();
+          ingressos.forEach((el, i) => {
+            tl.fromTo(
+              el,
+              { x: () => paraOCentro(el), y: 40 + i * 6, rotate: giros[i % giros.length], scale: 0.9 },
+              { x: 0, y: 0, rotate: 0, scale: 1, duration: 1, ease: "power2.inOut" },
+              i * 0.18,
+            );
+          });
+          tl.to({}, { duration: 0.4 });
+          ScrollTrigger.create({
+            animation: tl,
+            trigger: "[data-entregas-palco]",
+            start: "top top",
+            end: () => `+=${window.innerHeight * 1.1}`,
+            pin: true,
+            scrub: 0.7,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          });
+        } else {
+          // Celular e tablet: cada ingresso entra girando, alternando os lados.
+          ingressos.forEach((el, i) => {
+            gsap.fromTo(
+              el,
+              { y: 90, rotate: i % 2 ? 6 : -6, autoAlpha: 0 },
+              { y: 0, rotate: 0, autoAlpha: 1, ease: "power2.out", scrollTrigger: entrada(el, "top 98%", "top 62%") },
+            );
+          });
+        }
+        // Com mouse, o ingresso inclina na direção do cursor, como um cartão na mão.
+        if (mouse) {
+          ingressos.forEach((el) => {
+            const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3.out" });
+            const ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3.out" });
+            const onMove = (e: PointerEvent) => {
+              const r = el.getBoundingClientRect();
+              ry(((e.clientX - r.left) / r.width - 0.5) * 14);
+              rx(((e.clientY - r.top) / r.height - 0.5) * -14);
+            };
+            const onLeave = () => (rx(0), ry(0));
+            el.addEventListener("pointermove", onMove);
+            el.addEventListener("pointerleave", onLeave);
+            limpezas.push(() => {
+              el.removeEventListener("pointermove", onMove);
+              el.removeEventListener("pointerleave", onLeave);
+            });
+          });
+        }
+      }
+
+      // Focos da mentoria: o dourado enche cada linha da esquerda para a direita ao passar pela tela.
+      $$("[data-foco]").forEach((foco) => {
+        gsap.fromTo(
+          foco.querySelector(".foco-cheio"),
+          { clipPath: "inset(0 100% 0 0)" },
+          { clipPath: "inset(0 0% 0 0)", ease: "none", scrollTrigger: { trigger: foco, start: "top 82%", end: "top 42%", scrub: 0.5 } },
+        );
+      });
+
+      // Órbitas douradas giram devagar com a rolagem.
+      $$("[data-orbita]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { rotate: -4, scale: 1.12 },
+          {
+            rotate: 4,
+            scale: 1,
+            ease: "none",
+            scrollTrigger: { trigger: el.closest("section") ?? el, start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+      });
+
+      // Placas: as barras de antes e depois crescem a partir da base.
+      $$("[data-placa]").forEach((placa) => {
+        gsap.fromTo(
+          $$("[data-barra]", placa),
+          { scaleY: 0 },
+          { scaleY: 1, stagger: 0.25, ease: "power2.out", scrollTrigger: entrada(placa, "top 90%", "top 50%") },
+        );
+      });
+
+      // Depoimentos: no desktop a seção fixa, os vídeos correm na horizontal e cada um gira e cresce ao entrar.
+      const track = document.querySelector<HTMLElement>("[data-cases-track]");
+      const cartoesCases = track ? (Array.from(track.children) as HTMLElement[]).filter((c) => c.querySelector("figure")) : [];
+      if (track && desktop) {
+        track.dataset.pinned = "true";
+        const barra = document.querySelector<HTMLElement>("[data-cases-progresso]");
+        const distancia = () => Math.max(0, track.scrollWidth - track.clientWidth);
+        const horizontal = gsap.to(track, {
+          x: () => -distancia(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: "[data-cases-pin]",
+            start: "top top",
+            end: () => `+=${distancia()}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => barra && gsap.set(barra, { scaleX: self.progress }),
+          },
+        });
+        cartoesCases.forEach((cartao) => {
+          gsap.fromTo(
+            cartao,
+            { rotate: 7, scale: 0.86, yPercent: 10 },
+            {
+              rotate: 0,
+              scale: 1,
+              yPercent: 0,
+              ease: "none",
+              scrollTrigger: { trigger: cartao, containerAnimation: horizontal, start: "left right", end: "left 60%", scrub: true },
+            },
+          );
+        });
+      } else if (track) {
+        gsap.fromTo(
+          cartoesCases,
+          { y: 70, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, stagger: 0.1, ease: "power2.out", scrollTrigger: entrada(track, "top 95%", "top 55%") },
+        );
+      }
+
+      // Foto do evento: abre de um quadro recortado até a largura total.
+      const expande = document.querySelector<HTMLElement>("[data-expand]");
+      if (expande) {
+        const st = { trigger: expande, start: "top 90%", end: "top 15%", scrub: true };
+        gsap.fromTo(
+          expande,
+          { clipPath: desktop ? "inset(8% 14% 8% 14% round 32px)" : "inset(5% 5% 5% 5% round 20px)" },
+          { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: st },
+        );
+        gsap.fromTo($$("[data-expand-img]", expande), { scale: 1.25 }, { scale: 1, ease: "none", scrollTrigger: st });
+      }
+
+      // Listas "para quem é": cada item desliza para o lugar e é marcado quando chega perto do meio da tela.
+      $$("[data-check]").forEach((el) => {
+        gsap.fromTo(el, { x: 40, autoAlpha: 0.2 }, { x: 0, autoAlpha: 1, ease: "power2.out", scrollTrigger: entrada(el, "top 96%", "top 76%") });
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 74%",
+          onEnter: () => el.classList.add("is-checked"),
+          onLeaveBack: () => el.classList.remove("is-checked"),
+        });
+      });
+
+      // Marca gigante do rodapé sobe no fim da página.
+      gsap.from("[data-rodape-marca]", {
+        yPercent: 70,
+        autoAlpha: 0,
+        ease: "none",
+        scrollTrigger: { trigger: "[data-rodape-marca]", start: "top bottom", end: "bottom bottom", scrub: true },
+      });
+
+      // Botões principais "puxam" levemente o cursor (só com mouse).
+      if (mouse) {
+        $$("[data-magnetic]").forEach((btn) => {
+          const x = gsap.quickTo(btn, "x", { duration: 0.8, ease: "elastic.out(1, 0.4)" });
+          const y = gsap.quickTo(btn, "y", { duration: 0.8, ease: "elastic.out(1, 0.4)" });
+          const onMove = (e: PointerEvent) => {
+            const r = btn.getBoundingClientRect();
+            x((e.clientX - (r.left + r.width / 2)) * 0.22);
+            y((e.clientY - (r.top + r.height / 2)) * 0.35);
+          };
+          const onLeave = () => (x(0), y(0));
+          btn.addEventListener("pointermove", onMove);
+          btn.addEventListener("pointerleave", onLeave);
+          limpezas.push(() => {
+            btn.removeEventListener("pointermove", onMove);
+            btn.removeEventListener("pointerleave", onLeave);
+          });
+        });
+      }
+
+      // Gatilhos criados fora da ordem da página (os genéricos) são reordenados pelas áreas fixas.
+      ScrollTrigger.sort();
+
+      return () => {
+        limpezas.forEach((f) => f());
+        root.classList.remove("js-motion");
+        if (track) delete track.dataset.pinned;
+      };
+    },
+  );
+
+  // Fontes e imagens mudam alturas: recalcula os gatilhos quando terminarem de carregar.
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  const onLoad = () => ScrollTrigger.refresh();
+  window.addEventListener("load", onLoad);
+  return () => {
+    window.removeEventListener("load", onLoad);
+    mm.revert();
+  };
+}
