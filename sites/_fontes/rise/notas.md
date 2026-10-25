@@ -32,3 +32,15 @@ métricas, estruturação da empresa, captação ativa, posicionamento no perfil
    executável, testado em agências que já faturam.
 
 Os cartões serão refeitos em HTML/CSS (nítidos em qualquer tela e animáveis); os arquivos ficam de referência.
+
+## Fotos e logo (segundo envio)
+
+| Arquivo | O que é | Uso previsto |
+|---|---|---|
+| hermano-hero-desktop.webp (1880×900, cantos arredondados transparentes) | Hermano de braços cruzados, escritório da LAKS ao fundo | abertura no desktop |
+| hermano-hero-mobile.webp (800×1306) | mesma foto, vertical com degradê para preto | abertura no celular |
+| hermano-evento-desktop.png / -mobile.png | Hermano palestrando em evento da LAKS | "Você não precisa sair do operacional" ou bio |
+| hermano-palco-pb.png | Hermano no palco, preto e branco | "A RISE não é fuga. É método." |
+| bg-dono-tablet.png | dono de agência olhando o tablet, quadrados laranja | "Você já tem cliente…" |
+| bg-rise-orbitas.webp | logo RISE com órbitas douradas | mentoria anual / chamada final |
+| logo-rise-branco.png (1605×980) | logo RISE branco | cabeçalho e rodapé (vetorizar) |
