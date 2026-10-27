@@ -2,8 +2,9 @@ import Image from "next/image";
 import { manifesto } from "@/content/site";
 import palco from "@/assets/img/hermano-palco-pb.webp";
 
-// "A RISE não é fuga. É método.": a tela fixa, um risco laranja corta "fuga" e "método" sobe em dourado
-// (data-manifesto em src/lib/motion.ts). Sem animação, a frase aparece no estado final.
+// "A RISE não é fuga. É método.": a tela fixa, um risco laranja corta "fuga", as letras despencam e
+// "método" sobe letra por letra em dourado (data-manifesto em src/lib/motion.ts). Sem animação, a frase
+// aparece no estado final.
 export function Manifesto() {
   return (
     <section data-manifesto aria-labelledby="manifesto-titulo" className="relative bg-ink">
@@ -23,27 +24,41 @@ export function Manifesto() {
         <div className="container-site">
           <h2
             id="manifesto-titulo"
+            aria-label={`${manifesto.nao} ${manifesto.fuga} ${manifesto.e} ${manifesto.metodo}`}
             className="font-expanded text-[clamp(2.5rem,9vw,8.2rem)] font-bold uppercase leading-[0.92] tracking-tight text-white"
           >
             <span className="block">{manifesto.nao}</span>
+            {/* "fuga.": o risco corta a palavra e as letras despencam. */}
             <span data-fuga className="relative inline-block opacity-40">
-              {manifesto.fuga}
+              {[...manifesto.fuga].map((c, i) => (
+                <span key={i} data-fuga-letra className="inline-block">
+                  {c}
+                </span>
+              ))}
               <span
                 data-fuga-risco
                 aria-hidden="true"
                 className="absolute -inset-x-[3%] top-[48%] h-[0.08em] origin-left rounded-full bg-brasa"
               />
             </span>
+            {/* "É método.": cada letra sobe de uma máscara; o degradê é dividido entre as letras. */}
             <span className="block">
               <span className="inline-block overflow-hidden pb-[0.06em] align-bottom">
-                <span data-metodo-palavra className="inline-block">
+                <span data-metodo-letra className="inline-block">
                   {manifesto.e}
                 </span>
               </span>{" "}
               <span className="inline-block overflow-hidden pb-[0.06em] align-bottom">
-                <span data-metodo-palavra className="texto-ouro brilho inline-block">
-                  {manifesto.metodo}
-                </span>
+                {[...manifesto.metodo].map((c, i, arr) => (
+                  <span
+                    key={i}
+                    data-metodo-letra
+                    className="texto-ouro inline-block"
+                    style={{ backgroundSize: `${arr.length * 100}% 100%`, backgroundPosition: `${(i / (arr.length - 1)) * 100}% 0` }}
+                  >
+                    {c}
+                  </span>
+                ))}
               </span>
             </span>
           </h2>

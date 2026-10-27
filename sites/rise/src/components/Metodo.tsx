@@ -29,10 +29,11 @@ export function Metodo() {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="font-expanded relative inline-block text-[clamp(1.5rem,5.6vw,5.4rem)] font-bold uppercase leading-[1.02] tracking-tight">
-                <span className="text-outline">{f}</span>
-                <span aria-hidden="true" className="foco-cheio texto-ouro absolute inset-0">
+                {/* O contorno é só desenho; o texto lido é o dourado, que enche por cima com a rolagem. */}
+                <span aria-hidden="true" className="text-outline">
                   {f}
                 </span>
+                <span className="foco-cheio texto-ouro absolute inset-0">{f}</span>
               </span>
             </li>
           ))}
@@ -47,7 +48,7 @@ export function Metodo() {
         </h3>
         <ul data-reveal="stagger" className="mt-6 grid gap-4 md:grid-cols-3">
           {metodo.pilares.map((p) => (
-            <li key={p.titulo} className="flex min-h-52 flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.02] p-7">
+            <li key={p.titulo} data-spotlight className="flex min-h-52 flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.02] p-7">
               <span className="grid size-12 place-items-center rounded-2xl bg-ouro/12 text-ouro">
                 <Icone nome={p.icone} />
               </span>

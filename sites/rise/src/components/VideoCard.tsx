@@ -55,6 +55,8 @@ export function VideoCard({ id, nome, empresa, citacao, duracao, alturaDaTela = 
           <button
             type="button"
             data-video={id}
+            data-previa-src={`/videos/depoimento-${id}.mp4`}
+            data-cursor="Assistir"
             onClick={() => {
               setAtivo(true);
               track("depoimento_play", { depoimento: id });

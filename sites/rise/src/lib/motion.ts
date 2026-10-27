@@ -2,6 +2,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Lenis from "lenis";
+import { iniciarBrasas, iniciarCursor, iniciarLanterna, iniciarPreviaVideos } from "./efeitos";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -41,7 +42,7 @@ export function iniciarAnimacoes() {
       mouse: "(hover: hover) and (pointer: fine)",
     },
     (ctx) => {
-      const { reduce, desktop, mouse } = ctx.conditions as Record<string, boolean>;
+      const { reduce, desktop, tablet, mouse } = ctx.conditions as Record<string, boolean>;
       const limpezas: (() => void)[] = [];
 
       if (reduce) {
@@ -118,15 +119,17 @@ export function iniciarAnimacoes() {
         );
       });
 
-      // Contadores: sobem conforme a rolagem desce (terminam logo depois de aparecer) e voltam a zero ao subir.
+      // Contadores: contam até o valor quando entram na tela e voltam a zero quando a pessoa sobe de novo.
+      // Por tempo (e não preso à rolagem) para o número nunca ficar parado no meio da contagem.
       $$("[data-count]").forEach((el) => {
         const alvo = Number(el.dataset.count);
         const obj = { v: 0 };
         el.textContent = "0";
         gsap.to(obj, {
           v: alvo,
-          ease: "power1.out",
-          scrollTrigger: entrada(el, "top 98%", "top 78%"),
+          duration: 1.6,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 92%", toggleActions: "play none none reverse" },
           onUpdate: () => {
             el.textContent = Math.round(obj.v).toLocaleString("pt-BR");
           },
@@ -165,25 +168,39 @@ export function iniciarAnimacoes() {
         });
       }
 
-      // Diagnóstico: uma linha de leitura desce pela lista e acende cada gargalo ao passar por ele.
+      // Diagnóstico: uma linha de leitura desce pela lista e acende cada gargalo ao passar por ele;
+      // o painel acima conta os gargalos encontrados.
       $$("[data-scan]").forEach((scan) => {
+        const area = scan.querySelector<HTMLElement>("[data-scan-area]") ?? scan;
         const linha = scan.querySelector<HTMLElement>("[data-scan-linha]");
         const itens = $$("[data-gargalo]", scan);
+        const contador = scan.querySelector<HTMLElement>("[data-scan-contador]");
+        const barra = scan.querySelector<HTMLElement>("[data-scan-barra]");
         if (!linha || !itens.length) return;
         linha.classList.remove("hidden");
+        let achados = -1;
         const marcar = (p: number) => {
-          itens.forEach((item, i) => (item.dataset.detectado = String(p >= (i + 0.55) / itens.length)));
+          let n = 0;
+          itens.forEach((item, i) => {
+            const aceso = p >= (i + 0.55) / itens.length;
+            item.dataset.detectado = String(aceso);
+            n += Number(aceso);
+          });
+          if (n === achados) return;
+          achados = n;
+          if (contador) contador.textContent = String(n);
+          if (barra) gsap.to(barra, { scaleX: n / itens.length, duration: 0.5, ease: "power3.out", overwrite: true });
         };
         marcar(0);
         gsap.fromTo(
           linha,
           { y: 0, autoAlpha: 0 },
           {
-            y: () => scan.offsetHeight,
+            y: () => area.offsetHeight,
             autoAlpha: 1,
             ease: "none",
             scrollTrigger: {
-              trigger: scan,
+              trigger: area,
               start: "top 70%",
               end: "bottom 45%",
               scrub: 0.5,
@@ -195,24 +212,45 @@ export function iniciarAnimacoes() {
         limpezas.push(() => {
           linha.classList.add("hidden");
           itens.forEach((item) => delete item.dataset.detectado);
+          if (contador) contador.textContent = String(itens.length);
+          if (barra) gsap.set(barra, { clearProps: "transform" });
         });
       });
 
-      // "A RISE não é fuga. É método.": a tela fixa, o risco corta "fuga" e "método" sobe em dourado.
+      // "A RISE não é fuga. É método.": a tela fixa, o risco corta "fuga", as letras despencam como
+      // peças soltas e "método" sobe letra por letra em dourado.
       const manifesto = document.querySelector<HTMLElement>("[data-manifesto]");
       if (manifesto) {
+        // Cada letra afunda um pouco e tomba para um lado: a palavra desmorona sem sair da linha do risco.
+        const queda = [
+          { y: 9, r: -9 },
+          { y: 16, r: 7 },
+          { y: 5, r: -12 },
+          { y: 18, r: 10 },
+          { y: 11, r: -5 },
+        ];
+        const letrasFuga = $$("[data-fuga-letra]", manifesto);
         const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-        tl.fromTo("[data-manifesto-foto]", { scale: 1.18 }, { scale: 1, duration: 3, ease: "none" }, 0)
-          .fromTo("[data-fuga]", { opacity: 1 }, { opacity: 0.35, duration: 0.6 }, 0.55)
-          .fromTo("[data-fuga-risco]", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 0.4)
-          .fromTo("[data-metodo-palavra]", { yPercent: 110 }, { yPercent: 0, stagger: 0.18, duration: 0.7 }, 1.1)
-          .fromTo("[data-manifesto-texto]", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 1.9)
+        tl.fromTo("[data-manifesto-foto]", { scale: 1.18 }, { scale: 1, duration: 3.4, ease: "none" }, 0)
+          .fromTo("[data-fuga]", { opacity: 1 }, { opacity: 0.5, duration: 0.5 }, 0.5)
+          .fromTo("[data-fuga-risco]", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, 0.35);
+        letrasFuga.forEach((letra, i) => {
+          const q = queda[i % queda.length];
+          tl.fromTo(
+            letra,
+            { yPercent: 0, rotate: 0, autoAlpha: 1 },
+            { yPercent: q.y, rotate: q.r, autoAlpha: 0.45, duration: 0.7, ease: "power2.in" },
+            1 + i * 0.07,
+          );
+        });
+        tl.fromTo("[data-metodo-letra]", { yPercent: 115 }, { yPercent: 0, stagger: 0.07, duration: 0.6 }, 1.45)
+          .fromTo("[data-manifesto-texto]", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.6 }, 2.3)
           .to({}, { duration: 0.6 });
         ScrollTrigger.create({
           animation: tl,
           trigger: "[data-manifesto-palco]",
           start: "top top",
-          end: () => `+=${window.innerHeight * 1.5}`,
+          end: () => `+=${window.innerHeight * 1.8}`,
           pin: true,
           scrub: 0.6,
           anticipatePin: 1,
@@ -232,6 +270,15 @@ export function iniciarAnimacoes() {
           { opacity: 0.1 },
           { opacity: 1, stagger: 0.12, ease: "none" },
           0.35,
+        );
+      });
+
+      // Sintomas: os cartões caem para a frente como dominós, um depois do outro.
+      $$("[data-domino]").forEach((lista) => {
+        gsap.fromTo(
+          Array.from(lista.children),
+          { rotateX: -78, autoAlpha: 0.1, transformOrigin: "50% 0%" },
+          { rotateX: 0, autoAlpha: 1, stagger: 0.15, ease: "power2.out", scrollTrigger: entrada(lista, "top 92%", "top 45%") },
         );
       });
 
@@ -268,8 +315,35 @@ export function iniciarAnimacoes() {
             anticipatePin: 1,
             invalidateOnRefresh: true,
           });
+        } else if (!tablet) {
+          // Celular: os ingressos viram um baralho. A seção fixa e, a cada trecho de rolagem, o ingresso da
+          // frente sai para o lado e os de trás sobem um degrau.
+          entregas.dataset.baralho = "true";
+          const n = ingressos.length;
+          const degrau = (k: number) => ({ y: k * 16, scale: 1 - k * 0.05, rotate: k === 0 ? 0 : k % 2 ? 2.5 : -2.5 });
+          ingressos.forEach((el, i) => {
+            gsap.set(el.parentElement, { zIndex: n - i });
+            gsap.set(el, degrau(i));
+          });
+          const tl = gsap.timeline({ defaults: { duration: 1 } });
+          for (let k = 0; k < n - 1; k++) {
+            tl.to(ingressos[k], { xPercent: k % 2 ? 115 : -115, rotate: k % 2 ? 14 : -14, autoAlpha: 0, ease: "power2.in" }, k);
+            for (let j = k + 1; j < n; j++) tl.to(ingressos[j], { ...degrau(j - k - 1), ease: "power2.out" }, k + 0.15);
+          }
+          tl.to({}, { duration: 0.4 });
+          ScrollTrigger.create({
+            animation: tl,
+            trigger: "[data-entregas-palco]",
+            start: "top top",
+            end: () => `+=${(n - 1) * window.innerHeight * 0.55}`,
+            pin: true,
+            scrub: 0.6,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          });
+          limpezas.push(() => delete entregas.dataset.baralho);
         } else {
-          // Celular e tablet: cada ingresso entra girando, alternando os lados.
+          // Tablet: cada ingresso entra girando, alternando os lados.
           ingressos.forEach((el, i) => {
             gsap.fromTo(
               el,
@@ -278,15 +352,19 @@ export function iniciarAnimacoes() {
             );
           });
         }
-        // Com mouse, o ingresso inclina na direção do cursor, como um cartão na mão.
+        // Com mouse, o ingresso inclina na direção do cursor e um brilho holográfico acompanha a luz.
         if (mouse) {
           ingressos.forEach((el) => {
             const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3.out" });
             const ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3.out" });
             const onMove = (e: PointerEvent) => {
               const r = el.getBoundingClientRect();
-              ry(((e.clientX - r.left) / r.width - 0.5) * 14);
-              rx(((e.clientY - r.top) / r.height - 0.5) * -14);
+              const px = (e.clientX - r.left) / r.width;
+              const py = (e.clientY - r.top) / r.height;
+              ry((px - 0.5) * 14);
+              rx((py - 0.5) * -14);
+              el.style.setProperty("--hx", `${px * 100}%`);
+              el.style.setProperty("--hy", `${py * 100}%`);
             };
             const onLeave = () => (rx(0), ry(0));
             el.addEventListener("pointermove", onMove);
@@ -403,6 +481,42 @@ export function iniciarAnimacoes() {
         ease: "none",
         scrollTrigger: { trigger: "[data-rodape-marca]", start: "top bottom", end: "bottom bottom", scrub: true },
       });
+
+      // Trajetória do Hermano: a linha dourada desce e acende cada marco ao alcançá-lo.
+      const trajetoria = document.querySelector<HTMLElement>("[data-trajetoria]");
+      if (trajetoria) {
+        const marcos = $$("[data-marco]", trajetoria);
+        const acender = (p: number) => {
+          const alcance = p * trajetoria.offsetHeight;
+          marcos.forEach((m) => (m.dataset.aceso = String(alcance >= m.offsetTop + 6)));
+        };
+        acender(0);
+        gsap.fromTo(
+          "[data-trajetoria-linha]",
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: { trigger: trajetoria, start: "top 72%", end: "bottom 55%", scrub: 0.5, onUpdate: (self) => acender(self.progress) },
+          },
+        );
+        limpezas.push(() => marcos.forEach((m) => delete m.dataset.aceso));
+      }
+
+      // Brasas douradas na abertura e na chamada final; sobem mais rápido enquanto a página corre.
+      const brasas = $$<HTMLCanvasElement>("canvas[data-brasas]").map((c) => iniciarBrasas(c, desktop ? 12000 : 8000));
+      if (brasas.length) {
+        const st = ScrollTrigger.create({
+          onUpdate: (self) => brasas.forEach((b) => b.impulso(Math.abs(self.getVelocity()) / 900)),
+        });
+        limpezas.push(() => {
+          st.kill();
+          brasas.forEach((b) => b.parar());
+        });
+      }
+
+      // Com mouse: cursor dourado, lanterna nos cartões e prévia dos vídeos ao passar o mouse.
+      if (mouse) limpezas.push(iniciarCursor(), iniciarLanterna(), iniciarPreviaVideos());
 
       // Botões principais "puxam" levemente o cursor (só com mouse).
       if (mouse) {

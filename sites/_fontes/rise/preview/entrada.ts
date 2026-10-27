@@ -1,7 +1,8 @@
 // Script da prévia em arquivo único (sem servidor, sem React). As animações são as mesmas do site
 // (src/lib/motion.ts); aqui só ficam as interações que no site o React faz: menu, vídeos e prints.
 import { atualizarLinksAplicacao, rastreioChaves } from "../../../rise/src/lib/aplicacao";
-import { iniciarCabecalho } from "../../../rise/src/lib/cabecalho";
+import { iniciarAutodiagnostico } from "../../../rise/src/lib/autodiagnostico";
+import { iniciarBarraAplicar, iniciarCabecalho } from "../../../rise/src/lib/cabecalho";
 import { iniciarAnimacoes, iniciarRolagemSuave } from "../../../rise/src/lib/motion";
 import { guardarRastreio } from "../../../rise/src/lib/tracking";
 
@@ -40,6 +41,11 @@ function menuCelular() {
 
 function videos() {
   const fontes = window.__RISE_VIDEOS__ ?? {};
+  // Prévia muda ao passar o mouse (src/lib/efeitos.ts) usa o mesmo vídeo embutido.
+  $$<HTMLElement>("[data-video]").forEach((btn) => {
+    const id = btn.dataset.video;
+    if (id && fontes[id]) btn.dataset.previaSrc = fontes[id];
+  });
   $$<HTMLButtonElement>("figure button[data-video]").forEach((btn) => {
     const id = btn.dataset.video;
     if (!id || !fontes[id]) return;
@@ -78,6 +84,8 @@ function avisoLinks() {
 guardarRastreio(rastreioChaves);
 atualizarLinksAplicacao();
 iniciarCabecalho();
+iniciarBarraAplicar();
+iniciarAutodiagnostico();
 menuCelular();
 videos();
 prints();

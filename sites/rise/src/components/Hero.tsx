@@ -1,4 +1,5 @@
 import { getImageProps } from "next/image";
+import { Fragment } from "react";
 import { hero } from "@/content/site";
 import heroDesktop from "@/assets/img/hermano-hero-desktop.webp";
 import heroMobile from "@/assets/img/hermano-hero-mobile.webp";
@@ -33,6 +34,8 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink via-ink/80 to-transparent lg:h-1/3" />
         <div className="absolute inset-y-0 left-0 hidden w-[62%] bg-gradient-to-r from-ink via-ink/85 to-transparent lg:block" />
       </div>
+      {/* Brasas douradas subindo (desenhadas em src/lib/motion.ts): "RISE" é subir. */}
+      <canvas data-brasas aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
 
       <div data-hero-content className="container-site">
         <div className="lg:max-w-[42rem]">
@@ -46,12 +49,17 @@ export function Hero() {
 
           <h1 className="font-expanded mt-6 text-[clamp(2rem,8.4vw,4.3rem)] font-bold uppercase leading-[0.96] tracking-tight text-white">
             {hero.titulo.map((linha, i) => (
-              <span
-                key={linha}
-                className={`hero-rise block ${linha === hero.destaque ? "texto-ouro brilho" : ""}`}
-                style={vars({ "--i": i + 1 })}
-              >
-                {linha}
+              <span key={linha} className="block">
+                {linha.split(" ").map((palavra, j) => (
+                  <Fragment key={j}>
+                    <span className="hero-palavra-mascara">
+                      <span className="hero-palavra" style={vars({ "--i": i * 2 + j * 0.6 })}>
+                        {/* Degradê num span interno: o pai anima a subida e o filho anima o brilho. */}
+                        {linha === hero.destaque ? <span className="texto-ouro brilho">{palavra}</span> : palavra}
+                      </span>
+                    </span>{" "}
+                  </Fragment>
+                ))}
               </span>
             ))}
           </h1>

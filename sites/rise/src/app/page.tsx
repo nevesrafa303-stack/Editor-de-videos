@@ -1,3 +1,4 @@
+import { BarraAplicar } from "@/components/BarraAplicar";
 import { Depoimentos } from "@/components/Depoimentos";
 import { Dominar } from "@/components/Dominar";
 import { Entregas } from "@/components/Entregas";
@@ -46,6 +47,7 @@ export default function Home() {
         <Final />
       </main>
       <Footer />
+      <BarraAplicar />
       <MotionLazy />
       <script
         type="application/ld+json"

@@ -58,6 +58,7 @@ export function Entregas() {
                     <p className="mt-3 text-[0.93rem] leading-snug text-ink/70">{item.texto}</p>
                   </div>
                   <div aria-hidden="true" className="absolute inset-x-6 bottom-[4.5rem] border-t-2 border-dashed border-ink/25" />
+                  <span aria-hidden="true" className="ingresso-brilho pointer-events-none absolute inset-0 rounded-[22px]" />
                   <div className="flex h-[4.5rem] items-center justify-between px-6">
                     <span className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-ink/70">Mentoria RISE</span>
                     <CodigoBarras semente={item.titulo} className="h-8 w-28 text-ink" />

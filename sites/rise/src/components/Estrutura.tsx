@@ -30,9 +30,9 @@ export function Estrutura() {
         <p data-reveal className="mt-14 text-sm font-semibold uppercase tracking-[0.2em] text-mute">
           {estrutura.intro}
         </p>
-        <ol data-reveal="stagger" className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        <ol data-domino className="mt-5 grid gap-3 [perspective:900px] sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
           {estrutura.sintomas.map((s, i) => (
-            <li key={s} className="flex flex-col justify-between gap-6 rounded-2xl border border-white/10 bg-ink/60 p-5 sm:min-h-40 sm:p-6">
+            <li key={s} data-spotlight className="flex flex-col justify-between gap-6 rounded-2xl border border-white/10 bg-ink/60 p-5 sm:min-h-40 sm:p-6">
               <span className="font-expanded text-sm font-bold text-brasa">{String(i + 1).padStart(2, "0")}</span>
               <span className="text-lg font-semibold leading-snug text-white">{s}</span>
             </li>

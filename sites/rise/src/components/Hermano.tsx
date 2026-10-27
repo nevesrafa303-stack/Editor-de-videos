@@ -2,11 +2,13 @@ import Image from "next/image";
 import { hermano } from "@/content/site";
 import foto from "@/assets/img/hermano-bio.webp";
 
+// Foto fixa ao lado (desktop) e a trajetória do Hermano numa linha do tempo: a linha dourada desce com
+// a rolagem e cada marco acende quando ela chega (data-trajetoria em src/lib/motion.ts).
 export function Hermano() {
   return (
     <section id="hermano" aria-labelledby="hermano-titulo" className="relative overflow-clip border-t border-white/10 bg-carbon py-24 md:py-36">
-      <div className="container-site grid items-center gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
-        <figure data-reveal className="relative mx-auto w-full max-w-md lg:max-w-none">
+      <div className="container-site grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+        <figure data-reveal className="relative mx-auto w-full max-w-md self-start lg:sticky lg:top-28 lg:max-w-none">
           <div aria-hidden="true" data-parallax="-6" className="absolute -inset-3 rounded-[34px] border border-ouro/30" />
           <div className="relative overflow-hidden rounded-[28px] bg-[#2b2b2b]">
             <Image
@@ -29,12 +31,8 @@ export function Hermano() {
           >
             {hermano.nome} <span className="texto-ouro">{hermano.apelido}</span>
           </h2>
-          <div data-reveal="stagger" className="mt-8 grid gap-5 leading-relaxed text-mute md:text-lg">
-            {hermano.bio.map((b) => (
-              <p key={b}>{b}</p>
-            ))}
-          </div>
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/10 pt-8">
+
+          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-y border-white/10 py-8">
             {hermano.numeros.map((n) => (
               <div key={n.rotulo} className="flex flex-col">
                 <dt className="order-2 mt-1 text-sm leading-snug text-mute">{n.rotulo}</dt>
@@ -46,6 +44,22 @@ export function Hermano() {
               </div>
             ))}
           </dl>
+
+          <ol data-trajetoria className="relative mt-12 grid gap-9 pl-10">
+            <span aria-hidden="true" className="absolute bottom-3 left-[0.55rem] top-3 w-px bg-white/10">
+              <span data-trajetoria-linha className="bg-ouro block h-full w-full origin-top" />
+            </span>
+            {hermano.trajetoria.map((m) => (
+              <li key={m.marco} data-marco className="relative">
+                <span
+                  aria-hidden="true"
+                  className="marco-ponto absolute -left-10 top-0.5 size-[1.15rem] rounded-full border border-white/25 bg-carbon"
+                />
+                <p className="font-expanded text-sm font-bold uppercase tracking-wide text-ouro">{m.marco}</p>
+                <p className="mt-2 leading-relaxed text-mute md:text-lg">{m.texto}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

@@ -12,6 +12,7 @@ export function PrintPlaca({ imagem, alt }: { imagem: StaticImageData; alt: stri
       <button
         type="button"
         onClick={() => dialogo.current?.showModal()}
+        data-cursor="Ver print"
         className="mt-5 inline-flex items-center gap-2 self-start text-sm font-semibold text-ouro transition hover:text-white"
       >
         <svg viewBox="0 0 24 24" className="size-4" fill="none" aria-hidden="true">

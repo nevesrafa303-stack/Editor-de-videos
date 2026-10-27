@@ -37,25 +37,44 @@ export function Problema() {
           </p>
 
           <div data-scan className="relative mt-8">
-            <span
-              data-scan-linha
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 hidden h-px bg-gradient-to-r from-transparent via-ouro to-transparent shadow-[0_0_18px_2px] shadow-ouro/50"
-            />
-            <ul className="border-t border-white/10">
-              {problema.gargalos.map((g) => (
-                <li key={g} data-gargalo className="flex items-center gap-4 border-b border-white/10 py-4 md:py-5">
-                  <span className="gargalo-sinal size-2.5 shrink-0 rounded-full bg-white/20" aria-hidden="true" />
-                  <span className="gargalo-texto text-base leading-snug text-mute md:text-lg">{g}</span>
-                  <span
-                    aria-hidden="true"
-                    className="gargalo-tag ml-auto hidden shrink-0 rounded-full border border-brasa/40 px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-brasa sm:inline"
-                  >
-                    Gargalo
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {/* Painel do diagnóstico: conta os gargalos conforme a linha de leitura passa por eles. */}
+            <div className="relative mb-3 flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-ink/70 px-4 py-3 backdrop-blur">
+              <p className="flex items-center gap-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-mute">
+                <span className="relative flex size-2" aria-hidden="true">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-brasa/60 motion-reduce:hidden" />
+                  <span className="relative size-2 rounded-full bg-brasa" />
+                </span>
+                Diagnóstico da operação
+              </p>
+              <p className="font-expanded text-sm font-bold text-white">
+                <span data-scan-contador>{problema.gargalos.length}</span>/{problema.gargalos.length}{" "}
+                <span className="font-sans text-xs font-medium text-mute">gargalos</span>
+              </p>
+              <span aria-hidden="true" className="absolute inset-x-4 bottom-0 h-px overflow-hidden bg-white/10">
+                <span data-scan-barra className="bg-ouro block h-full w-full origin-left" />
+              </span>
+            </div>
+            <div data-scan-area className="relative">
+              <span
+                data-scan-linha
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 hidden h-px bg-gradient-to-r from-transparent via-ouro to-transparent shadow-[0_0_18px_2px] shadow-ouro/50"
+              />
+              <ul className="border-t border-white/10">
+                {problema.gargalos.map((g) => (
+                  <li key={g} data-gargalo className="flex items-center gap-4 border-b border-white/10 py-4 md:py-5">
+                    <span className="gargalo-sinal size-2.5 shrink-0 rounded-full bg-white/20" aria-hidden="true" />
+                    <span className="gargalo-texto text-base leading-snug text-mute md:text-lg">{g}</span>
+                    <span
+                      aria-hidden="true"
+                      className="gargalo-tag ml-auto hidden shrink-0 rounded-full border border-brasa/40 px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-brasa sm:inline"
+                    >
+                      Gargalo
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <p data-reveal className="font-expanded mt-8 text-lg font-semibold uppercase leading-snug text-white md:text-xl">

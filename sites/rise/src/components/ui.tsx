@@ -25,7 +25,8 @@ export function Aplicar({ local, className = "", children = cta, ...props }: Apl
       data-aplicar
       data-cta={local}
       data-magnetic
-      className={`bg-ouro brilho group inline-flex items-center justify-center gap-3 rounded-full px-7 py-[1.05rem] text-[0.95rem] font-bold text-ink shadow-[0_10px_40px_-12px] shadow-brasa/60 transition-shadow duration-300 hover:shadow-[0_14px_50px_-10px] hover:shadow-brasa/80 ${className}`}
+      data-cursor="Aplicar"
+      className={`bg-ouro brilho reflexo group inline-flex items-center justify-center gap-3 rounded-full px-7 py-[1.05rem] text-[0.95rem] font-bold text-ink shadow-[0_10px_40px_-12px] shadow-brasa/60 transition-shadow duration-300 hover:shadow-[0_14px_50px_-10px] hover:shadow-brasa/80 ${className}`}
       {...props}
     >
       <span data-magnetic-texto className="inline-flex items-center gap-3">

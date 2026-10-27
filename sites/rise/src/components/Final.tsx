@@ -11,6 +11,7 @@ export function Final() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/10" />
         <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-ink to-transparent" />
       </div>
+      <canvas data-brasas aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
       <div className="container-site">
         <h2
           id="final-titulo"

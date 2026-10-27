@@ -31,6 +31,28 @@ cd sites/_fontes/rise && npm install && node preview/build-preview.mjs http://lo
 A imagem de compartilhamento e o ícone da Apple saem de `sites/_fontes/rise/og-src.html` e `icon-src.html`
 (`node render-og.mjs`, com Playwright).
 
+## Experiências por seção
+- **Abertura:** título sobe palavra por palavra; brasas douradas sobem num canvas (reagem ao mouse e aceleram
+  com a rolagem); a foto aproxima ao rolar e acompanha o mouse.
+- **"Você já tem cliente…":** linha de leitura desce pela lista, acende cada gargalo e o painel conta 0/4 → 4/4.
+- **"A RISE não é fuga. É método.":** tela fixa; risco corta "fuga", as letras desmoronam e "método" sobe letra a letra.
+- **Para quem é:** autodiagnóstico — a pessoa marca o que vale para a agência, o medidor responde e, com 3 ou
+  mais, aparece o botão de aplicação (evento `autodiagnostico` no dataLayer, com a quantidade marcada).
+- **Estrutura:** frase apaga e acende palavra a palavra; os sintomas caem como dominós.
+- **Entregas:** desktop — ingressos saem de um monte e se espalham; inclinam e brilham seguindo o mouse.
+  Celular — baralho: a seção fixa e cada ingresso sai para o lado.
+- **Mentoria anual:** focos enchem de dourado; pilares com "lanterna" que segue o mouse.
+- **Resultados:** soma das 6 placas (R$ 200 mil → R$ 815 mil), barras crescendo e print em janela.
+- **Depoimentos:** galeria igual à da LAKS; no desktop o vídeo toca sem som ao passar o mouse.
+- **Hermano:** foto fixa ao lado e linha do tempo que acende marco a marco.
+- **Chamada final:** brasas de novo, fechando o ciclo da abertura.
+- **Geral:** cursor dourado com rótulo ("Aplicar", "Assistir", "Ver print"), reflexo de luz nos botões, menu marca a
+  seção na tela e, no celular, barra fixa com o botão de aplicação (some na abertura e na chamada final).
+
+Tudo segue a rolagem nos dois sentidos. Com "reduzir movimento" ou sem JavaScript, a página aparece no estado
+final (sem brasas nem cursor). Com "reduzir movimento" o autodiagnóstico funciona normalmente; sem JavaScript as
+caixas ainda podem ser marcadas, mas o medidor não responde.
+
 ## Aplicação (formulário)
 Os botões "Aplicar para uma vaga" abrem o formulário do Respondi (`NEXT_PUBLIC_FORM_URL`) em nova aba. Os
 parâmetros de campanha da primeira página vista na sessão (utm_*, gclid, fbclid) vão junto no link. Cada

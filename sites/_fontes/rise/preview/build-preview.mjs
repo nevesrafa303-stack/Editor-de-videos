@@ -81,6 +81,9 @@ html = await trocarAssincrono(html, /<source\b([^>]*)\ssrcset="([^"]+)"([^>]*)>/
   `<source${m[1]} srcset="${dataUri(await baixar(escolher(desescapar(m[2]), "100vw"), "image/webp,*/*"))}"${m[3]}>`,
 );
 
+// A prévia muda dos vídeos (hover) usa os mesmos vídeos embutidos: o endereço é definido no script.
+html = html.replace(/\sdata-previa-src="[^"]*"/g, "");
+
 // Links para outras páginas do site não existem na prévia.
 html = html.replace(/href="\/(politica-de-privacidade)"/g, 'href="#" data-previa-link=""');
 

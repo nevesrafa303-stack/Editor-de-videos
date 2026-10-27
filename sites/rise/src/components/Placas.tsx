@@ -7,6 +7,7 @@ import suntech from "@/assets/img/placas/suntech-midia.webp";
 import vitor from "@/assets/img/placas/vitor-hugo-marketproads.webp";
 import whale from "@/assets/img/placas/whale-marketing.webp";
 import { PrintPlaca } from "./PrintPlaca";
+import { Seta } from "./ui";
 
 const prints: Record<string, StaticImageData> = {
   "placa-lure-digital": lure,
@@ -21,6 +22,8 @@ const reais = (mil: number) => `R$ ${mil.toLocaleString("pt-BR")} mil`;
 
 // Cada placa: faturamento antes e depois da RISE em barras que crescem com a rolagem, e o print original.
 export function Placas() {
+  const antes = placas.itens.reduce((t, p) => t + p.antes, 0);
+  const depois = placas.itens.reduce((t, p) => t + p.depois, 0);
   return (
     <section id="resultados" aria-labelledby="resultados-titulo" className="py-24 md:py-36">
       <div className="container-site">
@@ -37,13 +40,31 @@ export function Placas() {
           </p>
         </div>
 
-        <ul data-placas className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-3">
+        {/* As seis placas somadas: o número grande que resume a seção. */}
+        <div
+          data-reveal
+          className="mt-10 grid gap-4 rounded-3xl border border-ouro/20 bg-gradient-to-r from-ouro/[0.09] via-ouro/[0.03] to-transparent p-6 md:mt-14 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-10 md:p-8"
+        >
+          <p className="font-expanded flex flex-wrap items-center gap-x-4 gap-y-1 text-[clamp(1.7rem,4.4vw,3.4rem)] font-bold leading-none">
+            <span className="text-fog">
+              R$ <span data-count={antes}>{antes}</span> mil
+            </span>
+            <Seta className="size-[0.7em] text-ouro" />
+            <span className="texto-ouro">
+              R$ <span data-count={depois}>{depois}</span> mil
+            </span>
+          </p>
+          <p className="max-w-md leading-relaxed text-mute md:text-lg">{placas.resumo}</p>
+        </div>
+
+        <ul data-placas className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {placas.itens.map((p) => {
             const vezes = (p.depois / p.antes).toLocaleString("pt-BR", { maximumFractionDigits: 1 });
             return (
               <li
                 key={p.agencia}
                 data-placa
+                data-spotlight
                 className="flex flex-col rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-6 md:p-7"
               >
                 <div className="flex items-start justify-between gap-4">

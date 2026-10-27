@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { cta, nav } from "@/content/site";
 import { FORM_URL } from "@/lib/aplicacao";
-import { iniciarCabecalho } from "@/lib/cabecalho";
+import { iniciarBarraAplicar, iniciarCabecalho } from "@/lib/cabecalho";
 import { Logo } from "./Logo";
 
 export function Header() {
   const [menu, setMenu] = useState(false);
 
   useEffect(() => iniciarCabecalho(), []);
+  useEffect(() => iniciarBarraAplicar(), []);
 
   useEffect(() => {
     if (!menu) return;
@@ -31,7 +32,7 @@ export function Header() {
 
         <nav aria-label="Principal" className="hidden items-center gap-10 md:flex">
           {nav.map((item) => (
-            <a key={item.href} href={item.href} className="text-sm font-medium text-mute transition hover:text-white">
+            <a key={item.href} href={item.href} data-nav-link className="text-sm font-medium text-mute transition hover:text-white">
               {item.label}
             </a>
           ))}

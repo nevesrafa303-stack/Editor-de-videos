@@ -69,6 +69,14 @@ export const paraQuem = {
   titulo: "Para quem é a RISE",
   sim: {
     titulo: "A RISE é pra você se…",
+    instrucao: "Toque nos itens que valem para a sua agência hoje.",
+    // Resposta do autodiagnóstico conforme a quantidade de itens marcados: 0, 1–2, 3–5, 6 ou mais.
+    respostas: [
+      "Marque os itens para ver o seu resultado.",
+      "Já existem sinais de que a operação está segurando o crescimento.",
+      "Você tem o perfil da RISE: a agência já vende e precisa de estrutura para escalar.",
+      "A RISE foi feita para o momento da sua agência.",
+    ],
     itens: [
       "Sua agência já vende, mas cresce sem previsibilidade.",
       "Você virou o gargalo: a agência depende 100% de você para funcionar.",
@@ -149,6 +157,7 @@ export const metodo = {
 export const placas = {
   titulo: "Resultados de quem aplicou",
   intro: "Prints do grupo de mentorados, postados pelos próprios donos de agência na #PlacaRISE.",
+  resumo: "de faturamento mensal recorrente (MRR) das 6 agências somado, antes e depois da RISE.",
   itens: [
     { agencia: "LURE Digital", pessoa: "Samuel", antes: 50, depois: 300, imagem: "placa-lure-digital" },
     { agencia: "LVX Digital", pessoa: "Lucas", antes: 48, depois: 220, imagem: "placa-lvx-digital" },
@@ -218,9 +227,20 @@ export const dominar = {
 export const hermano = {
   nome: "Leonardo Fernandes,",
   apelido: "o Hermano.",
-  bio: [
-    "Em 2019, quando lancei minha primeira agência, tive que aprender a escalar do zero: noites sem dormir, processos falhos e clientes que não renovaram. Depois de criar um sistema replicável, bati 5 milhões com minha operação de tráfego e já ajudei mais de 500 agências a baterem mais de 1 milhão ao ano.",
-    "Hoje sou diretor da LAKS, minha agência com mais de 350 clientes ativos, e do Hermano Soluções Digitais, minha empresa de educação com mais de 1.000 alunos. Compartilho os exatos processos que transformaram minhas operações e podem transformar a sua também.",
+  // Trajetória contada na primeira pessoa, como no site atual (linha do tempo da seção).
+  trajetoria: [
+    {
+      marco: "2019",
+      texto:
+        "Lancei minha primeira agência e tive que aprender a escalar do zero: noites sem dormir, processos falhos e clientes que não renovaram.",
+    },
+    { marco: "R$ 5 milhões", texto: "Depois de criar um sistema replicável, bati 5 milhões com a minha operação de tráfego." },
+    { marco: "LAKS Company", texto: "Hoje sou diretor da LAKS, minha agência com mais de 350 clientes ativos." },
+    {
+      marco: "Hermano Soluções Digitais",
+      texto: "Minha empresa de educação, com mais de 1.000 alunos. Já ajudei mais de 500 agências a baterem mais de 1 milhão ao ano.",
+    },
+    { marco: "RISE", texto: "Compartilho os exatos processos que transformaram minhas operações e podem transformar a sua também." },
   ],
   numeros: [
     { prefixo: "R$ ", valor: 5, unidade: " mi", rotulo: "com a operação de tráfego" },

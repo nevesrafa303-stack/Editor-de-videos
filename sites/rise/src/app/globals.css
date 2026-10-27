@@ -95,6 +95,24 @@
     filter: blur(6px);
   }
 }
+/* Título da abertura: cada palavra sobe de uma máscara, em sequência. */
+.hero-palavra-mascara {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+  vertical-align: bottom;
+}
+.hero-palavra {
+  display: inline-block;
+  animation: hero-palavra 1.1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 220ms);
+}
+@keyframes hero-palavra {
+  from {
+    transform: translate3d(0, 105%, 0) rotate(4deg);
+  }
+}
 .hero-media {
   animation: hero-media 1.8s var(--ease-out-expo) both;
 }
@@ -188,10 +206,12 @@
   }
 }
 
-/* Texto vazado (só o contorno), usado na faixa cinética. */
+/* Texto vazado (só o contorno), usado na faixa cinética e no contorno dos focos. A cor declarada é a
+   do texto normal; o miolo some com text-fill-color, então o desenho continua só o contorno. */
 .text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.32);
+  color: var(--color-fog);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.45);
 }
 
 /* Diagnóstico (seção "Você já tem cliente"): cada gargalo acende quando a linha de leitura passa. */
@@ -261,11 +281,229 @@ html.js-motion .foco-cheio {
   clip-path: inset(0 100% 0 0);
 }
 
+/* Botão dourado: um reflexo de luz atravessa o botão de tempos em tempos (chama o olho para a ação). */
+.reflexo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.reflexo::after {
+  content: "";
+  position: absolute;
+  inset: -20% auto -20% -40%;
+  z-index: -1;
+  width: 35%;
+  background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.55), transparent);
+  transform: skewX(-20deg) translateX(-120%);
+  animation: reflexo 4.8s var(--ease-out-expo) infinite;
+  animation-delay: 2.4s;
+  pointer-events: none;
+}
+@keyframes reflexo {
+  0% {
+    transform: skewX(-20deg) translateX(-120%);
+  }
+  28%,
+  100% {
+    transform: skewX(-20deg) translateX(520%);
+  }
+}
+
+/* Cartões com "lanterna": uma luz dourada acompanha o cursor por dentro do cartão (motion.ts define --mx/--my). */
+[data-spotlight] {
+  position: relative;
+  isolation: isolate;
+}
+[data-spotlight]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%), rgb(247 190 86 / 0.13), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+[data-spotlight]:hover::before {
+  opacity: 1;
+}
+
+/* Cursor dourado (só desktop com mouse; criado em motion.ts). O cursor do sistema continua visível. */
+.cursor-anel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: -1.125rem 0 0 -1.125rem;
+  border: 1px solid rgb(247 190 86 / 0.55);
+  border-radius: 999px;
+  pointer-events: none;
+  transition:
+    width 0.35s var(--ease-out-expo),
+    height 0.35s var(--ease-out-expo),
+    margin 0.35s var(--ease-out-expo),
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    opacity 0.3s ease;
+}
+.cursor-anel span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-anel[data-rotulo] {
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: -2.75rem 0 0 -2.75rem;
+  border-color: transparent;
+  background-color: var(--color-ouro);
+}
+.cursor-anel[data-rotulo] span {
+  opacity: 1;
+}
+.cursor-anel[data-sobre="true"]:not([data-rotulo]) {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: -1.75rem 0 0 -1.75rem;
+  background-color: rgb(247 190 86 / 0.08);
+}
+.cursor-anel[data-fora="true"] {
+  opacity: 0;
+}
+
+/* Menu: a seção que está na tela fica marcada com um traço dourado. */
+[data-nav-link] {
+  position: relative;
+}
+[data-nav-link]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -0.45rem;
+  height: 1px;
+  background: var(--color-ouro);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-out-expo);
+}
+[data-nav-link][data-ativo="true"] {
+  color: #fff;
+}
+[data-nav-link][data-ativo="true"]::after {
+  transform: scaleX(1);
+}
+
+/* Barra fixa de aplicação no celular: aparece depois da abertura e some perto da chamada final. */
+[data-barra-aplicar] {
+  transform: translateY(130%);
+  transition: transform 0.5s var(--ease-out-expo);
+}
+[data-barra-aplicar][data-visivel="true"] {
+  transform: none;
+}
+
+/* Ingressos: brilho holográfico que acompanha o mouse (--hx/--hy definidos em motion.ts). */
+.ingresso-brilho {
+  background: radial-gradient(
+    18rem circle at var(--hx, 50%) var(--hy, 0%),
+    rgb(255 255 255 / 0.65),
+    rgb(247 190 86 / 0.18) 35%,
+    transparent 65%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+[data-ingresso-cartao]:hover .ingresso-brilho {
+  opacity: 1;
+}
+/* Celular: os ingressos viram um baralho (todos na mesma célula da grade) e saem um a um com a rolagem. */
+[data-entregas][data-baralho="true"] [data-ingressos] {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+[data-entregas][data-baralho="true"] [data-ingresso] {
+  grid-area: 1 / 1;
+}
+
+/* Autodiagnóstico ("A RISE é pra você se…"): cada item é uma caixa que a pessoa marca. */
+.auto-item:has(input:checked) {
+  color: #fff;
+}
+.auto-item:has(input:checked) .auto-caixa {
+  background-color: var(--color-ouro);
+  border-color: var(--color-ouro);
+  color: var(--color-ink);
+}
+.auto-item:has(input:checked) .auto-caixa path {
+  stroke-dashoffset: 0;
+}
+.auto-caixa path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 0.45s var(--ease-out-expo);
+}
+.auto-item:has(input:focus-visible) .auto-caixa {
+  outline: 2px solid var(--color-ouro);
+  outline-offset: 3px;
+}
+
+/* Janela do print da placa: abre crescendo e com o fundo escurecendo aos poucos. */
+dialog[open] {
+  animation: janela 0.45s var(--ease-out-expo);
+}
+dialog[open]::backdrop {
+  animation: fundo-janela 0.4s ease;
+}
+@keyframes janela {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.94);
+  }
+}
+@keyframes fundo-janela {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Linha do tempo do Hermano: a linha dourada desce e cada marco acende quando ela chega. */
+.marco-ponto {
+  transition:
+    background-color 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+[data-marco][data-aceso="true"] .marco-ponto,
+html:not(.js-motion) [data-marco] .marco-ponto {
+  background-color: var(--color-ouro);
+  border-color: var(--color-ouro);
+  box-shadow: 0 0 0 6px rgb(247 190 86 / 0.18);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-rise,
   .hero-media,
+  .hero-palavra,
   .brilho {
     animation: none !important;
+  }
+  .reflexo::after {
+    display: none;
+  }
+  .auto-caixa path,
+  .marco-ponto,
+  [data-barra-aplicar],
+  [data-marco] {
+    transition: none;
   }
   .marca path,
   .gargalo-sinal,
@@ -287,4 +525,12 @@ html.js-motion .foco-cheio {
   to {
     transform: translateY(200%);
   }
+}
+
+/* Linha do tempo: marcos ainda não alcançados pela linha ficam apagados. */
+[data-marco] {
+  transition: opacity 0.45s ease;
+}
+html.js-motion [data-marco]:not([data-aceso="true"]) {
+  opacity: 0.4;
 }
