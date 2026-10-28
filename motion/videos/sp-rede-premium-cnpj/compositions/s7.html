@@ -1,0 +1,51 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s7-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s7-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.ch{color:#E8C27A;}
+.kk{position:absolute;left:0;width:1080px;text-align:center;font-weight:700;font-size:28px;letter-spacing:.18em;color:#E8C27A;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.shift{position:absolute;left:0;width:1080px;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+.s7-rg{position:absolute;left:190px;top:490px;width:700px;height:700px;border-radius:50%;border:4px solid #E8C27A;opacity:0;}
+#s7-a{top:672px;font-weight:900;font-size:132px;line-height:1.05;}
+#s7-b{top:826px;font-weight:900;font-size:124px;line-height:1.05;letter-spacing:-.02em;color:#E8C27A;}
+</style>
+<div id="s7-root" data-composition-id="s7" data-start="0" data-duration="1.113" data-width="1080" data-height="1920">
+  <div id="s7-wrap" class="s7-full">
+    <div class="shift" style="top:60px;height:1860px">
+    <div class="s7-rg" id="s7-r0" aria-hidden="true"></div><div class="s7-rg" id="s7-r1" aria-hidden="true"></div>
+    <div id="s7-a" class="ln d"><span id="s7-ai" style="display:inline-block">Tem</span></div>
+    <div id="s7-b" class="ln d"><span id="s7-bi" style="display:inline-block">interesse?</span></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s7-ai",{scale:1.9,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.out"},0.21);
+tl.fromTo("#s7-bi",{scale:1.7,opacity:0},{scale:1,opacity:1,duration:0.26,ease:"power4.out"},0.306);
+tl.set("#s7-wrap",{x:9,y:-5.4},0.546);
+tl.set("#s7-wrap",{x:-7.2,y:4.32},0.579);
+tl.set("#s7-wrap",{x:4.5,y:-2.7},0.613);
+tl.set("#s7-wrap",{x:-2.25,y:1.35},0.646);
+tl.set("#s7-wrap",{x:0,y:0},0.679);
+tl.fromTo("#s7-r0",{scale:0.55,opacity:0.9},{scale:1.35,opacity:0,duration:0.9,ease:"power2.out"},0.25);
+tl.fromTo("#s7-r1",{scale:0.55,opacity:0.9},{scale:1.35,opacity:0,duration:0.9,ease:"power2.out"},0.57);
+tl.to("#s7-wrap",{scale:1.25,opacity:0,duration:0.22,ease:"power3.in"},0.873);
+window.__timelines["s7"] = tl;
+})();
+</script>
+</template>
