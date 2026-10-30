@@ -1,0 +1,100 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s1-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s1-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.ch{color:#E8C27A;}
+.red{color:#FF6B6B;}
+.kk{position:absolute;left:0;width:1080px;text-align:center;font-weight:700;font-size:28px;letter-spacing:.18em;color:#E8C27A;}
+.pill{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+.pill>div{display:flex;align-items:center;gap:12px;padding:12px 30px;border:2px solid rgba(232,194,122,.7);border-radius:60px;background:rgba(232,194,122,.1);font-weight:700;font-size:26px;letter-spacing:.12em;color:#E8C27A;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.shift{position:absolute;left:0;width:1080px;}
+.ph{position:absolute;overflow:hidden;background:#0E1A2E;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#s1-bgw{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+#s1-bgw img{position:absolute;left:-60px;top:-40px;width:1200px;height:2000px;object-fit:cover;}
+#s1-scr{background:linear-gradient(180deg,rgba(7,11,20,.9) 0%,rgba(7,11,20,.7) 30%,rgba(7,11,20,.74) 60%,rgba(7,11,20,.95) 100%);}
+#s1-a{top:306px;font-weight:800;font-size:56px;line-height:1.05;}
+#s1-b{top:374px;font-weight:900;font-size:150px;line-height:1;letter-spacing:.02em;}
+#s1-pw{position:absolute;left:70px;top:556px;width:940px;height:520px;border-radius:40px;box-shadow:0 34px 80px rgba(0,0,0,.6),0 0 0 4px rgba(232,194,122,.9);}
+#s1-c{top:1108px;font-weight:800;font-size:62px;line-height:1.05;}
+#s1-gw{position:absolute;left:0;top:1176px;width:1080px;height:150px;}
+#s1-gl{position:absolute;left:140px;top:-40px;width:800px;height:230px;border-radius:50%;background:radial-gradient(closest-side,rgba(232,194,122,.45),rgba(232,194,122,0));opacity:0;}
+#s1-d{position:absolute;left:0;top:0;width:1080px;text-align:center;font-weight:900;font-size:118px;line-height:1.1;letter-spacing:-.01em;color:#E8C27A;text-shadow:0 6px 30px rgba(0,0,0,.5);}
+.s1-sp{position:absolute;left:540px;top:70px;border-radius:50%;background:#F7DFA8;opacity:0;box-shadow:0 0 14px #E8C27A;}
+</style>
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="2.916" data-width="1080" data-height="1920">
+  <div id="s1-main" class="s1-full">
+    <div id="s1-bgw" data-layout-allow-overflow aria-hidden="true"><img id="s1-bgi" src="assets/img/einstein-atrio.jpg" alt="" /></div>
+    <div id="s1-scr" class="s1-full"></div>
+    <div class="shift" id="s1-sh" style="top:80px;height:1840px">
+    <div id="s1-a" class="ln d">Você acha que o</div>
+    <div id="s1-b" class="ln d"><span id="s1-bi" style="display:inline-block">EINSTEIN</span></div>
+    <div class="ph" id="s1-pw"><img id="s1-pi" data-layout-allow-overflow src="assets/img/einstein-fachada.jpg" alt="Hospital Israelita Albert Einstein" style="object-position:55% 50%" /><div id="s1-sw" class="sweep" data-layout-allow-overflow aria-hidden="true"></div></div>
+    <div id="s1-c" class="ln d">é só pra</div>
+    <div id="s1-gw" data-layout-allow-overlap>
+      <div id="s1-gl" aria-hidden="true"></div>
+      <i class="s1-sp" id="s1-p0" style="width:8px;height:8px" aria-hidden="true"></i><i class="s1-sp" id="s1-p1" style="width:12px;height:12px" aria-hidden="true"></i><i class="s1-sp" id="s1-p2" style="width:16px;height:16px" aria-hidden="true"></i><i class="s1-sp" id="s1-p3" style="width:8px;height:8px" aria-hidden="true"></i><i class="s1-sp" id="s1-p4" style="width:12px;height:12px" aria-hidden="true"></i><i class="s1-sp" id="s1-p5" style="width:16px;height:16px" aria-hidden="true"></i><i class="s1-sp" id="s1-p6" style="width:8px;height:8px" aria-hidden="true"></i><i class="s1-sp" id="s1-p7" style="width:12px;height:12px" aria-hidden="true"></i><i class="s1-sp" id="s1-p8" style="width:16px;height:16px" aria-hidden="true"></i><i class="s1-sp" id="s1-p9" style="width:8px;height:8px" aria-hidden="true"></i><i class="s1-sp" id="s1-p10" style="width:12px;height:12px" aria-hidden="true"></i><i class="s1-sp" id="s1-p11" style="width:16px;height:16px" aria-hidden="true"></i><i class="s1-sp" id="s1-p12" style="width:8px;height:8px" aria-hidden="true"></i><i class="s1-sp" id="s1-p13" style="width:12px;height:12px" aria-hidden="true"></i><i class="s1-sp" id="s1-p14" style="width:16px;height:16px" aria-hidden="true"></i><i class="s1-sp" id="s1-p15" style="width:8px;height:8px" aria-hidden="true"></i><i class="s1-sp" id="s1-p16" style="width:12px;height:12px" aria-hidden="true"></i><i class="s1-sp" id="s1-p17" style="width:16px;height:16px" aria-hidden="true"></i>
+      <div id="s1-d" class="d"><span id="s1-di" style="display:inline-block">MILIONÁRIO?</span></div>
+    </div>
+    <div class="legal" id="s1-lg" style="top:1360px">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s1-bgi",{scale:1.15},{scale:1,duration:2.916,ease:"none"},0);
+tl.fromTo("#s1-pi",{scale:1.22},{scale:1.02,duration:2.916,ease:"power1.out"},0);
+tl.fromTo("#s1-pw",{y:30},{y:0,duration:0.6,ease:"power3.out"},0);
+tl.fromTo("#s1-bi",{scale:1.25},{scale:1,duration:0.35,ease:"back.out(2.2)",immediateRender:false},0.86);
+tl.fromTo("#s1-sw",{xPercent:-100},{xPercent:100,duration:0.7,ease:"power2.inOut"},0.9);
+tl.fromTo("#s1-di",{scale:1.5},{scale:1,duration:0.32,ease:"power4.out",immediateRender:false},1.842);
+tl.fromTo("#s1-gl",{opacity:0,scale:0.6},{opacity:1,scale:1.1,duration:0.4,ease:"power2.out"},1.882);
+tl.fromTo("#s1-p0",{x:0,y:0,opacity:1,scale:1},{x:260,y:0,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.902);
+tl.fromTo("#s1-p1",{x:0,y:0,opacity:1,scale:1},{x:287,y:90,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.922);
+tl.fromTo("#s1-p2",{x:0,y:0,opacity:1,scale:1},{x:306,y:141,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.942);
+tl.fromTo("#s1-p3",{x:0,y:0,opacity:1,scale:1},{x:90,y:134,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.962);
+tl.fromTo("#s1-p4",{x:0,y:0,opacity:1,scale:1},{x:57,y:179,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.902);
+tl.fromTo("#s1-p5",{x:0,y:0,opacity:1,scale:1},{x:-135,y:207,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.922);
+tl.fromTo("#s1-p6",{x:0,y:0,opacity:1,scale:1},{x:-130,y:124,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.942);
+tl.fromTo("#s1-p7",{x:0,y:0,opacity:1,scale:1},{x:-285,y:91,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.962);
+tl.fromTo("#s1-p8",{x:0,y:0,opacity:1,scale:1},{x:-376,y:75,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.902);
+tl.fromTo("#s1-p9",{x:0,y:0,opacity:1,scale:1},{x:-256,y:-24,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.922);
+tl.fromTo("#s1-p10",{x:0,y:0,opacity:1,scale:1},{x:-310,y:-62,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.942);
+tl.fromTo("#s1-p11",{x:0,y:0,opacity:1,scale:1},{x:-259,y:-168,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.962);
+tl.fromTo("#s1-p12",{x:0,y:0,opacity:1,scale:1},{x:-130,y:-124,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.902);
+tl.fromTo("#s1-p13",{x:0,y:0,opacity:1,scale:1},{x:-1,y:-181,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.922);
+tl.fromTo("#s1-p14",{x:0,y:0,opacity:1,scale:1},{x:69,y:-217,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.942);
+tl.fromTo("#s1-p15",{x:0,y:0,opacity:1,scale:1},{x:166,y:-110,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.962);
+tl.fromTo("#s1-p16",{x:0,y:0,opacity:1,scale:1},{x:253,y:-117,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.902);
+tl.fromTo("#s1-p17",{x:0,y:0,opacity:1,scale:1},{x:394,y:-39,opacity:0,scale:0.3,duration:0.75,ease:"power3.out"},1.922);
+tl.set("#s1-sh",{x:12,y:-7.2},2.002);
+tl.set("#s1-sh",{x:-9.6,y:5.76},2.035);
+tl.set("#s1-sh",{x:6,y:-3.6},2.069);
+tl.set("#s1-sh",{x:-3,y:1.8},2.102);
+tl.set("#s1-sh",{x:0,y:0},2.135);
+tl.fromTo("#s1-lg",{opacity:0},{opacity:1,duration:0.4},0.4);
+tl.to("#s1-main",{scale:1.12,opacity:0,duration:0.22,ease:"power2.in"},2.696);
+window.__timelines["s1"] = tl;
+})();
+</script>
+</template>
