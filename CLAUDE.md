@@ -49,3 +49,12 @@ Usar o texto **exatamente** como está (sem reescrever, encurtar ou trocar palav
 - Fora das zonas cobertas pela interface da rede (story: 230 px de cima e abaixo de 1536 px) e
   sem cobrir as legendas.
 - Conferir a regra antes de renderizar e citar no README do projeto quais observações entraram.
+
+## Vozes padrão da locução (ElevenLabs, modelo Eleven v4)
+
+Escolhidas pelo cliente. Usar estas, salvo pedido diferente:
+
+- **Feminina principal:** "Roberta - Casual Sales" (`ohZOfA9iwlZ5nOsoY7LB`): jovem, próxima, tom de
+  conversa de anúncio.
+- **Masculina:** "Jhony Tygas" (`FhdOWgf0bSw3HKWefhlq`): autoridade e calor, usada em
+  `motion/videos/sp-rede-premium-cnpj` e `sp-rede-cnpj-1800`.
