@@ -246,7 +246,7 @@ const scenes = [bgScene()];
 #s4-cw{position:absolute;left:150px;top:880px;width:780px;height:300px;}
 #s4-cd{position:absolute;inset:0;border-radius:40px;background:linear-gradient(135deg,#1B2B48 0%,#0B1424 60%,#2A2112 100%);border:4px solid ${CH};box-shadow:0 30px 80px rgba(232,194,122,.25),0 30px 70px rgba(0,0,0,.5);overflow:hidden;}
 #s4-ci{position:absolute;left:44px;top:66px;width:168px;height:168px;border-radius:50%;background:linear-gradient(135deg,${CH2},${CH});display:flex;align-items:center;justify-content:center;}
-#s4-c1{position:absolute;left:250px;top:76px;font-weight:900;font-size:56px;line-height:1.05;}
+#s4-c1{position:absolute;left:250px;top:76px;font-weight:900;font-size:48px;line-height:1.05;white-space:nowrap;}
 #s4-c2{position:absolute;left:252px;top:150px;font-weight:800;font-size:44px;color:${CH};}
 `;
   const body = `
@@ -356,7 +356,7 @@ const scenes = [bgScene()];
   roll("s6-n", q.price, L(T.partir + 0.2), L(T.mes6 + 0.1), LH);
   add(`tl.fromTo("#s6-gl",{opacity:0,scale:0.6},{opacity:1,scale:1.1,duration:0.4,ease:"power2.out"},${L(T.mes6)});`);
   shake("#s6-pr", r3(L(T.mes6) + 0.1), 10);
-  add(`tl.fromTo("#s6-fx",{opacity:0},{opacity:1,duration:0.3},${L(T.mes6)});`);
+  add(`tl.fromTo("#s6-fx",{opacity:0},{opacity:1,duration:0.3},${L(T.partir + 0.2)});`);
   add(`tl.fromTo("#s6-cd",{y:200,opacity:0},{y:0,opacity:1,duration:0.45,ease:"back.out(1.6)"},${L(T.pessoa - 0.3)});`);
   add(`tl.fromTo("#s6-q",{scale:0.3,rotation:-30},{scale:1,rotation:0,duration:0.45,ease:"back.out(2.2)"},${L(T.pessoa - 0.2)});`);
   add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.4},${L(T.mes6)});`);

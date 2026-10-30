@@ -40,7 +40,7 @@
 #s6-bg{position:absolute;left:0;width:1080px;top:780px;display:flex;justify-content:center;}
 #s6-bgi{display:flex;align-items:center;gap:14px;padding:22px 40px;border-radius:24px;background:linear-gradient(180deg,#F7DFA8,#E8C27A);color:#0B1220;font-weight:900;font-size:44px;letter-spacing:.02em;box-shadow:0 20px 50px rgba(0,0,0,.55);transform:rotate(-4deg);}
 </style>
-<div id="s6-root" data-composition-id="s6" data-start="0" data-duration="7.98" data-width="1080" data-height="1920">
+<div id="s6-root" data-composition-id="s6" data-start="0" data-duration="7.423" data-width="1080" data-height="1920">
   <div id="s6-wrap" class="s6-full">
     <div class="shift" style="top:90px;height:1830px">
     <div id="s6-a" class="ln d"><span class="w"><span class="wi" id="s6a0">A</span></span> <span class="w"><span class="wi" id="s6a1">gente</span></span> <span class="w"><span class="wi" id="s6a2">compara</span></span></div>
@@ -60,39 +60,39 @@
 (function(){
 const tl = gsap.timeline({ paused: true });
 tl.fromTo("#s6a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.14);
-tl.fromTo("#s6a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.305);
-tl.fromTo("#s6a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.65);
-tl.fromTo("#s6-o0",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.645);
-tl.to("#s6-o0",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},1.065);
-tl.to("#s6-o0",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},1.065);
-tl.fromTo("#s6-g0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},1.085);
-tl.to("#s6-g0",{opacity:0.3,duration:0.6},1.445);
-tl.fromTo("#s6-o1",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.675);
-tl.to("#s6-o1",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},1.63);
-tl.to("#s6-o1",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},1.63);
-tl.fromTo("#s6-g1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},1.65);
-tl.to("#s6-g1",{opacity:0.3,duration:0.6},2.01);
-tl.fromTo("#s6-o2",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.705);
-tl.to("#s6-o2",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},2.15);
-tl.to("#s6-o2",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},2.15);
-tl.fromTo("#s6-g2",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},2.17);
-tl.to("#s6-g2",{opacity:0.3,duration:0.6},2.53);
-tl.fromTo("#s6-o3",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.735);
-tl.to("#s6-o3",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},2.85);
-tl.to("#s6-o3",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},2.85);
-tl.fromTo("#s6-g3",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},2.87);
-tl.to("#s6-g3",{opacity:0.3,duration:0.6},3.23);
-tl.fromTo("#s6-bd",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.4,ease:"power3.out"},0.61);
-tl.fromTo("#s6-oui",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.4)"},3.585);
-tl.to(["#s6-o0","#s6-o1","#s6-o2","#s6-o3"],{opacity:0.45,duration:0.3},5.965);
-tl.fromTo("#s6-bgi",{scale:2.4,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.in"},6.065);
-tl.set("#s6-bg",{x:9,y:-5.4},6.315);
-tl.set("#s6-bg",{x:-7.2,y:4.32},6.348);
-tl.set("#s6-bg",{x:4.5,y:-2.7},6.382);
-tl.set("#s6-bg",{x:-2.25,y:1.35},6.415);
-tl.set("#s6-bg",{x:0,y:0},6.448);
-tl.fromTo("#s6-lg",{opacity:0},{opacity:1,duration:0.4},0.71);
-tl.to("#s6-wrap",{y:-140,opacity:0,duration:0.26,ease:"power3.in"},7.7);
+tl.fromTo("#s6a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.213);
+tl.fromTo("#s6a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.431);
+tl.fromTo("#s6-o0",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.428);
+tl.to("#s6-o0",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},0.848);
+tl.to("#s6-o0",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},0.848);
+tl.fromTo("#s6-g0",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},0.868);
+tl.to("#s6-g0",{opacity:0.3,duration:0.6},1.228);
+tl.fromTo("#s6-o1",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.458);
+tl.to("#s6-o1",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},1.611);
+tl.to("#s6-o1",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},1.611);
+tl.fromTo("#s6-g1",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},1.631);
+tl.to("#s6-g1",{opacity:0.3,duration:0.6},1.991);
+tl.fromTo("#s6-o2",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.488);
+tl.to("#s6-o2",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},2.084);
+tl.to("#s6-o2",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},2.084);
+tl.fromTo("#s6-g2",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},2.104);
+tl.to("#s6-g2",{opacity:0.3,duration:0.6},2.464);
+tl.fromTo("#s6-o3",{y:60,scale:0.5,opacity:0,filter:"grayscale(1) brightness(0.7)"},{y:0,scale:0.8,opacity:0.4,filter:"grayscale(1) brightness(0.7)",duration:0.3,ease:"power3.out"},0.518);
+tl.to("#s6-o3",{scale:1,opacity:1,filter:"grayscale(0) brightness(1)",duration:0.36,ease:"back.out(2.2)"},2.811);
+tl.to("#s6-o3",{y:-24,duration:0.16,ease:"power2.out",yoyo:true,repeat:1},2.811);
+tl.fromTo("#s6-g3",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.3,ease:"power2.out"},2.831);
+tl.to("#s6-g3",{opacity:0.3,duration:0.6},3.191);
+tl.fromTo("#s6-bd",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.4,ease:"power3.out"},0.391);
+tl.fromTo("#s6-oui",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.4)"},3.611);
+tl.to(["#s6-o0","#s6-o1","#s6-o2","#s6-o3"],{opacity:0.45,duration:0.3},5.582);
+tl.fromTo("#s6-bgi",{scale:2.4,opacity:0},{scale:1,opacity:1,duration:0.24,ease:"power4.in"},5.682);
+tl.set("#s6-bg",{x:9,y:-5.4},5.932);
+tl.set("#s6-bg",{x:-7.2,y:4.32},5.965);
+tl.set("#s6-bg",{x:4.5,y:-2.7},5.999);
+tl.set("#s6-bg",{x:-2.25,y:1.35},6.032);
+tl.set("#s6-bg",{x:0,y:0},6.065);
+tl.fromTo("#s6-lg",{opacity:0},{opacity:1,duration:0.4},0.491);
+tl.to("#s6-wrap",{y:-140,opacity:0,duration:0.26,ease:"power3.in"},7.143);
 window.__timelines["s6"] = tl;
 })();
 </script>

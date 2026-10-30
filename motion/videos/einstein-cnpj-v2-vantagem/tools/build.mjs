@@ -89,7 +89,7 @@ const scenes = [bgScene()];
 #s1-lkw svg{position:absolute;left:0;top:0;}
 #s1-t1{position:absolute;left:250px;top:52px;font-weight:900;font-size:40px;letter-spacing:.08em;color:${CH};}
 #s1-t2{position:absolute;left:250px;top:110px;font-weight:600;font-size:32px;color:${MUTED};letter-spacing:.04em;white-space:nowrap;}
-#s1-t3{position:absolute;left:250px;top:162px;display:flex;align-items:center;gap:10px;padding:8px 20px;border-radius:30px;background:${GREEN};font-weight:800;font-size:24px;letter-spacing:.08em;}
+#s1-t3{position:absolute;left:250px;top:162px;display:flex;align-items:center;gap:10px;padding:8px 20px;border-radius:30px;background:#157A45;font-weight:800;font-size:24px;letter-spacing:.08em;}
 #s1-gl{position:absolute;left:-60px;top:-60px;width:290px;height:290px;border-radius:50%;background:radial-gradient(closest-side,rgba(247,223,168,.7),rgba(232,194,122,0));opacity:0;}
 .s1-sp{position:absolute;left:125px;top:125px;border-radius:50%;background:${CH2};opacity:0;box-shadow:0 0 14px ${CH};}
 #s1-c{top:956px;font-weight:800;font-size:60px;line-height:1.05;}
@@ -239,7 +239,7 @@ const scenes = [bgScene()];
   add(`tl.fromTo("#s3-l1",{x:60,opacity:0},{x:0,opacity:0.9,duration:0.5,ease:"power3.out"},${L(T.melhor3 - 0.1)});`);
   words("s3a", seq("melhor hospital do mundo", T.melhor3));
   add(`tl.fromTo("#s3-src",{opacity:0},{opacity:1,duration:0.4},${L(T.melhor3 + 0.6)});`);
-  add(`tl.fromTo("#s3-rc",{y:500,rotation:5},{y:0,rotation:-1.5,duration:0.55,ease:"power4.out"},${L(T.diaria - 0.4)});`);
+  add(`tl.fromTo("#s3-rc",{y:500,rotation:5,opacity:0},{y:0,rotation:-1.5,opacity:1,duration:0.55,ease:"power4.out"},${L(T.diaria - 0.4)});`);
   roll("s3-v", "20.000", L(T.vinte - 0.25), L(T.reais3End - 0.15), LH);
   shake("#s3-rc", r3(L(T.reais3End) - 0.1), 10);
   add(`tl.fromTo("#${p}-lg",{opacity:0},{opacity:1,duration:0.4},0.4);`);

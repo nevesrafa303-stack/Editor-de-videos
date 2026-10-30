@@ -36,7 +36,7 @@
 #bg-dots{position:absolute;left:0;top:-72px;}
 #bg-vig{background:radial-gradient(110% 75% at 50% 45%,rgba(0,0,0,0) 55%,rgba(2,5,12,.66) 100%);}
 </style>
-<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="49" data-width="1080" data-height="1920">
+<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="42.1" data-width="1080" data-height="1920">
   <div id="bg-base" class="bg-full"></div>
   <div id="bg-ch" class="bg-gl" data-layout-allow-overflow aria-hidden="true"></div>
   <div id="bg-bl" class="bg-gl" data-layout-allow-overflow aria-hidden="true"></div>
@@ -48,9 +48,9 @@
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
-tl.fromTo("#bg-dots",{y:0},{y:72,duration:49,ease:"none"},0);
-tl.fromTo("#bg-ch",{x:0,y:0,scale:1},{x:240,y:-160,scale:1.18,duration:49,ease:"sine.inOut"},0);
-tl.fromTo("#bg-bl",{x:0,y:0,scale:1},{x:-260,y:120,scale:1.12,duration:49,ease:"sine.inOut"},0);
+tl.fromTo("#bg-dots",{y:0},{y:72,duration:42.1,ease:"none"},0);
+tl.fromTo("#bg-ch",{x:0,y:0,scale:1},{x:240,y:-160,scale:1.18,duration:42.1,ease:"sine.inOut"},0);
+tl.fromTo("#bg-bl",{x:0,y:0,scale:1},{x:-260,y:120,scale:1.12,duration:42.1,ease:"sine.inOut"},0);
 window.__timelines["bg"] = tl;
 })();
 </script>

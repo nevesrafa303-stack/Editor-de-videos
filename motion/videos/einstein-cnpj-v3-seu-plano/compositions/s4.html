@@ -35,10 +35,10 @@
 #s4-cw{position:absolute;left:150px;top:880px;width:780px;height:300px;}
 #s4-cd{position:absolute;inset:0;border-radius:40px;background:linear-gradient(135deg,#1B2B48 0%,#0B1424 60%,#2A2112 100%);border:4px solid #E8C27A;box-shadow:0 30px 80px rgba(232,194,122,.25),0 30px 70px rgba(0,0,0,.5);overflow:hidden;}
 #s4-ci{position:absolute;left:44px;top:66px;width:168px;height:168px;border-radius:50%;background:linear-gradient(135deg,#F7DFA8,#E8C27A);display:flex;align-items:center;justify-content:center;}
-#s4-c1{position:absolute;left:250px;top:76px;font-weight:900;font-size:56px;line-height:1.05;}
+#s4-c1{position:absolute;left:250px;top:76px;font-weight:900;font-size:48px;line-height:1.05;white-space:nowrap;}
 #s4-c2{position:absolute;left:252px;top:150px;font-weight:800;font-size:44px;color:#E8C27A;}
 </style>
-<div id="s4-root" data-composition-id="s4" data-start="0" data-duration="5.735" data-width="1080" data-height="1920">
+<div id="s4-root" data-composition-id="s4" data-start="0" data-duration="5.5" data-width="1080" data-height="1920">
   <div id="s4-wrap" class="s4-full">
     <div class="shift" style="top:40px;height:1880px">
     <div id="s4-a" class="ln d"><span class="w"><span class="wi" id="s4a0">Tem</span></span> <span class="w"><span class="wi" id="s4a1">um</span></span> <span class="w"><span class="wi" id="s4a2">caminho</span></span></div>
@@ -56,27 +56,27 @@
 <script>
 (function(){
 const tl = gsap.timeline({ paused: true });
-tl.fromTo("#s4a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.575);
-tl.fromTo("#s4a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.83);
-tl.fromTo("#s4a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.04);
-tl.fromTo("#s4b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.475);
-tl.fromTo("#s4b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.73);
-tl.fromTo("#s4b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.075);
-tl.fromTo("#s4b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.42);
-tl.fromTo("#s4-p0",{opacity:0},{opacity:1,duration:0.3},1);
-tl.to("#s4-p1",{strokeDashoffset:0,duration:2.545,ease:"power1.inOut"},1.1);
-tl.fromTo("#s4-dot",{scale:0,transformOrigin:"50% 50%"},{scale:1,duration:0.3,ease:"back.out(3)"},1);
-tl.fromTo("#s4-cw",{scale:0.5,opacity:0,y:60},{scale:1,opacity:1,y:0,duration:0.45,ease:"back.out(1.8)"},3.345);
-tl.fromTo("#s4-ci",{rotation:-90,scale:0.4},{rotation:0,scale:1,duration:0.5,ease:"back.out(2.2)"},3.445);
-tl.fromTo("#s4-c2i",{scale:1.3,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.4)"},4.785);
-tl.fromTo("#s4-sw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},5.035);
-tl.set("#s4-cw",{x:8,y:-4.8},5.135);
-tl.set("#s4-cw",{x:-6.4,y:3.84},5.168);
-tl.set("#s4-cw",{x:4,y:-2.4},5.202);
-tl.set("#s4-cw",{x:-2,y:1.2},5.235);
-tl.set("#s4-cw",{x:0,y:0},5.268);
-tl.fromTo("#s4-lg",{opacity:0},{opacity:1,duration:0.4},3.645);
-tl.to("#s4-wrap",{y:-140,opacity:0,duration:0.26,ease:"power3.in"},5.455);
+tl.fromTo("#s4a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.338);
+tl.fromTo("#s4a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.447);
+tl.fromTo("#s4a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.52);
+tl.fromTo("#s4b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.029);
+tl.fromTo("#s4b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.174);
+tl.fromTo("#s4b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.502);
+tl.fromTo("#s4b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.793);
+tl.fromTo("#s4-p0",{opacity:0},{opacity:1,duration:0.3},0.48);
+tl.to("#s4-p1",{strokeDashoffset:0,duration:2.436,ease:"power1.inOut"},0.58);
+tl.fromTo("#s4-dot",{scale:0,transformOrigin:"50% 50%"},{scale:1,duration:0.3,ease:"back.out(3)"},0.48);
+tl.fromTo("#s4-cw",{scale:0.5,opacity:0,y:60},{scale:1,opacity:1,y:0,duration:0.45,ease:"back.out(1.8)"},2.716);
+tl.fromTo("#s4-ci",{rotation:-90,scale:0.4},{rotation:0,scale:1,duration:0.5,ease:"back.out(2.2)"},2.816);
+tl.fromTo("#s4-c2i",{scale:1.3,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.4)"},4.003);
+tl.fromTo("#s4-sw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},4.253);
+tl.set("#s4-cw",{x:8,y:-4.8},4.353);
+tl.set("#s4-cw",{x:-6.4,y:3.84},4.386);
+tl.set("#s4-cw",{x:4,y:-2.4},4.42);
+tl.set("#s4-cw",{x:-2,y:1.2},4.453);
+tl.set("#s4-cw",{x:0,y:0},4.486);
+tl.fromTo("#s4-lg",{opacity:0},{opacity:1,duration:0.4},3.016);
+tl.to("#s4-wrap",{y:-140,opacity:0,duration:0.26,ease:"power3.in"},5.22);
 window.__timelines["s4"] = tl;
 })();
 </script>

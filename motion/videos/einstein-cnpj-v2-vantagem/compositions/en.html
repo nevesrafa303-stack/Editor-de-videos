@@ -44,7 +44,7 @@
 #en-lb{position:absolute;left:0;width:1080px;top:1172px;display:flex;justify-content:center;align-items:center;gap:16px;font-weight:800;font-size:36px;color:#fff;}
 .en-ar{display:inline-flex;}
 </style>
-<div id="en-root" data-composition-id="en" data-start="0" data-duration="7.17" data-width="1080" data-height="1920">
+<div id="en-root" data-composition-id="en" data-start="0" data-duration="7.082" data-width="1080" data-height="1920">
   <div id="en-wrap" class="en-full">
     <div class="shift" style="top:0px;height:1920px">
     <div class="pill" id="en-pill" style="top:270px"><div class="d" id="en-pi"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#E8C27A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 42V10l16-5v37M24 16l16 5v21M4 42h40M14 16h4M14 23h4M14 30h4M30 26h4M30 33h4"/></svg><span>PLANO DE SAÚDE PELO CNPJ</span></div></div>
@@ -65,28 +65,28 @@ const tl = gsap.timeline({ paused: true });
 tl.fromTo("#en-pi",{y:-20,opacity:0},{y:0,opacity:1,duration:0.35,ease:"power3.out"},0.03);
 tl.fromTo("#en-ai",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"power4.out"},0.08);
 tl.fromTo("#en-pw",{y:80,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.2);
-tl.fromTo("#en-pimg",{scale:1.2},{scale:1,duration:6.97,ease:"power1.out"},0.2);
+tl.fromTo("#en-pimg",{scale:1.2},{scale:1,duration:6.882,ease:"power1.out"},0.2);
 tl.fromTo("#en-o0",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.45);
 tl.fromTo("#en-o1",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.53);
 tl.fromTo("#en-o2",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.61);
 tl.fromTo("#en-o3",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.69);
 tl.fromTo("#en-ol",{opacity:0},{opacity:1,duration:0.4},0.8);
 tl.fromTo("#en-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"back.out(1.8)"},0.15);
-tl.fromTo("#en-lb",{opacity:0,y:-14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},0.675);
-tl.fromTo(["#en-a0","#en-a1"],{y:0},{y:14,duration:0.313,ease:"sine.inOut",repeat:17,yoyo:true},0.675);
-tl.fromTo("#en-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},1.275);
-tl.fromTo("#en-b1",{scale:1.12},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},1.88);
-tl.fromTo("#en-b2",{scale:1.16},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},2.615);
-tl.fromTo("#en-ai",{scale:1.08},{scale:1,duration:0.35,ease:"back.out(2.4)",immediateRender:false},2.955);
+tl.fromTo("#en-lb",{opacity:0,y:-14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},0.338);
+tl.fromTo(["#en-a0","#en-a1"],{y:0},{y:14,duration:0.308,ease:"sine.inOut",repeat:19,yoyo:true},0.338);
+tl.fromTo("#en-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},0.964);
+tl.fromTo("#en-b1",{scale:1.12},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},1.36);
+tl.fromTo("#en-b2",{scale:1.16},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},2.087);
+tl.fromTo("#en-ai",{scale:1.08},{scale:1,duration:0.35,ease:"back.out(2.4)",immediateRender:false},2.427);
 tl.fromTo("#en-lg",{opacity:0},{opacity:1,duration:0.5},0.6);
-tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},2.32);
-tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut",immediateRender:false},5.214);
-tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},3.655);
-tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},3.965);
-tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},3.655);
-tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},4.905);
-tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},5.215);
-tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},4.905);
+tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},1.8);
+tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut",immediateRender:false},5.128);
+tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},3.127);
+tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},3.437);
+tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},3.127);
+tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},4.377);
+tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},4.687);
+tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},4.377);
 window.__timelines["en"] = tl;
 })();
 </script>
