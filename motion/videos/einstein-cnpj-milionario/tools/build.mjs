@@ -209,7 +209,9 @@ function TL(st) {
   const shake = (sel, t, amp = 10) =>
     [1, -0.8, 0.5, -0.25, 0].forEach((q, i) => add(`tl.set("${sel}",{x:${r3(q * amp)},y:${r3(-q * amp * 0.6)}},${r3(t + i / FPS)});`));
   // número que rola até o valor: uma coluna 0–9 por dígito (só transform, seguro para seek)
-  const roll = (id, text, t0, t1, lh) =>
+  const roll = (id, text, t0, t1, lh) => {
+    // os dígitos só aparecem quando começam a rolar (antes disso o valor ficaria "000.000")
+    add(`tl.fromTo("#${id}-rw",{opacity:0},{opacity:1,duration:0.15},${r3(Math.max(0, t0 - 0.05))});`);
     [...text]
       .filter((c) => /\d/.test(c))
       .map(Number)
@@ -217,12 +219,13 @@ function TL(st) {
         const s = r3(t0 + i * 0.05);
         add(`tl.fromTo("#${id}${i}",{y:0},{y:${-(10 + d) * lh},duration:${r3(Math.max(0.3, t1 - s))},ease:"power3.out"},${s});`);
       });
+  };
   return { a, L, add, words, shake, roll };
 }
 function rollHTML(id, text, size, lh) {
   let k = 0;
   return (
-    `<span class="roll" style="height:${lh}px;font-size:${size}px;line-height:${lh}px">` +
+    `<span class="roll" id="${id}-rw" style="height:${lh}px;font-size:${size}px;line-height:${lh}px">` +
     [...text]
       .map((ch) => {
         if (!/\d/.test(ch)) return `<span class="rc">${ch}</span>`;
