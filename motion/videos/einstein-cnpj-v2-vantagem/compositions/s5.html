@@ -1,0 +1,74 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.ch{color:#E8C27A;}
+.red{color:#FF6B6B;}
+.kk{position:absolute;left:0;width:1080px;text-align:center;font-weight:700;font-size:28px;letter-spacing:.18em;color:#E8C27A;}
+.pill{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+.pill>div{display:flex;align-items:center;gap:12px;padding:12px 30px;border:2px solid rgba(232,194,122,.7);border-radius:60px;background:rgba(232,194,122,.1);font-weight:700;font-size:26px;letter-spacing:.12em;color:#E8C27A;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.shift{position:absolute;left:0;width:1080px;}
+.ph{position:absolute;overflow:hidden;background:#0E1A2E;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#s5-bgw{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+#s5-bgw img{width:100%;height:100%;object-fit:cover;}
+#s5-scr{background:linear-gradient(180deg,rgba(7,11,20,.9) 0%,rgba(7,11,20,.55) 35%,rgba(7,11,20,.6) 60%,rgba(7,11,20,.95) 100%);}
+#s5-a{top:560px;font-weight:700;font-size:56px;color:#C3CEDD;}
+#s5-b{top:636px;font-weight:900;font-size:84px;line-height:1.05;}
+#s5-c{top:736px;font-weight:900;font-size:84px;line-height:1.05;color:#E8C27A;}
+.s5-tx{text-shadow:0 4px 24px rgba(0,0,0,.6);}
+#s5-pl{top:880px;}
+#s5-pli{display:flex;align-items:center;gap:14px;padding:18px 36px;border-radius:60px;background:rgba(7,11,20,.88);border:3px solid #E8C27A;font-weight:900;font-size:44px;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="5.045" data-width="1080" data-height="1920">
+  <div id="s5-wrap" class="s5-full">
+    <div id="s5-bgw" aria-hidden="true"><img id="s5-bgi" src="assets/img/einstein-atrio.jpg" alt="" data-layout-allow-overflow /></div>
+    <div id="s5-scr" class="s5-full"></div>
+    <div class="shift" style="top:20px;height:1900px">
+    <div id="s5-a" class="ln d s5-tx"><span class="w"><span class="wi" id="s5a0">Ou</span></span> <span class="w"><span class="wi" id="s5a1">seja:</span></span></div>
+    <div id="s5-b" class="ln d s5-tx"><span class="w"><span class="wi" id="s5b0">um</span></span> <span class="w"><span class="wi" id="s5b1">dos</span></span> <span class="w"><span class="wi" id="s5b2">melhores</span></span></div>
+    <div id="s5-c" class="ln d s5-tx"><span class="w"><span class="wi" id="s5c0">hospitais</span></span> <span class="w"><span class="wi" id="s5c1">do</span></span> <span class="w"><span class="wi" id="s5c2">mundo,</span></span></div>
+    <div class="pill" id="s5-pl"><div id="s5-pli" class="d"><svg viewBox="0 0 48 48" width="50" height="50" fill="none" stroke="#E8C27A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 42V10l16-5v37M24 16l16 5v21M4 42h40M14 16h4M14 23h4M14 30h4M30 26h4M30 33h4"/></svg><span>pelo CNPJ da sua empresa</span></div></div>
+    <div class="legal" id="s5-lg" style="top:1280px">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5-wrap",{opacity:0},{opacity:1,duration:0.3},0);
+tl.fromTo("#s5-bgi",{scale:1.2},{scale:1,duration:5.045,ease:"none"},0);
+tl.fromTo("#s5a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.14);
+tl.fromTo("#s5a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.35);
+tl.fromTo("#s5b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.87);
+tl.fromTo("#s5b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.08);
+tl.fromTo("#s5b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.335);
+tl.fromTo("#s5c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.815);
+tl.fromTo("#s5c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.34);
+tl.fromTo("#s5c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.55);
+tl.fromTo("#s5-pli",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"back.out(2.2)"},3.125);
+tl.fromTo("#s5-lg",{opacity:0},{opacity:1,duration:0.4},0.4);
+tl.to("#s5-wrap",{scale:1.08,opacity:0,duration:0.28,ease:"power2.in"},4.745);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>

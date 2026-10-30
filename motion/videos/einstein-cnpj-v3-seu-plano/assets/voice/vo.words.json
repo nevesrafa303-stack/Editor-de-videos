@@ -1,0 +1,637 @@
+[
+ {
+  "word": "Seu",
+  "start": 0.1,
+  "end": 0.315
+ },
+ {
+  "word": "plano",
+  "start": 0.355,
+  "end": 0.66
+ },
+ {
+  "word": "de",
+  "start": 0.7,
+  "end": 0.87
+ },
+ {
+  "word": "saúde",
+  "start": 0.91,
+  "end": 1.215
+ },
+ {
+  "word": "te",
+  "start": 1.255,
+  "end": 1.425
+ },
+ {
+  "word": "dá",
+  "start": 1.465,
+  "end": 1.635
+ },
+ {
+  "word": "acesso",
+  "start": 1.675,
+  "end": 2.025
+ },
+ {
+  "word": "ao",
+  "start": 2.065,
+  "end": 2.235
+ },
+ {
+  "word": "Einstein?",
+  "start": 2.275,
+  "end": 2.715
+ },
+ {
+  "word": "Se",
+  "start": 3.175,
+  "end": 3.345
+ },
+ {
+  "word": "a",
+  "start": 3.385,
+  "end": 3.51
+ },
+ {
+  "word": "resposta",
+  "start": 3.55,
+  "end": 3.99
+ },
+ {
+  "word": "foi",
+  "start": 4.03,
+  "end": 4.245
+ },
+ {
+  "word": "não…",
+  "start": 4.285,
+  "end": 4.5
+ },
+ {
+  "word": "presta",
+  "start": 4.96,
+  "end": 5.31
+ },
+ {
+  "word": "atenção.",
+  "start": 5.35,
+  "end": 5.745
+ },
+ {
+  "word": "Muita",
+  "start": 6.205,
+  "end": 6.51
+ },
+ {
+  "word": "gente",
+  "start": 6.55,
+  "end": 6.855
+ },
+ {
+  "word": "paga",
+  "start": 6.895,
+  "end": 7.155
+ },
+ {
+  "word": "plano",
+  "start": 7.195,
+  "end": 7.5
+ },
+ {
+  "word": "todo",
+  "start": 7.54,
+  "end": 7.8
+ },
+ {
+  "word": "mês",
+  "start": 7.84,
+  "end": 8.055
+ },
+ {
+  "word": "e",
+  "start": 8.095,
+  "end": 8.22
+ },
+ {
+  "word": "só",
+  "start": 8.26,
+  "end": 8.43
+ },
+ {
+  "word": "descobre",
+  "start": 8.47,
+  "end": 8.91
+ },
+ {
+  "word": "na",
+  "start": 8.95,
+  "end": 9.12
+ },
+ {
+  "word": "hora",
+  "start": 9.16,
+  "end": 9.42
+ },
+ {
+  "word": "que",
+  "start": 9.46,
+  "end": 9.675
+ },
+ {
+  "word": "precisa",
+  "start": 9.715,
+  "end": 10.11
+ },
+ {
+  "word": "que",
+  "start": 10.15,
+  "end": 10.365
+ },
+ {
+  "word": "o",
+  "start": 10.405,
+  "end": 10.53
+ },
+ {
+  "word": "hospital",
+  "start": 10.57,
+  "end": 11.01
+ },
+ {
+  "word": "que",
+  "start": 11.05,
+  "end": 11.265
+ },
+ {
+  "word": "queria",
+  "start": 11.305,
+  "end": 11.655
+ },
+ {
+  "word": "não",
+  "start": 11.695,
+  "end": 11.91
+ },
+ {
+  "word": "está",
+  "start": 11.95,
+  "end": 12.21
+ },
+ {
+  "word": "na",
+  "start": 12.25,
+  "end": 12.42
+ },
+ {
+  "word": "rede.",
+  "start": 12.46,
+  "end": 12.72
+ },
+ {
+  "word": "E",
+  "start": 13.18,
+  "end": 13.305
+ },
+ {
+  "word": "no",
+  "start": 13.345,
+  "end": 13.515
+ },
+ {
+  "word": "Einstein,",
+  "start": 13.555,
+  "end": 13.995
+ },
+ {
+  "word": "uma",
+  "start": 14.255,
+  "end": 14.47
+ },
+ {
+  "word": "cirurgia",
+  "start": 14.51,
+  "end": 14.95
+ },
+ {
+  "word": "pode",
+  "start": 14.99,
+  "end": 15.25
+ },
+ {
+  "word": "passar",
+  "start": 15.29,
+  "end": 15.64
+ },
+ {
+  "word": "dos",
+  "start": 15.68,
+  "end": 15.895
+ },
+ {
+  "word": "duzentos",
+  "start": 15.935,
+  "end": 16.375
+ },
+ {
+  "word": "mil",
+  "start": 16.415,
+  "end": 16.63
+ },
+ {
+  "word": "reais.",
+  "start": 16.67,
+  "end": 16.975
+ },
+ {
+  "word": "Só",
+  "start": 17.435,
+  "end": 17.605
+ },
+ {
+  "word": "que",
+  "start": 17.645,
+  "end": 17.86
+ },
+ {
+  "word": "tem",
+  "start": 17.9,
+  "end": 18.115
+ },
+ {
+  "word": "um",
+  "start": 18.155,
+  "end": 18.325
+ },
+ {
+  "word": "caminho",
+  "start": 18.365,
+  "end": 18.76
+ },
+ {
+  "word": "que",
+  "start": 18.8,
+  "end": 19.015
+ },
+ {
+  "word": "pouca",
+  "start": 19.055,
+  "end": 19.36
+ },
+ {
+  "word": "gente",
+  "start": 19.4,
+  "end": 19.705
+ },
+ {
+  "word": "conhece:",
+  "start": 19.745,
+  "end": 20.14
+ },
+ {
+  "word": "o",
+  "start": 20.4,
+  "end": 20.525
+ },
+ {
+  "word": "plano",
+  "start": 20.565,
+  "end": 20.87
+ },
+ {
+  "word": "empresarial,",
+  "start": 20.91,
+  "end": 21.485
+ },
+ {
+  "word": "pelo",
+  "start": 21.745,
+  "end": 22.005
+ },
+ {
+  "word": "seu",
+  "start": 22.045,
+  "end": 22.26
+ },
+ {
+  "word": "CNPJ.",
+  "start": 22.3,
+  "end": 22.56
+ },
+ {
+  "word": "Existem",
+  "start": 23.02,
+  "end": 23.415
+ },
+ {
+  "word": "planos",
+  "start": 23.455,
+  "end": 23.805
+ },
+ {
+  "word": "com",
+  "start": 23.845,
+  "end": 24.06
+ },
+ {
+  "word": "o",
+  "start": 24.1,
+  "end": 24.225
+ },
+ {
+  "word": "Einstein",
+  "start": 24.265,
+  "end": 24.705
+ },
+ {
+  "word": "na",
+  "start": 24.745,
+  "end": 24.915
+ },
+ {
+  "word": "rede",
+  "start": 24.955,
+  "end": 25.215
+ },
+ {
+  "word": "na",
+  "start": 25.255,
+  "end": 25.425
+ },
+ {
+  "word": "Alice,",
+  "start": 25.465,
+  "end": 25.77
+ },
+ {
+  "word": "na",
+  "start": 26.03,
+  "end": 26.2
+ },
+ {
+  "word": "Amil,",
+  "start": 26.24,
+  "end": 26.5
+ },
+ {
+  "word": "na",
+  "start": 26.76,
+  "end": 26.93
+ },
+ {
+  "word": "Bradesco",
+  "start": 26.97,
+  "end": 27.41
+ },
+ {
+  "word": "Saúde",
+  "start": 27.45,
+  "end": 27.755
+ },
+ {
+  "word": "e",
+  "start": 27.795,
+  "end": 27.92
+ },
+ {
+  "word": "na",
+  "start": 27.96,
+  "end": 28.13
+ },
+ {
+  "word": "SulAmérica…",
+  "start": 28.17,
+  "end": 28.7
+ },
+ {
+  "word": "a",
+  "start": 29.16,
+  "end": 29.285
+ },
+ {
+  "word": "partir",
+  "start": 29.325,
+  "end": 29.675
+ },
+ {
+  "word": "de",
+  "start": 29.715,
+  "end": 29.885
+ },
+ {
+  "word": "mil",
+  "start": 29.925,
+  "end": 30.14
+ },
+ {
+  "word": "trezentos",
+  "start": 30.18,
+  "end": 30.665
+ },
+ {
+  "word": "e",
+  "start": 30.705,
+  "end": 30.83
+ },
+ {
+  "word": "quarenta",
+  "start": 30.87,
+  "end": 31.31
+ },
+ {
+  "word": "e",
+  "start": 31.35,
+  "end": 31.475
+ },
+ {
+  "word": "cinco",
+  "start": 31.515,
+  "end": 31.82
+ },
+ {
+  "word": "reais",
+  "start": 31.86,
+  "end": 32.165
+ },
+ {
+  "word": "por",
+  "start": 32.205,
+  "end": 32.42
+ },
+ {
+  "word": "mês,",
+  "start": 32.46,
+  "end": 32.675
+ },
+ {
+  "word": "pra",
+  "start": 32.935,
+  "end": 33.15
+ },
+ {
+  "word": "uma",
+  "start": 33.19,
+  "end": 33.405
+ },
+ {
+  "word": "pessoa",
+  "start": 33.445,
+  "end": 33.795
+ },
+ {
+  "word": "de",
+  "start": 33.835,
+  "end": 34.005
+ },
+ {
+  "word": "trinta",
+  "start": 34.045,
+  "end": 34.395
+ },
+ {
+  "word": "anos.",
+  "start": 34.435,
+  "end": 34.695
+ },
+ {
+  "word": "Então,",
+  "start": 35.155,
+  "end": 35.46
+ },
+ {
+  "word": "antes",
+  "start": 35.72,
+  "end": 36.025
+ },
+ {
+  "word": "de",
+  "start": 36.065,
+  "end": 36.235
+ },
+ {
+  "word": "renovar",
+  "start": 36.275,
+  "end": 36.67
+ },
+ {
+  "word": "ou",
+  "start": 36.71,
+  "end": 36.88
+ },
+ {
+  "word": "contratar",
+  "start": 36.92,
+  "end": 37.405
+ },
+ {
+  "word": "qualquer",
+  "start": 37.445,
+  "end": 37.885
+ },
+ {
+  "word": "plano…",
+  "start": 37.925,
+  "end": 38.23
+ },
+ {
+  "word": "compara.",
+  "start": 38.69,
+  "end": 39.085
+ },
+ {
+  "word": "Clica",
+  "start": 39.545,
+  "end": 39.85
+ },
+ {
+  "word": "no",
+  "start": 39.89,
+  "end": 40.06
+ },
+ {
+  "word": "link,",
+  "start": 40.1,
+  "end": 40.36
+ },
+ {
+  "word": "preenche",
+  "start": 40.62,
+  "end": 41.06
+ },
+ {
+  "word": "o",
+  "start": 41.1,
+  "end": 41.225
+ },
+ {
+  "word": "formulário",
+  "start": 41.265,
+  "end": 41.795
+ },
+ {
+  "word": "e",
+  "start": 41.835,
+  "end": 41.96
+ },
+ {
+  "word": "a",
+  "start": 42.0,
+  "end": 42.125
+ },
+ {
+  "word": "gente",
+  "start": 42.165,
+  "end": 42.47
+ },
+ {
+  "word": "te",
+  "start": 42.51,
+  "end": 42.68
+ },
+ {
+  "word": "mostra",
+  "start": 42.72,
+  "end": 43.07
+ },
+ {
+  "word": "quais",
+  "start": 43.11,
+  "end": 43.415
+ },
+ {
+  "word": "planos",
+  "start": 43.455,
+  "end": 43.805
+ },
+ {
+  "word": "têm",
+  "start": 43.845,
+  "end": 44.06
+ },
+ {
+  "word": "o",
+  "start": 44.1,
+  "end": 44.225
+ },
+ {
+  "word": "Einstein",
+  "start": 44.265,
+  "end": 44.705
+ },
+ {
+  "word": "pro",
+  "start": 44.745,
+  "end": 44.96
+ },
+ {
+  "word": "seu",
+  "start": 45.0,
+  "end": 45.215
+ },
+ {
+  "word": "perfil.",
+  "start": 45.255,
+  "end": 45.605
+ }
+]

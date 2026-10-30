@@ -1,0 +1,93 @@
+<template>
+<style>
+@font-face{font-family:"Mont";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-500.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#en-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.en-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.d{font-family:"Mont",Arial,sans-serif;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.ch{color:#E8C27A;}
+.red{color:#FF6B6B;}
+.kk{position:absolute;left:0;width:1080px;text-align:center;font-weight:700;font-size:28px;letter-spacing:.18em;color:#E8C27A;}
+.pill{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+.pill>div{display:flex;align-items:center;gap:12px;padding:12px 30px;border:2px solid rgba(232,194,122,.7);border-radius:60px;background:rgba(232,194,122,.1);font-weight:700;font-size:26px;letter-spacing:.12em;color:#E8C27A;}
+.sweep{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 65%);mix-blend-mode:screen;}
+.shift{position:absolute;left:0;width:1080px;}
+.ph{position:absolute;overflow:hidden;background:#0E1A2E;}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+.legal{position:absolute;left:90px;width:900px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.86);}
+
+#en-a{top:340px;font-weight:900;font-size:76px;line-height:1.05;}
+#en-pw{position:absolute;left:100px;top:456px;width:880px;height:300px;border-radius:34px;box-shadow:0 26px 60px rgba(0,0,0,.5),0 0 0 3px rgba(232,194,122,.8);}
+#en-pg{position:absolute;left:0;bottom:0;width:100%;height:60%;background:linear-gradient(180deg,rgba(7,11,20,0),rgba(7,11,20,.92));}
+#en-pt{position:absolute;left:34px;bottom:26px;display:flex;align-items:center;gap:12px;font-weight:900;font-size:38px;}
+#en-ops{position:absolute;left:0;width:1080px;top:780px;display:flex;justify-content:center;align-items:center;gap:30px;}
+#en-ol{position:absolute;left:0;width:1080px;top:900px;text-align:center;font-weight:600;font-size:24px;color:#C3CEDD;}
+#en-bw{position:absolute;left:90px;top:1000px;width:900px;height:156px;}
+#en-ring{position:absolute;inset:0;border-radius:156px;border:5px solid rgba(247,223,168,.9);opacity:0;}
+#en-btn{position:absolute;inset:0;border-radius:156px;background:linear-gradient(180deg,#F7DFA8 0%,#E8C27A 100%);color:#0B1220;display:flex;align-items:center;justify-content:center;gap:24px;box-shadow:0 20px 50px rgba(232,194,122,.35),inset 0 2px 0 rgba(255,255,255,.5);overflow:hidden;}
+#en-bt{display:flex;flex-direction:column;align-items:flex-start;}
+#en-b1{font-weight:900;font-size:52px;line-height:1.05;letter-spacing:-.01em;}
+#en-b2{font-weight:700;font-size:27px;line-height:1.2;margin-top:4px;}
+#en-lb{position:absolute;left:0;width:1080px;top:1172px;display:flex;justify-content:center;align-items:center;gap:16px;font-weight:800;font-size:36px;color:#fff;}
+.en-ar{display:inline-flex;}
+</style>
+<div id="en-root" data-composition-id="en" data-start="0" data-duration="7.17" data-width="1080" data-height="1920">
+  <div id="en-wrap" class="en-full">
+    <div class="shift" style="top:0px;height:1920px">
+    <div class="pill" id="en-pill" style="top:270px"><div class="d" id="en-pi"><svg viewBox="0 0 48 48" width="30" height="30" fill="none" stroke="#E8C27A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 42V10l16-5v37M24 16l16 5v21M4 42h40M14 16h4M14 23h4M14 30h4M30 26h4M30 33h4"/></svg><span>PLANO DE SAÚDE PELO CNPJ</span></div></div>
+    <div id="en-a" class="ln d"><span id="en-ai" style="display:inline-block">Quanto fica pra <span class="ch">você?</span></span></div>
+    <div class="ph" id="en-pw"><img id="en-pimg" data-layout-allow-overflow src="assets/img/einstein-fachada.jpg" alt="Hospital Israelita Albert Einstein" style="object-position:56% 42%" /><div id="en-pg"></div>
+      <div id="en-pt" class="d"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#3CD48F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>Planos com o Einstein na rede</span></div></div>
+    <div id="en-ops"><img id="en-o0" src="assets/img/cubo-alice.png" alt="Alice" style="width:96px;height:114px;" /><img id="en-o1" src="assets/img/cubo-amil.png" alt="Amil" style="width:96px;height:113px;" /><img id="en-o2" src="assets/img/cubo-bradesco.png" alt="Bradesco" style="width:99px;height:101px;" /><img id="en-o3" src="assets/img/cubo-sulamerica.png" alt="SulAmérica" style="width:106px;height:99px;" /></div>
+    <div id="en-ol">Comparamos Alice, Amil, Bradesco, SulAmérica e outras</div>
+    <div id="en-bw"><div id="en-ring"></div><div id="en-btn"><svg id="en-ic" viewBox="0 0 48 48" width="70" height="70" fill="none" stroke="#0B1220" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="8" width="28" height="36" rx="4"/><path d="M18 8V5h12v3M16 20h16M16 28h16M16 36h10"/></svg><div id="en-bt"><span id="en-b1" class="d">Preencha o formulário</span><span id="en-b2">e descubra quanto fica pra você</span></div><div id="en-bsw" class="sweep" data-layout-allow-overflow aria-hidden="true"></div></div></div>
+    <div id="en-lb" class="d"><span class="en-ar" id="en-a0"><svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#E8C27A" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10l12 12 12-12M12 24l12 12 12-12"/></svg></span><span>Clique no link abaixo</span><span class="en-ar" id="en-a1"><svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#E8C27A" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10l12 12 12-12M12 24l12 12 12-12"/></svg></span></div>
+    <div class="legal" id="en-lg" style="top:1240px">Cotações referenciais Saúde PME, apartamento: 1 pessoa de 30 anos – Alice Exclusivo, coparticipação 30%, R$ 1.345,06/mês; casal – Amil Black I R1, com coparticipação, R$ 2.745,50/mês; família de 3 pessoas – Bradesco Saúde Nacional Plus 4, coparticipação 30%, R$ 4.238,19/mês. Ranking: Newsweek World's Best Hospitals 2026. Valores sujeitos à faixa etária e região. Valores referenciais sujeitos às regras da operadora. Os valores podem variar conforme perfil do beneficiário. Cobertura e rede sujeitas à modalidade contratada. Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Imagem meramente ilustrativa.</div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#en-pi",{y:-20,opacity:0},{y:0,opacity:1,duration:0.35,ease:"power3.out"},0.03);
+tl.fromTo("#en-ai",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"power4.out"},0.08);
+tl.fromTo("#en-pw",{y:80,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power3.out"},0.2);
+tl.fromTo("#en-pimg",{scale:1.2},{scale:1,duration:6.97,ease:"power1.out"},0.2);
+tl.fromTo("#en-o0",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.45);
+tl.fromTo("#en-o1",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.53);
+tl.fromTo("#en-o2",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.61);
+tl.fromTo("#en-o3",{scale:0.3,opacity:0,y:30},{scale:1,opacity:1,y:0,duration:0.4,ease:"back.out(2.2)"},0.69);
+tl.fromTo("#en-ol",{opacity:0},{opacity:1,duration:0.4},0.8);
+tl.fromTo("#en-bw",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"back.out(1.8)"},0.15);
+tl.fromTo("#en-lb",{opacity:0,y:-14},{opacity:1,y:0,duration:0.35,ease:"power3.out"},0.675);
+tl.fromTo(["#en-a0","#en-a1"],{y:0},{y:14,duration:0.313,ease:"sine.inOut",repeat:17,yoyo:true},0.675);
+tl.fromTo("#en-ic",{rotation:0},{rotation:12,duration:0.1,ease:"sine.inOut",repeat:5,yoyo:true},1.275);
+tl.fromTo("#en-b1",{scale:1.12},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},1.88);
+tl.fromTo("#en-b2",{scale:1.16},{scale:1,duration:0.35,ease:"back.out(2.4)",transformOrigin:"0% 50%",immediateRender:false},2.615);
+tl.fromTo("#en-ai",{scale:1.08},{scale:1,duration:0.35,ease:"back.out(2.4)",immediateRender:false},2.955);
+tl.fromTo("#en-lg",{opacity:0},{opacity:1,duration:0.5},0.6);
+tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut"},2.32);
+tl.fromTo("#en-bsw",{xPercent:-100},{xPercent:100,duration:0.8,ease:"power2.inOut",immediateRender:false},5.214);
+tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},3.655);
+tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},3.965);
+tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},3.655);
+tl.fromTo("#en-btn",{scale:1},{scale:1.04,duration:0.31,ease:"sine.out",immediateRender:false},4.905);
+tl.to("#en-btn",{scale:1,duration:0.5,ease:"sine.inOut"},5.215);
+tl.fromTo("#en-ring",{opacity:0.7,scale:1},{opacity:0,scale:1.12,duration:0.9,ease:"power2.out",immediateRender:false},4.905);
+window.__timelines["en"] = tl;
+})();
+</script>
+</template>

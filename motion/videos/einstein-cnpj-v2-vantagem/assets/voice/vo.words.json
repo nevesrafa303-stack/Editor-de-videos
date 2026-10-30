@@ -1,0 +1,752 @@
+[
+ {
+  "word": "Se",
+  "start": 0.1,
+  "end": 0.27
+ },
+ {
+  "word": "você",
+  "start": 0.31,
+  "end": 0.57
+ },
+ {
+  "word": "tem",
+  "start": 0.61,
+  "end": 0.825
+ },
+ {
+  "word": "CNPJ,",
+  "start": 0.865,
+  "end": 1.125
+ },
+ {
+  "word": "você",
+  "start": 1.385,
+  "end": 1.645
+ },
+ {
+  "word": "tem",
+  "start": 1.685,
+  "end": 1.9
+ },
+ {
+  "word": "uma",
+  "start": 1.94,
+  "end": 2.155
+ },
+ {
+  "word": "vantagem",
+  "start": 2.195,
+  "end": 2.635
+ },
+ {
+  "word": "que",
+  "start": 2.675,
+  "end": 2.89
+ },
+ {
+  "word": "quase",
+  "start": 2.93,
+  "end": 3.235
+ },
+ {
+  "word": "ninguém",
+  "start": 3.275,
+  "end": 3.67
+ },
+ {
+  "word": "usa.",
+  "start": 3.71,
+  "end": 3.925
+ },
+ {
+  "word": "Dá",
+  "start": 4.385,
+  "end": 4.555
+ },
+ {
+  "word": "pra",
+  "start": 4.595,
+  "end": 4.81
+ },
+ {
+  "word": "ter",
+  "start": 4.85,
+  "end": 5.065
+ },
+ {
+  "word": "um",
+  "start": 5.105,
+  "end": 5.275
+ },
+ {
+  "word": "plano",
+  "start": 5.315,
+  "end": 5.62
+ },
+ {
+  "word": "de",
+  "start": 5.66,
+  "end": 5.83
+ },
+ {
+  "word": "saúde",
+  "start": 5.87,
+  "end": 6.175
+ },
+ {
+  "word": "com",
+  "start": 6.215,
+  "end": 6.43
+ },
+ {
+  "word": "o",
+  "start": 6.47,
+  "end": 6.595
+ },
+ {
+  "word": "Einstein",
+  "start": 6.635,
+  "end": 7.075
+ },
+ {
+  "word": "na",
+  "start": 7.115,
+  "end": 7.285
+ },
+ {
+  "word": "rede…",
+  "start": 7.325,
+  "end": 7.585
+ },
+ {
+  "word": "pagando",
+  "start": 8.045,
+  "end": 8.44
+ },
+ {
+  "word": "bem",
+  "start": 8.48,
+  "end": 8.695
+ },
+ {
+  "word": "menos",
+  "start": 8.735,
+  "end": 9.04
+ },
+ {
+  "word": "do",
+  "start": 9.08,
+  "end": 9.25
+ },
+ {
+  "word": "que",
+  "start": 9.29,
+  "end": 9.505
+ },
+ {
+  "word": "você",
+  "start": 9.545,
+  "end": 9.805
+ },
+ {
+  "word": "imagina.",
+  "start": 9.845,
+  "end": 10.24
+ },
+ {
+  "word": "O",
+  "start": 10.7,
+  "end": 10.825
+ },
+ {
+  "word": "Einstein",
+  "start": 10.865,
+  "end": 11.305
+ },
+ {
+  "word": "é",
+  "start": 11.345,
+  "end": 11.47
+ },
+ {
+  "word": "o",
+  "start": 11.51,
+  "end": 11.635
+ },
+ {
+  "word": "décimo",
+  "start": 11.675,
+  "end": 12.025
+ },
+ {
+  "word": "sexto",
+  "start": 12.065,
+  "end": 12.37
+ },
+ {
+  "word": "melhor",
+  "start": 12.41,
+  "end": 12.76
+ },
+ {
+  "word": "hospital",
+  "start": 12.8,
+  "end": 13.24
+ },
+ {
+  "word": "do",
+  "start": 13.28,
+  "end": 13.45
+ },
+ {
+  "word": "mundo.",
+  "start": 13.49,
+  "end": 13.795
+ },
+ {
+  "word": "E",
+  "start": 14.255,
+  "end": 14.38
+ },
+ {
+  "word": "lá,",
+  "start": 14.42,
+  "end": 14.59
+ },
+ {
+  "word": "uma",
+  "start": 14.85,
+  "end": 15.065
+ },
+ {
+  "word": "diária",
+  "start": 15.105,
+  "end": 15.455
+ },
+ {
+  "word": "de",
+  "start": 15.495,
+  "end": 15.665
+ },
+ {
+  "word": "internação",
+  "start": 15.705,
+  "end": 16.235
+ },
+ {
+  "word": "pode",
+  "start": 16.275,
+  "end": 16.535
+ },
+ {
+  "word": "custar",
+  "start": 16.575,
+  "end": 16.925
+ },
+ {
+  "word": "vinte",
+  "start": 16.965,
+  "end": 17.27
+ },
+ {
+  "word": "mil",
+  "start": 17.31,
+  "end": 17.525
+ },
+ {
+  "word": "reais.",
+  "start": 17.565,
+  "end": 17.87
+ },
+ {
+  "word": "Mas",
+  "start": 18.33,
+  "end": 18.545
+ },
+ {
+  "word": "pelo",
+  "start": 18.585,
+  "end": 18.845
+ },
+ {
+  "word": "CNPJ,",
+  "start": 18.885,
+  "end": 19.145
+ },
+ {
+  "word": "olha",
+  "start": 19.405,
+  "end": 19.665
+ },
+ {
+  "word": "só:",
+  "start": 19.705,
+  "end": 19.875
+ },
+ {
+  "word": "uma",
+  "start": 20.135,
+  "end": 20.35
+ },
+ {
+  "word": "pessoa",
+  "start": 20.39,
+  "end": 20.74
+ },
+ {
+  "word": "de",
+  "start": 20.78,
+  "end": 20.95
+ },
+ {
+  "word": "trinta",
+  "start": 20.99,
+  "end": 21.34
+ },
+ {
+  "word": "anos",
+  "start": 21.38,
+  "end": 21.64
+ },
+ {
+  "word": "paga",
+  "start": 21.68,
+  "end": 21.94
+ },
+ {
+  "word": "a",
+  "start": 21.98,
+  "end": 22.105
+ },
+ {
+  "word": "partir",
+  "start": 22.145,
+  "end": 22.495
+ },
+ {
+  "word": "de",
+  "start": 22.535,
+  "end": 22.705
+ },
+ {
+  "word": "mil",
+  "start": 22.745,
+  "end": 22.96
+ },
+ {
+  "word": "trezentos",
+  "start": 23.0,
+  "end": 23.485
+ },
+ {
+  "word": "e",
+  "start": 23.525,
+  "end": 23.65
+ },
+ {
+  "word": "quarenta",
+  "start": 23.69,
+  "end": 24.13
+ },
+ {
+  "word": "e",
+  "start": 24.17,
+  "end": 24.295
+ },
+ {
+  "word": "cinco",
+  "start": 24.335,
+  "end": 24.64
+ },
+ {
+  "word": "reais",
+  "start": 24.68,
+  "end": 24.985
+ },
+ {
+  "word": "por",
+  "start": 25.025,
+  "end": 25.24
+ },
+ {
+  "word": "mês,",
+  "start": 25.28,
+  "end": 25.495
+ },
+ {
+  "word": "na",
+  "start": 25.755,
+  "end": 25.925
+ },
+ {
+  "word": "Alice.",
+  "start": 25.965,
+  "end": 26.27
+ },
+ {
+  "word": "Um",
+  "start": 26.73,
+  "end": 26.9
+ },
+ {
+  "word": "casal,",
+  "start": 26.94,
+  "end": 27.245
+ },
+ {
+  "word": "dois",
+  "start": 27.505,
+  "end": 27.765
+ },
+ {
+  "word": "mil",
+  "start": 27.805,
+  "end": 28.02
+ },
+ {
+  "word": "setecentos",
+  "start": 28.06,
+  "end": 28.59
+ },
+ {
+  "word": "e",
+  "start": 28.63,
+  "end": 28.755
+ },
+ {
+  "word": "quarenta",
+  "start": 28.795,
+  "end": 29.235
+ },
+ {
+  "word": "e",
+  "start": 29.275,
+  "end": 29.4
+ },
+ {
+  "word": "cinco,",
+  "start": 29.44,
+  "end": 29.745
+ },
+ {
+  "word": "na",
+  "start": 30.005,
+  "end": 30.175
+ },
+ {
+  "word": "Amil.",
+  "start": 30.215,
+  "end": 30.475
+ },
+ {
+  "word": "E",
+  "start": 30.935,
+  "end": 31.06
+ },
+ {
+  "word": "uma",
+  "start": 31.1,
+  "end": 31.315
+ },
+ {
+  "word": "família",
+  "start": 31.355,
+  "end": 31.75
+ },
+ {
+  "word": "de",
+  "start": 31.79,
+  "end": 31.96
+ },
+ {
+  "word": "três,",
+  "start": 32.0,
+  "end": 32.26
+ },
+ {
+  "word": "a",
+  "start": 32.52,
+  "end": 32.645
+ },
+ {
+  "word": "partir",
+  "start": 32.685,
+  "end": 33.035
+ },
+ {
+  "word": "de",
+  "start": 33.075,
+  "end": 33.245
+ },
+ {
+  "word": "quatro",
+  "start": 33.285,
+  "end": 33.635
+ },
+ {
+  "word": "mil",
+  "start": 33.675,
+  "end": 33.89
+ },
+ {
+  "word": "duzentos",
+  "start": 33.93,
+  "end": 34.37
+ },
+ {
+  "word": "e",
+  "start": 34.41,
+  "end": 34.535
+ },
+ {
+  "word": "trinta",
+  "start": 34.575,
+  "end": 34.925
+ },
+ {
+  "word": "e",
+  "start": 34.965,
+  "end": 35.09
+ },
+ {
+  "word": "oito,",
+  "start": 35.13,
+  "end": 35.39
+ },
+ {
+  "word": "na",
+  "start": 35.65,
+  "end": 35.82
+ },
+ {
+  "word": "Bradesco",
+  "start": 35.86,
+  "end": 36.3
+ },
+ {
+  "word": "Saúde.",
+  "start": 36.34,
+  "end": 36.645
+ },
+ {
+  "word": "Ou",
+  "start": 37.105,
+  "end": 37.275
+ },
+ {
+  "word": "seja:",
+  "start": 37.315,
+  "end": 37.575
+ },
+ {
+  "word": "um",
+  "start": 37.835,
+  "end": 38.005
+ },
+ {
+  "word": "dos",
+  "start": 38.045,
+  "end": 38.26
+ },
+ {
+  "word": "melhores",
+  "start": 38.3,
+  "end": 38.74
+ },
+ {
+  "word": "hospitais",
+  "start": 38.78,
+  "end": 39.265
+ },
+ {
+  "word": "do",
+  "start": 39.305,
+  "end": 39.475
+ },
+ {
+  "word": "mundo,",
+  "start": 39.515,
+  "end": 39.82
+ },
+ {
+  "word": "pelo",
+  "start": 40.08,
+  "end": 40.34
+ },
+ {
+  "word": "CNPJ",
+  "start": 40.38,
+  "end": 40.64
+ },
+ {
+  "word": "da",
+  "start": 40.68,
+  "end": 40.85
+ },
+ {
+  "word": "sua",
+  "start": 40.89,
+  "end": 41.105
+ },
+ {
+  "word": "empresa.",
+  "start": 41.145,
+  "end": 41.54
+ },
+ {
+  "word": "A",
+  "start": 42.0,
+  "end": 42.125
+ },
+ {
+  "word": "gente",
+  "start": 42.165,
+  "end": 42.47
+ },
+ {
+  "word": "compara",
+  "start": 42.51,
+  "end": 42.905
+ },
+ {
+  "word": "Alice,",
+  "start": 42.945,
+  "end": 43.25
+ },
+ {
+  "word": "Amil,",
+  "start": 43.51,
+  "end": 43.77
+ },
+ {
+  "word": "Bradesco,",
+  "start": 44.03,
+  "end": 44.47
+ },
+ {
+  "word": "SulAmérica",
+  "start": 44.73,
+  "end": 45.26
+ },
+ {
+  "word": "e",
+  "start": 45.3,
+  "end": 45.425
+ },
+ {
+  "word": "outras",
+  "start": 45.465,
+  "end": 45.815
+ },
+ {
+  "word": "operadoras…",
+  "start": 45.855,
+  "end": 46.385
+ },
+ {
+  "word": "e",
+  "start": 46.845,
+  "end": 46.97
+ },
+ {
+  "word": "te",
+  "start": 47.01,
+  "end": 47.18
+ },
+ {
+  "word": "mostra",
+  "start": 47.22,
+  "end": 47.57
+ },
+ {
+  "word": "a",
+  "start": 47.61,
+  "end": 47.735
+ },
+ {
+  "word": "melhor",
+  "start": 47.775,
+  "end": 48.125
+ },
+ {
+  "word": "opção",
+  "start": 48.165,
+  "end": 48.47
+ },
+ {
+  "word": "pro",
+  "start": 48.51,
+  "end": 48.725
+ },
+ {
+  "word": "seu",
+  "start": 48.765,
+  "end": 48.98
+ },
+ {
+  "word": "perfil.",
+  "start": 49.02,
+  "end": 49.37
+ },
+ {
+  "word": "Clica",
+  "start": 49.83,
+  "end": 50.135
+ },
+ {
+  "word": "no",
+  "start": 50.175,
+  "end": 50.345
+ },
+ {
+  "word": "link,",
+  "start": 50.385,
+  "end": 50.645
+ },
+ {
+  "word": "preenche",
+  "start": 50.905,
+  "end": 51.345
+ },
+ {
+  "word": "o",
+  "start": 51.385,
+  "end": 51.51
+ },
+ {
+  "word": "formulário",
+  "start": 51.55,
+  "end": 52.08
+ },
+ {
+  "word": "e",
+  "start": 52.12,
+  "end": 52.245
+ },
+ {
+  "word": "descobre",
+  "start": 52.285,
+  "end": 52.725
+ },
+ {
+  "word": "quanto",
+  "start": 52.765,
+  "end": 53.115
+ },
+ {
+  "word": "fica",
+  "start": 53.155,
+  "end": 53.415
+ },
+ {
+  "word": "pra",
+  "start": 53.455,
+  "end": 53.67
+ },
+ {
+  "word": "você.",
+  "start": 53.71,
+  "end": 53.97
+ }
+]

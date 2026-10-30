@@ -1,0 +1,33 @@
+{
+ "drop": 4.96,
+ "cta": 39.545,
+ "bar": 2.4704,
+ "n": 14,
+ "pre": -3,
+ "last": 17,
+ "fin": 46.956,
+ "total": 49.0,
+ "kinds": {
+  "-3": "intro",
+  "-2": "intro",
+  "-1": "build",
+  "0": "groove",
+  "1": "groove",
+  "2": "groove",
+  "3": "groove",
+  "4": "groove",
+  "5": "groove",
+  "6": "groove",
+  "7": "groove",
+  "8": "groove",
+  "9": "groove",
+  "10": "groove",
+  "11": "groove",
+  "12": "intro",
+  "13": "build",
+  "14": "chorus",
+  "15": "chorus",
+  "16": "chorus",
+  "17": "last"
+ }
+}
