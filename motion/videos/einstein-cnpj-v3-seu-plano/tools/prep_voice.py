@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Locução da variação 3 do anúncio do Einstein ("Seu plano de
-saúde te dá acesso ao Einstein?")), a partir da tomada A do ElevenLabs (Eleven v4, voz "Roberta - Casual Sales";
+saúde te dá acesso ao Einstein?"), a partir da tomada A do ElevenLabs (Eleven v4, voz "Roberta - Casual Sales";
 assets/voice/takes/take-A.mp3) e dos tempos por palavra do Scribe v1 (takes/take-A.words.json).
 Texto da locução: tools/voice_prompt.txt.
 

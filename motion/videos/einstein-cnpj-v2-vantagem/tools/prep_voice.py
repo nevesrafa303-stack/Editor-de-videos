@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Locução da variação 2 do anúncio do Einstein ("Se você tem CNPJ,
-você tem uma vantagem…")), a partir da tomada A do ElevenLabs (Eleven v4, voz "Roberta - Casual Sales";
+você tem uma vantagem…"), a partir da tomada A do ElevenLabs (Eleven v4, voz "Roberta - Casual Sales";
 assets/voice/takes/take-A.mp3) e dos tempos por palavra do Scribe v1 (takes/take-A.words.json).
 Texto da locução: tools/voice_prompt.txt.
 
