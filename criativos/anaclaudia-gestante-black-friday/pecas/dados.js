@@ -8,13 +8,13 @@ export const OURO = { total: 654, vista: 545 };
 export const reais = v => v.toFixed(2).replace('.', ',');
 export const parcela = n => reais(OURO.total / n); // 12 → 54,50 · 8 → 81,75 · 6 → 109,00
 
-// originais/ = fotos enviadas pelo estúdio
+// hd/ = fotos do estúdio ampliadas 2x com Real-ESRGAN (ferramentas/ampliar.py)
 export const FOTOS = {
-  vermelho: 'originais/vermelho.jpg',
-  'marrom-tule': 'originais/marrom-tule.jpg',
-  sentada: 'originais/sentada.jpg',
-  jeans: 'originais/jeans.jpg',
-  'branco-tenis': 'originais/branco-tenis.jpg',
+  vermelho: 'hd/vermelho.jpg',
+  'marrom-tule': 'hd/marrom-tule.jpg',
+  sentada: 'hd/sentada.jpg',
+  jeans: 'hd/jeans.jpg',
+  'branco-tenis': 'hd/branco-tenis.jpg',
 };
 
 const CAPA_VERMELHO = { story: { w: 1280, x: -96, y: -90 }, feed: { w: 1104, x: -22, y: -236 } };

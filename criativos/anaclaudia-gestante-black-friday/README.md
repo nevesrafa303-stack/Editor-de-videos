@@ -56,19 +56,28 @@ node render.mjs o3     # só as que têm "o3" no nome
 
 Usa o Playwright global e sobe um servidor local para fontes e fotos.
 
-## Fotos e recortes
+## Fotos, ampliação e recortes
 
 - `assets/fotos/originais/`: as 5 fotos originais enviadas pelo estúdio (~1700×2576).
-- `assets/fotos/recortes/`: as mesmas modelos recortadas do fundo, usadas no layout holofote
-  (o círculo de luz é desenhado atrás delas). Feitos localmente com BiRefNet:
+- `assets/fotos/hd/`: as mesmas fotos ampliadas 2x (~3400×5150) com super-resolução por IA
+  (Real-ESRGAN x2plus, rodando local na CPU). Assim a exportação em 2x nunca amplia foto no navegador:
+  ela só reduz, e o rosto, o cabelo e as joias ficam nítidos no zoom. Comparei com o Real-ESRGAN 4x e o
+  realesr-general: os dois deixam a pele com aspecto de plástico; o x2plus fica mais natural.
+- `assets/fotos/recortes/`: as modelos do layout holofote recortadas do fundo (das fotos em hd), com o
+  círculo de luz desenhado atrás delas. Recorte local com BiRefNet, que também tira a cor do fundo
+  original das bordas do cabelo.
+- Grão fino (`assets/marca/grao.png`) por cima das fotos e dos degradês, para não aparecer faixas
+  (banding) nos fundos escuros.
 
 ```bash
-# modelo: https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx (~970 MB)
-python3 -I ferramentas/recortar.py /caminho/BiRefNet-general-epoch_244.onnx sentada jeans
+# super-resolução — pesos em https://github.com/xinntao/Real-ESRGAN/releases (requer torch CPU + spandrel)
+python3 -I ferramentas/ampliar.py RealESRGAN_x2plus.pth assets/fotos/originais/jeans.jpg assets/fotos/hd/jeans.jpg
+# recorte — modelo em https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
+python3 -I ferramentas/recortar.py BiRefNet-general-epoch_244.onnx hd sentada jeans
 ```
 
-O script também tira a cor do fundo original das bordas do cabelo, para não aparecer contorno cinza
-sobre o círculo branco.
+Se o estúdio tiver as fotos no tamanho original da câmera/edição (enviadas como arquivo, não como foto
+de WhatsApp), elas substituem a ampliação por IA com ainda mais detalhe.
 
 ## Marca
 
