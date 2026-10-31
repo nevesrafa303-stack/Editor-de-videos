@@ -2,8 +2,9 @@
 # para compor sobre o holofote desenhado em CSS.
 #
 # Modelo: https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
-# Uso (na pasta do projeto): python3 -I ferramentas/recortar.py /caminho/BiRefNet.onnx sentada jeans
-# Saída: assets/fotos/recortes/<nome>.png (RGBA, mesma resolução da foto original)
+# Uso (na pasta do projeto): python3 -I ferramentas/recortar.py /caminho/BiRefNet.onnx hd sentada jeans
+#   (o segundo argumento é a pasta da foto dentro de assets/fotos: hd ou originais)
+# Saída: assets/fotos/recortes/<nome>.png (RGBA, mesma resolução da foto de entrada)
 import sys
 import numpy as np
 import onnxruntime as ort
@@ -43,7 +44,7 @@ def fundo_estimado(img, alfa):
 
 
 def main():
-    modelo, nomes = sys.argv[1], sys.argv[2:]
+    modelo, pasta, nomes = sys.argv[1], sys.argv[2], sys.argv[3:]
     op = ort.SessionOptions()
     op.enable_cpu_mem_arena = False  # sem isso o BiRefNet passa de 15 GB de RAM na CPU
     op.enable_mem_pattern = False
@@ -51,7 +52,7 @@ def main():
     sess = ort.InferenceSession(modelo, sess_options=op, providers=['CPUExecutionProvider'])
     entrada = sess.get_inputs()[0].name
     for nome in nomes:
-        im = Image.open(f'assets/fotos/originais/{nome}.jpg').convert('RGB')
+        im = Image.open(f'assets/fotos/{pasta}/{nome}.jpg').convert('RGB')
         x = np.asarray(im.resize((1024, 1024), Image.LANCZOS), dtype=np.float32) / 255.0
         x = ((x - MEAN) / STD).transpose(2, 0, 1)[None].astype(np.float32)
         pred = sess.run(None, {entrada: x})[0][0, 0]

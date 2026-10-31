@@ -8,6 +8,7 @@ export const OURO = { total: 654, vista: 545 };
 export const reais = v => v.toFixed(2).replace('.', ',');
 export const parcela = n => reais(OURO.total / n); // 12 → 54,50 · 8 → 81,75 · 6 → 109,00
 
+// originais/ = fotos enviadas pelo estúdio
 export const FOTOS = {
   vermelho: 'originais/vermelho.jpg',
   'marrom-tule': 'originais/marrom-tule.jpg',

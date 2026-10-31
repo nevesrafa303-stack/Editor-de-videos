@@ -73,3 +73,7 @@ body.feed { height: 1350px; }
 .preco .valor-grande { font-family: var(--serif-fina); line-height: .9; letter-spacing: -.01em; }
 .condicoes, .inclui { font-weight: 500; }
 .ponto { opacity: .5; }
+
+/* Grão fino por cima das fotos e degradês: some com as faixas (banding) dos fundos escuros. 1 px de grão = 1 px da exportação 2x. */
+.grao { position: absolute; inset: 0; pointer-events: none; background: url('../assets/marca/grao.png') repeat;
+  background-size: 256px 256px; mix-blend-mode: overlay; opacity: .1; }
