@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>C2 — Holofote (modelo de blazer)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Modelo da página do holofote do PDF: fundo quase preto, círculo de luz atrás da modelo.
+     Texto no alto, caixas preto|papel da página de adicionais. */
+  body { background: #232323; }
+  .foto {
+    mask-image: linear-gradient(to bottom, transparent 0, #000 16%),
+                linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+    mask-composite: intersect;
+  }
+  .logo-topo { position: absolute; }
+  .bloco { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .bloco .espacado { color: #d9d4cc; padding-left: .42em; }
+  .titulo { font-family: var(--display); font-weight: 400; line-height: 1.06; color: var(--marfim); }
+  .caixa .rotulo { width: 54%; }
+  .caixa .valor { width: 46%; }
+  .nota { color: #cfcac2; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .foto { width: 1180px; left: -65px; top: 358px; }
+  .story .logo-topo { width: 150px; left: 50px; top: 268px; }
+  .story .etiqueta { --w: 160px; --circ: 262px; right: 34px; }
+  .story .bloco { top: 380px; }
+  .story .bloco .espacado { font-size: 36px; }
+  .story .titulo { font-size: 84px; margin-top: 18px; }
+  .story .caixas { display: flex; flex-direction: column; gap: 18px; margin-top: 36px; }
+  .story .caixa { width: 880px; height: 116px; }
+  .story .caixa .rotulo { font-size: 26px; }
+  .story .caixa .pct { font-size: 86px; }
+  .story .caixa .off { font-size: 30px; }
+  .story .nota { font-size: 21px; margin-top: 18px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .foto { width: 1028px; left: 13px; top: 46px; }
+  .feed .logo-topo { width: 118px; left: 44px; top: 44px; }
+  .feed .etiqueta { --w: 124px; --circ: 40px; right: 34px; }
+  .feed .bloco { top: 70px; }
+  .feed .bloco .espacado { font-size: 30px; }
+  .feed .titulo { font-size: 66px; margin-top: 14px; }
+  .feed .caixas { display: flex; flex-direction: column; gap: 14px; margin-top: 26px; }
+  .feed .caixa { width: 780px; height: 96px; }
+  .feed .caixa .rotulo { font-size: 22px; }
+  .feed .caixa .pct { font-size: 72px; }
+  .feed .caixa .off { font-size: 26px; }
+  .feed .nota { font-size: 17px; margin-top: 14px; }
+</style>
+</head>
+<body>
+  <img class="foto" src="../assets/fotos/modelo-holofote.jpg" alt="">
+
+  <img class="logo-topo" src="../assets/marca/logo-branco.png" alt="Ana Claudia Clicks">
+  <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
+
+  <section class="bloco">
+    <p class="espacado">Black Friday</p>
+    <h1 class="titulo">Condição Especial<br>somente em Novembro</h1>
+    <div class="caixas">
+      <div class="caixa">
+        <div class="rotulo">Ensaio Gestante*</div>
+        <div class="valor"><span class="pv"><span class="pct">15%</span><span class="off">OFF</span></span></div>
+      </div>
+      <div class="caixa">
+        <div class="rotulo">Combo Gestante<br>+ Newborn*</div>
+        <div class="valor"><span class="pv"><span class="pct">20%</span><span class="off">OFF</span></span></div>
+      </div>
+    </div>
+    <p class="nota">*Válido para reservas realizadas em novembro de 2026.</p>
+  </section>
+
+  <script src="base.js"></script>
+</body>
+</html>
