@@ -1,63 +1,87 @@
 # Ana Claudia Clicks — Black Friday Gestante (novembro/2026)
 
-Criativos estáticos da ação de Black Friday do estúdio Ana Claudia Clicks (cliente da LAKS),
-no padrão visual da proposta comercial em PDF que a cliente envia ("BLACK20 Proposta Comercial
-Gestante.pdf"). Cada peça usa **uma modelo diferente do PDF** e **uma página diferente do PDF como
-modelo de layout**.
+Criativos estáticos da ação de Black Friday do estúdio Ana Claudia Clicks (cliente da LAKS), no padrão
+visual da proposta comercial em PDF da cliente ("BLACK20 Proposta Comercial Gestante.pdf").
 
-Cada peça sai em **Story 1080×1920** e **Feed 4:5 1080×1350**, em `final/`.
-No Story, todo texto fica entre y=250 e y=1530 (fora das áreas cobertas pela interface).
-`final/_visao-geral.jpg` mostra as 6 imagens lado a lado.
-
-## Texto pedido pela cliente
-
-> Condição Especial somente em Novembro
-> ENSAIO GESTANTE* — 15% OFF
-> COMBO GESTANTE + NEWBORN* — 20% OFF
-
-Nota do asterisco usada nas peças (tirada da capa do PDF, "Condição especial para reservas
-realizadas em novembro"): **"\*Válido para reservas realizadas em novembro de 2026."**
-Confirmar com a cliente se o asterisco deve dizer outra coisa.
+Cada peça sai em **Story** e **Feed 4:5**, exportada em **2x** para máxima nitidez:
+Story **2160×3840** e Feed **2160×2700** (mesma proporção de 1080×1920 e 1080×1350), em `final/`.
+No Story, todo texto fica entre y=250 e y=1530 da peça em 1080 (fora da área coberta pela interface).
+Visões gerais: `final/_visao-geral-desconto.jpg` e `final/_visao-geral-pacote-ouro.jpg`.
 
 ## Peças
 
-| Peça | Modelo do PDF | Layout de referência no PDF |
+### Desconto (texto pedido pela cliente)
+
+> Condição Especial somente em Novembro · ENSAIO GESTANTE* 15% OFF · COMBO GESTANTE + NEWBORN* 20% OFF
+> \*Válido para reservas realizadas em novembro de 2026. (confirmar com a cliente)
+
+| Peça | Layout (página do PDF) | Modelo |
 |---|---|---|
-| `c1-capa` | Gestante de vestido vermelho (capa) | Capa: "GESTANTE" no alto, etiqueta Black Friday pendurada, oferta sobre a saia e pílula vinho com "Condição Especial somente em Novembro" |
-| `c2-holofote` | Gestante de blazer no círculo de luz | Página do holofote + caixas preto/claro da página "Escolha adicionais ao seu pacote" |
-| `c3-convite` | Gestante de conjunto marrom | Última página ("Vamos fazer o seu ensaio?"): foto à esquerda, painel claro à direita, pílulas pretas dos pacotes e logo |
+| `d1-capa-vermelho` | Capa escura | Vestido vermelho |
+| `d2-holofote-sentada` | Holofote | Sentada, top e calça pretos |
+| `d3-convite-jeans` | Convite (última página) | Top branco e jeans |
 
-## De onde veio cada elemento
+### Pacote Ouro parcelado
 
-- **Fotos** (`assets/fotos/`): extraídas do próprio PDF da cliente (páginas 1, 12 e 15), sem edição.
-- **"GESTANTE"** (`assets/marca/gestante-wordmark.png`): recortado da capa do PDF em 600 dpi, é o título original.
-- **Etiqueta Black Friday** (`assets/marca/etiqueta-black-friday.png`): PNG do PDF, com o barbante prolongado para cima.
-- **Logo** (`assets/marca/logo-preto.png` e `logo-branco.png`): logo "Ana Claudia clicks" da última página do PDF.
-- **Cores** tiradas do PDF: grafite `#31312f`, papel `#f4f4f4`, vinho `#7a010f`, marfim `#f6f3ee`.
+Valores da proposta (pág. 6): **R$ 654,00 no cartão** em até 12x sem juros, ou **R$ 545,00 à vista**
+(Pix/dinheiro). Parcelas calculadas sobre os R$ 654,00: **12x R$ 54,50 · 8x R$ 81,75 · 6x R$ 109,00**.
+Itens em destaque: 25 fotos · 3 looks · 1h de sessão · make + babyliss.
+Todas trazem "Condição Especial somente em Novembro" e a nota "Pacote Ouro do Ensaio Gestante. Total de
+R$ 654,00 no cartão. Válido para reservas realizadas em novembro de 2026."
 
-## Fontes
+| Peça | Parcelas | Layout | Modelo |
+|---|---|---|---|
+| `o1-capa-vermelho-12x` | 12x R$ 54,50 | Capa escura | Vestido vermelho |
+| `o2-capa-clara-branco-12x` | 12x R$ 54,50 | Capa clara | Branco, com tênis de bebê |
+| `o3-holofote-jeans-8x` | 8x R$ 81,75 | Holofote | Top branco e jeans |
+| `o4-capa-clara-marrom-8x` | 8x R$ 81,75 | Capa clara | Conjunto marrom de tule |
+| `o5-convite-sentada-6x` | 6x R$ 109,00 | Convite | Sentada, top e calça pretos |
+| `o6-holofote-sentada-6x` | 6x R$ 109,00 | Holofote | Sentada, top e calça pretos |
 
-O PDF usa Montserrat (gratuita, mantida) e as fontes TAN Pearl, TAN Aegean e Kief Montaser,
-pagas do Canva, que não podem ser tiradas do PDF para uso fora dele. No lugar delas:
+As peças de preço não trazem o "15% OFF", porque a proposta não diz se os R$ 654,00 já têm o desconto.
+Se tiverem, dá para acrescentar.
 
-- **Gilda Display** ≈ TAN Pearl (títulos em caixa alta e baixa)
-- **Bellefair** ≈ Kief Montaser Light ("BLACK FRIDAY" espaçado e os números 15% e 20%)
-- O "GESTANTE" decorativo (TAN Aegean) entra como imagem recortada do PDF, então fica idêntico.
+## Como funciona
 
-Se a cliente quiser as fontes exatas, dá para remontar no Canva dela com este mesmo layout.
-
-## Gerar de novo
+- `pecas/dados.js`: lista única das peças (layout, foto, oferta, parcelas e enquadramento da foto).
+  Os valores do Pacote Ouro e o cálculo das parcelas também ficam aqui.
+- `pecas/capa.html`, `pecas/holofote.html`, `pecas/convite.html`: os três layouts. Cada um lê a peça
+  pela URL (`?p=<id>#story` ou `#feed`).
+- `pecas/base.js` e `pecas/base.css`: textos, preço e estilos comuns.
 
 ```bash
 node render.mjs        # todas
-node render.mjs c2     # só uma
+node render.mjs o3     # só as que têm "o3" no nome
 ```
 
 Usa o Playwright global e sobe um servidor local para fontes e fotos.
-O HTML de cada peça está em `pecas/`, com estilos compartilhados em `pecas/base.css`.
+
+## Fotos e recortes
+
+- `assets/fotos/originais/`: as 5 fotos originais enviadas pelo estúdio (~1700×2576).
+- `assets/fotos/recortes/`: as mesmas modelos recortadas do fundo, usadas no layout holofote
+  (o círculo de luz é desenhado atrás delas). Feitos localmente com BiRefNet:
+
+```bash
+# modelo: https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx (~970 MB)
+python3 -I ferramentas/recortar.py /caminho/BiRefNet-general-epoch_244.onnx sentada jeans
+```
+
+O script também tira a cor do fundo original das bordas do cabelo, para não aparecer contorno cinza
+sobre o círculo branco.
+
+## Marca
+
+- **"GESTANTE"** (`assets/marca/gestante-wordmark*.png`): recortado da capa do PDF em 600 dpi (versão clara e escura).
+- **Etiqueta Black Friday** (`assets/marca/etiqueta-black-friday.png`): PNG do PDF, com o barbante prolongado.
+- **Logo** (`assets/marca/logo-preto.png` e `logo-branco.png`): da última página do PDF.
+- **Cores** do PDF: grafite `#31312f`, papel `#f4f4f4`, vinho `#7a010f`, marfim `#f6f3ee`.
+- **Fontes**: Montserrat (a mesma do PDF). No lugar das fontes pagas do Canva: Gilda Display ≈ TAN Pearl
+  e Bellefair ≈ Kief Montaser Light.
 
 ## Conferir antes de subir
 
-- Texto do asterisco (acima).
-- Se o estúdio prefere WhatsApp ou outro CTA escrito na peça (hoje fica só o botão do anúncio).
+- Texto do asterisco nas peças de desconto.
+- Se os valores do Pacote Ouro já incluem o desconto de Black Friday.
+- Se o parcelamento em 8x e 6x também é sem juros (a proposta só fala em 12x sem juros).
 - As regras de observação legal do `CLAUDE.md` são de plano de saúde e não se aplicam a este cliente.

@@ -62,3 +62,14 @@ body.feed { height: 1350px; }
 
 .nota { line-height: 1.35; }
 .logo { display: block; }
+
+/* Pílula de contorno (versão da pílula preta sobre fundo escuro) */
+.pilula-contorno { display: inline-block; border: 2px solid var(--marfim); color: var(--marfim); font-weight: 700;
+  text-transform: uppercase; border-radius: 999px; white-space: nowrap; text-align: center; }
+
+/* Preço do Pacote Ouro: "12x de R$ 54,50" */
+.preco { display: flex; align-items: baseline; gap: 12px; white-space: nowrap; }
+.preco .px, .preco .rs { font-weight: 600; }
+.preco .valor-grande { font-family: var(--serif-fina); line-height: .9; letter-spacing: -.01em; }
+.condicoes, .inclui { font-weight: 500; }
+.ponto { opacity: .5; }

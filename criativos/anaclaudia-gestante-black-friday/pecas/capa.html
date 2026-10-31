@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Layout capa</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Modelo da capa do PDF: "GESTANTE" no alto, etiqueta pendurada, oferta sobre a parte de baixo da foto.
+     Tema escuro (foto em fundo grafite) ou claro (foto em fundo branco). */
+  .tema-escuro { background: radial-gradient(120% 70% at 45% 35%, #3a3a38 0%, #2d2d2b 60%, #242423 100%); }
+  .tema-claro { background: #ebebeb; color: var(--preto); }
+  .foto { mask-image: linear-gradient(to bottom, transparent 0, #000 8%, #000 90%, transparent 100%); }
+  .sombra { position: absolute; left: 0; right: 0; bottom: 0; }
+  .tema-escuro .sombra { background: linear-gradient(to bottom, rgba(24,24,23,0) 0%, rgba(24,24,23,.72) 34%, rgba(20,20,19,.93) 62%, #141413 100%); }
+  .tema-claro .sombra { background: linear-gradient(to bottom, rgba(242,242,242,0) 0%, rgba(242,242,242,.8) 30%, rgba(244,244,244,.96) 55%, #f4f4f4 100%); }
+
+  .topo { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
+  .wordmark { display: block; }
+  .tema-claro .topo .espacado { color: var(--preto); }
+
+  .oferta { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .colunas { display: flex; align-items: stretch; justify-content: center; }
+  .col { display: flex; flex-direction: column; align-items: center; }
+  .col .pct-linha { display: flex; align-items: baseline; gap: 14px; }
+  .col .rotulo { font-weight: 600; text-transform: uppercase; letter-spacing: .14em; line-height: 1.3; }
+  .divisor { width: 2px; background: currentColor; opacity: .45; }
+  .tema-escuro .nota { color: #d9d4cc; }
+  .tema-claro .nota { color: #3d3d3d; }
+  .tema-escuro .condicoes, .tema-escuro .inclui { color: #ece7df; }
+  .pilula-preta, .pilula-contorno { letter-spacing: .32em; padding-left: calc(var(--pp) + .32em) !important; }
+
+  /* STORY 1080x1920 — conteúdo entre y=250 e y=1530 */
+  .story .etiqueta { --w: 168px; --circ: 268px; right: 28px; }
+  .story .topo { top: 300px; }
+  .story .wordmark { width: 560px; }
+  .story .topo .espacado { font-size: 40px; margin-top: 26px; padding-left: .42em; }
+  .story .col { width: 455px; }
+  .story .col .pct { font-size: 144px; }
+  .story .col .off { font-size: 40px; }
+  .story .col .rotulo { font-size: 25px; margin-top: 10px; }
+  .story .divisor { margin: 18px 10px; }
+  .story .pilula-vinho { font-size: 25px; padding: 13px 26px; margin-top: 30px; }
+  .story .nota { font-size: 21px; margin-top: 16px; max-width: 900px; }
+  .story .logo { width: 140px; margin-top: 20px; }
+  .story.oferta-desconto .sombra { top: 930px; }
+  .story.oferta-desconto .oferta { top: 1104px; }
+  .story.oferta-ouro .sombra { top: 860px; }
+  .story.oferta-ouro .oferta { top: 1030px; }
+  .story .pilula-preta, .story .pilula-contorno { --pp: 26px; font-size: 22px; padding: 12px 26px; }
+  .story .preco { margin-top: 18px; }
+  .story .preco .px { font-size: 40px; }
+  .story .preco .rs { font-size: 44px; }
+  .story .preco .valor-grande { font-size: 156px; }
+  .story .condicoes { font-size: 25px; margin-top: 12px; }
+  .story .inclui { font-size: 23px; margin-top: 10px; }
+  .story.oferta-ouro .pilula-vinho { margin-top: 18px; }
+  .story.oferta-ouro .preco { margin-top: 10px; }
+  .story.oferta-ouro .preco .valor-grande { font-size: 148px; }
+  .story.oferta-ouro .nota { margin-top: 12px; }
+  .story.oferta-ouro .logo { margin-top: 14px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .etiqueta { --w: 140px; --circ: 54px; right: 40px; }
+  .feed .topo { top: 64px; }
+  .feed .wordmark { width: 520px; }
+  .feed .topo .espacado { font-size: 34px; margin-top: 20px; padding-left: .42em; }
+  .feed .col { width: 430px; }
+  .feed .col .pct { font-size: 124px; }
+  .feed .col .off { font-size: 34px; }
+  .feed .col .rotulo { font-size: 22px; margin-top: 8px; }
+  .feed .divisor { margin: 14px 10px; }
+  .feed .pilula-vinho { font-size: 22px; padding: 11px 22px; margin-top: 24px; }
+  .feed .nota { font-size: 17px; margin-top: 12px; max-width: 860px; }
+  .feed .logo { width: 120px; margin-top: 16px; }
+  .feed.oferta-desconto .sombra { top: 760px; }
+  .feed.oferta-desconto .oferta { top: 862px; }
+  .feed.oferta-ouro .sombra { top: 690px; }
+  .feed.oferta-ouro .oferta { top: 812px; }
+  .feed .pilula-preta, .feed .pilula-contorno { --pp: 22px; font-size: 18px; padding: 10px 22px; }
+  .feed .preco { margin-top: 12px; }
+  .feed .preco .px { font-size: 32px; }
+  .feed .preco .rs { font-size: 36px; }
+  .feed .preco .valor-grande { font-size: 124px; }
+  .feed .condicoes { font-size: 20px; margin-top: 8px; }
+  .feed .inclui { font-size: 19px; margin-top: 6px; }
+  .feed.oferta-ouro .pilula-vinho { margin-top: 18px; }
+</style>
+</head>
+<body>
+  <img class="foto" alt="">
+  <div class="sombra"></div>
+  <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
+  <header class="topo">
+    <img class="wordmark" alt="Gestante">
+    <p class="espacado">Black Friday</p>
+  </header>
+  <section class="oferta"></section>
+
+  <script type="module">
+    import { peca, posiciona, pronto, preco, inclui, CONDICAO, NOTA_DESCONTO, NOTA_OURO } from './base.js';
+    const { p, fmt, foto } = peca();
+    const claro = p.tema === 'claro';
+    const img = document.querySelector('.foto');
+    img.src = foto; posiciona(img, p.quadro[fmt]);
+    document.querySelector('.wordmark').src = `../assets/marca/gestante-wordmark${claro ? '-escuro' : ''}.png`;
+    const logo = `<img class="logo" src="../assets/marca/logo-${claro ? 'preto' : 'branco'}.png" alt="Ana Claudia Clicks">`;
+
+    document.querySelector('.oferta').innerHTML = p.oferta === 'desconto' ? `
+      <div class="colunas">
+        <div class="col"><div class="pct-linha"><span class="pct">15%</span><span class="off">OFF</span></div><p class="rotulo">Ensaio Gestante*</p></div>
+        <div class="divisor"></div>
+        <div class="col"><div class="pct-linha"><span class="pct">20%</span><span class="off">OFF</span></div><p class="rotulo">Combo Gestante<br>+ Newborn*</p></div>
+      </div>
+      <span class="pilula-vinho">${CONDICAO}</span>
+      <p class="nota">${NOTA_DESCONTO}</p>
+      ${logo}` : `
+      <span class="${claro ? 'pilula-preta' : 'pilula-contorno'}">Pacote Ouro</span>
+      ${preco(p.parcelas)}
+      ${inclui()}
+      <span class="pilula-vinho">${CONDICAO}</span>
+      <p class="nota">${NOTA_OURO}</p>
+      ${logo}`;
+    pronto();
+  </script>
+</body>
+</html>
