@@ -50,6 +50,13 @@ Usar o texto **exatamente** como está (sem reescrever, encurtar ou trocar palav
   sem cobrir as legendas.
 - Conferir a regra antes de renderizar e citar no README do projeto quais observações entraram.
 
+### Referências visuais (inspiração obrigatória)
+
+Antes de criar qualquer criativo de plano de saúde (estático ou vídeo), abrir
+`criativos/_referencias/planos-de-saude/` — 16 peças de mercado escolhidas pelo cliente, com o guia
+`README.md` (arquétipos de layout, bloco de preço, prova de rede, benefícios, CTA, paletas por operadora)
+e o painel `_painel.jpg`. Usar como linguagem visual, sem copiar marca, contato ou valores de terceiros.
+
 ## Vozes padrão da locução (ElevenLabs, modelo Eleven v4)
 
 Escolhidas pelo cliente. Usar estas, salvo pedido diferente:
