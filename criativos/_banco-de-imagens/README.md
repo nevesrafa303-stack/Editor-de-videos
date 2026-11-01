@@ -36,12 +36,16 @@ são fotos de banco e várias parecem geradas por IA.
 | `07-trio-socio-de-gravata` | 1200×1200 | sócio de gravata entre duas sócias | **3 vidas** |
 | `08-trio-escritorio-janela` | 1200×1200 | três sócios sorrindo, escritório com janela | **3 vidas**, sócios de idades diferentes |
 | `09-equipe-comemorando` | 768×1344 | equipe comemorando de braços para cima | conquista, "sua equipe merece", PME |
+| `10-trio-frente-janelas` | 1200×1200 | sócia ao centro entre dois sócios, janelões ao fundo | **3 vidas** |
+| `11-aperto-de-maos` | 912×1600 (vertical) | dois sócios apertando as mãos | **2 vidas**, acordo fechado, "feche o plano da sua empresa"; bom para Story |
+| `12-dupla-de-socios` | 1080×1080 | sócio e sócia lado a lado, escritório | **2 vidas**, casal de sócios |
 
 ## Cuidados
 
 - `empresarial/01`, `03` e `09` mostram o logo da Apple nos notebooks: cortar ou desfocar quando aparecer no
   enquadramento (marca de terceiro).
-- Os trios (05 a 08) casam com ofertas de **3 vidas**; para 2 vidas, preferir um corte com duas pessoas.
+- `empresarial/11` tem um texto sem sentido na parede ao fundo (foto gerada por IA): cortar ou desfocar.
+- Os trios (05 a 08 e 10) casam com ofertas de **3 vidas**; as duplas (02, 11 e 12), com **2 vidas**.
 - Fotos pequenas (menos de 900 px) só devem ir para peça pela versão em `hd/`.
 
 ## Como gerar `hd/`
