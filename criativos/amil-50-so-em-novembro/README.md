@@ -20,7 +20,7 @@ Cada peça sai em **Story 9:16** e **Feed 4:5**, exportadas em 2x (2160×3840 e 
 | `n1-so-em-novembro` | "50% OFF nas 2 primeiras mensalidades" + ingresso "30 NOV — Só para contratos de novembro. Quando o mês acabar, o desconto acaba junto." | Arco da marca, preço gigante, caixa de benefícios (14) | — (tipográfica) |
 | `n2-familia` | "Seu CNPJ pode cuidar de quem você ama" | Foto no topo + painel curvo + cartão de preço com selo (01, 15) | `familia/04` casal com bebê |
 | `n3-empresa-premium` | "Plano de saúde para sua empresa com 50% OFF" | Linha premium escura, aba com logo, caixa âmbar, itens com barras (16) | `empresarial/10` trio |
-| `n4-pergunta-empresa` | "Sua empresa ainda não tem PLANO DE SAÚDE?" | Pergunta gigante, grade e moldura, pessoas recortadas (05) | `empresarial/08` trio (recortado) |
+| `n4-pergunta-empresa` | "Sua empresa ainda não tem PLANO DE SAÚDE?" | Pergunta gigante, grade e moldura, pessoas recortadas (05); no Story o preço fica em cima e o trio em pé na base, até a cintura | `empresarial/08` trio (recortado) |
 | `n5-cards-familia` | "Sua família no plano Amil pelo seu CNPJ, com 50% OFF" | Cards modulares, "3 VIDAS" em marca-texto, pílulas com seta (02) | `familia/05` pais e filha |
 | `n6-painel-empresa` | "Contrate em novembro e pague metade nas 2 primeiras mensalidades" | Painel lateral claro, "3 vidas / a partir de ——", faixa CNPJ, lista de condições, foto com borda curva (11, 12) | `empresarial/01` reunião |
 
