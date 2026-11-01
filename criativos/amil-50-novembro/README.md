@@ -1,5 +1,8 @@
 # Amil — 50% nas 2 primeiras mensalidades, prorrogada para novembro/2026
 
+> **Substituído por `criativos/amil-50-so-em-novembro`** (o cliente pediu urgência de "só em novembro",
+> sem falar em prorrogação). Mantido só como histórico.
+
 Três variações estáticas da promoção Amil Plano Empresarial, que era só de outubro e foi
 **prorrogada para o mês todo de novembro**. Peça de origem (outubro):
 `motion/videos/amil-outubro-50/assets/ref/amil-outubro-story.png` (a mesma do vídeo "Só em outubro").

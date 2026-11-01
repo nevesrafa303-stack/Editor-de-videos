@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>N4 — Sua empresa ainda não tem plano de saúde?</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* N4 — pergunta de impacto. Referência 05: fundo da marca com grade sutil, moldura fina,
+     pergunta em caixa alta gigante e pessoas recortadas; cartão de preço por cima do recorte.
+     Recorte do banco (empresarial/08) → "Imagem meramente ilustrativa." */
+  body { background: radial-gradient(110% 70% at 50% 40%, #5530ff 0%, var(--violeta) 35%, var(--violeta-escuro) 70%, #1d0c96 100%); }
+  .moldura { position: absolute; border: 3px solid rgba(255,197,66,.75); border-radius: 6px; pointer-events: none; }
+  .brilho { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.28), rgba(255,255,255,0) 68%); }
+  .trio { position: absolute; overflow: hidden; }
+  .trio img { display: block; width: 100%; filter: drop-shadow(0 30px 40px rgba(10,8,56,.45)); }
+  .topo { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .eyebrow { font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ambar); padding-left: .22em; }
+  .pergunta { font-family: var(--mont); font-weight: 900; line-height: .95; letter-spacing: -.01em; text-transform: uppercase; }
+  .sub { font-weight: 600; line-height: 1.25; color: #ebe8ff; }
+  .sub b { color: #fff; font-weight: 800; }
+  .sub em { font-style: normal; color: var(--ambar); font-weight: 800; }
+  .base { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; }
+  .cartao { width: 100%; background: #fff; color: var(--noite); border-radius: 28px; box-shadow: 0 24px 60px rgba(10,8,56,.4); display: grid; align-items: center; }
+  .apartir { color: #3a3870; }
+  .preco { color: var(--violeta); }
+  .nota-preco { color: #3a3870; }
+  .lado { display: flex; flex-direction: column; align-items: stretch; }
+  .lado .kicker { justify-content: center; }
+  .lado .cnpj { background: var(--noite); color: #fff; text-align: center; }
+  .cta { width: 100%; background: var(--verde); color: var(--noite); border-radius: 20px; }
+  .legal { color: #e6e2ff; text-align: center; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .moldura { inset: 236px 30px 368px; }
+  .story .topo { top: 270px; }
+  .story .logo { width: 170px; }
+  .story .eyebrow { font-size: 25px; margin-top: 24px; }
+  .story .pergunta { font-size: 112px; margin-top: 12px; }
+  .story .sub { font-size: 31px; margin-top: 16px; }
+  .story .brilho { width: 900px; height: 900px; left: 90px; top: 620px; }
+  .story .trio { width: 900px; left: 36px; top: 640px; height: 520px; }
+  .story .base { top: 1085px; }
+  .story .cartao { padding: 22px 26px; grid-template-columns: 1fr 270px; column-gap: 16px; }
+  .story .apartir { font-size: 21px; }
+  .story .preco { font-size: 88px; margin-top: 4px; }
+  .story .nota-preco { font-size: 19.5px; margin-top: 4px; }
+  .story .lado { gap: 12px; }
+  .story .kicker { font-size: 21px; padding: 12px 14px; }
+  .story .lado .cnpj { font-size: 19.5px; padding: 11px 10px; }
+  .story .cta { height: 78px; font-size: 31px; margin-top: 18px; }
+  .story .legal { font-size: 19.5px; margin-top: 12px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .moldura { inset: 26px; }
+  .feed .topo { left: 70px; right: auto; width: 560px; top: 70px; align-items: flex-start; text-align: left; }
+  .feed .logo { width: 150px; }
+  .feed .eyebrow { font-size: 20px; margin-top: 20px; padding-left: 0; }
+  .feed .pergunta { font-size: 84px; margin-top: 8px; }
+  .feed .sub { font-size: 25px; margin-top: 14px; }
+  .feed .brilho { width: 760px; height: 760px; left: 420px; top: 170px; }
+  .feed .trio { width: 760px; left: 400px; top: 180px; height: 680px; }
+  .feed .base { top: 812px; }
+  .feed .cartao { padding: 20px 24px; grid-template-columns: 1fr 250px; column-gap: 16px; }
+  .feed .apartir { font-size: 19px; }
+  .feed .preco { font-size: 80px; margin-top: 2px; }
+  .feed .nota-preco { font-size: 16.5px; margin-top: 4px; }
+  .feed .lado { gap: 10px; }
+  .feed .kicker { font-size: 19px; padding: 10px 12px; }
+  .feed .lado .cnpj { font-size: 17px; padding: 9px 10px; }
+  .feed .cta { height: 70px; font-size: 27px; margin-top: 16px; }
+  .feed .legal { font-size: 16.5px; margin-top: 10px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="grade-fundo"></div>
+  <div class="moldura"></div>
+  <div class="brilho"></div>
+  <div class="trio"><img src="../assets/fotos/empresa-08-recorte.png" alt=""></div>
+  <header class="topo">
+    <div class="logo" aria-label="Amil"></div>
+    <p class="eyebrow">Sua empresa ainda não tem</p>
+    <h1 class="pergunta">Plano de<br>saúde?</h1>
+    <p class="sub">Em novembro, o Plano Empresarial Amil<br>sai com <em>50% de desconto</em> nas <b>2 primeiras mensalidades</b>.</p>
+  </header>
+  <section class="base">
+    <div class="cartao">
+      <div>
+        <p class="apartir">3 vidas com coparticipação a partir de</p>
+        <p class="preco" data-preco></p>
+        <p class="nota-preco"></p>
+      </div>
+      <div class="lado">
+        <span class="kicker">Só em novembro</span>
+        <span class="cnpj">Exclusivo para CNPJ</span>
+      </div>
+    </div>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </section>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>

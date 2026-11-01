@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>N1 — Só em novembro (tipográfica)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* N1 — tipográfica. Referência 14 (arco da marca no topo, preço gigante com centavos sobrescritos,
+     caixa de benefícios ao lado, selo CNPJ e faixa de ação) + selo de prazo em formato de ingresso. */
+  body { background: #f4f3ff; color: var(--noite); }
+  .arco { position: absolute; left: -12%; right: -12%; top: 0; background: linear-gradient(160deg, #5a33ff 0%, var(--violeta) 45%, var(--violeta-escuro) 100%);
+    border-radius: 0 0 50% 50% / 0 0 120px 120px; overflow: hidden; }
+  .arco::after { content: ''; position: absolute; inset: 0;
+    background: repeating-radial-gradient(circle at 85% 120%, rgba(255,255,255,.08) 0 2px, transparent 2px 46px); }
+  .topo { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; color: #fff; }
+  .heroi { font-family: var(--mont); font-weight: 900; line-height: .86; letter-spacing: -.03em; display: flex; align-items: baseline; }
+  .heroi .pc { font-size: .55em; color: var(--ambar); margin-left: .02em; }
+  .heroi .off { font-size: .42em; margin-left: .12em; letter-spacing: 0; }
+  .sub { font-weight: 600; line-height: 1.2; }
+  .sub b { font-weight: 800; }
+  .corpo { position: absolute; left: 60px; right: 60px; }
+  .linha { display: grid; align-items: center; }
+  .apartir { color: #3a3870; }
+  .preco { color: var(--violeta); }
+  .nota-preco { color: #3a3870; }
+  .cnpj { background: var(--noite); color: #fff; }
+  .beneficios { background: var(--violeta); color: #fff; border-radius: 26px; box-shadow: 0 18px 40px rgba(70,27,255,.3); }
+  .beneficios h3 { font-family: var(--mont); font-weight: 900; text-transform: uppercase; letter-spacing: .02em; color: var(--ambar); }
+  .beneficios li { list-style: none; display: flex; align-items: center; gap: .5em; font-weight: 600; line-height: 1.2; }
+  .beneficios li i { width: 1.15em; height: 1.15em; border-radius: 50%; background: #fff; color: var(--violeta); display: grid; place-items: center; flex: none; }
+  .beneficios li i svg { width: .75em; height: .75em; }
+  .ingresso { display: flex; align-items: stretch; background: #fff; border-radius: 22px; box-shadow: 0 14px 34px rgba(15,13,89,.14); overflow: hidden; }
+  .ingresso .data { background: var(--ambar); color: var(--noite); display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--mont); font-weight: 900; line-height: .9; border-right: 3px dashed rgba(15,13,89,.35); }
+  .ingresso .data small { font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: .1em; }
+  .ingresso .txt { display: flex; flex-direction: column; justify-content: center; }
+  .ingresso .txt b { font-family: var(--mont); font-weight: 900; color: var(--noite); }
+  .ingresso .txt span { font-weight: 600; color: #3a3870; }
+  .cta { background: var(--noite); color: #fff; border-radius: 22px; }
+  .legal { color: #3a3870; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .arco { height: 790px; }
+  .story .topo { top: 262px; }
+  .story .logo { width: 196px; }
+  .story .kicker { font-size: 30px; padding: 14px 28px; margin-top: 22px; }
+  .story .heroi { font-size: 230px; margin-top: 18px; }
+  .story .sub { font-size: 40px; margin-top: 10px; }
+  .story .corpo { top: 838px; }
+  .story .linha { grid-template-columns: 1fr 440px; column-gap: 24px; }
+  .story .apartir { font-size: 24px; }
+  .story .preco { font-size: 116px; margin-top: 6px; }
+  .story .nota-preco { font-size: 20px; margin-top: 8px; }
+  .story .cnpj { font-size: 22px; padding: 11px 24px; margin-top: 14px; }
+  .story .beneficios { padding: 26px 26px; }
+  .story .beneficios h3 { font-size: 25px; }
+  .story .beneficios ul { margin-top: 14px; display: grid; gap: 14px; }
+  .story .beneficios li { font-size: 24px; }
+  .story .ingresso { margin-top: 30px; height: 140px; }
+  .story .ingresso .data { width: 180px; font-size: 64px; }
+  .story .ingresso .data small { font-size: 20px; margin-top: 6px; }
+  .story .ingresso .txt { padding: 0 28px; }
+  .story .ingresso .txt b { font-size: 33px; }
+  .story .ingresso .txt span { font-size: 23px; margin-top: 4px; }
+  .story .cta { height: 86px; font-size: 32px; margin-top: 26px; }
+  .story .legal { font-size: 19.5px; margin-top: 14px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .arco { height: 570px; }
+  .feed .topo { top: 46px; }
+  .feed .logo { width: 164px; }
+  .feed .kicker { font-size: 24px; padding: 10px 22px; margin-top: 16px; }
+  .feed .heroi { font-size: 170px; margin-top: 12px; }
+  .feed .sub { font-size: 31px; margin-top: 8px; }
+  .feed .corpo { top: 606px; }
+  .feed .linha { grid-template-columns: 1fr 410px; column-gap: 22px; }
+  .feed .apartir { font-size: 20px; }
+  .feed .preco { font-size: 98px; margin-top: 4px; }
+  .feed .nota-preco { font-size: 17px; margin-top: 6px; }
+  .feed .cnpj { font-size: 19px; padding: 8px 20px; margin-top: 10px; }
+  .feed .beneficios { padding: 20px 22px; }
+  .feed .beneficios h3 { font-size: 21px; }
+  .feed .beneficios ul { margin-top: 10px; display: grid; gap: 10px; }
+  .feed .beneficios li { font-size: 20.5px; }
+  .feed .ingresso { margin-top: 24px; height: 112px; }
+  .feed .ingresso .data { width: 150px; font-size: 52px; }
+  .feed .ingresso .data small { font-size: 17px; margin-top: 4px; }
+  .feed .ingresso .txt { padding: 0 24px; }
+  .feed .ingresso .txt b { font-size: 29px; }
+  .feed .ingresso .txt span { font-size: 19px; margin-top: 2px; }
+  .feed .cta { height: 74px; font-size: 28px; margin-top: 22px; }
+  .feed .legal { font-size: 16.5px; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <div class="arco"></div>
+  <header class="topo">
+    <div class="logo" aria-label="Amil"></div>
+    <span class="kicker">Só em novembro</span>
+    <h1 class="heroi">50<span class="pc">%</span><span class="off">OFF</span></h1>
+    <p class="sub">nas <b>2 primeiras mensalidades</b><br>do Plano Empresarial Amil</p>
+  </header>
+  <main class="corpo">
+    <div class="linha">
+      <div>
+        <p class="apartir">3 vidas a partir de</p>
+        <p class="preco" data-preco></p>
+        <p class="nota-preco"></p>
+        <span class="cnpj">Exclusivo para CNPJ</span>
+      </div>
+      <aside class="beneficios">
+        <h3>O que você leva</h3>
+        <ul>
+          <li><i data-icone="check"></i>50% OFF na 1ª mensalidade</li>
+          <li><i data-icone="check"></i>50% OFF na 2ª mensalidade</li>
+          <li><i data-icone="check"></i>Plano com coparticipação</li>
+        </ul>
+      </aside>
+    </div>
+    <div class="ingresso">
+      <div class="data">30<small>NOV</small></div>
+      <div class="txt"><b>Só para contratos de novembro</b><span>Quando o mês acabar, o desconto acaba junto.</span></div>
+    </div>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </main>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>

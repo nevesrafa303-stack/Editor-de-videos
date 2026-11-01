@@ -1,0 +1,64 @@
+/* Amil — 50% nas 2 primeiras mensalidades, só em novembro/2026.
+   Paleta da Amil (site institucional): violeta #461BFF, noite #0F0D59, lavanda; destaque de urgência âmbar
+   e botão verde da Amil. Montserrat 900 nos números e títulos, Poppins no texto.
+   Layouts inspirados em criativos/_referencias/planos-de-saude (ver README do projeto). */
+
+@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 400; src: url('../assets/fonts/Poppins-400.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; src: url('../assets/fonts/Poppins-500.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; src: url('../assets/fonts/Poppins-600.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; src: url('../assets/fonts/Poppins-700.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 800; src: url('../assets/fonts/Poppins-800.ttf'); }
+
+:root {
+  --violeta: #461bff;
+  --violeta-claro: #6a4bff;
+  --violeta-escuro: #2a10c9;
+  --noite: #0f0d59;
+  --noite-funda: #0a0838;
+  --lavanda: #ecebfe;
+  --ambar: #ffc542;
+  --verde: #00d896;
+  --mont: 'Mont', 'Poppins', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; overflow: hidden; }
+body { position: relative; font-family: 'Poppins', sans-serif; color: #fff;
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+body.story { height: 1920px; }
+body.feed { height: 1350px; }
+.abs { position: absolute; }
+
+/* Logo Amil inline (cor por currentColor) e versão em cartão branco, para pôr sobre foto */
+.logo { display: block; line-height: 0; }
+.logo svg { width: 100%; height: auto; display: block; }
+.logo-tile { position: absolute; background: #fff; color: var(--violeta); border-radius: 0 0 22px 22px;
+  box-shadow: 0 10px 30px rgba(10,8,56,.25); display: flex; align-items: center; justify-content: center; }
+
+/* Selo de urgência "SÓ EM NOVEMBRO" */
+.kicker { display: inline-flex; align-items: center; gap: .45em; background: var(--ambar); color: var(--noite);
+  font-family: var(--mont); font-weight: 900; text-transform: uppercase; letter-spacing: .03em; border-radius: 999px;
+  white-space: nowrap; line-height: 1; }
+.kicker svg { width: 1.05em; height: 1.05em; flex: none; }
+
+/* Preço com centavos sobrescritos (referências 01, 02 e 14) */
+.preco { font-family: var(--mont); font-weight: 900; letter-spacing: -.02em; line-height: .95; white-space: nowrap; }
+.preco .rs { font-size: .48em; margin-right: .1em; }
+.preco .cent { font-size: .5em; vertical-align: .66em; letter-spacing: 0; }
+.nota-preco { font-weight: 500; }
+.apartir { font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+
+.cnpj { display: inline-block; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; border-radius: 999px; white-space: nowrap; }
+
+/* Botão e faixa de ação */
+.cta { display: flex; align-items: center; justify-content: center; gap: .5em; font-weight: 700; white-space: nowrap; }
+.cta svg { width: 1.05em; height: 1.05em; flex: none; }
+
+.legal { font-weight: 500; line-height: 1.35; }
+
+/* Grade sutil de fundo (referências 02 e 05) */
+.grade-fundo { position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.07) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.07) 2px, transparent 2px);
+  background-size: 72px 72px; }

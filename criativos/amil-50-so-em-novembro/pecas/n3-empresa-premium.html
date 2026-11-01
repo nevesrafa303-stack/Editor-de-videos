@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>N3 — Empresa (premium escuro)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* N3 — empresa. Referência 16 (Amil Premium): fundo escuro, foto que se dissolve no fundo,
+     aba branca com o logo, cartão escuro de preço + caixa âmbar de condição, itens separados por barras
+     e faixa de ação âmbar. Foto do banco (empresarial/10) → "Imagem meramente ilustrativa." */
+  body { background: #08072e; }
+  .foto { position: absolute; left: 0; right: 0; background: url('../assets/fotos/empresa-10.jpg') no-repeat; background-size: cover; }
+  .foto::after { content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(8,7,46,.55) 0%, rgba(8,7,46,0) 22%, rgba(8,7,46,0) 55%, rgba(8,7,46,.85) 80%, #08072e 100%); }
+  .aba { position: absolute; top: 0; background: #fff; color: var(--violeta); border-radius: 0 0 26px 26px; box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+  .aba small { font-weight: 700; color: var(--noite); letter-spacing: .14em; text-transform: uppercase; }
+  .conteudo { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .titulo { font-family: var(--mont); font-weight: 900; line-height: 1.04; letter-spacing: -.01em; }
+  .titulo em { font-style: normal; color: var(--ambar); }
+  .oferta { width: 100%; display: grid; border-radius: 26px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+  .oferta .esq { background: #17145c; border: 2px solid rgba(255,255,255,.12); border-right: 0; border-radius: 26px 0 0 26px; text-align: left; }
+  .oferta .esq .apartir { color: var(--ambar); }
+  .oferta .esq .preco { color: #fff; }
+  .oferta .esq .nota-preco { color: #d9d5ff; }
+  .oferta .dir { background: linear-gradient(135deg, #ffd56e, var(--ambar) 45%, #e9a92e); color: var(--noite); display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start; text-align: left; font-family: var(--mont); font-weight: 900; line-height: 1; }
+  .oferta .dir b { font-weight: 900; }
+  .oferta .dir span { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.2; }
+  .itens { color: #fff; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .itens i { font-style: normal; color: var(--ambar); padding: 0 .5em; }
+  .cta { width: 100%; background: linear-gradient(90deg, #ffd56e, var(--ambar) 50%, #e9a92e); color: var(--noite); border-radius: 18px;
+    font-family: var(--mont); font-weight: 900; text-transform: uppercase; letter-spacing: .03em; }
+  .legal { color: #cfcbf5; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .foto { top: 0; height: 1010px; background-position: 50% 0; }
+  .story .aba { left: 50%; transform: translateX(-50%); width: 230px; height: 340px; padding-bottom: 18px; }
+  .story .aba .logo { width: 150px; }
+  .story .aba small { font-size: 19px; margin-top: 4px; }
+  .story .conteudo { top: 858px; }
+  .story .titulo { font-size: 64px; }
+  .story .oferta { margin-top: 28px; grid-template-columns: 1fr 330px; }
+  .story .oferta .esq { padding: 24px 28px; }
+  .story .apartir { font-size: 22px; }
+  .story .preco { font-size: 92px; margin-top: 4px; }
+  .story .nota-preco { font-size: 19.5px; margin-top: 6px; }
+  .story .oferta .dir { padding: 20px 26px; font-size: 64px; }
+  .story .oferta .dir span { font-size: 23px; margin-top: 8px; }
+  .story .itens { font-size: 21px; margin-top: 20px; }
+  .story .cta { height: 78px; font-size: 27px; margin-top: 20px; }
+  .story .legal { font-size: 19.5px; margin-top: 12px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .foto { top: 0; height: 700px; background-position: 50% 18%; }
+  .feed .aba { right: 50px; width: 190px; height: 96px; padding-bottom: 16px; }
+  .feed .aba .logo { width: 130px; }
+  .feed .aba small { display: none; }
+  .feed .conteudo { top: 560px; }
+  .feed .titulo { font-size: 56px; }
+  .feed .oferta { margin-top: 22px; grid-template-columns: 1fr 300px; }
+  .feed .oferta .esq { padding: 20px 24px; }
+  .feed .apartir { font-size: 19px; }
+  .feed .preco { font-size: 80px; margin-top: 2px; }
+  .feed .nota-preco { font-size: 16.5px; margin-top: 4px; }
+  .feed .oferta .dir { padding: 16px 22px; font-size: 54px; }
+  .feed .oferta .dir span { font-size: 20px; margin-top: 6px; }
+  .feed .itens { font-size: 18px; margin-top: 16px; }
+  .feed .cta { height: 68px; font-size: 23px; margin-top: 16px; }
+  .feed .legal { font-size: 16.5px; margin-top: 10px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="foto"></div>
+  <div class="aba"><div class="logo"></div><small>Empresarial</small></div>
+  <main class="conteudo">
+    <h1 class="titulo">Plano de saúde para<br>sua empresa com <em>50% OFF</em></h1>
+    <section class="oferta">
+      <div class="esq">
+        <p class="apartir">3 vidas a partir de</p>
+        <p class="preco" data-preco></p>
+        <p class="nota-preco"></p>
+      </div>
+      <div class="dir"><b>50% OFF</b><span>na 1ª e na 2ª<br>mensalidade</span></div>
+    </section>
+    <p class="itens">Com coparticipação<i>|</i>Exclusivo para CNPJ<i>|</i>Só em novembro</p>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </main>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>

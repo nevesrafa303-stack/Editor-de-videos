@@ -42,8 +42,8 @@ são fotos de banco e várias parecem geradas por IA.
 
 ## Cuidados
 
-- `empresarial/01`, `03` e `09` mostram o logo da Apple nos notebooks: cortar ou desfocar quando aparecer no
-  enquadramento (marca de terceiro).
+- `empresarial/02` e `09` mostram o logo da Apple nos notebooks; `03` tem notebooks em primeiro plano: cortar ou
+  desfocar quando aparecer no enquadramento (marca de terceiro). Em `01` o notebook não mostra logo.
 - `empresarial/11` tem um texto sem sentido na parede ao fundo (foto gerada por IA): cortar ou desfocar.
 - Os trios (05 a 08 e 10) casam com ofertas de **3 vidas**; as duplas (02, 11 e 12), com **2 vidas**.
 - Fotos pequenas (menos de 900 px) só devem ir para peça pela versão em `hd/`.

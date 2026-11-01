@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>N2 — Família pelo CNPJ</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* N2 — família. Referências 01 e 15: foto no topo, painel da marca embaixo com borda curva,
+     cartão de preço com selo e faixa de ação. Foto do banco (familia/04) → "Imagem meramente ilustrativa." */
+  body { background: var(--noite); }
+  .foto { position: absolute; left: 0; right: 0; top: 0; background: url('../assets/fotos/familia-04.jpg') no-repeat; background-size: cover; }
+  .painel { position: absolute; left: -8%; right: -8%; bottom: 0; background: linear-gradient(180deg, var(--violeta) 0%, #3313e0 35%, var(--noite) 100%);
+    border-radius: 50% 50% 0 0 / 90px 90px 0 0; }
+  .logo-chip { position: absolute; background: #fff; color: var(--violeta); border-radius: 18px; box-shadow: 0 10px 30px rgba(10,8,56,.25);
+    display: flex; align-items: center; justify-content: center; }
+  .kicker { position: absolute; box-shadow: 0 10px 30px rgba(10,8,56,.3); }
+  .conteudo { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .titulo { font-family: var(--mont); font-weight: 900; line-height: 1.02; letter-spacing: -.01em; }
+  .titulo em { font-style: normal; color: var(--ambar); }
+  .sub { font-weight: 600; line-height: 1.25; color: #e8e4ff; }
+  .sub b { color: #fff; font-weight: 800; }
+  .cartao { width: 100%; background: #fff; color: var(--noite); border-radius: 28px; box-shadow: 0 20px 50px rgba(5,4,40,.35);
+    display: grid; align-items: center; text-align: left; }
+  .apartir { color: #3a3870; }
+  .preco { color: var(--violeta); }
+  .nota-preco { color: #3a3870; }
+  .cnpj { background: var(--lavanda); color: var(--violeta); }
+  .selo { background: var(--ambar); color: var(--noite); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--mont); font-weight: 900; line-height: .9; text-align: center; transform: rotate(-6deg); }
+  .selo small { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.15; }
+  .cta { width: 100%; background: var(--verde); color: var(--noite); border-radius: 20px; box-shadow: 0 14px 30px rgba(0,216,150,.25); }
+  .legal { color: #e2ddff; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .foto { height: 900px; background-position: 50% 30%; }
+  .story .logo-chip { left: 60px; top: 252px; width: 190px; height: 76px; padding: 0 30px; }
+  .story .kicker { right: 60px; top: 260px; font-size: 27px; padding: 14px 24px; }
+  .story .painel { top: 760px; }
+  .story .conteudo { top: 806px; }
+  .story .titulo { font-size: 60px; }
+  .story .sub { font-size: 29px; margin-top: 10px; }
+  .story .cartao { margin-top: 22px; padding: 22px 28px; grid-template-columns: 1fr 190px; column-gap: 16px; }
+  .story .apartir { font-size: 22px; }
+  .story .preco { font-size: 96px; margin-top: 4px; }
+  .story .nota-preco { font-size: 19.5px; margin-top: 6px; }
+  .story .cnpj { font-size: 20px; padding: 8px 18px; margin-top: 10px; }
+  .story .selo { width: 190px; height: 190px; font-size: 58px; }
+  .story .selo small { font-size: 19.5px; margin-top: 6px; }
+  .story .cta { height: 78px; font-size: 31px; margin-top: 18px; }
+  .story .legal { font-size: 19.5px; margin-top: 12px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .foto { height: 640px; background-position: 50% 35%; }
+  .feed .logo-chip { left: 50px; top: 40px; width: 160px; height: 64px; padding: 0 24px; }
+  .feed .kicker { right: 50px; top: 46px; font-size: 23px; padding: 12px 20px; }
+  .feed .painel { top: 530px; }
+  .feed .conteudo { top: 572px; }
+  .feed .titulo { font-size: 54px; }
+  .feed .sub { font-size: 26px; margin-top: 8px; }
+  .feed .cartao { margin-top: 20px; padding: 18px 24px; grid-template-columns: 1fr 160px; column-gap: 14px; }
+  .feed .apartir { font-size: 19px; }
+  .feed .preco { font-size: 84px; margin-top: 2px; }
+  .feed .nota-preco { font-size: 16.5px; margin-top: 4px; }
+  .feed .cnpj { font-size: 17px; padding: 7px 16px; margin-top: 8px; }
+  .feed .selo { width: 160px; height: 160px; font-size: 48px; }
+  .feed .selo small { font-size: 16px; margin-top: 4px; }
+  .feed .cta { height: 68px; font-size: 26px; margin-top: 16px; }
+  .feed .legal { font-size: 16.5px; margin-top: 10px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="foto"></div>
+  <div class="painel"></div>
+  <div class="logo-chip"><div class="logo" style="width:100%"></div></div>
+  <span class="kicker">Só em novembro</span>
+  <main class="conteudo">
+    <h1 class="titulo">Seu CNPJ pode cuidar<br>de <em>quem você ama</em></h1>
+    <p class="sub">Plano Amil para 3 vidas com <b>50% de desconto<br>nas 2 primeiras mensalidades</b></p>
+    <section class="cartao">
+      <div>
+        <p class="apartir">3 vidas a partir de</p>
+        <p class="preco" data-preco></p>
+        <p class="nota-preco"></p>
+        <span class="cnpj">Exclusivo para CNPJ · com coparticipação</span>
+      </div>
+      <div class="selo">50%<small>OFF nas 2<br>primeiras</small></div>
+    </section>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </main>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>

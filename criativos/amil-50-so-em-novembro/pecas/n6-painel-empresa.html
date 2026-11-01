@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>N6 — Painel lateral (empresa)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* N6 — painel lateral. Referências 11 e 12: painel claro com título em duas cores, subtítulo com barra
+     vertical, "03 vidas / a partir de ——", faixa CNPJ, "Condição de novembro" em pílula + lista, foto alta
+     à direita com borda curva da marca. Foto do banco (empresarial/01) → "Imagem meramente ilustrativa." */
+  body { background: #fff; color: var(--noite); }
+  .foto { position: absolute; right: 0; top: 0; background: url('../assets/fotos/empresa-01.jpg') no-repeat; background-size: cover;
+    border-left: 14px solid var(--violeta); }
+  .faixa-base { position: absolute; left: 0; right: 0; bottom: 0; background: var(--lavanda); }
+  .painel { position: absolute; display: flex; flex-direction: column; align-items: flex-start; }
+  .logo { color: var(--violeta); }
+  .titulo { font-family: var(--mont); font-weight: 900; line-height: .98; letter-spacing: -.01em; color: var(--noite); }
+  .titulo span { color: var(--violeta); display: block; }
+  .sub { border-left: 6px solid var(--violeta); font-weight: 600; line-height: 1.25; color: #2b2870; }
+  .sub b { color: var(--violeta); font-weight: 800; }
+  .vidas { font-family: var(--mont); font-weight: 900; line-height: 1; color: var(--noite); }
+  .apartir-linha { display: flex; align-items: center; gap: 14px; width: 100%; font-weight: 600; color: #3a3870; }
+  .apartir-linha::after { content: ''; flex: 1; height: 2px; background: #c9c5f5; }
+  .preco { color: var(--violeta); }
+  .faixa-cnpj { width: 100%; background: var(--violeta); color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; text-align: center; border-radius: 10px; }
+  .nota-preco { color: #3a3870; }
+  .condicao { display: inline-block; background: var(--noite); color: #fff; font-weight: 700; border-radius: 999px; }
+  .condicao b { color: var(--ambar); }
+  .lista { list-style: none; }
+  .lista li { display: flex; align-items: center; gap: .55em; font-weight: 600; color: var(--noite); line-height: 1.2; }
+  .lista li::before { content: ''; width: .7em; height: .7em; border-radius: 3px; background: var(--ambar); flex: none; }
+  .base { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; }
+  .cta { width: 100%; background: var(--violeta); color: #fff; border-radius: 999px; box-shadow: 0 14px 30px rgba(70,27,255,.3); }
+  .legal { color: #3a3870; text-align: center; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .foto { width: 500px; height: 1290px; border-radius: 0 0 0 300px; background-position: 42% 50%; }
+  .story .faixa-base { top: 1290px; }
+  .story .painel { left: 56px; top: 262px; width: 490px; }
+  .story .logo { width: 170px; }
+  .story .kicker { font-size: 23px; padding: 11px 18px; margin-top: 26px; }
+  .story .titulo { font-size: 58px; margin-top: 22px; }
+  .story .titulo span { font-size: 62px; }
+  .story .sub { font-size: 25px; padding-left: 16px; margin-top: 22px; }
+  .story .vidas { font-size: 62px; margin-top: 30px; }
+  .story .apartir-linha { font-size: 25px; margin-top: 6px; }
+  .story .preco { font-size: 84px; margin-top: 6px; }
+  .story .nota-preco { font-size: 19.5px; margin-top: 8px; }
+  .story .faixa-cnpj { font-size: 21px; padding: 11px 0; margin-top: 14px; }
+  .story .condicao { font-size: 22px; padding: 10px 20px; margin-top: 26px; }
+  .story .lista { margin-top: 14px; display: grid; gap: 10px; }
+  .story .lista li { font-size: 23px; }
+  .story .base { top: 1318px; }
+  .story .cta { height: 76px; font-size: 30px; }
+  .story .legal { font-size: 19.5px; margin-top: 12px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .foto { width: 440px; height: 1060px; border-radius: 0 0 0 240px; background-position: 42% 50%; }
+  .feed .faixa-base { top: 1060px; }
+  .feed .painel { left: 56px; top: 54px; width: 540px; }
+  .feed .logo { width: 150px; }
+  .feed .kicker { font-size: 21px; padding: 10px 16px; margin-top: 20px; }
+  .feed .titulo { font-size: 52px; margin-top: 18px; }
+  .feed .titulo span { font-size: 56px; }
+  .feed .sub { font-size: 23px; padding-left: 14px; margin-top: 18px; }
+  .feed .vidas { font-size: 52px; margin-top: 22px; }
+  .feed .apartir-linha { font-size: 22px; margin-top: 4px; }
+  .feed .preco { font-size: 76px; margin-top: 4px; }
+  .feed .nota-preco { font-size: 17px; margin-top: 6px; }
+  .feed .faixa-cnpj { font-size: 19px; padding: 9px 0; margin-top: 12px; }
+  .feed .condicao { font-size: 20px; padding: 9px 18px; margin-top: 20px; }
+  .feed .lista { margin-top: 12px; display: grid; gap: 8px; }
+  .feed .lista li { font-size: 21px; }
+  .feed .base { top: 1082px; }
+  .feed .cta { height: 66px; font-size: 26px; }
+  .feed .legal { font-size: 16.5px; margin-top: 10px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="foto"></div>
+  <div class="faixa-base"></div>
+  <main class="painel">
+    <div class="logo" aria-label="Amil"></div>
+    <span class="kicker">Só em novembro</span>
+    <h1 class="titulo">Plano de Saúde<span>Empresarial</span></h1>
+    <p class="sub">Contrate em novembro e pague<br><b>metade nas 2 primeiras<br>mensalidades.</b></p>
+    <p class="vidas">3 vidas</p>
+    <p class="apartir-linha">a partir de</p>
+    <p class="preco" data-preco></p>
+    <p class="nota-preco"></p>
+    <p class="faixa-cnpj">Exclusivo para CNPJ</p>
+    <span class="condicao">Condição de <b>novembro</b>:</span>
+    <ul class="lista">
+      <li>50% de desconto na 1ª mensalidade</li>
+      <li>50% de desconto na 2ª mensalidade</li>
+      <li>Plano com coparticipação</li>
+    </ul>
+  </main>
+  <section class="base">
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </section>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>

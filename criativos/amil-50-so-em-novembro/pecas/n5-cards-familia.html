@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>N5 — Cards (família)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* N5 — cards modulares. Referência 02: fundo escuro com grade, foto num card arredondado com etiqueta,
+     card violeta com logo e caixa de preço de borda dourada, card branco com "3 VIDAS" em marca-texto
+     e pílulas com seta. Foto do banco (familia/05) → "Imagem meramente ilustrativa." */
+  body { background: linear-gradient(180deg, #3a17f0 0%, #24109f 30%, var(--noite) 60%, #0b0a45 100%); }
+  .coluna { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .titulo { font-family: var(--mont); font-weight: 900; line-height: 1.04; letter-spacing: -.01em; }
+  .titulo em { font-style: normal; color: var(--ambar); }
+  .card-foto { position: relative; width: 100%; border-radius: 30px; overflow: hidden; border: 3px solid rgba(255,255,255,.25);
+    background: url('../assets/fotos/familia-05.jpg') no-repeat; background-size: cover; box-shadow: 0 24px 60px rgba(5,4,40,.45); }
+  .card-foto .kicker { position: absolute; }
+  .grade { width: 100%; display: grid; grid-template-columns: 470px 1fr; }
+  .direita { display: flex; flex-direction: column; }
+  .card-violeta { background: var(--violeta); border-radius: 28px; display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+    border: 2px solid rgba(255,255,255,.2); }
+  .card-violeta .rotulo { font-family: var(--mont); font-weight: 900; text-transform: uppercase; line-height: 1.05; color: #fff; }
+  .card-violeta .rotulo span { color: #cfc6ff; }
+  .caixa-preco { background: #fff; color: var(--noite); border: 4px solid var(--ambar); border-radius: 22px; width: 100%; text-align: center; }
+  .caixa-preco .apartir { color: #3a3870; }
+  .caixa-preco .preco { color: var(--noite); }
+  .caixa-preco .nota-preco { color: #3a3870; }
+  .card-branco { background: #fff; color: var(--noite); border-radius: 28px; display: flex; flex-direction: column; align-items: stretch; text-align: left; }
+  .marca { align-self: flex-start; font-family: var(--mont); font-weight: 900; color: var(--noite); background: linear-gradient(transparent 22%, var(--ambar) 22%, var(--ambar) 88%, transparent 88%); padding: 0 .12em; }
+  .pilula { display: flex; align-items: center; justify-content: space-between; border: 3px solid var(--noite); border-radius: 999px; font-weight: 600; color: var(--noite); }
+  .pilula i { background: var(--noite); color: var(--ambar); border-radius: 50%; display: grid; place-items: center; flex: none; }
+  .pilula i svg { width: 60%; height: 60%; }
+  .cta { width: 100%; background: var(--verde); color: var(--noite); border-radius: 20px; }
+  .legal { color: #dcd8ff; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .coluna { top: 262px; }
+  .story .titulo { font-size: 62px; }
+  .story .grade { margin-top: 30px; column-gap: 20px; }
+  .story .card-foto { height: auto; background-position: 62% 50%; }
+  .story .card-foto .kicker { left: 18px; top: 18px; font-size: 22px; padding: 11px 18px; }
+  .story .direita { gap: 20px; }
+  .story .card-violeta { padding: 28px 26px; }
+  .story .card-violeta .logo { width: 160px; }
+  .story .card-violeta .rotulo { font-size: 29px; margin-top: 16px; }
+  .story .caixa-preco { margin-top: 18px; padding: 16px 8px; }
+  .story .caixa-preco .apartir { font-size: 20px; }
+  .story .caixa-preco .preco { font-size: 78px; margin-top: 4px; }
+  .story .caixa-preco .nota-preco { font-size: 19.5px; margin-top: 6px; line-height: 1.25; }
+  .story .card-branco { padding: 26px 24px; gap: 16px; }
+  .story .marca { font-size: 60px; }
+  .story .pilula { font-size: 22px; padding: 10px 10px 10px 20px; }
+  .story .pilula i { width: 42px; height: 42px; }
+  .story .cta { height: 86px; font-size: 32px; margin-top: 28px; }
+  .story .legal { font-size: 19.5px; margin-top: 16px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .coluna { top: 56px; }
+  .feed .titulo { font-size: 56px; }
+  .feed .grade { margin-top: 26px; column-gap: 20px; grid-template-columns: 440px 1fr; }
+  .feed .card-foto { height: auto; background-position: 62% 50%; }
+  .feed .card-foto .kicker { left: 16px; top: 16px; font-size: 21px; padding: 10px 17px; }
+  .feed .direita { gap: 18px; }
+  .feed .card-violeta { padding: 24px 24px; }
+  .feed .card-violeta .logo { width: 150px; }
+  .feed .card-violeta .rotulo { font-size: 27px; margin-top: 14px; }
+  .feed .caixa-preco { margin-top: 16px; padding: 14px 8px; }
+  .feed .caixa-preco .apartir { font-size: 19px; }
+  .feed .caixa-preco .preco { font-size: 76px; margin-top: 4px; }
+  .feed .caixa-preco .nota-preco { font-size: 17px; margin-top: 4px; line-height: 1.25; }
+  .feed .card-branco { padding: 24px 22px; gap: 14px; }
+  .feed .marca { font-size: 56px; }
+  .feed .pilula { font-size: 21px; padding: 9px 9px 9px 18px; }
+  .feed .pilula i { width: 40px; height: 40px; }
+  .feed .cta { height: 78px; font-size: 29px; margin-top: 24px; }
+  .feed .legal { font-size: 17px; margin-top: 14px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="grade-fundo"></div>
+  <main class="coluna">
+    <h1 class="titulo">Sua família no plano Amil<br>pelo seu CNPJ, com <em>50% OFF</em></h1>
+    <div class="grade">
+      <div class="card-foto"><span class="kicker">Só em novembro</span></div>
+      <div class="direita">
+      <section class="card-violeta">
+        <div class="logo" aria-label="Amil"></div>
+        <p class="rotulo">Plano empresarial<br><span>para CNPJ</span></p>
+        <div class="caixa-preco">
+          <p class="apartir">A partir de</p>
+          <p class="preco" data-preco></p>
+          <p class="nota-preco"></p>
+        </div>
+      </section>
+      <section class="card-branco">
+        <span class="marca">3 VIDAS</span>
+        <span class="pilula">50% OFF na 1ª mensalidade<i data-icone="chevron"></i></span>
+        <span class="pilula">50% OFF na 2ª mensalidade<i data-icone="chevron"></i></span>
+        <span class="pilula">Com coparticipação<i data-icone="chevron"></i></span>
+      </section>
+      </div>
+    </div>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </main>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>
