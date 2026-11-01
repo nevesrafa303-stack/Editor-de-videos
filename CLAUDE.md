@@ -57,6 +57,13 @@ Antes de criar qualquer criativo de plano de saúde (estático ou vídeo), abrir
 `README.md` (arquétipos de layout, bloco de preço, prova de rede, benefícios, CTA, paletas por operadora)
 e o painel `_painel.jpg`. Usar como linguagem visual, sem copiar marca, contato ou valores de terceiros.
 
+### Banco de imagens (fotos de pessoas)
+
+Fotos para os criativos de plano de saúde ficam em `criativos/_banco-de-imagens/` (índice no `README.md`):
+**`familia/`** quando o criativo é direcionado a família / pessoa física, **`empresarial/`** quando é
+direcionado a empresas (CNPJ, PME, MEI, sócios, colaboradores). Usar sempre a versão em alta de `hd/` e
+incluir "Imagem meramente ilustrativa.".
+
 ## Vozes padrão da locução (ElevenLabs, modelo Eleven v4)
 
 Escolhidas pelo cliente. Usar estas, salvo pedido diferente:
