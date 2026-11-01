@@ -1,0 +1,52 @@
+/* Amil — 50% nas 2 primeiras mensalidades, promoção prorrogada para novembro/2026.
+   Paleta e tipografia da peça de outubro (Montserrat 900 nos números e títulos, Poppins no texto)
+   e referências em criativos/_referencias/planos-de-saude. */
+
+@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 400; src: url('../assets/fonts/Poppins-400.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; src: url('../assets/fonts/Poppins-500.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; src: url('../assets/fonts/Poppins-600.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; src: url('../assets/fonts/Poppins-700.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 800; src: url('../assets/fonts/Poppins-800.ttf'); }
+
+:root {
+  --violeta: #461bff;       /* Amil */
+  --violeta-escuro: #2a10c9;
+  --marinho: #0e0a55;
+  --lavanda: #ecebfe;
+  --ambar: #ffc542;          /* destaque da prorrogação (mesmo âmbar do vídeo de outubro) */
+  --branco: #ffffff;
+  --mont: 'Mont', 'Poppins', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; overflow: hidden; }
+body { position: relative; font-family: 'Poppins', sans-serif; color: var(--branco);
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+body.story { height: 1920px; }
+body.feed { height: 1350px; }
+
+.logo { display: block; line-height: 0; }
+.logo svg { width: 100%; height: auto; display: block; }
+
+/* Selo de prorrogação */
+.selo { display: inline-block; background: var(--ambar); color: var(--marinho); font-family: var(--mont); font-weight: 900;
+  text-transform: uppercase; letter-spacing: .02em; border-radius: 14px; white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(14,10,85,.28); }
+
+/* Cartão branco do preço */
+.cartao { background: var(--branco); color: var(--marinho); border-radius: 36px; box-shadow: 0 24px 60px rgba(14,10,85,.30); }
+.preco { font-family: var(--mont); font-weight: 900; letter-spacing: -.02em; line-height: .95; color: var(--marinho); white-space: nowrap; }
+.preco .rs { font-size: .55em; margin-right: .08em; }
+.preco .cent { font-size: .55em; vertical-align: .62em; }
+.nota-preco { font-weight: 500; color: #3a3870; }
+.cnpj { display: inline-block; background: var(--violeta); color: #fff; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; border-radius: 999px; white-space: nowrap; }
+
+/* Botão de ação */
+.cta { display: flex; align-items: center; justify-content: center; gap: .5em; font-weight: 700; border-radius: 22px; white-space: nowrap; }
+.cta svg { width: 1.05em; height: 1.05em; }
+
+/* Texto legal */
+.legal { font-weight: 500; line-height: 1.35; }

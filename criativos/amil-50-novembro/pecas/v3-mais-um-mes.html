@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>V3 — Deixou para depois em outubro?</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Variação 3: pergunta de impacto (referências 03, 05 e 08) + calendário de novembro/2026 inteiro
+     marcado, em fundo claro para contrastar com as outras duas. Sem foto. */
+  body { background: linear-gradient(180deg, #f6f5ff 0%, #ecebfe 100%); color: var(--marinho); }
+  /* faixa roxa com base arredondada, que termina atrás do calendário */
+  .faixa { position: absolute; left: -10%; right: -10%; top: 0; background: linear-gradient(160deg, #4a20ff 0%, #3714e6 55%, #2a10c9 100%);
+    border-radius: 0 0 50% 50% / 0 0 140px 140px; }
+  .coluna { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .logo { color: #fff; }
+  .pergunta { font-family: var(--mont); font-weight: 900; line-height: 1.04; color: #fff; }
+  .resposta { font-weight: 700; color: var(--ambar); }
+  .cal { position: relative; background: #fff; border-radius: 30px; box-shadow: 0 24px 60px rgba(14,10,85,.18); overflow: visible; }
+  .cal header { background: var(--marinho); color: #fff; border-radius: 30px 30px 0 0; font-family: var(--mont); font-weight: 900;
+    letter-spacing: .12em; text-transform: uppercase; }
+  .cal header span { color: var(--ambar); }
+  .grade { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .grade .sem { font-weight: 700; color: #5a5890; }
+  .grade .dia { display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff;
+    background: var(--violeta); border-radius: 50%; justify-self: center; }
+  .grade .dia.ultimo { background: var(--ambar); color: var(--marinho); box-shadow: 0 0 0 5px rgba(255,197,66,.35); }
+  .adesivo { position: absolute; background: var(--ambar); color: var(--marinho); border-radius: 50%; transform: rotate(10deg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--mont); font-weight: 900; line-height: .88;
+    box-shadow: 0 14px 30px rgba(14,10,85,.3); }
+  .adesivo small { font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: .04em; }
+  .oferta { font-family: var(--mont); font-weight: 900; line-height: 1.08; color: var(--marinho); }
+  .oferta em { font-style: normal; color: var(--violeta); }
+  .linha-preco { display: flex; align-items: center; justify-content: center; }
+  .linha-preco .info { text-align: left; }
+  .vidas { font-weight: 600; line-height: 1.2; }
+  .apartir { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #3a3870; }
+  .preco { color: var(--violeta); }
+  .cta { background: var(--violeta); color: #fff; box-shadow: 0 16px 40px rgba(70,27,255,.35); }
+  .legal { color: #3a3870; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .faixa { height: 820px; }
+  .story .coluna { top: 252px; }
+  .story .logo { width: 190px; }
+  .story .pergunta { font-size: 74px; margin-top: 22px; }
+  .story .resposta { font-size: 38px; margin-top: 10px; }
+  .story .cal { width: 860px; margin-top: 28px; }
+  .story .cal header { font-size: 32px; padding: 14px 0; }
+  .story .grade { padding: 10px 30px 18px; row-gap: 7px; }
+  .story .grade .sem { font-size: 20px; padding: 2px 0 4px; }
+  .story .grade .dia { width: 54px; height: 54px; font-size: 24px; }
+  .story .adesivo { width: 170px; height: 170px; right: -36px; top: -76px; font-size: 58px; }
+  .story .adesivo small { font-size: 19px; margin-top: 6px; }
+  .story .oferta { font-size: 44px; margin-top: 24px; }
+  .story .linha-preco { gap: 26px; margin-top: 16px; }
+  .story .vidas { font-size: 25px; }
+  .story .apartir { font-size: 20px; margin-top: 4px; }
+  .story .preco { font-size: 90px; }
+  .story .nota-preco { font-size: 20px; margin-top: 4px; }
+  .story .cnpj { font-size: 19px; padding: 8px 18px; margin-top: 8px; }
+  .story .cta { width: 900px; height: 74px; font-size: 30px; margin-top: 18px; }
+  .story .legal { width: 940px; font-size: 19.5px; margin-top: 10px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .faixa { height: 560px; }
+  .feed .coluna { top: 52px; }
+  .feed .logo { width: 170px; }
+  .feed .pergunta { font-size: 62px; margin-top: 16px; }
+  .feed .resposta { font-size: 31px; margin-top: 8px; }
+  .feed .cal { width: 780px; margin-top: 24px; }
+  .feed .cal header { font-size: 27px; padding: 12px 0; }
+  .feed .grade { padding: 10px 24px 14px; row-gap: 6px; }
+  .feed .grade .sem { font-size: 17px; padding: 2px 0 4px; }
+  .feed .grade .dia { width: 50px; height: 50px; font-size: 21px; }
+  .feed .adesivo { width: 146px; height: 146px; right: -60px; top: -60px; font-size: 50px; }
+  .feed .adesivo small { font-size: 17px; margin-top: 4px; }
+  .feed .oferta { font-size: 40px; margin-top: 22px; }
+  .feed .linha-preco { gap: 24px; margin-top: 14px; }
+  .feed .vidas { font-size: 22px; }
+  .feed .apartir { font-size: 17px; margin-top: 2px; }
+  .feed .preco { font-size: 82px; }
+  .feed .nota-preco { font-size: 17px; margin-top: 2px; }
+  .feed .cnpj { font-size: 17px; padding: 7px 16px; margin-top: 6px; }
+  .feed .cta { width: 880px; height: 68px; font-size: 27px; margin-top: 18px; }
+  .feed .legal { width: 940px; font-size: 17px; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <div class="faixa"></div>
+  <main class="coluna">
+    <div class="logo" aria-label="Amil"></div>
+    <h1 class="pergunta">Deixou para depois<br>em outubro?</h1>
+    <p class="resposta">A promoção foi prorrogada.</p>
+    <section class="cal">
+      <header>Novembro <span>2026</span></header>
+      <div class="grade"></div>
+      <div class="adesivo">50%<small>OFF</small></div>
+    </section>
+    <p class="oferta">50% de desconto nas <em>2 primeiras<br>mensalidades</em> até 30 de novembro</p>
+    <div class="linha-preco">
+      <div class="info">
+        <p class="vidas">Plano para 3 vidas<br>com coparticipação</p>
+        <p class="apartir">a partir de</p>
+        <span class="cnpj">Exclusivo para CNPJ</span>
+      </div>
+      <div class="info">
+        <p class="preco" data-preco></p>
+        <p class="nota-preco"></p>
+      </div>
+    </div>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </main>
+  <script type="module">
+    import { montar } from './base.js';
+    // Novembro de 2026 começa num domingo; semana começando no domingo (padrão brasileiro).
+    const grade = document.querySelector('.grade');
+    const html = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map(d => `<span class="sem">${d}</span>`);
+    for (let d = 1; d <= 30; d++) html.push(`<span class="dia${d === 30 ? ' ultimo' : ''}">${d}</span>`);
+    grade.innerHTML = html.join('');
+    montar();
+  </script>
+</body>
+</html>

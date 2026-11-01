@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>V1 — Promoção prorrogada</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Variação 1: "Promoção prorrogada". Tipográfica, no estilo da peça de outubro e das referências
+     02 e 14 (número grande + cartão branco de preço + selo CNPJ + botão). Sem foto. */
+  body { background: linear-gradient(180deg, #3d18f5 0%, #3112de 45%, #220c9e 100%); overflow: hidden; }
+  .bolha { position: absolute; border-radius: 50%; filter: blur(2px); }
+  .b1 { width: 760px; height: 760px; left: -330px; top: -300px; background: radial-gradient(circle at 60% 60%, #6b4cff, #4a26ff 70%); opacity: .55; }
+  .b2 { width: 620px; height: 620px; right: -360px; top: 520px; background: radial-gradient(circle at 30% 40%, #5f3dff, #3b17f0 70%); opacity: .6; }
+  .b3 { width: 900px; height: 900px; left: -420px; bottom: -520px; background: radial-gradient(circle, #2f12d6, #24109f 70%); opacity: .7; }
+
+  .coluna { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .selo { transform: rotate(-2.5deg); }
+  .pct { font-family: var(--mont); font-weight: 900; line-height: .82; letter-spacing: -.03em; }
+  .pct small { font-size: .5em; vertical-align: .62em; letter-spacing: 0; }
+  .desconto { font-family: var(--mont); font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+  .sub { font-weight: 600; line-height: 1.15; }
+  .prazo { display: inline-flex; align-items: center; gap: .45em; border: 3px solid rgba(255,255,255,.9); border-radius: 999px; font-weight: 600; }
+  .prazo b { color: var(--ambar); font-weight: 700; }
+  .prazo svg { width: 1.1em; height: 1.1em; }
+  .cartao { display: flex; flex-direction: column; align-items: center; }
+  .eyebrow { font-weight: 700; color: var(--violeta); letter-spacing: .16em; text-transform: uppercase; }
+  .vidas { font-weight: 600; color: var(--marinho); line-height: 1.2; }
+  .apartir { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #3a3870; }
+  .cta { background: #fff; color: var(--violeta); box-shadow: 0 16px 40px rgba(14,10,85,.3); }
+  .legal { color: #e6e2ff; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .coluna { top: 252px; }
+  .story .logo { width: 226px; }
+  .story .selo { font-size: 33px; padding: 13px 30px; margin-top: 24px; }
+  .story .pct { font-size: 252px; margin-top: 22px; }
+  .story .desconto { font-size: 56px; margin-top: 4px; }
+  .story .sub { font-size: 43px; margin-top: 2px; }
+  .story .prazo { font-size: 31px; padding: 10px 28px; margin-top: 18px; }
+  .story .cartao { width: 900px; padding: 24px 40px 28px; margin-top: 24px; }
+  .story .eyebrow { font-size: 22px; }
+  .story .vidas { font-size: 32px; margin-top: 4px; }
+  .story .apartir { font-size: 23px; margin-top: 10px; }
+  .story .preco { font-size: 116px; }
+  .story .nota-preco { font-size: 21px; margin-top: 6px; }
+  .story .cnpj { font-size: 23px; padding: 11px 28px; margin-top: 12px; }
+  .story .cta { width: 900px; height: 80px; font-size: 32px; margin-top: 18px; }
+  .story .legal { width: 940px; font-size: 19.5px; margin-top: 12px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .coluna { top: 58px; }
+  .feed .logo { width: 200px; }
+  .feed .selo { font-size: 29px; padding: 11px 26px; margin-top: 22px; }
+  .feed .pct { font-size: 250px; margin-top: 20px; }
+  .feed .desconto { font-size: 48px; margin-top: 4px; }
+  .feed .sub { font-size: 38px; margin-top: 2px; }
+  .feed .prazo { font-size: 28px; padding: 9px 26px; margin-top: 18px; }
+  .feed .cartao { width: 880px; padding: 24px 38px 28px; margin-top: 24px; }
+  .feed .eyebrow { font-size: 21px; }
+  .feed .vidas { font-size: 30px; margin-top: 4px; }
+  .feed .apartir { font-size: 21px; margin-top: 8px; }
+  .feed .preco { font-size: 108px; }
+  .feed .nota-preco { font-size: 18px; margin-top: 6px; }
+  .feed .cnpj { font-size: 21px; padding: 9px 24px; margin-top: 12px; }
+  .feed .cta { width: 880px; height: 76px; font-size: 29px; margin-top: 18px; }
+  .feed .legal { width: 920px; font-size: 17px; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <div class="bolha b1"></div><div class="bolha b2"></div><div class="bolha b3"></div>
+  <main class="coluna">
+    <div class="logo" aria-label="Amil"></div>
+    <span class="selo">Promoção prorrogada</span>
+    <div class="pct">50<small>%</small></div>
+    <div class="desconto">de desconto</div>
+    <p class="sub">nas 2 primeiras mensalidades</p>
+    <span class="prazo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agora vale <b>até 30 de novembro</b></span>
+    <section class="cartao">
+      <p class="eyebrow">Plano Empresarial Amil</p>
+      <p class="vidas">Plano para 3 vidas com coparticipação</p>
+      <p class="apartir">a partir de</p>
+      <p class="preco" data-preco></p>
+      <p class="nota-preco"></p>
+      <span class="cnpj">Exclusivo para CNPJ</span>
+    </section>
+    <div class="cta">Solicite uma cotação personalizada</div>
+    <p class="legal"></p>
+  </main>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>

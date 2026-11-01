@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>V2 — Sua empresa pagando metade</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Variação 2: "Sua empresa com plano Amil pagando metade". Pessoas recortadas sobre a cor da
+     operadora com anéis concêntricos (como os banners da Amil e a referência 05), cartão de preço
+     por cima da foto. Foto Adobe Stock (licença gratuita) → "Imagem meramente ilustrativa." */
+  body { background: radial-gradient(120% 80% at 70% 45%, #5531ff 0%, #4119f2 40%, #2a10c9 75%, #1f0c96 100%); }
+  .aneis { position: absolute; border-radius: 50%; }
+  .aneis::before, .aneis::after, .aneis i { content: ''; position: absolute; border-radius: 50%; inset: 0; }
+  .aneis::before { border: 4px solid rgba(255,255,255,.22); inset: 13%; }
+  .aneis::after { border: 4px solid rgba(255,255,255,.16); inset: 2%; }
+  .aneis i { border: 4px solid rgba(255,255,255,.1); inset: -10%; }
+  /* a foto termina atrás do cartão (corte reto do recorte fica escondido) */
+  .pessoas { position: absolute; overflow: hidden; }
+  .pessoas img { display: block; width: 100%; filter: drop-shadow(0 30px 40px rgba(14,10,85,.35)); }
+  .aneis { background: radial-gradient(circle, #6a4bff 0 46%, transparent 46.3%); }
+  .logo { position: absolute; color: #fff; }
+  .selo { position: absolute; transform: rotate(2deg); }
+  .bloco { position: absolute; }
+  .titulo { font-family: var(--mont); font-weight: 900; line-height: 1.02; letter-spacing: -.01em; }
+  .titulo em { font-style: normal; color: var(--ambar); }
+  .sub { font-weight: 600; line-height: 1.2; }
+  .cartao { position: absolute; display: grid; }
+  .vidas { font-weight: 600; color: var(--marinho); line-height: 1.2; }
+  .apartir { font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #3a3870; }
+  .selo50 { justify-self: end; align-self: start; background: var(--violeta); color: #fff; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--mont); font-weight: 900; line-height: .9; text-align: center; }
+  .selo50 small { font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: .04em; }
+  .cta { position: absolute; background: var(--ambar); color: var(--marinho); box-shadow: 0 16px 40px rgba(14,10,85,.35); }
+  .legal { position: absolute; color: #e6e2ff; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .logo { left: 70px; top: 262px; width: 196px; }
+  .story .selo { right: 64px; top: 258px; font-size: 27px; padding: 12px 22px; }
+  .story .bloco { left: 64px; top: 352px; width: 960px; }
+  .story .titulo { font-size: 70px; }
+  .story .sub { font-size: 34px; margin-top: 14px; width: 900px; }
+  .story .aneis { width: 900px; height: 900px; left: 150px; top: 560px; }
+  .story .pessoas { width: 860px; left: 170px; top: 610px; height: 460px; }
+  .story .cartao { left: 60px; top: 1000px; width: 960px; padding: 24px 34px; grid-template-columns: 1fr 180px; column-gap: 20px; }
+  .story .vidas { font-size: 30px; }
+  .story .apartir { font-size: 21px; margin-top: 8px; }
+  .story .preco { font-size: 100px; }
+  .story .nota-preco { font-size: 20px; margin-top: 4px; }
+  .story .cnpj { font-size: 21px; padding: 9px 22px; margin-top: 10px; justify-self: start; }
+  .story .selo50 { width: 180px; height: 180px; font-size: 60px; grid-row: 1 / span 5; grid-column: 2; align-self: center; }
+  .story .selo50 small { font-size: 20px; margin-top: 6px; }
+  .story .cta { left: 60px; top: 1300px; width: 960px; height: 74px; font-size: 30px; }
+  .story .legal { left: 60px; top: 1392px; width: 960px; font-size: 19.5px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .logo { left: 60px; top: 58px; width: 170px; }
+  .feed .selo { left: 60px; top: 132px; font-size: 22px; padding: 9px 18px; transform: rotate(-2deg); }
+  .feed .bloco { left: 60px; top: 200px; width: 480px; }
+  .feed .titulo { font-size: 58px; }
+  .feed .sub { font-size: 26px; margin-top: 10px; width: 470px; }
+  .feed .aneis { width: 640px; height: 640px; left: 560px; top: 120px; }
+  .feed .pessoas { width: 560px; left: 530px; top: 190px; height: 560px; }
+  .feed .cartao { left: 60px; top: 690px; width: 960px; padding: 24px 32px; grid-template-columns: 1fr 170px; column-gap: 20px; }
+  .feed .vidas { font-size: 27px; }
+  .feed .apartir { font-size: 19px; margin-top: 8px; }
+  .feed .preco { font-size: 92px; }
+  .feed .nota-preco { font-size: 18px; margin-top: 4px; }
+  .feed .cnpj { font-size: 19px; padding: 8px 20px; margin-top: 10px; justify-self: start; }
+  .feed .selo50 { width: 170px; height: 170px; font-size: 56px; grid-row: 1 / span 5; grid-column: 2; align-self: center; }
+  .feed .selo50 small { font-size: 18px; margin-top: 5px; }
+  .feed .cta { left: 60px; top: 1002px; width: 960px; height: 72px; font-size: 28px; }
+  .feed .legal { left: 60px; top: 1098px; width: 960px; font-size: 17px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="aneis"><i></i></div>
+  <div class="pessoas"><img src="../assets/fotos/dupla.png" alt=""></div>
+  <div class="logo" aria-label="Amil"></div>
+  <span class="selo">Prorrogada até 30/11</span>
+  <div class="bloco">
+    <h1 class="titulo">Sua empresa com plano Amil pagando <em>metade</em></h1>
+    <p class="sub">nas 2 primeiras mensalidades: 50% de desconto, agora em novembro inteiro.</p>
+  </div>
+  <section class="cartao">
+    <p class="vidas">Plano para 3 vidas com coparticipação</p>
+    <p class="apartir">a partir de</p>
+    <p class="preco" data-preco></p>
+    <p class="nota-preco"></p>
+    <span class="cnpj">Exclusivo para CNPJ</span>
+    <div class="selo50">50%<small>OFF</small></div>
+  </section>
+  <div class="cta">Solicite uma cotação personalizada</div>
+  <p class="legal"></p>
+  <script type="module">
+    import { montar } from './base.js';
+    montar();
+  </script>
+</body>
+</html>
