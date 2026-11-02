@@ -95,6 +95,7 @@ export function iniciarAnimacoes() {
           start: "top top",
           end: () => `+=${window.innerHeight * 1.1}`,
           pin: true,
+          pinSpacer: "[data-hero-espaco]",
           scrub: 0.6,
           anticipatePin: 1,
           invalidateOnRefresh: true,
