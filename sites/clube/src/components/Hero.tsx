@@ -27,7 +27,7 @@ function Icone({ tipo }: { tipo: "data" | "local" }) {
 export function Hero() {
   return (
     <section id="topo" data-hero aria-labelledby="hero-titulo" className="relative bg-ink">
-      <div data-hero-palco className="relative h-[100svh] min-h-[38rem] overflow-hidden">
+      <div data-hero-palco className="relative h-[100svh] min-h-[32rem] overflow-hidden">
         <div data-hero-janela className="absolute inset-0 overflow-hidden">
           <div className="abertura-circulo absolute inset-0">
             <video
@@ -60,7 +60,7 @@ export function Hero() {
           {hero.video}
         </p>
 
-        <div data-hero-conteudo className="relative z-10 flex h-full flex-col justify-end pb-24 pt-28 md:pb-20">
+        <div data-hero-conteudo className="relative z-10 flex h-full flex-col justify-end pb-20 pt-24">
           <div className="container-site">
             <p
               className="hero-rise inline-flex max-w-full items-center gap-2.5 rounded-full border border-ouro/25 bg-ink/40 px-3.5 py-2 text-[0.7rem] font-semibold leading-snug text-ouro backdrop-blur md:text-xs"
@@ -81,20 +81,25 @@ export function Hero() {
             </p>
             <h1
               id="hero-titulo"
-              className="font-expanded hero-sobe mt-5 max-w-[22ch] text-[clamp(1.75rem,4.6vw,4rem)] font-bold uppercase leading-[0.98] tracking-tight text-white"
+              className="font-expanded hero-sobe mt-5 max-w-[22ch] text-[clamp(1.75rem,min(4.6vw,7.4svh),4rem)] font-bold uppercase leading-[0.98] tracking-tight text-white [@media(max-height:600px)]:mt-4 [@media(max-height:600px)]:text-[1.55rem]"
               style={vars({ "--i": 8 })}
             >
               {hero.titulo}{" "}
               <span className="texto-ouro brilho mt-2 block text-[0.62em] leading-[1.05]">{hero.complemento}</span>
             </h1>
-            <p className="hero-rise mt-5 max-w-2xl text-base leading-relaxed text-fog/85 md:text-lg" style={vars({ "--i": 9 })}>
+            {/* Telas baixas (celular com a barra do navegador, notebook de 720 px): o parágrafo sai para o título e o
+                botão caberem sem rolar. */}
+            <p
+              className="hero-rise mt-5 max-w-2xl text-base leading-relaxed text-fog/85 md:text-lg [@media(max-height:700px)]:hidden [@media(max-height:760px)_and_(max-width:767px)]:hidden"
+              style={vars({ "--i": 9 })}
+            >
               {hero.subtitulo}
             </p>
-            <div className="hero-rise mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8" style={vars({ "--i": 10 })}>
+            <div className="hero-rise mt-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8" style={vars({ "--i": 10 })}>
               <Cta local="hero" className="w-full sm:w-auto">
                 {cta}
               </Cta>
-              <div className="w-full max-w-60">
+              <div className="w-full max-w-60 [@media(max-height:700px)_and_(max-width:767px)]:hidden">
                 <p className="flex items-baseline justify-between text-xs font-semibold uppercase tracking-[0.14em] text-mute">
                   Ingressos vendidos
                   <span className="font-expanded text-base text-white">{evento.vendidos}%</span>
