@@ -64,6 +64,13 @@ Fotos para os criativos de plano de saúde ficam em `criativos/_banco-de-imagens
 direcionado a empresas (CNPJ, PME, MEI, sócios, colaboradores). Usar sempre a versão em alta de `hd/` e
 incluir "Imagem meramente ilustrativa.".
 
+## Clientes — regras específicas
+
+- **Ana Claudia Clicks (estúdio de fotografia):** as fotos do estúdio entram **exatamente como enviadas**.
+  Só enquadrar (cortar) e reduzir; nada de recorte/troca de fundo, ampliação por IA, nitidez, filtro, retoque
+  ou texto/degradê por cima da pessoa, e nunca ampliar a foto na exportação. Pedido da cliente em 03/11/2026.
+  Detalhes em `criativos/anaclaudia-gestante-black-friday/README.md`.
+
 ## Vozes padrão da locução (ElevenLabs, modelo Eleven v4)
 
 Escolhidas pelo cliente. Usar estas, salvo pedido diferente:

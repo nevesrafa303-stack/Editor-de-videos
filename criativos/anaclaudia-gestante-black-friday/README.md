@@ -1,78 +1,66 @@
-# Ana Claudia Clicks — Black Friday Gestante (novembro/2026)
+# Ana Claudia Clicks — Black Friday (novembro/2026): gestante, newborn e combo
 
-Criativos estáticos da ação de Black Friday do estúdio Ana Claudia Clicks (cliente da LAKS), no padrão
-visual da proposta comercial em PDF da cliente ("BLACK20 Proposta Comercial Gestante.pdf").
+Criativos estáticos da Black Friday do estúdio Ana Claudia Clicks (cliente da LAKS), no padrão visual da
+proposta comercial em PDF da cliente, com a promo de setembro (`assets/ref/promo-setembro-*.png`) como
+referência para as fotos em formato de impresso.
 
-Cada peça sai em **Story** e **Feed 4:5**, exportada em **2x**: Story **2160×3840** e Feed **2160×2700**
-(mesma proporção de 1080×1920 e 1080×1350), em `final/`. Visão geral: `final/_visao-geral.jpg`.
+**9 criativos**, cada um em **Story 9:16** e **Feed 4:5**, exportados em 2x (2160×3840 e 2160×2700), em
+`final/`. `final/_visao-geral.jpg` mostra as 18 imagens.
 
-## Pedidos da cliente
+## Regra da cliente: fotos sem nenhuma alteração
 
-- Texto: **Condição Especial somente em Novembro · ENSAIO GESTANTE\* 15% OFF · COMBO GESTANTE + NEWBORN\* 20% OFF**.
-- **Sem valores em reais**: só a porcentagem de desconto (as variações do Pacote Ouro parcelado foram retiradas).
-- **Sem a logo da Ana Claudia** nas peças.
-- Nota do asterisco: "\*Válido para reservas realizadas em novembro de 2026." (confirmar o texto com a cliente).
+Pedido do estúdio em 03/11/2026 ("as nossas fotos são profissionais, não precisam alterar nada"):
+
+- as fotos entram **exatamente como o estúdio enviou** (`assets/fotos/originais/`);
+- **pode**: enquadrar (cortar) e reduzir;
+- **não pode**: recorte do fundo, troca de fundo, ampliação por IA, nitidez, filtro, retoque, degradê ou texto
+  por cima da pessoa;
+- nenhuma foto é ampliada: o conferidor mede a escala de cada foto (px exportado ÷ px original) e só aceita ≤ 1.
+  Nesta versão a maior escala é 0,986.
+
+A versão anterior (recorte da modelo sentada sobre um holofote desenhado e fotos ampliadas por IA) foi
+removida do projeto. Ela continua só no histórico do git.
 
 ## Peças
 
-| Peça | Layout (página do PDF) | Modelo |
-|---|---|---|
-| `d1-capa-vermelho` | Capa escura | Vestido vermelho |
-| `d2-holofote-sentada` | Holofote | Sentada, top e calça pretos |
-| `d3-convite-jeans` | Convite (última página) | Top branco e jeans |
-| `d4-capa-clara-branco` | Capa clara | Branco, com tênis de bebê |
-| `d5-holofote-jeans` | Holofote | Top branco e jeans |
-| `d6-capa-clara-marrom` | Capa clara | Conjunto marrom de tule |
-| `d7-convite-sentada` | Convite | Sentada, top e calça pretos |
+| Grupo | Oferta | Peça | Layout | Foto(s) |
+|---|---|---|---|---|
+| Gestante | Ensaio Gestante* **15% OFF** | `g1-capa-vermelho` | Capa escura, foto em arco | vermelho |
+| | | `g2-papel-jeans` | Papel com foto impressa | jeans |
+| | | `g3-convite-holofote` | Convite (card + painel claro) | holofote (foto do PDF, com o círculo de luz original) |
+| Newborn | Combo Gestante + Newborn* **20% OFF** | `n1-capa-tule` | Capa escura, foto horizontal | newborn menina (tule, deitada) |
+| | | `n2-papel-botoes` | Papel com foto impressa | newborn menino (botões) |
+| | | `n3-convite-tule` | Convite | newborn menina (tule, vertical) |
+| Juntos | **15%** gestante + **20%** combo | `j1-capa-sentada-azul` | Capa escura, dois arcos (cada desconto sob a sua foto) | sentada + newborn menino (azul, vertical) |
+| | | `j2-papel-tenis-touca` | Papel com dois impressos sobrepostos (como a promo de setembro) | branco com tênis + newborn menino (touca) |
+| | | `j3-convite-tule-renda` | Convite com duas fotos | marrom de tule + newborn menina (renda) |
 
-Informações centralizadas: no Story, todo texto fica entre y=330 e y=1470 da peça em 1080 (folga dentro da
-zona segura 250–1530); no convite, o texto é centralizado no painel claro.
+Em todas: "BLACK FRIDAY", etiqueta Black Friday do PDF, "Condição Especial somente em Novembro" e
+"\*Válido para reservas realizadas em novembro de 2026.". Sem valores em reais e sem logo, como pedido antes.
 
 ## Como funciona
 
-- `pecas/dados.js`: lista das peças (layout, foto e enquadramento da foto em Story e Feed).
-- `pecas/capa.html`, `pecas/holofote.html`, `pecas/convite.html`: os três layouts. Cada um lê a peça
-  pela URL (`?p=<id>#story` ou `#feed`).
-- `pecas/base.js` e `pecas/base.css`: textos e estilos comuns.
+- `pecas/dados.js`: lista das peças (layout, grupo e moldura de cada foto em Story e Feed: posição, forma,
+  ponto de foco e zoom).
+- `pecas/capa.html`, `pecas/editorial.html`, `pecas/convite.html`: os três layouts.
+- `pecas/base.js`: monta as molduras (só corta e reduz a foto, nunca amplia), os textos e as ofertas.
 
 ```bash
-node render.mjs        # todas
-node render.mjs d5     # só as que têm "d5" no nome
+node render.mjs                     # as 18 imagens (ou: node render.mjs j2)
+node ferramentas/conferir.mjs       # fotos sem ampliação, zonas seguras do Story, fonte mínima e contraste
 ```
 
-Usa o Playwright global e sobe um servidor local para fontes e fotos.
+## Fotos
 
-## Fotos: ampliação, acabamento e recortes
-
-1. `assets/fotos/originais/`: as 5 fotos enviadas pelo estúdio (~1700×2576).
-2. `assets/fotos/hd/`: ampliadas 2x (~3400×5150) com super-resolução por IA (Real-ESRGAN x2plus, local na CPU).
-3. `assets/fotos/nitidas/` (usadas nas peças): a ampliação com a textura fina da foto original devolvida
-   (pele, fios, tatuagens que a IA alisa) e nitidez sutil. Assim a exportação em 2x nunca amplia foto no
-   navegador e a pele não fica com aspecto de plástico.
-4. `assets/fotos/recortes/`: as modelos do layout holofote recortadas do fundo (das fotos nítidas) com
-   BiRefNet, local, com limpeza da cor do fundo nas bordas do cabelo. O círculo de luz é desenhado atrás.
-
-O grão fino (`assets/marca/grao.png`) fica só no fundo desenhado do holofote, para não aparecer faixas
-no degradê; as fotos ficam limpas.
-
-```bash
-# 1. super-resolução — pesos em https://github.com/xinntao/Real-ESRGAN/releases (requer torch CPU + spandrel)
-python3 -I ferramentas/ampliar.py RealESRGAN_x2plus.pth assets/fotos/originais/jeans.jpg assets/fotos/hd/jeans.jpg
-# 2. acabamento (textura original + nitidez)
-python3 -I ferramentas/refinar.py jeans
-# 3. recorte — modelo em https://github.com/danielgatis/rembg/releases/download/v0.0.0/BiRefNet-general-epoch_244.onnx
-python3 -I ferramentas/recortar.py BiRefNet-general-epoch_244.onnx nitidas jeans
-```
-
-Se o estúdio tiver as fotos no tamanho original da edição (enviadas como arquivo, não como foto de
-WhatsApp), elas substituem a ampliação por IA com ainda mais detalhe.
+- Gestante: `vermelho`, `jeans`, `sentada`, `branco-tenis`, `marrom-tule` (enviadas pelo estúdio) e
+  `holofote-blazer-pdf` (tirada da proposta em PDF da cliente).
+- Newborn: 6 fotos enviadas pelo estúdio (`newborn-*.jpg`).
 
 ## Marca
 
-- **"GESTANTE"** (`assets/marca/gestante-wordmark*.png`): recortado da capa do PDF em 600 dpi (versão clara e escura).
+- **"GESTANTE"** (`assets/marca/gestante-wordmark*.png`): recortado da capa do PDF (versão clara e escura).
 - **Etiqueta Black Friday** (`assets/marca/etiqueta-black-friday.png`): PNG do PDF, com o barbante prolongado.
+- **Papel** (`assets/marca/papel.jpg`): textura de fundo gerada para os layouts claros (não é foto).
 - **Cores** do PDF: grafite `#31312f`, papel `#f4f4f4`, vinho `#7a010f`, marfim `#f6f3ee`.
-- **Fontes**: Montserrat (a mesma do PDF). No lugar das fontes pagas do Canva: Gilda Display ≈ TAN Pearl
-  e Bellefair ≈ Kief Montaser Light.
-
-As regras de observação legal do `CLAUDE.md` são de plano de saúde e não se aplicam a este cliente.
+- **Fontes**: Montserrat (a mesma do PDF); Gilda Display ≈ TAN Pearl e Bellefair ≈ Kief Montaser Light
+  (as TAN são pagas do Canva).

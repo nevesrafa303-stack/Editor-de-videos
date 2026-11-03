@@ -5,89 +5,99 @@
 <title>Layout capa</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Modelo da capa do PDF: "GESTANTE" no alto, etiqueta pendurada, oferta sobre a parte de baixo da foto.
-     Tema escuro (foto em fundo grafite) ou claro (foto em fundo branco). */
-  .tema-escuro { background: radial-gradient(120% 70% at 45% 35%, #3a3a38 0%, #2d2d2b 60%, #242423 100%); }
-  .tema-claro { background: #ebebeb; color: var(--preto); }
-  .foto { mask-image: linear-gradient(to bottom, transparent 0, #000 8%, #000 90%, transparent 100%); }
-  .sombra { position: absolute; left: 0; right: 0; bottom: 0; }
-  .tema-escuro .sombra { background: linear-gradient(to bottom, rgba(24,24,23,0) 0%, rgba(24,24,23,.55) 30%, rgba(20,20,19,.86) 58%, #161615 100%); }
-  .tema-claro .sombra { background: linear-gradient(to bottom, rgba(242,242,242,0) 0%, rgba(242,242,242,.72) 28%, rgba(244,244,244,.94) 55%, #f4f4f4 100%); }
+  /* Capa escura (capa do PDF): grafite, etiqueta pendurada, título no alto, foto(s) em arco com contorno fino,
+     oferta embaixo. Nada é desenhado por cima das fotos. */
+  body { background: radial-gradient(120% 70% at 50% 35%, #3a3a38 0%, #2e2e2c 60%, #242423 100%); }
+  .topo { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .topo .espacado { color: #e6e1d8; }
+  .titulo { text-transform: uppercase; letter-spacing: .06em; color: var(--marfim); }
+  .oferta { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .caixa { width: 100%; }
+  .caixa .rotulo { width: 56%; }
+  .caixa .valor { width: 44%; }
+  .colunas { display: flex; width: 100%; }
+  .col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .col .rot { font-weight: 600; text-transform: uppercase; letter-spacing: .1em; line-height: 1.3; color: var(--marfim); }
+  .col .pct-linha { color: var(--marfim); }
+  .nota { color: #d9d4cc; }
+  .lado { position: absolute; display: none; flex-direction: column; align-items: center; text-align: center; }
+  .feed.um-v .lado { display: flex; }
+  .lado .caixa { flex-direction: column; border-radius: 30px; }
+  .lado .caixa .rotulo, .lado .caixa .valor { width: 100%; }
+  .lado .pilula-vinho { white-space: normal; line-height: 1.3; }
 
-  .topo { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
-  .wordmark { display: block; }
-  .tema-claro .topo .espacado { color: var(--preto); }
-
-  /* oferta ancorada pela base, para ficar sempre afastada da borda */
-  .oferta { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .colunas { display: flex; align-items: stretch; justify-content: center; }
-  .col { display: flex; flex-direction: column; align-items: center; }
-  .col .pct-linha { display: flex; align-items: baseline; gap: 14px; }
-  .col .rotulo { font-weight: 600; text-transform: uppercase; letter-spacing: .14em; line-height: 1.3; }
-  .divisor { width: 2px; background: currentColor; opacity: .45; }
-  .nota { font-weight: 500; }
-  .tema-escuro .nota { color: #e2ddd5; }
-  .tema-claro .nota { color: #333; }
-  .tema-escuro .oferta { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
-
-  /* STORY 1080x1920 — conteúdo entre y=330 e y=1470 (folga dentro da zona segura 250–1530) */
-  .story .etiqueta { --w: 168px; --circ: 284px; right: 30px; }
-  .story .topo { top: 330px; }
-  .story .wordmark { width: 560px; }
-  .story .topo .espacado { font-size: 40px; margin-top: 26px; padding-left: .42em; }
-  .story.tema-escuro .sombra { top: 900px; }
-  .story.tema-claro .sombra { top: 980px; }
-  .story .oferta { bottom: 500px; }
-  .story .col { width: 440px; }
-  .story .col .pct { font-size: 144px; }
-  .story .col .off { font-size: 40px; }
-  .story .col .rotulo { font-size: 25px; margin-top: 10px; }
-  .story .divisor { margin: 18px 12px; }
-  .story .pilula-vinho { font-size: 25px; padding: 13px 26px; margin-top: 30px; }
-  .story .nota { font-size: 21px; margin-top: 16px; }
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .etiqueta { --w: 160px; --circ: 268px; right: 30px; }
+  .story .topo { top: 262px; }
+  .story .topo .espacado { font-size: 34px; }
+  .story .wordmark { width: 500px; margin-top: 22px; }
+  .story .titulo { font-size: 92px; margin-top: 14px; }
+  .story.dois .titulo { font-size: 66px; line-height: 1.08; }
+  .story .caixa { height: 108px; }
+  .story .caixa .rotulo { font-size: 25px; padding: 0 18px; }
+  .story .caixa .pct { font-size: 74px; }
+  .story .caixa .off { font-size: 27px; }
+  .story .pilula-vinho { font-size: 24px; padding: 12px 24px; margin-top: 22px; }
+  .story .nota { font-size: 21px; margin-top: 14px; }
+  .story.um-v .oferta { top: 1258px; }
+  .story.um-h .oferta { top: 1196px; }
+  .story.dois .oferta { top: 1214px; }
+  .story .col .pct { font-size: 112px; }
+  .story .col .off { font-size: 34px; }
+  .story .col .rot { font-size: 22px; margin-top: 8px; }
 
   /* FEED 4:5 1080x1350 */
-  .feed .etiqueta { --w: 140px; --circ: 62px; right: 40px; }
-  .feed .topo { top: 80px; }
-  .feed .wordmark { width: 520px; }
-  .feed .topo .espacado { font-size: 34px; margin-top: 20px; padding-left: .42em; }
-  .feed.tema-escuro .sombra { top: 760px; }
-  .feed.tema-claro .sombra { top: 820px; }
-  .feed .oferta { bottom: 110px; }
-  .feed .col { width: 420px; }
-  .feed .col .pct { font-size: 124px; }
-  .feed .col .off { font-size: 34px; }
-  .feed .col .rotulo { font-size: 22px; margin-top: 8px; }
-  .feed .divisor { margin: 14px 12px; }
-  .feed .pilula-vinho { font-size: 22px; padding: 11px 22px; margin-top: 24px; }
+  .feed .etiqueta { --w: 120px; --circ: 40px; right: 30px; }
+  .feed .topo { top: 52px; }
+  .feed .topo .espacado { font-size: 28px; }
+  .feed .titulo { font-size: 72px; margin-top: 8px; }
+  .feed.dois .titulo { font-size: 50px; margin-top: 12px; }
+  .feed .caixa { height: 96px; }
+  .feed .caixa .rotulo { font-size: 22px; padding: 0 16px; }
+  .feed .caixa .pct { font-size: 64px; }
+  .feed .caixa .off { font-size: 24px; }
+  .feed .pilula-vinho { font-size: 20px; padding: 10px 20px; margin-top: 18px; }
   .feed .nota { font-size: 17px; margin-top: 12px; }
+  .feed.um-h .oferta { top: 905px; left: 160px; right: 160px; }
+  .feed.dois .oferta { top: 895px; }
+  .feed .col .pct { font-size: 96px; }
+  .feed .col .off { font-size: 29px; }
+  .feed .col .rot { font-size: 19px; margin-top: 6px; }
+  /* gestante (foto vertical única): texto numa coluna à direita da foto */
+  .feed.um-v .topo, .feed.um-v .oferta { display: none; }
+  .feed .lado { left: 560px; width: 450px; top: 400px; }
+  .feed .lado .espacado { font-size: 28px; color: #e6e1d8; }
+  .feed .lado .wordmark { width: 420px; margin-top: 20px; }
+  .feed .lado .caixa { margin-top: 44px; height: auto; }
+  .feed .lado .caixa .rotulo { height: 74px; font-size: 22px; }
+  .feed .lado .caixa .valor { height: 130px; }
+  .feed .lado .caixa .pct { font-size: 104px; }
+  .feed .lado .caixa .off { font-size: 32px; }
+  .feed .lado .pilula-vinho { font-size: 21px; margin-top: 30px; }
+  .feed .lado .nota { font-size: 17px; margin-top: 16px; }
 </style>
 </head>
 <body>
-  <img class="foto" alt="">
-  <div class="sombra"></div>
   <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
-  <header class="topo">
-    <img class="wordmark" alt="Gestante">
-    <p class="espacado">Black Friday</p>
-  </header>
+  <header class="topo"></header>
   <section class="oferta"></section>
+  <aside class="lado"></aside>
 
   <script type="module">
-    import { peca, posiciona, pronto, CONDICAO, NOTA } from './base.js';
-    const { p, fmt, foto } = peca();
-    const claro = p.tema === 'claro';
-    const img = document.querySelector('.foto');
-    img.src = foto; posiciona(img, p.quadro[fmt]);
-    document.querySelector('.wordmark').src = `../assets/marca/gestante-wordmark${claro ? '-escuro' : ''}.png`;
-    document.querySelector('.oferta').innerHTML = `
-      <div class="colunas">
-        <div class="col"><div class="pct-linha"><span class="pct">15%</span><span class="off">OFF</span></div><p class="rotulo">Ensaio Gestante*</p></div>
-        <div class="divisor"></div>
-        <div class="col"><div class="pct-linha"><span class="pct">20%</span><span class="off">OFF</span></div><p class="rotulo">Combo Gestante<br>+ Newborn*</p></div>
-      </div>
-      <span class="pilula-vinho">${CONDICAO}</span>
-      <p class="nota">${NOTA}</p>`;
+    import { peca, montarQuadros, pronto, ofertasDo, CONDICAO, NOTA } from './base.js';
+    const { p, fmt } = peca();
+    const titulo = { gestante: '<img class="wordmark" src="../assets/marca/gestante-wordmark.png" alt="Gestante">',
+      newborn: '<h1 class="titulo">Newborn</h1>',
+      juntos: fmt === 'story' ? '<h1 class="titulo">Gestante<br>+ Newborn</h1>' : '<h1 class="titulo">Gestante + Newborn</h1>' }[p.grupo];
+    document.querySelector('.topo').innerHTML = `<p class="espacado">Black Friday</p>${titulo}`;
+    const of = ofertasDo(p.grupo);
+    const caixa = o => `<div class="caixa"><div class="rotulo">${o.rotulo}</div><div class="valor"><span class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></span></div></div>`;
+    const fim = `<span class="pilula-vinho">${CONDICAO}</span><p class="nota">${NOTA}</p>`;
+    document.querySelector('.oferta').innerHTML = of.length === 2
+      ? `<div class="colunas">${of.map(o => `<div class="col"><span class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></span><p class="rot">${o.rotulo.replace(' + ', '<br>+ ')}</p></div>`).join('')}</div>${fim}`
+      : caixa(of[0]) + fim;
+    document.querySelector('.lado').innerHTML = `<p class="espacado">Black Friday</p>${titulo}${caixa(of[0])}${fim}`;
+    await montarQuadros(p.quadros[fmt]);
     pronto();
   </script>
 </body>

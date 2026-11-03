@@ -5,68 +5,62 @@
 <title>Layout convite</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Modelo da última página do PDF ("Vamos fazer o seu ensaio?"): foto à esquerda,
-     painel claro à direita com o texto centralizado no painel e pílulas pretas. */
+  /* Convite (última página do PDF, "Vamos fazer o seu ensaio?"): foto(s) em card à esquerda,
+     painel claro à direita com texto centralizado, pílulas pretas com o desconto grande embaixo. */
   body { background: var(--papel); color: var(--preto); }
-  .recorte { position: absolute; left: 0; top: 0; bottom: 0; width: 540px; overflow: hidden; }
-  .recorte .foto { mask-image: linear-gradient(to bottom, transparent 0, #000 10%); }
-  .painel { position: absolute; left: 540px; right: 0; top: 0; bottom: 0; }
-  .conteudo { position: absolute; left: 40px; right: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .conteudo .espacado { color: var(--vinho); letter-spacing: .3em; padding-left: .3em; }
-  .titulo { font-family: var(--display); font-weight: 400; line-height: 1.02; color: var(--preto); }
+  .painel { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .painel .espacado { color: var(--vinho); letter-spacing: .3em; padding-left: .3em; }
+  .titulo { color: var(--preto); }
   .linha { width: 70%; height: 1px; background: #cfcfcf; }
-  .pilula-preta { letter-spacing: .08em; }
-  .pct-linha { display: flex; align-items: baseline; gap: 12px; color: var(--preto); }
-  .nota { color: #3d3d3d; font-weight: 500; }
+  .pct-linha { color: var(--preto); }
+  .nota { color: #3d3d3d; }
 
   /* STORY 1080x1920 — texto entre y=250 e y=1530 */
-  .story .etiqueta { --w: 156px; --circ: 272px; right: 34px; }
-  .story .conteudo { top: 545px; }
-  .story .conteudo .espacado { font-size: 34px; }
-  .story .titulo { font-size: 80px; margin-top: 14px; }
+  .story .etiqueta { --w: 150px; --circ: 272px; right: 36px; }
+  .story .painel { left: 560px; right: 36px; top: 540px; }
+  .story.grupo-juntos .painel { top: 470px; }
+  .story .painel .espacado { font-size: 32px; }
+  .story .titulo { font-size: 78px; margin-top: 14px; }
   .story .linha { margin: 34px 0 32px; }
-  .story .pilula-preta { font-size: 20px; padding: 14px 24px; }
-  .story .pct { font-size: 124px; }
-  .story .off { font-size: 36px; }
-  .story .pct-linha { margin: 4px 0 26px; }
+  .story .pilula-preta { font-size: 20px; padding: 13px 22px; }
+  .story .pct { font-size: 132px; }
+  .story .off { font-size: 38px; }
+  .story .pct-linha { margin: 6px 0 28px; }
+  .story.grupo-juntos .pct { font-size: 112px; }
+  .story.grupo-juntos .pct-linha { margin: 4px 0 22px; }
   .story .nota { font-size: 21px; margin-top: 4px; }
 
   /* FEED 4:5 1080x1350 */
-  .feed .etiqueta { --w: 120px; --circ: 46px; right: 30px; }
-  .feed .conteudo { top: 330px; }
-  .feed .conteudo .espacado { font-size: 30px; }
-  .feed .titulo { font-size: 68px; margin-top: 12px; }
-  .feed .linha { margin: 30px 0 28px; }
-  .feed .pilula-preta { font-size: 18px; padding: 12px 22px; }
-  .feed .pct { font-size: 112px; }
-  .feed .off { font-size: 32px; }
-  .feed .pct-linha { margin: 4px 0 22px; }
+  .feed .etiqueta { --w: 116px; --circ: 40px; right: 30px; }
+  .feed .painel { left: 535px; right: 30px; top: 370px; }
+  .feed.grupo-juntos .painel { top: 300px; }
+  .feed .painel .espacado { font-size: 28px; }
+  .feed .titulo { font-size: 66px; margin-top: 12px; }
+  .feed .linha { margin: 28px 0 26px; }
+  .feed .pilula-preta { font-size: 18px; padding: 12px 20px; }
+  .feed .pct { font-size: 116px; }
+  .feed .off { font-size: 34px; }
+  .feed .pct-linha { margin: 4px 0 24px; }
+  .feed.grupo-juntos .pct { font-size: 96px; }
+  .feed.grupo-juntos .pct-linha { margin: 2px 0 18px; }
   .feed .nota { font-size: 18px; margin-top: 4px; }
 </style>
 </head>
 <body>
-  <div class="recorte"><img class="foto" alt=""></div>
-  <div class="painel">
-    <div class="conteudo">
+  <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
+  <section class="painel"></section>
+
+  <script type="module">
+    import { peca, montarQuadros, pronto, ofertasDo, NOTA } from './base.js';
+    const { p, fmt } = peca();
+    document.querySelector('.painel').innerHTML = `
       <p class="espacado">Black Friday</p>
       <h1 class="titulo">Condição<br>Especial<br>somente em<br>Novembro</h1>
       <div class="linha"></div>
-      <span class="pilula-preta">Ensaio Gestante*</span>
-      <div class="pct-linha"><span class="pct">15%</span><span class="off">OFF</span></div>
-      <span class="pilula-preta">Combo Gestante + Newborn*</span>
-      <div class="pct-linha"><span class="pct">20%</span><span class="off">OFF</span></div>
-      <p class="nota">*Válido para reservas realizadas<br>em novembro de 2026.</p>
-    </div>
-  </div>
-  <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
-
-  <script type="module">
-    import { peca, posiciona, pronto } from './base.js';
-    const { p, fmt, foto } = peca();
-    const img = document.querySelector('.foto');
-    img.src = foto; posiciona(img, p.quadro[fmt]);
-    // fundo atrás da foto = cor do topo do fundo de estúdio, para o degradê de cima não aparecer
-    document.querySelector('.recorte').style.background = p.fundo || '#565656';
+      ${ofertasDo(p.grupo).map(o => `<span class="pilula-preta">${o.rotulo}</span>
+        <div class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></div>`).join('')}
+      <p class="nota">${NOTA.replace('reservas realizadas', 'reservas realizadas<br>')}</p>`;
+    await montarQuadros(p.quadros[fmt]);
     pronto();
   </script>
 </body>

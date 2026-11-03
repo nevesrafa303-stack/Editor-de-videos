@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Layout editorial (papel)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Papel + fotos impressas (referência: promo Combo Gestante + Newborn de setembro): fundo de papel,
+     título serifado escuro, linhas finas, desconto grande e as fotos como impressos com borda branca. */
+  body { background: #f3f0ea url('../assets/marca/papel.jpg') repeat; background-size: 384px 384px; color: var(--tinta); }
+  .texto { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .texto .espacado { color: var(--vinho); }
+  .titulo { color: var(--tinta); }
+  .wordmark { filter: none; }
+  .linhas { border-top: 1.5px solid #2b2925; border-bottom: 1.5px solid #2b2925; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .08em; color: #2b2925; width: 100%; }
+  .ofertas { display: flex; width: 100%; justify-content: center; }
+  .of { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .of .pct-linha { color: var(--tinta); }
+  .of .rot { font-weight: 600; text-transform: uppercase; letter-spacing: .12em; line-height: 1.3; color: #2b2925; }
+  .grupo-juntos .of + .of { border-left: 1.5px solid #b9b2a6; }
+  .nota { color: #3e3a34; }
+
+  /* STORY 1080x1920 — texto entre y=250 e y=1530 */
+  .story .etiqueta { --w: 150px; --circ: 268px; right: 34px; }
+  .story .texto { left: 120px; right: 120px; top: 268px; }
+  .story .texto .espacado { font-size: 32px; }
+  .story .wordmark { width: 560px; margin-top: 26px; }
+  .story .titulo { font-size: 84px; margin-top: 18px; }
+  .story.grupo-newborn .titulo { font-size: 74px; }
+  .story .linhas { font-size: 24px; padding: 18px 0; margin-top: 30px; }
+  .story .ofertas { margin-top: 26px; }
+  .story .of .pct { font-size: 150px; }
+  .story .of .off { font-size: 44px; }
+  .story.grupo-juntos .of .pct { font-size: 118px; }
+  .story.grupo-juntos .of .off { font-size: 34px; }
+  .story .of .rot { font-size: 23px; margin-top: 8px; }
+  .story .nota { font-size: 21px; margin-top: 18px; }
+
+  /* FEED 4:5 1080x1350 — texto em coluna à esquerda, impressos à direita */
+  .feed .etiqueta { --w: 112px; --circ: 40px; left: 40px; right: auto; }
+  .feed .texto { left: 60px; width: 470px; top: 390px; }
+  .feed.grupo-newborn .texto { top: 370px; }
+  .feed.grupo-juntos .texto { top: 320px; }
+  .feed .texto .espacado { font-size: 26px; }
+  .feed .wordmark { width: 430px; margin-top: 22px; }
+  .feed .titulo { font-size: 66px; margin-top: 14px; }
+  .feed.grupo-newborn .titulo { font-size: 58px; }
+  .feed .linhas { font-size: 19px; padding: 14px 0; margin-top: 26px; }
+  .feed .ofertas { margin-top: 20px; }
+  .feed .of .pct { font-size: 128px; }
+  .feed .of .off { font-size: 38px; }
+  .feed.grupo-juntos .of .pct { font-size: 88px; }
+  .feed.grupo-juntos .of .off { font-size: 26px; }
+  .feed .of .rot { font-size: 19px; margin-top: 6px; }
+  .feed.grupo-juntos .of .rot { font-size: 17px; }
+  .feed .nota { font-size: 17px; margin-top: 16px; }
+</style>
+</head>
+<body>
+  <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
+  <section class="texto"></section>
+
+  <script type="module">
+    import { peca, montarQuadros, pronto, ofertasDo, CONDICAO, NOTA } from './base.js';
+    const { p, fmt } = peca();
+    const titulo = { gestante: '<img class="wordmark" src="../assets/marca/gestante-wordmark-escuro.png" alt="Gestante">',
+      newborn: '<h1 class="titulo">Combo Gestante<br>+ Newborn</h1>', juntos: '<h1 class="titulo">Gestante<br>+ Newborn</h1>' }[p.grupo];
+    const of = ofertasDo(p.grupo);
+    document.querySelector('.texto').innerHTML = `
+      <p class="espacado">Black Friday</p>${titulo}
+      <p class="linhas">${CONDICAO}</p>
+      <div class="ofertas">${of.map(o => `<div class="of"><span class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></span>
+        <p class="rot">${of.length === 2 ? o.rotulo.replace(' + ', '<br>+ ') : o.rotulo}</p></div>`).join('')}</div>
+      <p class="nota">${NOTA}</p>`;
+    await montarQuadros(p.quadros[fmt]);
+    pronto();
+  </script>
+</body>
+</html>

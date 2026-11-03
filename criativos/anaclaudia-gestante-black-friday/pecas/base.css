@@ -1,7 +1,8 @@
-/* Ana Claudia Clicks — Black Friday Gestante (novembro/2026)
-   Sistema visual tirado da proposta comercial em PDF da cliente:
-   fundo de estúdio grafite, marfim nos textos, pílula vinho, pílulas pretas com texto espaçado,
-   etiqueta "Black Friday" pendurada e o "GESTANTE" original do PDF (recortado em PNG). */
+/* Ana Claudia Clicks — Black Friday (novembro/2026): gestante, newborn e combo.
+   Sistema visual da proposta comercial em PDF da cliente (grafite, marfim, papel, vinho, pílulas pretas,
+   etiqueta "Black Friday", "GESTANTE" original) + fotos em moldura/impresso como na promo de setembro.
+   REGRA DA CLIENTE: as fotos do estúdio entram exatamente como enviadas. Só enquadramento (corte) e
+   redução; nada de recorte, troca de fundo, IA, nitidez, filtro ou texto por cima da pessoa. */
 
 @font-face { font-family: 'Montserrat'; font-weight: 400; src: url('../assets/fonts/Montserrat-400.ttf'); }
 @font-face { font-family: 'Montserrat'; font-weight: 500; src: url('../assets/fonts/Montserrat-500.ttf'); }
@@ -13,11 +14,11 @@
 
 :root {
   --grafite: #31312f;
-  --grafite-escuro: #1f1f1e;
   --marfim: #f6f3ee;
   --papel: #f4f4f4;
   --vinho: #7a010f;
   --preto: #111111;
+  --tinta: #1c1b19;
   --serif-fina: 'Bellefair', serif;
   --display: 'Gilda Display', serif;
   --sans: 'Montserrat', sans-serif;
@@ -30,39 +31,36 @@ body { position: relative; font-family: var(--sans); color: var(--marfim); backg
 body.story { height: 1920px; }
 body.feed { height: 1350px; }
 
-.abs { position: absolute; }
-.foto { position: absolute; display: block; }
+/* Etiqueta "Black Friday" pendurada (PNG do PDF, barbante prolongado). --w = largura; --circ = topo do círculo. */
+.etiqueta { position: absolute; top: 0; width: var(--w); height: calc(var(--circ) + var(--w) * 1.008); z-index: 5; }
+.etiqueta img { position: absolute; left: 0; bottom: 0; width: 100%; filter: drop-shadow(0 18px 28px rgba(0,0,0,.4)); }
 
-/* Etiqueta "Black Friday" pendurada (PNG do PDF com o barbante prolongado para cima).
-   --w = largura; --circ = y do topo do círculo. O círculo começa a 0,901·w do fim do barbante original. */
-.etiqueta { position: absolute; top: 0; width: var(--w); height: calc(var(--circ) + var(--w) * 1.008); }
-/* o PNG passa do topo da peça (barbante longo); o corpo da página já corta o excesso */
-.etiqueta img { position: absolute; left: 0; bottom: 0; width: 100%; filter: drop-shadow(0 18px 28px rgba(0,0,0,.45)); }
+.espacado { font-family: var(--serif-fina); text-transform: uppercase; letter-spacing: .42em; padding-left: .42em; }
+.titulo { font-family: var(--display); font-weight: 400; line-height: 1.04; }
+.wordmark { display: block; }
 
-/* Rótulo espaçado (O R Ç A M E N T O / B L A C K  F R I D A Y) */
-.espacado { font-family: var(--serif-fina); text-transform: uppercase; letter-spacing: .42em; text-align: center; }
+.pilula-vinho { display: inline-block; background: var(--vinho); color: #fff; font-weight: 500; text-transform: uppercase;
+  border-radius: 10px; letter-spacing: .02em; white-space: nowrap; }
+.pilula-preta { display: inline-block; background: var(--preto); color: #fff; font-weight: 700; text-transform: uppercase;
+  border-radius: 999px; white-space: nowrap; text-align: center; letter-spacing: .06em; }
 
-/* Pílula vinho (capa do PDF) */
-.pilula-vinho { display: inline-block; background: var(--vinho); color: #fff; font-weight: 500;
-  text-transform: uppercase; border-radius: 10px; letter-spacing: .02em; white-space: nowrap; }
-
-/* Pílula preta com texto espaçado (PRATA / OURO / DIAMANTE no PDF) */
-.pilula-preta { display: inline-block; background: var(--preto); color: #fff; font-weight: 700;
-  text-transform: uppercase; border-radius: 999px; white-space: nowrap; text-align: center; }
-
-/* Caixa dividida preto | papel (página "adicionais" do PDF) */
-.caixa { display: flex; border: 3px solid var(--papel); border-radius: 42px; overflow: hidden; }
+/* Caixa preto | papel (página "adicionais" do PDF) */
+.caixa { display: flex; border: 3px solid var(--papel); border-radius: 999px; overflow: hidden; }
 .caixa .rotulo { background: #0c0c0c; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
-  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; line-height: 1.25; }
+  display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.22; }
 .caixa .valor { background: var(--papel); color: var(--preto); display: flex; align-items: center; justify-content: center; }
-.caixa .valor .pv { display: flex; align-items: baseline; gap: 10px; padding-top: 6px; }
 
+.pct-linha { display: flex; align-items: baseline; justify-content: center; gap: .16em; white-space: nowrap; }
 .pct { font-family: var(--serif-fina); line-height: .9; letter-spacing: -.01em; }
 .off { font-family: var(--sans); font-weight: 700; letter-spacing: .12em; }
+.nota { line-height: 1.35; font-weight: 500; }
 
-.nota { line-height: 1.35; }
-.logo { display: block; }
-
-/* Grão fino só nos fundos desenhados em CSS (holofote): some com as faixas (banding). 1 px de grão = 1 px da exportação 2x. */
-.grao { position: absolute; inset: 0; pointer-events: none; background: url('../assets/marca/grao.png') repeat;
-  background-size: 256px 256px; mix-blend-mode: overlay; opacity: .1; }
+/* Molduras das fotos (montadas por base.js a partir de dados.js) */
+.moldura { position: absolute; }
+.janela { position: absolute; inset: 0; overflow: hidden; }
+.janela img { position: absolute; display: block; max-width: none; }
+.forma-ret .janela { border-radius: 28px; }
+.forma-arco .contorno { position: absolute; inset: -16px; border: 2px solid rgba(246,243,238,.55); pointer-events: none; }
+.forma-impresso { background: #fff; box-shadow: 0 22px 44px rgba(40,32,20,.22), 0 2px 6px rgba(40,32,20,.12); }
+.forma-impresso .janela { inset: var(--borda, 16px); }
+.forma-card .janela { border-radius: 26px; }
