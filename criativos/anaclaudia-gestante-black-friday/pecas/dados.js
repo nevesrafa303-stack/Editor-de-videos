@@ -1,5 +1,5 @@
 // Lista das peças. render.mjs e os layouts leem daqui.
-// grupo: gestante (15% Ensaio Gestante) · newborn (20% Combo Gestante + Newborn) · juntos (as duas fotos e os dois descontos)
+// grupo: gestante (Ensaio de Gestante 15%) · newborn (Ensaio de Newborn 20%) · juntos (as duas fotos, cada uma com o seu desconto)
 // quadros[fmt]: molduras das fotos em px da peça (ver montarQuadros em base.js). forma: arco | ret | impresso | card.
 // As fotos são as originais do estúdio, sem nenhuma alteração; a escala nunca passa de 1 (sem ampliar).
 
@@ -18,73 +18,63 @@ export const FOTOS = {
   'nb-botoes': 'newborn-menino-botoes.jpg',
 };
 
+// Onde está a pessoa / o bebê em cada foto (x0, y0, x1, y1 de 0 a 1), já com folga em volta.
+// Medido nas fotos originais: a moldura mostra essa região inteira e centralizada.
+const R = {
+  vermelho: [.29, .30, .75, .96],          // corpo inteiro, do coque à barra do vestido
+  jeans: [.20, .24, .82, .87],             // da cabeça ao quadril
+  sentada: [.12, .34, .90, .95],           // sentada de pernas cruzadas
+  'branco-tenis': [.30, .30, .72, .96],    // corpo inteiro com os tênis de bebê no rosto
+  'marrom-tule': [.31, .37, .77, .97],     // corpo inteiro
+  holofote: [.23, .31, .80, .95],          // a modelo dentro do círculo de luz da própria foto
+  'nb-tule-deitada': [.16, .22, .84, .86],
+  'nb-botoes': [.14, .22, .86, .88],
+  'nb-touca': [.17, .24, .84, .88],
+  'nb-renda': [.12, .26, .90, .88],
+  'nb-tule-vertical': [.16, .16, .86, .93],
+  'nb-azul-vertical': [.24, .17, .86, .96],
+};
+const f = (foto, forma, x, y, w, h, extra = {}) => ({ foto, forma, x, y, w, h, regiao: R[foto], ...extra });
+
 export const PECAS = [
-  // ── Gestante · 15% OFF Ensaio Gestante ──────────────────────────────────────────
+  // ── Gestante · Ensaio de Gestante 15% OFF ──────────────────────────────────────
   { id: 'g1-capa-vermelho', layout: 'capa', grupo: 'gestante', variante: 'um-v',
-    quadros: {
-      story: [{ foto: 'vermelho', forma: 'arco', x: 250, y: 450, w: 580, h: 760, fx: .6, fy: .6, zoom: .86 }],
-      feed: [{ foto: 'vermelho', forma: 'arco', x: 80, y: 150, w: 440, h: 1050, fx: .62, fy: .6, zoom: .9 }],
-    } },
-  { id: 'g2-papel-jeans', layout: 'editorial', grupo: 'gestante',
-    quadros: {
-      story: [{ foto: 'jeans', forma: 'impresso', x: 230, y: 850, w: 620, h: 800, rot: 2.5, fx: .5, fy: .44, zoom: .8 }],
-      feed: [{ foto: 'jeans', forma: 'impresso', x: 585, y: 110, w: 430, h: 1080, rot: 2, fx: .52, fy: .5, zoom: .84 }],
-    } },
+    quadros: { story: [f('vermelho', 'arco', 70, 490, 450, 850)], feed: [f('vermelho', 'arco', 80, 240, 440, 830)] } },
+  { id: 'g2-papel-jeans', layout: 'editorial', grupo: 'gestante', variante: 'lado',
+    quadros: { story: [f('jeans', 'impresso', 280, 850, 520, 790, { rot: 2.5 })],
+      feed: [f('jeans', 'impresso', 560, 230, 470, 760, { rot: 2 })] } },
   { id: 'g3-convite-holofote', layout: 'convite', grupo: 'gestante',
-    quadros: {
-      story: [{ foto: 'holofote', forma: 'card', x: 50, y: 250, w: 480, h: 1270, fx: .43, fy: .5 }],
-      feed: [{ foto: 'holofote', forma: 'card', x: 40, y: 40, w: 470, h: 1270, fx: .43, fy: .5 }],
-    } },
+    quadros: { story: [f('holofote', 'card', 60, 500, 480, 800)], feed: [f('holofote', 'card', 60, 250, 470, 780)] } },
 
-  // ── Newborn · 20% OFF Combo Gestante + Newborn ──────────────────────────────────
+  // ── Newborn · Ensaio de Newborn 20% OFF ────────────────────────────────────────
   { id: 'n1-capa-tule', layout: 'capa', grupo: 'newborn', variante: 'um-h',
-    quadros: {
-      story: [{ foto: 'nb-tule-deitada', forma: 'ret', x: 70, y: 470, w: 940, h: 680, fx: .48, fy: .5 }],
-      feed: [{ foto: 'nb-tule-deitada', forma: 'ret', x: 60, y: 235, w: 960, h: 630, fx: .48, fy: .5 }],
-    } },
-  { id: 'n2-papel-botoes', layout: 'editorial', grupo: 'newborn',
-    quadros: {
-      story: [{ foto: 'nb-botoes', forma: 'impresso', x: 100, y: 920, w: 880, h: 620, rot: -2, fx: .5, fy: .5, zoom: .72 }],
-      feed: [{ foto: 'nb-botoes', forma: 'impresso', x: 565, y: 330, w: 450, h: 580, rot: 2.5, fx: .5, fy: .5 }],
-    } },
+    quadros: { story: [f('nb-tule-deitada', 'ret', 110, 500, 860, 540)], feed: [f('nb-tule-deitada', 'ret', 140, 235, 800, 500)] } },
+  { id: 'n2-papel-botoes', layout: 'editorial', grupo: 'newborn', variante: 'foto-topo',
+    quadros: { story: [f('nb-botoes', 'impresso', 90, 880, 900, 590, { rot: -2 })],
+      feed: [f('nb-botoes', 'impresso', 150, 110, 780, 500, { rot: -1.5 })] } },
   { id: 'n3-convite-tule', layout: 'convite', grupo: 'newborn',
-    quadros: {
-      story: [{ foto: 'nb-tule-vertical', forma: 'card', x: 50, y: 250, w: 480, h: 1270, fx: .27, fy: .5 }],
-      feed: [{ foto: 'nb-tule-vertical', forma: 'card', x: 40, y: 40, w: 470, h: 1270, fx: .27, fy: .5 }],
-    } },
+    quadros: { story: [f('nb-tule-vertical', 'card', 60, 500, 480, 800)], feed: [f('nb-tule-vertical', 'card', 60, 250, 470, 780)] } },
 
-  // ── Juntos · gestante + newborn, os dois descontos ──────────────────────────────
+  // ── Juntos · foto de gestante (15%) + foto do bebê (20%) ───────────────────────
   { id: 'j1-capa-sentada-azul', layout: 'capa', grupo: 'juntos', variante: 'dois',
     quadros: {
-      story: [
-        { foto: 'sentada', forma: 'arco', x: 80, y: 530, w: 440, h: 640, fx: .55, fy: .7, zoom: .72 },
-        { foto: 'nb-azul-vertical', forma: 'arco', x: 560, y: 530, w: 440, h: 640, fx: .5, fy: .55, zoom: .6 },
-      ],
-      feed: [
-        { foto: 'sentada', forma: 'arco', x: 80, y: 235, w: 440, h: 620, fx: .55, fy: .7, zoom: .7 },
-        { foto: 'nb-azul-vertical', forma: 'arco', x: 560, y: 235, w: 440, h: 620, fx: .5, fy: .55, zoom: .58 },
-      ],
+      story: [f('sentada', 'arco', 80, 540, 440, 600), f('nb-azul-vertical', 'arco', 560, 540, 440, 600)],
+      feed: [f('sentada', 'arco', 80, 225, 440, 520), f('nb-azul-vertical', 'arco', 560, 225, 440, 520)],
     } },
-  { id: 'j2-papel-tenis-touca', layout: 'editorial', grupo: 'juntos',
+  { id: 'j2-papel-tenis-touca', layout: 'editorial', grupo: 'juntos', variante: 'texto-topo',
     quadros: {
       story: [
-        { foto: 'branco-tenis', forma: 'impresso', x: 470, y: 900, w: 520, h: 690, rot: 3, fx: .5, fy: .64, zoom: .8, z: 1 },
-        { foto: 'nb-touca', forma: 'impresso', x: 70, y: 1330, w: 600, h: 420, rot: -3, fx: .5, fy: .5, zoom: .66, z: 2 },
+        f('branco-tenis', 'impresso', 600, 690, 400, 680, { rot: 3, legenda: 'gestante', z: 1 }),
+        f('nb-touca', 'impresso', 70, 880, 560, 384, { rot: -3, legenda: 'newborn', z: 2 }),
       ],
       feed: [
-        { foto: 'branco-tenis', forma: 'impresso', x: 600, y: 70, w: 400, h: 560, rot: 3, fx: .5, fy: .63, zoom: .62, z: 1 },
-        { foto: 'nb-touca', forma: 'impresso', x: 545, y: 705, w: 460, h: 330, rot: -3, fx: .5, fy: .5, zoom: .52, z: 2 },
+        f('branco-tenis', 'impresso', 110, 400, 340, 640, { rot: -2.5, legenda: 'gestante', leg: 110, z: 1 }),
+        f('nb-touca', 'impresso', 500, 510, 480, 330, { rot: 2.5, legenda: 'newborn', leg: 110, z: 2 }),
       ],
     } },
   { id: 'j3-convite-tule-renda', layout: 'convite', grupo: 'juntos',
     quadros: {
-      story: [
-        { foto: 'marrom-tule', forma: 'card', x: 50, y: 250, w: 480, h: 760, fx: .52, fy: .68, zoom: .72 },
-        { foto: 'nb-renda', forma: 'card', x: 50, y: 1030, w: 480, h: 490, fx: .5, fy: .5, zoom: .5 },
-      ],
-      feed: [
-        { foto: 'marrom-tule', forma: 'card', x: 40, y: 40, w: 470, h: 760, fx: .52, fy: .68, zoom: .7 },
-        { foto: 'nb-renda', forma: 'card', x: 40, y: 820, w: 470, h: 490, fx: .5, fy: .5, zoom: .5 },
-      ],
+      story: [f('marrom-tule', 'card', 60, 490, 420, 640), f('nb-renda', 'card', 60, 1160, 420, 300)],
+      feed: [f('marrom-tule', 'card', 60, 245, 360, 560), f('nb-renda', 'card', 60, 840, 420, 290)],
     } },
 ];

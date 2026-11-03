@@ -5,61 +5,83 @@
 <title>Layout convite</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* Convite (última página do PDF, "Vamos fazer o seu ensaio?"): foto(s) em card à esquerda,
-     painel claro à direita com texto centralizado, pílulas pretas com o desconto grande embaixo. */
+  /* Convite (última página do PDF): papel claro, título no alto e foto(s) em card à esquerda com o desconto
+     à direita de cada foto (gestante → 15%, newborn → 20%). */
   body { background: var(--papel); color: var(--preto); }
-  .painel { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .painel .espacado { color: var(--vinho); letter-spacing: .3em; padding-left: .3em; }
+  .topo { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .topo .espacado { color: var(--vinho); letter-spacing: .3em; padding-left: .3em; }
   .titulo { color: var(--preto); }
-  .linha { width: 70%; height: 1px; background: #cfcfcf; }
+  .oferta { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .oferta .ensaio { font-family: var(--display); color: #2a2825; line-height: 1.05; }
+  .linha { width: 60%; height: 1px; background: #cfcfcf; }
   .pct-linha { color: var(--preto); }
-  .nota { color: #3d3d3d; }
+  .nota { position: absolute; color: #3d3d3d; text-align: center; }
 
   /* STORY 1080x1920 — texto entre y=250 e y=1530 */
   .story .etiqueta { --w: 150px; --circ: 272px; right: 36px; }
-  .story .painel { left: 560px; right: 36px; top: 540px; }
-  .story.grupo-juntos .painel { top: 470px; }
-  .story .painel .espacado { font-size: 32px; }
-  .story .titulo { font-size: 78px; margin-top: 14px; }
-  .story .linha { margin: 34px 0 32px; }
+  .story .topo { top: 270px; }
+  .story .topo .espacado { font-size: 32px; }
+  .story .titulo { font-size: 66px; margin-top: 10px; }
+  .story .oferta { left: 570px; right: 40px; }
+  .story .oferta .ensaio { font-size: 70px; }
+  .story .linha { margin: 24px 0 22px; }
   .story .pilula-preta { font-size: 20px; padding: 13px 22px; }
-  .story .pct { font-size: 132px; }
-  .story .off { font-size: 38px; }
-  .story .pct-linha { margin: 6px 0 28px; }
-  .story.grupo-juntos .pct { font-size: 112px; }
-  .story.grupo-juntos .pct-linha { margin: 4px 0 22px; }
-  .story .nota { font-size: 21px; margin-top: 4px; }
+  .story .pct { font-size: 150px; }
+  .story .off { font-size: 44px; }
+  .story .pct-linha { margin-top: 8px; }
+  .story .nota { font-size: 21px; left: 570px; right: 40px; }
+  .story.fotos-1 .oferta { top: 660px; }
+  .story.fotos-1 .nota { top: 1150px; }
+  .story.fotos-2 .oferta.o1 { top: 640px; }
+  .story.fotos-2 .oferta.o2 { top: 1180px; }
+  .story.fotos-2 .oferta .ensaio { font-size: 56px; }
+  .story.fotos-2 .pct { font-size: 120px; }
+  .story.fotos-2 .off { font-size: 36px; }
+  .story.fotos-2 .linha { margin: 16px 0 16px; }
+  .story.fotos-2 .nota { top: 1470px; }
 
   /* FEED 4:5 1080x1350 */
   .feed .etiqueta { --w: 116px; --circ: 40px; right: 30px; }
-  .feed .painel { left: 535px; right: 30px; top: 370px; }
-  .feed.grupo-juntos .painel { top: 300px; }
-  .feed .painel .espacado { font-size: 28px; }
-  .feed .titulo { font-size: 66px; margin-top: 12px; }
-  .feed .linha { margin: 28px 0 26px; }
+  .feed .topo { top: 46px; }
+  .feed .topo .espacado { font-size: 27px; }
+  .feed .titulo { font-size: 48px; margin-top: 6px; line-height: 1.04; }
+  .feed .oferta { left: 560px; right: 40px; }
+  .feed .oferta .ensaio { font-size: 60px; }
+  .feed .linha { margin: 20px 0 18px; }
   .feed .pilula-preta { font-size: 18px; padding: 12px 20px; }
-  .feed .pct { font-size: 116px; }
-  .feed .off { font-size: 34px; }
-  .feed .pct-linha { margin: 4px 0 24px; }
-  .feed.grupo-juntos .pct { font-size: 96px; }
-  .feed.grupo-juntos .pct-linha { margin: 2px 0 18px; }
-  .feed .nota { font-size: 18px; margin-top: 4px; }
+  .feed .pct { font-size: 132px; }
+  .feed .off { font-size: 39px; }
+  .feed .pct-linha { margin-top: 6px; }
+  .feed .nota { font-size: 17px; left: 560px; right: 40px; }
+  .feed.fotos-1 .oferta { top: 420px; }
+  .feed.fotos-1 .nota { top: 850px; }
+  .feed.fotos-2 .oferta.o1 { top: 380px; }
+  .feed.fotos-2 .oferta.o2 { top: 870px; }
+  .feed.fotos-2 .oferta .ensaio { font-size: 46px; }
+  .feed.fotos-2 .pct { font-size: 104px; }
+  .feed.fotos-2 .off { font-size: 31px; }
+  .feed.fotos-2 .linha { margin: 12px 0 12px; }
+  .feed.fotos-2 .nota { top: 1150px; }
 </style>
 </head>
 <body>
   <div class="etiqueta"><img src="../assets/marca/etiqueta-black-friday.png" alt="Black Friday"></div>
-  <section class="painel"></section>
+  <header class="topo"></header>
+  <p class="nota"></p>
 
   <script type="module">
-    import { peca, montarQuadros, pronto, ofertasDo, NOTA } from './base.js';
+    import { peca, montarQuadros, pronto, OFERTAS, pctHTML, NOTA } from './base.js';
     const { p, fmt } = peca();
-    document.querySelector('.painel').innerHTML = `
-      <p class="espacado">Black Friday</p>
-      <h1 class="titulo">Condição<br>Especial<br>somente em<br>Novembro</h1>
-      <div class="linha"></div>
-      ${ofertasDo(p.grupo).map(o => `<span class="pilula-preta">${o.rotulo}</span>
-        <div class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></div>`).join('')}
-      <p class="nota">${NOTA.replace('reservas realizadas', 'reservas realizadas<br>')}</p>`;
+    document.querySelector('.topo').innerHTML = `<p class="espacado">Black Friday</p>
+      <h1 class="titulo">Condição Especial<br>somente em Novembro</h1>`;
+    const chaves = p.grupo === 'juntos' ? ['gestante', 'newborn'] : [p.grupo];
+    chaves.forEach((k, i) => {
+      const o = OFERTAS[k], el = document.createElement('section');
+      el.className = `oferta o${i + 1}`;
+      el.innerHTML = `<p class="ensaio">Ensaio de<br>${k === 'gestante' ? 'Gestante' : 'Newborn'}*</p><div class="linha"></div>${pctHTML(o)}`;
+      document.body.appendChild(el);
+    });
+    document.querySelector('.nota').innerHTML = NOTA.replace('reservas realizadas', 'reservas realizadas<br>');
     await montarQuadros(p.quadros[fmt]);
     pronto();
   </script>

@@ -6,55 +6,56 @@
 <link rel="stylesheet" href="base.css">
 <style>
   /* Papel + fotos impressas (referência: promo Combo Gestante + Newborn de setembro): fundo de papel,
-     título serifado escuro, linhas finas, desconto grande e as fotos como impressos com borda branca. */
+     "Ensaio de ..." em serifa escura, linhas finas, desconto grande e as fotos como impressos com borda branca.
+     Nas peças com as duas fotos, cada impresso leva na borda de baixo o desconto daquela foto.
+     Feed: lado (texto à esquerda, foto à direita) · foto-topo (foto em cima, texto embaixo) · texto-topo. */
   body { background: #f3f0ea url('../assets/marca/papel.jpg') repeat; background-size: 384px 384px; color: var(--tinta); }
   .texto { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .texto .espacado { color: var(--vinho); }
+  .ensaio { font-family: var(--display); color: #4a453d; }
   .titulo { color: var(--tinta); }
-  .wordmark { filter: none; }
   .linhas { border-top: 1.5px solid #2b2925; border-bottom: 1.5px solid #2b2925; font-weight: 600; text-transform: uppercase;
     letter-spacing: .08em; color: #2b2925; width: 100%; }
-  .ofertas { display: flex; width: 100%; justify-content: center; }
-  .of { display: flex; flex-direction: column; align-items: center; flex: 1; }
+  .of { display: flex; flex-direction: column; align-items: center; }
   .of .pct-linha { color: var(--tinta); }
   .of .rot { font-weight: 600; text-transform: uppercase; letter-spacing: .12em; line-height: 1.3; color: #2b2925; }
-  .grupo-juntos .of + .of { border-left: 1.5px solid #b9b2a6; }
   .nota { color: #3e3a34; }
 
   /* STORY 1080x1920 — texto entre y=250 e y=1530 */
   .story .etiqueta { --w: 150px; --circ: 268px; right: 34px; }
   .story .texto { left: 120px; right: 120px; top: 268px; }
   .story .texto .espacado { font-size: 32px; }
-  .story .wordmark { width: 560px; margin-top: 26px; }
-  .story .titulo { font-size: 84px; margin-top: 18px; }
-  .story.grupo-newborn .titulo { font-size: 74px; }
-  .story .linhas { font-size: 24px; padding: 18px 0; margin-top: 30px; }
-  .story .ofertas { margin-top: 26px; }
+  .story .ensaio { font-size: 46px; margin-top: 18px; }
+  .story .wordmark { width: 540px; margin-top: 8px; }
+  .story .titulo { font-size: 92px; margin-top: 0; }
+  .story.grupo-juntos .titulo { font-size: 78px; }
+  .story .linhas { font-size: 24px; padding: 16px 0; margin-top: 26px; }
+  .story .of { margin-top: 20px; }
   .story .of .pct { font-size: 150px; }
   .story .of .off { font-size: 44px; }
-  .story.grupo-juntos .of .pct { font-size: 118px; }
-  .story.grupo-juntos .of .off { font-size: 34px; }
-  .story .of .rot { font-size: 23px; margin-top: 8px; }
-  .story .nota { font-size: 21px; margin-top: 18px; }
+  .story .of .rot { font-size: 23px; margin-top: 6px; }
+  .story .nota { font-size: 21px; margin-top: 14px; }
+  .story.grupo-juntos .nota { margin-top: 16px; }
 
-  /* FEED 4:5 1080x1350 — texto em coluna à esquerda, impressos à direita */
-  .feed .etiqueta { --w: 112px; --circ: 40px; left: 40px; right: auto; }
-  .feed .texto { left: 60px; width: 470px; top: 390px; }
-  .feed.grupo-newborn .texto { top: 370px; }
-  .feed.grupo-juntos .texto { top: 320px; }
+  /* FEED 4:5 1080x1350 */
+  .feed .etiqueta { --w: 112px; --circ: 40px; right: 30px; }
   .feed .texto .espacado { font-size: 26px; }
-  .feed .wordmark { width: 430px; margin-top: 22px; }
-  .feed .titulo { font-size: 66px; margin-top: 14px; }
-  .feed.grupo-newborn .titulo { font-size: 58px; }
-  .feed .linhas { font-size: 19px; padding: 14px 0; margin-top: 26px; }
-  .feed .ofertas { margin-top: 20px; }
-  .feed .of .pct { font-size: 128px; }
-  .feed .of .off { font-size: 38px; }
-  .feed.grupo-juntos .of .pct { font-size: 88px; }
-  .feed.grupo-juntos .of .off { font-size: 26px; }
-  .feed .of .rot { font-size: 19px; margin-top: 6px; }
-  .feed.grupo-juntos .of .rot { font-size: 17px; }
-  .feed .nota { font-size: 17px; margin-top: 16px; }
+  .feed .ensaio { font-size: 38px; margin-top: 12px; }
+  .feed .wordmark { width: 430px; margin-top: 6px; }
+  .feed .titulo { font-size: 72px; }
+  .feed .linhas { font-size: 19px; padding: 13px 0; margin-top: 22px; }
+  .feed .of { margin-top: 16px; }
+  .feed .of .pct { font-size: 124px; }
+  .feed .of .off { font-size: 37px; }
+  .feed .of .rot { font-size: 19px; margin-top: 4px; }
+  .feed .nota { font-size: 17px; margin-top: 12px; }
+  .feed.lado .etiqueta { left: 40px; right: auto; }
+  .feed.lado .texto { left: 60px; width: 470px; top: 340px; }
+  .feed.foto-topo .texto { left: 150px; right: 150px; top: 690px; }
+  .feed.foto-topo .ensaio { display: none; }
+  .feed.texto-topo .texto { left: 150px; right: 150px; top: 48px; }
+  .feed.texto-topo .titulo { font-size: 58px; }
+  .feed.texto-topo .ensaio { font-size: 30px; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -62,16 +63,19 @@
   <section class="texto"></section>
 
   <script type="module">
-    import { peca, montarQuadros, pronto, ofertasDo, CONDICAO, NOTA } from './base.js';
+    import { peca, montarQuadros, pronto, OFERTAS, pctHTML, CONDICAO, NOTA } from './base.js';
     const { p, fmt } = peca();
-    const titulo = { gestante: '<img class="wordmark" src="../assets/marca/gestante-wordmark-escuro.png" alt="Gestante">',
-      newborn: '<h1 class="titulo">Combo Gestante<br>+ Newborn</h1>', juntos: '<h1 class="titulo">Gestante<br>+ Newborn</h1>' }[p.grupo];
-    const of = ofertasDo(p.grupo);
+    const umaLinha = fmt === 'feed' && p.variante !== 'lado';
+    const titulo = {
+      gestante: '<p class="ensaio">Ensaio de</p><img class="wordmark" src="../assets/marca/gestante-wordmark-escuro.png" alt="Gestante">',
+      newborn: umaLinha ? '<h1 class="titulo">Ensaio de Newborn</h1>' : '<p class="ensaio">Ensaio de</p><h1 class="titulo">Newborn</h1>',
+      juntos: `<p class="ensaio">Ensaios de</p><h1 class="titulo">Gestante${umaLinha ? ' ' : '<br>'}+ Newborn</h1>`,
+    }[p.grupo];
+    // nas peças com as duas fotos, o desconto vai na legenda de cada impresso
+    const oferta = p.grupo === 'juntos' ? '' : `<div class="of">${pctHTML(OFERTAS[p.grupo])}<p class="rot">${OFERTAS[p.grupo].rotulo}</p></div>`;
     document.querySelector('.texto').innerHTML = `
       <p class="espacado">Black Friday</p>${titulo}
-      <p class="linhas">${CONDICAO}</p>
-      <div class="ofertas">${of.map(o => `<div class="of"><span class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></span>
-        <p class="rot">${of.length === 2 ? o.rotulo.replace(' + ', '<br>+ ') : o.rotulo}</p></div>`).join('')}</div>
+      <p class="linhas">${CONDICAO}</p>${oferta}
       <p class="nota">${NOTA}</p>`;
     await montarQuadros(p.quadros[fmt]);
     pronto();

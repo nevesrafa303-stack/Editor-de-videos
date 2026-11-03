@@ -16,27 +16,37 @@ Pedido do estúdio em 03/11/2026 ("as nossas fotos são profissionais, não prec
 - **não pode**: recorte do fundo, troca de fundo, ampliação por IA, nitidez, filtro, retoque, degradê ou texto
   por cima da pessoa;
 - nenhuma foto é ampliada: o conferidor mede a escala de cada foto (px exportado ÷ px original) e só aceita ≤ 1.
-  Nesta versão a maior escala é 0,986.
+  Nesta versão a maior escala é 1,0 (G1 Story): a foto aparece no tamanho original, sem ampliar.
+- **Enquadramento:** `pecas/dados.js` guarda onde está a pessoa / o bebê em cada foto (medido nas originais) e
+  cada moldura mostra essa região inteira e centralizada, com o formato da moldura acompanhando o da pessoa
+  (arco alto para gestante em pé, moldura horizontal para bebê deitado).
 
 A versão anterior (recorte da modelo sentada sobre um holofote desenhado e fotos ampliadas por IA) foi
 removida do projeto. Ela continua só no histórico do git.
 
 ## Peças
 
+Pedido de 03/11: deixar claro que é **ensaio fotográfico** e que **gestante = 15%** e **newborn = 20%**.
+Os textos usam "Ensaio de Gestante" e "Ensaio de Newborn". Nas peças com as duas fotos, cada foto leva o seu
+desconto colado nela (embaixo do arco, na legenda do impresso ou ao lado do card).
+
 | Grupo | Oferta | Peça | Layout | Foto(s) |
 |---|---|---|---|---|
-| Gestante | Ensaio Gestante* **15% OFF** | `g1-capa-vermelho` | Capa escura, foto em arco | vermelho |
+| Gestante | Ensaio de Gestante* **15% OFF** | `g1-capa-vermelho` | Capa escura, arco alto + oferta ao lado | vermelho |
 | | | `g2-papel-jeans` | Papel com foto impressa | jeans |
 | | | `g3-convite-holofote` | Convite (card + painel claro) | holofote (foto do PDF, com o círculo de luz original) |
-| Newborn | Combo Gestante + Newborn* **20% OFF** | `n1-capa-tule` | Capa escura, foto horizontal | newborn menina (tule, deitada) |
+| Newborn | Ensaio de Newborn* **20% OFF** | `n1-capa-tule` | Capa escura, foto horizontal | newborn menina (tule, deitada) |
 | | | `n2-papel-botoes` | Papel com foto impressa | newborn menino (botões) |
 | | | `n3-convite-tule` | Convite | newborn menina (tule, vertical) |
-| Juntos | **15%** gestante + **20%** combo | `j1-capa-sentada-azul` | Capa escura, dois arcos (cada desconto sob a sua foto) | sentada + newborn menino (azul, vertical) |
-| | | `j2-papel-tenis-touca` | Papel com dois impressos sobrepostos (como a promo de setembro) | branco com tênis + newborn menino (touca) |
-| | | `j3-convite-tule-renda` | Convite com duas fotos | marrom de tule + newborn menina (renda) |
+| Juntos | foto de gestante **15%** + foto do bebê **20%** | `j1-capa-sentada-azul` | Capa escura, dois arcos, desconto embaixo de cada foto | sentada + newborn menino (azul, vertical) |
+| | | `j2-papel-tenis-touca` | Papel com dois impressos (promo de setembro), desconto na legenda de cada impresso | branco com tênis + newborn menino (touca) |
+| | | `j3-convite-tule-renda` | Convite com duas fotos, desconto ao lado de cada foto | marrom de tule + newborn menina (renda) |
 
 Em todas: "BLACK FRIDAY", etiqueta Black Friday do PDF, "Condição Especial somente em Novembro" e
 "\*Válido para reservas realizadas em novembro de 2026.". Sem valores em reais e sem logo, como pedido antes.
+
+**Confirmar:** o texto original da cliente dizia "Combo Gestante + Newborn 20% OFF"; a pedido da LAKS (03/11)
+as peças dizem "Ensaio de Newborn 20% OFF". Para voltar ao "Combo", basta trocar o rótulo em `pecas/base.js`.
 
 ## Como funciona
 
