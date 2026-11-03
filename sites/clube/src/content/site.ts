@@ -31,11 +31,29 @@ export const cta = "Garantir meu ingresso";
 
 export const hero = {
   selo: "Exclusivo para donos de agência que faturam acima de R$ 30 mil/mês",
-  titulo: "Domine os 5 pilares que sustentam uma agência de R$ 15 milhões",
+  // A parte em `destaque` vai no degradê da marca.
+  titulo: "Domine os 5 pilares que sustentam uma agência de",
+  destaque: "R$ 15 milhões",
   complemento: "com +350 clientes ativos e churn abaixo de 10%.",
   subtitulo:
     "2 dias de imersão presencial para entrar nos bastidores de uma operação real e construir uma agência que fatura acima de R$ 500 mil por mês.",
   video: "Veja como foi a última edição",
+} as const;
+
+// Faixa que corre com a rolagem logo depois da abertura.
+export const faixa = [
+  ["2 dias presenciais", "50 vagas", "Balneário Camboriú", "Bastidores da LAKS"],
+  ["Aquisição", "Comercial", "Operação", "Gestão", "Cultura"],
+] as const;
+
+export const numeros = {
+  titulo: "Uma operação real, aberta para você",
+  itens: [
+    { prefixo: "R$ ", valor: 15, unidade: " mi", rotulo: "de faturamento na agência que você vai ver por dentro" },
+    { prefixo: "", valor: 350, unidade: "+", rotulo: "clientes ativos ao mesmo tempo" },
+    { prefixo: "<", valor: 10, unidade: "%", rotulo: "de churn, com processo e não com sorte" },
+    { prefixo: "", valor: evento.vagas, unidade: "", rotulo: "vagas, para o conteúdo ser aplicado de verdade" },
+  ],
 } as const;
 
 export const pilares = {
@@ -83,9 +101,34 @@ export const paraQuem = {
     "Quer sair do “freela premium” e construir uma agência que cresce rápido",
     "Quer aprender os bastidores reais de quem faz 200k, 300k, 500k por mês com agência",
   ],
+  instrucao: "Ligue o que acontece hoje na sua agência.",
+  // Resposta conforme a quantidade de chaves ligadas: 0, 1–2, 3–4, 5.
+  respostas: [
+    "Ligue as chaves para ver se a imersão é para você.",
+    "Já tem sinal de que a operação está segurando o crescimento.",
+    "A imersão foi feita para o momento da sua agência.",
+    "Você é exatamente quem a gente quer na sala.",
+  ],
   resumo:
     "Essa imersão é para quem quer fazer a agência crescer rápido, com aquisição previsível, vendas recorrentes e um time que sustenta a escala, e não apenas “ter tudo organizado”.",
   cta: "Quero escalar minha agência",
+} as const;
+
+export const galeria = {
+  titulo: "Por dentro da última edição",
+  intro: "Dois dias de conteúdo, networking e bastidores. Arraste para ver.",
+  // Quadros do vídeo da última edição (originais em sites/_fontes/clube/videos).
+  itens: [
+    { img: "praia", legenda: "Balneário Camboriú, a cidade da imersão", formato: "largo" },
+    { img: "hermano-palco", legenda: "Hermano no palco", formato: "alto" },
+    { img: "caderno", legenda: "O kit do CDA", formato: "largo" },
+    { img: "networking", legenda: "Networking entre donos de agência", formato: "alto" },
+    { img: "palco", legenda: "Conteúdo direto do palco", formato: "largo" },
+    { img: "coffee", legenda: "Coffee break nos dois dias", formato: "alto" },
+    { img: "placa", legenda: "As placas de faturamento", formato: "alto" },
+    { img: "mentorados-placas", legenda: "Mentorados no palco com as placas", formato: "largo" },
+    { img: "plateia", legenda: "A sala cheia na última edição", formato: "largo" },
+  ],
 } as const;
 
 export const informacoes = {
@@ -100,7 +143,7 @@ export const informacoes = {
 } as const;
 
 export const depoimentos = {
-  titulo: "Dezenas de agências já escalaram com o método.",
+  titulo: "Dezenas de agências já escalaram com o método",
   intro: "Donos de agência que passaram pela RISE, a mentoria do Hermano, contam com a placa de faturamento na mão.",
   destaques: [
     { valor: "R$ 17 mil → R$ 150 mil", texto: "R$ 50 mil já nos 3 primeiros meses" },
@@ -257,7 +300,7 @@ export const faq = {
 } as const;
 
 export const final = {
-  titulo: "Hora de agir.",
+  titulo: "Hora de agir",
   texto:
     "Chegou o momento de transformar sua agência e se posicionar como líder no mercado. Não perca a oportunidade de implementar estratégias comprovadas e gerar resultados previsíveis.",
   cta: "Quero escalar minha agência",

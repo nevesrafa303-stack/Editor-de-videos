@@ -28,9 +28,31 @@ export function iniciarRolagemSuave() {
   };
 }
 
+/** Inclinação 3D que segue o mouse, com o brilho (--hx/--hy) acompanhando a luz. Devolve a limpeza. */
+function inclinarComMouse(el: HTMLElement, graus = 10) {
+  const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3.out" });
+  const ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3.out" });
+  const onMove = (e: PointerEvent) => {
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    ry((px - 0.5) * graus);
+    rx((py - 0.5) * -graus);
+    el.style.setProperty("--hx", `${px * 100}%`);
+    el.style.setProperty("--hy", `${py * 100}%`);
+  };
+  const onLeave = () => (rx(0), ry(0));
+  el.addEventListener("pointermove", onMove);
+  el.addEventListener("pointerleave", onLeave);
+  return () => {
+    el.removeEventListener("pointermove", onMove);
+    el.removeEventListener("pointerleave", onLeave);
+  };
+}
+
 /** Animações de rolagem (GSAP + ScrollTrigger + SplitText + ScrambleText). Devolve a função de limpeza.
  *  O que é cena (abertura, pilares, entradas) segue a rolagem nos dois sentidos; o que muda de estado
- *  (chaves, contadores, letras embaralhadas) acontece ao entrar na tela e se desfaz ao voltar. */
+ *  (contadores, letras embaralhadas) acontece ao entrar na tela e se desfaz ao voltar. */
 export function iniciarAnimacoes() {
   const mm = gsap.matchMedia();
 
@@ -69,7 +91,7 @@ export function iniciarAnimacoes() {
       let cancelado = false;
 
       // Abertura: a tela fixa; o texto sobe e some e o vídeo vira um quadro com a legenda
-      // "Veja como foi a última edição".
+      // "Veja como foi a última edição". Com mouse, vídeo e texto se deslocam em camadas.
       const hero = document.querySelector<HTMLElement>("[data-hero]");
       if (hero) {
         const legenda = hero.querySelector<HTMLElement>("[data-hero-legenda]");
@@ -100,6 +122,23 @@ export function iniciarAnimacoes() {
           anticipatePin: 1,
           invalidateOnRefresh: true,
         });
+        if (mouse) {
+          const camadas = [
+            { el: hero.querySelector("[data-hero-camada='video']"), f: -1.4 },
+            { el: hero.querySelector("[data-hero-camada='texto']"), f: 0.9 },
+          ].map(({ el, f }) => ({
+            x: gsap.quickTo(el, "xPercent", { duration: 1.2, ease: "power3.out" }),
+            y: gsap.quickTo(el, "yPercent", { duration: 1.2, ease: "power3.out" }),
+            f,
+          }));
+          const onMove = (e: PointerEvent) => {
+            const nx = (e.clientX / window.innerWidth) * 2 - 1;
+            const ny = (e.clientY / window.innerHeight) * 2 - 1;
+            camadas.forEach((c) => (c.x(nx * c.f), c.y(ny * c.f)));
+          };
+          hero.addEventListener("pointermove", onMove);
+          limpezas.push(() => hero.removeEventListener("pointermove", onMove));
+        }
         limpezas.push(() => legenda?.classList.add("hidden"));
       }
 
@@ -166,67 +205,182 @@ export function iniciarAnimacoes() {
         });
       });
 
-      // Pilares: cada cartão gruda no topo (CSS sticky); quando o próximo sobe por cima, o de baixo
-      // encolhe e escurece. No desktop o contador "01 / 05" e a barra acompanham.
+      // Faixa: as duas linhas andam em sentidos opostos com a rolagem e inclinam com a velocidade.
       etapa(() => {
-        const pilares = $$("[data-pilar]");
-        const atual = document.querySelector<HTMLElement>("[data-pilar-atual]");
-        pilares.forEach((pilar, i) => {
-          const proximo = pilares[i + 1];
-          if (proximo) {
-            const st = { trigger: proximo, start: "top 92%", end: "top 25%", scrub: true };
-            gsap.to(pilar.querySelector("[data-pilar-cartao]"), { scale: 0.92, ease: "none", scrollTrigger: st });
-            gsap.to(pilar.querySelector("[data-pilar-sombra]"), { opacity: 0.55, ease: "none", scrollTrigger: st });
-          }
+        const faixas = $$("[data-kinetic]");
+        faixas.forEach((el) => {
+          const dir = el.dataset.kinetic === "direita" ? 1 : -1;
+          const forca = Number(el.dataset.forca) || 0.18;
+          gsap.fromTo(
+            el,
+            { x: () => -dir * window.innerWidth * forca },
+            {
+              x: () => dir * window.innerWidth * forca,
+              ease: "none",
+              scrollTrigger: { trigger: el.closest("section") ?? el, start: "top bottom", end: "bottom top", scrub: 0.4, invalidateOnRefresh: true },
+            },
+          );
         });
-        // Contador e barra seguem a posição da rolagem na lista (iguais descendo e subindo).
-        const lista = pilares[0]?.parentElement;
-        if (lista && atual) {
-          let antes = -1;
+        if (!faixas.length) return;
+        const inclinar = faixas.map((el) => gsap.quickTo(el, "skewX", { duration: 0.45, ease: "power3.out" }));
+        const st = ScrollTrigger.create({
+          onUpdate: (self) => {
+            const v = gsap.utils.clamp(-12, 12, self.getVelocity() / -240);
+            inclinar.forEach((f) => f(v));
+          },
+        });
+        const endireitar = () => inclinar.forEach((f) => f(0));
+        ScrollTrigger.addEventListener("scrollEnd", endireitar);
+        limpezas.push(() => {
+          ScrollTrigger.removeEventListener("scrollEnd", endireitar);
+          st.kill();
+        });
+      });
+
+      // Pilares em acordeão. Desktop: a seção fixa e a rolagem abre uma coluna de cada vez; o mouse e o
+      // teclado também abrem. Celular: todos ficam abertos e o que passa pelo meio da tela acende.
+      etapa(() => {
+        const paineis = $$("[data-pilar-painel]");
+        if (!paineis.length) return;
+        const atual = document.querySelector<HTMLElement>("[data-pilar-atual]");
+        const ativar = (i: number) => {
+          paineis.forEach((p, j) => {
+            p.dataset.ativo = String(i === j);
+            p.querySelector("[data-pilar-botao]")?.setAttribute("aria-expanded", String(i === j));
+          });
+          if (atual) atual.textContent = String(i + 1).padStart(2, "0");
+          gsap.to("[data-pilares-progresso]", { scaleX: (i + 1) / paineis.length, duration: 0.5, ease: "power3.out", overwrite: true });
+        };
+        ativar(0);
+        paineis.forEach((p, i) => {
+          const botao = p.querySelector("[data-pilar-botao]");
+          const abrir = () => ativar(i);
+          botao?.addEventListener("click", abrir);
+          if (mouse && desktop) p.addEventListener("pointerenter", abrir);
+          limpezas.push(() => {
+            botao?.removeEventListener("click", abrir);
+            p.removeEventListener("pointerenter", abrir);
+            delete p.dataset.ativo;
+            botao?.setAttribute("aria-expanded", "true");
+          });
+        });
+        if (desktop) {
+          let antes = 0;
           ScrollTrigger.create({
-            trigger: lista,
-            start: "top 60%",
-            end: "bottom 40%",
+            trigger: "[data-pilares-palco]",
+            start: "top top",
+            end: () => `+=${window.innerHeight * 2.2}`,
+            pin: true,
+            pinSpacer: "[data-pilares-espaco]",
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
-              const i = Math.min(pilares.length - 1, Math.floor(self.progress * pilares.length));
+              const i = Math.min(paineis.length - 1, Math.floor(self.progress * paineis.length));
               if (i === antes) return;
               antes = i;
-              atual.textContent = String(i + 1).padStart(2, "0");
-              gsap.to("[data-pilares-progresso]", { scaleX: (i + 1) / pilares.length, duration: 0.5, ease: "power3.out", overwrite: true });
+              ativar(i);
             },
           });
+          // As colunas entram de baixo, uma depois da outra.
+          gsap.fromTo(
+            paineis,
+            { yPercent: 30, autoAlpha: 0 },
+            { yPercent: 0, autoAlpha: 1, stagger: 0.08, ease: "power3.out", scrollTrigger: entrada(paineis[0].parentElement!, "top 95%", "top 55%") },
+          );
+        } else {
+          // Acende o item que está cruzando o meio da tela (as faixas não se sobrepõem: o resultado é o
+          // mesmo descendo ou subindo).
+          paineis.forEach((p, i) =>
+            ScrollTrigger.create({
+              trigger: p,
+              start: "top 50%",
+              end: "bottom+=12 50%", // + o espaço entre os itens
+              onToggle: (self) => self.isActive && ativar(i),
+              // Num salto de rolagem por cima da lista, garante o primeiro (acima) ou o último (abaixo).
+              onLeaveBack: i === 0 ? () => ativar(0) : undefined,
+              onLeave: i === paineis.length - 1 ? () => ativar(i) : undefined,
+            }),
+          );
         }
       });
 
-      // Chaves: ligam quando o item chega perto do meio da tela. Nos ingressos ligam em sequência;
-      // as dos benefícios que o ingresso não tem continuam desligadas.
+      // Galeria: arrastar com o mouse (com inércia) além da rolagem lateral nativa; a foto desliza por dentro
+      // do quadro conforme a faixa anda, e a barra embaixo mostra a posição.
       etapa(() => {
-        $$("#para-quem [data-chave-item]").forEach((item) =>
-          aoChegar(item, "top 72%", () => (item.dataset.ligado = "true"), () => (item.dataset.ligado = "false")),
-        );
-        $$("[data-beneficios]").forEach((lista) => {
-          const itens = $$("[data-chave-item]", lista).filter((li) => li.dataset.ligado !== "false");
-          let timers: number[] = [];
-          const ligar = () => {
-            timers.forEach((t) => window.clearTimeout(t));
-            timers = itens.map((li, i) => window.setTimeout(() => (li.dataset.ligado = "true"), 120 * i));
+        const faixa = document.querySelector<HTMLElement>("[data-galeria]");
+        if (!faixa) return;
+        const itens = $$("[data-galeria-item]", faixa);
+        const fotos = itens.map((it) => gsap.quickSetter(it.querySelector("[data-galeria-foto]"), "xPercent"));
+        const barra = document.querySelector<HTMLElement>("[data-galeria-progresso]");
+        const atualizar = () => {
+          const centro = faixa.getBoundingClientRect().left + faixa.clientWidth / 2;
+          itens.forEach((it, i) => {
+            const r = it.getBoundingClientRect();
+            const d = (r.left + r.width / 2 - centro) / faixa.clientWidth;
+            fotos[i](gsap.utils.clamp(-8, 8, d * -12));
+          });
+          const max = faixa.scrollWidth - faixa.clientWidth;
+          if (barra) barra.style.transform = `scaleX(${max > 0 ? 0.15 + 0.85 * (faixa.scrollLeft / max) : 1})`;
+        };
+        faixa.addEventListener("scroll", atualizar, { passive: true });
+        atualizar();
+        gsap.fromTo(itens, { x: 160, autoAlpha: 0 }, { x: 0, autoAlpha: 1, stagger: 0.06, ease: "power3.out", scrollTrigger: entrada(faixa, "top 96%", "top 55%") });
+
+        let limparArraste = () => {};
+        if (mouse) {
+          let inicioX = 0;
+          let inicioScroll = 0;
+          let ultimoX = 0;
+          let ultimoT = 0;
+          let velocidade = 0;
+          let arrastando = false;
+          const down = (e: PointerEvent) => {
+            if (e.button !== 0) return;
+            arrastando = true;
+            inicioX = ultimoX = e.clientX;
+            inicioScroll = faixa.scrollLeft;
+            ultimoT = performance.now();
+            velocidade = 0;
+            gsap.killTweensOf(faixa);
+            faixa.setPointerCapture(e.pointerId);
           };
-          const desligar = () => {
-            timers.forEach((t) => window.clearTimeout(t));
-            itens.forEach((li) => delete li.dataset.ligado);
+          const move = (e: PointerEvent) => {
+            if (!arrastando) return;
+            const agora = performance.now();
+            velocidade = (e.clientX - ultimoX) / Math.max(1, agora - ultimoT);
+            ultimoX = e.clientX;
+            ultimoT = agora;
+            faixa.scrollLeft = inicioScroll - (e.clientX - inicioX);
           };
-          aoChegar(lista, "top 78%", ligar, desligar);
-          limpezas.push(desligar);
+          const up = () => {
+            if (!arrastando) return;
+            arrastando = false;
+            // Inércia: continua deslizando na direção do arraste e desacelera.
+            gsap.to(faixa, { scrollLeft: faixa.scrollLeft - velocidade * 420, duration: 1.1, ease: "power3.out" });
+          };
+          faixa.addEventListener("pointerdown", down);
+          faixa.addEventListener("pointermove", move);
+          faixa.addEventListener("pointerup", up);
+          faixa.addEventListener("pointercancel", up);
+          limparArraste = () => {
+            faixa.removeEventListener("pointerdown", down);
+            faixa.removeEventListener("pointermove", move);
+            faixa.removeEventListener("pointerup", up);
+            faixa.removeEventListener("pointercancel", up);
+          };
+        }
+        limpezas.push(() => {
+          faixa.removeEventListener("scroll", atualizar);
+          limparArraste();
         });
-        limpezas.push(() => $$("#para-quem [data-chave-item]").forEach((li) => delete li.dataset.ligado));
       });
 
-      // Painel de informações: as letras embaralham até formar o texto, como um quadro de embarque.
+      // Bilhete: os valores embaralham até formar o texto e, com mouse, o bilhete inclina e brilha.
       etapa(() => {
         $$("[data-embaralhar]").forEach((el, i) => {
           const texto = el.textContent ?? "";
           const tween = gsap.to(el, {
-            duration: 0.8 + i * 0.1,
+            duration: 0.8 + i * 0.12,
             scrambleText: { text: texto, chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", revealDelay: 0.25, speed: 0.6 },
             paused: true,
           });
@@ -244,6 +398,29 @@ export function iniciarAnimacoes() {
             el.textContent = texto;
           });
         });
+        const bilhete = document.querySelector<HTMLElement>("[data-bilhete]");
+        if (bilhete) {
+          gsap.fromTo(bilhete, { rotateX: 18, y: 60 }, { rotateX: 0, y: 0, ease: "power2.out", scrollTrigger: entrada(bilhete, "top 95%", "top 55%") });
+          if (mouse) limpezas.push(inclinarComMouse(bilhete, 8));
+        }
+      });
+
+      // Benefícios dos ingressos: as chaves incluídas ligam em sequência quando o cartão aparece.
+      etapa(() => {
+        $$("[data-beneficios]").forEach((lista) => {
+          const itens = $$("[data-chave-item]", lista).filter((li) => li.dataset.ligado !== "false");
+          let timers: number[] = [];
+          const ligar = () => {
+            timers.forEach((t) => window.clearTimeout(t));
+            timers = itens.map((li, i) => window.setTimeout(() => (li.dataset.ligado = "true"), 120 * i));
+          };
+          const desligar = () => {
+            timers.forEach((t) => window.clearTimeout(t));
+            itens.forEach((li) => delete li.dataset.ligado);
+          };
+          aoChegar(lista, "top 78%", ligar, desligar);
+          limpezas.push(desligar);
+        });
       });
 
       // Barra de ingressos vendidos enche quando aparece.
@@ -259,60 +436,50 @@ export function iniciarAnimacoes() {
 
       // Ingressos: entram tombando para a frente; com mouse, inclinam e um brilho acompanha a luz.
       etapa(() => {
-        const ingressos = $$("[data-ingresso-cartao]");
-        ingressos.forEach((el, i) => {
+        $$("[data-ingresso-cartao]").forEach((el, i) => {
           gsap.fromTo(
             el,
             { rotateX: 24, y: 90, autoAlpha: 0.2, transformOrigin: "50% 100%" },
             { rotateX: 0, y: 0, autoAlpha: 1, ease: "power2.out", scrollTrigger: entrada(el, `top ${96 - i * 2}%`, "top 55%") },
           );
-          if (!mouse) return;
-          const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3.out" });
-          const ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3.out" });
-          const onMove = (e: PointerEvent) => {
+          if (mouse) limpezas.push(inclinarComMouse(el, 10));
+        });
+      });
+
+      // Mentores: no desktop as cartas saem de um monte no centro e se abrem lado a lado com a rolagem;
+      // no celular entram de baixo. Com mouse, cada carta inclina e brilha.
+      etapa(() => {
+        const lista = document.querySelector<HTMLElement>("[data-mentores]");
+        const cartas = $$("[data-mentor-carta]");
+        if (!lista || !cartas.length) return;
+        if (tablet) {
+          const giros = [-10, 2, 9];
+          // Distância até o centro da lista. Desconta o deslocamento que a carta já tem: no recálculo ela
+          // pode estar no meio da animação (o giro não muda o centro).
+          const paraOCentro = (el: HTMLElement) => {
+            const l = lista.getBoundingClientRect();
             const r = el.getBoundingClientRect();
-            const px = (e.clientX - r.left) / r.width;
-            const py = (e.clientY - r.top) / r.height;
-            ry((px - 0.5) * 10);
-            rx((py - 0.5) * -10);
-            el.style.setProperty("--hx", `${px * 100}%`);
-            el.style.setProperty("--hy", `${py * 100}%`);
+            return l.left + l.width / 2 - (r.left + r.width / 2 - Number(gsap.getProperty(el, "x")));
           };
-          const onLeave = () => (rx(0), ry(0));
-          el.addEventListener("pointermove", onMove);
-          el.addEventListener("pointerleave", onLeave);
-          limpezas.push(() => {
-            el.removeEventListener("pointermove", onMove);
-            el.removeEventListener("pointerleave", onLeave);
+          cartas.forEach((c, i) => {
+            gsap.fromTo(
+              c,
+              { x: () => paraOCentro(c), rotate: giros[i % giros.length], y: 40 + i * 10 },
+              { x: 0, rotate: 0, y: 0, ease: "power2.inOut", scrollTrigger: { ...entrada(lista, "top 85%", "top 30%"), invalidateOnRefresh: true } },
+            );
           });
-        });
-      });
-
-      // Mentores: a foto abre de baixo para cima e desacelera o zoom, um mentor depois do outro.
-      etapa(() => {
-        $$("[data-mentor]").forEach((mentor, i) => {
-          const foto = mentor.querySelector("[data-mentor-foto]");
-          const st = entrada(mentor, `top ${94 - i * 3}%`, "top 45%");
-          gsap.fromTo(mentor.querySelector("figure"), { clipPath: "inset(100% 0% 0% 0% round 28px)" }, { clipPath: "inset(0% 0% 0% 0% round 28px)", ease: "power2.out", scrollTrigger: st });
-          gsap.fromTo(foto, { scale: 1.3 }, { scale: 1, ease: "power2.out", scrollTrigger: st });
-        });
-      });
-
-      // A seta gigante da chamada final gira com a rolagem.
-      etapa(() => {
-        $$("[data-girar]").forEach((el) => {
-          gsap.fromTo(
-            el,
-            { rotate: -120, scale: 0.8 },
-            { rotate: 40, scale: 1, ease: "none", scrollTrigger: { trigger: el.closest("section") ?? el, start: "top bottom", end: "bottom top", scrub: true } },
+        } else {
+          cartas.forEach((c) =>
+            gsap.fromTo(c, { y: 80, rotate: -3, autoAlpha: 0 }, { y: 0, rotate: 0, autoAlpha: 1, ease: "power2.out", scrollTrigger: entrada(c, "top 96%", "top 62%") }),
           );
-        });
+        }
+        if (mouse) $$("[data-mentor-figura]").forEach((f) => limpezas.push(inclinarComMouse(f, 12)));
       });
 
       // Depoimentos: no desktop a seção fixa, os vídeos correm na horizontal e cada um gira e cresce ao entrar.
       const track = document.querySelector<HTMLElement>("[data-cases-track]");
       etapa(() => {
-        const cartoesCases = track ? (Array.from(track.children) as HTMLElement[]).filter((c) => c.querySelector("figure")) : [];
+        const cartoesCases = track ? (Array.from(track.children) as HTMLElement[]).filter((c) => !c.hasAttribute("aria-hidden")) : [];
         if (track && desktop) {
           track.dataset.pinned = "true";
           const barra = document.querySelector<HTMLElement>("[data-cases-progresso]");
@@ -325,6 +492,7 @@ export function iniciarAnimacoes() {
               start: "top top",
               end: () => `+=${distancia()}`,
               pin: true,
+              pinSpacer: "[data-cases-espaco]",
               scrub: 1,
               anticipatePin: 1,
               invalidateOnRefresh: true,
@@ -353,13 +521,44 @@ export function iniciarAnimacoes() {
         }
       });
 
-      // Logo gigante do rodapé sobe no fim da página.
+      // Chamada final: o botão redondo é atraído pelo mouse dentro da seção (quanto mais perto, mais forte).
+      etapa(() => {
+        const area = document.querySelector<HTMLElement>("[data-ima-area]");
+        const ima = document.querySelector<HTMLElement>("[data-ima]");
+        if (!area || !ima || !mouse) return;
+        const miolo = ima.querySelector<HTMLElement>("[data-ima-miolo]");
+        const x = gsap.quickTo(ima, "x", { duration: 0.9, ease: "power3.out" });
+        const y = gsap.quickTo(ima, "y", { duration: 0.9, ease: "power3.out" });
+        const mx = gsap.quickTo(miolo, "x", { duration: 0.6, ease: "power3.out" });
+        const my = gsap.quickTo(miolo, "y", { duration: 0.6, ease: "power3.out" });
+        const onMove = (e: PointerEvent) => {
+          const r = ima.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2 - (Number(gsap.getProperty(ima, "x")) || 0));
+          const dy = e.clientY - (r.top + r.height / 2 - (Number(gsap.getProperty(ima, "y")) || 0));
+          const dist = Math.hypot(dx, dy);
+          const forca = gsap.utils.clamp(0, 1, 1 - dist / 420);
+          x(dx * 0.45 * forca);
+          y(dy * 0.45 * forca);
+          mx(dx * 0.12 * forca);
+          my(dy * 0.12 * forca);
+        };
+        const onLeave = () => (x(0), y(0), mx(0), my(0));
+        area.addEventListener("pointermove", onMove);
+        area.addEventListener("pointerleave", onLeave);
+        limpezas.push(() => {
+          area.removeEventListener("pointermove", onMove);
+          area.removeEventListener("pointerleave", onLeave);
+        });
+      });
+
+      // Logo gigante do rodapé sobe no fim da página (termina exatamente no fim da rolagem: abaixo dele ainda
+      // vem a linha do copyright, então "bottom bottom" nunca chegaria).
       etapa(() => {
         gsap.from("[data-rodape-marca]", {
           yPercent: 70,
           autoAlpha: 0,
           ease: "none",
-          scrollTrigger: { trigger: "[data-rodape-marca]", start: "top bottom", end: "bottom bottom", scrub: true },
+          scrollTrigger: { trigger: "[data-rodape-marca]", start: "top bottom", end: "max", scrub: true },
         });
       });
 

@@ -453,10 +453,12 @@ dialog[open]::backdrop {
   transition: transform 0.45s var(--ease-out-expo), background-color 0.35s ease;
 }
 [data-ligado="true"] > .chave,
+[aria-checked="true"] .chave,
 html:not(.js-motion) [data-chave-item]:not([data-ligado="false"]) > .chave {
   background: var(--color-verde);
 }
 [data-ligado="true"] > .chave::after,
+[aria-checked="true"] .chave::after,
 html:not(.js-motion) [data-chave-item]:not([data-ligado="false"]) > .chave::after {
   transform: translateX(1rem);
   background: #fff;
@@ -466,17 +468,6 @@ html:not(.js-motion) [data-chave-item]:not([data-ligado="false"]) > .chave::afte
 }
 html.js-motion [data-chave-item]:not([data-ligado="true"]) {
   color: var(--color-mute);
-}
-
-/* ===== Pilares: cartões que empilham (cada um gruda no topo e o próximo cobre o anterior) ===== */
-.pilar {
-  position: sticky;
-  top: calc(5.5rem + var(--i, 0) * 1.1rem);
-}
-
-/* ===== Quadro de embarque (informações): as letras embaralham até formar o texto ===== */
-.quadro-valor {
-  font-variant-numeric: tabular-nums;
 }
 
 /* ===== Ingresso Diamond esgotado: carimbo inclinado ===== */
@@ -509,10 +500,140 @@ html.js-motion [data-chave-item]:not([data-ligado="true"]) {
   transform: rotate(45deg);
 }
 
+/* ===== Pilares: acordeão (desktop: colunas que se abrem; celular: itens que expandem) =====
+   Sem animação, todos ficam abertos numa lista. */
+.pilar-corpo {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 0.7s var(--ease-out-expo),
+    opacity 0.5s ease;
+}
+.pilar-corpo > div {
+  min-height: 0;
+  overflow: hidden;
+}
+.pilar-vertical {
+  display: none;
+}
+/* Celular e tablet: todos ficam abertos (a altura da página não muda com a rolagem); o item no meio da
+   tela acende e os outros ficam apagados. */
+@media (width < 64rem) {
+  html.js-motion [data-pilar-painel] :is(.pilar-corpo, .pilar-titulo) {
+    transition: opacity 0.5s ease;
+  }
+  html.js-motion [data-pilar-painel]:not([data-ativo="true"]) .pilar-corpo {
+    opacity: 0.35;
+  }
+  html.js-motion [data-pilar-painel]:not([data-ativo="true"]) .pilar-titulo {
+    opacity: 0.6;
+  }
+}
+@media (width >= 64rem) {
+  html.js-motion [data-pilares-lista] {
+    display: flex;
+    gap: 0.75rem;
+    height: min(34rem, calc(100svh - 17rem));
+  }
+  html.js-motion [data-pilar-painel] {
+    flex: 1 1 0;
+    min-width: 0;
+    transition:
+      flex-grow 0.8s var(--ease-out-expo),
+      background-color 0.5s ease,
+      border-color 0.5s ease;
+  }
+  html.js-motion [data-pilar-painel][data-ativo="true"] {
+    flex-grow: 4.5;
+  }
+  html.js-motion [data-pilar-painel] .pilar-corpo {
+    grid-template-rows: 1fr;
+    transition-delay: 0.2s;
+  }
+  /* O texto fica preso ao pé da coluna (só com animação; sem ela, a lista é comum). */
+  html.js-motion .pilar-texto {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    max-width: 36rem;
+  }
+  html.js-motion [data-pilar-painel]:not([data-ativo="true"]) .pilar-corpo {
+    grid-template-rows: 1fr;
+    opacity: 0;
+    transition-delay: 0s;
+  }
+  html.js-motion [data-pilar-painel]:not([data-ativo="true"]) .pilar-titulo {
+    opacity: 0;
+  }
+  html.js-motion .pilar-vertical {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 1.75rem;
+    writing-mode: vertical-rl;
+    transform: translateX(-50%) rotate(180deg);
+    white-space: nowrap;
+    transition: opacity 0.4s ease;
+  }
+  html.js-motion [data-pilar-painel][data-ativo="true"] .pilar-vertical {
+    opacity: 0;
+  }
+}
+
+/* ===== Galeria arrastável: rolagem lateral nativa (toque) + arrastar com inércia (mouse) ===== */
+[data-galeria] {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+[data-galeria]::-webkit-scrollbar {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  html.js-motion [data-galeria] {
+    cursor: grab;
+  }
+  html.js-motion [data-galeria]:active {
+    cursor: grabbing;
+  }
+}
+
+/* ===== Bilhete (o que você precisa saber): picote entre o corpo e o canhoto ===== */
+.bilhete {
+  --furo: 14px;
+  -webkit-mask:
+    radial-gradient(circle var(--furo) at var(--corte) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--furo) at var(--corte) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle var(--furo) at var(--corte) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--furo) at var(--corte) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+}
+/* No celular o canhoto vai para baixo: o picote passa a ser horizontal. */
+@media (width < 48rem) {
+  .bilhete {
+    -webkit-mask:
+      radial-gradient(circle var(--furo) at 0 var(--corte-y), #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle var(--furo) at 100% var(--corte-y), #0000 98%, #000) right / 51% 100% no-repeat;
+    mask:
+      radial-gradient(circle var(--furo) at 0 var(--corte-y), #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle var(--furo) at 100% var(--corte-y), #0000 98%, #000) right / 51% 100% no-repeat;
+  }
+}
+
+/* ===== Botão redondo da chamada final: texto girando em volta ===== */
+.anel-giro {
+  animation: anel-giro 18s linear infinite;
+}
+@keyframes anel-giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-rise,
   .hero-media,
   .brilho,
+  .anel-giro,
   .hero-sobe,
   .abertura-circulo,
   .abertura-simbolo {
@@ -529,7 +650,8 @@ html.js-motion [data-chave-item]:not([data-ligado="true"]) {
   [data-chave-item],
   [data-barra-aplicar],
   .faq-item::details-content,
-  .faq-sinal {
+  .faq-sinal,
+  .pilar-corpo {
     transition: none;
   }
   .cta-borda::after {

@@ -30,30 +30,44 @@ A imagem de compartilhamento e o ícone da Apple saem de `sites/_fontes/clube/og
 (`node render-og.mjs`, com Playwright).
 
 ## Experiências por seção
-- **Abertura:** a seta da marca aparece no centro e o vídeo do evento abre em tela cheia a partir do círculo.
-  Ao rolar, a tela fixa, o texto sai e o vídeo vira um quadro "Veja como foi a última edição". Botão de som.
-  O vídeo só começa a baixar depois que a página carrega (versão de 480 px no celular, 720 px no computador),
-  toca sem som em loop e pausa fora da tela.
-- **5 pilares:** cartões que empilham (cada um gruda no topo e o anterior encolhe e escurece); no desktop o
-  título fica fixo ao lado com o contador 01/05.
-- **Para quem é:** as chaves liga/desliga do site atual ligam conforme cada item chega ao meio da tela.
-- **O que você precisa saber:** painel com as letras embaralhando até formar o texto (quadro de embarque),
-  "Adicionar à agenda" (arquivo .ics), "Ver no mapa" e contagem regressiva (some depois da data).
-- **Depoimentos:** a mesma galeria da RISE; no desktop o vídeo toca sem som ao passar o mouse.
-- **Ingressos:** Black e Diamond com a barra de vendidos; as chaves dos benefícios ligam em sequência e as que
-  o ingresso não inclui ficam desligadas e riscadas. Diamond com carimbo de esgotado. Botões levam ao WhatsApp.
-- **Mentores:** a foto abre de baixo para cima; selo de verificado e link do Instagram.
-- **Perguntas frequentes:** abre e fecha com altura animada (funciona sem JavaScript).
-- **Hora de agir:** a seta gigante da marca gira com a rolagem.
-- **Geral:** cursor com rótulo, reflexo nos botões, menu marca a seção na tela e, no celular, barra fixa com o
-  botão de ingresso e a porcentagem vendida (some na abertura, nos ingressos e na chamada final).
+Layout centralizado: cada seção abre com o símbolo da marca, o título e uma linha de apoio, sem selos.
 
-Tudo segue a rolagem nos dois sentidos. Com "reduzir movimento" ou sem JavaScript, a página aparece completa e
-o vídeo não toca sozinho (o botão vira "Assistir com som"). A preparação das animações roda em etapas curtas
-para não travar o celular.
+- **Abertura:** a seta da marca aparece no centro e o vídeo do evento abre em tela cheia a partir do círculo.
+  Ao rolar, a tela fixa, o texto sai e o vídeo vira um quadro "Veja como foi a última edição". Com mouse,
+  vídeo e texto se deslocam em camadas opostas. Botão de som. O vídeo só começa a baixar depois que a
+  página carrega (480 px no celular, 720 px no computador), toca sem som em loop e pausa fora da tela.
+- **Faixa:** duas linhas de texto correndo em sentidos opostos; a velocidade e a inclinação seguem a rolagem.
+- **Números:** R$ 15 mi, 350+, <10% e 50 vagas contam ao entrar na tela (e voltam ao subir).
+- **5 pilares:** acordeão. No computador a seção fixa e as cinco colunas se abrem uma por vez com a rolagem
+  (ou passando o mouse), com o contador 01/05. No celular os cinco ficam abertos e o que passa pelo meio da
+  tela acende.
+- **Para quem é:** painel de chaves que a pessoa liga. O medidor conta (0 de 5), a resposta muda conforme
+  as chaves e, com 3 ou mais, aparece o botão de ingresso.
+- **Por dentro da última edição:** galeria de fotos para arrastar (com inércia no mouse, deslize no
+  celular); a foto desliza dentro do quadro e a barra mostra a posição.
+- **O que você precisa saber:** ingresso de papel com canhoto picotado. Entra inclinado, as letras
+  embaralham até formar o texto (quadro de embarque) e ele inclina com o mouse. Contagem regressiva no
+  canhoto (some depois da data), "Adicionar à agenda" (arquivo .ics) e "Ver no mapa".
+- **Depoimentos:** os mesmos vídeos da RISE. No computador a seção fixa e os vídeos correm na horizontal,
+  girando ao entrar; o vídeo toca sem som ao passar o mouse. No celular, carrossel com deslize.
+- **Ingressos:** Black e Diamond com a barra de vendidos; as chaves dos benefícios ligam em sequência e as
+  que o ingresso não inclui ficam desligadas e riscadas. Diamond com carimbo de esgotado. Os cartões
+  entram inclinados e seguem o mouse. Botões levam ao WhatsApp.
+- **Mentores:** no computador as três cartas saem de um monte no centro e se abrem lado a lado com a
+  rolagem; com mouse, cada foto inclina e brilha. Selo de verificado e link do Instagram.
+- **Perguntas frequentes:** uma coluna central; abre e fecha com altura animada (funciona sem JavaScript).
+- **Hora de agir:** botão redondo com o texto girando em volta; no computador ele é atraído pelo mouse.
+- **Geral:** cursor com rótulo ("Abrir", "Arraste", "Assistir", "Ligar"), reflexo nos botões, menu marca
+  a seção na tela e, no celular, barra fixa com o botão de ingresso e a porcentagem vendida (some na
+  abertura, nos ingressos e na chamada final). Logo gigante do rodapé sobe no fim da página.
+
+Tudo segue a rolagem nos dois sentidos. Com "reduzir movimento" ou sem JavaScript, a página aparece completa
+(pilares em lista, cartas lado a lado) e o vídeo não toca sozinho (o botão vira "Assistir com som"). A
+preparação das animações roda em etapas curtas para não travar o celular.
 
 ## Eventos para o GTM
-`cta_clique` (com o local do botão: `hero`, `ingresso-black`, `suporte`, `agenda`…) e `video_evento_som`.
+`cta_clique` (com o local do botão: `hero`, `perfil`, `ingresso-black`, `final`, `suporte`, `agenda`…),
+`video_evento_som` e `perfil_imersao` (quantas chaves a pessoa ligou no "Para quem é").
 
 ## Publicar na Vercel
 1. Importe o repositório e defina **Root Directory = `sites/clube`** (framework: Next.js).

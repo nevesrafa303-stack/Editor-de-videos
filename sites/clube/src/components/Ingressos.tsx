@@ -1,4 +1,5 @@
 import { evento, ingressos } from "@/content/site";
+import { Cabecalho } from "./Cabecalho";
 import { Simbolo } from "./Logo";
 import { Cta, vars } from "./ui";
 
@@ -6,24 +7,10 @@ import { Cta, vars } from "./ui";
 // quando o cartão entra na tela; as que o ingresso não tem ficam desligadas e riscadas.
 export function Ingressos() {
   return (
-    <section id="ingressos" aria-labelledby="ingressos-titulo" className="relative overflow-clip py-24 md:py-36">
-      <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-24 size-[42rem] -translate-x-1/2 rounded-full bg-brasa/10 blur-[140px]" />
+    <section id="ingressos" aria-labelledby="ingressos-titulo" className="relative overflow-clip py-24 md:py-32">
       <div className="container-site relative">
-        <div className="mx-auto max-w-2xl text-center">
-          <p data-reveal className="inline-flex items-center gap-2 rounded-full border border-brasa/40 bg-brasa/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-ouro">
-            <span className="relative flex size-2" aria-hidden="true">
-              <span className="absolute inset-0 animate-ping rounded-full bg-brasa/70 motion-reduce:hidden" />
-              <span className="relative size-2 rounded-full bg-brasa" />
-            </span>
-            {ingressos.aviso}
-          </p>
-          <h2
-            id="ingressos-titulo"
-            data-split
-            className="font-expanded mt-5 text-[clamp(2rem,5vw,4rem)] font-bold uppercase leading-[0.96] tracking-tight text-white"
-          >
-            {ingressos.titulo}
-          </h2>
+        <Cabecalho id="ingressos-titulo" titulo={ingressos.titulo} intro={`${ingressos.aviso}: são só ${evento.vagas} vagas por edição.`} />
+        <div className="text-center">
           <div data-reveal className="mx-auto mt-8 max-w-md">
             <p className="flex items-baseline justify-between text-sm text-mute">
               <span>
@@ -44,13 +31,13 @@ export function Ingressos() {
           </div>
         </div>
 
-        <ul className="mx-auto mt-14 grid max-w-5xl items-start gap-6 md:grid-cols-2">
+        <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-1 items-start gap-6 md:grid-cols-2">
           {ingressos.itens.map((ing) => (
             <li key={ing.nome} data-ingresso className="drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] [perspective:1400px]">
               <article
                 data-ingresso-cartao
                 aria-label={`Ingresso ${ing.nome}${ing.esgotado ? " (esgotado)" : ""}`}
-                className={`ingresso relative flex flex-col overflow-hidden rounded-[28px] border ${
+                className={`ingresso @container relative flex flex-col overflow-hidden rounded-[28px] border ${
                   ing.esgotado ? "border-white/10 bg-graphite" : "border-ouro/40 bg-gradient-to-b from-[#1d1812] to-graphite"
                 }`}
                 style={vars({ "--picote": "calc(100% - 15.5rem)" })}
@@ -99,7 +86,7 @@ export function Ingressos() {
                   <p className="text-sm text-mute">
                     de <span className="line-through">{ing.de}</span> por
                   </p>
-                  <p className="font-expanded mt-1 text-[clamp(2rem,4.4vw,2.8rem)] font-bold leading-none text-white">{ing.parcelas}</p>
+                  <p className="font-expanded mt-1 text-[min(2.8rem,8cqi)] font-bold leading-none text-white">{ing.parcelas}</p>
                   <p className="mt-2 text-sm text-fog">
                     ou <strong className="text-ouro">{ing.pix}</strong> à vista no Pix
                   </p>

@@ -1,55 +1,68 @@
-import Image from "next/image";
 import { paraQuem } from "@/content/site";
-import plateia from "@/assets/img/palestra-plateia.webp";
+import { Cabecalho } from "./Cabecalho";
+import { Perfil } from "./Perfil";
 import { Cta } from "./ui";
 
-// Para quem é: cada item tem uma chave (a mesma do site atual) que liga quando chega perto do meio da tela.
+// "Para quem é": um painel de chaves (o mesmo desenho do site atual) que a pessoa liga. O medidor responde e,
+// com 3 ou mais ligadas, aparece o botão de ingresso (src/lib/perfil.ts).
 export function ParaQuem() {
+  // O fim da frase ("e não apenas ter tudo organizado") fica apagado, como uma ressalva.
+  const [resumo, ressalva] = paraQuem.resumo.split(", e não apenas ");
   return (
-    <section id="para-quem" aria-labelledby="paraquem-titulo" className="relative overflow-clip border-y border-white/10 bg-carbon py-24 md:py-36">
-      <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-1/4 size-[34rem] rounded-full bg-brasa/10 blur-[120px]" />
-      <div className="container-site relative grid gap-14 lg:grid-cols-2 lg:gap-20">
-        <div>
-          <h2
-            id="paraquem-titulo"
-            data-split
-            className="font-expanded text-[clamp(1.6rem,3.2vw,2.8rem)] font-bold uppercase leading-[1.02] tracking-tight text-white"
-          >
-            {paraQuem.titulo}
-          </h2>
-          <p data-reveal className="mt-6 max-w-xl leading-relaxed text-mute md:text-lg">
-            {paraQuem.intro}
-          </p>
-          <figure data-reveal className="relative mt-10 hidden max-w-md lg:block">
-            <Image
-              src={plateia}
-              alt="Hermano palestrando e a plateia de donos de agência na edição anterior"
-              sizes="28rem"
-              data-parallax="-8"
-              className="h-auto w-full rotate-[-2deg] drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]"
-            />
-          </figure>
-        </div>
+    <section id="para-quem" aria-labelledby="paraquem-titulo" className="relative border-y border-white/10 bg-carbon py-24 md:py-32">
+      <div className="container-site">
+        <Cabecalho id="paraquem-titulo" titulo={paraQuem.titulo} intro={paraQuem.intro} className="max-w-4xl" />
 
-        <div>
-          <ul className="border-t border-white/10">
+        <div
+          data-perfil
+          data-reveal
+          data-respostas={JSON.stringify(paraQuem.respostas)}
+          className="mx-auto mt-12 max-w-2xl overflow-hidden rounded-[28px] border border-white/10 bg-ink md:mt-14"
+        >
+          <p className="border-b border-white/10 px-6 py-4 text-center text-sm text-mute md:px-8">{paraQuem.instrucao}</p>
+          <ul>
             {paraQuem.itens.map((item) => (
-              <li key={item} data-chave-item className="flex items-center gap-4 border-b border-white/10 py-5 text-lg leading-snug text-fog md:text-xl">
-                <span className="chave" aria-hidden="true" />
-                {item}
+              <li key={item} className="border-b border-white/10 last:border-b-0">
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked="false"
+                  data-cursor="Ligar"
+                  className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left text-base leading-snug text-fog transition-colors hover:bg-white/[0.03] aria-checked:text-white md:px-8 md:text-lg"
+                >
+                  {item}
+                  <span className="chave" aria-hidden="true" />
+                </button>
               </li>
             ))}
           </ul>
-          <blockquote data-reveal className="mt-10 rounded-3xl border border-ouro/20 bg-gradient-to-br from-ouro/[0.08] to-transparent p-6 md:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-ouro">De forma resumida…</p>
-            <p className="mt-3 text-lg leading-relaxed text-white md:text-xl">{paraQuem.resumo}</p>
-          </blockquote>
-          <div data-reveal className="mt-8">
-            <Cta local="para-quem" className="w-full sm:w-auto">
-              {paraQuem.cta}
-            </Cta>
+          <div className="border-t border-white/10 bg-graphite px-6 py-6 text-center md:px-8" aria-live="polite">
+            <p className="font-expanded text-sm font-bold uppercase tracking-wide text-white">
+              <span data-perfil-contagem>0</span> de {paraQuem.itens.length}
+            </p>
+            <span aria-hidden="true" className="mx-auto mt-3 block h-1.5 max-w-xs overflow-hidden rounded-full bg-white/10">
+              <span
+                data-perfil-barra
+                className="block h-full origin-left rounded-full bg-verde transition-transform duration-500 ease-out-expo"
+                style={{ transform: "scaleX(0)" }}
+              />
+            </span>
+            <p data-perfil-resposta className="mx-auto mt-4 max-w-md text-pretty font-semibold leading-snug text-fog">
+              {paraQuem.respostas[0]}
+            </p>
+            <div data-perfil-cta hidden className="mt-5">
+              <Cta local="perfil" className="w-full sm:w-auto">
+                {paraQuem.cta}
+              </Cta>
+            </div>
           </div>
+          <Perfil />
         </div>
+
+        <p data-reveal className="font-expanded mx-auto mt-16 max-w-3xl text-balance text-center text-[clamp(1.25rem,2.5vw,2rem)] font-bold leading-[1.25] tracking-tight text-white md:mt-20">
+          {resumo}
+          {ressalva && <span className="text-mute">, e não apenas {ressalva}</span>}
+        </p>
       </div>
     </section>
   );

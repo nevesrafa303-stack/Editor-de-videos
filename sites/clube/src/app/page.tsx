@@ -1,14 +1,17 @@
 import { BarraAplicar } from "@/components/BarraAplicar";
 import { Depoimentos } from "@/components/Depoimentos";
+import { Faixa } from "@/components/Faixa";
 import { Faq } from "@/components/Faq";
 import { Final } from "@/components/Final";
 import { Footer } from "@/components/Footer";
+import { Galeria } from "@/components/Galeria";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Informacoes } from "@/components/Informacoes";
 import { Ingressos } from "@/components/Ingressos";
 import { Mentores } from "@/components/Mentores";
 import { MotionLazy } from "@/components/MotionLazy";
+import { Numeros } from "@/components/Numeros";
 import { ParaQuem } from "@/components/ParaQuem";
 import { Patrocinio } from "@/components/Patrocinio";
 import { Pilares } from "@/components/Pilares";
@@ -52,8 +55,11 @@ export default function Home() {
       <Header />
       <main id="conteudo" className="overflow-x-clip">
         <Hero />
+        <Faixa />
+        <Numeros />
         <Pilares />
         <ParaQuem />
+        <Galeria />
         <Informacoes />
         <Depoimentos />
         <Ingressos />

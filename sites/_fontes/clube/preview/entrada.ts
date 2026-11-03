@@ -1,9 +1,10 @@
 // Script da prévia em arquivo único (sem servidor, sem React). As animações e o vídeo da abertura são os
 // mesmos do site (src/lib/motion.ts e src/lib/video-evento.ts); aqui só ficam as interações que no site o
-// React faz: menu, vídeos dos depoimentos e contagem regressiva.
+// React faz: menu, vídeos dos depoimentos, contagem regressiva e o painel de chaves do "Para quem é".
 import { iniciarBarraAplicar, iniciarCabecalho } from "../../../clube/src/lib/cabecalho";
 import { iniciarContagem } from "../../../clube/src/lib/contagem";
 import { iniciarAnimacoes, iniciarRolagemSuave } from "../../../clube/src/lib/motion";
+import { iniciarPerfil } from "../../../clube/src/lib/perfil";
 import { iniciarVideoEvento } from "../../../clube/src/lib/video-evento";
 
 declare global {
@@ -87,6 +88,7 @@ menuCelular();
 videoAbertura();
 iniciarVideoEvento();
 iniciarContagem();
+iniciarPerfil();
 depoimentos();
 avisoLinks();
 iniciarRolagemSuave();

@@ -35,7 +35,7 @@ export function VideoCard({ id, nome, empresa, citacao, duracao, alturaDaTela = 
       {/* Com alturaDaTela, no desktop o card inteiro (vídeo + depoimento) cabe na janela sem encostar nas bordas. */}
       <div
         className={`relative aspect-[9/16] w-full overflow-hidden bg-black ${
-          alturaDaTela ? "lg:aspect-auto lg:h-[clamp(12rem,calc(100svh-23rem),31.1rem)]" : ""
+          alturaDaTela ? "lg:aspect-auto lg:h-[clamp(11rem,calc(100svh-31rem),26rem)]" : ""
         }`}
       >
         {ativo ? (
