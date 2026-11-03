@@ -26,9 +26,9 @@ removida do projeto. Ela continua só no histórico do git.
 
 ## Peças
 
-Pedido de 03/11: deixar claro que é **ensaio fotográfico** e que **gestante = 15%** e **newborn = 20%**.
-Os textos usam "Ensaio de Gestante" e "Ensaio de Newborn". Nas peças com as duas fotos, cada foto leva o seu
-desconto colado nela (embaixo do arco, na legenda do impresso ou ao lado do card).
+Pedidos de 03/11: deixar claro que é **ensaio fotográfico** ("Ensaio de Gestante", "Ensaio de Newborn");
+**gestante sozinha = 15%**, **newborn sozinho = 20%** e as peças com as duas fotos são o
+**Combo Gestante + Newborn = 20%** (uma oferta só; cada foto leva o nome do seu ensaio, sem porcentagem).
 
 | Grupo | Oferta | Peça | Layout | Foto(s) |
 |---|---|---|---|---|
@@ -38,15 +38,13 @@ desconto colado nela (embaixo do arco, na legenda do impresso ou ao lado do card
 | Newborn | Ensaio de Newborn* **20% OFF** | `n1-capa-tule` | Capa escura, foto horizontal | newborn menina (tule, deitada) |
 | | | `n2-papel-botoes` | Papel com foto impressa | newborn menino (botões) |
 | | | `n3-convite-tule` | Convite | newborn menina (tule, vertical) |
-| Juntos | foto de gestante **15%** + foto do bebê **20%** | `j1-capa-sentada-azul` | Capa escura, dois arcos, desconto embaixo de cada foto | sentada + newborn menino (azul, vertical) |
-| | | `j2-papel-tenis-touca` | Papel com dois impressos (promo de setembro), desconto na legenda de cada impresso | branco com tênis + newborn menino (touca) |
-| | | `j3-convite-tule-renda` | Convite com duas fotos, desconto ao lado de cada foto | marrom de tule + newborn menina (renda) |
+| Combo | Combo Gestante + Newborn* **20% OFF** | `j1-capa-sentada-azul` | Capa escura, dois arcos com o nome de cada ensaio embaixo | sentada + newborn menino (azul, vertical) |
+| | | `j2-papel-tenis-touca` | Papel com dois impressos (promo de setembro), nome do ensaio na legenda de cada um | branco com tênis + newborn menino (touca) |
+| | | `j3-convite-tule-renda` | Convite com duas fotos e a oferta do combo ao lado | marrom de tule + newborn menina (renda) |
 
 Em todas: "BLACK FRIDAY", etiqueta Black Friday do PDF, "Condição Especial somente em Novembro" e
 "\*Válido para reservas realizadas em novembro de 2026.". Sem valores em reais e sem logo, como pedido antes.
 
-**Confirmar:** o texto original da cliente dizia "Combo Gestante + Newborn 20% OFF"; a pedido da LAKS (03/11)
-as peças dizem "Ensaio de Newborn 20% OFF". Para voltar ao "Combo", basta trocar o rótulo em `pecas/base.js`.
 
 ## Como funciona
 

@@ -32,13 +32,9 @@
   .story .nota { font-size: 21px; left: 570px; right: 40px; }
   .story.fotos-1 .oferta { top: 660px; }
   .story.fotos-1 .nota { top: 1150px; }
-  .story.fotos-2 .oferta.o1 { top: 640px; }
-  .story.fotos-2 .oferta.o2 { top: 1180px; }
-  .story.fotos-2 .oferta .ensaio { font-size: 56px; }
-  .story.fotos-2 .pct { font-size: 120px; }
-  .story.fotos-2 .off { font-size: 36px; }
-  .story.fotos-2 .linha { margin: 16px 0 16px; }
-  .story.fotos-2 .nota { top: 1470px; }
+  .story.fotos-2 .oferta.o1 { top: 700px; }
+  .story.fotos-2 .oferta .ensaio { font-size: 66px; }
+  .story.fotos-2 .nota { top: 1250px; }
 
   /* FEED 4:5 1080x1350 */
   .feed .etiqueta { --w: 116px; --circ: 40px; right: 30px; }
@@ -55,13 +51,9 @@
   .feed .nota { font-size: 17px; left: 560px; right: 40px; }
   .feed.fotos-1 .oferta { top: 420px; }
   .feed.fotos-1 .nota { top: 850px; }
-  .feed.fotos-2 .oferta.o1 { top: 380px; }
-  .feed.fotos-2 .oferta.o2 { top: 870px; }
-  .feed.fotos-2 .oferta .ensaio { font-size: 46px; }
-  .feed.fotos-2 .pct { font-size: 104px; }
-  .feed.fotos-2 .off { font-size: 31px; }
-  .feed.fotos-2 .linha { margin: 12px 0 12px; }
-  .feed.fotos-2 .nota { top: 1150px; }
+  .feed.fotos-2 .oferta.o1 { top: 440px; }
+  .feed.fotos-2 .oferta .ensaio { font-size: 54px; }
+  .feed.fotos-2 .nota { top: 930px; }
 </style>
 </head>
 <body>
@@ -74,13 +66,13 @@
     const { p, fmt } = peca();
     document.querySelector('.topo').innerHTML = `<p class="espacado">Black Friday</p>
       <h1 class="titulo">Condição Especial<br>somente em Novembro</h1>`;
-    const chaves = p.grupo === 'juntos' ? ['gestante', 'newborn'] : [p.grupo];
-    chaves.forEach((k, i) => {
-      const o = OFERTAS[k], el = document.createElement('section');
-      el.className = `oferta o${i + 1}`;
-      el.innerHTML = `<p class="ensaio">Ensaio de<br>${k === 'gestante' ? 'Gestante' : 'Newborn'}*</p><div class="linha"></div>${pctHTML(o)}`;
-      document.body.appendChild(el);
-    });
+    // combo (duas fotos): uma oferta só, 20%, ao lado das duas fotos
+    const o = OFERTAS[p.grupo === 'juntos' ? 'combo' : p.grupo];
+    const nome = { gestante: 'Ensaio de<br>Gestante*', newborn: 'Ensaio de<br>Newborn*', juntos: 'Combo<br>Gestante<br>+ Newborn*' }[p.grupo];
+    const el = document.createElement('section');
+    el.className = 'oferta o1';
+    el.innerHTML = `<p class="ensaio">${nome}</p><div class="linha"></div>${pctHTML(o)}`;
+    document.body.appendChild(el);
     document.querySelector('.nota').innerHTML = NOTA.replace('reservas realizadas', 'reservas realizadas<br>');
     await montarQuadros(p.quadros[fmt]);
     pronto();

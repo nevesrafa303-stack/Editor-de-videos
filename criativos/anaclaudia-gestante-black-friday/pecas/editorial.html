@@ -28,7 +28,9 @@
   .story .ensaio { font-size: 46px; margin-top: 18px; }
   .story .wordmark { width: 540px; margin-top: 8px; }
   .story .titulo { font-size: 92px; margin-top: 0; }
-  .story.grupo-juntos .titulo { font-size: 78px; }
+  .story.grupo-juntos .titulo { font-size: 74px; }
+  .story.grupo-juntos .of .pct { font-size: 132px; }
+  .story.grupo-juntos .of .off { font-size: 40px; }
   .story .linhas { font-size: 24px; padding: 16px 0; margin-top: 26px; }
   .story .of { margin-top: 20px; }
   .story .of .pct { font-size: 150px; }
@@ -55,6 +57,8 @@
   .feed.foto-topo .ensaio { display: none; }
   .feed.texto-topo .texto { left: 150px; right: 150px; top: 48px; }
   .feed.texto-topo .titulo { font-size: 58px; }
+  .feed.texto-topo .of .pct { font-size: 104px; }
+  .feed.texto-topo .of .off { font-size: 32px; }
   .feed.texto-topo .ensaio { font-size: 30px; margin-top: 6px; }
 </style>
 </head>
@@ -69,10 +73,11 @@
     const titulo = {
       gestante: '<p class="ensaio">Ensaio de</p><img class="wordmark" src="../assets/marca/gestante-wordmark-escuro.png" alt="Gestante">',
       newborn: umaLinha ? '<h1 class="titulo">Ensaio de Newborn</h1>' : '<p class="ensaio">Ensaio de</p><h1 class="titulo">Newborn</h1>',
-      juntos: `<p class="ensaio">Ensaios de</p><h1 class="titulo">Gestante${umaLinha ? ' ' : '<br>'}+ Newborn</h1>`,
+      juntos: '<p class="ensaio">Combo</p><h1 class="titulo">Gestante + Newborn</h1>',
     }[p.grupo];
-    // nas peças com as duas fotos, o desconto vai na legenda de cada impresso
-    const oferta = p.grupo === 'juntos' ? '' : `<div class="of">${pctHTML(OFERTAS[p.grupo])}<p class="rot">${OFERTAS[p.grupo].rotulo}</p></div>`;
+    // combo (duas fotos): uma oferta só, 20%; cada impresso leva na legenda o nome do seu ensaio
+    const o = OFERTAS[p.grupo === 'juntos' ? 'combo' : p.grupo];
+    const oferta = `<div class="of">${pctHTML(o)}<p class="rot">${o.rotulo}</p></div>`;
     document.querySelector('.texto').innerHTML = `
       <p class="espacado">Black Friday</p>${titulo}
       <p class="linhas">${CONDICAO}</p>${oferta}

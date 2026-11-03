@@ -55,21 +55,21 @@ export const PECAS = [
   { id: 'n3-convite-tule', layout: 'convite', grupo: 'newborn',
     quadros: { story: [f('nb-tule-vertical', 'card', 60, 500, 480, 800)], feed: [f('nb-tule-vertical', 'card', 60, 250, 470, 780)] } },
 
-  // ── Juntos · foto de gestante (15%) + foto do bebê (20%) ───────────────────────
+  // ── Juntos · Combo Gestante + Newborn 20% (as duas fotos) ──────────────────────
   { id: 'j1-capa-sentada-azul', layout: 'capa', grupo: 'juntos', variante: 'dois',
     quadros: {
-      story: [f('sentada', 'arco', 80, 540, 440, 600), f('nb-azul-vertical', 'arco', 560, 540, 440, 600)],
-      feed: [f('sentada', 'arco', 80, 225, 440, 520), f('nb-azul-vertical', 'arco', 560, 225, 440, 520)],
+      story: [f('sentada', 'arco', 80, 540, 440, 560), f('nb-azul-vertical', 'arco', 560, 540, 440, 560)],
+      feed: [f('sentada', 'arco', 80, 225, 440, 480), f('nb-azul-vertical', 'arco', 560, 225, 440, 480)],
     } },
   { id: 'j2-papel-tenis-touca', layout: 'editorial', grupo: 'juntos', variante: 'texto-topo',
     quadros: {
       story: [
-        f('branco-tenis', 'impresso', 600, 690, 400, 680, { rot: 3, legenda: 'gestante', z: 1 }),
-        f('nb-touca', 'impresso', 70, 880, 560, 384, { rot: -3, legenda: 'newborn', z: 2 }),
+        f('branco-tenis', 'impresso', 600, 800, 380, 600, { rot: 3, legenda: 'Ensaio de Gestante', leg: 72, z: 1 }),
+        f('nb-touca', 'impresso', 70, 950, 540, 370, { rot: -3, legenda: 'Ensaio de Newborn', leg: 72, z: 2 }),
       ],
       feed: [
-        f('branco-tenis', 'impresso', 110, 400, 340, 640, { rot: -2.5, legenda: 'gestante', leg: 110, z: 1 }),
-        f('nb-touca', 'impresso', 500, 510, 480, 330, { rot: 2.5, legenda: 'newborn', leg: 110, z: 2 }),
+        f('branco-tenis', 'impresso', 110, 520, 340, 600, { rot: -2.5, legenda: 'Ensaio de Gestante', leg: 62, z: 1 }),
+        f('nb-touca', 'impresso', 500, 600, 480, 330, { rot: 2.5, legenda: 'Ensaio de Newborn', leg: 62, z: 2 }),
       ],
     } },
   { id: 'j3-convite-tule-renda', layout: 'convite', grupo: 'juntos',

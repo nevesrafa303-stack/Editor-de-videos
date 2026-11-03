@@ -69,6 +69,8 @@ body.feed { height: 1350px; }
 .legenda .rot { font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: 21px; }
 .legenda .pct { font-size: 84px; margin-top: 4px; }
 .legenda .off { font-size: 26px; }
+.legenda .nome { font-family: var(--display); font-size: 34px; color: var(--tinta); }
+.feed .legenda .nome { font-size: 28px; }
 .feed .legenda .rot { font-size: 17px; }
 .feed .legenda .pct { font-size: 66px; margin-top: 2px; }
 .feed .legenda .off { font-size: 21px; }

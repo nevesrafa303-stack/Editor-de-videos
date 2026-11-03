@@ -4,14 +4,14 @@ import { PECAS, FOTOS } from './dados.js';
 
 export const CONDICAO = 'Condição Especial somente em Novembro';
 export const NOTA = '*Válido para reservas realizadas em novembro de 2026.';
-// Pedido de 03/11: deixar claro que é ensaio fotográfico e que gestante = 15% e newborn = 20%.
+// Pedido de 03/11: deixar claro que é ensaio fotográfico. Gestante sozinha = 15%, newborn sozinho = 20% e
+// as peças com as duas fotos (grupo juntos) = Combo Gestante + Newborn 20%.
 export const OFERTAS = {
   gestante: { rotulo: 'Ensaio de Gestante*', pct: '15%' },
   newborn: { rotulo: 'Ensaio de Newborn*', pct: '20%' },
+  combo: { rotulo: 'Combo Gestante + Newborn*', pct: '20%' },
 };
 export const pctHTML = o => `<span class="pct-linha"><span class="pct">${o.pct}</span><span class="off">OFF</span></span>`;
-// grupo da peça → ofertas que ela mostra (gestante = 15%, newborn = 20%, juntos = as duas)
-export const ofertasDo = g => (g === 'juntos' ? ['gestante', 'newborn'] : [g]).map(k => OFERTAS[k]);
 
 export function peca() {
   const fmt = location.hash.slice(1) || 'story';
@@ -26,7 +26,8 @@ export function peca() {
 // A foto só é cortada e reduzida: escala = px exportados por px da foto original, nunca acima de 1.
 // regiao = [x0, y0, x1, y1] (0–1): parte da foto que tem de aparecer inteira e centralizada na janela
 // (a pessoa ou o bebê com uma folga); sem regiao, usa fx/fy (centro) e zoom (escala), como antes.
-// legenda = 'gestante' | 'newborn': no impresso, a borda de baixo é mais alta e leva o desconto daquela foto.
+// legenda: no impresso, a borda de baixo é mais alta e leva um texto. Chave de OFERTAS → rótulo + desconto;
+// qualquer outro texto → só esse texto (ex.: 'Ensaio de Gestante' nas peças do combo).
 export async function montarQuadros(lista, alvo = document.body) {
   window.__escalas = [];
   for (const q of lista) {
@@ -47,7 +48,8 @@ export async function montarQuadros(lista, alvo = document.body) {
     }
     if (q.legenda) {
       const o = OFERTAS[q.legenda], l = document.createElement('div'); l.className = 'legenda';
-      l.innerHTML = `<span class="rot">${o.rotulo}</span>${pctHTML(o)}`; m.appendChild(l);
+      l.innerHTML = o ? `<span class="rot">${o.rotulo}</span>${pctHTML(o)}` : `<span class="nome">${q.legenda}</span>`;
+      m.appendChild(l);
     }
     alvo.appendChild(m);
     await img.decode();
