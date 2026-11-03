@@ -83,6 +83,8 @@ html = await trocarAssincrono(html, /<source\b([^>]*)\ssrcset="([^"]+)"([^>]*)>/
 
 // A prévia muda dos vídeos (hover) usa os mesmos vídeos embutidos: o endereço é definido no script.
 html = html.replace(/\sdata-previa-src="[^"]*"/g, "");
+// O play da playlist de depoimentos idem (data-src é preenchido pelo script com o vídeo embutido).
+html = html.replace(/\sdata-src="\/videos\/depoimento-[^"]*"/g, "");
 
 // Vídeo da abertura: as fontes saem do HTML (o script da prévia coloca a versão embutida) e o pôster é embutido.
 html = html.replace(/<source data-src="\/videos\/evento-[^"]*"[^>]*>/g, "");

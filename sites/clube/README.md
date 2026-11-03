@@ -30,44 +30,52 @@ A imagem de compartilhamento e o ícone da Apple saem de `sites/_fontes/clube/og
 (`node render-og.mjs`, com Playwright).
 
 ## Experiências por seção
-Layout centralizado: cada seção abre com o símbolo da marca, o título e uma linha de apoio, sem selos.
+Cada seção tem uma composição própria (nada de "símbolo + título + subtítulo" repetido). Títulos curtos em
+caixa alta; títulos longos em caixa normal, com um trecho em dourado.
 
 - **Abertura:** a seta da marca aparece no centro e o vídeo do evento abre em tela cheia a partir do círculo.
-  Ao rolar, a tela fixa, o texto sai e o vídeo vira um quadro "Veja como foi a última edição". Com mouse,
-  vídeo e texto se deslocam em camadas opostas. Botão de som. O vídeo só começa a baixar depois que a
-  página carrega (480 px no celular, 720 px no computador), toca sem som em loop e pausa fora da tela.
+  Com mouse, uma luz de palco segue o cursor sobre o vídeo e vídeo e texto se deslocam em camadas. Ao rolar,
+  a tela fixa, o texto sai e o vídeo vira um quadro "Veja como foi a última edição". Botão de som. O vídeo
+  só começa a baixar depois que a página carrega (480 px no celular, 720 px no computador), toca sem som em
+  loop e pausa fora da tela; a capa é o Hermano no palco (2 s do vídeo).
 - **Faixa:** duas linhas de texto correndo em sentidos opostos; a velocidade e a inclinação seguem a rolagem.
-- **Números:** R$ 15 mi, 350+, <10% e 50 vagas contam ao entrar na tela (e voltam ao subir).
-- **5 pilares:** acordeão. No computador a seção fixa e as cinco colunas se abrem uma por vez com a rolagem
-  (ou passando o mouse), com o contador 01/05. No celular os cinco ficam abertos e o que passa pelo meio da
-  tela acende.
-- **Para quem é:** painel de chaves que a pessoa liga. O medidor conta (0 de 5), a resposta muda conforme
-  as chaves e, com 3 ou mais, aparece o botão de ingresso.
-- **Por dentro da última edição:** galeria de fotos para arrastar (com inércia no mouse, deslize no
-  celular); a foto desliza dentro do quadro e a barra mostra a posição.
+- **Números:** uma frase só ("Você vai ver por dentro uma agência de R$ 15 milhões…") que acende palavra por
+  palavra com a rolagem; os números rolam como contadores de painel até o valor.
+- **5 pilares:** acordeão. No computador a seção fixa na altura exata da tela (cabe em 1024×640 até
+  1920×1080) e as colunas abrem uma por vez com a rolagem, com o contador 01/05; o mouse em movimento também
+  abre. No celular os cinco ficam abertos e o que passa pelo meio da tela acende.
+- **Para quem é:** diagnóstico. A pessoa liga as chaves e o anel do medidor acende um segmento por chave; a
+  resposta muda e, com 3 ou mais, aparece o botão de ingresso. No computador o medidor acompanha a rolagem.
+- **Por dentro da última edição:** galeria para arrastar (inércia no mouse, deslize no celular), com botões,
+  contador 01/09 e setas do teclado; as fotos inclinam com a velocidade e deslizam dentro do quadro.
 - **O que você precisa saber:** ingresso de papel com canhoto picotado. Entra inclinado, as letras
   embaralham até formar o texto (quadro de embarque) e ele inclina com o mouse. Contagem regressiva no
   canhoto (some depois da data), "Adicionar à agenda" (arquivo .ics) e "Ver no mapa".
-- **Depoimentos:** os mesmos vídeos da RISE. No computador a seção fixa e os vídeos correm na horizontal,
-  girando ao entrar; o vídeo toca sem som ao passar o mouse. No celular, carrossel com deslize.
+- **Depoimentos:** playlist com os vídeos da RISE. Um palco com o vídeo escolhido e a fala por cima, como
+  legenda; a lista ao lado troca o vídeo com uma cortina. No play o vídeo toca com som e a linha da lista
+  mostra o andamento. Com mouse, prévia sem som e o palco inclina. Resultados em números logo abaixo.
 - **Ingressos:** Black e Diamond com a barra de vendidos; as chaves dos benefícios ligam em sequência e as
   que o ingresso não inclui ficam desligadas e riscadas. Diamond com carimbo de esgotado. Os cartões
   entram inclinados e seguem o mouse. Botões levam ao WhatsApp.
 - **Mentores:** no computador as três cartas saem de um monte no centro e se abrem lado a lado com a
-  rolagem; com mouse, cada foto inclina e brilha. Selo de verificado e link do Instagram.
-- **Perguntas frequentes:** uma coluna central; abre e fecha com altura animada (funciona sem JavaScript).
-- **Hora de agir:** botão redondo com o texto girando em volta; no computador ele é atraído pelo mouse.
-- **Geral:** cursor com rótulo ("Abrir", "Arraste", "Assistir", "Ligar"), reflexo nos botões, menu marca
-  a seção na tela e, no celular, barra fixa com o botão de ingresso e a porcentagem vendida (some na
-  abertura, nos ingressos e na chamada final). Logo gigante do rodapé sobe no fim da página.
+  rolagem; com mouse, a carta sob o cursor fica em foco (as outras se apagam) e inclina. Bio alinhada à
+  esquerda, selo de verificado e Instagram.
+- **Perguntas frequentes:** duas colunas no computador (título e suporte fixos ao lado), 7 perguntas
+  numeradas; abre e fecha com altura animada (funciona sem JavaScript).
+- **Hora de agir:** as letras entram uma a uma e, com mouse, as que estão perto do cursor se erguem e douram;
+  botão redondo com o texto girando em volta, atraído pelo mouse.
+- **Geral:** cursor com rótulo ("Abrir", "Arraste", "Ver", "Assistir", "Ligar"), que se atualiza também ao
+  rolar; reflexo nos botões; menu marca a seção na tela; no celular, barra fixa com o botão de ingresso e a
+  porcentagem vendida (some na abertura, nos ingressos e na chamada final). Logo gigante do rodapé sobe no
+  fim da página.
 
 Tudo segue a rolagem nos dois sentidos. Com "reduzir movimento" ou sem JavaScript, a página aparece completa
-(pilares em lista, cartas lado a lado) e o vídeo não toca sozinho (o botão vira "Assistir com som"). A
+(pilares em lista, números no valor final) e o vídeo não toca sozinho (o botão vira "Assistir com som"). A
 preparação das animações roda em etapas curtas para não travar o celular.
 
 ## Eventos para o GTM
 `cta_clique` (com o local do botão: `hero`, `perfil`, `ingresso-black`, `final`, `suporte`, `agenda`…),
-`video_evento_som` e `perfil_imersao` (quantas chaves a pessoa ligou no "Para quem é").
+`video_evento_som`, `depoimento_play` e `perfil_imersao` (quantas chaves a pessoa ligou no "Para quem é").
 
 ## Publicar na Vercel
 1. Importe o repositório e defina **Root Directory = `sites/clube`** (framework: Next.js).
@@ -81,6 +89,8 @@ Tudo que depende do cliente está em `src/content/site.ts`, marcado com **CONFIR
   a contagem regressiva fica escondida. Trocar também a data do jantar ("24/09") nos benefícios.
 - Preços, parcelas, porcentagem vendida (86%) e se o Diamond continua esgotado.
 - Público mínimo: o topo fala em R$ 30 mil/mês e uma resposta das perguntas fala em R$ 20 mil/mês.
+- Perguntas novas (horários, Black × Diamond, pagamento) e a resposta do "presencial", que agora cita o
+  Riviera Business & Mall (antes dizia que o endereço seria enviado depois, contradizendo o ingresso).
 - Fotos dos mentores: Saimon Oliveira = polo preta no sofá; Gabriel Dias = polo vinho (identificados pelas fotos
   do site atual). A foto de polo preta em pé ficou de reserva (`sites/_fontes/clube/originais`).
 - Nomes de quem fala nos depoimentos (os mesmos vídeos da RISE).

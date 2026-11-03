@@ -530,10 +530,31 @@ html.js-motion [data-chave-item]:not([data-ligado="true"]) {
   }
 }
 @media (width >= 64rem) {
+  /* O palco tem a altura exata da tela e a lista ocupa o que sobra: nada fica cortado enquanto a seção
+     está fixa, em qualquer altura de tela. */
+  html.js-motion [data-pilares-palco] {
+    display: flex;
+    flex-direction: column;
+    /* largura explícita: o ScrollTrigger copia o display flex para o invólucro do pin, e sem isso o palco
+       encolheria até a largura do conteúdo (ficava desalinhado à esquerda). */
+    width: 100%;
+    height: 100svh;
+    min-height: 38rem;
+    padding-top: clamp(5.75rem, 12svh, 7.5rem);
+    padding-bottom: clamp(1.75rem, 4.5svh, 3rem);
+  }
+  html.js-motion [data-pilares-palco] > .container-site {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
   html.js-motion [data-pilares-lista] {
     display: flex;
+    flex: 1;
     gap: 0.75rem;
-    height: min(34rem, calc(100svh - 17rem));
+    min-height: 0;
+    margin-top: clamp(1.5rem, 3.5svh, 2.75rem);
   }
   html.js-motion [data-pilar-painel] {
     flex: 1 1 0;
@@ -666,5 +687,168 @@ html.js-motion [data-chave-item]:not([data-ligado="true"]) {
   }
   to {
     transform: translateY(200%);
+  }
+}
+
+/* ===== Números: contadores de painel (uma coluna 0–9 0–9 por dígito) ===== */
+.contador-janela {
+  display: inline-block;
+  height: 1.2em;
+  overflow: hidden;
+  vertical-align: top;
+}
+.contador-coluna {
+  display: flex;
+  flex-direction: column;
+  font-variant-numeric: tabular-nums;
+}
+html:not(.js-motion) .contador-coluna {
+  transform: translateY(calc(var(--alvo) * -5%));
+}
+.contador-coluna > span {
+  display: block;
+  height: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+/* ===== Para quem é: anel do medidor (um segmento por chave) ===== */
+.perfil-segmento {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.1);
+  stroke-width: 7;
+  transition:
+    stroke 0.5s ease,
+    filter 0.5s ease;
+}
+.perfil-segmento[data-aceso] {
+  stroke: var(--color-ouro);
+}
+[data-perfil][data-faixa="3"] .perfil-segmento {
+  filter: drop-shadow(0 0 6px rgb(225 173 81 / 0.55));
+}
+
+/* ===== Galeria: botões ===== */
+.galeria-botao {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  color: #fff;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease;
+}
+.galeria-botao:hover:not(:disabled) {
+  background: var(--color-ouro);
+  border-color: var(--color-ouro);
+  color: var(--color-ink);
+}
+.galeria-botao:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ===== Depoimentos: troca do vídeo do palco com uma cortina; lista com andamento ===== */
+.cases-slide {
+  clip-path: inset(100% 0 0 0 round 0);
+  transition: clip-path 0.9s var(--ease-out-expo);
+  z-index: 0;
+}
+.cases-slide[data-ativo="true"] {
+  clip-path: inset(0 0 0 0);
+  z-index: 1;
+}
+.cases-slide .cases-poster {
+  transform: scale(1.12);
+  transition: transform 1.4s var(--ease-out-expo);
+}
+.cases-slide[data-ativo="true"] .cases-poster {
+  transform: scale(1);
+}
+.cases-slide .cases-fala {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.6s ease,
+    transform 0.8s var(--ease-out-expo);
+}
+.cases-slide[data-ativo="true"] .cases-fala {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.25s;
+}
+.cases-item .cases-seta {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    transform 0.5s var(--ease-out-expo);
+}
+.cases-item:hover .cases-seta {
+  transform: translateX(0.25rem);
+}
+.cases-item[aria-pressed="true"] .cases-seta {
+  background: var(--color-ouro);
+  border-color: var(--color-ouro);
+  color: var(--color-ink);
+}
+.cases-andamento {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--color-ouro);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.25s linear;
+}
+.cases-item[aria-pressed="true"] .cases-andamento {
+  transform: scaleX(max(0.06, var(--andamento, 0)));
+}
+
+/* ===== Mentores: com mouse, a carta sob o cursor fica em foco e as outras se apagam ===== */
+@media (hover: hover) and (pointer: fine) {
+  [data-mentor] {
+    transition:
+      opacity 0.5s ease,
+      filter 0.5s ease;
+  }
+  [data-mentores]:has([data-mentor]:hover) [data-mentor]:not(:hover) {
+    opacity: 0.4;
+    filter: grayscale(0.7);
+  }
+}
+
+/* ===== Abertura: luz de palco que segue o cursor sobre o vídeo ===== */
+.hero-lanterna {
+  background: rgb(5 5 5 / 0.55);
+}
+.hero-lanterna[data-ativa] {
+  background: radial-gradient(circle 28rem at var(--lx, 50%) var(--ly, 45%), rgb(5 5 5 / 0.3), rgb(5 5 5 / 0.64) 72%);
+}
+
+/* ===== Hora de agir: letras ===== */
+@property --dourado {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+.letra-final {
+  color: color-mix(in oklab, #fff calc((1 - var(--dourado)) * 100%), var(--color-ouro));
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cases-slide,
+  .cases-slide .cases-poster,
+  .cases-slide .cases-fala,
+  .cases-andamento,
+  .perfil-segmento {
+    transition: none;
   }
 }

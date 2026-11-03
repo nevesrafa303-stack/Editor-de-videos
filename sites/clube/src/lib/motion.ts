@@ -98,6 +98,7 @@ export function iniciarAnimacoes() {
         legenda?.classList.remove("hidden");
         const tl = gsap.timeline({ defaults: { ease: "none" } });
         tl.to("[data-hero-conteudo]", { yPercent: -14, autoAlpha: 0, duration: 0.45 }, 0)
+          .to("[data-hero-dica]", { autoAlpha: 0, duration: 0.2 }, 0)
           .to("[data-hero-sombra]", { autoAlpha: 0.25, duration: 0.6 }, 0.1)
           .fromTo(
             "[data-hero-janela]",
@@ -131,15 +132,28 @@ export function iniciarAnimacoes() {
             y: gsap.quickTo(el, "yPercent", { duration: 1.2, ease: "power3.out" }),
             f,
           }));
+          // Luz de palco: o véu escuro sobre o vídeo clareia em volta do cursor (segue com atraso suave).
+          const lanterna = hero.querySelector<HTMLElement>("[data-hero-lanterna]");
+          const luz = { x: window.innerWidth / 2, y: window.innerHeight * 0.45 };
+          const pintar = () => {
+            lanterna?.style.setProperty("--lx", `${luz.x}px`);
+            lanterna?.style.setProperty("--ly", `${luz.y}px`);
+          };
           const onMove = (e: PointerEvent) => {
             const nx = (e.clientX / window.innerWidth) * 2 - 1;
             const ny = (e.clientY / window.innerHeight) * 2 - 1;
             camadas.forEach((c) => (c.x(nx * c.f), c.y(ny * c.f)));
+            lanterna?.setAttribute("data-ativa", "");
+            const r = hero.getBoundingClientRect();
+            gsap.to(luz, { x: e.clientX - r.left, y: e.clientY - r.top, duration: 0.9, ease: "power3.out", overwrite: true, onUpdate: pintar });
           };
           hero.addEventListener("pointermove", onMove);
           limpezas.push(() => hero.removeEventListener("pointermove", onMove));
         }
-        limpezas.push(() => legenda?.classList.add("hidden"));
+        limpezas.push(() => {
+          legenda?.classList.add("hidden");
+          hero.querySelector("[data-hero-lanterna]")?.removeAttribute("data-ativa");
+        });
       }
 
       // Títulos entram linha a linha, saindo de uma máscara, no ritmo da rolagem.
@@ -170,6 +184,26 @@ export function iniciarAnimacoes() {
           );
         }),
       );
+
+      // Números: a frase acende palavra por palavra no ritmo da rolagem e cada contador rola até o valor,
+      // como um painel mecânico (o último dígito dá uma volta a mais). Volta ao subir.
+      etapa(() => {
+        const leitura = document.querySelector<HTMLElement>("[data-leitura]");
+        if (!leitura) return;
+        const pecas = $$("[data-palavra], [data-contador]", leitura);
+        const tl = gsap.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: leitura, start: "top 82%", end: "bottom 48%", scrub: 0.5 } });
+        pecas.forEach((el, i) => {
+          tl.fromTo(el, { opacity: 0.16 }, { opacity: 1, duration: 1 }, i * 0.55);
+          if (!el.matches("[data-contador]")) return;
+          const colunas = $$("[data-coluna]", el);
+          const rolar = gsap.fromTo(
+            colunas,
+            { yPercent: 0 },
+            { yPercent: (_: number, col: HTMLElement) => -Number(col.dataset.alvo) * 5, duration: 1.5, ease: "power3.out", stagger: 0.08, paused: true },
+          );
+          ScrollTrigger.create({ trigger: el, start: "top 80%", onEnter: () => rolar.play(), onLeaveBack: () => rolar.reverse() });
+        });
+      });
 
       // Paralaxe de fotos.
       etapa(() => {
@@ -256,10 +290,11 @@ export function iniciarAnimacoes() {
           const botao = p.querySelector("[data-pilar-botao]");
           const abrir = () => ativar(i);
           botao?.addEventListener("click", abrir);
-          if (mouse && desktop) p.addEventListener("pointerenter", abrir);
+          const mexeu = (e: PointerEvent) => (e.movementX || e.movementY) && p.dataset.ativo !== "true" && abrir();
+          if (mouse && desktop) p.addEventListener("pointermove", mexeu);
           limpezas.push(() => {
             botao?.removeEventListener("click", abrir);
-            p.removeEventListener("pointerenter", abrir);
+            p.removeEventListener("pointermove", mexeu);
             delete p.dataset.ativo;
             botao?.setAttribute("aria-expanded", "true");
           });
@@ -312,6 +347,10 @@ export function iniciarAnimacoes() {
         const itens = $$("[data-galeria-item]", faixa);
         const fotos = itens.map((it) => gsap.quickSetter(it.querySelector("[data-galeria-foto]"), "xPercent"));
         const barra = document.querySelector<HTMLElement>("[data-galeria-progresso]");
+        const inclinar = gsap.quickTo(itens, "skewX", { duration: 0.6, ease: "power3.out" });
+        let ultimaPos = faixa.scrollLeft;
+        let ultimoTempo = performance.now();
+        let parada = 0;
         const atualizar = () => {
           const centro = faixa.getBoundingClientRect().left + faixa.clientWidth / 2;
           itens.forEach((it, i) => {
@@ -320,7 +359,15 @@ export function iniciarAnimacoes() {
             fotos[i](gsap.utils.clamp(-8, 8, d * -12));
           });
           const max = faixa.scrollWidth - faixa.clientWidth;
-          if (barra) barra.style.transform = `scaleX(${max > 0 ? 0.15 + 0.85 * (faixa.scrollLeft / max) : 1})`;
+          if (barra) barra.style.transform = `scaleX(${max > 0 ? 0.11 + 0.89 * (faixa.scrollLeft / max) : 1})`;
+          // Inclinação pela velocidade: a faixa "pesa" ao ser jogada e volta ao parar.
+          const agora = performance.now();
+          const v = (faixa.scrollLeft - ultimaPos) / Math.max(1, agora - ultimoTempo);
+          ultimaPos = faixa.scrollLeft;
+          ultimoTempo = agora;
+          inclinar(gsap.utils.clamp(-7, 7, v * -3));
+          window.clearTimeout(parada);
+          parada = window.setTimeout(() => inclinar(0), 90);
         };
         faixa.addEventListener("scroll", atualizar, { passive: true });
         atualizar();
@@ -476,56 +523,49 @@ export function iniciarAnimacoes() {
         if (mouse) $$("[data-mentor-figura]").forEach((f) => limpezas.push(inclinarComMouse(f, 12)));
       });
 
-      // Depoimentos: no desktop a seção fixa, os vídeos correm na horizontal e cada um gira e cresce ao entrar.
-      const track = document.querySelector<HTMLElement>("[data-cases-track]");
+      // Depoimentos (playlist): o palco do vídeo entra de pé, saindo inclinado, e com mouse acompanha o cursor.
       etapa(() => {
-        const cartoesCases = track ? (Array.from(track.children) as HTMLElement[]).filter((c) => !c.hasAttribute("aria-hidden")) : [];
-        if (track && desktop) {
-          track.dataset.pinned = "true";
-          const barra = document.querySelector<HTMLElement>("[data-cases-progresso]");
-          const distancia = () => Math.max(0, track.scrollWidth - track.clientWidth);
-          const horizontal = gsap.to(track, {
-            x: () => -distancia(),
-            ease: "none",
-            scrollTrigger: {
-              trigger: "[data-cases-pin]",
-              start: "top top",
-              end: () => `+=${distancia()}`,
-              pin: true,
-              pinSpacer: "[data-cases-espaco]",
-              scrub: 1,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-              onUpdate: (self) => barra && gsap.set(barra, { scaleX: self.progress }),
-            },
-          });
-          cartoesCases.forEach((cartao) => {
-            gsap.fromTo(
-              cartao,
-              { rotate: 7, scale: 0.86, yPercent: 10 },
-              {
-                rotate: 0,
-                scale: 1,
-                yPercent: 0,
-                ease: "none",
-                scrollTrigger: { trigger: cartao, containerAnimation: horizontal, start: "left right", end: "left 60%", scrub: true },
-              },
-            );
-          });
-        } else if (track) {
-          gsap.fromTo(
-            cartoesCases,
-            { y: 70, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, stagger: 0.1, ease: "power2.out", scrollTrigger: entrada(track, "top 95%", "top 55%") },
-          );
-        }
+        const palco = document.querySelector<HTMLElement>("[data-cases-palco]");
+        if (!palco) return;
+        gsap.fromTo(
+          palco,
+          { rotate: desktop ? -5 : 0, yPercent: 8, scale: 0.94 },
+          { rotate: 0, yPercent: 0, scale: 1, ease: "power2.out", scrollTrigger: entrada(palco, "top 95%", "top 45%") },
+        );
+        if (mouse) limpezas.push(inclinarComMouse(palco, 6));
       });
 
       // Chamada final: o botão redondo é atraído pelo mouse dentro da seção (quanto mais perto, mais forte).
       etapa(() => {
         const area = document.querySelector<HTMLElement>("[data-ima-area]");
         const ima = document.querySelector<HTMLElement>("[data-ima]");
+        // "Hora de agir": as letras sobem da base uma a uma com a rolagem (e descem ao voltar).
+        const letras = $$("[data-letra]");
+        if (letras.length)
+          gsap.fromTo(
+            letras,
+            { yPercent: 110, rotate: 8, opacity: 0 },
+            { yPercent: 0, rotate: 0, opacity: 1, stagger: 0.05, ease: "power3.out", scrollTrigger: entrada(letras[0].closest("h2")!, "top 92%", "top 52%") },
+          );
         if (!area || !ima || !mouse) return;
+        // Com mouse, as letras perto do cursor se erguem e douram (o efeito some com a distância).
+        const ergue = letras.map((l) => gsap.quickTo(l, "y", { duration: 0.7, ease: "power3.out" }));
+        const douram = letras.map((l) => gsap.quickTo(l, "--dourado", { duration: 0.5, ease: "power2.out" }));
+        const onLetras = (e: PointerEvent) =>
+          letras.forEach((l, i) => {
+            const r = l.getBoundingClientRect();
+            const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2 - (Number(gsap.getProperty(l, "y")) || 0)));
+            const f = gsap.utils.clamp(0, 1, 1 - d / 260);
+            ergue[i](-f * f * 26);
+            douram[i](f);
+          });
+        const soltarLetras = () => letras.forEach((_, i) => (ergue[i](0), douram[i](0)));
+        area.addEventListener("pointermove", onLetras);
+        area.addEventListener("pointerleave", soltarLetras);
+        limpezas.push(() => {
+          area.removeEventListener("pointermove", onLetras);
+          area.removeEventListener("pointerleave", soltarLetras);
+        });
         const miolo = ima.querySelector<HTMLElement>("[data-ima-miolo]");
         const x = gsap.quickTo(ima, "x", { duration: 0.9, ease: "power3.out" });
         const y = gsap.quickTo(ima, "y", { duration: 0.9, ease: "power3.out" });
@@ -607,7 +647,6 @@ export function iniciarAnimacoes() {
       return () => {
         limpezas.forEach((f) => f());
         root.classList.remove("js-motion");
-        if (track) delete track.dataset.pinned;
       };
     },
   );

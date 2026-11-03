@@ -48,10 +48,22 @@ export const faixa = [
 
 export const numeros = {
   titulo: "Uma operação real, aberta para você",
+  // Frase lida com a rolagem; os objetos viram contadores que rolam (src/components/Numeros.tsx).
+  frase: [
+    "Você vai ver por dentro uma agência de ",
+    { prefixo: "R$ ", valor: 15, unidade: " milhões", leitura: "15 milhões de reais" },
+    ", com ",
+    { prefixo: "", valor: 350, unidade: "+", leitura: "mais de 350" },
+    " clientes ativos ao mesmo tempo e churn abaixo de ",
+    { prefixo: "", valor: 10, unidade: "%", leitura: "10%" },
+    ". São dois dias nos bastidores dessa operação, numa sala com só ",
+    { prefixo: "", valor: evento.vagas, unidade: "", leitura: String(evento.vagas) },
+    " donos de agência.",
+  ],
   itens: [
     { prefixo: "R$ ", valor: 15, unidade: " mi", rotulo: "de faturamento na agência que você vai ver por dentro" },
     { prefixo: "", valor: 350, unidade: "+", rotulo: "clientes ativos ao mesmo tempo" },
-    { prefixo: "<", valor: 10, unidade: "%", rotulo: "de churn, com processo e não com sorte" },
+    { prefixo: "", valor: 10, unidade: "%", rotulo: "de churn, com processo e não com sorte" },
     { prefixo: "", valor: evento.vagas, unidade: "", rotulo: "vagas, para o conteúdo ser aplicado de verdade" },
   ],
 } as const;
@@ -284,11 +296,24 @@ export const faq = {
     },
     {
       pergunta: "O evento é presencial?",
-      resposta: `Sim, será realizado em Balneário Camboriú nos dias ${evento.datas.replace(" de 2026", "")}. O endereço exato será enviado após sua inscrição.`,
+      resposta: `Sim. Acontece no ${evento.local}, em ${evento.cidade}, nos dias ${evento.datas.replace(" de 2026", "")}.`,
+    },
+    {
+      pergunta: "Quais são os horários?",
+      resposta: `${evento.horario} nos dois dias, com credenciamento a partir das 8h30.`,
     },
     {
       pergunta: "Quantas vagas estão disponíveis?",
       resposta: `São apenas ${evento.vagas} vagas, para garantir um aprendizado exclusivo e de alta qualidade.`,
+    },
+    {
+      pergunta: "Qual a diferença entre o Black e o Diamond?",
+      resposta:
+        "O Diamond tem tudo o que o Black tem e mais a área exclusiva com café premium durante o evento, o jantar com os fundadores da LAKS e a visita ao escritório da LAKS.",
+    },
+    {
+      pergunta: "Como faço o pagamento?",
+      resposta: "Em até 12x no cartão ou à vista no Pix, que sai mais barato. A compra é feita com a nossa equipe pelo WhatsApp.",
     },
   ],
   suporte: {

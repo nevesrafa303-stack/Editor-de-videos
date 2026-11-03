@@ -15,11 +15,11 @@ export function iniciarCursor() {
   const x = gsap.quickTo(anel, "x", { duration: 0.35, ease: "power3.out" });
   const y = gsap.quickTo(anel, "y", { duration: 0.35, ease: "power3.out" });
 
-  const onMove = (e: PointerEvent) => {
-    x(e.clientX);
-    y(e.clientY);
-    anel.dataset.fora = "false";
-    const alvo = (e.target as Element | null)?.closest<HTMLElement>("[data-cursor], a, button, label, summary");
+  // O rótulo depende do que está sob o cursor. Com a rolagem a página anda e o mouse fica parado: por isso
+  // ele também é recalculado ao rolar (senão um "Ver" ficava por cima de um título qualquer).
+  let ultimo = { x: -1, y: -1 };
+  const marcar = (el: Element | null) => {
+    const alvo = el?.closest<HTMLElement>("[data-cursor], a, button, label, summary");
     const texto = alvo?.dataset.cursor;
     if (texto) {
       anel.dataset.rotulo = "";
@@ -27,12 +27,30 @@ export function iniciarCursor() {
     } else delete anel.dataset.rotulo;
     anel.dataset.sobre = String(Boolean(alvo));
   };
+  const onMove = (e: PointerEvent) => {
+    x(e.clientX);
+    y(e.clientY);
+    ultimo = { x: e.clientX, y: e.clientY };
+    anel.dataset.fora = "false";
+    marcar(e.target as Element | null);
+  };
+  let quadro = 0;
+  const onScroll = () => {
+    if (quadro || ultimo.x < 0) return;
+    quadro = requestAnimationFrame(() => {
+      quadro = 0;
+      marcar(document.elementFromPoint(ultimo.x, ultimo.y));
+    });
+  };
   const onSai = () => (anel.dataset.fora = "true");
   document.addEventListener("pointermove", onMove);
+  window.addEventListener("scroll", onScroll, { passive: true });
   document.documentElement.addEventListener("pointerleave", onSai);
   return () => {
     document.removeEventListener("pointermove", onMove);
+    window.removeEventListener("scroll", onScroll);
     document.documentElement.removeEventListener("pointerleave", onSai);
+    cancelAnimationFrame(quadro);
     anel.remove();
   };
 }

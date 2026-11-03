@@ -1,5 +1,6 @@
-// "Para quem é": a pessoa liga as chaves que valem para a agência dela; o medidor enche, a resposta muda e,
-// com 3 ou mais ligadas, aparece o botão de ingresso. JavaScript puro (site e prévia).
+// "Para quem é": a pessoa liga as chaves que valem para a agência dela; o anel do medidor acende um segmento
+// por chave, a resposta muda e, com 3 ou mais ligadas, aparece o botão de ingresso. JavaScript puro (site e
+// prévia).
 import { track } from "./tracking";
 
 export function iniciarPerfil() {
@@ -7,7 +8,7 @@ export function iniciarPerfil() {
   if (!raiz) return () => {};
   const chaves = Array.from(raiz.querySelectorAll<HTMLButtonElement>('[role="switch"]'));
   const contagem = raiz.querySelector<HTMLElement>("[data-perfil-contagem]");
-  const barra = raiz.querySelector<HTMLElement>("[data-perfil-barra]");
+  const segmentos = Array.from(raiz.querySelectorAll<SVGElement>("[data-segmento]"));
   const resposta = raiz.querySelector<HTMLElement>("[data-perfil-resposta]");
   const cta = raiz.querySelector<HTMLElement>("[data-perfil-cta]");
   const respostas: string[] = JSON.parse(raiz.dataset.respostas || "[]");
@@ -15,7 +16,7 @@ export function iniciarPerfil() {
   const atualizar = () => {
     const n = chaves.filter((c) => c.getAttribute("aria-checked") === "true").length;
     if (contagem) contagem.textContent = String(n);
-    if (barra) barra.style.transform = `scaleX(${chaves.length ? n / chaves.length : 0})`;
+    segmentos.forEach((seg, i) => seg.toggleAttribute("data-aceso", i < n));
     const faixa = n === 0 ? 0 : n < 3 ? 1 : n < chaves.length ? 2 : 3;
     if (resposta && respostas[faixa]) resposta.textContent = respostas[faixa];
     raiz.dataset.faixa = String(faixa);

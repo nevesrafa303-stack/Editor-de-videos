@@ -5,7 +5,8 @@ import { VideoEvento } from "./VideoEvento";
 
 // Abertura: o vídeo do evento em tela cheia, aberto a partir do círculo da marca (CSS puro), com o texto
 // centralizado. Com a rolagem a tela fixa, o texto sai e o vídeo vira um quadro: "Veja como foi a última
-// edição" (data-hero em src/lib/motion.ts). Com mouse, o texto e o vídeo se deslocam em camadas.
+// edição" (data-hero em src/lib/motion.ts). Com mouse, o texto e o vídeo se deslocam em camadas e uma luz de
+// palco segue o cursor sobre o vídeo.
 export function Hero() {
   return (
     <section id="topo" data-hero aria-labelledby="hero-titulo" className="relative bg-ink">
@@ -30,7 +31,7 @@ export function Hero() {
                   <source data-src="/videos/evento-720.mp4" type="video/mp4" />
                 </video>
               </div>
-              <div data-hero-sombra className="absolute inset-0 bg-ink/55" />
+              <div data-hero-sombra data-hero-lanterna className="hero-lanterna absolute inset-0" />
               <div data-hero-sombra className="absolute inset-0 bg-[radial-gradient(60%_55%_at_50%_55%,transparent,#050505_100%)]" />
               <div data-hero-sombra className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
             </div>
@@ -100,8 +101,7 @@ export function Hero() {
             </svg>
             <span data-som-rotulo>Ligar som</span>
           </button>
-          <div aria-hidden="true" className="hero-rise absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-[0.65rem] uppercase tracking-[0.3em] text-mute md:flex" style={vars({ "--i": 11 })}>
-            Role
+          <div aria-hidden="true" data-hero-dica className="hero-rise absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center md:flex" style={vars({ "--i": 11 })}>
             <span className="relative block h-10 w-px overflow-hidden bg-white/15">
               <span className="bg-ouro absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_1.8s_ease-in-out_infinite]" />
             </span>

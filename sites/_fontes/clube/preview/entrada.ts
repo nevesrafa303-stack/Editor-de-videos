@@ -1,8 +1,11 @@
 // Script da prévia em arquivo único (sem servidor, sem React). As animações e o vídeo da abertura são os
 // mesmos do site (src/lib/motion.ts e src/lib/video-evento.ts); aqui só ficam as interações que no site o
-// React faz: menu, vídeos dos depoimentos, contagem regressiva e o painel de chaves do "Para quem é".
+// React faz: menu, playlist dos depoimentos, botões da galeria, contagem regressiva e o painel de chaves do
+// "Para quem é".
 import { iniciarBarraAplicar, iniciarCabecalho } from "../../../clube/src/lib/cabecalho";
 import { iniciarContagem } from "../../../clube/src/lib/contagem";
+import { iniciarDepoimentos } from "../../../clube/src/lib/depoimentos";
+import { iniciarGaleria } from "../../../clube/src/lib/galeria";
 import { iniciarAnimacoes, iniciarRolagemSuave } from "../../../clube/src/lib/motion";
 import { iniciarPerfil } from "../../../clube/src/lib/perfil";
 import { iniciarVideoEvento } from "../../../clube/src/lib/video-evento";
@@ -51,25 +54,14 @@ function videoAbertura() {
   video.append(fonte);
 }
 
+// Depoimentos: na prévia os vídeos vêm embutidos; o palco usa o mesmo script do site (src/lib/depoimentos.ts).
 function depoimentos() {
   const fontes = window.__CLUBE_VIDEOS__ ?? {};
-  $$<HTMLElement>("[data-video]").forEach((btn) => {
-    const id = btn.dataset.video;
-    if (id && fontes[id]) btn.dataset.previaSrc = fontes[id];
-  });
-  $$<HTMLButtonElement>("figure button[data-video]").forEach((btn) => {
+  $$<HTMLElement>("[data-cases-play]").forEach((btn) => {
     const id = btn.dataset.video;
     if (!id || !fontes[id]) return;
-    btn.addEventListener("click", () => {
-      const v = document.createElement("video");
-      v.src = fontes[id];
-      v.controls = true;
-      v.autoplay = true;
-      v.playsInline = true;
-      v.className = "size-full object-contain";
-      v.addEventListener("play", () => $$<HTMLVideoElement>("figure video").forEach((o) => o !== v && o.pause()));
-      btn.replaceWith(v);
-    });
+    btn.dataset.src = fontes[id];
+    btn.dataset.previaSrc = fontes[id];
   });
 }
 
@@ -89,7 +81,9 @@ videoAbertura();
 iniciarVideoEvento();
 iniciarContagem();
 iniciarPerfil();
+iniciarGaleria();
 depoimentos();
+iniciarDepoimentos();
 avisoLinks();
 iniciarRolagemSuave();
 iniciarAnimacoes();

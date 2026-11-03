@@ -9,9 +9,27 @@ export function Pilares() {
   return (
     <section id="pilares" data-pilares aria-labelledby="pilares-titulo" className="relative bg-ink">
       <div data-pilares-espaco>
-        <div data-pilares-palco className="py-24 md:py-32 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:py-20">
+        {/* Com animação, no desktop o palco tem a altura exata da tela (globals.css): tudo cabe enquanto fixa. */}
+        <div data-pilares-palco className="py-24 md:py-32">
           <div className="container-site">
-            <Cabecalho id="pilares-titulo" titulo={pilares.titulo} intro={pilares.intro} />
+            <Cabecalho
+              id="pilares-titulo"
+              titulo={pilares.titulo}
+              destaque="Clube das Agências"
+              intro={pilares.intro}
+              lado
+              extra={
+                <div aria-hidden="true" className="hidden items-center gap-4 lg:flex">
+                  <span className="font-expanded text-sm font-bold text-white">
+                    <span data-pilar-atual>01</span>
+                    <span className="text-mute"> / {String(pilares.itens.length).padStart(2, "0")}</span>
+                  </span>
+                  <span className="h-px flex-1 overflow-hidden bg-white/15">
+                    <span data-pilares-progresso className="bg-ouro block h-full w-full origin-left" style={{ transform: "scaleX(0.2)" }} />
+                  </span>
+                </div>
+              }
+            />
 
             <ol data-pilares-lista className="mt-12 grid gap-3 md:mt-14">
               {pilares.itens.map((p, i) => (
@@ -44,10 +62,10 @@ export function Pilares() {
                   <div className="pilar-corpo">
                     <div>
                       <div className="pilar-texto px-6 pb-7 md:px-8 md:pb-9">
-                        <h3 className="font-expanded text-[clamp(1.3rem,2.4vw,2rem)] font-bold uppercase leading-[1.05] tracking-tight text-white">
+                        <h3 className="font-expanded text-[clamp(1.2rem,2vw,1.8rem)] font-bold uppercase leading-[1.05] tracking-tight text-white">
                           {p.titulo}
                         </h3>
-                        <p className="mt-4 max-w-xl leading-relaxed text-mute md:text-lg">{p.texto}</p>
+                        <p className="mt-4 max-w-xl leading-relaxed text-mute md:text-lg lg:text-base xl:text-[1.05rem]">{p.texto}</p>
                       </div>
                     </div>
                   </div>
@@ -59,15 +77,6 @@ export function Pilares() {
                 </li>
               ))}
             </ol>
-            <div aria-hidden="true" className="mx-auto mt-8 hidden max-w-xs items-center gap-4 lg:flex">
-              <span className="font-expanded text-sm font-bold text-white">
-                <span data-pilar-atual>01</span>
-                <span className="text-mute"> / {String(pilares.itens.length).padStart(2, "0")}</span>
-              </span>
-              <span className="h-px flex-1 overflow-hidden bg-white/15">
-                <span data-pilares-progresso className="bg-ouro block h-full w-full origin-left" style={{ transform: "scaleX(0.2)" }} />
-              </span>
-            </div>
           </div>
         </div>
       </div>

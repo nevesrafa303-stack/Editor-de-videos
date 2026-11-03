@@ -3,8 +3,8 @@ import { cta, evento, final } from "@/content/site";
 import palco from "@/assets/img/palco-placas.webp";
 import { Simbolo } from "./Logo";
 
-// Chamada final centralizada: um botão redondo com o texto girando em volta. No desktop o botão é atraído
-// pelo mouse dentro da seção (data-ima em src/lib/motion.ts).
+// Chamada final centralizada: as letras de "Hora de agir" entram uma a uma e, com mouse, reagem ao cursor;
+// um botão redondo com o texto girando em volta é atraído pelo mouse dentro da seção (src/lib/motion.ts).
 export function Final() {
   const anel = `${cta} · ${evento.vagas} vagas · ${evento.datasCurtas} · `;
   return (
@@ -16,10 +16,20 @@ export function Final() {
       <div className="container-site flex flex-col items-center text-center">
         <h2
           id="final-titulo"
-          data-split
-          className="font-expanded text-[clamp(2.6rem,9vw,8rem)] font-bold uppercase leading-[0.9] tracking-tight text-white"
+          aria-label={final.titulo}
+          data-letras
+          className="font-expanded flex flex-wrap justify-center gap-x-[0.28em] text-[clamp(2.6rem,9vw,8rem)] font-bold uppercase leading-[0.9] tracking-tight text-white"
         >
-          {final.titulo}
+          {/* Uma letra por <span>: com mouse, as letras perto do cursor sobem e douram (src/lib/motion.ts). */}
+          {final.titulo.split(" ").map((palavra) => (
+            <span key={palavra} aria-hidden="true" className="inline-flex whitespace-nowrap">
+              {palavra.split("").map((l, i) => (
+                <span key={i} data-letra className="letra-final inline-block">
+                  {l}
+                </span>
+              ))}
+            </span>
+          ))}
         </h2>
         <p data-reveal className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-fog/85">
           {final.texto}
@@ -30,9 +40,9 @@ export function Final() {
             href="#ingressos"
             data-cta="final"
             data-ima
-            aria-label={cta}
             className="group relative grid size-44 place-items-center rounded-full md:size-56"
           >
+            <span className="sr-only">{cta}</span>
             <svg viewBox="0 0 200 200" className="anel-giro absolute inset-0 size-full text-fog" aria-hidden="true">
               <defs>
                 <path id="anel-caminho" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0" />

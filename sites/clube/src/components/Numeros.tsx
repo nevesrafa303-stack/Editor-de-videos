@@ -1,29 +1,64 @@
 import { numeros } from "@/content/site";
+import { vars } from "./ui";
 
-// Números da operação que os participantes veem por dentro: contam ao entrar na tela.
+type Numero = { prefixo: string; valor: number; unidade: string; leitura: string };
+
+// Coluna de dígitos de um contador: 0–9 duas vezes. O último dígito dá uma volta a mais que os outros,
+// como num painel mecânico. Sem animação (globals.css), a coluna já fica parada no número final.
+function Contador({ n }: { n: Numero }) {
+  const digitos = String(n.valor).split("");
+  return (
+    <span data-contador className="whitespace-nowrap text-ouro">
+      <span className="sr-only">{n.leitura}</span>
+      <span aria-hidden="true">
+        {n.prefixo}
+        {digitos.map((d, i) => {
+          const alvo = Number(d) + (i === digitos.length - 1 ? 10 : 0);
+          return (
+            <span key={i} className="contador-janela">
+              <span data-coluna data-alvo={alvo} className="contador-coluna" style={vars({ "--alvo": alvo })}>
+                {Array.from({ length: 20 }, (_, k) => (
+                  <span key={k}>{k % 10}</span>
+                ))}
+              </span>
+            </span>
+          );
+        })}
+        {n.unidade}
+      </span>
+    </span>
+  );
+}
+
+// Números da operação numa frase só, lida com a rolagem: as palavras acendem uma a uma e os números
+// rolam como contadores de painel até o valor (data-leitura em src/lib/motion.ts). Volta ao subir.
 export function Numeros() {
   return (
-    <section aria-labelledby="numeros-titulo" className="py-24 md:py-32">
+    <section aria-labelledby="numeros-titulo" className="relative py-28 md:py-40">
       <div className="container-site">
-        <h2 id="numeros-titulo" data-reveal className="mx-auto max-w-xl text-center text-sm font-semibold uppercase tracking-[0.22em] text-mute">
+        <h2 id="numeros-titulo" className="sr-only">
           {numeros.titulo}
         </h2>
-        <dl data-reveal="stagger" className="mt-12 grid grid-cols-2 gap-y-12 md:mt-16 lg:grid-cols-4">
-          {numeros.itens.map((n, i) => (
-            <div
-              key={n.rotulo}
-              data-spotlight
-              className={`flex flex-col items-center px-4 text-center md:px-8 ${i % 2 ? "border-l border-white/10" : ""} ${i > 0 ? "lg:border-l lg:border-white/10" : ""}`}
-            >
-              <dt className="order-2 mt-4 max-w-[16rem] text-sm leading-snug text-mute md:text-base">{n.rotulo}</dt>
-              <dd className="font-expanded order-1 whitespace-nowrap text-[clamp(1.6rem,7.6vw,3.4rem)] lg:text-[clamp(2.6rem,3.6vw,3.6rem)] font-bold leading-none text-white">
-                <span className="text-ouro">{n.prefixo}</span>
-                <span data-count={n.valor}>{n.valor}</span>
-                <span className="text-ouro">{n.unidade}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <p
+          data-leitura
+          className="font-expanded mx-auto max-w-[64rem] text-center text-[clamp(1.5rem,3.25vw,3.05rem)] font-bold leading-[1.2] tracking-[-0.015em] text-white"
+        >
+          {numeros.frase.map((parte, i) =>
+            typeof parte === "string" ? (
+              parte.split(/(\s+)/).map((p, j) =>
+                p.trim() ? (
+                  <span key={`${i}-${j}`} data-palavra>
+                    {p}
+                  </span>
+                ) : (
+                  p
+                ),
+              )
+            ) : (
+              <Contador key={i} n={parte} />
+            ),
+          )}
+        </p>
       </div>
     </section>
   );
