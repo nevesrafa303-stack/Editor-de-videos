@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B3 · Mensalidades (equipe)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B3 — explicativo e voltado à equipe: topo claro com a equipe de terno e o título, base vermelha em arco
+     (curva do símbolo Bradesco) com dois "boletos": a 1ª mensalidade ao fundo e a 2ª na frente com 50% OFF. */
+  body { background: linear-gradient(180deg, #ffffff 0%, #f6f2ee 70%, #eee7e1 100%); }
+  .deco { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .halo { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(204,9,47,.13), rgba(204,9,47,0)); }
+  .titulo { position: absolute; font-family: var(--mont); font-weight: 900; line-height: 1.02; letter-spacing: -.015em; color: var(--tinta); }
+  .titulo em { font-style: normal; color: var(--verm); }
+  .sub { position: absolute; font-weight: 500; line-height: 1.35; color: #4a4a4a; }
+  .sub b { font-weight: 700; color: var(--tinta); }
+  .pessoas { filter: drop-shadow(0 24px 34px rgba(40,0,10,.22));
+    /* a moça da esquerda encosta na borda da foto original: borda esquerda esmaecida */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 9%); }
+
+  .boleto { position: absolute; border-radius: 26px; display: flex; flex-direction: column; }
+  .boleto.um { background: rgba(255,255,255,.13); border: 2px solid rgba(255,255,255,.45); color: #fff; }
+  .boleto.um .rot { font-weight: 600; }
+  .boleto.um i { display: block; height: 14px; border-radius: 7px; background: rgba(255,255,255,.32); }
+  .boleto.dois { background: #fff; box-shadow: 0 30px 50px rgba(40,0,10,.38); color: var(--tinta); }
+  .boleto.dois .topo { display: flex; align-items: center; }
+  .boleto.dois .topo .icone { color: var(--verm); }
+  .boleto.dois .topo b { font-weight: 700; }
+  .boleto.dois .valor { display: flex; align-items: flex-end; }
+  .boleto.dois .pct { color: var(--verm); text-shadow: 0 8px 0 rgba(163,0,31,.12); }
+  .boleto.dois .off { font-family: var(--mont); font-weight: 900; line-height: .9; color: var(--tinta); }
+  .linha-data { position: absolute; display: flex; align-items: center; color: #fff; }
+  .linha-data .txt span { font-weight: 500; }
+  .linha-data .txt b { font-family: var(--mont); font-weight: 900; }
+  .nota-preco { position: absolute; color: rgba(255,255,255,.92); }
+  .cta { background: #fff; color: var(--verm-esc); box-shadow: 0 16px 34px rgba(60,0,14,.35); }
+  .cta .bolha { background: linear-gradient(180deg, var(--verm-claro), var(--verm-esc)); color: #fff; }
+  .cta .txt span { color: #444; font-weight: 500; }
+  .cta .seta { color: var(--verm); }
+  .legal { color: rgba(255,255,255,.92); }
+
+  /* STORY 1080x1920 — texto entre y=230 e y=1536 */
+  .story .lockup { left: 64px; top: 252px; height: 96px; gap: 26px; }
+  .story .lockup .logo { width: 270px; }
+  .story .spg b { font-size: 46px; color: var(--verm); }
+  .story .spg span { font-size: 19px; color: #555; }
+  .story .titulo { left: 64px; top: 404px; font-size: 62px; }
+  .story .sub { left: 64px; top: 640px; width: 450px; font-size: 25px; }
+  .story .halo { left: 360px; top: 260px; width: 860px; height: 860px; }
+  .story .pessoas { left: 470px; top: 318px; width: 660px; }
+  .story .boleto.um { left: 62px; top: 958px; width: 420px; height: 214px; padding: 30px 34px; gap: 18px; transform: rotate(-6deg); }
+  .story .boleto.um .rot { font-size: 28px; margin-bottom: 4px; }
+  .story .boleto.dois { left: 384px; top: 930px; width: 630px; height: 262px; padding: 26px 34px; transform: rotate(2.5deg); }
+  .story .boleto.dois .topo { gap: 12px; }
+  .story .boleto.dois .topo .icone { width: 38px; height: 38px; }
+  .story .boleto.dois .topo b { font-size: 28px; }
+  .story .boleto.dois .valor { gap: 16px; margin-top: 12px; }
+  .story .boleto.dois .pct { font-size: 156px; }
+  .story .boleto.dois .off { font-size: 82px; padding-bottom: 8px; }
+  .story .linha-data { left: 64px; top: 1212px; gap: 14px; }
+  .story .linha-data .icone { width: 44px; height: 44px; }
+  .story .linha-data .txt span { font-size: 24px; }
+  .story .linha-data .txt b { font-size: 30px; }
+  .story .nota-preco { left: 66px; top: 1262px; font-size: 19px; }
+  .story .cta { left: 56px; right: 56px; top: 1298px; height: 92px; padding: 0 30px 0 12px; }
+  .story .cta .bolha { width: 70px; height: 70px; }
+  .story .cta .txt b { font-size: 31px; }
+  .story .cta .txt span { font-size: 21px; }
+  .story .cta .seta { width: 34px; height: 34px; }
+  .story .legal { left: 64px; right: 64px; top: 1402px; font-size: 19px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .lockup { left: 60px; top: 54px; height: 76px; gap: 22px; }
+  .feed .lockup .logo { width: 214px; }
+  .feed .spg b { font-size: 38px; color: var(--verm); }
+  .feed .spg span { font-size: 16px; color: #555; }
+  .feed .titulo { left: 60px; top: 178px; font-size: 56px; }
+  .feed .sub { left: 60px; top: 380px; width: 430px; font-size: 20px; }
+  .feed .halo { left: 420px; top: 60px; width: 720px; height: 720px; }
+  .feed .pessoas { left: 520px; top: 104px; width: 590px; }
+  .feed .boleto.um { left: 58px; top: 672px; width: 380px; height: 188px; padding: 26px 30px; gap: 15px; transform: rotate(-6deg); }
+  .feed .boleto.um .rot { font-size: 24px; margin-bottom: 2px; }
+  .feed .boleto.um i { height: 12px; }
+  .feed .boleto.dois { left: 356px; top: 650px; width: 660px; height: 226px; padding: 22px 32px; transform: rotate(2.5deg); }
+  .feed .boleto.dois .topo { gap: 10px; }
+  .feed .boleto.dois .topo .icone { width: 34px; height: 34px; }
+  .feed .boleto.dois .topo b { font-size: 24px; }
+  .feed .boleto.dois .valor { gap: 14px; margin-top: 10px; }
+  .feed .boleto.dois .pct { font-size: 134px; }
+  .feed .boleto.dois .off { font-size: 72px; padding-bottom: 6px; }
+  .feed .linha-data { left: 60px; top: 912px; gap: 12px; }
+  .feed .linha-data .icone { width: 38px; height: 38px; }
+  .feed .linha-data .txt span { font-size: 19px; }
+  .feed .linha-data .txt b { font-size: 26px; }
+  .feed .nota-preco { left: 62px; top: 960px; font-size: 16px; }
+  .feed .cta { left: 50px; right: 50px; top: 1000px; height: 82px; padding: 0 26px 0 10px; }
+  .feed .cta .bolha { width: 62px; height: 62px; }
+  .feed .cta .txt b { font-size: 27px; }
+  .feed .cta .txt span { font-size: 18px; }
+  .feed .cta .seta { width: 28px; height: 28px; }
+  .feed .legal { left: 56px; right: 56px; top: 1104px; font-size: 16px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="halo"></div>
+  <img class="pessoas" src="../assets/fotos/04-equipe-recorte-adobe.png" alt="">
+
+  <!-- base vermelha em arco, na frente da equipe -->
+  <svg class="deco so-story" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vb" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#e3163f"/><stop offset=".45" stop-color="#cc092f"/><stop offset="1" stop-color="#8f001b"/></linearGradient>
+      <filter id="sb" x="-10%" y="-20%" width="120%" height="140%"><feDropShadow dx="0" dy="-16" stdDeviation="20" flood-color="#5c0016" flood-opacity=".22"/></filter>
+    </defs>
+    <path d="M0 930C240 860 640 840 1080 900V1920H0Z" fill="url(#vb)" filter="url(#sb)"/>
+    <path d="M0 892C260 820 660 800 1080 864" fill="none" stroke="#cc092f" stroke-width="5" opacity=".45"/>
+    <path d="M-40 1720C300 1600 760 1640 1120 1760" fill="none" stroke="#fff" stroke-width="3" opacity=".18"/>
+  </svg>
+  <svg class="deco so-feed" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vbf" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#e3163f"/><stop offset=".45" stop-color="#cc092f"/><stop offset="1" stop-color="#8f001b"/></linearGradient>
+      <filter id="sbf" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="-14" stdDeviation="18" flood-color="#5c0016" flood-opacity=".22"/></filter>
+    </defs>
+    <path d="M0 640C260 580 640 572 1080 626V1350H0Z" fill="url(#vbf)" filter="url(#sbf)"/>
+    <path d="M0 606C270 542 660 534 1080 592" fill="none" stroke="#cc092f" stroke-width="5" opacity=".45"/>
+    <path d="M-40 1300C320 1220 760 1240 1120 1320" fill="none" stroke="#fff" stroke-width="3" opacity=".18"/>
+  </svg>
+
+  <div class="lockup"><div class="logo"></div><i class="div"></i>
+    <div class="spg"><b>SPG</b><span>Pequenas e médias<br>empresas</span></div></div>
+
+  <h1 class="titulo">Plano de<br>saúde para<br>a sua <em>equipe</em></h1>
+  <p class="sub"><b>Bradesco Saúde SPG</b>, o seguro saúde para pequenas e médias empresas.</p>
+
+  <div class="boleto um"><p class="rot">1ª mensalidade</p><i style="width:86%"></i><i style="width:64%"></i><i style="width:74%"></i></div>
+  <div class="boleto dois">
+    <p class="topo"><span data-icone="reembolso"></span><b>2ª mensalidade*</b></p>
+    <div class="valor"><p class="pct">50<span class="sinal">%</span></p><p class="off">OFF</p></div>
+  </div>
+
+  <div class="linha-data"><span data-icone="calendario"></span>
+    <p class="txt"><span>Nos cálculos realizados de </span><b>03 a 30/11/2026</b></p></div>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span class="bolha" data-icone="conversa"></span>
+    <p class="txt"><b>Simule para a sua empresa</b><span>Peça a sua cotação e aproveite</span></p>
+    <span class="seta" data-icone="seta"></span></div>
+
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

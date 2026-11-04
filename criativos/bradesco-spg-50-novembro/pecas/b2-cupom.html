@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B2 · Cupom (vinho)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B2 — urgência premium: fundo vinho com luz vermelha e arcos do símbolo, selo "só até 30 de novembro",
+     a oferta como um cupom destacável (canhoto vermelho com o 50% + corpo branco com a 2ª mensalidade e a data)
+     e o trio de sócios grande embaixo, saindo da luz. */
+  body { background: radial-gradient(130% 75% at 78% 18%, #e3163f 0%, #b0001f 32%, #6d0019 64%, #3a000d 100%); color: #fff; }
+  .deco { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lockup { color: #fff; }
+  .lockup .logo { color: #fff; }
+  .spg b { color: #fff; }
+  .spg span { color: rgba(255,255,255,.88); }
+  .selo { position: absolute; display: inline-flex; align-items: center; gap: .5em; background: #fff; color: var(--verm);
+    border-radius: 999px; font-family: var(--mont); font-weight: 900; text-transform: uppercase; white-space: nowrap; line-height: 1;
+    box-shadow: 0 10px 26px rgba(30,0,8,.35); }
+  .titulo { position: absolute; font-weight: 700; line-height: 1.18; }
+  .titulo span { font-weight: 400; color: rgba(255,255,255,.92); }
+
+  .cupom-sombra { position: absolute; filter: drop-shadow(0 26px 40px rgba(25,0,6,.45)); }
+  /* furos reais do picote (máscara), em cima e embaixo da junção canhoto/corpo */
+  .cupom { position: relative; width: 100%; height: 100%; display: flex;
+    -webkit-mask-image: radial-gradient(circle 21px at var(--x) 0, transparent 97%, #000 100%),
+      radial-gradient(circle 21px at var(--x) 100%, transparent 97%, #000 100%);
+    -webkit-mask-composite: source-in; mask-composite: intersect; }
+  .cupom .canhoto, .cupom .corpo { display: flex; flex-direction: column; justify-content: center; }
+  .cupom .canhoto { align-items: center; background: linear-gradient(160deg, #ef2a51 0%, #cc092f 45%, #9c001c 100%);
+    border-radius: 30px 0 0 30px; color: #fff; }
+  .cupom .canhoto .pct { text-shadow: 0 8px 0 rgba(90,0,18,.35); }
+  .cupom .corpo { flex: 1; background: #fff; border-radius: 0 30px 30px 0; color: var(--tinta); }
+  .cupom .corpo .mont em { font-style: normal; color: var(--verm); }
+  .cupom .linha { height: 2px; background: repeating-linear-gradient(90deg, #e3c3ca 0 10px, transparent 10px 18px); }
+  .cupom .data { background: none; border-radius: 0; }
+  .cupom .data .icone { color: var(--verm); }
+  .cupom .data .txt span { color: #4a4a4a; }
+  .cupom .data .txt b { color: var(--verm); }
+  /* picote: furos em cima e embaixo, na junção do canhoto com o corpo */
+  .cupom .picote { position: absolute; top: 24px; bottom: 24px; margin-left: -1px; border-left: 3px dashed #e8c6cd; }
+  .nota-preco { position: absolute; color: rgba(255,255,255,.9); }
+
+  .brilho { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,120,140,.55), rgba(255,60,90,0)); }
+  .pessoas { filter: drop-shadow(0 -6px 30px rgba(255,170,180,.25)) drop-shadow(0 30px 40px rgba(20,0,5,.4)); }
+  .rodape { position: absolute; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(58,0,13,0) 0%, rgba(58,0,13,.92) 22%, #34000c 40%, #2a0009 100%); }
+  .cta { background: #fff; color: var(--verm-esc); box-shadow: 0 16px 34px rgba(0,0,0,.35); }
+  .cta .bolha { background: linear-gradient(180deg, var(--verm-claro), var(--verm-esc)); color: #fff; }
+  .cta .txt span { color: #444; font-weight: 500; }
+  .cta .seta { color: var(--verm); }
+  .legal { color: rgba(255,255,255,.9); }
+
+  /* STORY 1080x1920 — texto entre y=230 e y=1536 */
+  .story .lockup { left: 64px; top: 252px; height: 96px; gap: 26px; }
+  .story .lockup .logo { width: 270px; }
+  .story .spg b { font-size: 46px; }
+  .story .spg span { font-size: 19px; }
+  .story .selo { left: 64px; top: 392px; height: 60px; padding: 0 28px 0 20px; font-size: 26px; }
+  .story .selo .icone { width: 30px; height: 30px; }
+  .story .titulo { left: 64px; top: 482px; font-size: 46px; }
+  .story .cupom-sombra { left: 54px; top: 628px; width: 972px; height: 272px; }
+  .story .cupom { --x: 404px; }
+  .story .cupom .canhoto { width: 404px; }
+  .story .cupom .canhoto .pct { font-size: 178px; }
+  .story .cupom .canhoto .mont { font-size: 33px; margin-top: 14px; letter-spacing: .02em; }
+  .story .cupom .corpo { padding: 0 30px 0 44px; }
+  .story .cupom .corpo .mont { font-size: 46px; }
+  .story .cupom .linha { margin: 20px 0 14px; }
+  .story .cupom .data { gap: 14px; padding: 0; }
+  .story .cupom .data .icone { width: 46px; height: 46px; }
+  .story .cupom .data .txt span { font-size: 20px; }
+  .story .cupom .data .txt b { font-size: 31px; }
+  .story .cupom .picote { left: 404px; }
+  .story .nota-preco { left: 66px; top: 920px; font-size: 19px; }
+  .story .brilho { left: 90px; top: 900px; width: 900px; height: 700px; }
+  .story .pessoas { left: -40px; top: 960px; width: 1160px; }
+  .story .rodape { height: 720px; }
+  .story .cta { left: 56px; right: 56px; top: 1292px; height: 94px; padding: 0 30px 0 12px; }
+  .story .cta .bolha { width: 72px; height: 72px; }
+  .story .cta .txt b { font-size: 31px; }
+  .story .cta .txt span { font-size: 21px; }
+  .story .cta .seta { width: 34px; height: 34px; }
+  .story .legal { left: 64px; right: 64px; top: 1402px; font-size: 19px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .lockup { left: 60px; top: 54px; height: 76px; gap: 22px; }
+  .feed .lockup .logo { width: 214px; }
+  .feed .spg b { font-size: 38px; }
+  .feed .spg span { font-size: 16px; }
+  .feed .selo { right: 60px; top: 64px; height: 54px; padding: 0 24px 0 18px; font-size: 22px; }
+  .feed .selo .icone { width: 26px; height: 26px; }
+  .feed .titulo { left: 60px; top: 176px; font-size: 40px; }
+  .feed .titulo br { display: none; }
+  .feed .cupom-sombra { left: 50px; top: 302px; width: 980px; height: 236px; }
+  .feed .cupom { --x: 380px; }
+  .feed .cupom .canhoto { width: 380px; }
+  .feed .cupom .canhoto .pct { font-size: 156px; }
+  .feed .cupom .canhoto .mont { font-size: 29px; margin-top: 12px; letter-spacing: .02em; }
+  .feed .cupom .corpo { padding: 0 30px 0 42px; }
+  .feed .cupom .corpo .mont { font-size: 44px; }
+  .feed .cupom .linha { margin: 16px 0 12px; }
+  .feed .cupom .data { gap: 12px; padding: 0; }
+  .feed .cupom .data .icone { width: 40px; height: 40px; }
+  .feed .cupom .data .txt span { font-size: 17px; }
+  .feed .cupom .data .txt b { font-size: 27px; }
+  .feed .cupom .picote { left: 380px; }
+  .feed .nota-preco { left: 62px; top: 552px; font-size: 16px; }
+  .feed .brilho { left: 120px; top: 560px; width: 840px; height: 600px; }
+  .feed .pessoas { left: 52px; top: 590px; width: 976px; }
+  .feed .rodape { height: 380px; }
+  .feed .cta { left: 50px; right: 50px; top: 1080px; height: 82px; padding: 0 26px 0 10px; }
+  .feed .cta .bolha { width: 62px; height: 62px; }
+  .feed .cta .txt b { font-size: 27px; }
+  .feed .cta .txt span { font-size: 18px; }
+  .feed .cta .seta { width: 28px; height: 28px; }
+  .feed .legal { left: 56px; right: 56px; top: 1180px; font-size: 16px; }
+</style>
+</head>
+<body data-foto="sim">
+  <!-- arcos concêntricos (eco do arco do símbolo) -->
+  <svg class="deco so-story" viewBox="0 0 1080 1920" preserveAspectRatio="none" fill="none" stroke="#fff">
+    <circle cx="930" cy="250" r="260" stroke-opacity=".10" stroke-width="2"/>
+    <circle cx="930" cy="250" r="380" stroke-opacity=".08" stroke-width="2"/>
+    <circle cx="930" cy="250" r="500" stroke-opacity=".06" stroke-width="2"/>
+    <path d="M760 120C860 60 1000 60 1080 110" stroke-opacity=".5" stroke-width="10" stroke-linecap="round"/>
+  </svg>
+  <svg class="deco so-feed" viewBox="0 0 1080 1350" preserveAspectRatio="none" fill="none" stroke="#fff">
+    <circle cx="960" cy="40" r="200" stroke-opacity=".10" stroke-width="2"/>
+    <circle cx="960" cy="40" r="310" stroke-opacity=".08" stroke-width="2"/>
+    <circle cx="960" cy="40" r="420" stroke-opacity=".06" stroke-width="2"/>
+  </svg>
+
+  <div class="brilho"></div>
+  <img class="pessoas" src="../assets/fotos/05-trio-recorte-adobe.png" alt="">
+  <div class="rodape"></div>
+
+  <div class="lockup"><div class="logo"></div><i class="div"></i>
+    <div class="spg"><b>SPG</b><span>Pequenas e médias<br>empresas</span></div></div>
+
+  <p class="selo"><span data-icone="relogio"></span>Só até 30 de novembro</p>
+  <p class="titulo">Plano de saúde para a sua empresa <br><span>com uma condição especial:</span></p>
+
+  <div class="cupom-sombra"><div class="cupom">
+    <div class="canhoto"><p class="pct">50<span class="sinal">%</span></p><p class="mont">de desconto</p></div>
+    <div class="corpo">
+      <p class="mont">na 2ª <em>mensalidade*</em></p>
+      <div class="linha"></div>
+      <div class="data"><span data-icone="calendario"></span>
+        <p class="txt"><span>Nos cálculos realizados de</span><b>03 a 30/11/2026</b></p></div>
+    </div>
+    <i class="picote"></i>
+  </div></div>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span class="bolha" data-icone="conversa"></span>
+    <p class="txt"><b>Garanta a sua condição</b><span>Faça a cotação da sua empresa até 30/11</span></p>
+    <span class="seta" data-icone="seta"></span></div>
+
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B1 · Clássico (claro)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B1 — releitura da peça de referência: fundo claro com fachada de vidro sutil, faixa vermelha no canto,
+     arco do símbolo Bradesco emoldurando a dupla de sócios, 50% gigante e painel branco com benefícios. */
+  body { background: linear-gradient(172deg, #ffffff 0%, #f8f5f2 50%, #efe8e3 100%); }
+  .fachada { position: absolute; right: 0; top: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(90deg, rgba(60,30,30,.06) 0 2px, transparent 2px 96px),
+      repeating-linear-gradient(0deg, rgba(60,30,30,.045) 0 2px, transparent 2px 150px);
+    -webkit-mask-image: linear-gradient(to left, #000 20%, transparent 95%); }
+  .deco { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .kicker { position: absolute; display: flex; align-items: center; gap: 16px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: #3b3b3b; white-space: nowrap; }
+  .kicker i { display: block; width: 44px; height: 5px; border-radius: 3px; background: var(--verm); }
+  .pct { position: absolute; color: var(--verm); text-shadow: 0 10px 0 rgba(163,0,31,.12), 0 22px 40px rgba(163,0,31,.18); }
+  .desc { position: absolute; color: var(--tinta); }
+  .pilula { position: absolute; background: linear-gradient(180deg, var(--verm-claro), var(--verm-esc)); color: #fff;
+    box-shadow: 0 10px 24px rgba(163,0,31,.28); }
+  .data { position: absolute; box-shadow: 0 12px 30px rgba(60,20,20,.12); border: 2px solid #f1d4da; }
+  .data .icone { color: var(--verm); }
+  .data .txt span { color: #4a4a4a; }
+  .data .txt b { color: var(--verm); }
+  .nota-preco { position: absolute; color: #555; }
+  .beneficios { position: absolute; display: flex; }
+  .beneficios li { list-style: none; display: flex; align-items: center; }
+  .beneficios .icone { color: var(--verm); background: #fff; border: 2px solid #f0cdd4; border-radius: 50%;
+    box-shadow: 0 6px 16px rgba(163,0,31,.12); }
+  .beneficios span { font-weight: 600; line-height: 1.2; color: #333; }
+  .cta { background: linear-gradient(180deg, var(--verm-claro) 0%, var(--verm) 55%, var(--verm-esc) 100%); color: #fff;
+    box-shadow: 0 16px 34px rgba(163,0,31,.35); }
+  .cta .bolha { background: #fff; color: var(--verm); }
+  .cta .txt span { font-weight: 500; }
+  .legal { color: #4d4d4d; }
+
+  /* STORY 1080x1920 — texto entre y=230 e y=1536 */
+  .story .fachada { width: 700px; height: 1320px; }
+  .story .lockup { left: 64px; top: 252px; height: 96px; gap: 26px; }
+  .story .lockup .logo { width: 270px; }
+  .story .spg b { font-size: 46px; color: var(--verm); }
+  .story .spg span { font-size: 19px; color: #555; }
+  .story .kicker { left: 64px; top: 392px; font-size: 25px; }
+  .story .pct { left: 52px; top: 438px; font-size: 300px; }
+  .story .desc { left: 64px; top: 690px; font-size: 76px; }
+  .story .pilula { left: 64px; top: 784px; height: 72px; padding: 0 34px; font-size: 36px; }
+  .story .data { left: 64px; top: 876px; width: 476px; height: 92px; padding: 0 22px; gap: 18px; }
+  .story .data .icone { width: 50px; height: 50px; }
+  .story .data .txt span { font-size: 21px; }
+  .story .data .txt b { font-size: 33px; }
+  .story .nota-preco { left: 66px; top: 982px; font-size: 19px; }
+  .story .pessoas { left: 472px; top: 750px; width: 700px; }
+  .story .beneficios { left: 64px; top: 1034px; flex-direction: column; gap: 18px; }
+  .story .beneficios li { gap: 18px; }
+  .story .beneficios li.so-feed-li { display: none; }
+  .story .beneficios .icone { width: 60px; height: 60px; padding: 13px; }
+  .story .beneficios span { font-size: 22px; }
+  .story .cta { left: 56px; right: 56px; top: 1292px; height: 92px; padding: 0 30px 0 12px; }
+  .story .cta .bolha { width: 70px; height: 70px; }
+  .story .cta .txt b { font-size: 31px; }
+  .story .cta .txt span { font-size: 21px; }
+  .story .cta .seta { width: 34px; height: 34px; }
+  .story .legal { left: 64px; right: 64px; top: 1400px; font-size: 19px; }
+
+  /* FEED 4:5 1080x1350 */
+  .feed .fachada { width: 600px; height: 980px; }
+  .feed .lockup { left: 60px; top: 54px; height: 76px; gap: 22px; }
+  .feed .lockup .logo { width: 214px; }
+  .feed .spg b { font-size: 38px; color: var(--verm); }
+  .feed .spg span { font-size: 16px; color: #555; }
+  .feed .kicker { left: 60px; top: 176px; font-size: 20px; gap: 12px; }
+  .feed .kicker i { width: 34px; height: 4px; }
+  .feed .pct { left: 50px; top: 214px; font-size: 230px; }
+  .feed .desc { left: 60px; top: 410px; font-size: 54px; }
+  .feed .pilula { left: 60px; top: 480px; height: 58px; padding: 0 26px; font-size: 28px; }
+  .feed .data { left: 60px; top: 556px; width: 430px; height: 80px; padding: 0 18px; gap: 14px; border-radius: 18px; }
+  .feed .data .icone { width: 42px; height: 42px; }
+  .feed .data .txt span { font-size: 18px; }
+  .feed .data .txt b { font-size: 29px; }
+  .feed .nota-preco { left: 62px; top: 650px; font-size: 16px; }
+  .feed .pessoas { left: 544px; top: 222px; width: 640px; }
+  .feed .beneficios { left: 60px; top: 700px; flex-direction: column; gap: 12px; }
+  .feed .beneficios li { gap: 14px; }
+  .feed .beneficios .icone { width: 46px; height: 46px; padding: 10px; }
+  .feed .beneficios span { font-size: 18px; }
+  .feed .beneficios span br { display: none; }
+  .feed .cta { left: 50px; right: 50px; top: 1066px; height: 80px; padding: 0 26px 0 10px; }
+  .feed .cta .bolha { width: 62px; height: 62px; }
+  .feed .cta .txt b { font-size: 27px; }
+  .feed .cta .txt span { font-size: 18px; }
+  .feed .cta .seta { width: 28px; height: 28px; }
+  .feed .legal { left: 56px; right: 56px; top: 1164px; font-size: 16px; }
+</style>
+</head>
+<body data-foto="sim">
+  <div class="fachada"></div>
+
+  <!-- atrás das pessoas: faixa vermelha do canto e arco do símbolo Bradesco -->
+  <svg class="deco so-story" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3163f"/><stop offset="1" stop-color="#9e001d"/></linearGradient>
+      <linearGradient id="arco" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cc092f" stop-opacity="0"/><stop offset=".35" stop-color="#cc092f"/><stop offset="1" stop-color="#a3001f"/></linearGradient>
+    </defs>
+    <path d="M700 0H1080V430C1010 300 880 150 700 0Z" fill="url(#vg)"/>
+    <path d="M610 0C760 120 930 250 1080 520" fill="none" stroke="#cc092f" stroke-width="4" opacity=".35"/>
+    <path d="M520 1240C540 930 760 760 1010 740" fill="none" stroke="url(#arco)" stroke-width="58" stroke-linecap="round"/>
+  </svg>
+  <svg class="deco so-feed" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vgf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3163f"/><stop offset="1" stop-color="#9e001d"/></linearGradient>
+      <linearGradient id="arcof" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cc092f" stop-opacity="0"/><stop offset=".35" stop-color="#cc092f"/><stop offset="1" stop-color="#a3001f"/></linearGradient>
+    </defs>
+    <path d="M780 0H1080V300C1020 200 920 90 780 0Z" fill="url(#vgf)"/>
+    <path d="M610 940C620 580 800 410 1060 390" fill="none" stroke="url(#arcof)" stroke-width="48" stroke-linecap="round"/>
+  </svg>
+
+  <img class="pessoas" src="../assets/fotos/12-dupla-recorte-adobe.png" alt="">
+
+  <!-- na frente das pessoas: painel branco curvo (rodapé) e onda vermelha -->
+  <svg class="deco so-story" viewBox="0 0 1080 1920" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3163f"/><stop offset="1" stop-color="#9e001d"/></linearGradient>
+      <filter id="sombra" x="-10%" y="-20%" width="120%" height="140%"><feDropShadow dx="0" dy="-14" stdDeviation="22" flood-color="#5c0016" flood-opacity=".18"/></filter>
+    </defs>
+    <path d="M0 1262C260 1206 560 1234 1080 1150V1920H0Z" fill="#fff" filter="url(#sombra)"/>
+    <path d="M0 1650C300 1570 640 1720 1080 1600V1920H0Z" fill="url(#vg2)"/>
+    <path d="M0 1612C320 1530 660 1690 1080 1560" fill="none" stroke="#cc092f" stroke-width="4" opacity=".3"/>
+  </svg>
+  <svg class="deco so-feed" viewBox="0 0 1080 1350" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="vgf2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3163f"/><stop offset="1" stop-color="#9e001d"/></linearGradient>
+      <filter id="sombraf" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="-12" stdDeviation="18" flood-color="#5c0016" flood-opacity=".18"/></filter>
+    </defs>
+    <path d="M0 1040C300 990 640 990 1080 900V1350H0Z" fill="#fff" filter="url(#sombraf)"/>
+    <path d="M0 1306C320 1250 680 1340 1080 1268V1350H0Z" fill="url(#vgf2)"/>
+  </svg>
+
+  <div class="lockup"><div class="logo"></div><i class="div"></i>
+    <div class="spg"><b>SPG</b><span>Pequenas e médias<br>empresas</span></div></div>
+
+  <p class="kicker"><i></i>Condição especial para a sua empresa</p>
+  <p class="pct">50<span class="sinal">%</span></p>
+  <p class="desc mont">de desconto</p>
+  <p class="pilula">na 2ª&nbsp;mensalidade*</p>
+  <div class="data"><span data-icone="calendario"></span>
+    <p class="txt"><span>Nos cálculos realizados de</span><b>03 a 30/11/2026</b></p></div>
+  <p class="nota-preco"></p>
+
+  <ul class="beneficios">
+    <li><span data-icone="empresa"></span><span>Para pequenas e <br>médias empresas</span></li>
+    <li><span data-icone="rede"></span><span>Rede <br>referenciada</span></li>
+    <li class="so-feed-li"><span data-icone="reembolso"></span><span>Opção de <br>reembolso</span></li>
+    <li><span data-icone="brasil"></span><span>Abrangência <br>nacional</span></li>
+  </ul>
+
+  <div class="cta"><span class="bolha" data-icone="conversa"></span>
+    <p class="txt"><b>Faça sua cotação</b><span>e aproveite essa condição especial</span></p>
+    <span class="seta" data-icone="seta"></span></div>
+
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

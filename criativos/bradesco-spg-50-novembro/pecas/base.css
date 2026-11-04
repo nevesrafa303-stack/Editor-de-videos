@@ -1,0 +1,75 @@
+/* Bradesco Saúde SPG — 50% de desconto na 2ª mensalidade (cálculos de 03 a 30/11/2026).
+   Vermelho oficial do logo (#CC092F, SVG do site da Bradesco Seguros), vinho para profundidade,
+   papel quente para os fundos claros. Montserrat 900 nos números e títulos, Poppins no texto.
+   Fotos: recortes feitos no Adobe Photoshop (remove background) a partir do banco empresarial em hd/. */
+
+@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 400; src: url('../assets/fonts/Poppins-400.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; src: url('../assets/fonts/Poppins-500.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; src: url('../assets/fonts/Poppins-600.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; src: url('../assets/fonts/Poppins-700.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 800; src: url('../assets/fonts/Poppins-800.ttf'); }
+
+:root {
+  --verm: #cc092f;
+  --verm-claro: #e3163f;
+  --verm-esc: #a3001f;
+  --vinho: #5c0016;
+  --vinho-fundo: #3a000d;
+  --papel: #f6f3f0;
+  --tinta: #252525;
+  --cinza: #5e5e5e;
+  --mont: 'Mont', 'Poppins', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; overflow: hidden; }
+body { position: relative; font-family: 'Poppins', sans-serif; color: var(--tinta);
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+body.story { height: 1920px; }
+body.feed { height: 1350px; }
+.abs { position: absolute; }
+.so-story, .so-feed { display: none; }
+.story .so-story, .feed .so-feed { display: block; }
+
+/* Logo oficial (cor por currentColor) + selo SPG */
+.logo { display: block; line-height: 0; color: var(--verm); }
+.logo svg { width: 100%; height: auto; display: block; }
+.lockup { position: absolute; display: flex; align-items: center; }
+.lockup .div { width: 2px; align-self: stretch; background: currentColor; opacity: .35; }
+.spg { display: flex; flex-direction: column; justify-content: center; line-height: 1; }
+.spg b { font-family: var(--mont); font-weight: 900; letter-spacing: .02em; }
+.spg span { font-weight: 600; line-height: 1.2; margin-top: .3em; }
+
+/* Recortes (Adobe) com sombra de contato suave */
+.pessoas { position: absolute; display: block; filter: drop-shadow(0 30px 40px rgba(40, 0, 10, .28));
+  -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); }
+
+/* Oferta */
+.pct { font-family: var(--mont); font-weight: 900; letter-spacing: -.045em; line-height: .8; white-space: nowrap; }
+.pct .sinal { font-size: .78em; letter-spacing: -.02em; margin-left: .02em; }
+.ast { font-size: .5em; vertical-align: .9em; margin-left: .04em; }
+.mont { font-family: var(--mont); font-weight: 900; line-height: .95; text-transform: uppercase; letter-spacing: -.005em; }
+.pilula { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; white-space: nowrap;
+  font-family: var(--mont); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: .01em; }
+.nota-preco { font-weight: 500; }
+.icone { display: inline-flex; flex: none; }
+.icone svg { width: 100%; height: 100%; display: block; }
+
+/* Data da condição */
+.data { display: flex; align-items: center; background: #fff; border-radius: 22px; }
+.data .txt { display: flex; flex-direction: column; line-height: 1.15; }
+.data .txt span { font-weight: 500; }
+.data .txt b { font-family: var(--mont); font-weight: 900; letter-spacing: .01em; }
+
+/* Botão */
+.cta { position: absolute; display: flex; align-items: center; gap: .6em; border-radius: 999px; white-space: nowrap;
+  font-weight: 700; line-height: 1.15; }
+.cta .bolha { display: flex; align-items: center; justify-content: center; border-radius: 50%; flex: none; }
+.cta .bolha svg { width: 58%; height: 58%; }
+.cta .txt { display: flex; flex-direction: column; flex: 1; }
+.cta .txt b { font-family: var(--mont); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; }
+.cta .seta { width: 1em; height: 1em; flex: none; }
+
+.legal { position: absolute; font-weight: 500; line-height: 1.32; }
