@@ -5,8 +5,9 @@
 // A observação de valor vai logo abaixo do 50% (.nota-preco); as demais, no rodapé (.legal).
 export const NOTA_PRECO = 'Valores sujeitos à faixa etária e região.';
 export const LEGAL = [
-  '*Condição válida para cálculos realizados de 03 a 30/11/2026.',
+  '*Condição válida para cálculos realizados de 03 a 30/11/2026, para grupos de 3 a 199 vidas.',
   'Valores referenciais sujeitos às regras da operadora.',
+  'Os valores podem variar conforme perfil do beneficiário.',
   'A rede credenciada pode variar conforme plano contratado.',
   'Cobertura e rede sujeitas à modalidade contratada.',
   'Consulte condições e elegibilidade.',

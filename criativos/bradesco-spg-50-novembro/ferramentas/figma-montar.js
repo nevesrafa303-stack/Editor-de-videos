@@ -27,7 +27,7 @@ async function montar(pai, itens) {
         n.resize(Math.max(it.w, 0.01), Math.max(it.h, 0.01));
         n.fills = it.k === 'x' ? [] : it.fills;
         if (it.raios) [n.topLeftRadius, n.topRightRadius, n.bottomRightRadius, n.bottomLeftRadius] = it.raios;
-        if (it.stroke) { n.strokes = [solido(it.stroke.color, it.stroke.op)]; n.strokeWeight = it.stroke.peso; n.strokeAlign = 'INSIDE'; }
+        if (it.stroke) { n.strokes = [solido(it.stroke.color, it.stroke.op)]; n.strokeWeight = it.stroke.peso; n.strokeAlign = 'INSIDE'; if (it.stroke.dash) n.dashPattern = [7, 6]; }
         if (it.fx && it.fx.length) n.effects = it.fx;
         if (it.op !== undefined && it.op < 1) n.opacity = it.op;
         pai.appendChild(n); n.x = it.x; n.y = it.y;

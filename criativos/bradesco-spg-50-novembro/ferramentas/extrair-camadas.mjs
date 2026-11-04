@@ -221,13 +221,13 @@ function extrair() {
     if (bs[3] === 'dashed' && bw[3] > 0 && bw[0] === 0) { // picote
       itens.push({ k: 'l', n: 'picote', x, y, h, vertical: true, color: cor(cs.borderLeftColor), peso: bw[3], dash: [9, 7] });
     }
-    const uniforme = bw.every(v => v === bw[0]) && bw[0] > 0 && bs.every(s => s === 'solid');
+    const uniforme = bw.every(v => v === bw[0]) && bw[0] > 0 && (bs.every(s => s === 'solid') || bs.every(s => s === 'dashed'));
     if (!fills.length && !uniforme && !fx.length) return;
     const raios = ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map(c => raio(cs['border' + c + 'Radius'].split(' ')[0], b.width, b.height));
     const it = { k: 'r', n: nome(el), x, y, w, h, fills, raios, fx, op: parseFloat(cs.opacity),
       css: { bgi: cs.backgroundImage, bgc: cs.backgroundColor, br: raios.map(v => v + 'px').join(' '), sh: cs.boxShadow,
-        bd: uniforme ? `${bw[0]}px solid ${cs.borderTopColor}` : null } };
-    if (uniforme) { const c = cor(cs.borderTopColor); it.stroke = { color: { r: c.r, g: c.g, b: c.b }, op: c.a, peso: bw[0] }; }
+        bd: uniforme ? `${bw[0]}px ${bs[0]} ${cs.borderTopColor}` : null } };
+    if (uniforme) { const c = cor(cs.borderTopColor); it.stroke = { color: { r: c.r, g: c.g, b: c.b }, op: c.a, peso: bw[0], dash: bs[0] === 'dashed' }; }
     itens.push(it);
   };
   const filhos = (el, o, itens) => {
