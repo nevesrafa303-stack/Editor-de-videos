@@ -11,29 +11,36 @@ raiz = pathlib.Path(__file__).resolve().parent.parent
 saida.mkdir(parents=True, exist_ok=True)
 D = re.search(r' d="([^"]+)"', (raiz / 'assets/marca/bradesco-saude.svg').read_text()).group(1)
 PESOS = {'Regular': 400, 'Medium': 500, 'SemiBold': 600, 'Bold': 700, 'ExtraBold': 800, 'Black': 900}
-# largura de exportação de cada recorte e de que lado a borda esmaece (igual à máscara CSS das peças)
-FOTOS = {'12-dupla-recorte-adobe.png': (1100, 'baixo'), '05-trio-recorte-adobe.png': (1600, 'baixo'),
-         '04-equipe-recorte-adobe.png': (1000, 'esquerda')}
+# largura de exportação de cada recorte; o esmaecimento da borda segue a máscara CSS da peça (maskCss)
+LARGURA = {'12-dupla-recorte-adobe.png': 1100, '05-trio-recorte-adobe.png': 1600, '04-equipe-recorte-adobe.png': 1000}
 
 def data_uri(im, fmt='PNG'):
     b = io.BytesIO(); im.save(b, fmt, optimize=True)
     return f'data:image/{fmt.lower()};base64,' + base64.b64encode(b.getvalue()).decode()
 
+def esmaecer(im, mascara):
+    """Aplica no alfa a máscara linear-gradient(...) computada: lado transparente e onde fica opaco."""
+    if not mascara: return im
+    lado = 'baixo' if 'to ' not in mascara else {'to left': 'direita', 'to right': 'esquerda', 'to top': 'cima'}[re.search(r'to (left|right|top)', mascara).group(0)]
+    pcts = [float(p) / 100 for p in re.findall(r'([\d.]+)%', mascara)]
+    a = im.split()[-1]; px = a.load(); W, H = im.size
+    for y in range(H):
+        for x in range(W):
+            if lado == 'baixo': f = 1 if y < pcts[0] * H else max(0.0, (H - y) / ((1 - pcts[0]) * H))
+            elif lado == 'esquerda': f = min(1.0, x / (pcts[1] * W))
+            elif lado == 'direita': f = min(1.0, (W - x) / (pcts[1] * W))
+            else: f = min(1.0, y / (pcts[1] * H))
+            if f < 1: px[x, y] = int(px[x, y] * f)
+    im.putalpha(a); return im
+
 cache = {}
-def foto(src):
-    if src not in cache:
-        w, lado = FOTOS[src]
+def foto(src, mascara):
+    if (src, mascara) not in cache:
+        w = LARGURA[src]
         im = Image.open(raiz / 'assets/fotos' / src).convert('RGBA')
         im = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
-        a = im.split()[-1]; px = a.load(); W, H = im.size
-        for y in range(H):
-            for x in range(W):
-                f = 1.0
-                if lado == 'baixo' and y > .88 * H: f = max(0.0, (H - y) / (.12 * H))
-                if lado == 'esquerda' and x < .09 * W: f = x / (.09 * W)
-                if f < 1: px[x, y] = int(px[x, y] * f)
-        im.putalpha(a); cache[src] = data_uri(im)
-    return cache[src]
+        cache[(src, mascara)] = data_uri(esmaecer(im, mascara))
+    return cache[(src, mascara)]
 
 rgba = lambda c, op=None: f"rgba({round(c['r']*255)},{round(c['g']*255)},{round(c['b']*255)},{c.get('a', 1) if op is None else op})"
 def sombra_txt(fx): return ', '.join(f"{e['offset']['x']}px {e['offset']['y']}px {e['radius']}px {rgba(e['color'])}" for e in fx)
@@ -61,7 +68,7 @@ def render(itens, fmt, peca, ox=0, oy=0):
                    f'x2="{x2}" y2="{y2}" stroke="{rgba(it["color"])}" stroke-width="{it["peso"]}" stroke-dasharray="{" ".join(map(str, it["dash"]))}"/></svg>')
             out.append(f'<div style="position:absolute;left:{it["x"]}px;top:{y}px;width:{w}px;height:{h}px">{svg}</div>')
         elif k == 'i':
-            out.append(f'<img alt="" src="{foto(it["src"])}" style="{pos(it, f"width:{it["w"]}px;height:{it["h"]}px;")}">')
+            out.append(f'<img alt="" src="{foto(it["src"], it.get("maskCss"))}" style="{pos(it, f"width:{it["w"]}px;height:{it["h"]}px;")}">')
         elif k == 'x':
             im = Image.open(pasta / f'raster-{peca}-{fmt}-{it["raster"]}.png')
             out.append(f'<img alt="" src="{data_uri(im)}" style="{pos(it, f"width:{it["w"]}px;height:{it["h"]}px;")}">')

@@ -7,7 +7,7 @@ Três variações (Story 1080×1920 e Feed 4:5 1080×1350) da oferta de novembro
 | Variação | Arquivos | Ideia | Foto (banco `empresarial/hd`) |
 |---|---|---|---|
 | **B1 · Clássico** | `final/b1-classico-{story,feed}.png` | Releitura da peça de referência: fundo claro com fachada de vidro, faixa vermelha no canto, arco do símbolo Bradesco atrás da dupla, 50% gigante, data em cartão, benefícios e botão | `12-dupla-de-socios` |
-| **B2 · Cupom** | `final/b2-cupom-{story,feed}.png` | Urgência premium: fundo vinho com luz vermelha, selo "Só até 30 de novembro", oferta como cupom destacável (furos reais do picote) e o trio de sócios | `05-trio-socia-ao-centro` |
+| **B2 · Cupom** | `final/b2-cupom-{story,feed}.png` | Urgência premium: fundo vinho com luz vermelha, selo "Só até 30 de novembro", oferta como cupom destacável (furos reais do picote) e o trio de sócios. No Story, o trio fica com os rostos inteiros acima do botão (queixo da moça do meio em y≈1202; botão em y=1292) | `05-trio-socia-ao-centro` |
 | **B3 · Mensalidades** | `final/b3-mensalidades-{story,feed}.png` | Explicativo, para a equipe: título "Plano de saúde para a sua equipe", base vermelha em arco com a 1ª mensalidade ao fundo e a 2ª na frente com 50% OFF | `04-equipe-de-terno` |
 
 PNG em 2x (Story 2160×3840, Feed 2160×2700). Visão geral: `final/_visao-geral.jpg`.
@@ -20,7 +20,7 @@ PNG em 2x (Story 2160×3840, Feed 2160×2700). Visão geral: `final/_visao-geral
   com os 6 quadros em camadas editáveis: 83 textos vivos (Montserrat e Poppins), formas e degradês nativos,
   logo e ícones vetoriais, fotos recortadas com máscara de esmaecimento e furos do cupom como máscara booleana.
 - **Adobe Express:** dois documentos editáveis, cada um com as 3 variações como páginas:
-  [Stories (editável)](https://new.express.adobe.com/id/urn:aaid:sc:VA6C2:2add6e0b-76f4-443c-b3fd-7070ede419fa) e
+  [Stories (editável, rostos ajustados)](https://new.express.adobe.com/id/urn:aaid:sc:VA6C2:2ac6d815-e060-4994-846d-9036aaa15f42) e
   [Feed (editável)](https://new.express.adobe.com/id/urn:aaid:sc:VA6C2:03e07050-ae3f-47c6-8201-a5430b0b3858).
   Os arquivos de apoio ficam na pasta `laks-bradesco-spg` do Creative Cloud.
 

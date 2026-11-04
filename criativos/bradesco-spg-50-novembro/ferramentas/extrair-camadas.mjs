@@ -182,7 +182,7 @@ function extrair() {
       const m = cs.webkitMaskImage || cs.maskImage;
       itens.push({ k: 'i', n: 'Foto · ' + el.getAttribute('src').split('/').pop(), src: el.getAttribute('src').split('/').pop(),
         x: r2(b.left - o.x), y: r2(b.top - o.y), w: r2(b.width), h: r2(b.height), fx: sombras(cs.filter, 'filtro'),
-        mask: m && m !== 'none' ? degrade(partes(m)[0], b.width, b.height) : null });
+        mask: m && m !== 'none' ? degrade(partes(m)[0], b.width, b.height) : null, maskCss: m && m !== 'none' ? m : null });
       return;
     }
     // grupo: girado, com sombra de filtro ou com máscara de furos
