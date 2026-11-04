@@ -7,7 +7,7 @@ Três variações (Story 1080×1920 e Feed 4:5 1080×1350) da oferta de novembro
 | Variação | Arquivos | Ideia | Foto (banco `empresarial/hd`) |
 |---|---|---|---|
 | **B1 · Clássico** | `final/b1-classico-{story,feed}.png` | Releitura da peça de referência: fundo claro com fachada de vidro, faixa vermelha no canto, arco do símbolo Bradesco atrás da dupla, 50% gigante, carimbo vermelho "Grupos de 3 a 199 vidas", data em cartão, benefícios e botão | `12-dupla-de-socios` |
-| **B2 · Cupom** | `final/b2-cupom-{story,feed}.png` | Urgência premium: fundo vinho com luz vermelha, selo "Só até 30 de novembro", oferta como cupom destacável (furos reais do picote), carimbo branco "Grupos de 3 a 199 vidas" e o trio de sócios. No Story, o trio fica com os rostos inteiros acima do botão (queixo da moça do meio em y≈1202; botão em y=1292) | `05-trio-socia-ao-centro` |
+| **B2 · Cupom** | `final/b2-cupom-{story,feed}.png` | Urgência premium: fundo vinho com luz vermelha, selo "Só até 30 de novembro", oferta como cupom destacável (furos reais do picote), carimbo branco "Grupos de 3 a 199 vidas" e o trio de sócios. No Story, o trio fica com os rostos inteiros acima do botão (queixo da moça do meio em y≈1202; botão em y=1266) | `05-trio-socia-ao-centro` |
 | **B3 · Mensalidades** | `final/b3-mensalidades-{story,feed}.png` | Explicativo, para a equipe: título "Plano de saúde para a sua equipe", faixa vermelha "Para grupos de 3 a 199 vidas" logo abaixo, base vermelha em arco com a 1ª mensalidade ao fundo e a 2ª na frente com 50% OFF | `04-equipe-de-terno` |
 
 PNG em 2x (Story 2160×3840, Feed 2160×2700). Visão geral: `final/_visao-geral.jpg`.
