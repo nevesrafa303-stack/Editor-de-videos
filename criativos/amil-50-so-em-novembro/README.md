@@ -28,6 +28,11 @@ Todas as fotos têm 3 pessoas, como a oferta de 3 vidas. As fotos vêm de `criat
 (links simbólicos em `assets/fotos`); o recorte do trio fica em `assets/fotos/empresa-08-recorte.png`
 (BiRefNet, mesmo processo de `anaclaudia-gestante-black-friday/ferramentas/recortar.py`).
 
+## Textos dos anúncios
+
+`textos-meta-ads.md`: 6 textos por criativo (3 para o público aberto e 3 para empresários), com texto principal,
+rodapé de observações, título, descrição do link e chamada para ação.
+
 ## Observações obrigatórias (CLAUDE.md) usadas
 
 Texto exato, só por escrito, ≥ 19 px no Story e ≥ 16 px no Feed:
