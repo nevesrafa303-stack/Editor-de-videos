@@ -26,6 +26,9 @@ PNG em 2x (Story 2160×3840, Feed 2160×2700). Visão geral: `final/_visao-geral
 
 ## Marca e textos
 
+- **Textos dos anúncios (Meta):** `textos-meta-ads.md`, com 6 por criativo (3 para o público aberto e 3 para
+  empresários): texto principal com o rodapé de observações, título, descrição do link e chamada para ação.
+
 - **Logo:** SVG oficial servido pelo site da Bradesco Seguros (página de plano de saúde), cortado ao desenho em
   `assets/marca/bradesco-saude.svg` (`currentColor`: vermelho `#CC092F` no claro, branco no vinho).
 - **SPG:** a Bradesco Saúde apresenta o SPG como o seguro saúde para micro, pequenas e médias empresas. A
