@@ -1,0 +1,86 @@
+<template>
+<style>@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#rd-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.rd-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#rd-root{font-family:"Poppins",Arial,sans-serif;color:#0C2148;}
+.mt{font-family:"Mont",Arial,sans-serif;}
+.blk{position:absolute;left:90px;width:900px;text-align:center;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:#475569;}
+.card{position:absolute;background:#fff;border-radius:28px;box-shadow:0 24px 60px rgba(12,33,72,.14),0 2px 0 rgba(12,33,72,.04);}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:40px;font-weight:600;font-size:28px;white-space:nowrap;}
+.ok{background:#DCFCE7;color:#166534;}
+.bad{background:#FEE2E2;color:#B91C1C;}
+
+#rd-h{top:250px;font-family:"Mont";font-weight:900;font-size:62px;}
+#rd-sp{top:336px;font-weight:600;font-size:46px;color:#C2410C;}
+#rd-card{left:60px;top:420px;width:960px;height:540px;overflow:hidden;}
+#rd-iw,#rd-vw{position:absolute;inset:0;overflow:hidden;border-radius:28px;}
+#rd-iw img{width:100%;height:100%;object-fit:cover;display:block;}
+.rd-cap{position:absolute;left:0;bottom:0;width:100%;padding:70px 34px 24px;background:linear-gradient(180deg,rgba(12,33,72,0),rgba(12,33,72,.92));display:flex;align-items:center;gap:16px;color:#fff;font-family:"Mont";font-weight:900;font-size:42px;line-height:1.05;}
+.rd-cap small{display:block;font-family:"Poppins";font-weight:500;font-size:27px;}
+#rd-chips{position:absolute;left:0;width:1080px;top:990px;display:flex;justify-content:center;gap:18px;}
+.rd-chip{display:flex;align-items:center;gap:12px;padding:12px 26px;border-radius:50px;background:#fff;border:3px solid #0C2148;font-family:"Mont";font-weight:800;font-size:36px;white-space:nowrap;}
+#rd-tbl{left:110px;top:1085px;width:860px;height:200px;overflow:hidden;}
+.rd-tr{display:flex;align-items:center;height:100px;padding:0 28px;font-size:32px;border-bottom:2px solid #D5DDE8;gap:16px;}
+.rd-tr b{font-weight:600;flex:1;}
+.rd-tr span{color:#475569;font-size:26px;}
+.rd-tr em{font-style:normal;font-family:"Mont";font-weight:900;color:#166534;font-size:34px;}
+#rd-lg{top:1306px;}
+</style>
+<div id="rd-root" data-composition-id="rd" data-start="0" data-duration="7.749" data-width="1080" data-height="1920">
+  <div id="rd-h" class="ln"><span class="w"><span class="wi" id="rdh0">Hospitais</span></span> <span class="w"><span class="wi" id="rdh1">de</span></span> <span class="w"><span class="wi" id="rdh2">referência</span></span></div>
+  <div id="rd-sp" class="ln"><span class="w"><span class="wi" id="rdsp0">em</span></span> <span class="w"><span class="wi" id="rdsp1">São</span></span> <span class="w"><span class="wi" id="rdsp2">Paulo</span></span></div>
+  <div id="rd-card" class="card">
+    <div id="rd-iw"><img src="assets/img/bp-fachada.jpg" alt="Hospital BP – Beneficência Portuguesa" /><div class="rd-cap"><svg viewBox="0 0 48 48" width="54" height="54" fill="none" stroke="#FFB27A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 42V12h30v30M4 42h40M20 42v-8h8v8M24 17v9M19.5 21.5h9"/></svg><div>BP<small>Beneficência Portuguesa</small></div></div></div>
+    <div id="rd-vw" class="vw"><video id="rd-v" class="clip" src="assets/video/v-bebe.mp4" muted playsinline data-start="4.87" data-duration="2.879"></video><div class="rd-cap"><svg viewBox="0 0 48 48" width="54" height="54" fill="none" stroke="#FFB27A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12a8 8 0 0 0 16 0V6"/><path d="M20 26v6a9 9 0 0 0 18 0v-4"/><circle cx="38" cy="24" r="4"/></svg><div>Consultas e exames<small>sem coparticipação</small></div></div></div>
+  </div>
+  <div id="rd-chips"><div class="rd-chip" id="rd-c0"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#0C2148" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 42V12h30v30M4 42h40M20 42v-8h8v8M24 17v9M19.5 21.5h9"/></svg><span>Sepaco</span></div><div class="rd-chip" id="rd-c1"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#0C2148" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 42V12h30v30M4 42h40M20 42v-8h8v8M24 17v9M19.5 21.5h9"/></svg><span>Rede D'Or São Luiz</span></div></div>
+  <div id="rd-tbl" class="card">
+    <div class="rd-tr" id="rd-t0"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><b>Consulta</b><span>coparticipação</span><em>R$ 0,00</em></div>
+    <div class="rd-tr" id="rd-t1" style="border-bottom:0"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><b>Exame</b><span>coparticipação</span><em>R$ 0,00</em></div>
+  </div>
+  <div id="rd-lg" class="legal">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Cobertura e rede sujeitas à modalidade contratada. Imagem meramente ilustrativa. Foto do Hospital BP: Cecilia Melozi, CC BY-SA 4.0, via Wikimedia Commons.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#rdh0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.149);
+tl.fromTo("#rdh1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.621);
+tl.fromTo("#rdh2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},0.694);
+tl.fromTo("#rdsp0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.276);
+tl.fromTo("#rdsp1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.397);
+tl.fromTo("#rdsp2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.567);
+tl.fromTo("#rd-card",{y:80,opacity:0},{y:0,opacity:1,duration:0.5,ease:"power4.out"},1.781);
+tl.fromTo("#rd-iw img",{scale:1.2,x:50},{scale:1.04,x:-20,duration:4,ease:"none"},1.781);
+tl.fromTo("#rd-c0",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.2)"},2.856);
+tl.fromTo("#rd-c1",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.2)"},3.656);
+tl.fromTo("#rd-vw",{opacity:0},{opacity:1,duration:0.3},4.87);
+tl.set("#rd-iw",{opacity:0},5.22);
+tl.fromTo("#rd-vw video",{scale:1.0},{scale:1.08,duration:3,ease:"none"},4.87);
+tl.fromTo("#rd-tbl",{y:40,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},5.02);
+tl.set("#rd-t0,#rd-t1",{opacity:0},0);
+tl.fromTo("#rd-t0",{x:-30,opacity:0},{x:0,opacity:1,duration:0.3},5.17);
+tl.fromTo("#rd-t1",{x:-30,opacity:0},{x:0,opacity:1,duration:0.3},5.57);
+tl.fromTo("#rd-t0",{backgroundColor:"rgba(220,252,231,0)"},{backgroundColor:"rgba(220,252,231,1)",duration:0.25,yoyo:true,repeat:1},6.5);
+tl.fromTo("#rd-t1",{backgroundColor:"rgba(220,252,231,0)"},{backgroundColor:"rgba(220,252,231,1)",duration:0.25,yoyo:true,repeat:1,immediateRender:false},7.149);
+tl.fromTo("#rd-lg",{opacity:0},{opacity:1,duration:0.3},1.981);
+window.__timelines["rd"] = tl;
+})();
+</script>
+</template>

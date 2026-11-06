@@ -1,0 +1,22 @@
+<template>
+<style>#bg-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(180deg,#F5F7FB 0%,#EEF2F7 55%,#E4EAF2 100%);}
+#bg-grid{position:absolute;left:0;top:-60px;}
+.bg-gl{position:absolute;border-radius:50%;}
+#bg-o{left:520px;top:-260px;width:900px;height:900px;background:radial-gradient(closest-side,rgba(242,107,29,.16),rgba(242,107,29,0));}
+#bg-b{left:-380px;top:1100px;width:1100px;height:1100px;background:radial-gradient(closest-side,rgba(12,33,72,.1),rgba(12,33,72,0));}</style>
+<div id="bg-root" data-composition-id="bg" data-start="0" data-duration="50.7" data-width="1080" data-height="1920">
+  <svg id="bg-grid" width="1080" height="2040" aria-hidden="true" data-layout-allow-overflow>
+    <defs><pattern id="bg-pt" width="120" height="60" patternUnits="userSpaceOnUse"><path d="M120 0V60M0 60H120" fill="none" stroke="rgba(12,33,72,.05)" stroke-width="2"/></pattern></defs>
+    <rect width="1080" height="2040" fill="url(#bg-pt)"/></svg>
+  <div id="bg-o" class="bg-gl" data-layout-allow-overflow aria-hidden="true"></div>
+  <div id="bg-b" class="bg-gl" data-layout-allow-overflow aria-hidden="true"></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#bg-grid",{y:0},{y:60,duration:50.7,ease:"none"},0);
+tl.fromTo("#bg-o",{x:0,y:0},{x:-260,y:180,duration:50.7,ease:"sine.inOut"},0);
+window.__timelines["bg"] = tl;
+})();
+</script>
+</template>

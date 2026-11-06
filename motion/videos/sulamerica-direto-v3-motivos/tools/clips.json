@@ -1,0 +1,37 @@
+[
+ {
+  "name": "v-contrato",
+  "mixkit": 241,
+  "ss": 2.0,
+  "dur": 4.0,
+  "cx": 0.42
+ },
+ {
+  "name": "v-pressao",
+  "mixkit": 28149,
+  "ss": 10.0,
+  "dur": 6.6,
+  "cx": 0.56
+ },
+ {
+  "name": "v-equipe",
+  "mixkit": 4766,
+  "ss": 3.0,
+  "dur": 7.8,
+  "cx": 0.5
+ },
+ {
+  "name": "v-mae-filha-medico",
+  "mixkit": 5992,
+  "ss": 4.0,
+  "dur": 9.4,
+  "cx": 0.43
+ },
+ {
+  "name": "v-corredor",
+  "mixkit": 4779,
+  "ss": 0.0,
+  "dur": 6.9,
+  "cx": 0.5
+ }
+]

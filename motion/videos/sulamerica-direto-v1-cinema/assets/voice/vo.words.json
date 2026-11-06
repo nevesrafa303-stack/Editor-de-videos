@@ -1,0 +1,722 @@
+[
+ {
+  "word": "Se",
+  "start": 0.175,
+  "end": 0.25
+ },
+ {
+  "word": "alguém",
+  "start": 0.324,
+  "end": 0.549
+ },
+ {
+  "word": "da",
+  "start": 0.586,
+  "end": 0.623
+ },
+ {
+  "word": "sua",
+  "start": 0.661,
+  "end": 0.773
+ },
+ {
+  "word": "família",
+  "start": 0.848,
+  "end": 1.147
+ },
+ {
+  "word": "precisar",
+  "start": 1.221,
+  "end": 1.595
+ },
+ {
+  "word": "de",
+  "start": 1.633,
+  "end": 1.67
+ },
+ {
+  "word": "um",
+  "start": 1.695,
+  "end": 1.72
+ },
+ {
+  "word": "hospital",
+  "start": 1.745,
+  "end": 2.193
+ },
+ {
+  "word": "hoje…",
+  "start": 2.268,
+  "end": 3.165
+ },
+ {
+  "word": "você",
+  "start": 3.203,
+  "end": 3.39
+ },
+ {
+  "word": "sabe",
+  "start": 3.464,
+  "end": 3.689
+ },
+ {
+  "word": "quanto",
+  "start": 3.838,
+  "end": 4.063
+ },
+ {
+  "word": "isso",
+  "start": 4.137,
+  "end": 4.287
+ },
+ {
+  "word": "vai",
+  "start": 4.312,
+  "end": 4.362
+ },
+ {
+  "word": "custar?",
+  "start": 4.436,
+  "end": 4.81
+ },
+ {
+  "word": "No",
+  "start": 5.174,
+  "end": 5.184
+ },
+ {
+  "word": "particular,",
+  "start": 5.296,
+  "end": 6.007
+ },
+ {
+  "word": "uma",
+  "start": 6.044,
+  "end": 6.081
+ },
+ {
+  "word": "internação",
+  "start": 6.156,
+  "end": 6.605
+ },
+ {
+  "word": "pode",
+  "start": 6.679,
+  "end": 6.829
+ },
+ {
+  "word": "custar",
+  "start": 6.941,
+  "end": 7.128
+ },
+ {
+  "word": "uma",
+  "start": 7.203,
+  "end": 7.278
+ },
+ {
+  "word": "fortuna.",
+  "start": 7.352,
+  "end": 8.25
+ },
+ {
+  "word": "E",
+  "start": 8.287,
+  "end": 8.324
+ },
+ {
+  "word": "plano",
+  "start": 8.399,
+  "end": 8.549
+ },
+ {
+  "word": "individual",
+  "start": 8.623,
+  "end": 9.072
+ },
+ {
+  "word": "está",
+  "start": 9.147,
+  "end": 9.371
+ },
+ {
+  "word": "cada",
+  "start": 9.446,
+  "end": 9.595
+ },
+ {
+  "word": "vez",
+  "start": 9.745,
+  "end": 9.894
+ },
+ {
+  "word": "mais",
+  "start": 9.969,
+  "end": 10.044
+ },
+ {
+  "word": "difícil",
+  "start": 10.119,
+  "end": 10.493
+ },
+ {
+  "word": "de",
+  "start": 10.53,
+  "end": 10.567
+ },
+ {
+  "word": "encontrar.",
+  "start": 10.605,
+  "end": 11.24
+ },
+ {
+  "word": "Mas",
+  "start": 11.368,
+  "end": 11.39
+ },
+ {
+  "word": "quem",
+  "start": 11.427,
+  "end": 11.539
+ },
+ {
+  "word": "tem",
+  "start": 11.614,
+  "end": 11.764
+ },
+ {
+  "word": "CNPJ",
+  "start": 11.838,
+  "end": 12.586
+ },
+ {
+  "word": "ou",
+  "start": 12.661,
+  "end": 12.736
+ },
+ {
+  "word": "MEI",
+  "start": 12.81,
+  "end": 13.035
+ },
+ {
+  "word": "tem",
+  "start": 13.184,
+  "end": 13.259
+ },
+ {
+  "word": "um",
+  "start": 13.296,
+  "end": 13.334
+ },
+ {
+  "word": "caminho",
+  "start": 13.371,
+  "end": 13.595
+ },
+ {
+  "word": "melhor:",
+  "start": 13.633,
+  "end": 14.306
+ },
+ {
+  "word": "o",
+  "start": 14.343,
+  "end": 14.38
+ },
+ {
+  "word": "plano",
+  "start": 14.53,
+  "end": 14.754
+ },
+ {
+  "word": "de",
+  "start": 14.829,
+  "end": 14.904
+ },
+ {
+  "word": "saúde",
+  "start": 14.979,
+  "end": 15.278
+ },
+ {
+  "word": "empresarial.",
+  "start": 15.39,
+  "end": 16.137
+ },
+ {
+  "word": "No",
+  "start": 16.312,
+  "end": 16.324
+ },
+ {
+  "word": "SulAmérica",
+  "start": 16.399,
+  "end": 16.848
+ },
+ {
+  "word": "Direto",
+  "start": 16.922,
+  "end": 17.147
+ },
+ {
+  "word": "Nacional",
+  "start": 17.221,
+  "end": 17.67
+ },
+ {
+  "word": "sem",
+  "start": 17.745,
+  "end": 17.894
+ },
+ {
+  "word": "coparticipação,",
+  "start": 18.007,
+  "end": 18.866
+ },
+ {
+  "word": "você",
+  "start": 18.904,
+  "end": 19.091
+ },
+ {
+  "word": "não",
+  "start": 19.14,
+  "end": 19.24
+ },
+ {
+  "word": "paga",
+  "start": 19.315,
+  "end": 19.464
+ },
+ {
+  "word": "nada",
+  "start": 19.614,
+  "end": 19.838
+ },
+ {
+  "word": "a",
+  "start": 19.864,
+  "end": 19.888
+ },
+ {
+  "word": "mais",
+  "start": 19.913,
+  "end": 20.063
+ },
+ {
+  "word": "quando",
+  "start": 20.137,
+  "end": 20.362
+ },
+ {
+  "word": "usa:",
+  "start": 20.436,
+  "end": 20.885
+ },
+ {
+  "word": "consulta,",
+  "start": 21.184,
+  "end": 21.633
+ },
+ {
+  "word": "exame,",
+  "start": 21.745,
+  "end": 22.231
+ },
+ {
+  "word": "pronto-socorro.",
+  "start": 22.268,
+  "end": 23.053
+ },
+ {
+  "word": "E",
+  "start": 23.352,
+  "end": 23.427
+ },
+ {
+  "word": "tem",
+  "start": 23.502,
+  "end": 23.577
+ },
+ {
+  "word": "hospitais",
+  "start": 23.626,
+  "end": 23.95
+ },
+ {
+  "word": "de",
+  "start": 23.988,
+  "end": 24.025
+ },
+ {
+  "word": "referência",
+  "start": 24.175,
+  "end": 24.474
+ },
+ {
+  "word": "em",
+  "start": 24.511,
+  "end": 24.549
+ },
+ {
+  "word": "São",
+  "start": 24.623,
+  "end": 24.698
+ },
+ {
+  "word": "Paulo,",
+  "start": 24.848,
+  "end": 25.147
+ },
+ {
+  "word": "como",
+  "start": 25.296,
+  "end": 25.446
+ },
+ {
+  "word": "a",
+  "start": 25.483,
+  "end": 25.521
+ },
+ {
+  "word": "BP,",
+  "start": 25.595,
+  "end": 25.969
+ },
+ {
+  "word": "Beneficência",
+  "start": 26.044,
+  "end": 26.493
+ },
+ {
+  "word": "Portuguesa,",
+  "start": 26.567,
+  "end": 27.165
+ },
+ {
+  "word": "o",
+  "start": 27.315,
+  "end": 27.39
+ },
+ {
+  "word": "Sepaco",
+  "start": 27.464,
+  "end": 27.988
+ },
+ {
+  "word": "e",
+  "start": 28.137,
+  "end": 28.212
+ },
+ {
+  "word": "unidades",
+  "start": 28.25,
+  "end": 28.661
+ },
+ {
+  "word": "da",
+  "start": 28.736,
+  "end": 28.773
+ },
+ {
+  "word": "Rede",
+  "start": 28.81,
+  "end": 29.035
+ },
+ {
+  "word": "D'Or",
+  "start": 29.109,
+  "end": 29.259
+ },
+ {
+  "word": "São",
+  "start": 29.334,
+  "end": 29.408
+ },
+ {
+  "word": "Luiz.",
+  "start": 29.483,
+  "end": 29.932
+ },
+ {
+  "word": "Pra",
+  "start": 30.069,
+  "end": 30.156
+ },
+ {
+  "word": "três",
+  "start": 30.306,
+  "end": 30.53
+ },
+ {
+  "word": "vidas,",
+  "start": 30.605,
+  "end": 31.053
+ },
+ {
+  "word": "um",
+  "start": 31.128,
+  "end": 31.165
+ },
+ {
+  "word": "casal",
+  "start": 31.203,
+  "end": 31.427
+ },
+ {
+  "word": "de",
+  "start": 31.502,
+  "end": 31.577
+ },
+ {
+  "word": "trinta",
+  "start": 31.651,
+  "end": 31.801
+ },
+ {
+  "word": "e",
+  "start": 31.876,
+  "end": 31.95
+ },
+ {
+  "word": "quatro",
+  "start": 31.988,
+  "end": 32.175
+ },
+ {
+  "word": "a",
+  "start": 32.25,
+  "end": 32.324
+ },
+ {
+  "word": "trinta",
+  "start": 32.362,
+  "end": 32.549
+ },
+ {
+  "word": "e",
+  "start": 32.586,
+  "end": 32.623
+ },
+ {
+  "word": "oito",
+  "start": 32.673,
+  "end": 32.773
+ },
+ {
+  "word": "anos",
+  "start": 32.922,
+  "end": 33.147
+ },
+ {
+  "word": "e",
+  "start": 33.184,
+  "end": 33.221
+ },
+ {
+  "word": "um",
+  "start": 33.296,
+  "end": 33.371
+ },
+ {
+  "word": "filho",
+  "start": 33.446,
+  "end": 33.558
+ },
+ {
+  "word": "de",
+  "start": 33.595,
+  "end": 33.67
+ },
+ {
+  "word": "até",
+  "start": 33.745,
+  "end": 33.857
+ },
+ {
+  "word": "dezoito,",
+  "start": 33.894,
+  "end": 34.567
+ },
+ {
+  "word": "fica",
+  "start": 34.642,
+  "end": 34.866
+ },
+ {
+  "word": "mil",
+  "start": 34.941,
+  "end": 35.091
+ },
+ {
+  "word": "quinhentos",
+  "start": 35.165,
+  "end": 35.577
+ },
+ {
+  "word": "e",
+  "start": 35.614,
+  "end": 35.689
+ },
+ {
+  "word": "noventa",
+  "start": 35.726,
+  "end": 35.988
+ },
+ {
+  "word": "e",
+  "start": 36.025,
+  "end": 36.063
+ },
+ {
+  "word": "três",
+  "start": 36.137,
+  "end": 36.287
+ },
+ {
+  "word": "reais",
+  "start": 36.362,
+  "end": 36.586
+ },
+ {
+  "word": "e",
+  "start": 36.661,
+  "end": 36.736
+ },
+ {
+  "word": "cinquenta",
+  "start": 36.81,
+  "end": 37.109
+ },
+ {
+  "word": "e",
+  "start": 37.184,
+  "end": 37.259
+ },
+ {
+  "word": "quatro",
+  "start": 37.308,
+  "end": 37.408
+ },
+ {
+  "word": "centavos",
+  "start": 37.483,
+  "end": 37.932
+ },
+ {
+  "word": "por",
+  "start": 38.007,
+  "end": 38.156
+ },
+ {
+  "word": "mês,",
+  "start": 38.231,
+  "end": 38.679
+ },
+ {
+  "word": "já",
+  "start": 38.717,
+  "end": 38.829
+ },
+ {
+  "word": "com",
+  "start": 38.904,
+  "end": 38.979
+ },
+ {
+  "word": "IOF.",
+  "start": 39.053,
+  "end": 39.614
+ },
+ {
+  "word": "Clica",
+  "start": 39.886,
+  "end": 39.95
+ },
+ {
+  "word": "no",
+  "start": 39.988,
+  "end": 40.025
+ },
+ {
+  "word": "link,",
+  "start": 40.1,
+  "end": 40.549
+ },
+ {
+  "word": "preenche",
+  "start": 40.623,
+  "end": 40.848
+ },
+ {
+  "word": "o",
+  "start": 40.885,
+  "end": 40.922
+ },
+ {
+  "word": "formulário",
+  "start": 41.035,
+  "end": 41.446
+ },
+ {
+  "word": "e",
+  "start": 41.595,
+  "end": 41.633
+ },
+ {
+  "word": "a",
+  "start": 41.67,
+  "end": 41.707
+ },
+ {
+  "word": "gente",
+  "start": 41.745,
+  "end": 41.894
+ },
+ {
+  "word": "monta",
+  "start": 41.969,
+  "end": 42.193
+ },
+ {
+  "word": "a",
+  "start": 42.219,
+  "end": 42.243
+ },
+ {
+  "word": "cotação",
+  "start": 42.268,
+  "end": 42.642
+ },
+ {
+  "word": "com",
+  "start": 42.717,
+  "end": 42.792
+ },
+ {
+  "word": "as",
+  "start": 42.829,
+  "end": 42.866
+ },
+ {
+  "word": "idades",
+  "start": 42.941,
+  "end": 43.24
+ },
+ {
+  "word": "da",
+  "start": 43.278,
+  "end": 43.315
+ },
+ {
+  "word": "sua",
+  "start": 43.39,
+  "end": 43.539
+ },
+ {
+  "word": "família.",
+  "start": 43.614,
+  "end": 44.212
+ }
+]

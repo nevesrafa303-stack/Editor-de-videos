@@ -1,0 +1,26 @@
+[
+ {
+  "name": "v-ambulancia",
+  "mixkit": 26834,
+  "ss": 6.0,
+  "dur": 2.4,
+  "cx": 0.5,
+  "fmt": "4x5"
+ },
+ {
+  "name": "v-soro",
+  "mixkit": 38500,
+  "ss": 4.0,
+  "dur": 3.8,
+  "cx": 0.3,
+  "fmt": "4x5"
+ },
+ {
+  "name": "v-bebe",
+  "mixkit": 4753,
+  "ss": 1.0,
+  "dur": 3.2,
+  "cx": 0.6,
+  "fmt": "4x5"
+ }
+]

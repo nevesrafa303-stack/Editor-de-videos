@@ -1,0 +1,187 @@
+<template>
+<style>@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#sh-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.sh-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#sh-root{font-family:"Poppins",Arial,sans-serif;color:#0C2148;}
+.mt{font-family:"Mont",Arial,sans-serif;}
+.blk{position:absolute;left:90px;width:900px;text-align:center;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:#475569;}
+.card{position:absolute;background:#fff;border-radius:28px;box-shadow:0 24px 60px rgba(12,33,72,.14),0 2px 0 rgba(12,33,72,.04);}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:40px;font-weight:600;font-size:28px;white-space:nowrap;}
+.ok{background:#DCFCE7;color:#166534;}
+.bad{background:#FEE2E2;color:#B91C1C;}
+
+#sh-h1a{top:330px;font-family:"Mont";font-weight:900;font-size:96px;line-height:1;}
+#sh-h1b{top:448px;font-weight:600;font-size:48px;line-height:1.25;}
+#sh-h2{top:350px;font-weight:700;font-size:54px;line-height:1.22;}
+#sh-h3a{top:330px;font-family:"Mont";font-weight:900;font-size:84px;line-height:1;}
+#sh-h3a b{color:#F26B1D;font-weight:900;}
+#sh-h3b{top:440px;font-weight:600;font-size:46px;line-height:1.25;}
+#sh-win{left:70px;top:620px;width:940px;height:504px;overflow:hidden;}
+#sh-tb{position:absolute;left:0;top:0;width:100%;height:64px;background:#107C41;border-radius:28px 28px 0 0;display:flex;align-items:center;gap:12px;padding:0 26px;color:#fff;font-weight:600;font-size:26px;}
+#sh-al{margin-left:auto;display:flex;align-items:center;gap:8px;padding:6px 16px;border-radius:30px;background:#B91C1C;font-size:22px;font-weight:600;}
+.sh-dot{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.55);}
+#sh-hd{position:absolute;left:0;top:64px;width:100%;height:56px;background:#F1F5F9;border-bottom:2px solid #D5DDE8;display:flex;font-weight:600;font-size:24px;color:#475569;}
+.sh-n{width:64px;flex:none;display:flex;align-items:center;justify-content:center;border-right:2px solid #D5DDE8;color:#475569;font-size:24px;}
+.sh-a{width:540px;flex:none;display:flex;align-items:center;padding:0 22px;border-right:2px solid #D5DDE8;}
+.sh-b{flex:1;display:flex;align-items:center;padding:0 22px;}
+.sh-r{position:absolute;left:0;width:100%;height:96px;display:flex;border-bottom:2px solid #D5DDE8;font-weight:500;font-size:34px;color:#0C2148;background:#fff;}
+#sh-r3f{position:absolute;inset:0;display:flex;background:#fff;}
+#sh-r3b{position:absolute;inset:0;display:flex;background:#F0FDF4;}
+#sh-sel{position:absolute;left:62px;top:120px;width:878px;height:96px;border:4px solid #107C41;box-shadow:0 0 0 2px rgba(16,124,65,.2);pointer-events:none;}
+#sh-cur{position:absolute;left:760px;top:680px;}
+#sh-ph{color:#94A3B8;font-style:italic;}
+#sh-mod{left:110px;top:690px;width:860px;height:760px;overflow:hidden;}
+#sh-mh{position:absolute;left:0;top:0;width:100%;height:84px;background:#B91C1C;color:#fff;display:flex;align-items:center;gap:16px;padding:0 30px;font-family:"Mont";font-weight:800;font-size:36px;}
+.sh-vw{position:absolute;left:0;top:84px;width:860px;height:490px;overflow:hidden;}
+#sh-mf{position:absolute;left:0;top:574px;width:100%;height:186px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;}
+#sh-mfl{font-weight:600;font-size:34px;color:#475569;line-height:1.2;}
+#sh-inf{display:flex;align-items:center;gap:10px;font-family:"Mont";font-weight:900;font-size:64px;color:#B91C1C;}
+#sh-ch{left:70px;top:1150px;width:940px;height:300px;}
+#sh-chl{position:absolute;left:36px;top:26px;font-family:"Mont";font-weight:800;font-size:30px;}
+#sh-cleg{position:absolute;right:36px;top:30px;display:flex;gap:22px;font-weight:600;font-size:24px;}
+#sh-cleg span{display:flex;align-items:center;gap:8px;}
+#sh-cleg i{display:inline-block;width:26px;height:6px;border-radius:3px;}
+#sh-svg{position:absolute;left:30px;top:66px;}
+#sh-lg1,#sh-lg2{top:1474px;}
+</style>
+<div id="sh-root" data-composition-id="sh" data-start="0" data-duration="20.549" data-width="1080" data-height="1920">
+  <div id="sh-h1"><div id="sh-h1a" class="ln">Empresário,</div><div id="sh-h1b" class="blk"><span class="w"><span class="wi" id="sh10">você</span></span> <span class="w"><span class="wi" id="sh11">controla</span></span> <span class="w"><span class="wi" id="sh12">cada</span></span> <span class="w"><span class="wi" id="sh13">custo</span></span> <span class="w"><span class="wi" id="sh14">da</span></span> <span class="w"><span class="wi" id="sh15">sua</span></span> <span class="w"><span class="wi" id="sh16">empresa,</span></span> <span class="w"><span class="wi" id="sh17">né?</span></span></div></div>
+  <div id="sh-h2" class="blk"><span class="w"><span class="wi" id="sh20">Mas</span></span> <span class="w"><span class="wi" id="sh21">tem</span></span> <span class="w"><span class="wi" id="sh22">um</span></span> <span class="w"><span class="wi" id="sh23">custo</span></span> <span class="w"><span class="wi" id="sh24">que</span></span> <span class="w"><span class="wi" id="sh25">não</span></span> <span class="w"><span class="wi" id="sh26">aparece</span></span> <span class="w"><span class="wi" id="sh27">em</span></span> <span class="w"><span class="wi" id="sh28">planilha</span></span> <span class="w"><span class="wi" id="sh29">nenhuma…</span></span></div>
+  <div id="sh-h3"><div id="sh-h3a" class="ln">Pelo <b>CNPJ</b> ou <b>MEI</b>,</div><div id="sh-h3b" class="blk"><span class="w"><span class="wi" id="sh30">você</span></span> <span class="w"><span class="wi" id="sh31">transforma</span></span> <span class="w"><span class="wi" id="sh32">esse</span></span> <span class="w"><span class="wi" id="sh33">risco</span></span> <span class="w"><span class="wi" id="sh34">num</span></span> <span class="w"><span class="wi" id="sh35">custo</span></span> <span class="w"><span class="wi" id="sh36">fixo</span></span> <span class="w"><span class="wi" id="sh37">e</span></span> <span class="w"><span class="wi" id="sh38">previsível.</span></span></div></div>
+  <div id="sh-win" class="card">
+    <div id="sh-tb"><span class="sh-dot"></span><span class="sh-dot"></span><span class="sh-dot"></span><span style="margin-left:12px">custos-da-empresa.xlsx</span><span id="sh-al"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6L44 40H4z"/><path d="M24 19v10M24 34v.5"/></svg>1 custo não previsto</span></div>
+    <div id="sh-hd"><div class="sh-n"></div><div class="sh-a">A · Custo</div><div class="sh-b">B · Situação</div></div>
+    <div class="sh-r" id="sh-r0" style="top:120px"><div class="sh-n">1</div><div class="sh-a">Aluguel</div><div class="sh-b"><span id="sh-s0"><span class="chip ok"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg>Em dia</span></span></div></div><div class="sh-r" id="sh-r1" style="top:216px"><div class="sh-n">2</div><div class="sh-a">Folha de pagamento</div><div class="sh-b"><span id="sh-s1"><span class="chip ok"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg>Em dia</span></span></div></div><div class="sh-r" id="sh-r2" style="top:312px"><div class="sh-n">3</div><div class="sh-a">Impostos</div><div class="sh-b"><span id="sh-s2"><span class="chip ok"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg>Em dia</span></span></div></div>
+    <div class="sh-r" id="sh-r3" style="top:408px">
+      <div id="sh-r3e" style="position:absolute;inset:0;display:flex"><div class="sh-n">4</div><div class="sh-a"><span id="sh-ph">???</span></div><div class="sh-b"></div></div>
+      <div id="sh-r3f"><div class="sh-n">4</div><div class="sh-a" style="color:#B91C1C;font-weight:600">Emergência na família</div><div class="sh-b"><span class="chip bad"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#B91C1C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6L44 40H4z"/><path d="M24 19v10M24 34v.5"/></svg>Não previsto</span></div></div>
+      <div id="sh-r3b"><div class="sh-n">4</div><div class="sh-a" style="color:#166534;font-weight:600">Plano de saúde (CNPJ/MEI)</div><div class="sh-b"><span class="chip ok"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg>Custo fixo</span></div></div>
+    </div>
+    <div id="sh-sel"></div>
+  </div>
+  <div id="sh-mod" class="card">
+    <div id="sh-mh"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6L44 40H4z"/><path d="M24 19v10M24 34v.5"/></svg><span>Emergência na família</span></div>
+    <div class="vw sh-vw" id="sh-v1w"><video id="sh-v1" class="clip" src="assets/video/v-ambulancia.mp4" muted playsinline data-start="10.545" data-duration="1.91"></video></div>
+    <div class="vw sh-vw" id="sh-v2w"><video id="sh-v2" class="clip" src="assets/video/v-soro.mp4" muted playsinline data-start="12.305" data-duration="3.47"></video></div>
+    <div id="sh-mf"><div id="sh-mfl">Conta da internação<br/>sem plano</div><div id="sh-inf"><svg viewBox="0 0 48 48" width="84" height="84" fill="none" stroke="#B91C1C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 24c-4-5-7.5-8-11-8a8 8 0 0 0 0 16c3.5 0 7-3 11-8s7.5-8 11-8a8 8 0 0 1 0 16c-3.5 0-7-3-11-8z"/></svg><span>sem limite</span></div></div>
+  </div>
+  <div id="sh-cur"><svg viewBox="0 0 48 48" width="64" height="64" fill="#0C2148" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6l26 16-11 3 7 13-6 3-7-13-9 8z"/></svg></div>
+  <div id="sh-ch" class="card">
+    <div id="sh-chl">Gasto com saúde</div>
+    <div id="sh-cleg"><span style="color:#B91C1C"><i style="background:#B91C1C"></i>Sem plano</span><span style="color:#166534"><i style="background:#166534"></i>Com plano</span></div>
+    <svg id="sh-svg" width="880" height="230" viewBox="0 0 880 230" aria-hidden="true">
+      <path d="M0 200H880" stroke="#D5DDE8" stroke-width="2"/>
+      <path id="sh-lr" d="M10 170L120 160 200 175 280 60 340 150 450 165 520 20 580 140 690 170 760 90 870 150" fill="none" stroke="#B91C1C" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1600" stroke-dashoffset="1600"/>
+      <path id="sh-lg" d="M10 120H870" fill="none" stroke="#166534" stroke-width="9" stroke-linecap="round" stroke-dasharray="900" stroke-dashoffset="900"/>
+    </svg>
+  </div>
+  <div id="sh-lg1" class="legal">Imagem meramente ilustrativa.</div>
+  <div id="sh-lg2" class="legal">Consulte condições e elegibilidade. Condições sujeitas à análise comercial.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#sh10",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},0.913);
+tl.fromTo("#sh11",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.313);
+tl.fromTo("#sh12",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},1.676);
+tl.fromTo("#sh13",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},2.004);
+tl.fromTo("#sh14",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},2.331);
+tl.fromTo("#sh15",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},2.44);
+tl.fromTo("#sh16",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},2.731);
+tl.fromTo("#sh17",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},3.095);
+tl.fromTo("#sh-al",{scale:1},{scale:1.12,duration:0.3,yoyo:true,repeat:15,ease:"sine.inOut"},0);
+tl.set("#sh-s0,#sh-s1,#sh-s2,#sh-r0 .sh-a,#sh-r1 .sh-a,#sh-r2 .sh-a",{opacity:0},0);
+tl.set("#sh-r3f,#sh-r3b,#sh-ph",{opacity:0},0);
+tl.to("#sh-sel",{y:0,duration:0.25,ease:"power2.out"},3.391);
+tl.to("#sh-cur",{x:-40,y:100,duration:0.3,ease:"power2.out"},3.341);
+tl.fromTo("#sh-r0 .sh-a",{x:-30,opacity:0},{x:0,opacity:1,duration:0.3,ease:"power3.out"},3.541);
+tl.fromTo("#sh-s0",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.4)"},3.791);
+tl.to("#sh-sel",{y:96,duration:0.25,ease:"power2.out"},4.373);
+tl.to("#sh-cur",{x:-34,y:196,duration:0.3,ease:"power2.out"},4.323);
+tl.fromTo("#sh-r1 .sh-a",{x:-30,opacity:0},{x:0,opacity:1,duration:0.3,ease:"power3.out"},4.523);
+tl.fromTo("#sh-s1",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.4)"},4.773);
+tl.to("#sh-sel",{y:192,duration:0.25,ease:"power2.out"},4.882);
+tl.to("#sh-cur",{x:-28,y:292,duration:0.3,ease:"power2.out"},4.832);
+tl.fromTo("#sh-r2 .sh-a",{x:-30,opacity:0},{x:0,opacity:1,duration:0.3,ease:"power3.out"},5.032);
+tl.fromTo("#sh-s2",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.4)"},5.282);
+tl.to("#sh-h1",{opacity:0,y:-20,duration:0.25,ease:"power2.in"},6.075);
+tl.fromTo("#sh20",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},6.265);
+tl.fromTo("#sh21",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},6.367);
+tl.fromTo("#sh22",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},6.513);
+tl.fromTo("#sh23",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},6.731);
+tl.fromTo("#sh24",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},6.985);
+tl.fromTo("#sh25",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},7.046);
+tl.fromTo("#sh26",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},7.167);
+tl.fromTo("#sh27",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},7.567);
+tl.fromTo("#sh28",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},7.713);
+tl.fromTo("#sh29",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},8.149);
+tl.to("#sh-sel",{y:288,duration:0.3,ease:"power2.out"},6.791);
+tl.to("#sh-cur",{x:-20,y:388,duration:0.35,ease:"power2.out"},6.741);
+tl.fromTo("#sh-ph",{opacity:0},{opacity:1,duration:0.2,repeat:5,yoyo:true,ease:"steps(1)"},6.991);
+tl.set("#sh-ph",{opacity:1},8.241);
+tl.fromTo("#sh-r3f",{opacity:0,x:-20},{opacity:1,x:0,duration:0.25},10.691);
+tl.set("#sh-r3e",{opacity:0},10.941);
+tl.to("#sh-sel",{borderColor:"#B91C1C",duration:0.15},10.691);
+tl.set("#sh-win",{x:12,y:-7.2},10.841);
+tl.set("#sh-win",{x:-9.6,y:5.76},10.874);
+tl.set("#sh-win",{x:6,y:-3.6},10.908);
+tl.set("#sh-win",{x:-3,y:1.8},10.941);
+tl.set("#sh-win",{x:0,y:0},10.974);
+tl.to("#sh-win",{opacity:0,scale:0.92,duration:0.3,ease:"power2.in"},10.495);
+tl.fromTo("#sh-mod",{y:80,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.45,ease:"back.out(1.6)"},10.545);
+tl.fromTo("#sh-v1w",{scale:1.05},{scale:1.15,duration:2,ease:"none"},10.545);
+tl.fromTo("#sh-v2w",{opacity:0},{opacity:1,duration:0.2},12.305);
+tl.fromTo("#sh-v2w",{scale:1.0},{scale:1.1,duration:3.3,ease:"none"},12.305);
+tl.fromTo("#sh-mf",{opacity:0},{opacity:1,duration:0.3},12.355);
+tl.fromTo("#sh-inf",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.5)"},14.268);
+tl.set("#sh-mod",{x:12,y:-7.2},14.864);
+tl.set("#sh-mod",{x:-9.6,y:5.76},14.897);
+tl.set("#sh-mod",{x:6,y:-3.6},14.931);
+tl.set("#sh-mod",{x:-3,y:1.8},14.964);
+tl.set("#sh-mod",{x:0,y:0},14.997);
+tl.fromTo("#sh-lg1",{opacity:0},{opacity:1,duration:0.3},10.645);
+tl.to("#sh-mod",{scale:0.85,opacity:0,duration:0.3,ease:"power2.in"},15.425);
+tl.to("#sh-lg1",{opacity:0,duration:0.3},15.425);
+tl.to("#sh-win",{opacity:1,scale:1,duration:0.4,ease:"power3.out"},15.625);
+tl.to("#sh-h2",{opacity:0,y:-20,duration:0.25,ease:"power2.in"},15.425);
+tl.fromTo("#sh-h3a",{scale:1.3,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"power4.out"},15.675);
+tl.fromTo("#sh30",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},17.458);
+tl.fromTo("#sh31",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},17.858);
+tl.fromTo("#sh32",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},18.222);
+tl.fromTo("#sh33",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},18.404);
+tl.fromTo("#sh34",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},18.658);
+tl.fromTo("#sh35",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},18.913);
+tl.fromTo("#sh36",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},19.313);
+tl.fromTo("#sh37",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},19.555);
+tl.fromTo("#sh38",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},19.676);
+tl.to("#sh-r3f",{rotationX:90,duration:0.2,ease:"power2.in"},17.518);
+tl.set("#sh-r3f",{opacity:0},17.718);
+tl.fromTo("#sh-r3b",{opacity:0,rotationX:-90},{opacity:1,rotationX:0,duration:0.3,ease:"power2.out"},17.718);
+tl.to("#sh-sel",{borderColor:"#107C41",duration:0.2},17.718);
+tl.fromTo("#sh-ch",{y:60,opacity:0},{y:0,opacity:1,duration:0.45,ease:"power3.out"},18.373);
+tl.fromTo("#sh-lr",{strokeDashoffset:1600},{strokeDashoffset:0,duration:0.9,ease:"none"},18.573);
+tl.fromTo("#sh-lg",{strokeDashoffset:900},{strokeDashoffset:0,duration:0.7,ease:"power2.out"},19.273);
+tl.to("#sh-lr",{opacity:0.35,duration:0.4},19.736);
+tl.fromTo("#sh-lg2",{opacity:0},{opacity:1,duration:0.3},15.725);
+tl.to("#sh-cur",{opacity:0,duration:0.2},10.545);
+window.__timelines["sh"] = tl;
+})();
+</script>
+</template>

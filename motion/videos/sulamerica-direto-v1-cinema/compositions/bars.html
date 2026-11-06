@@ -1,0 +1,14 @@
+<template>
+<style>#bars-root{position:absolute;inset:0;width:1080px;height:1920px;pointer-events:none;}
+.bars-b{position:absolute;left:0;width:1080px;height:170px;background:#000;}
+#bars-t{top:0;}#bars-u{bottom:0;}</style>
+<div id="bars-root" data-composition-id="bars" data-start="0" data-duration="47.6" data-width="1080" data-height="1920"><div id="bars-t" class="bars-b"></div><div id="bars-u" class="bars-b"></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+
+window.__timelines["bars"] = tl;
+})();
+</script>
+</template>

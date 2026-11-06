@@ -1,0 +1,65 @@
+[
+ {
+  "name": "v-mae-filha",
+  "mixkit": 40421,
+  "ss": 0.8,
+  "dur": 5.8,
+  "cx": 0.52
+ },
+ {
+  "name": "v-soro",
+  "mixkit": 38500,
+  "ss": 4.0,
+  "dur": 3.6,
+  "cx": 0.27
+ },
+ {
+  "name": "v-preocupado",
+  "mixkit": 4701,
+  "ss": 3.0,
+  "dur": 3.8,
+  "cx": 0.68
+ },
+ {
+  "name": "v-reuniao",
+  "mixkit": 4809,
+  "ss": 8.0,
+  "dur": 5.6,
+  "cx": 0.48
+ },
+ {
+  "name": "v-consulta",
+  "mixkit": 6562,
+  "ss": 3.0,
+  "dur": 3.2,
+  "cx": 0.72
+ },
+ {
+  "name": "v-exame",
+  "mixkit": 11850,
+  "ss": 8.0,
+  "dur": 4.8,
+  "cx": 0.6
+ },
+ {
+  "name": "v-equipe",
+  "mixkit": 4766,
+  "ss": 4.0,
+  "dur": 7.0,
+  "cx": 0.5
+ },
+ {
+  "name": "v-familia",
+  "mixkit": 33784,
+  "ss": 1.5,
+  "dur": 10.5,
+  "cx": 0.45
+ },
+ {
+  "name": "v-por-do-sol",
+  "mixkit": 6213,
+  "ss": 4.0,
+  "dur": 8.2,
+  "cx": 0.62
+ }
+]

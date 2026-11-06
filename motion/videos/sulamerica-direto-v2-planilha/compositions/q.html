@@ -1,0 +1,137 @@
+<template>
+<style>@font-face{font-family:"Mont";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#q-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.q-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#q-root{font-family:"Poppins",Arial,sans-serif;color:#0C2148;}
+.mt{font-family:"Mont",Arial,sans-serif;}
+.blk{position:absolute;left:90px;width:900px;text-align:center;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:#475569;}
+.card{position:absolute;background:#fff;border-radius:28px;box-shadow:0 24px 60px rgba(12,33,72,.14),0 2px 0 rgba(12,33,72,.04);}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:40px;font-weight:600;font-size:28px;white-space:nowrap;}
+.ok{background:#DCFCE7;color:#166534;}
+.bad{background:#FEE2E2;color:#B91C1C;}
+
+#q-h{top:248px;font-family:"Mont";font-weight:800;font-size:66px;}
+#q-doc{left:70px;top:350px;width:940px;height:1040px;overflow:hidden;}
+#q-logo{position:absolute;left:40px;top:34px;width:330px;height:84px;}
+#q-logo img{position:absolute;inset:0;width:100%;height:100%;}
+#q-tag{position:absolute;right:36px;top:52px;padding:8px 18px;border-radius:30px;background:#E2E8F0;font-weight:600;font-size:24px;color:#0C2148;}
+#q-t{position:absolute;left:40px;top:140px;font-family:"Mont";font-weight:900;font-size:64px;line-height:1;}
+#q-sub{position:absolute;left:42px;top:212px;font-weight:500;font-size:24px;color:#475569;}
+#q-chips{position:absolute;left:40px;top:258px;display:flex;gap:16px;}
+#q-c0{background:#E2E8F0;color:#0C2148;}
+#q-c1{background:#FFEAD9;color:#C2410C;border:3px solid #F26B1D;}
+#q-tbl{position:absolute;left:40px;top:350px;width:860px;}
+.q-tr{display:flex;align-items:center;height:78px;border-bottom:2px solid #D5DDE8;font-size:31px;position:relative;}
+.q-th{height:50px;font-weight:600;font-size:21px;color:#475569;text-transform:uppercase;letter-spacing:.06em;}
+.q-c1{width:300px;}.q-c2{width:120px;text-align:center;}.q-c3{width:200px;text-align:right;}.q-c4{flex:1;text-align:right;font-weight:600;}
+.q-hl{position:absolute;left:-14px;top:8px;width:888px;height:62px;border-radius:12px;background:rgba(242,107,29,.16);transform-origin:0 50%;}
+#q-sum{position:absolute;left:40px;top:580px;width:860px;}
+.q-sr{display:flex;justify-content:space-between;font-size:30px;height:50px;align-items:center;color:#475569;}
+#q-div{height:3px;background:#0C2148;margin:10px 0 18px;transform-origin:0 50%;}
+#q-tl{font-weight:600;font-size:30px;}
+#q-tot{display:flex;align-items:flex-start;justify-content:center;font-family:"Mont";font-weight:900;margin-top:4px;}
+#q-rs{font-size:52px;margin-top:20px;margin-right:10px;}
+#q-ms{font-size:40px;margin-top:70px;margin-left:8px;color:#475569;}
+#q-fx{margin-top:6px;text-align:center;font-size:22px;color:#475569;}
+#q-iof{position:absolute;left:40px;top:956px;}
+#q-val{position:absolute;right:40px;top:968px;font-size:22px;color:#475569;}
+#q-lg{top:1408px;}
+</style>
+<div id="q-root" data-composition-id="q" data-start="0" data-duration="15.386" data-width="1080" data-height="1920">
+  <div id="q-h" class="ln"><span class="w"><span class="wi" id="qh0">Olha</span></span> <span class="w"><span class="wi" id="qh1">essa</span></span> <span class="w"><span class="wi" id="qh2">cotação:</span></span></div>
+  <div id="q-doc" class="card">
+    <div id="q-logo"><img src="assets/img/logo-text-navy.png" alt="SulAmérica" /><img src="assets/img/logo-wave.png" alt="" /></div>
+    <div id="q-tag">CNPJ/MEI · 3 vidas</div>
+    <div id="q-t"><span class="w"><span class="wi" id="qt0">Direto</span></span> <span class="w"><span class="wi" id="qt1">Nacional</span></span></div>
+    <div id="q-sub">SulAmérica Saúde · Nacional SP (CAP1)</div>
+    <div id="q-chips"><span class="chip" id="q-c0"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="#0C2148" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 42V12h30v30M4 42h40M20 42v-8h8v8M24 17v9M19.5 21.5h9"/></svg>Enfermaria</span><span class="chip" id="q-c1"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="#C2410C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg>Sem coparticipação</span></div>
+    <div id="q-tbl">
+      <div class="q-tr q-th"><div class="q-c1">Faixa etária</div><div class="q-c2">Vidas</div><div class="q-c3">Por vida</div><div class="q-c4">Subtotal</div></div>
+      <div class="q-tr" id="q-r0"><div class="q-hl" id="q-h0"></div><div class="q-c1">34 a 38 anos</div><div class="q-c2">2</div><div class="q-c3">R$ 612,02</div><div class="q-c4">R$ 1.224,04</div></div><div class="q-tr" id="q-r1"><div class="q-hl" id="q-h1"></div><div class="q-c1">0 a 18 anos</div><div class="q-c2">1</div><div class="q-c3">R$ 332,45</div><div class="q-c4">R$ 332,45</div></div>
+    </div>
+    <div id="q-sum">
+      <div class="q-sr" id="q-s0"><span>Prêmio (sem IOF)</span><span>R$ 1.556,49</span></div>
+      <div class="q-sr" id="q-s1"><span>IOF (2,38%)</span><span>+ R$ 37,05</span></div>
+      <div id="q-div"></div>
+      <div id="q-tl">Total por mês</div>
+      <div id="q-tot"><span id="q-rs">R$</span><span class="roll" id="q-n-rw" style="height:124px;font-size:120px;line-height:124px"><span class="rd" style="height:124px"><span class="rs" id="q-n0" data-layout-allow-overflow data-layout-allow-occlusion><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="rc">.</span><span class="rd" style="height:124px"><span class="rs" id="q-n1" data-layout-allow-overflow data-layout-allow-occlusion><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="rd" style="height:124px"><span class="rs" id="q-n2" data-layout-allow-overflow data-layout-allow-occlusion><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="rd" style="height:124px"><span class="rs" id="q-n3" data-layout-allow-overflow data-layout-allow-occlusion><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="rc">,</span><span class="rd" style="height:124px"><span class="rs" id="q-n4" data-layout-allow-overflow data-layout-allow-occlusion><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="rd" style="height:124px"><span class="rs" id="q-n5" data-layout-allow-overflow data-layout-allow-occlusion><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></span><span id="q-ms">/mês</span></div>
+      <div id="q-fx">Valores sujeitos à faixa etária e região.</div>
+    </div>
+    <div id="q-iof"><span class="chip ok" id="q-ok"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="#166534" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg>Já com IOF</span></div>
+    <div id="q-val">Validade da cotação: 19/12/2026</div>
+  </div>
+  <div id="q-lg" class="legal">Valores referenciais sujeitos às regras da operadora. Os valores podem variar conforme perfil do beneficiário. Cobertura e rede sujeitas à modalidade contratada. Oferta sujeita à disponibilidade comercial.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#qh0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},0.04);
+tl.fromTo("#qh1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},0.21);
+tl.fromTo("#qh2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.35,ease:"power3.out"},0.331);
+tl.fromTo("#q-doc",{y:120,opacity:0,rotation:-2},{y:0,opacity:1,rotation:0,duration:0.55,ease:"power4.out"},0.05);
+tl.set("#q-logo,#q-tag,#q-sub,#q-c0,#q-c1,#q-tbl,#q-sum,#q-iof,#q-val",{opacity:0},0);
+tl.fromTo("#q-logo,#q-tag",{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},1.164);
+tl.set("#qt0,#qt1",{yPercent:110,opacity:0},0);
+tl.fromTo("#qt0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.858);
+tl.fromTo("#qt1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.222);
+tl.fromTo("#q-sub",{y:10,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},2.218);
+tl.fromTo("#q-c0",{scale:0.5,opacity:0},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.4)"},2.996);
+tl.fromTo("#q-c1",{scale:1.8,opacity:0},{scale:1,opacity:1,duration:0.22,ease:"power4.in"},3.782);
+tl.set("#q-doc",{x:6,y:-3.6},3.982);
+tl.set("#q-doc",{x:-4.8,y:2.88},4.015);
+tl.set("#q-doc",{x:3,y:-1.8},4.049);
+tl.set("#q-doc",{x:-1.5,y:0.9},4.082);
+tl.set("#q-doc",{x:0,y:0},4.115);
+tl.fromTo("#q-tbl",{y:16,opacity:0},{y:0,opacity:1,duration:0.35,ease:"power3.out"},4.827);
+tl.set("#q-r0,#q-r1",{opacity:0},0);
+tl.fromTo("#q-r0",{opacity:0,x:-20},{opacity:1,x:0,duration:0.3},5.127);
+tl.fromTo("#q-h0",{scaleX:0},{scaleX:1,duration:0.5,ease:"power2.out"},5.227);
+tl.fromTo("#q-r1",{opacity:0,x:-20},{opacity:1,x:0,duration:0.3},7.855);
+tl.fromTo("#q-h1",{scaleX:0},{scaleX:1,duration:0.5,ease:"power2.out"},7.955);
+tl.to("#q-doc",{y:-60,duration:0.6,ease:"power2.inOut"},9.082);
+tl.to("#q-h",{opacity:0,y:-20,duration:0.3},9.082);
+tl.to("#q-sum",{opacity:1,duration:0.2},9.282);
+tl.set("#q-s0,#q-s1,#q-tl,#q-rs,#q-ms,#q-fx",{opacity:0},0);
+tl.fromTo("#q-s0",{y:12,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},9.382);
+tl.fromTo("#q-s1",{y:12,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},9.682);
+tl.fromTo("#q-div",{scaleX:0},{scaleX:1,duration:0.4,ease:"power2.out"},9.882);
+tl.fromTo("#q-tl",{y:12,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},9.982);
+tl.fromTo("#q-rs,#q-ms",{opacity:0},{opacity:1,duration:0.3},10.109);
+tl.fromTo("#q-n-rw",{opacity:0},{opacity:1,duration:0.15},10.109);
+tl.fromTo("#q-n0",{y:0},{y:-1364,duration:3.468,ease:"power3.out"},10.159);
+tl.fromTo("#q-n1",{y:0},{y:-1860,duration:3.418,ease:"power3.out"},10.209);
+tl.fromTo("#q-n2",{y:0},{y:-2356,duration:3.368,ease:"power3.out"},10.259);
+tl.fromTo("#q-n3",{y:0},{y:-1612,duration:3.318,ease:"power3.out"},10.309);
+tl.fromTo("#q-n4",{y:0},{y:-1860,duration:3.268,ease:"power3.out"},10.359);
+tl.fromTo("#q-n5",{y:0},{y:-1736,duration:3.218,ease:"power3.out"},10.409);
+tl.fromTo("#q-fx",{opacity:0},{opacity:1,duration:0.3},10.159);
+tl.fromTo("#q-iof",{opacity:0},{opacity:1,duration:0.01},14.059);
+tl.fromTo("#q-ok",{scale:2,opacity:0},{scale:1,opacity:1,duration:0.22,ease:"power4.in"},14.059);
+tl.set("#q-doc",{x:8,y:-4.8},14.289);
+tl.set("#q-doc",{x:-6.4,y:3.84},14.322);
+tl.set("#q-doc",{x:4,y:-2.4},14.356);
+tl.set("#q-doc",{x:-2,y:1.2},14.389);
+tl.set("#q-doc",{x:0,y:0},14.422);
+tl.fromTo("#q-val",{y:8,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},14.509);
+tl.fromTo("#q-lg",{opacity:0},{opacity:1,duration:0.3},4.827);
+window.__timelines["q"] = tl;
+})();
+</script>
+</template>
