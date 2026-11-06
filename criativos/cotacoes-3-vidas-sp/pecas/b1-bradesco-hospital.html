@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B1 · Bradesco · Hospital</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B1 — vermelho Bradesco com o arco do símbolo, a foto real de médicos numa passarela de vidro (Adobe Stock)
+     emoldurada no meio e o preço da cotação de 3 vidas, sem coparticipação, logo abaixo. */
+  body { background: radial-gradient(120% 70% at 50% 20%, #e3163f 0%, #c0072b 38%, #8f001b 72%, #5c0016 100%); }
+  .arcos { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 395px; top: 296px; width: 290px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 410px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(60,0,14,.35); border: 1.5px solid rgba(255,255,255,.45); }
+  .chip .icone { width: 22px; height: 22px; }
+  .h1 { position: absolute; left: 60px; right: 60px; top: 482px; text-align: center; font-family: var(--mont); font-weight: 900;
+    font-size: 54px; line-height: 1.2; letter-spacing: -.01em; }
+  .h1 em { font-style: normal; background: #fff; color: var(--brad); padding: 0 12px; border-radius: 10px; }
+  .moldura { position: absolute; left: 70px; top: 636px; width: 940px; height: 380px; border-radius: 30px; overflow: hidden;
+    box-shadow: 0 28px 50px rgba(40,0,8,.45); border: 4px solid rgba(255,255,255,.9); }
+  .moldura img { display: block; width: 932px; height: 372px; }
+  .selo { position: absolute; left: 92px; top: 972px; height: 52px; padding: 0 22px; border-radius: 999px; background: #fff;
+    display: flex; align-items: center; gap: 10px; color: var(--brad-esc); font-weight: 700; font-size: 20px; white-space: nowrap;
+    box-shadow: 0 10px 22px rgba(40,0,8,.3); }
+  .selo .icone { width: 26px; height: 26px; color: var(--brad); }
+  .rot { position: absolute; left: 0; right: 0; top: 1046px; text-align: center; font-weight: 700; font-size: 21px; letter-spacing: .12em;
+    text-transform: uppercase; color: #ffd6dc; }
+  .preco { position: absolute; left: 0; right: 0; top: 1080px; text-align: center; font-size: 108px; }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 30px; letter-spacing: 0; margin-left: 6px; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1192px; text-align: center; color: rgba(255,255,255,.88); }
+  .cta { background: #fff; color: var(--brad-esc); box-shadow: 0 14px 30px rgba(40,0,8,.35); }
+  .cta .icone { color: var(--brad); }
+  .legal { color: rgba(255,255,255,.88); }
+</style>
+</head>
+<body data-operadora="bradesco" data-hospital="sim">
+  <svg class="arcos" viewBox="0 0 1080 1920" fill="none" stroke="#fff">
+    <circle cx="540" cy="830" r="470" stroke-opacity=".08" stroke-width="2"/>
+    <circle cx="540" cy="830" r="610" stroke-opacity=".06" stroke-width="2"/>
+    <path d="M150 1560C330 1440 750 1440 930 1560" stroke-opacity=".12" stroke-width="3"/>
+  </svg>
+
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+  <h1 class="h1">Plano de saúde para 3 vidas,<br><em>sem coparticipação</em></h1>
+
+  <div class="moldura"><img src="../assets/fotos/cortes/b1-passarela-faixa.jpg" alt=""></div>
+  <p class="selo"><span data-icone="hospital"></span>Efetivo Plus · enfermaria</p>
+
+  <p class="rot">Bradesco Saúde · 3 vidas</p>
+  <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

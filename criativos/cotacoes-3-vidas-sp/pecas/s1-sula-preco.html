@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S1 · SulAmérica · Preço</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* S1 — azul-marinho e a onda laranja da SulAmérica, o preço mensal gigante no centro e um carimbo de
+     "cotação válida até 19/12/2026" como prova de que o número é de uma cotação real. */
+  body { background: radial-gradient(120% 70% at 50% 30%, #2c3a72 0%, #222d59 45%, #161e40 100%); }
+  .onda { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 380px; top: 294px; width: 320px; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 406px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.35); }
+  .chip .icone { width: 22px; height: 22px; color: var(--laranja); }
+  .h1 { position: absolute; left: 0; right: 0; top: 482px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 56px;
+    line-height: 1.08; letter-spacing: -.015em; }
+  .h1 em { font-style: normal; color: var(--laranja); }
+  .preco { position: absolute; left: 0; right: 0; top: 650px; text-align: center; font-size: 190px; }
+  .mes { position: absolute; left: 0; right: 0; top: 832px; text-align: center; font-weight: 600; font-size: 30px; color: #dfe4f5; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 878px; text-align: center; color: rgba(255,255,255,.8); }
+  .carimbo { position: absolute; left: 330px; top: 928px; width: 420px; height: 92px; transform: rotate(-5deg);
+    border: 4px solid var(--laranja); border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--laranja); }
+  .carimbo .dentro { position: absolute; left: 6px; right: 6px; top: 6px; bottom: 6px; border: 1.5px solid rgba(242,138,21,.7); border-radius: 9px; }
+  .carimbo p { font-weight: 700; font-size: 24px; letter-spacing: .08em; line-height: 1.15; }
+  .pilulas { position: absolute; left: 60px; right: 60px; top: 1062px; }
+  .pilulas span { border: 2px solid rgba(242,138,21,.85); color: #fff; }
+  .comp { position: absolute; left: 0; right: 0; top: 1138px; text-align: center; font-size: 22px; font-weight: 500; color: #dfe4f5; line-height: 1.4; }
+  .comp b { color: #fff; font-weight: 700; }
+  .cta { background: linear-gradient(90deg, var(--laranja), var(--laranja-2)); color: var(--sula-esc); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .legal { color: rgba(255,255,255,.85); }
+</style>
+</head>
+<body data-operadora="sula">
+  <svg class="onda" viewBox="0 0 1080 1920" fill="none">
+    <defs><linearGradient id="o1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f28a15"/><stop offset="1" stop-color="#e9521c"/></linearGradient></defs>
+    <path d="M-40 1580C180 1500 330 1640 560 1600C790 1560 900 1470 1120 1520" stroke="url(#o1)" stroke-width="16" stroke-linecap="round" opacity=".9"/>
+    <path d="M-40 1630C200 1560 360 1690 590 1650C820 1610 930 1530 1120 1575" stroke="#fff" stroke-width="3" opacity=".15"/>
+    <path d="M-40 250C160 190 330 290 540 260C760 228 900 160 1120 200" stroke="url(#o1)" stroke-width="8" stroke-linecap="round" opacity=".55"/>
+  </svg>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+  <h1 class="h1">3 vidas, plano nacional,<br><em>sem coparticipação.</em></h1>
+
+  <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p>
+  <p class="mes">por mês, para as 3 vidas</p>
+  <p class="nota-preco"></p>
+
+  <div class="carimbo mono"><i class="dentro"></i><p>COTAÇÃO VÁLIDA</p><p>ATÉ 19/12/2026</p></div>
+
+  <p class="pilulas"><span>SulAmérica Direto Nacional</span><span>Enfermaria</span></p>
+  <p class="comp"><b>1 vida até 18 anos + 2 vidas de 34 a 38 anos</b><br>R$ 1.556,49 + IOF</p>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

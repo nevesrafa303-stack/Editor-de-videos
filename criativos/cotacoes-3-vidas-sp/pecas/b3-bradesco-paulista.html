@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B3 · Bradesco · Avenida Paulista</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B3 — a Avenida Paulista de dia (foto real, Adobe Stock) puxa quem tem empresa em São Paulo; o cartão branco traz
+     o plano para sócios e diretores, 3 vidas, sem coparticipação, com o preço em vermelho Bradesco. */
+  body { background: #3a000d; }
+  .foto { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; }
+  .veu-topo { position: absolute; left: 0; right: 0; top: 0; height: 760px;
+    background: linear-gradient(180deg, rgba(58,0,13,.95) 0%, rgba(58,0,13,.9) 60%, rgba(58,0,13,.55) 82%, rgba(58,0,13,0) 100%); }
+  .veu-base { position: absolute; left: 0; right: 0; top: 900px; height: 1020px;
+    background: linear-gradient(180deg, rgba(58,0,13,0) 0%, rgba(58,0,13,.8) 22%, #3a000d 42%); }
+  .logo { position: absolute; left: 395px; top: 296px; width: 290px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 410px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(58,0,13,.5); border: 1.5px solid rgba(255,255,255,.45); }
+  .chip .icone { width: 22px; height: 22px; }
+  .h1 { position: absolute; left: 0; right: 0; top: 490px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 70px;
+    line-height: 1.16; letter-spacing: -.02em; text-shadow: 0 4px 24px rgba(30,0,6,.55); }
+  .h1 em { font-style: normal; color: #fff; background: var(--brad); padding: 0 14px; border-radius: 12px; }
+
+  .cartao { position: absolute; left: 80px; right: 80px; top: 968px; height: 256px; border-radius: 30px; background: #fff;
+    box-shadow: 0 30px 60px rgba(20,0,4,.5); color: #2b0a10; }
+  .cartao .faixa { position: absolute; left: 0; right: 0; top: 0; height: 58px; border-radius: 30px 30px 0 0; background: var(--brad);
+    display: flex; align-items: center; justify-content: center; gap: 12px; color: #fff; font-weight: 700; font-size: 21px;
+    letter-spacing: .1em; text-transform: uppercase; }
+  .cartao .faixa .icone { width: 26px; height: 26px; }
+  .cartao .plano { position: absolute; left: 0; right: 0; top: 76px; text-align: center; font-weight: 600; font-size: 23px; color: #5a3a40; }
+  .cartao .preco { position: absolute; left: 0; right: 0; top: 116px; text-align: center; font-size: 84px; color: var(--brad); }
+  .cartao .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 26px; letter-spacing: 0; margin-left: 6px; color: #5a3a40; }
+  .cartao .nota-preco { position: absolute; left: 0; right: 0; top: 210px; text-align: center; color: #5a3a40; }
+  .cta { background: var(--brad); color: #fff; box-shadow: 0 14px 30px rgba(0,0,0,.4); }
+  .legal { color: rgba(255,255,255,.86); }
+</style>
+</head>
+<body data-operadora="bradesco" data-foto="sim">
+  <img class="foto" src="../assets/fotos/cortes/b3-paulista-dia.jpg" alt="">
+  <div class="veu-topo"></div>
+  <div class="veu-base"></div>
+
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip"><span data-icone="grupo"></span>Sócios e diretores · 3 vidas</p>
+  <h1 class="h1">Sua empresa é<br>de <em>São Paulo?</em></h1>
+
+  <div class="cartao">
+    <p class="faixa"><span data-icone="check"></span>Sem coparticipação · enfermaria</p>
+    <p class="plano">Bradesco Saúde Efetivo Plus para 3 vidas</p>
+    <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+    <p class="nota-preco"></p>
+  </div>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

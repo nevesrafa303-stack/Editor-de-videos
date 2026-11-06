@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S3 · SulAmérica · A conta</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* S3 — Avenida Paulista à noite (foto real, Adobe Stock) e a conta da cotação aberta linha por linha:
+     1 vida até 18 anos, 2 vidas de 34 a 38 anos, IOF e o total do mês, com uma anotação à mão. */
+  body { background: var(--sula-esc); }
+  .foto { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; display: block; }
+  .veu { position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(22,30,64,.92) 0%, rgba(22,30,64,.84) 32%, rgba(22,30,64,.4) 44%, rgba(22,30,64,.55) 60%, rgba(22,30,64,.9) 68%, #161e40 76%); }
+  .logo { position: absolute; left: 380px; top: 294px; width: 320px; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 406px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(22,30,64,.6); border: 1.5px solid rgba(255,255,255,.35); }
+  .chip .icone { width: 22px; height: 22px; color: var(--laranja); }
+  .h1 { position: absolute; left: 0; right: 0; top: 478px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 54px;
+    line-height: 1.08; letter-spacing: -.015em; }
+  .h1 em { font-style: normal; color: var(--laranja); }
+  .conta { position: absolute; left: 100px; right: 100px; top: 640px; height: 520px; border-radius: 30px; background: rgba(16,23,52,.9);
+    border: 2px solid rgba(255,255,255,.22); box-shadow: 0 30px 60px rgba(0,0,0,.45); }
+  .conta .dentro { position: absolute; left: 48px; right: 48px; top: 40px; }
+  .conta .tit { font-weight: 700; font-size: 21px; letter-spacing: .14em; text-transform: uppercase; color: var(--laranja); text-align: center; }
+  .linha { display: flex; align-items: flex-end; font-size: 26px; line-height: 50px; white-space: nowrap; color: #fff; }
+  .linha .lead { flex: 1; height: 3px; margin: 0 12px 13px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.4) 0 3px, transparent 3px 9px); }
+  .linha.fraca { color: #c9d0ea; }
+  .tracos { height: 2px; margin: 14px 0 18px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.45) 0 10px, transparent 10px 16px); }
+  .rot { font-weight: 700; font-size: 21px; letter-spacing: .14em; text-transform: uppercase; color: #c9d0ea; text-align: center; }
+  .preco { text-align: center; font-size: 104px; margin-top: 8px; }
+  .nota-preco { text-align: center; color: rgba(255,255,255,.8); margin-top: 10px; }
+  .mao.nota { position: absolute; right: 36px; top: 238px; font-size: 40px; color: var(--laranja); transform: rotate(-6deg); }
+  .pilulas { position: absolute; left: 60px; right: 60px; top: 1176px; gap: 10px; }
+  .pilulas span { height: 46px; font-size: 20px; border: 2px solid rgba(255,255,255,.35); color: #fff; padding: 0 18px; }
+  .cta { background: linear-gradient(90deg, var(--laranja), var(--laranja-2)); color: var(--sula-esc); box-shadow: 0 14px 30px rgba(0,0,0,.4); }
+  .legal { color: rgba(255,255,255,.85); }
+</style>
+</head>
+<body data-operadora="sula" data-foto="sim">
+  <img class="foto" src="../assets/fotos/cortes/s3-paulista-noite.jpg" alt="">
+  <div class="veu"></div>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+  <h1 class="h1">Quanto custa a SulAmérica<br><em>para 3 vidas em SP?</em></h1>
+
+  <div class="conta">
+    <div class="dentro">
+      <p class="tit">A conta da cotação</p>
+      <p class="linha mono"><span>1 vida · até 18 anos</span><i class="lead"></i><span>R$ 332,45</span></p>
+      <p class="linha mono"><span>2 vidas · 34 a 38 anos</span><i class="lead"></i><span>R$ 1.224,04</span></p>
+      <p class="linha mono fraca"><span>IOF (2,38%)</span><i class="lead"></i><span>R$ 37,05</span></p>
+      <div class="tracos"></div>
+      <p class="rot">Total por mês</p>
+      <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p>
+      <p class="nota-preco"></p>
+    </div>
+    <p class="mao nota">sem coparticipação</p>
+  </div>
+
+  <p class="pilulas"><span>Direto Nacional</span><span>Enfermaria</span><span>Válida até 19/12</span></p>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

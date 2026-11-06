@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A2 · Amil · Hospital</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* A2 — foto real de equipe médica no saguão de um hospital moderno (Adobe Stock), a cor da Amil subindo pela foto
+     e o preço da 1ª e da 2ª mensalidade no centro, com o valor cheio logo abaixo. */
+  body { background: var(--amil-noite); }
+  .foto { position: absolute; left: 0; top: 250px; width: 1080px; height: 1120px; display: block; }
+  .veu-topo { position: absolute; left: 0; right: 0; top: 0; height: 560px;
+    background: linear-gradient(180deg, #0f0d59 0%, #0f0d59 46%, rgba(15,13,89,.6) 72%, rgba(15,13,89,0) 100%); }
+  .veu-base { position: absolute; left: 0; right: 0; top: 600px; height: 820px;
+    background: linear-gradient(180deg, rgba(15,13,89,0) 0%, rgba(15,13,89,.72) 16%, rgba(15,13,89,.9) 32%, #0f0d59 58%); }
+  .logo { position: absolute; left: 425px; top: 300px; width: 230px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 404px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(15,13,89,.55); border: 1.5px solid rgba(255,255,255,.4); }
+  .chip .icone { width: 22px; height: 22px; color: var(--verde); }
+  .h1 { position: absolute; left: 60px; right: 60px; top: 752px; text-align: center; font-family: 'Gabarito'; font-weight: 900;
+    font-size: 58px; line-height: 1.04; letter-spacing: -.01em; text-shadow: 0 4px 24px rgba(5,3,40,.5); }
+  .h1 em { font-style: normal; color: var(--ambar); }
+  .sub { position: absolute; left: 0; right: 0; top: 888px; text-align: center; font-weight: 600; font-size: 24px; color: #dcd8ff; }
+  .rot { position: absolute; left: 0; right: 0; top: 960px; text-align: center; font-weight: 700; font-size: 22px;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ambar); }
+  .preco { position: absolute; left: 0; right: 0; top: 998px; text-align: center; font-size: 128px; }
+  .depois { position: absolute; left: 0; right: 0; top: 1124px; text-align: center; font-size: 26px; font-weight: 500; color: #dcd8ff; }
+  .depois b { color: #fff; font-weight: 700; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1168px; text-align: center; color: rgba(255,255,255,.82); }
+  .cta { background: var(--verde); color: var(--amil-noite); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .legal { color: rgba(255,255,255,.84); }
+</style>
+</head>
+<body data-operadora="amil" data-hospital="sim">
+  <img class="foto" src="../assets/fotos/cortes/a2-equipe-saguao.jpg" alt="">
+  <div class="veu-topo"></div>
+  <div class="veu-base"></div>
+
+  <div class="logo" data-marca="amil"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+
+  <h1 class="h1">Hospital, consulta e exame<br>com a Amil, <em>no Brasil todo.</em></h1>
+  <p class="sub">Prata Nacional · enfermaria · coparticipação só em terapias</p>
+
+  <p class="rot">3 vidas · 1ª e 2ª mensalidade</p>
+  <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
+  <p class="depois">depois, <b>R$ 1.445,99</b> por mês</p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

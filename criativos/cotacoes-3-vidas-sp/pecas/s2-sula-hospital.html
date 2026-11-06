@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S2 · SulAmérica · Hospital</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* S2 — equipe médica real caminhando num hospital com vista para a cidade (Adobe Stock), recortada por um painel
+     branco com a onda da SulAmérica; o preço da cotação em azul-marinho e laranja. */
+  body { background: var(--sula-esc); }
+  .foto { position: absolute; left: 0; top: 560px; width: 1080px; height: 1150px; display: block; }
+  .veu-topo { position: absolute; left: 0; right: 0; top: 560px; height: 300px;
+    background: linear-gradient(180deg, #161e40 0%, rgba(22,30,64,.85) 22%, rgba(22,30,64,.35) 60%, rgba(22,30,64,0) 100%); }
+  .painel { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .logo { position: absolute; left: 380px; top: 294px; width: 320px; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 406px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.35); }
+  .chip .icone { width: 22px; height: 22px; color: var(--laranja); }
+  .h1 { position: absolute; left: 50px; right: 50px; top: 476px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 46px;
+    line-height: 1.1; letter-spacing: -.01em; }
+  .h1 em { font-style: normal; color: var(--laranja); }
+  .pilulas { position: absolute; left: 60px; right: 60px; top: 1038px; }
+  .pilulas span { background: #fff; border: 2px solid #d4d9ea; color: var(--sula); }
+  .pilulas span:first-child { background: var(--sula); border-color: var(--sula); color: #fff; }
+  .preco { position: absolute; left: 0; right: 0; top: 1104px; text-align: center; font-size: 96px; color: var(--sula); }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 28px; letter-spacing: 0; margin-left: 6px; color: #4a5378; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1204px; text-align: center; color: #4a5378; }
+  .cta { background: linear-gradient(90deg, var(--laranja), var(--laranja-2)); color: var(--sula-esc); box-shadow: 0 14px 30px rgba(233,82,28,.35); }
+  .legal { color: #2f3a66; }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <img class="foto" src="../assets/fotos/cortes/s2-equipe-corredor.jpg" alt="">
+  <div class="veu-topo"></div>
+  <svg class="painel" viewBox="0 0 1080 1920">
+    <defs><linearGradient id="o2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f28a15"/><stop offset="1" stop-color="#e9521c"/></linearGradient></defs>
+    <path d="M0 1010C190 960 340 1050 560 1020C780 990 900 930 1080 960V1920H0Z" fill="#ffffff"/>
+    <path d="M-20 1000C180 948 340 1036 560 1006C780 976 900 916 1100 948" fill="none" stroke="url(#o2)" stroke-width="12" stroke-linecap="round"/>
+  </svg>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+  <h1 class="h1">Plano SulAmérica nacional<br>para a sua empresa <em>em SP</em></h1>
+
+  <p class="pilulas"><span>3 vidas</span><span>Sem coparticipação</span><span>Enfermaria</span></p>
+  <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

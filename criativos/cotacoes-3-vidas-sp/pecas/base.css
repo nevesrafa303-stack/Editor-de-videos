@@ -1,0 +1,71 @@
+/* Cotações de 3 vidas em São Paulo (SP) — Amil, Bradesco Saúde e SulAmérica.
+   Um formato só: Story 1080x1920 com tudo o que é texto entre y=290 e y=1536, que serve para o Story
+   (barras da interface livres) e para o recorte 4:5 do Feed (y 285–1635).
+   Fotos reais do Adobe Stock (licença gratuita, sem IA). Tipos: Gabarito (Amil), Montserrat 900 nos números,
+   Poppins no texto, Courier Prime nos recibos e extratos, Caveat nas anotações à mão. */
+
+@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 400; src: url('../assets/fonts/Poppins-400.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; src: url('../assets/fonts/Poppins-500.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; src: url('../assets/fonts/Poppins-600.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; src: url('../assets/fonts/Poppins-700.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 800; src: url('../assets/fonts/Poppins-800.ttf'); }
+@font-face { font-family: 'Gabarito'; font-weight: 500; src: url('../assets/fonts/Gabarito-500.ttf'); }
+@font-face { font-family: 'Gabarito'; font-weight: 700; src: url('../assets/fonts/Gabarito-700.ttf'); }
+@font-face { font-family: 'Gabarito'; font-weight: 900; src: url('../assets/fonts/Gabarito-900.ttf'); }
+@font-face { font-family: 'Courier'; font-weight: 400; src: url('../assets/fonts/CourierPrime-400.ttf'); }
+@font-face { font-family: 'Courier'; font-weight: 700; src: url('../assets/fonts/CourierPrime-700.ttf'); }
+@font-face { font-family: 'Caveat'; font-weight: 700; src: url('../assets/fonts/Caveat-700.ttf'); }
+
+:root {
+  /* Amil */
+  --amil: #461bff; --amil-claro: #6a4bff; --amil-noite: #0f0d59; --amil-lavanda: #ecebfe; --ambar: #ffc542; --verde: #00d896;
+  /* Bradesco Saúde */
+  --brad: #cc092f; --brad-claro: #e3163f; --brad-esc: #a3001f; --brad-vinho: #5c0016;
+  /* SulAmérica */
+  --sula: #222d59; --sula-esc: #161e40; --laranja: #f28a15; --laranja-2: #e9521c;
+  --mont: 'Mont', 'Poppins', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
+body { position: relative; font-family: 'Poppins', sans-serif; color: #fff;
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+.abs { position: absolute; }
+.centro { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* Logos: SVG inline (Amil, Bradesco) ou imagem (SulAmérica) */
+.logo { display: block; line-height: 0; }
+.logo svg, .logo img { width: 100%; height: auto; display: block; }
+
+/* Etiqueta "plano empresarial · SP" */
+.chip { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px; white-space: nowrap;
+  font-weight: 600; text-transform: uppercase; letter-spacing: .1em; line-height: 1; }
+.chip .ponto { display: block; width: 10px; height: 10px; border-radius: 50%; }
+
+/* Itens da oferta em pílulas */
+.pilulas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.pilulas span { display: inline-flex; align-items: center; height: 52px; padding: 0 22px; border-radius: 999px; white-space: nowrap;
+  font-weight: 600; font-size: 22px; line-height: 1; }
+
+.preco { font-family: var(--mont); font-weight: 900; line-height: .9; letter-spacing: -.035em; white-space: nowrap; }
+.preco .rs { font-size: .38em; letter-spacing: 0; margin-right: .12em; vertical-align: .95em; }
+.preco .cent { font-size: .42em; letter-spacing: -.01em; vertical-align: .9em; }
+.preco .mes { vertical-align: .25em; }
+.nota-preco { font-weight: 500; font-size: 19px; }
+.icone { display: inline-flex; flex: none; }
+.icone svg { width: 100%; height: 100%; display: block; }
+
+/* Botão */
+.cta { position: absolute; left: 90px; right: 90px; top: 1240px; height: 80px; display: flex; align-items: center;
+  justify-content: center; gap: 16px; border-radius: 999px; white-space: nowrap; font-family: var(--mont); font-weight: 900;
+  font-size: 28px; letter-spacing: .02em; text-transform: uppercase; line-height: 1; }
+.cta .icone { width: 38px; height: 38px; }
+
+.legal { position: absolute; left: 56px; right: 56px; top: 1338px; font-weight: 500; font-size: 19px; line-height: 1.3; }
+
+/* Recibos e extratos */
+.mono { font-family: 'Courier', monospace; }
+.mao { font-family: 'Caveat', cursive; font-weight: 700; line-height: 1; }
+.linha-pontilhada { height: 2px; background: repeating-linear-gradient(90deg, currentColor 0 8px, transparent 8px 14px); opacity: .55; }

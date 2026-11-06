@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B2 · Bradesco · Extrato</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B2 — o gancho é a pergunta ("Usou o plano?") e a prova é um extrato de papel com a coparticipação zerada
+     em consulta, exame, pronto-socorro e internação; embaixo, a mensalidade da cotação de 3 vidas. */
+  body { background: linear-gradient(170deg, #e3163f 0%, #cc092f 40%, #a3001f 78%, #7a0017 100%); }
+  .logo { position: absolute; left: 395px; top: 296px; width: 290px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 410px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(60,0,14,.3); border: 1.5px solid rgba(255,255,255,.45); }
+  .chip .icone { width: 22px; height: 22px; }
+  .h1 { position: absolute; left: 0; right: 0; top: 486px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 80px;
+    line-height: 1; letter-spacing: -.02em; }
+  .h2 { position: absolute; left: 0; right: 0; top: 578px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 42px;
+    line-height: 1.05; color: #ffe1e6; }
+
+  .extrato { position: absolute; left: 160px; top: 652px; width: 760px; height: 430px; transform: rotate(1.6deg); color: #3a1218; }
+  .extrato .papel { position: absolute; left: 0; top: 0; width: 760px; height: 430px; filter: drop-shadow(0 24px 30px rgba(50,0,10,.45)); }
+  .extrato .conteudo { position: absolute; left: 50px; right: 50px; top: 40px; }
+  .extrato .tit { font-weight: 700; font-size: 26px; text-align: center; letter-spacing: .05em; color: var(--brad-esc); }
+  .extrato .sub { font-size: 19px; text-align: center; margin-top: 2px; color: #6b4b50; }
+  .extrato .tracos { height: 2px; margin: 12px 0; background: repeating-linear-gradient(90deg, #c9a9ae 0 10px, transparent 10px 16px); }
+  .linha { display: flex; align-items: flex-end; font-size: 25px; line-height: 40px; white-space: nowrap; }
+  .linha .lead { flex: 1; height: 3px; margin: 0 10px 10px; background: repeating-linear-gradient(90deg, #c9a9ae 0 3px, transparent 3px 9px); }
+  .linha.total { font-weight: 700; font-size: 30px; color: var(--brad-esc); }
+  .mao.zero { position: absolute; left: 300px; top: 352px; font-size: 44px; color: var(--brad); transform: rotate(-7deg); }
+
+  .rot { position: absolute; left: 0; right: 0; top: 1104px; text-align: center; font-weight: 700; font-size: 21px; letter-spacing: .1em;
+    text-transform: uppercase; color: #ffd6dc; }
+  .preco { position: absolute; left: 0; right: 0; top: 1136px; text-align: center; font-size: 64px; }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 24px; letter-spacing: 0; margin-left: 6px; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1206px; text-align: center; color: rgba(255,255,255,.88); }
+  .cta { background: #fff; color: var(--brad-esc); box-shadow: 0 14px 30px rgba(40,0,8,.35); }
+  .cta .icone { color: var(--brad); }
+  .legal { color: rgba(255,255,255,.9); }
+</style>
+</head>
+<body data-operadora="bradesco">
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+  <h1 class="h1">Usou o plano?</h1>
+  <p class="h2">Não paga a mais por isso.</p>
+
+  <div class="extrato">
+    <svg class="papel" viewBox="0 0 760 430"><path fill="#fffdf9" d="M0 14L19 0L38 14L57 0L76 14L95 0L114 14L133 0L152 14L171 0L190 14L209 0L228 14L247 0L266 14L285 0L304 14L323 0L342 14L361 0L380 14L399 0L418 14L437 0L456 14L475 0L494 14L513 0L532 14L551 0L570 14L589 0L608 14L627 0L646 14L665 0L684 14L703 0L722 14L741 0L760 14V416L741 430L722 416L703 430L684 416L665 430L646 416L627 430L608 416L589 430L570 416L551 430L532 416L513 430L494 416L475 430L456 416L437 430L418 416L399 430L380 416L361 430L342 416L323 430L304 416L285 430L266 416L247 430L228 416L209 430L190 416L171 430L152 416L133 430L114 416L95 430L76 416L57 430L38 416L19 430L0 416Z"/></svg>
+    <div class="conteudo mono">
+      <p class="tit">EXTRATO DE COPARTICIPAÇÃO</p>
+      <p class="sub">Bradesco Saúde Efetivo Plus · enfermaria</p>
+      <div class="tracos"></div>
+      <p class="linha"><span>Consulta</span><i class="lead"></i><span>R$ 0,00</span></p>
+      <p class="linha"><span>Exames</span><i class="lead"></i><span>R$ 0,00</span></p>
+      <p class="linha"><span>Pronto-socorro</span><i class="lead"></i><span>R$ 0,00</span></p>
+      <p class="linha"><span>Internação</span><i class="lead"></i><span>R$ 0,00</span></p>
+      <div class="tracos"></div>
+      <p class="linha total"><span>Coparticipação</span><i class="lead"></i><span>R$ 0,00</span></p>
+    </div>
+    <p class="mao zero">zero!</p>
+  </div>
+
+  <p class="rot">Mensalidade · 3 vidas</p>
+  <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="conversa"></span>Fale com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A3 · Amil · Tabela por idade</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* A3 — a pergunta que faz parar ("quanto custa na sua idade?") e a tabela de valor por vida da própria cotação,
+     com marca-texto nas faixas do exemplo (1 vida até 18 + 2 vidas de 34 a 38) e o total no rodapé do cartão. */
+  body { background: linear-gradient(180deg, #f6f5ff 0%, #ecebfe 55%, #e2deff 100%); color: var(--amil-noite); }
+  .grade { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 425px; top: 300px; width: 230px; color: var(--amil); }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 404px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: var(--amil); background: #fff; border: 1.5px solid #cfc8ff; }
+  .chip .icone { width: 22px; height: 22px; }
+  .h1 { position: absolute; left: 0; right: 0; top: 470px; text-align: center; font-family: 'Gabarito'; font-weight: 900;
+    font-size: 64px; line-height: 1.02; letter-spacing: -.015em; }
+  .h1 em { font-style: normal; color: var(--amil); background: linear-gradient(180deg, transparent 58%, #ffd86b 58%, #ffd86b 92%, transparent 92%); }
+  .mao.dica { position: absolute; left: 0; right: 0; top: 608px; text-align: center; font-size: 36px; color: var(--amil); transform: rotate(-2deg); }
+
+  .tabela { position: absolute; left: 140px; top: 664px; width: 800px; border-radius: 26px; background: #fff;
+    box-shadow: 0 24px 50px rgba(30,20,120,.16); padding: 0 0 8px; }
+  .tabela .cab { display: flex; justify-content: space-between; align-items: center; height: 54px; padding: 0 34px;
+    border-radius: 26px 26px 0 0; background: var(--amil); color: #fff; font-weight: 700; font-size: 19px; letter-spacing: .12em; text-transform: uppercase; }
+  .tabela .lin { display: flex; align-items: center; height: 38px; padding: 0 34px; }
+  .tabela .lin:nth-child(odd) { background: #f7f6ff; }
+  .tabela .lin .faixa { font-weight: 600; font-size: 24px; color: #2c2a6b; }
+  .tabela .lin .valor { margin-left: auto; font-family: var(--mont); font-weight: 800; font-size: 25px; color: var(--amil-noite); }
+  .tabela .lin .vezes { width: 54px; text-align: right; font-size: 30px; color: var(--amil); }
+  .tabela .lin.marca { background: linear-gradient(90deg, rgba(255,216,107,.95), rgba(255,216,107,.75)); }
+
+  .total { position: absolute; left: 100px; right: 100px; top: 1120px; height: 104px; border-radius: 26px; background: var(--amil-noite);
+    display: flex; align-items: center; padding: 0 34px; gap: 26px; color: #fff; }
+  .total .esq { display: flex; flex-direction: column; }
+  .total .esq span { font-weight: 700; font-size: 19px; letter-spacing: .1em; text-transform: uppercase; color: var(--ambar); }
+  .total .preco { font-size: 70px; margin-top: 2px; }
+  .total .dir { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+  .total .dir span { font-size: 21px; font-weight: 500; color: #dcd8ff; }
+  .total .dir b { font-weight: 700; color: #fff; }
+  .total .nota-preco { color: rgba(255,255,255,.8); margin-top: 6px; }
+  .cta { background: var(--amil); color: #fff; box-shadow: 0 14px 30px rgba(70,27,255,.35); }
+  .legal { color: #3b3870; }
+</style>
+</head>
+<body data-operadora="amil">
+  <svg class="grade" viewBox="0 0 1080 1920" stroke="#461bff" stroke-opacity=".06" stroke-width="2">
+    <path d="M0 270H1080M0 330H1080M0 390H1080M0 450H1080M0 510H1080M0 570H1080M0 630H1080M0 690H1080M0 750H1080M0 810H1080M0 870H1080M0 930H1080M0 990H1080M0 1050H1080M0 1110H1080M0 1170H1080M0 1230H1080M0 1290H1080M0 1350H1080M0 1410H1080M0 1470H1080M0 1530H1080M0 1590H1080"/>
+  </svg>
+
+  <div class="logo" data-marca="amil"></div>
+  <p class="chip"><span data-icone="pin"></span>Plano empresarial · São Paulo (SP)</p>
+  <h1 class="h1">Quanto custa a Amil<br><em>na sua idade?</em></h1>
+  <p class="mao dica">valor por pessoa, por mês ↓</p>
+
+  <div class="tabela"><div class="cab"><span>Faixa de idade</span><span>Valor por vida</span></div></div>
+
+  <div class="total">
+    <div class="esq"><span>3 vidas · 1ª e 2ª mensalidade</span><p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p></div>
+    <div class="dir"><span>depois, <b>R$ 1.445,99</b>/mês</span><p class="nota-preco"></p></div>
+  </div>
+
+  <div class="cta"><span data-icone="conversa"></span>Calcule com um consultor</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar, COTACAO } from './base.js';
+    const marca = { 'até 18': '×1', '34 a 38': '×2' };
+    const tab = document.querySelector('.tabela');
+    for (const [faixa, valor] of COTACAO.amil.porVida) {
+      const lin = document.createElement('p');
+      lin.className = 'lin' + (marca[faixa] ? ' marca' : '');
+      const f = document.createElement('span'); f.className = 'faixa'; f.textContent = faixa === '59 ou mais' ? '59 anos ou mais' : `${faixa} anos`;
+      const v = document.createElement('span'); v.className = 'valor'; v.textContent = `R$ ${valor}`;
+      const x = document.createElement('span'); x.className = 'vezes mao'; x.textContent = marca[faixa] || '';
+      lin.append(f, v, x); tab.append(lin);
+    }
+    await montar();
+  </script>
+</body>
+</html>
