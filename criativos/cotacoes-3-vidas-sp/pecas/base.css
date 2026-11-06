@@ -43,6 +43,13 @@ body { position: relative; font-family: 'Poppins', sans-serif; color: #fff;
 .chip { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px; white-space: nowrap;
   font-weight: 600; text-transform: uppercase; letter-spacing: .1em; line-height: 1; }
 .chip .ponto { display: block; width: 10px; height: 10px; border-radius: 50%; }
+/* Requisito do formulário (com trava): só CNPJ, a partir de 3 vidas. Fica colado no começo da etiqueta. */
+.chip .req { display: inline-flex; align-items: center; gap: 8px; height: 34px; margin-left: -17px; padding: 0 16px 0 12px;
+  border-radius: 999px; font-weight: 700; }
+.chip .req .icone { width: 20px; height: 20px; color: inherit; }
+[data-operadora=amil] .chip .req { background: var(--verde); color: #0f0d59; }
+[data-operadora=bradesco] .chip .req { background: #fff; color: var(--brad-esc); }
+[data-operadora=sula] .chip .req { background: var(--laranja); color: var(--sula-esc); }
 
 /* Itens da oferta em pílulas */
 .pilulas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }

@@ -37,6 +37,17 @@ Logos: Amil (`assets/marca/amil.svg`, o mesmo das outras campanhas), Bradesco Sa
 Bradesco Seguros) e SulAmérica (recortado da imagem oficial do portal da SulAmérica; versão para fundo escuro com
 o texto em branco).
 
+## Destino: formulário com trava (CNPJ + 3 vidas ou mais)
+
+Todos os anúncios levam para o formulário do Meta, que só aceita quem tem CNPJ e 3 vidas ou mais (regra do
+CLAUDE.md). Por isso as 9 peças têm:
+
+- **No topo, logo abaixo da marca:** a etiqueta "**SÓ PARA CNPJ** · A PARTIR DE 3 VIDAS · SÃO PAULO (SP)". Na B3 o
+  texto é "SÓCIOS E DIRETORES · A PARTIR DE 3 VIDAS". O "Só para CNPJ" vem num selo na cor de destaque da operadora:
+  verde na Amil, branco no Bradesco, laranja na SulAmérica.
+- **Botão:** "**Solicite sua cotação**", com ícone de formulário. Não há "fale com um consultor" nem balão de
+  conversa. No Meta, use o botão "Obter cotação".
+
 ## Observações obrigatórias (CLAUDE.md) que entraram
 
 Texto exato. Abaixo de cada preço: **"Valores sujeitos à faixa etária e região."** No rodapé, depois do perfil da
