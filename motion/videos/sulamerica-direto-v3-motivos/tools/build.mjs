@@ -153,7 +153,7 @@ const drift = (add, p, d) => add(`tl.fromTo("#${p}-pat",{x:0,y:0},{x:44,y:44,dur
   const css = css0(p, WH, NV) + `
 #m3-k{top:270px;}
 #m3-k>div{background:${OR};color:${WH};}
-#m3-t{top:350px;font-size:104px;color:${NV};line-height:.98;}
+#m3-t{top:356px;font-size:92px;color:${NV};line-height:1.02;}
 #m3-cw{position:absolute;left:90px;top:580px;width:900px;height:560px;border-radius:40px;overflow:hidden;box-shadow:0 24px 60px rgba(10,26,63,.25);}
 #m3-tags{position:absolute;left:0;width:${W}px;top:1170px;display:flex;justify-content:center;gap:16px;}
 .m3-tg{background:${NV};color:${WH};font-size:40px;}
@@ -194,7 +194,7 @@ const drift = (add, p, d) => add(`tl.fromTo("#${p}-pat",{x:0,y:0},{x:44,y:44,dur
 #m4-ov{position:absolute;inset:0;background:rgba(10,26,63,.82);}
 #m4-k{top:270px;}
 #m4-k>div{background:${YL};color:${NV};}
-#m4-t{top:350px;font-size:92px;line-height:1.02;}
+#m4-t{top:354px;font-size:84px;line-height:1.04;}
 #m4-t .o{color:${YL};}
 #m4-card{position:absolute;left:90px;top:600px;width:900px;height:506px;border-radius:30px;overflow:hidden;border:8px solid ${WH};box-shadow:0 26px 70px rgba(0,0,0,.45);transform:rotate(-3deg);}
 #m4-iw{position:absolute;inset:0;}
@@ -241,7 +241,7 @@ const drift = (add, p, d) => add(`tl.fromTo("#${p}-pat",{x:0,y:0},{x:44,y:44,dur
   const css = css0(p, OR) + `
 #m5-k{top:270px;}
 #m5-k>div{background:${NV};color:${WH};}
-#m5-t{top:350px;font-size:96px;color:${WH};line-height:1.02;}
+#m5-t{top:354px;font-size:88px;color:${WH};line-height:1.04;}
 #m5-t .n{color:${NV};}
 #m5-cw{position:absolute;left:260px;top:600px;width:560px;height:560px;border-radius:50%;overflow:hidden;border:12px solid ${WH};box-shadow:0 24px 60px rgba(0,0,0,.25);}
 #m5-card{position:absolute;left:70px;top:560px;width:940px;height:700px;border-radius:40px;background:${WH};color:${NV};box-shadow:0 14px 0 rgba(10,26,63,.25);}

@@ -155,7 +155,7 @@ const fadeUp = (add, sel, t, d = 0.45, y = 40) =>
 #c2-st{font-family:"Poppins";font-weight:500;font-size:44px;white-space:nowrap;}
 #c2-cur{display:inline-block;width:4px;height:52px;background:${OR};margin-left:6px;vertical-align:middle;}
 #c2-d{top:900px;font-size:84px;}
-#c2-e{top:1000px;font-size:128px;color:${OR};}
+#c2-e{top:1004px;font-size:112px;color:${OR};}
 #c2-x{position:absolute;left:0;width:${W}px;top:1170px;display:flex;justify-content:center;}
 #c2-x>div{display:flex;align-items:center;gap:14px;padding:12px 30px;border-radius:50px;background:rgba(229,72,77,.92);font-weight:600;font-size:32px;}
 #c2-lg{top:1452px;}
@@ -241,7 +241,7 @@ const fadeUp = (add, sel, t, d = 0.45, y = 40) =>
 #c4-dn{top:770px;font-size:104px;}
 #c4-stamp{position:absolute;left:0;width:${W}px;top:910px;display:flex;justify-content:center;}
 #c4-stamp>div{font-family:"Saira";font-weight:800;font-size:66px;line-height:1;text-transform:uppercase;color:${OR};padding:14px 34px 18px;border:6px solid ${OR};border-radius:16px;background:rgba(5,7,11,.55);transform:rotate(-4deg);}
-#c4-q{top:880px;font-size:72px;}
+#c4-q{top:886px;font-size:60px;}
 .c4-row{position:absolute;left:150px;width:780px;height:104px;border-radius:22px;background:rgba(5,7,11,.72);border:2px solid rgba(255,255,255,.28);display:flex;align-items:center;gap:22px;padding:0 30px;}
 .c4-ck{width:62px;height:62px;border-radius:50%;background:${OR};display:flex;align-items:center;justify-content:center;flex:none;}
 .c4-l{font-family:"Saira";font-weight:800;font-size:54px;text-transform:uppercase;flex:1;}
@@ -284,7 +284,7 @@ const fadeUp = (add, sel, t, d = 0.45, y = 40) =>
   const { a, L, add, words } = TL(ST[p]);
   const v = full(p, "v", "v-equipe", 0, DUR[p], 1.0, 1.08);
   const css = css0(p) + `
-#c5-h{top:360px;font-size:86px;}
+#c5-h{top:364px;font-size:78px;}
 #c5-sp{top:452px;font-size:78px;}
 #c5-card{position:absolute;left:60px;top:580px;width:960px;height:540px;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);border:3px solid rgba(255,255,255,.85);}
 #c5-iw{position:absolute;inset:0;}
