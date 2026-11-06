@@ -69,8 +69,13 @@ Meta**. Esse formulário tem trava e só aceita **quem tem CNPJ (MEI incluído) 
 Pedido do cliente em 06/11/2026: "sempre vamos trabalhar com os melhores". Quando o criativo cita hospital pelo nome:
 
 - **Prioridade:** os hospitais de primeira linha de São Paulo. Referência: ranking Newsweek/Statista "World's Best
-  Hospitals" do ano. Na edição 2026: Einstein, Sírio-Libanês e Alemão Oswaldo Cruz no topo. Também valem BP,
-  Samaritano, HCor, InCor, Vila Nova Star, Nove de Julho, São Luiz Itaim e Santa Catarina.
+  Hospitals" do ano.
+  - Ranking geral 2026, posição no Brasil: 1º Einstein, 2º Sírio-Libanês, 3º Alemão Oswaldo Cruz, 5º HCor e 6º
+    Santa Catarina Paulista.
+  - Hospitais especializados 2026: BP, InCor, A.C. Camargo, Nove de Julho e São Luiz Itaim; nas maternidades,
+    Santa Joana e Pro Matre.
+  - Samaritano e Vila Nova Star são de primeira linha, mas não confirmei a posição deles na edição 2026: conferir
+    antes de usar como "um dos melhores".
 - **Só se o hospital estiver na rede do plano da cotação, na acomodação da cotação** (enfermaria ou quarto),
   confirmado em material oficial da operadora ou na cotação. Hospital fora da rede é propaganda enganosa: não entra,
   nem como "referência". Não citar hospital de segunda linha só para preencher.
