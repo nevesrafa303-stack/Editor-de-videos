@@ -1,0 +1,32 @@
+/* Variações com hospital de referência (a4–a6, b4–b6, s4–s6). Fotos reais das fachadas (Wikimedia Commons,
+   licenças CC BY / domínio público), sempre com o crédito do autor sobre a foto. */
+
+.foto { position: absolute; display: block; object-fit: cover; }
+.veu { position: absolute; left: 0; right: 0; }
+
+/* crédito da foto (exigido pela licença CC BY) */
+.credito { position: absolute; padding: 5px 12px; border-radius: 8px; background: rgba(0,0,0,.62); color: #fff;
+  font-size: 19px; font-weight: 500; line-height: 1.15; white-space: nowrap; }
+
+/* placa com o nome do hospital e o bairro */
+.placa { position: absolute; display: flex; align-items: center; gap: 16px; padding: 16px 26px 16px 18px; border-radius: 20px;
+  background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.35); white-space: nowrap; }
+.placa .sinal { width: 58px; height: 58px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
+.placa .sinal .icone { width: 34px; height: 34px; }
+.placa .nome { font-family: var(--mont); font-weight: 900; font-size: 34px; line-height: 1.05; letter-spacing: -.01em; }
+.placa .bairro { font-weight: 600; font-size: 20px; line-height: 1.2; margin-top: 4px; }
+
+/* moldura de foto com cantos arredondados */
+.quadro { position: absolute; overflow: hidden; border-radius: 26px; border: 4px solid rgba(255,255,255,.92);
+  box-shadow: 0 26px 50px rgba(0,0,0,.4); }
+.quadro img { position: absolute; display: block; }
+.quadro .rotulo { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 22px 14px;
+  background: linear-gradient(180deg, rgba(8,6,18,.74), rgba(8,6,18,.9)); color: #fff; }
+.quadro .rotulo b { display: block; font-family: var(--mont); font-weight: 900; font-size: 30px; line-height: 1.05; }
+.quadro .rotulo span { display: block; font-weight: 600; font-size: 19px; margin-top: 4px; }
+
+/* lista de outros hospitais da rede */
+.mais { position: absolute; left: 70px; right: 70px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; }
+.mais span { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 999px;
+  font-weight: 600; font-size: 20px; white-space: nowrap; }
+.mais span .icone { width: 20px; height: 20px; }

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S5 · SulAmérica · Rede em SP</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="hosp.css">
+<style>
+  /* S5 — lista de hospitais de referência do Direto Nacional em enfermaria na capital, com a fachada real da BP num
+     cartão ao lado e o preço mensal da cotação embaixo. */
+  body { background: linear-gradient(180deg, #222d59 0%, #1b2550 50%, #161e40 100%); }
+  .onda { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 380px; top: 294px; width: 320px; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 406px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.35); }
+  .h1 { position: absolute; left: 0; right: 0; top: 484px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 56px;
+    line-height: 1.08; letter-spacing: -.015em; }
+  .h1 em { font-style: normal; color: var(--laranja); }
+
+  .quadro.c1 { left: 60px; top: 650px; width: 466px; height: 330px; transform: rotate(-2deg); }
+  .quadro.c1 img { left: 0; top: 0; width: 458px; height: 322px; }
+  .quadro .credito { left: 12px; top: 12px; }
+  .lista { position: absolute; left: 566px; top: 650px; display: flex; flex-direction: column; gap: 16px; }
+  .lista p { display: flex; align-items: center; gap: 14px; font-family: var(--mont); font-weight: 800; font-size: 31px; line-height: 1.05; }
+  .lista p small { display: block; font-family: 'Poppins'; font-weight: 500; font-size: 19px; color: #c9d0ea; margin-top: 2px; }
+  .lista .icone { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: var(--laranja); color: var(--sula-esc); }
+
+  .pilulas { position: absolute; left: 60px; right: 60px; top: 1010px; }
+  .pilulas span { border: 2px solid rgba(242,138,21,.85); color: #fff; }
+  .preco { position: absolute; left: 0; right: 0; top: 1092px; text-align: center; font-size: 84px; }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 24px; letter-spacing: 0; margin-left: 6px; color: #dfe4f5; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1190px; text-align: center; color: rgba(255,255,255,.8); }
+  .cta { background: linear-gradient(90deg, var(--laranja), var(--laranja-2)); color: var(--sula-esc); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .legal { color: rgba(255,255,255,.85); }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <svg class="onda" viewBox="0 0 1080 1920" fill="none">
+    <defs><linearGradient id="o1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f28a15"/><stop offset="1" stop-color="#e9521c"/></linearGradient></defs>
+    <path d="M-40 1580C180 1500 330 1640 560 1600C790 1560 900 1470 1120 1520" stroke="url(#o1)" stroke-width="16" stroke-linecap="round" opacity=".9"/>
+  </svg>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <h1 class="h1">Hospitais de referência<br>na rede, <em>em enfermaria</em></h1>
+
+  <div class="quadro c1">
+    <img src="../assets/fotos/cortes/h-bp-card.jpg" alt="">
+    <p class="credito">Foto: Alexandre Possi · CC BY 3.0</p>
+    <p class="rotulo"><b>BP</b><span>Beneficência Portuguesa · Bela Vista</span></p>
+  </div>
+  <div class="lista">
+    <p><span data-icone="check"></span><span>São Luiz<small>Rede D'Or</small></span></p>
+    <p><span data-icone="check"></span><span>BP<small>Beneficência Portuguesa</small></span></p>
+    <p><span data-icone="check"></span><span>Leforte</span></p>
+    <p><span data-icone="check"></span><span>Santa Paula</span></p>
+  </div>
+
+  <p class="pilulas"><span>SulAmérica Direto Nacional</span><span>Sem coparticipação</span><span>3 vidas</span></p>
+  <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="formulario"></span>Solicite sua cotação</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A4 · Amil · Hospital Paulistano</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="hosp.css">
+<style>
+  /* A4 — o nome do hospital é o gancho: "Hospital Paulistano" grande no topo e a fachada real (foto do próprio hospital,
+     domínio público) num cartão alto à direita; à esquerda, o preço da 1ª e da 2ª mensalidade. */
+  body { background: radial-gradient(120% 70% at 50% 18%, #5b34ff 0%, #3a14d6 34%, #1d1290 66%, #0f0d59 100%); }
+  .aneis { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 425px; top: 300px; width: 230px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 404px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); }
+  .kicker { position: absolute; left: 0; right: 0; top: 486px; text-align: center; font-weight: 700; font-size: 22px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--verde); }
+  .h1 { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 80px;
+    line-height: 1; letter-spacing: -.025em; }
+  .sub { position: absolute; left: 0; right: 0; top: 608px; text-align: center; font-weight: 600; font-size: 26px; color: #dcd8ff; }
+
+  .quadro.alto { left: 586px; top: 676px; width: 420px; height: 546px; transform: rotate(2.5deg); }
+  .quadro.alto img { left: 0; top: 0; width: 412px; height: 538px; }
+  .quadro.alto .credito { left: 14px; top: 14px; }
+
+  .rot { position: absolute; left: 76px; top: 700px; font-weight: 700; font-size: 22px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ambar); }
+  .preco { position: absolute; left: 70px; top: 738px; font-size: 118px; }
+  .para { position: absolute; left: 76px; top: 856px; font-weight: 600; font-size: 26px; }
+  .depois { position: absolute; left: 76px; top: 898px; font-weight: 500; font-size: 24px; color: #dcd8ff; }
+  .depois b { color: #fff; font-weight: 700; }
+  .nota-preco { position: absolute; left: 76px; top: 940px; color: rgba(255,255,255,.82); }
+  .itens { position: absolute; left: 76px; top: 1006px; display: flex; flex-direction: column; gap: 14px; }
+  .itens p { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 23px; }
+  .itens .icone { width: 30px; height: 30px; padding: 5px; border-radius: 50%; background: var(--verde); color: var(--amil-noite); }
+  .cta { background: var(--verde); color: var(--amil-noite); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .legal { color: rgba(255,255,255,.84); }
+</style>
+</head>
+<body data-operadora="amil" data-hospital="sim">
+  <svg class="aneis" viewBox="0 0 1080 1920" fill="none" stroke="#fff">
+    <circle cx="796" cy="950" r="380" stroke-opacity=".08" stroke-width="2"/>
+    <circle cx="796" cy="950" r="520" stroke-opacity=".05" stroke-width="2"/>
+  </svg>
+
+  <div class="logo" data-marca="amil"></div>
+  <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <p class="kicker">Rede própria Amil · Bela Vista</p>
+  <h1 class="h1">Hospital Paulistano</h1>
+  <p class="sub">no plano empresarial Amil Prata, em São Paulo</p>
+
+  <div class="quadro alto">
+    <img src="../assets/fotos/cortes/h-paulistano-alto.jpg" alt="">
+    <p class="credito">Foto: Hospital Paulistano</p>
+  </div>
+
+  <p class="rot">1ª e 2ª mensalidade</p>
+  <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
+  <p class="para">para as 3 vidas</p>
+  <p class="depois">depois, <b>R$ 1.445,99</b> por mês</p>
+  <p class="nota-preco"></p>
+  <div class="itens">
+    <p><span data-icone="check"></span>Amil Prata nacional · enfermaria</p>
+    <p><span data-icone="check"></span>Coparticipação só em terapias</p>
+  </div>
+
+  <div class="cta"><span data-icone="formulario"></span>Solicite sua cotação</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

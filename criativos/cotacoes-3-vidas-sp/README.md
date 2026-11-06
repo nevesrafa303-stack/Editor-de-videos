@@ -1,9 +1,10 @@
 # Cotações de 3 vidas em São Paulo (SP) — Amil, Bradesco Saúde e SulAmérica
 
-Nove criativos estáticos, três para cada cotação enviada em 04/11/2026. Todos em **um formato só: Story
+Dezoito criativos estáticos, seis para cada cotação enviada em 04/11/2026: três da primeira leva (a1–s3) e três com
+**hospital de referência** citado pelo nome e foto real da fachada (a4–s6, seção própria abaixo). Todos em **um formato só: Story
 1080×1920**, com todo o texto entre **y=290 e y=1536**. Essa faixa fica livre das barras do Story e cabe inteira
 no recorte 4:5 que o Meta faz para o Feed (y 285–1635). PNG em 2x (2160×3840) em `final/`. A visão geral
-está em `final/_visao-geral.jpg`.
+está em `final/_visao-geral.jpg` (a1–s3) e `final/_visao-geral-hospitais.jpg` (a4–s6).
 
 ## As cotações
 
@@ -30,12 +31,67 @@ está em `final/_visao-geral.jpg`.
 Fotos reais do **Adobe Stock** (licença gratuita, sem IA): 305689652 (equipe no saguão), 135255089 (passarela de
 vidro), 1193644379 (equipe no corredor), 556739692 (Paulista de dia), 132782917 (Paulista à noite). As fotos de
 hospital mostram saguão e corredor, não quarto, porque os três planos são de **enfermaria**: uma suíte privativa
-daria a entender outra acomodação. Nenhum hospital é citado pelo nome: a rede de cada plano precisa ser confirmada
-antes.
+daria a entender outra acomodação. Nas peças a1–s3 nenhum hospital é citado pelo nome. Os hospitais aparecem
+nas variações a4–s6.
 
 Logos: Amil (`assets/marca/amil.svg`, o mesmo das outras campanhas), Bradesco Saúde (SVG oficial do site da
 Bradesco Seguros) e SulAmérica (recortado da imagem oficial do portal da SulAmérica; versão para fundo escuro com
 o texto em branco).
+
+## Variações com hospital de referência (a4–s6)
+
+| Peça | Gancho | Hospital e foto |
+|---|---|---|
+| `a4-amil-paulistano` | "Hospital Paulistano", com o preço da 1ª e da 2ª mensalidade ao lado | Fachada do Hospital Paulistano, em cartão alto |
+| `a5-amil-metropolitano` | "Sua empresa fica na Zona Oeste?" | Hospital Metropolitano (Lapa), em foto de polaroide com o nome escrito à mão |
+| `a6-amil-rede-propria` | "Hospitais da rede própria Amil em São Paulo" | Paulistano e Metropolitano em cartões, mais Vitória (Anália Franco) e Luz (Vila Mariana) |
+| `b4-bradesco-samaritano` | "Hospital Samaritano na rede, em enfermaria" | Fachada do Samaritano (Higienópolis) com a placa do hospital à vista |
+| `b5-bradesco-bp` | "Precisou internar? A BP está na rede do seu plano." | Fachada da BP – Beneficência Portuguesa (Bela Vista) |
+| `b6-bradesco-rede` | "Hospitais de referência na rede, em enfermaria" | BP e Samaritano em cartões, mais InCor, São Camilo Ipiranga e Santana, Edmundo Vasconcelos, Villa Lobos e Hospital Vitória |
+| `s4-sula-bp` | "A BP no seu plano, sem coparticipação" | Fachada da BP vista do viaduto |
+| `s5-sula-rede` | "Hospitais de referência na rede, em enfermaria" | Cartão da BP e lista: São Luiz (Rede D'Or), BP, Leforte, Santa Paula |
+| `s6-sula-enquete` | "Qual hospital você quer na rede da sua empresa?" (cara de enquete de Story) | As quatro opções marcadas "na rede"; a BP tem miniatura da fachada |
+
+**De onde vem a rede de cada plano:**
+
+- **Bradesco Saúde Efetivo Plus: fonte oficial.** É o material da Bradesco Saúde "Efetivo Plus · cobertura
+  nacional", de setembro de 2026, com quarto e enfermaria marcados por hospital
+  ([PDF](https://www.bradescoseguros.com.br/wcm/connect/cfe02e3b-0d71-4f18-b8c3-c40a7d30d58a/260824_BRASAU_EfetivoPlus_Nacional_SP-DF-RS-PR-BA_AF.pdf?MOD=AJPERES&CONVERT_TO=url&CACHEID=ROOTWORKSPACE-cfe02e3b-0d71-4f18-b8c3-c40a7d30d58a-q0R5H.S)).
+  - As peças só usam hospitais da capital com **enfermaria** marcada: Hospital Samaritano, BP – Beneficência
+    Portuguesa, Edmundo Vasconcelos, InCor, São Camilo Ipiranga, São Camilo Santana, Villa Lobos e Hospital Vitória.
+  - Ficaram de fora A.C. Camargo, HCor, São Camilo Pompéia, Santa Catarina, Santa Joana e São Luiz Alphaville.
+    Nesse material eles aparecem só com quarto.
+- **Amil: página oficial da rede própria, mas sem o plano.** A página
+  "[Rede Própria Amil](https://medxperience.amil.com.br/para-o-seu-paciente/rede-propria-amil)" (03/2024) lista em
+  SP: Hospital Paulistano, Hospital Metropolitano Lapa, Hospital e Maternidade Vitória Anália Franco e Hospital Luz
+  Vila Mariana.
+  - A página não diz quais planos cada hospital atende.
+  - Sites de corretores também citam Paulistano, Metropolitano e Vitória na rede do Amil Prata em SP.
+  - **Confirmar que atendem o Prata QC Copart TP em enfermaria antes de subir.**
+- **SulAmérica Direto Nacional: fonte de corretor.** Não achei lista oficial pública.
+  - A página da [Capitalis](https://conveniosmedicossp.com.br/rede-credenciada-sulamerica-saude/) foi revisada em
+    18/10/2026 com a tabela da operadora de julho/2026.
+  - Para o "Direto Nacional [E]" (enfermaria) ela lista: São Luiz (Rede D'Or), BP – Beneficência Portuguesa,
+    Leforte e Santa Paula.
+  - **Confirmar no buscador de rede da SulAmérica, com o produto da cotação, antes de subir.**
+
+**Fotos (reais, Wikimedia Commons, licença que permite uso comercial; crédito do autor escrito sobre cada foto):**
+
+| Hospital | Arquivo | Autor | Licença |
+|---|---|---|---|
+| BP – Beneficência Portuguesa | [Hospital Beneficência Portuguesa - panoramio - Alexandre Possi.jpg](https://commons.wikimedia.org/wiki/File:Hospital_Benefic%C3%AAncia_Portuguesa_-_panoramio_-_Alexandre_Possi.jpg) e [… (1).jpg](https://commons.wikimedia.org/wiki/File:Hospital_Benefic%C3%AAncia_Portuguesa_-_panoramio_-_Alexandre_Possi_(1).jpg) | Alexandre Possi | CC BY 3.0 |
+| Hospital Samaritano | [1-FachadanovocomplexoHospitalar.jpg](https://commons.wikimedia.org/wiki/File:1-FachadanovocomplexoHospitalar.jpg) | Hsama | CC BY 3.0 |
+| Hospital Paulistano | [Fachada Hospital Paulistano.jpg](https://commons.wikimedia.org/wiki/File:Fachada_Hospital_Paulistano.jpg) | Hospital Paulistano | domínio público |
+| Hospital Metropolitano (Lapa) | [Hospital Metropolitano 5.JPG](https://commons.wikimedia.org/wiki/File:Hospital_Metropolitano_5.JPG) | RedeAssistencialSP | CC BY 1.0 |
+
+- As fotos são miniaturas oficiais do Wikimedia, de 960 a 1920 px. O Wikimedia bloqueou o download dos originais
+  desta máquina por excesso de pedidos.
+- Os espaços das peças foram dimensionados para a foto quase não ser ampliada: no máximo 1,27x, na faixa da BP
+  da B5.
+- Os recortes saem de `ferramentas/cortar-hospitais.py`.
+
+Não há foto livre de São Luiz, Leforte e Santa Paula no Wikimedia. Por isso esses hospitais aparecem só por escrito
+(S5 e S6). As 9 peças passam no `conferir.mjs`: fonte mínima de 19 px, contraste aprovado e texto até y=1536.
 
 ## Destino: formulário com trava (CNPJ + 3 vidas ou mais)
 
@@ -57,7 +113,7 @@ cotação (marcado com \*):
   beneficiário.", "Cobertura e rede sujeitas à modalidade contratada.", "Consulte condições e elegibilidade.",
   "Condições sujeitas à análise comercial."
 - Amil (desconto de novembro): "Oferta sujeita à disponibilidade comercial."
-- Peças com foto de hospital (a2, b1, s2): "A rede credenciada pode variar conforme plano contratado.", "Consulte a
+- Peças com foto de hospital (a2, b1, s2 e todas as a4–s6): "A rede credenciada pode variar conforme plano contratado.", "Consulte a
   disponibilidade da rede hospitalar.", "Imagem meramente ilustrativa."
 - Peças com foto da cidade (b3, s3): "Imagem meramente ilustrativa."
 - Registro ANS: Amil 326305, Bradesco Saúde S.A. 005711, Sul América Companhia de Seguro Saúde 006246.
@@ -73,6 +129,8 @@ contraste de 4,27:1 (texto grande).
   campanha da Amil deste mês. Confirmar com a corretora.
 - **Bradesco SPG de novembro** (50% na 2ª mensalidade nos cálculos de 03 a 30/11): a cotação mostra a 1ª e as
   demais parcelas iguais, então as peças não citam esse desconto.
+- **Hospitais citados nas peças a4–s6:** confirmar a rede do Amil Prata e do SulAmérica Direto Nacional, como explicado
+  na seção dos hospitais. A rede do Bradesco Efetivo Plus vem do material oficial.
 
 ## Versões editáveis
 

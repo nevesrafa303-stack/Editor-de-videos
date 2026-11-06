@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B6 · Bradesco · Rede em enfermaria</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="hosp.css">
+<style>
+  /* B6 — a rede do Efetivo Plus em enfermaria na capital (lista oficial da Bradesco Saúde, set/2026): BP e Samaritano
+     em fotos reais lado a lado e os demais hospitais em etiquetas; o preço da cotação de 3 vidas embaixo. */
+  body { background: linear-gradient(170deg, #8f001b 0%, #6a0016 45%, #3a000d 100%); }
+  .logo { position: absolute; left: 395px; top: 296px; width: 290px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 410px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(0,0,0,.2); border: 1px solid rgba(255,255,255,.45); }
+  .h1 { position: absolute; left: 0; right: 0; top: 484px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 58px;
+    line-height: 1.08; letter-spacing: -.02em; }
+  .h1 em { font-style: normal; background: #fff; color: var(--brad); padding: 0 12px; border-radius: 10px; }
+
+  .quadro.c1 { left: 64px; top: 640px; width: 466px; height: 330px; transform: rotate(-1.5deg); }
+  .quadro.c2 { left: 550px; top: 640px; width: 466px; height: 330px; transform: rotate(1.5deg); }
+  .quadro.c1 img, .quadro.c2 img { left: 0; top: 0; width: 458px; height: 322px; }
+  .quadro .credito { left: 12px; top: 12px; }
+
+  .tb { position: absolute; left: 0; right: 0; top: 990px; text-align: center; font-weight: 600; font-size: 21px; color: #ffd6dc; }
+  .mais { top: 1024px; left: 50px; right: 50px; }
+  .mais span { border: 2px solid rgba(255,255,255,.55); color: #fff; height: 44px; font-size: 19px; padding: 0 16px; }
+  .preco { position: absolute; left: 0; right: 0; top: 1140px; text-align: center; font-size: 64px; }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 22px; letter-spacing: 0; margin-left: 6px; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1208px; text-align: center; color: rgba(255,255,255,.88); }
+  .cta { background: #fff; color: var(--brad-esc); box-shadow: 0 14px 30px rgba(20,0,4,.4); }
+  .cta .icone { color: var(--brad); }
+  .legal { color: rgba(255,255,255,.88); }
+</style>
+</head>
+<body data-operadora="bradesco" data-hospital="sim">
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <h1 class="h1">Hospitais de referência<br>na rede, <em>em enfermaria</em></h1>
+
+  <div class="quadro c1">
+    <img src="../assets/fotos/cortes/h-bp-card.jpg" alt="">
+    <p class="credito">Foto: Alexandre Possi · CC BY 3.0</p>
+    <p class="rotulo"><b>BP</b><span>Beneficência Portuguesa · Bela Vista</span></p>
+  </div>
+  <div class="quadro c2">
+    <img src="../assets/fotos/cortes/h-samaritano-card.jpg" alt="">
+    <p class="credito">Foto: Hsama · CC BY 3.0</p>
+    <p class="rotulo"><b>Samaritano</b><span>Higienópolis</span></p>
+  </div>
+
+  <p class="tb">e também, em enfermaria</p>
+  <p class="mais"><span>InCor</span><span>São Camilo Ipiranga</span><span>São Camilo Santana</span><span>Edmundo Vasconcelos</span><span>Villa Lobos</span><span>Hospital Vitória</span></p>
+
+  <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês · 3 vidas</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="formulario"></span>Solicite sua cotação</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

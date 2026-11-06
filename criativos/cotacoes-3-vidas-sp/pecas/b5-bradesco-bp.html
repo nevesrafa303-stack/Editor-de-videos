@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B5 · Bradesco · BP</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="hosp.css">
+<style>
+  /* B5 — fundo claro e editorial: a pergunta "Precisou internar?" e a resposta com a fachada real da
+     BP – Beneficência Portuguesa (Bela Vista) numa faixa larga; o preço em vermelho Bradesco embaixo. */
+  body { background: linear-gradient(180deg, #fff 0%, #fff6f7 55%, #ffe9ec 100%); color: #2b0a10; }
+  .logo { position: absolute; left: 395px; top: 296px; width: 290px; color: var(--brad); }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 410px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: var(--brad-esc); background: #fff; border: 1px solid #f1b8c2; }
+  .chip .req { background: var(--brad); color: #fff; }
+  .h1 { position: absolute; left: 0; right: 0; top: 488px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 78px;
+    line-height: 1; letter-spacing: -.025em; color: var(--brad); }
+  .h2 { position: absolute; left: 0; right: 0; top: 580px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 38px;
+    line-height: 1.1; color: #2b0a10; }
+
+  .quadro.faixa { left: 86px; top: 652px; width: 908px; height: 382px; border-color: #fff; box-shadow: 0 24px 44px rgba(90,0,20,.25); }
+  .quadro.faixa img { left: 0; top: 0; width: 900px; height: 374px; }
+  .quadro.faixa .credito { right: 14px; top: 14px; }
+  .quadro.faixa .rotulo b { font-size: 34px; }
+  .quadro.faixa .rotulo span { font-size: 20px; }
+
+  .rot { position: absolute; left: 0; right: 0; top: 1066px; text-align: center; font-weight: 700; font-size: 21px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--brad-esc); }
+  .preco { position: absolute; left: 0; right: 0; top: 1100px; text-align: center; font-size: 92px; color: var(--brad); }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 28px; letter-spacing: 0; margin-left: 6px; color: #5a3a40; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1196px; text-align: center; color: #5a3a40; }
+  .cta { background: var(--brad); color: #fff; box-shadow: 0 14px 30px rgba(163,0,31,.3); }
+  .legal { color: #4a2a30; }
+</style>
+</head>
+<body data-operadora="bradesco" data-hospital="sim">
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <h1 class="h1">Precisou internar?</h1>
+  <p class="h2">A BP está na rede do seu plano.</p>
+
+  <div class="quadro faixa">
+    <img src="../assets/fotos/cortes/h-bp-predio.jpg" alt="">
+    <p class="credito">Foto: Alexandre Possi · CC BY 3.0</p>
+    <p class="rotulo"><b>BP – Beneficência Portuguesa</b><span>Bela Vista · enfermaria no Efetivo Plus</span></p>
+  </div>
+
+  <p class="rot">Bradesco Saúde Efetivo Plus · 3 vidas · sem coparticipação</p>
+  <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="formulario"></span>Solicite sua cotação</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

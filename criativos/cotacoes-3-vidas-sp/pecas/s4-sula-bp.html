@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S4 · SulAmérica · BP</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="hosp.css">
+<style>
+  /* S4 — azul-marinho e laranja da SulAmérica, a fachada real da BP – Beneficência Portuguesa vista do viaduto,
+     com a placa do hospital, e o preço mensal das 3 vidas logo abaixo. */
+  body { background: radial-gradient(120% 70% at 50% 30%, #2c3a72 0%, #222d59 45%, #161e40 100%); }
+  .onda { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 380px; top: 294px; width: 320px; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 406px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.35); }
+  .kicker { position: absolute; left: 0; right: 0; top: 486px; text-align: center; font-weight: 700; font-size: 22px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--laranja); }
+  .h1 { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 54px;
+    line-height: 1.08; letter-spacing: -.015em; }
+
+  .quadro.vista { left: 156px; top: 662px; width: 768px; height: 428px; }
+  .quadro.vista img { left: 0; top: 0; width: 760px; height: 420px; }
+  .quadro.vista .credito { right: 14px; top: 14px; }
+  .placa { left: 104px; top: 1004px; }
+  .placa .sinal { background: var(--laranja); color: var(--sula-esc); }
+  .placa .nome { color: var(--sula-esc); font-size: 30px; }
+  .placa .bairro { color: #46507a; }
+
+  .preco { position: absolute; left: 604px; top: 1104px; font-size: 70px; }
+  .mes { position: absolute; left: 608px; top: 1172px; font-weight: 600; font-size: 22px; color: #dfe4f5; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1206px; text-align: center; color: rgba(255,255,255,.8); }
+  .cta { background: linear-gradient(90deg, var(--laranja), var(--laranja-2)); color: var(--sula-esc); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .legal { color: rgba(255,255,255,.85); }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <svg class="onda" viewBox="0 0 1080 1920" fill="none">
+    <defs><linearGradient id="o1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f28a15"/><stop offset="1" stop-color="#e9521c"/></linearGradient></defs>
+    <path d="M-40 1580C180 1500 330 1640 560 1600C790 1560 900 1470 1120 1520" stroke="url(#o1)" stroke-width="16" stroke-linecap="round" opacity=".9"/>
+    <path d="M-40 250C160 190 330 290 540 260C760 228 900 160 1120 200" stroke="url(#o1)" stroke-width="8" stroke-linecap="round" opacity=".55"/>
+  </svg>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <p class="kicker">Hospital de referência na rede</p>
+  <h1 class="h1">A BP no seu plano,<br>sem coparticipação</h1>
+
+  <div class="quadro vista">
+    <img src="../assets/fotos/cortes/h-bp-viaduto.jpg" alt="">
+    <p class="credito">Foto: Alexandre Possi · CC BY 3.0</p>
+  </div>
+  <div class="placa"><span class="sinal"><span data-icone="hospital"></span></span><div><p class="nome">BP – Beneficência<br>Portuguesa</p><p class="bairro">Bela Vista · São Paulo</p></div></div>
+
+  <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p>
+  <p class="mes">por mês · 3 vidas · Direto Nacional</p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="formulario"></span>Solicite sua cotação</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

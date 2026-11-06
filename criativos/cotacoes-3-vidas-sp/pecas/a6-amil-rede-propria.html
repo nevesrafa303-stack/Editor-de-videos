@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A6 · Amil · Rede própria em SP</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="hosp.css">
+<style>
+  /* A6 — dois hospitais da rede própria Amil lado a lado (fotos reais das fachadas), os outros dois em etiquetas
+     e o preço da 1ª e da 2ª mensalidade embaixo. */
+  body { background: radial-gradient(110% 60% at 50% 40%, #2a1aa8 0%, #18107a 50%, #0f0d59 100%); }
+  .logo { position: absolute; left: 425px; top: 300px; width: 230px; color: #fff; }
+  .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 404px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.35); }
+  .h1 { position: absolute; left: 0; right: 0; top: 484px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 60px;
+    line-height: 1.06; letter-spacing: -.02em; }
+  .h1 em { font-style: normal; color: var(--ambar); }
+
+  .quadro.c1 { left: 64px; top: 640px; width: 466px; height: 330px; transform: rotate(-1.5deg); }
+  .quadro.c2 { left: 550px; top: 640px; width: 466px; height: 330px; transform: rotate(1.5deg); }
+  .quadro.c1 img, .quadro.c2 img { left: 0; top: 0; width: 458px; height: 322px; }
+  .quadro .credito { left: 12px; top: 12px; }
+
+  .tb { position: absolute; left: 0; right: 0; top: 994px; text-align: center; font-weight: 600; font-size: 21px; color: #cfc9ff; }
+  .mais { top: 1030px; }
+  .mais span { border: 2px solid rgba(255,197,66,.85); color: #fff; }
+  .mais span .icone { color: var(--ambar); }
+  .preco { position: absolute; left: 0; right: 0; top: 1098px; text-align: center; font-size: 84px; }
+  .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 24px; letter-spacing: 0; margin-left: 8px; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1194px; text-align: center; color: rgba(255,255,255,.82); }
+  .cta { background: var(--verde); color: var(--amil-noite); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .legal { color: rgba(255,255,255,.84); }
+</style>
+</head>
+<body data-operadora="amil" data-hospital="sim">
+  <div class="logo" data-marca="amil"></div>
+  <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <h1 class="h1">Hospitais da <em>rede própria</em><br>Amil em São Paulo</h1>
+
+  <div class="quadro c1">
+    <img src="../assets/fotos/cortes/h-paulistano-card.jpg" alt="">
+    <p class="credito">Foto: Hospital Paulistano</p>
+    <p class="rotulo"><b>Hospital Paulistano</b><span>Bela Vista</span></p>
+  </div>
+  <div class="quadro c2">
+    <img src="../assets/fotos/cortes/h-metropolitano-card.jpg" alt="">
+    <p class="credito">Foto: RedeAssistencialSP · CC BY 1.0</p>
+    <p class="rotulo"><b>Hospital Metropolitano</b><span>Lapa</span></p>
+  </div>
+
+  <p class="tb">e também</p>
+  <p class="mais"><span><span data-icone="hospital"></span>Vitória · Anália Franco</span><span><span data-icone="hospital"></span>Luz · Vila Mariana</span></p>
+
+  <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span><span class="mes">na 1ª e na 2ª</span></p>
+  <p class="nota-preco"></p>
+
+  <div class="cta"><span data-icone="formulario"></span>Solicite sua cotação</div>
+  <p class="legal"></p>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>
