@@ -1,4 +1,4 @@
-// Converte cada peça (pecas/b*.html, Story e Feed) numa árvore de camadas para montar no Figma:
+// Converte cada peça (pecas/[abs]*.html, Story) numa árvore de camadas para montar no Figma:
 // retângulos com preenchimento sólido/degradê, cantos, bordas e sombras; SVG (logo, ícones, curvas);
 // textos vivos com estilos por trecho; fotos (recortes do Adobe) com máscara de esmaecimento; grupos girados.
 // Texturas que o Figma não reproduz (degradê repetido da "fachada") saem como PNG à parte.
@@ -120,7 +120,8 @@ function extrair() {
     const add = (txt, el) => {
       const cs = getComputedStyle(el); const f = fonte(cs); const c = cor(cs.color);
       const est = { fam: f.fam, sty: f.sty, size: parseFloat(cs.fontSize), color: { r: c.r, g: c.g, b: c.b }, op: c.a,
-        ls: cs.letterSpacing === 'normal' ? 0 : parseFloat(cs.letterSpacing), upper: cs.textTransform === 'uppercase' };
+        ls: cs.letterSpacing === 'normal' ? 0 : parseFloat(cs.letterSpacing), upper: cs.textTransform === 'uppercase',
+        va: /px$/.test(cs.verticalAlign) ? r2(parseFloat(cs.verticalAlign)) : 0 }; // va: subida do trecho (centavos do preço)
       const k = JSON.stringify(est); let i = estilos.findIndex(e => JSON.stringify(e) === k); if (i < 0) { estilos.push(est); i = estilos.length - 1; }
       for (const ch of txt.replace(/[ \t\n\r]+/g, ' ')) {
         const ult = chars[chars.length - 1]?.ch;
@@ -175,7 +176,7 @@ function extrair() {
       c.setAttribute('width', r2(b.width)); c.setAttribute('height', r2(b.height)); c.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
       c.removeAttribute('class');
       const s = new XMLSerializer().serializeToString(c).replace(/currentColor/g, corAtual);
-      itens.push({ k: 's', n: el.closest('.logo') ? 'Logo Bradesco Saúde' : (el.closest('[data-icone]') ? 'ícone/' + el.closest('[data-icone]').dataset.icone : 'forma ' + nome(el)),
+      itens.push({ k: 's', n: el.closest('.logo') ? 'Logo ' + ({ amil: 'Amil', bradesco: 'Bradesco Saúde' }[el.closest('.logo').dataset.marca] || 'operadora') : (el.closest('[data-icone]') ? 'ícone/' + el.closest('[data-icone]').dataset.icone : 'forma ' + nome(el)),
         x: r2(b.left - o.x), y: r2(b.top - o.y), w: r2(b.width), h: r2(b.height), svg: s, fx: sombras(cs.filter, 'filtro') });
       return;
     }
@@ -244,6 +245,17 @@ function extrair() {
           itens.push({ k: 'r', n: 'fundo ' + nome(d), x: r2(r.left - o.x), y: r2(r.top - o.y), w: r2(r.width), h: r2(r.height), fills: fr,
             raios: [rr, rr, rr, rr], fx: [], op: 1, css: { bgi: cd.backgroundImage, bgc: cd.backgroundColor, br: rr + 'px', sh: 'none', bd: null } });
         }
+      }
+      // preço com trecho "subido" (R$ e centavos com vertical-align): nem o Figma nem o Express sobem um trecho
+      // dentro do texto, então cada trecho vira um texto à parte, na posição em que o navegador o desenhou
+      const subido = [...el.children].some(c => /px$/.test(getComputedStyle(c).verticalAlign) && parseFloat(getComputedStyle(c).verticalAlign) !== 0);
+      if (subido && !el.querySelector('br')) {
+        for (const n of el.childNodes) {
+          if (!n.textContent.trim()) continue;
+          const t = n.nodeType === 3 ? bloco(el, [n], o) : bloco(n, [...n.childNodes], o);
+          if (t) itens.push({ ...t, n: 'Preço · ' + t.text });
+        }
+        return;
       }
       const t = bloco(el, [...el.childNodes], o); if (t) itens.push(t); return;
     }

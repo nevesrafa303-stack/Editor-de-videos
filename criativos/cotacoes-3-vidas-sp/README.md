@@ -63,10 +63,33 @@ contraste de 4,27:1 (texto grande).
 - **Bradesco SPG de novembro** (50% na 2ª mensalidade nos cálculos de 03 a 30/11): a cotação mostra a 1ª e as
   demais parcelas iguais, então as peças não citam esse desconto.
 
+## Versões editáveis
+
+- **Figma:** https://www.figma.com/design/7RLZ8ig3nppPELzo6mbAAR. São 9 frames de 1080×1920 com textos vivos, fotos como
+  preenchimento de imagem, logos em vetor e grupos girados (recibo, extrato, carimbo). Cada preço está em caixas
+  separadas ("Preço · R$", "Preço · valor", "Preço · ,54*"), porque o Figma não sobe um trecho dentro do mesmo
+  texto. Para trocar o valor, edite a caixa do meio e ajuste a posição dos centavos.
+- **Adobe Express:** "Cotações 3 vidas SP · Stories · FINAL", com as 9 peças num documento só:
+  https://new.express.adobe.com/id/urn:aaid:sc:VA6C2:6735f0bc-03ca-49cb-b34b-1f76674c120d.
+  O Express não tem Courier Prime nem Gabarito, então ficou assim:
+  - o texto de recibo/extrato/carimbo usa **Inconsolata**, a única monoespaçada do Express e só no peso Regular,
+    com +0,1em de espaçamento para as colunas continuarem alinhadas;
+  - os títulos em Gabarito (A1 e A3) usam **Figtree**.
+
+  Os PNGs de `final/` continuam sendo a versão de referência.
+
 ## Gerar de novo
 
 ```bash
 cd criativos/cotacoes-3-vidas-sp
 node render.mjs                     # as 9 peças em 2x
 node ferramentas/conferir.mjs       # zona segura (Story + recorte do Feed), fonte mínima e contraste
+
+# versões editáveis
+node ferramentas/extrair-camadas.mjs /tmp/camadas                     # camadas de cada peça (JSON) para Figma/Express
+python3 -I ferramentas/gerar-express.py /tmp/camadas /tmp/express      # HTML com estilo inline e imagens embutidas
+node ferramentas/preparar-express.mjs /tmp/express/express-story.html /tmp/express/express-final.html   # fontes do Express
 ```
+
+Depois, `express-final.html` sobe para o Creative Cloud e é importado no Express. O Figma é montado a partir das
+mesmas camadas, como na campanha `bradesco-spg-50-novembro`.
