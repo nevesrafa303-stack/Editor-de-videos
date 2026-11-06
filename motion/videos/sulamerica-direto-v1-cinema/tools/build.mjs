@@ -15,7 +15,7 @@ const FONTS = fontFaces([
   ["Saira", 500, "SairaSemiCondensed-normal-500"],
   ["Saira", 700, "SairaSemiCondensed-normal-700"],
   ["Saira", 800, "SairaSemiCondensed-normal-800"],
-  ["Serif", 400, "InstrumentSerif-Italic", "italic"],
+  ["InstSerif", 400, "InstrumentSerif-Italic", "italic"],
   ["Mont", 800, "Montserrat-800"],
   ["Mont", 900, "Montserrat-900"],
   ["Poppins", 400, "Poppins-normal-400"],
@@ -29,7 +29,7 @@ const css0 = (p) =>
   `
 #${p}-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:${INK};}
 .sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
-.se{font-family:"Serif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
 .or{color:${OR};}
 .dim{background:rgba(5,7,11,.3);}
 .grad{background:linear-gradient(180deg,rgba(5,7,11,.7) 0%,rgba(5,7,11,.2) 26%,rgba(5,7,11,.35) 52%,rgba(5,7,11,.92) 82%,rgba(5,7,11,.96) 100%);}
