@@ -53,15 +53,15 @@ Usar o texto **exatamente** como está (sem reescrever, encurtar ou trocar palav
 ### Destino dos anúncios: formulário com trava (CNPJ + 3 vidas ou mais)
 
 Pedido do cliente em 06/11/2026. Todos os anúncios de plano de saúde levam para o **formulário de cadastro do
-Meta**. Esse formulário tem trava e só aceita **quem tem CNPJ e 3 vidas ou mais**. Por isso:
+Meta**. Esse formulário tem trava e só aceita **quem tem CNPJ (MEI incluído) e 3 vidas ou mais**. Por isso:
 
 - **Criativo:** o requisito aparece logo no começo, perto do logo, para filtrar quem não pode contratar. Exemplo:
-  etiqueta "Só para CNPJ · a partir de 3 vidas".
+  etiqueta "Exclusivo para CNPJ/MEI · a partir de 3 vidas" (texto pedido pelo cliente).
 - **Botão do criativo:** fala de cotação ou formulário ("Solicite sua cotação"). Nunca WhatsApp, conversa ou
   "fale com um consultor", e nada de ícone de balão de conversa.
 - **Copy do Meta:** botão "Obter cotação" (ou "Cadastre-se"). Nunca "Enviar mensagem" nem "chame no WhatsApp".
-  O texto cita CNPJ e "a partir de 3 vidas".
-- **Público:** empresas e empreendedores com CNPJ. Quando falar de família, deixar claro que a contratação é pelo
+  O texto cita "CNPJ/MEI" e "a partir de 3 vidas".
+- **Público:** empresas e empreendedores com CNPJ ou MEI. Quando falar de família, deixar claro que a contratação é pelo
   CNPJ.
 
 ### Referências visuais (inspiração obrigatória)

@@ -39,11 +39,11 @@ o texto em branco).
 
 ## Destino: formulário com trava (CNPJ + 3 vidas ou mais)
 
-Todos os anúncios levam para o formulário do Meta, que só aceita quem tem CNPJ e 3 vidas ou mais (regra do
+Todos os anúncios levam para o formulário do Meta, que só aceita quem tem CNPJ (MEI incluído) e 3 vidas ou mais (regra do
 CLAUDE.md). Por isso as 9 peças têm:
 
-- **No topo, logo abaixo da marca:** a etiqueta "**SÓ PARA CNPJ** · A PARTIR DE 3 VIDAS · SÃO PAULO (SP)". Na B3 o
-  texto é "SÓCIOS E DIRETORES · A PARTIR DE 3 VIDAS". O "Só para CNPJ" vem num selo na cor de destaque da operadora:
+- **No topo, logo abaixo da marca:** a etiqueta "**EXCLUSIVO PARA CNPJ/MEI** · A PARTIR DE 3 VIDAS · SÃO PAULO (SP)". Na B3 o
+  texto é "SÓCIOS E DIRETORES · A PARTIR DE 3 VIDAS". O "Exclusivo para CNPJ/MEI" vem num selo na cor de destaque da operadora:
   verde na Amil, branco no Bradesco, laranja na SulAmérica.
 - **Botão:** "**Solicite sua cotação**", com ícone de formulário. Não há "fale com um consultor" nem balão de
   conversa. No Meta, use o botão "Obter cotação".
@@ -82,6 +82,9 @@ contraste de 4,27:1 (texto grande).
   texto. Para trocar o valor, edite a caixa do meio e ajuste a posição dos centavos.
 - **Adobe Express:** "Cotações 3 vidas SP · Stories · FINAL", com as 9 peças num documento só:
   https://new.express.adobe.com/id/urn:aaid:sc:VA6C2:6735f0bc-03ca-49cb-b34b-1f76674c120d.
+  **Atenção:** esse documento é anterior à etiqueta "Exclusivo para CNPJ/MEI" e ao botão "Solicite sua cotação".
+  O serviço da Adobe estava fora do ar (06/11/2026) na hora de importar a versão nova. Para reimportar, siga
+  "Gerar de novo" abaixo.
   O Express não tem Courier Prime nem Gabarito, então ficou assim:
   - o texto de recibo/extrato/carimbo usa **Inconsolata**, a única monoespaçada do Express e só no peso Regular,
     com +0,1em de espaçamento para as colunas continuarem alinhadas;
