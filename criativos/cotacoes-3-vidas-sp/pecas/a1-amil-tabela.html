@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A1 · Amil · Tabela por idade</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<style>
+  /* A1 — arquétipo da referência 01: foto real no topo (equipe médica no saguão, Adobe Stock) com degradê para o
+     violeta-escuro, frase em itálico negrito à esquerda e a tabela de valor por vida (coluna violeta de idades +
+     coluna branca de preços, centavos sobrescritos) à direita. */
+  body { background: #170b66; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 760px; }
+  .veu.topo { top: 0; height: 560px; background: linear-gradient(180deg, rgba(15,13,89,.88) 0%, rgba(15,13,89,.6) 55%, rgba(15,13,89,0) 100%); }
+  .veu.base { top: 540px; height: 230px; background: linear-gradient(180deg, rgba(23,11,102,0) 0%, rgba(23,11,102,.85) 60%, #170b66 100%); }
+  .logo { position: absolute; left: 60px; top: 300px; width: 230px; color: #fff; }
+  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #fff; background: rgba(15,13,89,.5); border: 1px solid rgba(255,255,255,.45); }
+
+  .tit-2 { left: 60px; top: 784px; width: 520px; font-size: 42px; color: #fff; line-height: 1.1; white-space: nowrap; }
+  .tit-2 b { color: #ffc542; }
+  .sub { position: absolute; left: 60px; top: 900px; width: 470px; font-weight: 500; font-size: 23px; line-height: 1.35; color: #dcd8ff; }
+  .caixa { position: absolute; left: 60px; top: 1004px; width: 480px; height: 220px; border-radius: 18px; background: #fff; color: #170b66; }
+  .caixa .rot3 { position: absolute; left: 26px; top: 22px; color: #4318fc; font-size: 20px; }
+  .caixa .preco { position: absolute; left: 22px; top: 52px; font-size: 80px; }
+  .caixa .depois { position: absolute; left: 26px; top: 140px; font-weight: 500; font-size: 21px; color: #3d3a7a; }
+  .caixa .depois b { color: #170b66; font-weight: 700; }
+  .caixa .nota-preco { position: absolute; left: 26px; top: 176px; color: #3d3a7a; }
+
+  .tabela { position: absolute; left: 584px; top: 790px; width: 436px; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+  .tabela .cab { display: flex; height: 40px; background: #0f0d59; font-family: var(--mont); font-weight: 800; font-size: 19px;
+    letter-spacing: .05em; text-transform: uppercase; }
+  .tabela .cab span { display: flex; align-items: center; padding: 0 18px; }
+  .tabela .cab span:first-child { width: 156px; }
+  .tabela .lin { display: flex; height: 39px; }
+  .tabela .idade { width: 156px; display: flex; align-items: center; padding: 0 18px; background: #4318fc; color: #fff; font-weight: 700; font-size: 22px; }
+  .tabela .valor { flex: 1; display: flex; align-items: center; justify-content: flex-end; padding: 0 18px; background: #fff; color: #170b66;
+    font-family: var(--mont); font-weight: 800; font-size: 26px; }
+  .tabela .lin + .lin .valor { border-top: 1px solid #e4e1fb; }
+  .tabela .valor small { font-size: 19px; font-weight: 800; vertical-align: 7px; }
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: #4318fc; color: #fff; }
+</style>
+</head>
+<body data-operadora="amil" data-foto="sim">
+  <img class="foto hero" src="../assets/fotos/cortes/v2-a1-saguao.jpg" alt="">
+  <div class="veu topo"></div>
+  <div class="veu base"></div>
+
+  <div class="logo" data-marca="amil"></div>
+  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+
+  <p class="tit-2"><b>Saúde e proteção</b><br>para a sua empresa</p>
+  <p class="sub">Amil Prata nacional, em São Paulo (SP), enfermaria, coparticipação só em terapias.</p>
+  <div class="caixa">
+    <p class="rot3">3 vidas · 1ª e 2ª mensalidade</p>
+    <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
+    <p class="depois">depois, <b>R$ 1.445,99</b> por mês</p>
+    <p class="nota-preco"></p>
+  </div>
+
+  <div class="tabela" id="tabela">
+    <p class="cab"><span>Idade</span><span>Valor por vida</span></p>
+  </div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar, COTACAO } from './base.js';
+    const t = document.getElementById('tabela');
+    for (const [idade, valor] of COTACAO.amil.porVida) {
+      const [inteiro, cent] = valor.split(',');
+      t.insertAdjacentHTML('beforeend', `<p class="lin"><span class="idade">${idade.replace(' ou mais', '+')}</span><span class="valor">R$ ${inteiro}<small>,${cent}</small></span></p>`);
+    }
+    await montar();
+  </script>
+</body>
+</html>

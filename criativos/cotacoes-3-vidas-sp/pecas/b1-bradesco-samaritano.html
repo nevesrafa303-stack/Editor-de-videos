@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B1 · Bradesco · Hospital no topo</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<style>
+  /* B1 — arquétipo "hospital no topo + oferta embaixo" das referências 01, 10 e 16: fachada real do Hospital
+     Samaritano ocupando metade da tela, degradê para o vinho da Bradesco e a oferta direta no painel. */
+  body { background: #670000; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 900px; }
+  .veu.topo { top: 0; height: 580px; background: linear-gradient(180deg, rgba(40,0,0,.86) 0%, rgba(40,0,0,.6) 55%, rgba(40,0,0,0) 100%); }
+  .veu.base { top: 600px; height: 300px; background: linear-gradient(180deg, rgba(103,0,0,0) 0%, rgba(103,0,0,.85) 62%, #670000 100%); }
+  .logo { position: absolute; left: 60px; top: 300px; width: 260px; color: #fff; }
+  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #fff; background: rgba(40,0,0,.45); border: 1px solid rgba(255,255,255,.5); }
+  .legenda { position: absolute; left: 60px; top: 800px; font-weight: 700; font-size: 24px; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .legenda span { font-weight: 500; font-size: 20px; opacity: .9; }
+  .credito { right: 60px; top: 806px; }
+
+  .tit { left: 60px; top: 912px; font-size: 62px; }
+  .tit-2 { left: 60px; top: 984px; font-size: 42px; color: #ffd2d8; }
+  .selo.copart { left: 60px; top: 1050px; background: #fff; color: #670000; }
+  .oferta { position: absolute; left: 60px; top: 1104px; }
+  .oferta .rot3 { color: #ffd2d8; }
+  .oferta .preco { margin-top: 2px; font-size: 84px; }
+  .nota-preco { position: absolute; left: 60px; top: 1200px; color: rgba(255,255,255,.88); }
+  .rede { position: absolute; left: 676px; top: 1050px; }
+  .rede p:first-child { font-weight: 600; font-size: 20px; color: #ffd2d8; margin-bottom: 8px; }
+  .rede .lista { position: static; gap: 6px; }
+  .rede .lista p { font-family: var(--mont); font-weight: 800; font-size: 30px; line-height: 1.1; }
+  .rede .lista p i { background: #e3163f; }
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: #cc092f; color: #fff; }
+</style>
+</head>
+<body data-operadora="bradesco" data-hospital="sim">
+  <img class="foto hero" src="../assets/fotos/cortes/v2-b1-samaritano.jpg" alt="">
+  <div class="veu topo"></div>
+  <div class="veu base"></div>
+
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <p class="legenda">Hospital Samaritano <span>· Higienópolis</span></p>
+  <p class="credito">Foto: Hsama · CC BY 3.0</p>
+
+  <h1 class="tit">Plano de Saúde Bradesco</h1>
+  <p class="tit-2">para a sua empresa</p>
+  <p class="selo copart"><span data-icone="check"></span>Sem coparticipação · enfermaria</p>
+  <div class="oferta">
+    <p class="rot3">3 vidas · a partir de</p>
+    <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+  </div>
+  <p class="nota-preco"></p>
+  <div class="rede">
+    <p>Na rede, em enfermaria:</p>
+    <div class="lista"><p><i></i>BP</p><p><i></i>Samaritano</p><p><i></i>InCor</p></div>
+  </div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

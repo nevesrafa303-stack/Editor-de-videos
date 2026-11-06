@@ -51,6 +51,7 @@ export const COTACAO = {
 
 const traco = 'fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"';
 export const ICONES = {
+  seta: `<svg viewBox="0 0 24 24" ${traco} stroke-width="2.6"><path d="M7 17L17 7M9 7h8v8"/></svg>`,
   formulario: `<svg viewBox="0 0 24 24" ${traco} stroke-width="2"><rect x="4.5" y="4" width="15" height="17" rx="2"/><path d="M9 4V2.8h6V4"/><path d="M8.5 10h7M8.5 13.5h7M8.5 17h4"/></svg>`,
   maleta: `<svg viewBox="0 0 24 24" ${traco} stroke-width="2.2"><rect x="3" y="7.5" width="18" height="12.5" rx="2"/><path d="M9 7.5V5.8A1.6 1.6 0 0 1 10.6 4.2h2.8A1.6 1.6 0 0 1 15 5.8v1.7M3 12.8h18"/></svg>`,
   conversa: `<svg viewBox="0 0 24 24" ${traco} stroke-width="2"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.1 8.6c.3-.6.8-.6 1.1 0l.6 1.4c.1.3 0 .6-.2.8l-.5.5c.5 1.2 1.4 2.1 2.6 2.6l.5-.5c.2-.2.5-.3.8-.2l1.4.6c.6.3.6.8 0 1.1-.9.6-1.9.7-3 .2a8 8 0 0 1-3.7-3.7c-.5-1.1-.4-2.1.4-2.8z" fill="currentColor" stroke-width="1"/></svg>`,

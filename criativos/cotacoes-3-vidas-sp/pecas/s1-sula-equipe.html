@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S1 · SulAmérica · Laranja com ondas</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<style>
+  /* S1 — arquétipo da referência 09: fundo laranja com linhas onduladas, foto real de equipe (Adobe Stock) com a
+     borda em onda, cartão azul-marinho com "3 vidas por apenas" + preço + selo CNPJ e os hospitais da rede. */
+  body { background: linear-gradient(180deg, #f6751b 0%, #eb622a 100%); color: #fff; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 880px; }
+  .veu.topo { top: 0; height: 560px; background: linear-gradient(180deg, rgba(11,35,84,.85) 0%, rgba(11,35,84,.55) 55%, rgba(11,35,84,0) 100%); }
+  .onda { position: absolute; left: 0; top: 740px; width: 1080px; height: 142px; }
+  .linhas { position: absolute; left: 0; top: 860px; width: 1080px; height: 560px; }
+  .logo { position: absolute; left: 60px; top: 300px; width: 300px; }
+  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #fff; background: rgba(11,35,84,.55); border: 1px solid rgba(255,255,255,.5); }
+
+  .tit { left: 60px; top: 892px; font-size: 60px; color: #fff; }
+  .tit-2 { left: 60px; top: 960px; font-size: 42px; color: #0b2354; }
+  .cartao { position: absolute; left: 60px; right: 60px; top: 1032px; height: 196px; border-radius: 24px; background: #0b2354;
+    box-shadow: 0 20px 44px rgba(11,35,84,.35); }
+  .cartao .oferta { position: absolute; left: 34px; top: 24px; }
+  .cartao .apartir { color: #dfe4f5; }
+  .cartao .preco { margin-top: 2px; font-size: 80px; }
+  .cartao .nota-preco { position: absolute; left: 34px; top: 152px; color: rgba(255,255,255,.85); }
+  .cartao .selo { right: 30px; top: 28px; background: #f6751b; color: #0b2354; }
+  .cartao .info { position: absolute; right: 30px; top: 84px; text-align: right; font-weight: 600; font-size: 21px; line-height: 1.45; color: #dfe4f5; }
+  .cartao .info b { font-family: var(--mont); font-weight: 800; color: #fff; font-size: 24px; }
+  .bloco-legal { position: absolute; left: 0; right: 0; top: 1232px; height: 196px; background: #0b2354; }
+  .legal { top: 1246px; color: rgba(255,255,255,.88); }
+  .faixa { background: #f6751b; color: #0b2354; }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <img class="foto hero" src="../assets/fotos/cortes/v2-s1-equipe.jpg" alt="">
+  <div class="veu topo"></div>
+  <svg class="onda" viewBox="0 0 1080 142" preserveAspectRatio="none"><path d="M0 70C170 20 330 20 520 62C720 106 880 112 1080 54V142H0Z" fill="#f6751b"/></svg>
+  <svg class="linhas" viewBox="0 0 1080 560" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2">
+    <path d="M-20 40C200 0 380 90 600 50C800 14 940 30 1100 70"/>
+    <path d="M-20 520C220 470 420 560 640 520C840 484 960 500 1100 540"/>
+  </svg>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+
+  <h1 class="tit">Plano de saúde nacional</h1>
+  <p class="tit-2">para a sua empresa</p>
+  <div class="cartao">
+    <div class="oferta">
+      <p class="apartir">3 vidas por apenas</p>
+      <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+    </div>
+    <p class="nota-preco"></p>
+    <p class="selo">Exclusivo para CNPJ/MEI</p>
+    <p class="info">Sem coparticipação<br>Na rede: <b>BP · São Luiz</b></p>
+  </div>
+
+  <div class="bloco-legal"></div>
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

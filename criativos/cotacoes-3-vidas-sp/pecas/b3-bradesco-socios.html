@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B3 · Bradesco · Sócios e diretores</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<style>
+  /* B3 — arquétipo da referência 12: foto real de três sócios (Adobe Stock) com borda curva, painel branco com
+     título em vinho, "03 vidas a partir de", faixa CNPJ e a lista "Diferenciais do plano". */
+  body { background: #fff; color: #2b0a10; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 820px; }
+  .veu.topo { top: 0; height: 560px; background: linear-gradient(180deg, rgba(40,0,0,.82) 0%, rgba(40,0,0,.55) 55%, rgba(40,0,0,0) 100%); }
+  .curva { position: absolute; left: 0; top: 700px; width: 1080px; height: 122px; }
+  .logo { position: absolute; left: 60px; top: 300px; width: 260px; color: #fff; }
+  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #fff; background: rgba(40,0,0,.45); border: 1px solid rgba(255,255,255,.5); }
+
+  .tit { left: 60px; top: 826px; font-size: 58px; color: #670000; }
+  .tit-2 { left: 60px; top: 894px; font-size: 38px; color: #cc092f; }
+  .oferta { position: absolute; left: 60px; top: 964px; }
+  .oferta .apartir { color: #3a1a20; }
+  .oferta .preco { margin-top: 2px; font-size: 88px; color: #670000; }
+  .oferta .preco .mes { color: #5a3a40; }
+  .selo.cnpj { left: 60px; top: 1090px; background: #670000; color: #fff; }
+  .nota-preco { position: absolute; left: 60px; top: 1146px; color: #5a3a40; }
+  .dif { position: absolute; left: 640px; top: 966px; }
+  .dif h2 { font-family: var(--mont); font-weight: 800; font-size: 26px; color: #670000; margin-bottom: 14px; }
+  .dif .lista { position: static; gap: 12px; }
+  .dif .lista p { font-size: 23px; color: #2b0a10; }
+  .dif .lista p i { background: #cc092f; }
+  .legal { color: #4a2a30; }
+  .faixa { background: #670000; color: #fff; }
+</style>
+</head>
+<body data-operadora="bradesco" data-hospital="sim">
+  <img class="foto hero" src="../assets/fotos/cortes/v2-b3-socios.jpg" alt="">
+  <div class="veu topo"></div>
+  <svg class="curva" viewBox="0 0 1080 122" preserveAspectRatio="none"><path d="M0 92C260 18 520 0 760 36C900 57 1000 86 1080 112V122H0Z" fill="#fff"/></svg>
+
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+
+  <h1 class="tit">Plano de Saúde Bradesco</h1>
+  <p class="tit-2">para sócios e diretores</p>
+  <div class="oferta">
+    <p class="apartir">03 vidas a partir de</p>
+    <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+  </div>
+  <p class="selo cnpj">Exclusivo para CNPJ/MEI</p>
+  <p class="nota-preco"></p>
+  <div class="dif">
+    <h2>Diferenciais do plano:</h2>
+    <div class="lista">
+      <p><i></i>Sem coparticipação</p>
+      <p><i></i>BP, Samaritano e InCor</p>
+      <p><i></i>Enfermaria</p>
+      <p><i></i>Cobertura nacional</p>
+      <p><i></i>Telemedicina 24h</p>
+    </div>
+  </div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

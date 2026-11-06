@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S2 · SulAmérica · Preço gigante</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<style>
+  /* S2 — arquétipo da referência 14: fundo branco, arco laranja no topo com o logo, "PLANO DE SAÚDE COM CNPJ",
+     preço gigante em laranja com centavos sobrescritos, foto da BP em cartão e a caixa de benefícios. */
+  body { background: #fff; color: #0b2354; }
+  .arco { position: absolute; left: -140px; top: -820px; width: 1360px; height: 1300px; border-radius: 50%;
+    background: linear-gradient(180deg, #f6751b, #eb622a); }
+  .logo { position: absolute; left: 380px; top: 296px; width: 320px; }
+  .chip.meio { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 404px; height: 46px; padding: 0 24px;
+    font-size: 19px; color: #fff; background: #0b2354; border: 1px solid #0b2354; }
+  .chip.meio .req { background: #fff; color: #0b2354; }
+
+  .tit { left: 0; right: 0; top: 504px; text-align: center; font-size: 54px; text-transform: uppercase; color: #0b2354; }
+  .sub { position: absolute; left: 0; right: 0; top: 568px; text-align: center; font-weight: 500; font-size: 24px; color: #3b4470; }
+  .rot3 { position: absolute; left: 0; right: 0; top: 636px; text-align: center; color: #eb622a; font-size: 26px; }
+  .preco { position: absolute; left: 0; right: 0; top: 668px; text-align: center; font-size: 176px; color: #eb622a; }
+  .preco .mes { color: #0b2354; font-size: 30px; }
+  .selo.cnpj { left: 0; right: 0; margin: 0 auto; width: max-content; top: 842px; background: #0b2354; color: #fff; }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 896px; text-align: center; color: #3b4470; }
+
+  .card-foto { position: absolute; left: 60px; top: 950px; width: 468px; height: 270px; border-radius: 20px; overflow: hidden; }
+  .card-foto img { position: absolute; left: 0; top: 0; width: 468px; height: 270px; }
+  .card-foto .credito { left: 12px; top: 12px; }
+  .card-foto .nome { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 18px; background: rgba(11,35,84,.88); color: #fff;
+    font-family: var(--mont); font-weight: 800; font-size: 24px; }
+  .beneficios { position: absolute; left: 552px; top: 950px; width: 468px; height: 270px; border-radius: 20px; background: #f6751b;
+    padding: 22px 26px; }
+  .beneficios h2 { font-family: var(--mont); font-weight: 800; font-size: 26px; color: #0b2354; margin-bottom: 12px; }
+  .beneficios .lista { position: static; gap: 10px; }
+  .beneficios .lista p { font-size: 22px; color: #0b2354; }
+  .beneficios .lista p i { background: #0b2354; }
+  .legal { color: #2b3560; }
+  .faixa { background: #0b2354; color: #fff; }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <div class="arco"></div>
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="chip meio"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+
+  <h1 class="tit">Plano de saúde com CNPJ</h1>
+  <p class="sub">SulAmérica Direto Nacional · atendimento em todo o Brasil</p>
+  <p class="rot3">3 vidas por apenas</p>
+  <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+  <p class="selo cnpj">Valor exclusivo para CNPJ/MEI</p>
+  <p class="nota-preco"></p>
+
+  <div class="card-foto">
+    <img src="../assets/fotos/cortes/v2-s2-bp.jpg" alt="">
+    <p class="credito">Foto: Alexandre Possi · CC BY 3.0</p>
+    <p class="nome">BP – Beneficência Portuguesa</p>
+  </div>
+  <div class="beneficios">
+    <h2>Benefícios do plano</h2>
+    <div class="lista">
+      <p><i></i>Sem coparticipação</p>
+      <p><i></i>BP e São Luiz na rede</p>
+      <p><i></i>Enfermaria</p>
+      <p><i></i>Cobertura nacional</p>
+    </div>
+  </div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>
