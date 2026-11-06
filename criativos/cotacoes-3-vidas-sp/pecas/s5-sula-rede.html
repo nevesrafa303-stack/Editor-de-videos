@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="hosp.css">
 <style>
-  /* S5 — lista de hospitais de referência do Direto Nacional em enfermaria na capital, com a fachada real da BP num
+  /* S5 — os hospitais de primeira linha da rede do Direto Nacional em enfermaria na capital (BP e São Luiz), com a fachada real da BP num
      cartão ao lado e o preço mensal da cotação embaixo. */
   body { background: linear-gradient(180deg, #222d59 0%, #1b2550 50%, #161e40 100%); }
   .onda { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -20,10 +20,10 @@
   .quadro.c1 { left: 60px; top: 650px; width: 466px; height: 330px; transform: rotate(-2deg); }
   .quadro.c1 img { left: 0; top: 0; width: 458px; height: 322px; }
   .quadro .credito { left: 12px; top: 12px; }
-  .lista { position: absolute; left: 566px; top: 650px; display: flex; flex-direction: column; gap: 16px; }
-  .lista p { display: flex; align-items: center; gap: 14px; font-family: var(--mont); font-weight: 800; font-size: 31px; line-height: 1.05; }
-  .lista p small { display: block; font-family: 'Poppins'; font-weight: 500; font-size: 19px; color: #c9d0ea; margin-top: 2px; }
-  .lista .icone { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: var(--laranja); color: var(--sula-esc); }
+  .lista { position: absolute; left: 566px; top: 690px; display: flex; flex-direction: column; gap: 34px; }
+  .lista p { display: flex; align-items: center; gap: 16px; font-family: var(--mont); font-weight: 900; font-size: 44px; line-height: 1.02; }
+  .lista p small { display: block; font-family: 'Poppins'; font-weight: 500; font-size: 21px; color: #c9d0ea; margin-top: 4px; }
+  .lista .icone { width: 52px; height: 52px; padding: 10px; border-radius: 50%; background: var(--laranja); color: var(--sula-esc); }
 
   .pilulas { position: absolute; left: 60px; right: 60px; top: 1010px; }
   .pilulas span { border: 2px solid rgba(242,138,21,.85); color: #fff; }
@@ -50,10 +50,8 @@
     <p class="rotulo"><b>BP</b><span>Beneficência Portuguesa · Bela Vista</span></p>
   </div>
   <div class="lista">
-    <p><span data-icone="check"></span><span>São Luiz<small>Rede D'Or</small></span></p>
     <p><span data-icone="check"></span><span>BP<small>Beneficência Portuguesa</small></span></p>
-    <p><span data-icone="check"></span><span>Leforte</span></p>
-    <p><span data-icone="check"></span><span>Santa Paula</span></p>
+    <p><span data-icone="check"></span><span>São Luiz<small>Rede D'Or</small></span></p>
   </div>
 
   <p class="pilulas"><span>SulAmérica Direto Nacional</span><span>Sem coparticipação</span><span>3 vidas</span></p>

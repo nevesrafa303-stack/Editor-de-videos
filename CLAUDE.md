@@ -64,6 +64,20 @@ Meta**. Esse formulário tem trava e só aceita **quem tem CNPJ (MEI incluído) 
 - **Público:** empresas e empreendedores com CNPJ ou MEI. Quando falar de família, deixar claro que a contratação é pelo
   CNPJ.
 
+### Hospitais citados: sempre os melhores de São Paulo, e só os que estão na rede
+
+Pedido do cliente em 06/11/2026: "sempre vamos trabalhar com os melhores". Quando o criativo cita hospital pelo nome:
+
+- **Prioridade:** os hospitais de primeira linha de São Paulo. Referência: ranking Newsweek/Statista "World's Best
+  Hospitals" do ano. Na edição 2026: Einstein, Sírio-Libanês e Alemão Oswaldo Cruz no topo. Também valem BP,
+  Samaritano, HCor, InCor, Vila Nova Star, Nove de Julho, São Luiz Itaim e Santa Catarina.
+- **Só se o hospital estiver na rede do plano da cotação, na acomodação da cotação** (enfermaria ou quarto),
+  confirmado em material oficial da operadora ou na cotação. Hospital fora da rede é propaganda enganosa: não entra,
+  nem como "referência". Não citar hospital de segunda linha só para preencher.
+- **Se o plano não tem hospital de primeira linha na rede:** a peça não cita hospital pelo nome. Para anunciar
+  Einstein, Sírio ou Oswaldo Cruz, pedir ao cliente a cotação de um plano que tenha esses hospitais.
+- Citar no README a fonte da rede de cada hospital.
+
 ### Referências visuais (inspiração obrigatória)
 
 Antes de criar qualquer criativo de plano de saúde (estático ou vídeo), abrir

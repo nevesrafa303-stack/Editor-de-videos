@@ -6,34 +6,34 @@
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="hosp.css">
 <style>
-  /* S6 — jeito de enquete de Story: "Qual hospital você quer na rede da sua empresa?" com quatro opções, todas
-     marcadas (estão na rede de referência do Direto Nacional em enfermaria). A BP leva a miniatura da fachada real. */
+  /* S6 — jeito de enquete de Story: "Qual hospital você quer na rede da sua empresa?" com as duas opções
+     marcadas: BP e São Luiz, hospitais de primeira linha da rede do Direto Nacional em enfermaria. A BP leva a miniatura da fachada real. */
   body { background: radial-gradient(120% 70% at 50% 35%, #2c3a72 0%, #222d59 45%, #161e40 100%); }
   .logo { position: absolute; left: 380px; top: 294px; width: 320px; }
   .chip { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 406px; height: 46px; padding: 0 24px;
     font-size: 19px; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.35); }
 
-  .enquete { position: absolute; left: 90px; right: 90px; top: 484px; height: 556px; border-radius: 34px; background: #fff;
+  .enquete { position: absolute; left: 90px; right: 90px; top: 484px; height: 420px; border-radius: 34px; background: #fff;
     box-shadow: 0 30px 60px rgba(0,0,0,.4); color: var(--sula-esc); }
   .enquete .q { position: absolute; left: 40px; right: 40px; top: 34px; text-align: center; font-family: var(--mont); font-weight: 900;
     font-size: 44px; line-height: 1.1; letter-spacing: -.015em; }
-  .op { position: absolute; left: 40px; right: 40px; height: 84px; border-radius: 22px; background: #eef1fa; display: flex;
+  .op { position: absolute; left: 40px; right: 40px; height: 90px; border-radius: 22px; background: #eef1fa; display: flex;
     align-items: center; gap: 18px; padding: 0 24px; }
-  .op.o1 { top: 176px; } .op.o2 { top: 268px; } .op.o3 { top: 360px; } .op.o4 { top: 452px; }
+  .op.o1 { top: 196px; } .op.o2 { top: 300px; }
   .op .barra { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 22px;
     background: linear-gradient(90deg, rgba(242,138,21,.28), rgba(233,82,28,.18)); }
-  .op b { position: relative; font-family: var(--mont); font-weight: 800; font-size: 30px; }
+  .op b { position: relative; font-family: var(--mont); font-weight: 900; font-size: 36px; }
   .op small { position: relative; font-weight: 500; font-size: 19px; color: #3b4470; }
   .op .ok { position: relative; margin-left: auto; display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 19px; color: #a3410a; }
   .op .ok .icone { width: 32px; height: 32px; padding: 6px; border-radius: 50%; background: var(--laranja); color: var(--sula-esc); }
   .op .mini { position: relative; width: 58px; height: 58px; border-radius: 50%; overflow: hidden; flex: none; border: 3px solid #fff; }
   .op .mini img { position: absolute; left: 0; top: 0; width: 52px; height: 52px; }
-  .resp { position: absolute; left: 0; right: 0; top: 1096px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 30px; }
+  .resp { position: absolute; left: 0; right: 0; top: 990px; font-size: 38px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 30px; }
   .resp em { font-style: normal; color: var(--laranja); }
-  .preco { position: absolute; left: 0; right: 0; top: 1138px; text-align: center; font-size: 62px; }
+  .preco { position: absolute; left: 0; right: 0; top: 1060px; text-align: center; font-size: 84px; }
   .preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: 22px; letter-spacing: 0; margin-left: 6px; color: #dfe4f5; }
-  .nota-preco { position: absolute; left: 0; right: 0; top: 1208px; text-align: center; color: rgba(255,255,255,.8); }
-  .credito.s6 { left: 0; right: 0; margin: 0 auto; width: max-content; top: 1052px; background: rgba(22,30,64,.85); }
+  .nota-preco { position: absolute; left: 0; right: 0; top: 1190px; text-align: center; color: rgba(255,255,255,.8); }
+  .credito.s6 { left: 0; right: 0; margin: 0 auto; width: max-content; top: 920px; background: rgba(22,30,64,.85); }
   .cta { background: linear-gradient(90deg, var(--laranja), var(--laranja-2)); color: var(--sula-esc); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
   .legal { color: rgba(255,255,255,.85); }
 </style>
@@ -43,15 +43,13 @@
   <p class="chip"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
 
   <div class="enquete">
-    <p class="q">Qual hospital você quer na rede da sua empresa?</p>
-    <div class="op o1"><i class="barra"></i><b>São Luiz</b><small>Rede D'Or</small><span class="ok"><span data-icone="check"></span>na rede</span></div>
-    <div class="op o2"><i class="barra"></i><span class="mini"><img src="../assets/fotos/cortes/h-bp-redondo.jpg" alt=""></span><b>BP</b><small>Beneficência Portuguesa</small><span class="ok"><span data-icone="check"></span>na rede</span></div>
-    <div class="op o3"><i class="barra"></i><b>Leforte</b><span class="ok"><span data-icone="check"></span>na rede</span></div>
-    <div class="op o4"><i class="barra"></i><b>Santa Paula</b><span class="ok"><span data-icone="check"></span>na rede</span></div>
+    <p class="q">Qual desses hospitais você quer na rede da sua empresa?</p>
+    <div class="op o2"><i class="barra"></i><b>São Luiz</b><small>Rede D'Or</small><span class="ok"><span data-icone="check"></span>na rede</span></div>
+    <div class="op o1"><i class="barra"></i><span class="mini"><img src="../assets/fotos/cortes/h-bp-redondo.jpg" alt=""></span><b>BP</b><small>Beneficência Portuguesa</small><span class="ok"><span data-icone="check"></span>na rede</span></div>
   </div>
   <p class="credito s6">Foto da BP: Alexandre Possi · CC BY 3.0</p>
 
-  <p class="resp">Todos, no <em>SulAmérica Direto Nacional</em></p>
+  <p class="resp">Os dois, no <em>SulAmérica Direto Nacional</em></p>
   <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês · 3 vidas · sem coparticipação</span></p>
   <p class="nota-preco"></p>
 
