@@ -2,58 +2,67 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>B2 · Bradesco · Pergunta e médico</title>
+<title>B2 · Bradesco · Médico saindo da moldura</title>
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
 <style>
-  /* B2 — arquétipo da referência 08: fundo branco com cruzes em contorno, pergunta grande em vermelho e o médico
-     recortado (foto real, Adobe Stock) à direita; o cartão vinho com o preço entra por cima da base da foto. */
+  /* B2 — referência 08 com mais movimento: o médico real (Adobe Stock, recortado) sai de uma moldura vermelha, a lista
+     de hospitais da rede (São Camilo, BP, Samaritano) à esquerda e o preço embaixo; fundo branco com faixa diagonal. */
   body { background: #fff; color: #2b0a10; }
-  .cruzes { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .logo { position: absolute; left: 60px; top: 300px; width: 260px; color: #cc092f; }
-  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #a3001f; background: #fff; border: 1px solid #f1b8c2; }
-  .chip .req { background: #cc092f; color: #fff; }
-  .tit { left: 60px; top: 490px; width: 560px; font-size: 58px; line-height: 1.06; color: #cc092f; }
-  .sub { position: absolute; left: 60px; top: 760px; width: 470px; font-weight: 500; font-size: 24px; line-height: 1.35; color: #3a1a20; }
-  .sub b { font-weight: 700; color: #670000; }
-  .foto.medico { left: 516px; top: 470px; width: 534px; height: 690px; }
+  .diag { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 60px; top: 296px; width: 250px; color: #cc092f; }
+  .ps { background: #cc092f; color: #fff; }
+  .cnpj { background: #670000; color: #fff; }
+  .vidas3 { left: 652px; color: #670000; }
 
-  .cartao { position: absolute; left: 60px; right: 60px; top: 1000px; height: 214px; border-radius: 24px; background: #670000; color: #fff;
-    box-shadow: 0 24px 50px rgba(103,0,0,.3); }
-  .cartao .oferta { position: absolute; left: 36px; top: 26px; }
-  .cartao .rot3 { color: #ffd2d8; }
-  .cartao .preco { margin-top: 4px; font-size: 84px; }
-  .cartao .nota-preco { position: absolute; left: 36px; top: 168px; color: rgba(255,255,255,.88); }
-  .cartao .selo { right: 32px; }
-  .cartao .selo.s1 { top: 34px; background: #fff; color: #670000; }
-  .cartao .selo.s2 { top: 88px; border: 2px solid rgba(255,255,255,.75); color: #fff; }
+  .moldura { position: absolute; left: 556px; top: 830px; width: 464px; height: 390px; border-radius: 34px;
+    background: linear-gradient(160deg, #e3163f 0%, #cc092f 45%, #8f001b 100%); }
+  .recorte { position: absolute; left: 500px; top: 600px; width: 580px; height: 620px; overflow: hidden; }
+  .recorte img { position: absolute; left: 30px; top: 0; width: 520px; height: 672px; }
+
+  .rot-rede { position: absolute; left: 60px; top: 622px; font-weight: 600; font-size: 22px; color: #5a3a40; }
+  .rede { position: absolute; left: 60px; top: 662px; display: flex; flex-direction: column; gap: 14px; }
+  .rede p { display: flex; align-items: center; gap: 14px; font-family: var(--mont); font-weight: 900; font-size: 40px; color: #670000; line-height: 1; }
+  .rede p small { display: block; font-family: 'Poppins'; font-weight: 600; font-size: 19px; color: #5a3a40; margin-top: 4px; }
+  .rede .icone { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: #cc092f; color: #fff; }
+  .copart { position: absolute; left: 60px; top: 920px; font-weight: 700; font-size: 24px; color: #cc092f; }
+
+  .oferta { position: absolute; left: 60px; top: 990px; }
+  .oferta .rot3 { color: #cc092f; font-size: 21px; }
+  .oferta .preco { margin-top: 4px; font-size: 80px; color: #670000; }
+  .oferta .preco .mes { color: #5a3a40; }
+  .nota-preco { position: absolute; left: 60px; top: 1100px; color: #5a3a40; }
   .legal { color: #4a2a30; }
   .faixa { background: #670000; color: #fff; }
 </style>
 </head>
 <body data-operadora="bradesco" data-hospital="sim">
-  <svg class="cruzes" viewBox="0 0 1080 1920" fill="none" stroke="#cc092f" stroke-width="3">
-    <path d="M890 300h40v40h40v40h-40v40h-40v-40h-40v-40h40z" stroke-opacity=".35"/>
-    <path d="M975 470h26v26h26v26h-26v26h-26v-26h-26v-26h26z" stroke-opacity=".28"/>
-    <path d="M700 330h22v22h22v22h-22v22h-22v-22h-22v-22h22z" stroke-opacity=".2"/>
-    <path d="M1010 760h34v34h34v34h-34v34h-34v-34h-34v-34h34z" stroke-opacity=".22"/>
+  <svg class="diag" viewBox="0 0 1080 1920" fill="none">
+    <path d="M760 600L1080 470V780L860 860Z" fill="#cc092f" fill-opacity=".07"/>
+    <path d="M940 330h28v28h28v28h-28v28h-28v-28h-28v-28h28z" stroke="#cc092f" stroke-opacity=".3" stroke-width="3"/>
   </svg>
-
   <div class="logo" data-marca="bradesco"></div>
-  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
-  <h1 class="tit">Você já conhece o Plano Bradesco Saúde para CNPJ?</h1>
-  <p class="sub">Para sócios e diretores, <b>sem coparticipação</b>, com <b>BP, Samaritano e InCor</b> na rede em enfermaria.</p>
-  <img class="foto medico" src="../assets/fotos/cortes/v2-b2-medico.png" alt="">
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
 
-  <div class="cartao">
-    <div class="oferta">
-      <p class="rot3">3 vidas · a partir de</p>
-      <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
-    </div>
-    <p class="nota-preco"></p>
-    <p class="selo s1">Sem coparticipação</p>
-    <p class="selo s2">Enfermaria</p>
+  <div class="moldura"></div>
+  <div class="recorte"><img src="../assets/fotos/cortes/v2-b2-medico.png" alt=""></div>
+
+  <p class="rot-rede">Na rede, em enfermaria:</p>
+  <div class="rede">
+    <p><span data-icone="check"></span><span>São Camilo<small>Ipiranga e Santana</small></span></p>
+    <p><span data-icone="check"></span><span>BP<small>Beneficência Portuguesa</small></span></p>
+    <p><span data-icone="check"></span><span>Samaritano<small>Higienópolis</small></span></p>
   </div>
+  <p class="copart">Sem coparticipação · Efetivo Plus</p>
+
+  <div class="oferta">
+    <p class="rot3">3 vidas · a partir de</p>
+    <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+  </div>
+  <p class="nota-preco"></p>
 
   <p class="legal"></p>
   <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>

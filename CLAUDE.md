@@ -57,6 +57,9 @@ Meta**. Esse formulário tem trava e só aceita **quem tem CNPJ (MEI incluído) 
 
 - **Criativo:** o requisito aparece logo no começo, perto do logo, para filtrar quem não pode contratar. Exemplo:
   etiqueta "Exclusivo para CNPJ/MEI · a partir de 3 vidas" (texto pedido pelo cliente).
+- **Sempre em destaque (pedido do cliente em 06/11/2026):** "PLANOS DE SAÚDE" e "EXCLUSIVO PARA CNPJ/MEI" aparecem
+  grandes, logo abaixo do logo. "Planos de Saúde" vai em caixa alta pesada sobre tarja colorida, como nas
+  referências 06 e 10. "Exclusivo para CNPJ/MEI" vai num selo forte com ícone. Nunca como etiqueta pequena.
 - **Botão do criativo:** fala de cotação ou formulário ("Solicite sua cotação"). Nunca WhatsApp, conversa ou
   "fale com um consultor", e nada de ícone de balão de conversa.
 - **Copy do Meta:** botão "Obter cotação" (ou "Cadastre-se"). Nunca "Enviar mensagem" nem "chame no WhatsApp".
@@ -76,6 +79,8 @@ Pedido do cliente em 06/11/2026: "sempre vamos trabalhar com os melhores". Quand
     Santa Joana e Pro Matre.
   - Samaritano e Vila Nova Star são de primeira linha, mas não confirmei a posição deles na edição 2026: conferir
     antes de usar como "um dos melhores".
+  - **São Camilo e São Luiz:** o cliente pediu esses dois como referência (06/11/2026). Usar sempre que estiverem na
+    rede do plano. Exemplo: o Bradesco Efetivo Plus tem São Camilo Ipiranga e Santana em enfermaria.
 - **Só se o hospital estiver na rede do plano da cotação, na acomodação da cotação** (enfermaria ou quarto),
   confirmado em material oficial da operadora ou na cotação. Hospital fora da rede é propaganda enganosa: não entra,
   nem como "referência". Não citar hospital de segunda linha só para preencher.

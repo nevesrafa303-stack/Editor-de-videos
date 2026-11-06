@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S3 · SulAmérica · Acesso aos hospitais</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
+<style>
+  /* S3 — referência 13: fundo grafite-azulado, logo em cartão branco, caixa laranja "ACESSO AOS HOSPITAIS" com São Luiz
+     e BP, foto real da equipe (Adobe Stock) em moldura arredondada e o preço grande. */
+  body { background: radial-gradient(120% 70% at 85% 40%, #24325f 0%, #17203f 50%, #11182f 100%); color: #fff; }
+  .logo-card { position: absolute; left: 60px; top: 292px; width: 300px; height: 90px; border-radius: 16px; background: #fff;
+    display: flex; align-items: center; justify-content: center; }
+  .logo { width: 240px; }
+  .cidade { position: absolute; left: 380px; top: 318px; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px;
+    border-radius: 999px; border: 2px solid rgba(255,255,255,.5); font-weight: 600; font-size: 19px; }
+  .cidade .icone { width: 20px; height: 20px; color: #f6751b; }
+  .ps { background: #f6751b; color: #0b2354; }
+  .cnpj { background: #fff; color: #0b2354; }
+  .cnpj .icone { color: #eb622a; }
+  .vidas3 { left: 652px; color: #fff; }
+
+  .acesso { position: absolute; left: 60px; top: 618px; width: 500px; height: 280px; border-radius: 20px; background: #f6751b; color: #0b2354;
+    padding: 24px 28px; }
+  .acesso h2 { font-family: var(--mont); font-weight: 900; font-size: 26px; letter-spacing: .03em; text-transform: uppercase; margin-bottom: 16px; }
+  .acesso p { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .acesso p .icone { width: 38px; height: 38px; padding: 8px; border-radius: 50%; background: #0b2354; color: #fff; flex: none; }
+  .acesso p b { display: block; font-family: var(--mont); font-weight: 900; font-size: 34px; line-height: 1; }
+  .acesso p small { display: block; font-weight: 600; font-size: 19px; margin-top: 4px; }
+  .acesso .enf { font-weight: 700; font-size: 20px; }
+
+  .quadro { position: absolute; left: 590px; top: 618px; width: 430px; height: 548px; border-radius: 24px; overflow: hidden;
+    border: 4px solid #f6751b; }
+  .quadro img { position: absolute; left: 0; top: 0; width: 422px; height: 540px; }
+
+  .oferta { position: absolute; left: 60px; top: 926px; }
+  .oferta .apartir { color: #dfe4f5; }
+  .oferta .preco { margin-top: 2px; font-size: 80px; }
+  .nota-preco { position: absolute; left: 60px; top: 1024px; color: rgba(255,255,255,.85); }
+  .selo.copart { left: 60px; top: 1070px; background: #f6751b; color: #0b2354; }
+  .prod { position: absolute; left: 60px; top: 1126px; font-weight: 600; font-size: 21px; color: #dfe4f5; }
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: #f6751b; color: #0b2354; }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <div class="logo-card"><div class="logo" data-marca="sula"></div></div>
+  <p class="cidade"><span data-icone="pin"></span>São Paulo (SP)</p>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
+
+  <div class="acesso">
+    <h2>Acesso aos hospitais</h2>
+    <p><span data-icone="check"></span><span><b>São Luiz</b><small>Rede D'Or</small></span></p>
+    <p><span data-icone="check"></span><span><b>BP</b><small>Beneficência Portuguesa</small></span></p>
+    <p class="enf">em enfermaria, no Direto Nacional</p>
+  </div>
+  <div class="quadro"><img src="../assets/fotos/cortes/v3-s3-equipe.jpg" alt=""></div>
+
+  <div class="oferta">
+    <p class="apartir">3 vidas por apenas</p>
+    <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+  </div>
+  <p class="nota-preco"></p>
+  <p class="selo copart">Sem coparticipação</p>
+  <p class="prod">Cobertura nacional · enfermaria</p>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B1 · Bradesco · Rede São Camilo, BP e Samaritano</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
+<style>
+  /* B1 — "PLANOS DE SAÚDE" em tarja branca e o selo CNPJ/MEI no topo; a prova é a rede em enfermaria do material
+     oficial: São Camilo em cartão grande, BP e Samaritano com fotos reais; o preço num cartão branco. */
+  body { background: radial-gradient(120% 60% at 80% 10%, #a3001f 0%, #7a0012 40%, #670000 70%, #4a0000 100%); color: #fff; }
+  .cruzes { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 60px; top: 296px; width: 250px; color: #fff; }
+  .ps { background: #fff; color: #670000; }
+  .cnpj { background: #e3163f; color: #fff; }
+  .vidas3 { left: 652px; color: #ffd2d8; }
+  .rot-rede { position: absolute; left: 60px; top: 610px; font-weight: 600; font-size: 22px; color: #ffd2d8; }
+  .hosp-txt.camilo { left: 60px; top: 650px; width: 960px; height: 150px; background: #fff; color: #670000; }
+  .hosp-txt.camilo .cruz { background: #cc092f; color: #fff; }
+  .hosp-txt.camilo span { color: #5a3a40; }
+  .hosp-txt.camilo .tag { margin-left: auto; padding: 8px 16px; border-radius: 8px; background: #fde8eb; color: #a3001f;
+    font-family: var(--mont); font-weight: 800; font-size: 19px; text-transform: uppercase; letter-spacing: .05em; }
+  .hosp.c1 { left: 60px; top: 820px; width: 470px; height: 261px; }
+  .hosp.c2 { left: 550px; top: 820px; width: 470px; height: 261px; }
+  .hosp img { width: 470px; height: 261px; }
+  .hosp .nome { background: rgba(103,0,0,.9); color: #fff; }
+  .hosp .credito { left: auto; right: 10px; }
+
+  .oferta-c { position: absolute; left: 60px; top: 1100px; width: 960px; height: 126px; border-radius: 20px; background: #fff; color: #670000; }
+  .oferta-c .rot3 { position: absolute; left: 28px; top: 14px; color: #cc092f; font-size: 20px; }
+  .oferta-c .preco { position: absolute; left: 24px; top: 40px; font-size: 72px; }
+  .oferta-c .preco .mes { color: #5a3a40; }
+  .oferta-c .selo { right: 26px; top: 18px; background: #670000; color: #fff; }
+  .oferta-c .nota-preco { position: absolute; right: 26px; top: 80px; color: #5a3a40; }
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: #e3163f; color: #fff; }
+</style>
+</head>
+<body data-operadora="bradesco" data-hospital="sim">
+  <svg class="cruzes" viewBox="0 0 1080 1920" fill="none" stroke="#fff" stroke-width="3">
+    <path d="M900 296h36v36h36v36h-36v36h-36v-36h-36v-36h36z" stroke-opacity=".16"/>
+    <path d="M760 330h20v20h20v20h-20v20h-20v-20h-20v-20h20z" stroke-opacity=".12"/>
+  </svg>
+  <div class="logo" data-marca="bradesco"></div>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
+
+  <p class="rot-rede">Hospitais de referência na rede, em enfermaria:</p>
+  <div class="hosp-txt camilo">
+    <span class="cruz"><span data-icone="hospital"></span></span>
+    <div><b>São Camilo</b><span>Ipiranga · Santana</span></div>
+    <p class="tag">Na rede</p>
+  </div>
+  <div class="hosp c1">
+    <img src="../assets/fotos/cortes/v3-b1-bp.jpg" alt="">
+    <p class="credito">Foto: Alexandre Possi · CC BY 3.0</p>
+    <p class="nome">BP<small>Beneficência Portuguesa</small></p>
+  </div>
+  <div class="hosp c2">
+    <img src="../assets/fotos/cortes/v3-b1-samaritano.jpg" alt="">
+    <p class="credito">Foto: Hsama · CC BY 3.0</p>
+    <p class="nome">Samaritano<small>Higienópolis</small></p>
+  </div>
+
+  <div class="oferta-c">
+    <p class="rot3">Bradesco Saúde · 3 vidas a partir de</p>
+    <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
+    <p class="selo">Sem coparticipação</p>
+    <p class="nota-preco"></p>
+  </div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

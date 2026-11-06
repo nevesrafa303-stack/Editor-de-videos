@@ -1,0 +1,28 @@
+/* Versão 3 — sobre ref.css. Topo padrão pedido pelo cliente: "PLANOS DE SAÚDE" grande em tarja colorida e o selo
+   forte "EXCLUSIVO PARA CNPJ/MEI" logo abaixo do logo (CLAUDE.md, "Sempre em destaque"). */
+
+/* tarja "PLANOS DE SAÚDE" (refs 06 e 10) */
+.ps { position: absolute; left: 60px; top: 398px; padding: 8px 22px 4px; border-radius: 6px; font-family: var(--mont); font-weight: 900;
+  font-size: 84px; line-height: 1; letter-spacing: -.02em; text-transform: uppercase; white-space: nowrap; }
+/* selo "EXCLUSIVO PARA CNPJ/MEI" + "a partir de 3 vidas" */
+.cnpj { position: absolute; left: 60px; top: 516px; display: flex; align-items: center; gap: 12px; height: 62px; padding: 0 26px 0 18px;
+  border-radius: 12px; font-family: var(--mont); font-weight: 900; font-size: 30px; letter-spacing: .02em; text-transform: uppercase;
+  white-space: nowrap; }
+.cnpj .icone { width: 32px; height: 32px; }
+.vidas3 { position: absolute; top: 532px; font-family: var(--mont); font-weight: 800; font-size: 26px; white-space: nowrap; }
+
+/* cartão de hospital com nome (fila de hospitais das refs 09, 10 e 13) */
+.hosp { position: absolute; overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.28); }
+.hosp img { position: absolute; left: 0; top: 0; display: block; }
+.hosp .nome { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 18px; font-family: var(--mont); font-weight: 900;
+  font-size: 30px; line-height: 1.05; }
+.hosp .nome small { display: block; font-family: 'Poppins'; font-weight: 600; font-size: 19px; margin-top: 3px; }
+.hosp .credito { left: 10px; top: 10px; }
+
+/* nome de hospital só em texto, em cartão (para hospital sem foto livre) */
+.hosp-txt { position: absolute; display: flex; align-items: center; gap: 22px; border-radius: 22px; padding: 0 30px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.22); }
+.hosp-txt .cruz { width: 74px; height: 74px; border-radius: 18px; display: flex; align-items: center; justify-content: center; flex: none; }
+.hosp-txt .cruz .icone { width: 42px; height: 42px; }
+.hosp-txt b { display: block; font-family: var(--mont); font-weight: 900; font-size: 48px; line-height: 1; letter-spacing: -.01em; }
+.hosp-txt span { display: block; font-weight: 600; font-size: 22px; margin-top: 6px; }

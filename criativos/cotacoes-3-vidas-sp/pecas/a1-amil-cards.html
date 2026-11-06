@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A1 · Amil · Cards</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
+<style>
+  /* A1 — referência 02 (cards modulares) com o topo da v3: foto real em card com selo, card do preço da 1ª e da 2ª e
+     card amarelo "50% OFF"; grade sutil no fundo violeta. */
+  body { background: #4318fc; color: #fff; }
+  .grade { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo { position: absolute; left: 60px; top: 300px; width: 220px; color: #fff; }
+  .ps { background: #fff; color: #4318fc; }
+  .cnpj { background: #ffc542; color: #0f0d59; }
+  .vidas3 { left: 652px; color: #fff; }
+
+  .card { position: absolute; border-radius: 26px; overflow: hidden; }
+  .card.foto-c { left: 60px; top: 612px; width: 960px; height: 430px; box-shadow: 0 24px 50px rgba(10,5,60,.35); }
+  .card.foto-c img { position: absolute; left: 0; top: -55px; width: 960px; height: 540px; }
+  .card.foto-c .selo { right: 22px; top: 22px; background: #ffc542; color: #0f0d59; }
+  .card.foto-c .tit-c { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 26px; background: rgba(15,13,89,.85);
+    font-family: var(--mont); font-weight: 900; font-size: 34px; line-height: 1.1; }
+  .card.foto-c .tit-c em { font-style: normal; color: #ffc542; }
+
+  .card.preco-c { left: 60px; top: 1062px; width: 560px; height: 164px; background: #fff; color: #0f0d59; }
+  .card.preco-c .rot3 { position: absolute; left: 24px; top: 16px; color: #4318fc; font-size: 19px; }
+  .card.preco-c .preco { position: absolute; left: 20px; top: 40px; font-size: 70px; }
+  .card.preco-c .depois { position: absolute; left: 330px; top: 70px; font-weight: 600; font-size: 19px; line-height: 1.3; color: #3d3a7a; }
+  .card.preco-c .depois b { color: #0f0d59; }
+  .card.preco-c .nota-preco { position: absolute; left: 24px; top: 126px; color: #3d3a7a; }
+  .card.off-c { left: 640px; top: 1062px; width: 380px; height: 164px; background: #ffc542; color: #0f0d59; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; }
+  .card.off-c b { font-family: var(--mont); font-weight: 900; font-size: 72px; line-height: .95; }
+  .card.off-c span { font-family: var(--mont); font-weight: 800; font-size: 20px; margin-top: 6px; }
+  .legal { color: rgba(255,255,255,.9); }
+  .faixa { background: #0f0d59; color: #fff; }
+</style>
+</head>
+<body data-operadora="amil" data-foto="sim">
+  <svg class="grade" viewBox="0 0 1080 1920" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="1.5">
+    <path d="M0 600H1080M0 720H1080M0 840H1080M0 960H1080M0 1080H1080M0 1200H1080M0 1320H1080M120 290V1430M240 290V1430M360 290V1430M480 290V1430M600 290V1430M720 290V1430M840 290V1430M960 290V1430"/>
+  </svg>
+  <div class="logo" data-marca="amil"></div>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
+
+  <div class="card foto-c">
+    <img src="../assets/fotos/cortes/v2-a2-corredor.jpg" alt="">
+    <p class="selo">Coparticipação só em terapias</p>
+    <p class="tit-c">Amil Prata nacional para a sua empresa, <em>em enfermaria</em></p>
+  </div>
+  <div class="card preco-c">
+    <p class="rot3">3 vidas · 1ª e 2ª mensalidade</p>
+    <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
+    <p class="depois">depois,<br><b>R$ 1.445,99</b>/mês</p>
+    <p class="nota-preco"></p>
+  </div>
+  <div class="card off-c"><b>50% OFF</b><span>na 1ª e na 2ª mensalidade</span></div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

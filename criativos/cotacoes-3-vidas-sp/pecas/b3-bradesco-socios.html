@@ -2,62 +2,57 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>B3 · Bradesco · Sócios e diretores</title>
+<title>B3 · Bradesco · Sócios com forma curva</title>
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
 <style>
-  /* B3 — arquétipo da referência 12: foto real de três sócios (Adobe Stock) com borda curva, painel branco com
-     título em vinho, "03 vidas a partir de", faixa CNPJ e a lista "Diferenciais do plano". */
-  body { background: #fff; color: #2b0a10; }
-  .foto.hero { left: 0; top: 0; width: 1080px; height: 820px; }
-  .veu.topo { top: 0; height: 560px; background: linear-gradient(180deg, rgba(40,0,0,.82) 0%, rgba(40,0,0,.55) 55%, rgba(40,0,0,0) 100%); }
-  .curva { position: absolute; left: 0; top: 700px; width: 1080px; height: 122px; }
-  .logo { position: absolute; left: 60px; top: 300px; width: 260px; color: #fff; }
-  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #fff; background: rgba(40,0,0,.45); border: 1px solid rgba(255,255,255,.5); }
+  /* B3 — referência 07: foto real dos sócios (Adobe Stock) em tela cheia e uma forma curva vinho por cima com a oferta
+     para sócios e diretores e a rede (São Camilo, BP, Samaritano). */
+  body { background: #670000; color: #fff; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 1232px; }
+  .veu.topo { top: 0; height: 720px; background: linear-gradient(180deg, rgba(40,0,0,.88) 0%, rgba(40,0,0,.7) 55%, rgba(40,0,0,0) 100%); }
+  .forma { position: absolute; left: 0; top: 700px; width: 1080px; height: 534px; }
+  .logo { position: absolute; left: 60px; top: 296px; width: 250px; color: #fff; }
+  .ps { background: #fff; color: #670000; }
+  .cnpj { background: #e3163f; color: #fff; }
+  .vidas3 { left: 640px; top: 524px; padding: 8px 16px; border-radius: 10px; background: rgba(40,0,0,.78); color: #fff; }
 
-  .tit { left: 60px; top: 826px; font-size: 58px; color: #670000; }
-  .tit-2 { left: 60px; top: 894px; font-size: 38px; color: #cc092f; }
-  .oferta { position: absolute; left: 60px; top: 964px; }
-  .oferta .apartir { color: #3a1a20; }
-  .oferta .preco { margin-top: 2px; font-size: 88px; color: #670000; }
-  .oferta .preco .mes { color: #5a3a40; }
-  .selo.cnpj { left: 60px; top: 1090px; background: #670000; color: #fff; }
-  .nota-preco { position: absolute; left: 60px; top: 1146px; color: #5a3a40; }
-  .dif { position: absolute; left: 640px; top: 966px; }
-  .dif h2 { font-family: var(--mont); font-weight: 800; font-size: 26px; color: #670000; margin-bottom: 14px; }
-  .dif .lista { position: static; gap: 12px; }
-  .dif .lista p { font-size: 23px; color: #2b0a10; }
-  .dif .lista p i { background: #cc092f; }
-  .legal { color: #4a2a30; }
-  .faixa { background: #670000; color: #fff; }
+  .para { position: absolute; left: 60px; top: 812px; font-weight: 700; font-style: italic; font-size: 36px; }
+  .oferta { position: absolute; left: 60px; top: 872px; }
+  .oferta .rot3 { color: #ffd2d8; }
+  .oferta .preco { margin-top: 2px; font-size: 84px; }
+  .nota-preco { position: absolute; left: 60px; top: 972px; color: rgba(255,255,255,.88); }
+  .rot-rede { position: absolute; left: 60px; top: 1024px; font-weight: 600; font-size: 20px; color: #ffd2d8; }
+  .rede { position: absolute; left: 60px; top: 1054px; font-family: var(--mont); font-weight: 900; font-size: 34px; }
+  .rede i { display: inline-block; width: 3px; height: 30px; background: #e3163f; margin: 0 16px; vertical-align: -3px; }
+  .selo.copart { left: 60px; top: 1120px; background: #fff; color: #670000; }
+  .legal { color: rgba(255,255,255,.88); }
+  .faixa { background: #e3163f; color: #fff; }
 </style>
 </head>
 <body data-operadora="bradesco" data-hospital="sim">
-  <img class="foto hero" src="../assets/fotos/cortes/v2-b3-socios.jpg" alt="">
+  <img class="foto hero" src="../assets/fotos/cortes/v3-b3-socios.jpg" alt="">
   <div class="veu topo"></div>
-  <svg class="curva" viewBox="0 0 1080 122" preserveAspectRatio="none"><path d="M0 92C260 18 520 0 760 36C900 57 1000 86 1080 112V122H0Z" fill="#fff"/></svg>
+  <svg class="forma" viewBox="0 0 1080 534" preserveAspectRatio="none">
+    <path d="M0 70C260 30 560 60 700 200C780 280 820 400 860 534H0Z" fill="#670000" fill-opacity=".96"/>
+    <path d="M0 70C260 30 560 60 700 200C780 280 820 400 860 534" fill="none" stroke="#e3163f" stroke-width="6"/>
+  </svg>
 
   <div class="logo" data-marca="bradesco"></div>
-  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
 
-  <h1 class="tit">Plano de Saúde Bradesco</h1>
-  <p class="tit-2">para sócios e diretores</p>
+  <p class="para">para sócios e diretores</p>
   <div class="oferta">
-    <p class="apartir">03 vidas a partir de</p>
+    <p class="rot3">3 vidas · a partir de</p>
     <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span><span class="mes">/mês</span></p>
   </div>
-  <p class="selo cnpj">Exclusivo para CNPJ/MEI</p>
   <p class="nota-preco"></p>
-  <div class="dif">
-    <h2>Diferenciais do plano:</h2>
-    <div class="lista">
-      <p><i></i>Sem coparticipação</p>
-      <p><i></i>BP, Samaritano e InCor</p>
-      <p><i></i>Enfermaria</p>
-      <p><i></i>Cobertura nacional</p>
-      <p><i></i>Telemedicina 24h</p>
-    </div>
-  </div>
+  <p class="rot-rede">Na rede, em enfermaria:</p>
+  <p class="rede">São Camilo<i></i>BP<i></i>Samaritano</p>
+  <p class="selo copart">Sem coparticipação</p>
 
   <p class="legal"></p>
   <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>

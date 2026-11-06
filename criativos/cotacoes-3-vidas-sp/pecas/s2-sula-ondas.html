@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S2 · SulAmérica · Ondas e equipe</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
+<style>
+  /* S2 — referência 09: equipe real (Adobe Stock) com borda em onda sobre o laranja, linhas onduladas, os hospitais
+     de referência em cartões brancos e o cartão azul-marinho com o preço. */
+  body { background: linear-gradient(180deg, #f6751b 0%, #eb622a 100%); color: #fff; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 880px; }
+  .veu.topo { top: 0; height: 700px; background: linear-gradient(180deg, rgba(11,35,84,.9) 0%, rgba(11,35,84,.72) 55%, rgba(11,35,84,0) 100%); }
+  .onda { position: absolute; left: 0; top: 760px; width: 1080px; height: 122px; }
+  .linhas { position: absolute; left: 0; top: 880px; width: 1080px; height: 360px; }
+  .logo { position: absolute; left: 60px; top: 296px; width: 300px; }
+  .ps { background: #0b2354; color: #fff; }
+  .cnpj { background: #fff; color: #0b2354; }
+  .cnpj .icone { color: #eb622a; }
+  .vidas3 { left: 640px; top: 524px; padding: 8px 16px; border-radius: 10px; background: rgba(11,35,84,.78); color: #fff; }
+
+  .hosp-txt { height: 104px; background: #fff; color: #0b2354; padding: 0 22px; gap: 16px; }
+  .hosp-txt .cruz { width: 62px; height: 62px; border-radius: 16px; background: #f6751b; color: #0b2354; }
+  .hosp-txt .cruz .icone { width: 36px; height: 36px; }
+  .hosp-txt b { font-size: 38px; }
+  .hosp-txt span { font-size: 19px; color: #3b4470; margin-top: 4px; }
+  .hosp-txt.h1 { left: 60px; top: 892px; width: 470px; }
+  .hosp-txt.h2 { left: 550px; top: 892px; width: 470px; }
+
+  .card { position: absolute; left: 60px; top: 1018px; width: 960px; height: 208px; border-radius: 22px; background: #0b2354;
+    box-shadow: 0 20px 44px rgba(11,35,84,.35); }
+  .card .apartir { position: absolute; left: 32px; top: 22px; color: #dfe4f5; }
+  .card .preco { position: absolute; left: 28px; top: 54px; font-size: 84px; }
+  .card .nota-preco { position: absolute; left: 32px; top: 160px; color: rgba(255,255,255,.85); }
+  .card .selo { right: 30px; top: 30px; background: #f6751b; color: #0b2354; }
+  .card .prod { position: absolute; right: 30px; top: 90px; text-align: right; font-weight: 600; font-size: 21px; line-height: 1.45; color: #dfe4f5; }
+  .bloco-legal { position: absolute; left: 0; right: 0; top: 1232px; height: 196px; background: #0b2354; }
+  .legal { top: 1246px; color: rgba(255,255,255,.88); }
+  .faixa { background: #eb622a; color: #0b2354; }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <img class="foto hero" src="../assets/fotos/cortes/v2-s1-equipe.jpg" alt="">
+  <div class="veu topo"></div>
+  <svg class="onda" viewBox="0 0 1080 122" preserveAspectRatio="none"><path d="M0 60C170 14 330 14 520 54C720 96 880 100 1080 44V122H0Z" fill="#f6751b"/></svg>
+  <svg class="linhas" viewBox="0 0 1080 360" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="2">
+    <path d="M-20 120C200 80 380 170 600 130C800 94 940 110 1100 150"/>
+    <path d="M-20 150C220 110 400 200 620 160C820 124 950 140 1100 180"/>
+  </svg>
+
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
+
+  <div class="hosp-txt h1"><span class="cruz"><span data-icone="hospital"></span></span><div><b>São Luiz</b><span>Rede D'Or</span></div></div>
+  <div class="hosp-txt h2"><span class="cruz"><span data-icone="hospital"></span></span><div><b>BP</b><span>Beneficência Portuguesa</span></div></div>
+
+  <div class="card">
+    <p class="apartir">3 vidas por apenas</p>
+    <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+    <p class="nota-preco"></p>
+    <p class="selo">Sem coparticipação</p>
+    <p class="prod">Direto Nacional<br>enfermaria</p>
+  </div>
+
+  <div class="bloco-legal"></div>
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

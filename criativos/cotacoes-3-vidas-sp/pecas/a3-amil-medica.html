@@ -2,58 +2,60 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>A3 · Amil · Pergunta e médica</title>
+<title>A3 · Amil · 50% OFF e médica</title>
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
 <style>
-  /* A3 — arquétipos das referências 05 e 08: cor da Amil, pergunta grande ("Sua empresa ainda não tem plano de
-     saúde?") e a médica recortada (foto real, Adobe Stock) à direita; o cartão branco com o preço entra por cima. */
-  body { background: radial-gradient(110% 70% at 75% 40%, #5b34ff 0%, #4318fc 40%, #2a10b8 75%, #170b66 100%); }
-  .cruzes { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .logo { position: absolute; left: 60px; top: 300px; width: 230px; color: #fff; }
-  .chip { top: 410px; height: 46px; padding: 0 24px; font-size: 19px; color: #fff; background: rgba(15,13,89,.4); border: 1px solid rgba(255,255,255,.45); }
-  .tit { left: 60px; top: 490px; width: 560px; font-size: 60px; line-height: 1.05; color: #fff; }
-  .tit em { font-style: normal; color: #ffc542; }
-  .sub { position: absolute; left: 60px; top: 770px; width: 500px; font-weight: 500; font-size: 24px; line-height: 1.35; color: #e4e0ff; }
-  .sub b { font-weight: 700; color: #fff; }
-  .foto.medica { left: 590px; top: 470px; width: 451px; height: 760px; }
+  /* A3 — referências 05 e 08 com movimento: a médica real (Adobe Stock, recortada) sai de um círculo amarelo, "50% OFF"
+     gigante à esquerda e o preço da 1ª e da 2ª mensalidade. */
+  body { background: radial-gradient(110% 70% at 80% 55%, #5b34ff 0%, #4318fc 40%, #2a10b8 75%, #170b66 100%); color: #fff; }
+  .logo { position: absolute; left: 60px; top: 300px; width: 220px; color: #fff; }
+  .ps { background: #fff; color: #4318fc; }
+  .cnpj { background: #ffc542; color: #0f0d59; }
+  .vidas3 { left: 652px; color: #fff; }
 
-  .cartao { position: absolute; left: 60px; right: 60px; top: 1000px; height: 220px; border-radius: 24px; background: #fff; color: #0f0d59;
-    box-shadow: 0 24px 50px rgba(10,5,60,.35); }
-  .cartao .oferta { position: absolute; left: 34px; top: 24px; }
-  .cartao .rot3 { color: #4318fc; font-size: 20px; }
-  .cartao .preco { margin-top: 4px; font-size: 86px; }
-  .cartao .depois { position: absolute; left: 34px; top: 150px; font-weight: 500; font-size: 21px; color: #3d3a7a; }
-  .cartao .depois b { color: #0f0d59; font-weight: 700; }
-  .cartao .nota-preco { position: absolute; left: 34px; top: 182px; color: #3d3a7a; }
-  .cartao .off { position: absolute; right: 30px; top: 30px; width: 190px; height: 160px; border-radius: 18px; background: #ffc542;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0f0d59; }
-  .cartao .off b { font-family: var(--mont); font-weight: 900; font-size: 56px; line-height: 1; }
-  .cartao .off span { font-family: var(--mont); font-weight: 800; font-size: 19px; line-height: 1.2; margin-top: 6px; }
+  .circulo { position: absolute; left: 560px; top: 760px; width: 480px; height: 480px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #ffd76e 0%, #ffc542 55%, #f0a91c 100%); }
+  .recorte { position: absolute; left: 540px; top: 600px; width: 540px; height: 626px; overflow: hidden; }
+  .recorte img { position: absolute; left: 50px; top: 0; width: 451px; height: 760px; }
+
+  .off { position: absolute; left: 56px; top: 618px; font-family: var(--mont); font-weight: 900; font-size: 150px; line-height: .9;
+    letter-spacing: -.04em; color: #ffc542; }
+  .off-sub { position: absolute; left: 62px; top: 768px; font-family: var(--mont); font-weight: 800; font-size: 32px; line-height: 1.1; }
+  .oferta { position: absolute; left: 60px; top: 870px; }
+  .oferta .rot3 { color: #d9d4ff; font-size: 20px; }
+  .oferta .preco { margin-top: 4px; font-size: 92px; }
+  .depois { position: absolute; left: 62px; top: 984px; font-weight: 500; font-size: 22px; color: #e4e0ff; }
+  .depois b { color: #fff; font-weight: 700; }
+  .nota-preco { position: absolute; left: 62px; top: 1022px; color: rgba(255,255,255,.85); }
+  .info { position: absolute; left: 60px; top: 1078px; display: flex; flex-direction: column; gap: 10px; }
+  .info p { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 22px; }
+  .info p i { width: 14px; height: 14px; border-radius: 3px; background: #ffc542; flex: none; }
   .legal { color: rgba(255,255,255,.88); }
   .faixa { background: #ffc542; color: #0f0d59; }
 </style>
 </head>
 <body data-operadora="amil" data-foto="sim">
-  <svg class="cruzes" viewBox="0 0 1080 1920" fill="none" stroke="#fff" stroke-width="3">
-    <path d="M900 300h40v40h40v40h-40v40h-40v-40h-40v-40h40z" stroke-opacity=".22"/>
-    <path d="M640 330h24v24h24v24h-24v24h-24v-24h-24v-24h24z" stroke-opacity=".16"/>
-    <path d="M1000 640h30v30h30v30h-30v30h-30v-30h-30v-30h30z" stroke-opacity=".18"/>
-  </svg>
   <div class="logo" data-marca="amil"></div>
-  <p class="chip esq"><span class="req"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</span>A partir de 3 vidas · São Paulo (SP)</p>
-  <h1 class="tit">Sua empresa ainda não tem <em>plano de saúde?</em></h1>
-  <p class="sub">Amil Prata nacional, em enfermaria, com <b>50% de desconto na 1ª e na 2ª mensalidade</b>.</p>
-  <img class="foto medica" src="../assets/fotos/cortes/v2-a3-medica.png" alt="">
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
 
-  <div class="cartao">
-    <div class="oferta">
-      <p class="rot3">3 vidas · 1ª e 2ª mensalidade</p>
-      <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
-    </div>
-    <p class="depois">depois, <b>R$ 1.445,99</b> por mês</p>
-    <p class="nota-preco"></p>
-    <div class="off"><b>50%</b><span>OFF na 1ª<br>e na 2ª</span></div>
+  <div class="circulo"></div>
+  <div class="recorte"><img src="../assets/fotos/cortes/v2-a3-medica.png" alt=""></div>
+
+  <p class="off">50% OFF</p>
+  <p class="off-sub">na 1ª e na 2ª mensalidade</p>
+  <div class="oferta">
+    <p class="rot3">3 vidas · 1ª e 2ª por</p>
+    <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
+  </div>
+  <p class="depois">depois, <b>R$ 1.445,99</b> por mês</p>
+  <p class="nota-preco"></p>
+  <div class="info">
+    <p><i></i>Amil Prata nacional · enfermaria</p>
+    <p><i></i>Coparticipação só em terapias</p>
   </div>
 
   <p class="legal"></p>

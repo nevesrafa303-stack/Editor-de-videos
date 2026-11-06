@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>A2 · Amil · Tabela por idade</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
+<style>
+  /* A2 — referência 01: foto real no topo (equipe no saguão, Adobe Stock) com degradê, moldura fina dourada, "PLANOS DE
+     SAÚDE" em tarja dourada e a tabela de valor por vida (coluna violeta de idades + coluna branca de preços). */
+  body { background: #170b66; color: #fff; }
+  .foto.hero { left: 0; top: 0; width: 1080px; height: 760px; }
+  .veu.topo { top: 0; height: 760px; background: linear-gradient(180deg, rgba(15,13,89,.9) 0%, rgba(15,13,89,.78) 50%, rgba(23,11,102,.92) 85%, #170b66 100%); }
+  .moldura { position: absolute; left: 28px; top: 270px; right: 28px; bottom: 470px; border: 2px solid rgba(255,197,66,.7); border-radius: 18px; }
+  .logo { position: absolute; left: 60px; top: 300px; width: 220px; color: #fff; }
+  .ps { background: #ffc542; color: #0f0d59; }
+  .cnpj { background: #fff; color: #4318fc; }
+  .vidas3 { left: 652px; color: #fff; }
+
+  .caixa { position: absolute; left: 60px; top: 626px; width: 470px; height: 236px; border-radius: 18px; background: #fff; color: #0f0d59; }
+  .caixa .rot3 { position: absolute; left: 24px; top: 20px; color: #4318fc; font-size: 19px; }
+  .caixa .preco { position: absolute; left: 20px; top: 48px; font-size: 84px; }
+  .caixa .depois { position: absolute; left: 24px; top: 146px; font-weight: 500; font-size: 21px; color: #3d3a7a; }
+  .caixa .depois b { color: #0f0d59; font-weight: 700; }
+  .caixa .nota-preco { position: absolute; left: 24px; top: 186px; color: #3d3a7a; }
+  .off { position: absolute; left: 60px; top: 884px; display: flex; align-items: center; gap: 14px; height: 64px; padding: 0 22px;
+    border-radius: 14px; background: #ffc542; color: #0f0d59; }
+  .off b { font-family: var(--mont); font-weight: 900; font-size: 36px; }
+  .off span { font-weight: 700; font-size: 20px; line-height: 1.15; }
+  .info { position: absolute; left: 60px; top: 972px; width: 470px; display: flex; flex-direction: column; gap: 10px; }
+  .info p { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 22px; }
+  .info p i { width: 14px; height: 14px; border-radius: 3px; background: #ffc542; flex: none; }
+
+  .tabela { position: absolute; left: 560px; top: 626px; width: 460px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+  .tabela .cab { display: flex; height: 44px; background: #ffc542; color: #0f0d59; font-family: var(--mont); font-weight: 900; font-size: 19px;
+    letter-spacing: .05em; text-transform: uppercase; }
+  .tabela .cab span { display: flex; align-items: center; padding: 0 18px; }
+  .tabela .cab span:first-child { width: 160px; }
+  .tabela .lin { display: flex; height: 54px; }
+  .tabela .idade { width: 160px; display: flex; align-items: center; padding: 0 18px; background: #4318fc; color: #fff; font-weight: 700; font-size: 24px; }
+  .tabela .valor { flex: 1; display: flex; align-items: center; justify-content: flex-end; padding: 0 18px; background: #fff; color: #170b66;
+    font-family: var(--mont); font-weight: 900; font-size: 30px; }
+  .tabela .lin + .lin .valor { border-top: 1px solid #e4e1fb; }
+  .tabela .lin + .lin .idade { border-top: 1px solid rgba(255,255,255,.18); }
+  .tabela .valor small { font-size: 19px; font-weight: 800; vertical-align: 9px; }
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: #ffc542; color: #0f0d59; }
+</style>
+</head>
+<body data-operadora="amil" data-foto="sim">
+  <img class="foto hero" src="../assets/fotos/cortes/v2-a1-saguao.jpg" alt="">
+  <div class="veu topo"></div>
+  <div class="moldura"></div>
+  <div class="logo" data-marca="amil"></div>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
+
+  <div class="caixa">
+    <p class="rot3">3 vidas · 1ª e 2ª mensalidade</p>
+    <p class="preco"><span class="rs">R$</span>723<span class="cent">,00*</span></p>
+    <p class="depois">depois, <b>R$ 1.445,99</b> por mês</p>
+    <p class="nota-preco"></p>
+  </div>
+  <div class="off"><b>50% OFF</b><span>na 1ª e na 2ª<br>mensalidade</span></div>
+  <div class="info">
+    <p><i></i>Amil Prata nacional</p>
+    <p><i></i>Enfermaria</p>
+    <p><i></i>Coparticipação só em terapias</p>
+  </div>
+
+  <div class="tabela" id="tabela"><p class="cab"><span>Idade</span><span>Valor por vida</span></p></div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar, COTACAO } from './base.js';
+    const t = document.getElementById('tabela');
+    for (const [idade, valor] of COTACAO.amil.porVida) {
+      const [inteiro, cent] = valor.split(',');
+      t.insertAdjacentHTML('beforeend', `<p class="lin"><span class="idade">${idade.replace(' ou mais', '+')}</span><span class="valor">R$ ${inteiro}<small>,${cent}</small></span></p>`);
+    }
+    await montar();
+  </script>
+</body>
+</html>

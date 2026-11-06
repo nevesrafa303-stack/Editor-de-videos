@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S1 · SulAmérica · Fachada e tarja laranja</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="ref.css">
+<link rel="stylesheet" href="v3.css">
+<style>
+  /* S1 — referência 10: azul-marinho, "PLANOS DE SAÚDE" em tarja laranja, fachada real da BP, cartão de preço por cima
+     da base da foto e a fila de hospitais de referência (São Luiz e BP) com divisor laranja. */
+  body { background: #0b2354; color: #fff; }
+  .logo { position: absolute; left: 60px; top: 296px; width: 300px; }
+  .ps { background: #f6751b; color: #0b2354; }
+  .cnpj { background: #fff; color: #0b2354; }
+  .cnpj .icone { color: #eb622a; }
+  .vidas3 { left: 652px; color: #fff; }
+  .foto.fach { left: 0; top: 604px; width: 1080px; height: 420px; }
+  .veu.a { top: 604px; height: 120px; background: linear-gradient(180deg, #0b2354 0%, rgba(11,35,84,0) 100%); }
+  .veu.b { top: 880px; height: 144px; background: linear-gradient(180deg, rgba(11,35,84,0) 0%, #0b2354 100%); }
+  .credito { right: 60px; top: 740px; }
+
+  .card { position: absolute; left: 60px; top: 880px; width: 960px; height: 196px; border-radius: 22px; background: #fff; color: #0b2354;
+    box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+  .card .rot3 { position: absolute; left: 30px; top: 22px; color: #eb622a; }
+  .card .preco { position: absolute; left: 26px; top: 52px; font-size: 84px; }
+  .card .preco .mes { color: #3b4470; }
+  .card .nota-preco { position: absolute; left: 30px; top: 150px; color: #3b4470; }
+  .card .selo { right: 28px; top: 26px; background: #0b2354; color: #fff; }
+  .card .prod { position: absolute; right: 28px; top: 84px; text-align: right; font-weight: 600; font-size: 21px; line-height: 1.4; color: #3b4470; }
+
+  .rot-rede { position: absolute; left: 0; right: 0; top: 1098px; text-align: center; font-weight: 600; font-size: 21px; color: #c9d0ea; }
+  .fila { position: absolute; left: 0; right: 0; top: 1132px; display: flex; justify-content: center; align-items: center; gap: 34px; }
+  .fila .h b { display: block; font-family: var(--mont); font-weight: 900; font-size: 46px; line-height: 1; text-align: center; }
+  .fila .h small { display: block; font-weight: 600; font-size: 19px; color: #c9d0ea; text-align: center; margin-top: 4px; }
+  .fila i { width: 4px; height: 66px; background: #f6751b; border-radius: 2px; }
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: #f6751b; color: #0b2354; }
+</style>
+</head>
+<body data-operadora="sula" data-hospital="sim">
+  <div class="logo" data-marca="sula-branco"></div>
+  <p class="ps">Planos de Saúde</p>
+  <p class="cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+  <p class="vidas3">a partir de 3 vidas</p>
+
+  <img class="foto fach" src="../assets/fotos/cortes/v3-s1-bp.jpg" alt="">
+  <div class="veu a"></div>
+  <div class="veu b"></div>
+  <p class="credito">Foto da BP: Alexandre Possi · CC BY 3.0</p>
+
+  <div class="card">
+    <p class="rot3">3 vidas por apenas</p>
+    <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span><span class="mes">/mês</span></p>
+    <p class="nota-preco"></p>
+    <p class="selo">Sem coparticipação</p>
+    <p class="prod">SulAmérica Direto Nacional<br>enfermaria</p>
+  </div>
+
+  <p class="rot-rede">Hospitais de referência na rede, em enfermaria</p>
+  <div class="fila">
+    <p class="h"><b>São Luiz</b><small>Rede D'Or</small></p>
+    <i></i>
+    <p class="h"><b>BP</b><small>Beneficência Portuguesa</small></p>
+  </div>
+
+  <p class="legal"></p>
+  <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>
