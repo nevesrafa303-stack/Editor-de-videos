@@ -89,3 +89,20 @@ Cortes detectados por mudança de cena e conferidos quadro a quadro; ficaram de 
 (inclusive de costas, refletida no espelho ou só a mão) e os closes de braço/perna em exame. A legenda (branca,
 centralizada, sempre na mesma altura em cada vídeo) foi apagada com OpenCV (inpainting Telea) só na faixa dela e só
 nos pixels de letra; depois cada corte foi varrido quadro a quadro para conferir que não sobrou texto.
+
+## Como adicionar vídeos novos (próximos lotes do cliente)
+
+Ferramentas em `tools/` (precisam de ffmpeg; `limpar_corte.py` precisa de `opencv-python-headless` e `numpy`):
+
+1. **Transcrever** a fala, para o guia de copy (`criativos/_referencias/copys/`):
+   `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt npx hyperframes transcribe VIDEO.mp4 -m small -l pt --json`
+   (o proxy precisa estar ligado no Node para baixar o modelo Whisper).
+2. **Achar os cortes:** `python -I tools/folha_de_cortes.py VIDEO.mp4 folha.jpg` lista os trechos e monta uma folha com
+   um quadro de cada; escolher os de hospital em que a apresentadora não aparece.
+3. **Medir a legenda:** ver em que altura (linhas y) fica a legenda branca daquele vídeo; ela costuma ser centralizada
+   e fixa.
+4. **Recortar e limpar:** `python -I tools/limpar_corte.py VIDEO.mp4 T0 T1 saida.mp4 --cap Y0,Y1` (tela cheia com a
+   legenda apagada) ou `--crop 0,0,720,ALTURA` (só a parte de cima, sem reparo). Cortar 0,1 s depois do início e
+   0,08 s antes do fim do trecho para não pegar quadro de transição.
+5. **Conferir** quadro a quadro que não sobrou texto e que ela não aparece; acrescentar o corte nas tabelas acima e
+   refazer o `_painel.jpg`.
