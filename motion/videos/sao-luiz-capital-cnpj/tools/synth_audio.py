@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Trilha + tratamento dos efeitos do anúncio "São Luiz Itaim pelo CNPJ/MEI" (story 9:16).
+Trilha + tratamento dos efeitos do anúncio "Hospitais São Luiz da capital pelo CNPJ/MEI" (story 9:16, alto padrão).
 
   python -I tools/synth_audio.py   -> assets/audio/bgm.wav e assets/audio/sfx_*.wav
 
@@ -236,10 +236,10 @@ def wat(text, after=0.0):
 
 
 VO_END = _WORDS[-1]['end']
-# DROP = "Se você tem CNPJ ou MEI…"; CTA = "Clica no link" (cartão final)
-DROP = wat('se')
+# DROP = "É pra quem tem CNPJ ou MEI…"; CTA = "Clica no link" (cartão final)
+DROP = wat('e', wat('barato'))                          # o "É" depois de "barato", não o "é" de "não é"
 CTA = wat('clica')
-N = max(4, round((CTA - DROP) / 2.6))                    # compassos entre DROP e CTA
+N = max(4, round((CTA - DROP) / 2.9))                    # compassos entre DROP e CTA
 BREAK_FROM = None                                        # sem respiro
 BAR = (CTA - DROP) / N
 BEAT = BAR / 4
@@ -263,7 +263,7 @@ for b in range(round((BREAK_FROM - DROP) / BAR), N - 1) if BREAK_FROM else range
     KIND[b] = 'intro'
 KIND[N - 1] = 'build'
 
-TR = 5  # transposição desta variação (semitons)
+TR = 1  # transposição desta variação (semitons)
 CHORDS = {
     'Am': dict(bass=33, pad=[57, 60, 64, 69], arp=[64, 69, 72, 76]),
     'F': dict(bass=29, pad=[57, 60, 65, 69], arp=[65, 69, 72, 77]),
@@ -273,8 +273,8 @@ CHORDS = {
     'C': dict(bass=36, pad=[55, 60, 64, 67], arp=[64, 67, 72, 76]),
 }
 CHORDS = {k: dict(bass=v['bass'] + TR, pad=[m + TR for m in v['pad']], arp=[m + TR for m in v['arp']]) for k, v in CHORDS.items()}
-INTRO = ['C', 'G', 'Am', 'F']
-GROOVE = ['C', 'G', 'Am', 'F']
+INTRO = ['F', 'C', 'G', 'Am']
+GROOVE = ['F', 'C', 'G', 'Am']
 PROG = {}
 for b, k in KIND.items():
     if k == 'intro':

@@ -1,0 +1,527 @@
+[
+ {
+  "word": "Este",
+  "start": 0.29,
+  "end": 0.329
+ },
+ {
+  "word": "anúncio",
+  "start": 0.405,
+  "end": 0.786
+ },
+ {
+  "word": "não",
+  "start": 0.938,
+  "end": 1.09
+ },
+ {
+  "word": "é",
+  "start": 1.167,
+  "end": 1.243
+ },
+ {
+  "word": "pra",
+  "start": 1.319,
+  "end": 1.395
+ },
+ {
+  "word": "quem",
+  "start": 1.433,
+  "end": 1.548
+ },
+ {
+  "word": "procura",
+  "start": 1.662,
+  "end": 1.929
+ },
+ {
+  "word": "o",
+  "start": 1.967,
+  "end": 2.005
+ },
+ {
+  "word": "plano",
+  "start": 2.043,
+  "end": 2.233
+ },
+ {
+  "word": "de",
+  "start": 2.271,
+  "end": 2.31
+ },
+ {
+  "word": "saúde",
+  "start": 2.386,
+  "end": 2.69
+ },
+ {
+  "word": "mais",
+  "start": 2.767,
+  "end": 2.919
+ },
+ {
+  "word": "barato.",
+  "start": 2.995,
+  "end": 3.643
+ },
+ {
+  "word": "É",
+  "start": 3.897,
+  "end": 3.91
+ },
+ {
+  "word": "pra",
+  "start": 3.986,
+  "end": 4.062
+ },
+ {
+  "word": "quem",
+  "start": 4.1,
+  "end": 4.214
+ },
+ {
+  "word": "tem",
+  "start": 4.329,
+  "end": 4.443
+ },
+ {
+  "word": "CNPJ",
+  "start": 4.519,
+  "end": 5.281
+ },
+ {
+  "word": "ou",
+  "start": 5.357,
+  "end": 5.433
+ },
+ {
+  "word": "MEI,",
+  "start": 5.51,
+  "end": 5.967
+ },
+ {
+  "word": "três",
+  "start": 6.005,
+  "end": 6.195
+ },
+ {
+  "word": "vidas",
+  "start": 6.271,
+  "end": 6.5
+ },
+ {
+  "word": "ou",
+  "start": 6.576,
+  "end": 6.652
+ },
+ {
+  "word": "mais…",
+  "start": 6.729,
+  "end": 7.262
+ },
+ {
+  "word": "e",
+  "start": 7.3,
+  "end": 7.338
+ },
+ {
+  "word": "não",
+  "start": 7.414,
+  "end": 7.567
+ },
+ {
+  "word": "abre",
+  "start": 7.643,
+  "end": 7.795
+ },
+ {
+  "word": "mão",
+  "start": 7.871,
+  "end": 8.024
+ },
+ {
+  "word": "de",
+  "start": 8.1,
+  "end": 8.176
+ },
+ {
+  "word": "ser",
+  "start": 8.214,
+  "end": 8.252
+ },
+ {
+  "word": "atendido",
+  "start": 8.329,
+  "end": 8.71
+ },
+ {
+  "word": "nos",
+  "start": 8.786,
+  "end": 8.862
+ },
+ {
+  "word": "hospitais",
+  "start": 8.938,
+  "end": 9.395
+ },
+ {
+  "word": "São",
+  "start": 9.471,
+  "end": 9.548
+ },
+ {
+  "word": "Luiz,",
+  "start": 9.624,
+  "end": 10.005
+ },
+ {
+  "word": "da",
+  "start": 10.081,
+  "end": 10.157
+ },
+ {
+  "word": "Rede",
+  "start": 10.233,
+  "end": 10.424
+ },
+ {
+  "word": "D'Or,",
+  "start": 10.462,
+  "end": 10.843
+ },
+ {
+  "word": "aqui",
+  "start": 10.919,
+  "end": 11.148
+ },
+ {
+  "word": "na",
+  "start": 11.186,
+  "end": 11.224
+ },
+ {
+  "word": "capital",
+  "start": 11.3,
+  "end": 11.605
+ },
+ {
+  "word": "de",
+  "start": 11.643,
+  "end": 11.681
+ },
+ {
+  "word": "São",
+  "start": 11.719,
+  "end": 11.833
+ },
+ {
+  "word": "Paulo.",
+  "start": 11.91,
+  "end": 12.214
+ },
+ {
+  "word": "Itaim.",
+  "start": 12.786,
+  "end": 13.243
+ },
+ {
+  "word": "Morumbi.",
+  "start": 13.357,
+  "end": 13.89
+ },
+ {
+  "word": "Jabaquara.",
+  "start": 14.119,
+  "end": 14.805
+ },
+ {
+  "word": "Anália",
+  "start": 14.957,
+  "end": 15.262
+ },
+ {
+  "word": "Franco.",
+  "start": 15.338,
+  "end": 15.833
+ },
+ {
+  "word": "O",
+  "start": 16.011,
+  "end": 16.024
+ },
+ {
+  "word": "pronto-socorro",
+  "start": 16.1,
+  "end": 16.71
+ },
+ {
+  "word": "dos",
+  "start": 16.748,
+  "end": 16.786
+ },
+ {
+  "word": "hospitais",
+  "start": 16.862,
+  "end": 17.243
+ },
+ {
+  "word": "São",
+  "start": 17.319,
+  "end": 17.395
+ },
+ {
+  "word": "Luiz",
+  "start": 17.471,
+  "end": 17.776
+ },
+ {
+  "word": "foi",
+  "start": 17.814,
+  "end": 17.929
+ },
+ {
+  "word": "eleito",
+  "start": 18.005,
+  "end": 18.233
+ },
+ {
+  "word": "o",
+  "start": 18.271,
+  "end": 18.31
+ },
+ {
+  "word": "melhor",
+  "start": 18.424,
+  "end": 18.69
+ },
+ {
+  "word": "de",
+  "start": 18.767,
+  "end": 18.843
+ },
+ {
+  "word": "São",
+  "start": 18.919,
+  "end": 18.995
+ },
+ {
+  "word": "Paulo,",
+  "start": 19.148,
+  "end": 19.427
+ },
+ {
+  "word": "na",
+  "start": 19.452,
+  "end": 19.529
+ },
+ {
+  "word": "pesquisa",
+  "start": 19.605,
+  "end": 19.91
+ },
+ {
+  "word": "Datafolha.",
+  "start": 20.062,
+  "end": 20.671
+ },
+ {
+  "word": "Pelo",
+  "start": 20.932,
+  "end": 20.976
+ },
+ {
+  "word": "CNPJ,",
+  "start": 21.052,
+  "end": 21.89
+ },
+ {
+  "word": "você",
+  "start": 21.967,
+  "end": 22.119
+ },
+ {
+  "word": "coloca",
+  "start": 22.195,
+  "end": 22.424
+ },
+ {
+  "word": "você,",
+  "start": 22.5,
+  "end": 23.033
+ },
+ {
+  "word": "seus",
+  "start": 23.11,
+  "end": 23.338
+ },
+ {
+  "word": "sócios",
+  "start": 23.376,
+  "end": 23.719
+ },
+ {
+  "word": "e",
+  "start": 23.795,
+  "end": 23.821
+ },
+ {
+  "word": "a",
+  "start": 23.846,
+  "end": 23.871
+ },
+ {
+  "word": "sua",
+  "start": 23.948,
+  "end": 24.1
+ },
+ {
+  "word": "família",
+  "start": 24.176,
+  "end": 24.481
+ },
+ {
+  "word": "num",
+  "start": 24.557,
+  "end": 24.633
+ },
+ {
+  "word": "plano",
+  "start": 24.71,
+  "end": 24.938
+ },
+ {
+  "word": "com",
+  "start": 25.014,
+  "end": 25.09
+ },
+ {
+  "word": "essa",
+  "start": 25.167,
+  "end": 25.395
+ },
+ {
+  "word": "rede…",
+  "start": 25.471,
+  "end": 26.081
+ },
+ {
+  "word": "e",
+  "start": 26.119,
+  "end": 26.157
+ },
+ {
+  "word": "a",
+  "start": 26.183,
+  "end": 26.208
+ },
+ {
+  "word": "gente",
+  "start": 26.233,
+  "end": 26.386
+ },
+ {
+  "word": "compara",
+  "start": 26.462,
+  "end": 26.843
+ },
+ {
+  "word": "as",
+  "start": 26.881,
+  "end": 26.919
+ },
+ {
+  "word": "operadoras",
+  "start": 26.995,
+  "end": 27.529
+ },
+ {
+  "word": "pra",
+  "start": 27.605,
+  "end": 27.681
+ },
+ {
+  "word": "encontrar",
+  "start": 27.719,
+  "end": 28.062
+ },
+ {
+  "word": "a",
+  "start": 28.1,
+  "end": 28.138
+ },
+ {
+  "word": "melhor",
+  "start": 28.214,
+  "end": 28.519
+ },
+ {
+  "word": "opção",
+  "start": 28.595,
+  "end": 28.9
+ },
+ {
+  "word": "pro",
+  "start": 28.976,
+  "end": 29.052
+ },
+ {
+  "word": "seu",
+  "start": 29.09,
+  "end": 29.205
+ },
+ {
+  "word": "perfil.",
+  "start": 29.395,
+  "end": 29.662
+ },
+ {
+  "word": "Clica",
+  "start": 29.954,
+  "end": 30.119
+ },
+ {
+  "word": "no",
+  "start": 30.195,
+  "end": 30.271
+ },
+ {
+  "word": "link,",
+  "start": 30.424,
+  "end": 30.729
+ },
+ {
+  "word": "preenche",
+  "start": 30.805,
+  "end": 31.071
+ },
+ {
+  "word": "o",
+  "start": 31.11,
+  "end": 31.148
+ },
+ {
+  "word": "formulário",
+  "start": 31.186,
+  "end": 31.719
+ },
+ {
+  "word": "e",
+  "start": 31.795,
+  "end": 31.871
+ },
+ {
+  "word": "receba",
+  "start": 32.024,
+  "end": 32.252
+ },
+ {
+  "word": "sua",
+  "start": 32.329,
+  "end": 32.405
+ },
+ {
+  "word": "cotação.",
+  "start": 32.481,
+  "end": 33.167
+ }
+]

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Locução do anúncio "São Luiz Itaim pelo CNPJ/MEI" (story 9:16), a partir da tomada B do ElevenLabs
-(Eleven v4, voz "Roberta - Casual Sales"; assets/voice/takes/take-B.mp3) e dos tempos por palavra do
-Scribe v1 (takes/take-B.words.json). Texto da locução: tools/voice_prompt.txt.
+Locução do anúncio "Hospitais São Luiz da capital pelo CNPJ/MEI" (story 9:16, público de alto padrão),
+a partir da tomada escolhida no ElevenLabs (Eleven v4, voz "Jhony Tygas"; assets/voice/takes/take.mp3) e
+dos tempos por palavra do Scribe v1 (takes/take.words.json). Texto da locução: tools/voice_prompt.txt.
 
   python3 -I tools/prep_voice.py   -> assets/voice/vo.wav, vo.words.json e vo.dur
 
@@ -18,16 +18,16 @@ import subprocess
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 V = os.path.join(ROOT, 'assets', 'voice')
 LEAD = 0.1
-SPEED = 1.08
+SPEED = 1.05
 
-src = os.path.join(V, 'takes', 'take-B.mp3')
+src = os.path.join(V, 'takes', 'take.mp3')
 dst = os.path.join(V, 'vo.wav')
 af = (f'atempo={SPEED},adelay={int(LEAD * 1000)},highpass=f=80,'
       'acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,'
       'equalizer=f=3200:t=q:w=1.2:g=1.5')
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', '-ac', '1', dst], check=True)
 
-raw = json.load(open(os.path.join(V, 'takes', 'take-B.words.json')))['words']
+raw = json.load(open(os.path.join(V, 'takes', 'take.words.json')))['words']
 words = [dict(word=w['text'], start=round(w['start'] / SPEED + LEAD, 3), end=round(w['end'] / SPEED + LEAD, 3))
          for w in raw if w.get('type') == 'word' and not w['text'].startswith('[')]
 json.dump(words, open(os.path.join(V, 'vo.words.json'), 'w'), ensure_ascii=False, indent=1)
