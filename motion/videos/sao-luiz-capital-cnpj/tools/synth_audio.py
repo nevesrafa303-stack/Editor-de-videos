@@ -10,10 +10,10 @@ assets/audio/sfx_hits.json guarda, para cada efeito, quanto tempo depois do iní
 o golpe.
 
 Trilha sintetizada (a conexão do ElevenLabs deste ambiente não gera música), presa à locução
-(assets/voice/vo.words.json): o gancho ("Se você tem CNPJ, você tem uma vantagem…") é uma subida
-com filtro abrindo; drop no "vantagem" (o cadeado abre); groove em Lá menor / Fá / Dó / Sol nas
-cenas do Einstein, dos preços e da comparação; nova subida antes do CTA; refrão no "Clica no link"
-e acorde final depois da última palavra. A grade (DROP, CTA, compasso, fim) vai para
+(assets/voice/vo.words.json): o gancho ("Este anúncio não é pra quem procura o plano mais barato") é
+uma subida com filtro abrindo; drop no "É pra quem tem CNPJ ou MEI"; groove em Fá / Dó / Sol / Lá menor
+(meio tom acima) nos hospitais, na prova Datafolha e no CNPJ; nova subida antes do CTA; refrão no
+"Clica no link" e acorde final depois da última palavra. A grade (DROP, CTA, compasso, fim) vai para
 tools/grid.json, que tools/build.mjs lê.
 """
 import json

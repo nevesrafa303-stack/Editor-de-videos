@@ -1,8 +1,8 @@
-// core.mjs — peças comuns das 3 variações do anúncio SulAmérica Direto Nacional 3 vidas (story 9:16):
+// core.mjs — peças comuns do anúncio "Hospitais São Luiz da capital pelo CNPJ/MEI" (story 9:16):
 // tempos da locução, utilidades de animação (palavras, tremida, números que rolam), vídeos de banco,
-// ícones, dados da cotação, rede citada, observações obrigatórias, grão/clarões e a escrita do
-// index.html com trilha, locução e efeitos. O visual de cada variação fica no build.mjs dela.
-// Mesmo arquivo em ../sulamerica-direto-v{1,2,3}-*/tools/core.mjs.
+// ícones, hospitais citados, fonte da pesquisa Datafolha, observações obrigatórias, grão/clarões e a
+// escrita do index.html com trilha, locução e efeitos. O visual fica no build.mjs.
+// Base: ../sulamerica-direto-v1-cinema/tools/core.mjs, sem os dados da cotação SulAmérica.
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -142,6 +142,10 @@ const ICONS = {
   building: `<path d="M8 42V10l16-5v37M24 16l16 5v21M4 42h40M14 16h4M14 23h4M14 30h4M30 26h4M30 33h4"/>`,
   person: `<circle cx="24" cy="15" r="8"/><path d="M8 44c0-9 7-16 16-16s16 7 16 16"/>`,
   child: `<circle cx="24" cy="19" r="6.5"/><path d="M12 44c0-7.5 5.5-13 12-13s12 5.5 12 13"/>`,
+  pin: `<path d="M24 44s14-13.5 14-24a14 14 0 0 0-28 0c0 10.5 14 24 14 24z"/><circle cx="24" cy="20" r="5"/>`,
+  people: `<circle cx="17" cy="16" r="6"/><circle cx="33" cy="16" r="6"/><path d="M4 40c0-7 6-12 13-12s13 5 13 12M30 28c7 0 14 5 14 12"/>`,
+  family: `<circle cx="15" cy="13" r="5.5"/><circle cx="33" cy="13" r="5.5"/><circle cx="24" cy="26" r="4"/><path d="M5 40c0-6.5 4.5-11 10-11 3 0 5.5 1.2 7 3M43 40c0-6.5-4.5-11-10-11-3 0-5.5 1.2-7 3M17 44c0-4 3-7 7-7s7 3 7 7"/>`,
+  trophy: `<path d="M15 6h18v12a9 9 0 0 1-18 0zM15 10H7v3a7 7 0 0 0 8 7M33 10h8v3a7 7 0 0 1-8 7M24 27v8M16 42h16M19 35h10v7H19z"/>`,
   shield: `<path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10"/>`,
   hospital: `<path d="M9 42V12h30v30M4 42h40M20 42v-8h8v8M24 17v9M19.5 21.5h9"/>`,
   form: `<rect x="10" y="8" width="28" height="36" rx="4"/><path d="M18 8V5h12v3M16 20h16M16 28h16M16 36h10"/>`,
@@ -158,29 +162,20 @@ const ICONS = {
 export const icon = (name, size, { id = "", sw = 3.4, color = "#fff", fill = "none" } = {}) =>
   `<svg ${id ? `id="${id}" ` : ""}viewBox="0 0 48 48" width="${size}" height="${size}" fill="${fill}" stroke="${color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
 
-// ───────────── cotação (tabela enviada pelo cliente) ─────────────
-export const Q = {
-  op: "SulAmérica Saúde",
-  prod: "Direto Nacional",
-  reg: "Nacional SP (CAP1)",
-  acc: "Enfermaria",
-  cop: "Sem coparticipação",
-  faixas: [
-    { faixa: "34 a 38 anos", n: 2, v: "612,02", sub: "1.224,04" },
-    { faixa: "0 a 18 anos", n: 1, v: "332,45", sub: "332,45" },
-  ],
-  premio: "1.556,49",
-  iofp: "2,38%",
-  iof: "37,05",
-  total: "1.593,54",
-  validade: "19/12/2026",
-};
-export const QUOTE_TXT =
-  `Cotação SulAmérica Saúde Direto Nacional – ${Q.reg}, enfermaria, sem coparticipação, 3 vidas: 2 vidas de 34 a 38 anos (R$ 612,02 cada) e 1 vida de 0 a 18 anos (R$ 332,45). ` +
-  `Prêmio R$ ${Q.premio} + IOF ${Q.iofp} (R$ ${Q.iof}) = R$ ${Q.total}/mês. Valores per capita sem IOF. Validade da cotação: ${Q.validade}. Exclusivo para CNPJ/MEI, a partir de 3 vidas.`;
-// hospitais citados (rede de referência a partir do Direto Nacional em SP, conforme o Painel do Corretor)
-export const HOSP_TXT = "Hospitais citados como exemplos da rede referenciada do Direto Nacional em São Paulo; confirme a rede do plano escolhido.";
-export const BP_CREDIT = "Foto do Hospital BP: Cecilia Melozi, CC BY-SA 4.0, via Wikimedia Commons.";
+// ───────────── hospitais citados e prova ─────────────
+// unidades da Rede D'Or São Luiz na capital (lat/lon aproximados do endereço, para o mapa)
+export const HOSP = [
+  { k: "itaim", nome: "Itaim", zona: "Zona Sul", lat: -23.586, lon: -46.68 },
+  { k: "morumbi", nome: "Morumbi", zona: "Zona Sul", lat: -23.594, lon: -46.715 },
+  { k: "jabaquara", nome: "Jabaquara", zona: "Zona Sul", lat: -23.638, lon: -46.643 },
+  { k: "analia", nome: "Anália Franco", zona: "Zona Leste", lat: -23.56, lon: -46.556 },
+];
+export const DATAFOLHA_TXT =
+  'Fonte: pesquisa Datafolha "O Melhor de São Paulo" 2026 (5 a 13/02/2026, 1.008 entrevistas com moradores das classes A e B da capital), ' +
+  "divulgada pela Rede D'Or em 22/06/2026: pronto-socorro dos hospitais São Luiz eleito o melhor de São Paulo pela 2ª vez seguida.";
+export const NET_TXT =
+  "Hospitais São Luiz Itaim, Morumbi, Jabaquara e Anália Franco (Rede D'Or) citados como exemplos de rede; a disponibilidade varia conforme operadora, plano e acomodação. " +
+  "Exclusivo para CNPJ/MEI, a partir de 3 vidas, na capital de São Paulo.";
 
 // observações obrigatórias (texto exato, só por escrito — ver CLAUDE.md da raiz)
 export const OBS = {
@@ -195,7 +190,7 @@ export const OBS = {
   img: "Imagem meramente ilustrativa.",
   oferta: "Oferta sujeita à disponibilidade comercial.",
 };
-export const LEGAL_ALL = [OBS.faixa, OBS.ref, OBS.perfil, OBS.cob, OBS.rede, OBS.varia, OBS.eleg, OBS.analise, OBS.oferta, OBS.img].join(" ");
+export const LEGAL_ALL = [OBS.rede, OBS.varia, OBS.cob, OBS.eleg, OBS.analise, OBS.faixa, OBS.perfil, OBS.img].join(" ");
 
 // ═════════════ grão e clarões (por cima de tudo) ═════════════
 export function uiScene(flashes, { color = "255,236,214", grain = 0.05, track = 9 } = {}) {

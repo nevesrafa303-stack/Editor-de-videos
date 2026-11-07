@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Locução do anúncio "Hospitais São Luiz da capital pelo CNPJ/MEI" (story 9:16, público de alto padrão),
-a partir da tomada escolhida no ElevenLabs (Eleven v4, voz "Jhony Tygas"; assets/voice/takes/take.mp3) e
+a partir da tomada escolhida no ElevenLabs (Eleven v4, voz "Roberta - Casual Sales"; assets/voice/takes/take.mp3 = roberta.mp3) e
 dos tempos por palavra do Scribe v1 (takes/take.words.json). Texto da locução: tools/voice_prompt.txt.
 
   python3 -I tools/prep_voice.py   -> assets/voice/vo.wav, vo.words.json e vo.dur

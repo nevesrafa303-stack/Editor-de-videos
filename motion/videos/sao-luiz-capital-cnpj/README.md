@@ -3,8 +3,12 @@
 Anúncio de formulário no Meta Ads para empresários com CNPJ ou MEI, 3 vidas ou mais, na capital de São Paulo.
 Público de alto padrão, que consegue pagar R$ 1.800 ou mais num plano de 3 vidas. **Sem preço na peça.**
 
-**Status (07/11/2026):** copy pronta, 4 opções de voz geradas para o cliente escolher. Faltam os vídeos dos
-4 hospitais, que o cliente vai enviar. Trilha, cenas e render vêm depois da escolha da voz.
+**Status (07/11/2026):** copy pronta, voz escolhida (**Roberta**), locução tratada e trilha gerada. Faltam os vídeos
+dos 4 hospitais, que o cliente vai enviar; as cenas e o render vêm depois.
+
+**Imagens (pedido do cliente em 07/11/2026):** só imagens reais dos hospitais. Nada de fotos do banco de imagens
+(sócios, família) nem de vídeos de banco genéricos (equipe médica, monitor). Entram os vídeos dos hospitais enviados
+pelo cliente e as fotos de fachada do Itaim e do Morumbi (`assets/img/`, enviadas pelo cliente).
 
 ## Análise de mercado (o que já está validado)
 
@@ -47,7 +51,14 @@ Arquivos em `assets/voice/opcoes/`, todos no mesmo volume (−16 LUFS). Os origi
 | `3-thales.mp3` | Thales - Sophisticated and Vibrant: masculina grave e aveludada, feita para marcas de luxo | 37,1 s |
 | `4-isabela.mp3` | Isabela - Commercial & Corporate: feminina elegante, institucional | 37,3 s |
 
-A voz escolhida é acelerada 1,05× (`tools/prep_voice.py`), o que dá cerca de 33 a 35 s de fala.
+**Escolhida: Roberta** (`assets/voice/takes/roberta.mp3`, tempos por palavra do Scribe v1 em `roberta.words.json`).
+Acelerada 1,05× sem mudar o tom (`tools/prep_voice.py`): `vo.wav` com 35,2 s.
+
+## Trilha
+
+Sintetizada (`tools/synth_audio.py`), presa à locução: introdução no gancho, drop no "É pra quem tem CNPJ…" (4,05 s),
+groove em Fá / Dó / Sol / Lá menor meio tom acima, ~86 BPM, refrão no "Clica no link" (31,8 s) e acorde final.
+Total 39,3 s. A grade vai para `tools/grid.json`.
 
 ## Na tela (planejado)
 
