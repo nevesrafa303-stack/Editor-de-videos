@@ -95,6 +95,12 @@ Antes de criar qualquer criativo de plano de saúde (estático ou vídeo), abrir
 `README.md` (arquétipos de layout, bloco de preço, prova de rede, benefícios, CTA, paletas por operadora)
 e o painel `_painel.jpg`. Usar como linguagem visual, sem copiar marca, contato ou valores de terceiros.
 
+### Copy (treino do cliente)
+
+Antes de escrever roteiro ou copy de plano de saúde, ler `criativos/_referencias/copys/README.md`: padrões de gancho,
+promessa de continuação, prova concreta, virada e frase-tese tirados das referências que o cliente enviou, já
+adaptados às regras deste arquivo. Referências novas entram nessa pasta.
+
 ### Banco de imagens (fotos de pessoas)
 
 Fotos para os criativos de plano de saúde ficam em `criativos/_banco-de-imagens/` (índice no `README.md`):
