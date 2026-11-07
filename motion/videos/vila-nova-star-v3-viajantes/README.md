@@ -96,7 +96,10 @@ AA) e nos quadros.
 - Locução: tomada A de 2 (Eleven v4, Roberta), acelerada 1,1× (42,6 s). O gancho já saiu no nível do resto, então
   não precisou de reforço.
 - Trilha sintetizada em Dó maior, ~98 BPM, com o drop no "Então o seu plano…" e o refrão no "Clica no link". Carve de
-  0,35 sob a voz; master em −14 LUFS. 29 efeitos (letras virando no painel, carimbo do embarque, pops dos benefícios).
+  0,35 sob a voz; master em −14 LUFS (pico −1,6 dBFS). 29 efeitos (letras virando no painel, carimbo do embarque, pops
+  dos benefícios).
+- Conferência: a voz fica de 11,9 a 18 dB acima da trilha em todos os trechos (`vo_vs_bg`), sem quadro preto.
+- Entrega: `out/vila-nova-star-v3-viajantes-story-9x16.mp4` (1080×1920, 30 fps, 46,4 s).
 
 ## Gerar de novo
 
