@@ -74,6 +74,13 @@ pediatria no banco: as cenas são ilustrativas ("Imagem meramente ilustrativa.")
 - **Botão:** Obter cotação
 - Observações no texto: Consulte a disponibilidade da rede hospitalar. Consulte condições e elegibilidade.
 
+## Áudio
+
+- Locução: tomada B de 2, acelerada 1,1× (42,1 s). A marcação `[softly]` do gancho fez a Roberta falar ~12 dB mais
+  baixo: `tools/prep_voice.py` sobe 9 dB só até 4,25 s (com limitador), e o gancho fica no nível do resto.
+  Para próximos roteiros com fala sussurrada, conferir o nível do gancho com `vo_vs_bg` antes de entregar.
+- Trilha sintetizada em Lá menor, ~90 BPM, carve 0,35 sob a voz; master em −14 LUFS.
+
 ## Gerar de novo
 
 ```bash

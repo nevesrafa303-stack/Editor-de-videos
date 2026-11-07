@@ -22,9 +22,10 @@ SPEED = 1.1
 
 src = os.path.join(V, 'takes', 'take.mp3')
 dst = os.path.join(V, 'vo.wav')
-af = (f'atempo={SPEED},adelay={int(LEAD * 1000)},highpass=f=80,'
+HOOK_END = 4.25  # o gancho foi falado baixinho ([softly]): sobe 9 dB só nele, para ficar no nível do resto
+af = (f'atempo={SPEED},adelay={int(LEAD * 1000)},volume=enable=\'between(t,0,{HOOK_END})\':volume=9dB,highpass=f=80,'
       'acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,'
-      'equalizer=f=3200:t=q:w=1.2:g=1.5')
+      'equalizer=f=3200:t=q:w=1.2:g=1.5,alimiter=limit=0.95')
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', '-ac', '1', dst], check=True)
 
 raw = json.load(open(os.path.join(V, 'takes', 'take.words.json')))['words']
