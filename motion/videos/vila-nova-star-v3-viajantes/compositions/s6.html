@@ -1,0 +1,78 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s6-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.s6-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#s6-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:radial-gradient(90% 60% at 50% 40%,#13304F,#0B1E33 70%);}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.am{color:#FFB81C;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.port{position:absolute;overflow:hidden;border-radius:200px;border:18px solid #E9EDF3;box-shadow:0 0 0 6px #C9D1DC,0 30px 70px rgba(0,0,0,.5),inset 0 0 30px rgba(0,0,0,.35);}
+.port .vw{position:absolute;inset:0;}
+.pass{position:absolute;background:#FAF8F3;color:#0B1E33;border-radius:26px;box-shadow:0 26px 60px rgba(0,0,0,.45);}
+.perf{position:absolute;top:18px;bottom:18px;width:0;border-left:4px dashed rgba(11,30,51,.25);}
+.lbl{font-family:"Poppins";font-weight:600;font-size:22px;letter-spacing:.12em;color:rgba(11,30,51,.6);text-transform:uppercase;}
+.val{font-family:"Saira";font-weight:800;font-size:44px;text-transform:uppercase;line-height:1.05;}
+
+#s6-a{top:540px;font-size:44px;font-weight:600;}
+.s6-tag{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+.s6-tag>div{display:flex;align-items:center;gap:14px;padding:12px 32px;border-radius:60px;background:#fff;color:#0B1E33;font-family:"Mont";font-weight:900;font-size:46px;white-space:nowrap;}
+#s6-t0{top:604px;}#s6-t1{top:704px;}
+#s6-b{top:828px;font-size:44px;font-weight:600;color:#FFB81C;}
+.s6-op{position:absolute;left:110px;width:860px;height:118px;border-radius:20px;background:#FAF8F3;color:#0B1E33;display:flex;align-items:center;gap:20px;padding:0 28px;}
+.s6-op .nm{font-family:"Saira";font-weight:800;font-size:40px;width:220px;text-transform:uppercase;}
+.s6-op .bx{display:flex;gap:14px;}
+.s6-op .bx span{width:66px;height:66px;border-radius:14px;display:flex;align-items:center;justify-content:center;}
+#s6-o0{top:900px;}#s6-o1{top:1036px;}#s6-o2{top:1172px;}
+#s6-badge{position:absolute;right:130px;top:1014px;padding:8px 18px;border-radius:30px;background:#FFB81C;color:#0B1E33;font-family:"Mont";font-weight:900;font-size:28px;white-space:nowrap;}
+#s6-lg{top:1320px;}
+</style>
+<div id="s6-root" data-composition-id="s6" data-start="0" data-duration="7.543" data-width="1080" data-height="1920">
+  <div id="s6-a" class="ln"><span class="w"><span class="wi" id="s6a0">Se</span></span> <span class="w"><span class="wi" id="s6a1">você</span></span> <span class="w"><span class="wi" id="s6a2">tem</span></span></div>
+  <div class="s6-tag" id="s6-t0"><div><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>CNPJ ou MEI</span></div></div>
+  <div class="s6-tag" id="s6-t1"><div><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>3 vidas ou mais</span></div></div>
+  <div id="s6-b" class="ln"><span class="w"><span class="wi" id="s6b0">a</span></span> <span class="w"><span class="wi" id="s6b1">gente</span></span> <span class="w"><span class="wi" id="s6b2">compara</span></span> <span class="w"><span class="wi" id="s6b3">as</span></span> <span class="w"><span class="wi" id="s6b4">opções</span></span></div>
+  <div class="s6-op" id="s6-o0"><div class="nm">Opção A</div><div class="bx"><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="#FFB81C" stroke="#FFB81C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h4l10 17 9 1c2 0 3 1 3 2s-1 2-3 2l-9 1-10 17h-4l5-17-9-1-4 5h-3l2-7-2-7h3l4 5 9-1z"/></svg></span><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-7 6-7 30 0 36M24 6c7 6 7 30 0 36"/></svg></span><span style="background:#E3E7EC"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#9AA6B4" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14l20 20M34 14L14 34"/></svg></span><span style="background:#E3E7EC"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#9AA6B4" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14l20 20M34 14L14 34"/></svg></span></div></div><div class="s6-op" id="s6-o1"><div class="nm">Opção B</div><div class="bx"><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="#FFB81C" stroke="#FFB81C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h4l10 17 9 1c2 0 3 1 3 2s-1 2-3 2l-9 1-10 17h-4l5-17-9-1-4 5h-3l2-7-2-7h3l4 5 9-1z"/></svg></span><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-7 6-7 30 0 36M24 6c7 6 7 30 0 36"/></svg></span><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="13" width="26" height="22" rx="4"/><path d="M31 21l12-7v20l-12-7z"/></svg></span><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12a8 8 0 0 0 16 0V6"/><path d="M20 26v6a9 9 0 0 0 18 0v-4"/><circle cx="38" cy="24" r="4"/></svg></span></div></div><div class="s6-op" id="s6-o2"><div class="nm">Opção C</div><div class="bx"><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="#FFB81C" stroke="#FFB81C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h4l10 17 9 1c2 0 3 1 3 2s-1 2-3 2l-9 1-10 17h-4l5-17-9-1-4 5h-3l2-7-2-7h3l4 5 9-1z"/></svg></span><span style="background:#E3E7EC"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#9AA6B4" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14l20 20M34 14L14 34"/></svg></span><span style="background:#0B1E33"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#FFB81C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="13" width="26" height="22" rx="4"/><path d="M31 21l12-7v20l-12-7z"/></svg></span><span style="background:#E3E7EC"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#9AA6B4" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14l20 20M34 14L14 34"/></svg></span></div></div>
+  <div id="s6-badge">TEM OS 4 BENEFÍCIOS</div>
+  <div id="s6-lg" class="legal">Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores sujeitos à faixa etária e região. Os valores podem variar conforme perfil do beneficiário. A rede credenciada pode variar conforme plano contratado. Cobertura e rede sujeitas à modalidade contratada. Opções ilustrativas.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s6a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.04);
+tl.fromTo("#s6a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.125);
+tl.fromTo("#s6a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.416);
+tl.fromTo("#s6-t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.42,ease:"back.out(1.6)"},0.574);
+tl.fromTo("#s6-t1",{x:-90,opacity:0},{x:0,opacity:1,duration:0.42,ease:"back.out(1.6)"},2.174);
+tl.fromTo("#s6b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},3.58);
+tl.fromTo("#s6b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},3.689);
+tl.fromTo("#s6b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},4.016);
+tl.fromTo("#s6b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},4.307);
+tl.fromTo("#s6b4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},4.416);
+tl.fromTo("#s6-o0",{x:90,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},4.576);
+tl.fromTo("#s6-o1",{x:90,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},4.776);
+tl.fromTo("#s6-o2",{x:90,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},4.976);
+tl.to("#s6-o0,#s6-o2",{opacity:0.45,duration:0.3},5.59);
+tl.to("#s6-o1",{scale:1.04,boxShadow:"0 0 0 4px #FFB81C,0 20px 50px rgba(0,0,0,.4)",duration:0.3,ease:"back.out(2)"},5.59);
+tl.fromTo("#s6-badge",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},6.64);
+window.__timelines["s6"] = tl;
+})();
+</script>
+</template>

@@ -1,0 +1,79 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#s5-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:radial-gradient(90% 60% at 50% 40%,#13304F,#0B1E33 70%);}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.am{color:#FFB81C;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.port{position:absolute;overflow:hidden;border-radius:200px;border:18px solid #E9EDF3;box-shadow:0 0 0 6px #C9D1DC,0 30px 70px rgba(0,0,0,.5),inset 0 0 30px rgba(0,0,0,.35);}
+.port .vw{position:absolute;inset:0;}
+.pass{position:absolute;background:#FAF8F3;color:#0B1E33;border-radius:26px;box-shadow:0 26px 60px rgba(0,0,0,.45);}
+.perf{position:absolute;top:18px;bottom:18px;width:0;border-left:4px dashed rgba(11,30,51,.25);}
+.lbl{font-family:"Poppins";font-weight:600;font-size:22px;letter-spacing:.12em;color:rgba(11,30,51,.6);text-transform:uppercase;}
+.val{font-family:"Saira";font-weight:800;font-size:44px;text-transform:uppercase;line-height:1.05;}
+
+#s5-a{top:556px;font-size:46px;font-weight:600;}
+#s5-b{top:620px;font-size:104px;color:#FFB81C;}
+#s5-pass{left:90px;top:780px;width:900px;height:560px;overflow:hidden;}
+#s5-pass .hd{position:absolute;left:0;top:0;width:100%;height:84px;background:#0B1E33;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 34px;font-family:"Saira";font-weight:700;font-size:32px;letter-spacing:.14em;}
+#s5-ic{position:absolute;left:0;width:100%;top:118px;display:flex;justify-content:center;gap:26px;}
+.s5-i{width:150px;height:150px;border-radius:24px;background:#0B1E33;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.s5-i span{font-family:"Saira";font-weight:700;font-size:20px;color:#C9D4E2;letter-spacing:.06em;}
+#s5-pl{position:absolute;left:40px;top:316px;}
+#s5-px{position:absolute;left:40px;top:362px;display:flex;gap:18px;}
+.s5-p{display:flex;align-items:center;gap:10px;padding:10px 22px;border-radius:40px;border:3px solid #0B1E33;font-family:"Saira";font-weight:800;font-size:40px;text-transform:uppercase;}
+#s5-ft{position:absolute;left:40px;top:470px;font-family:"Poppins";font-weight:600;font-size:28px;color:#3B4A5E;}
+#s5-lg{top:1430px;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="4.329" data-width="1080" data-height="1920">
+  <div id="s5-a" class="ln"><span class="w"><span class="wi" id="s5a0">Tudo</span></span> <span class="w"><span class="wi" id="s5a1">isso</span></span> <span class="w"><span class="wi" id="s5a2">num</span></span></div>
+  <div id="s5-b" class="ln sa"><span class="w"><span class="wi" id="s5b0">plano</span></span> <span class="w"><span class="wi" id="s5b1">só</span></span></div>
+  <div class="pass" id="s5-pass">
+    <div class="hd"><span>1 PLANO · 4 BENEFÍCIOS</span><svg viewBox="0 0 48 48" width="40" height="40" fill="#FFB81C" stroke="#FFB81C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h4l10 17 9 1c2 0 3 1 3 2s-1 2-3 2l-9 1-10 17h-4l5-17-9-1-4 5h-3l2-7-2-7h3l4 5 9-1z"/></svg></div>
+    <div id="s5-ic"><div class="s5-i" id="s5-i0"><svg viewBox="0 0 48 48" width="64" height="64" fill="#FFB81C" stroke="#FFB81C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h4l10 17 9 1c2 0 3 1 3 2s-1 2-3 2l-9 1-10 17h-4l5-17-9-1-4 5h-3l2-7-2-7h3l4 5 9-1z"/></svg><span>VIAGEM</span></div><div class="s5-i" id="s5-i1"><svg viewBox="0 0 48 48" width="64" height="64" fill="none" stroke="#FFB81C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-7 6-7 30 0 36M24 6c7 6 7 30 0 36"/></svg><span>NACIONAL</span></div><div class="s5-i" id="s5-i2"><svg viewBox="0 0 48 48" width="64" height="64" fill="none" stroke="#FFB81C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="13" width="26" height="22" rx="4"/><path d="M31 21l12-7v20l-12-7z"/></svg><span>VÍDEO</span></div><div class="s5-i" id="s5-i3"><svg viewBox="0 0 48 48" width="64" height="64" fill="none" stroke="#FFB81C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12a8 8 0 0 0 16 0V6"/><path d="M20 26v6a9 9 0 0 0 18 0v-4"/><circle cx="38" cy="24" r="4"/></svg><span>CHECK-UP</span></div></div>
+    <div id="s5-pl" class="lbl">Passageiros</div>
+    <div id="s5-px"><div class="s5-p" id="s5-p0"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#0B1E33" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="15" r="8"/><path d="M8 44c0-9 7-16 16-16s16 7 16 16"/></svg>Você</div><div class="s5-p" id="s5-p1"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#0B1E33" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="16" r="6"/><circle cx="33" cy="16" r="6"/><path d="M4 40c0-7 6-12 13-12s13 5 13 12M30 28c7 0 14 5 14 12"/></svg>Sócios</div><div class="s5-p" id="s5-p2"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#0B1E33" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="15" cy="13" r="5.5"/><circle cx="33" cy="13" r="5.5"/><circle cx="24" cy="26" r="4"/><path d="M5 40c0-6.5 4.5-11 10-11 3 0 5.5 1.2 7 3M43 40c0-6.5-4.5-11-10-11-3 0-5.5 1.2-7 3M17 44c0-4 3-7 7-7s7 3 7 7"/></svg>Família</div></div>
+    <div id="s5-ft">contratação pelo CNPJ da sua empresa</div>
+  </div>
+  <div id="s5-lg" class="legal">Cobertura e rede sujeitas à modalidade contratada. Consulte condições e elegibilidade.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.04);
+tl.fromTo("#s5a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.341);
+tl.fromTo("#s5a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.669);
+tl.fromTo("#s5b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},0.814);
+tl.fromTo("#s5b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},1.141);
+tl.fromTo("#s5-pass",{y:220,opacity:0},{y:0,opacity:1,duration:0.55,ease:"power4.out"},0.05);
+tl.fromTo("#s5-i0",{scale:0.4,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},0.3);
+tl.fromTo("#s5-i1",{scale:0.4,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},0.42);
+tl.fromTo("#s5-i2",{scale:0.4,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},0.54);
+tl.fromTo("#s5-i3",{scale:0.4,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},0.66);
+tl.fromTo("#s5-p0",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},1.683);
+tl.fromTo("#s5-p1",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},2.556);
+tl.fromTo("#s5-p2",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},3.465);
+tl.fromTo("#s5-ft",{y:10,opacity:0},{y:0,opacity:1,duration:0.35,ease:"power3.out"},3.865);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>

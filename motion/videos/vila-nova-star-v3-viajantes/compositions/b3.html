@@ -1,0 +1,80 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#b3-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.b3-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#b3-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:radial-gradient(90% 60% at 50% 40%,#13304F,#0B1E33 70%);}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.am{color:#FFB81C;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.port{position:absolute;overflow:hidden;border-radius:200px;border:18px solid #E9EDF3;box-shadow:0 0 0 6px #C9D1DC,0 30px 70px rgba(0,0,0,.5),inset 0 0 30px rgba(0,0,0,.35);}
+.port .vw{position:absolute;inset:0;}
+.pass{position:absolute;background:#FAF8F3;color:#0B1E33;border-radius:26px;box-shadow:0 26px 60px rgba(0,0,0,.45);}
+.perf{position:absolute;top:18px;bottom:18px;width:0;border-left:4px dashed rgba(11,30,51,.25);}
+.lbl{font-family:"Poppins";font-weight:600;font-size:22px;letter-spacing:.12em;color:rgba(11,30,51,.6);text-transform:uppercase;}
+.val{font-family:"Saira";font-weight:800;font-size:44px;text-transform:uppercase;line-height:1.05;}
+
+#b3-pg{position:absolute;left:0;width:1080px;top:520px;display:flex;justify-content:center;align-items:center;gap:14px;font-family:"Saira";font-weight:700;font-size:28px;letter-spacing:.18em;color:#C9D4E2;}
+.b3-dot{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25);}
+.b3-dot.on{background:#FFB81C;}
+#b3-stub{left:90px;top:1140px;width:900px;height:236px;display:flex;overflow:hidden;}
+#b3-stub .nb{width:220px;height:100%;background:#0B1E33;color:#FFB81C;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#b3-stub .nb b{font-family:"Saira";font-weight:800;font-size:110px;line-height:1;}
+#b3-stub .nb i{font-style:normal;font-family:"Saira";font-weight:700;font-size:22px;letter-spacing:.2em;color:#C9D4E2;}
+#b3-stub .tx{flex:1;padding:0 34px;display:flex;flex-direction:column;justify-content:center;gap:6px;}
+#b3-stub .t1{font-family:"Saira";font-weight:800;font-size:56px;text-transform:uppercase;line-height:1;}
+#b3-stub .t2{font-family:"Poppins";font-weight:500;font-size:32px;color:#3B4A5E;line-height:1.15;}
+#b3-lg{top:1408px;}
+
+#b3-ph{position:absolute;left:350px;top:580px;width:380px;height:540px;border-radius:48px;background:#05090F;border:10px solid #2A3B52;box-shadow:0 30px 70px rgba(0,0,0,.55);overflow:hidden;}
+#b3-sc{position:absolute;inset:0;background:linear-gradient(180deg,#1B3A5E,#0F2440);}
+#b3-av{position:absolute;left:95px;top:70px;width:170px;height:170px;border-radius:50%;background:#E9EDF3;display:flex;align-items:center;justify-content:center;}
+#b3-nm{position:absolute;left:0;width:100%;top:262px;text-align:center;font-family:"Poppins";font-weight:600;font-size:28px;}
+#b3-tm{position:absolute;left:0;width:100%;top:304px;text-align:center;font-family:"Saira";font-weight:700;font-size:30px;color:#3DDC84;letter-spacing:.08em;}
+#b3-me{position:absolute;right:14px;top:62px;width:80px;height:108px;border-radius:14px;background:#2A3B52;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;}
+#b3-bt{position:absolute;left:0;width:100%;bottom:26px;display:flex;justify-content:center;gap:30px;}
+#b3-bt span{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+#b3-rec{position:absolute;left:24px;top:22px;display:flex;align-items:center;gap:8px;font-family:"Poppins";font-weight:600;font-size:22px;}
+#b3-rec i{width:14px;height:14px;border-radius:50%;background:#FF4D4D;}</style>
+<div id="b3-root" data-composition-id="b3" data-start="0" data-duration="3.64" data-width="1080" data-height="1920">
+  <div id="b3-pg"><span>BENEFÍCIO</span><div class="b3-dot on"></div><div class="b3-dot on"></div><div id="b3-cur" class="b3-dot on"></div><div class="b3-dot"></div></div>
+  <div id="b3-ph"><div id="b3-sc"></div>
+      <div id="b3-rec"><i id="b3-dot"></i><span>Consulta por vídeo</span></div>
+      <div id="b3-av"><svg viewBox="0 0 48 48" width="110" height="110" fill="none" stroke="#0B1E33" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12a8 8 0 0 0 16 0V6"/><path d="M20 26v6a9 9 0 0 0 18 0v-4"/><circle cx="38" cy="24" r="4"/></svg></div>
+      <div id="b3-nm">Médico na tela</div><div id="b3-tm">● conectado</div>
+      <div id="b3-me"><svg viewBox="0 0 48 48" width="50" height="50" fill="none" stroke="#DCE3EC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="15" r="8"/><path d="M8 44c0-9 7-16 16-16s16 7 16 16"/></svg></div>
+      <div id="b3-bt"><span style="background:#2A3B52"><svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="13" width="26" height="22" rx="4"/><path d="M31 21l12-7v20l-12-7z"/></svg></span><span style="background:#FF4D4D"><svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="4" width="20" height="40" rx="4"/><path d="M21 38h6"/></svg></span></div>
+    </div>
+  <div class="pass" id="b3-stub"><div class="nb"><i>Nº</i><b>03</b></div><div class="tx"><div class="t1">Médico por vídeo</div><div class="t2" id="b3-sub">atendimento direto do celular</div></div></div>
+  <div id="b3-lg" class="legal">Atendimento por vídeo (telemedicina) oferecido como serviço da operadora em planos específicos, conforme regras do plano. Cobertura e rede sujeitas à modalidade contratada. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#b3-stub",{x:140,opacity:0},{x:0,opacity:1,duration:0.5,ease:"power3.out"},0.532);
+tl.fromTo("#b3-sub",{y:12,opacity:0},{y:0,opacity:1,duration:0.35,ease:"power3.out"},2.886);
+tl.fromTo("#b3-cur",{scale:0.4},{scale:1,duration:0.3,ease:"back.out(3)"},0.05);
+tl.fromTo("#b3-ph",{y:200,opacity:0,rotation:6},{y:0,opacity:1,rotation:0,duration:0.6,ease:"power4.out"},0);
+tl.fromTo("#b3-av",{scale:0.3,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},1.718);
+tl.fromTo("#b3-dot",{opacity:1},{opacity:0.2,duration:0.4,repeat:7,yoyo:true,ease:"steps(1)"},0.3);
+window.__timelines["b3"] = tl;
+})();
+</script>
+</template>

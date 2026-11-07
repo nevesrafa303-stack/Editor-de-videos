@@ -1,0 +1,114 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s1-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.s1-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#s1-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:radial-gradient(90% 60% at 50% 40%,#13304F,#0B1E33 70%);}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.am{color:#FFB81C;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.port{position:absolute;overflow:hidden;border-radius:200px;border:18px solid #E9EDF3;box-shadow:0 0 0 6px #C9D1DC,0 30px 70px rgba(0,0,0,.5),inset 0 0 30px rgba(0,0,0,.35);}
+.port .vw{position:absolute;inset:0;}
+.pass{position:absolute;background:#FAF8F3;color:#0B1E33;border-radius:26px;box-shadow:0 26px 60px rgba(0,0,0,.45);}
+.perf{position:absolute;top:18px;bottom:18px;width:0;border-left:4px dashed rgba(11,30,51,.25);}
+.lbl{font-family:"Poppins";font-weight:600;font-size:22px;letter-spacing:.12em;color:rgba(11,30,51,.6);text-transform:uppercase;}
+.val{font-family:"Saira";font-weight:800;font-size:44px;text-transform:uppercase;line-height:1.05;}
+
+#s1-board{position:absolute;left:60px;top:540px;width:960px;padding:22px 20px 26px;border-radius:22px;background:#05090F;box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 0 0 2px rgba(255,184,28,.25);}
+#s1-bh{display:flex;align-items:center;gap:14px;font-family:"Saira";font-weight:700;font-size:34px;letter-spacing:.18em;color:#FFB81C;margin:0 4px 16px;}
+.s1-r{display:flex;gap:16px;margin-top:10px;}
+.s1-c{display:flex;gap:3px;}
+.tl{display:inline-flex;justify-content:center;align-items:center;height:50px;background:#0E1520;border-radius:5px;font-family:"Saira";font-weight:700;font-size:36px;color:#F4F1E8;box-shadow:inset 0 -24px 0 rgba(255,255,255,.03);}
+.s1-st .tl{color:#FFB81C;}
+#s1-a{top:1030px;font-size:50px;font-weight:600;}
+#s1-b{top:1094px;font-size:132px;color:#FFB81C;}
+#s1-c{top:1244px;font-size:40px;font-weight:500;color:#DCE3EC;}
+#s1-d{top:1298px;font-size:40px;font-weight:500;color:#DCE3EC;}
+#s1-lg{top:1452px;}
+</style>
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="5.301" data-width="1080" data-height="1920">
+  <div id="s1-board">
+    <div id="s1-bh"><svg viewBox="0 0 48 48" width="40" height="40" fill="#FFB81C" stroke="#FFB81C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h4l10 17 9 1c2 0 3 1 3 2s-1 2-3 2l-9 1-10 17h-4l5-17-9-1-4 5h-3l2-7-2-7h3l4 5 9-1z"/></svg><span>PARTIDAS</span></div>
+    <div class="s1-r" id="s1-r0"><div class="s1-c"><span class="tl" id="s1t0a0" style="width:26px">0</span><span class="tl" id="s1t0a1" style="width:26px">7</span><span class="tl" id="s1t0a2" style="width:26px">:</span><span class="tl" id="s1t0a3" style="width:26px">4</span><span class="tl" id="s1t0a4" style="width:26px">0</span></div><div class="s1-c"><span class="tl" id="s1t0b0" style="width:30px">R</span><span class="tl" id="s1t0b1" style="width:30px">I</span><span class="tl" id="s1t0b2" style="width:30px">O</span><span class="tl" id="s1t0b3" style="width:30px">&nbsp;</span><span class="tl" id="s1t0b4" style="width:30px">D</span><span class="tl" id="s1t0b5" style="width:30px">E</span><span class="tl" id="s1t0b6" style="width:30px">&nbsp;</span><span class="tl" id="s1t0b7" style="width:30px">J</span><span class="tl" id="s1t0b8" style="width:30px">A</span><span class="tl" id="s1t0b9" style="width:30px">N</span><span class="tl" id="s1t0b10" style="width:30px">E</span><span class="tl" id="s1t0b11" style="width:30px">I</span><span class="tl" id="s1t0b12" style="width:30px">R</span><span class="tl" id="s1t0b13" style="width:30px">O</span></div><div class="s1-c s1-st"><span class="tl" id="s1t0c0" style="width:26px">C</span><span class="tl" id="s1t0c1" style="width:26px">O</span><span class="tl" id="s1t0c2" style="width:26px">N</span><span class="tl" id="s1t0c3" style="width:26px">F</span><span class="tl" id="s1t0c4" style="width:26px">I</span><span class="tl" id="s1t0c5" style="width:26px">R</span><span class="tl" id="s1t0c6" style="width:26px">M</span><span class="tl" id="s1t0c7" style="width:26px">A</span><span class="tl" id="s1t0c8" style="width:26px">D</span><span class="tl" id="s1t0c9" style="width:26px">O</span></div></div><div class="s1-r" id="s1-r1"><div class="s1-c"><span class="tl" id="s1t1a0" style="width:26px">0</span><span class="tl" id="s1t1a1" style="width:26px">9</span><span class="tl" id="s1t1a2" style="width:26px">:</span><span class="tl" id="s1t1a3" style="width:26px">1</span><span class="tl" id="s1t1a4" style="width:26px">5</span></div><div class="s1-c"><span class="tl" id="s1t1b0" style="width:30px">B</span><span class="tl" id="s1t1b1" style="width:30px">R</span><span class="tl" id="s1t1b2" style="width:30px">A</span><span class="tl" id="s1t1b3" style="width:30px">S</span><span class="tl" id="s1t1b4" style="width:30px">I</span><span class="tl" id="s1t1b5" style="width:30px">L</span><span class="tl" id="s1t1b6" style="width:30px">I</span><span class="tl" id="s1t1b7" style="width:30px">A</span><span class="tl" id="s1t1b8" style="width:30px">&nbsp;</span><span class="tl" id="s1t1b9" style="width:30px">&nbsp;</span><span class="tl" id="s1t1b10" style="width:30px">&nbsp;</span><span class="tl" id="s1t1b11" style="width:30px">&nbsp;</span><span class="tl" id="s1t1b12" style="width:30px">&nbsp;</span><span class="tl" id="s1t1b13" style="width:30px">&nbsp;</span></div><div class="s1-c s1-st"><span class="tl" id="s1t1c0" style="width:26px">C</span><span class="tl" id="s1t1c1" style="width:26px">O</span><span class="tl" id="s1t1c2" style="width:26px">N</span><span class="tl" id="s1t1c3" style="width:26px">F</span><span class="tl" id="s1t1c4" style="width:26px">I</span><span class="tl" id="s1t1c5" style="width:26px">R</span><span class="tl" id="s1t1c6" style="width:26px">M</span><span class="tl" id="s1t1c7" style="width:26px">A</span><span class="tl" id="s1t1c8" style="width:26px">D</span><span class="tl" id="s1t1c9" style="width:26px">O</span></div></div><div class="s1-r" id="s1-r2"><div class="s1-c"><span class="tl" id="s1t2a0" style="width:26px">1</span><span class="tl" id="s1t2a1" style="width:26px">3</span><span class="tl" id="s1t2a2" style="width:26px">:</span><span class="tl" id="s1t2a3" style="width:26px">3</span><span class="tl" id="s1t2a4" style="width:26px">0</span></div><div class="s1-c"><span class="tl" id="s1t2b0" style="width:30px">R</span><span class="tl" id="s1t2b1" style="width:30px">E</span><span class="tl" id="s1t2b2" style="width:30px">C</span><span class="tl" id="s1t2b3" style="width:30px">I</span><span class="tl" id="s1t2b4" style="width:30px">F</span><span class="tl" id="s1t2b5" style="width:30px">E</span><span class="tl" id="s1t2b6" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b7" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b8" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b9" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b10" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b11" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b12" style="width:30px">&nbsp;</span><span class="tl" id="s1t2b13" style="width:30px">&nbsp;</span></div><div class="s1-c s1-st"><span class="tl" id="s1t2c0" style="width:26px">C</span><span class="tl" id="s1t2c1" style="width:26px">O</span><span class="tl" id="s1t2c2" style="width:26px">N</span><span class="tl" id="s1t2c3" style="width:26px">F</span><span class="tl" id="s1t2c4" style="width:26px">I</span><span class="tl" id="s1t2c5" style="width:26px">R</span><span class="tl" id="s1t2c6" style="width:26px">M</span><span class="tl" id="s1t2c7" style="width:26px">A</span><span class="tl" id="s1t2c8" style="width:26px">D</span><span class="tl" id="s1t2c9" style="width:26px">O</span></div></div><div class="s1-r" id="s1-r3"><div class="s1-c"><span class="tl" id="s1t3a0" style="width:26px">2</span><span class="tl" id="s1t3a1" style="width:26px">2</span><span class="tl" id="s1t3a2" style="width:26px">:</span><span class="tl" id="s1t3a3" style="width:26px">3</span><span class="tl" id="s1t3a4" style="width:26px">0</span></div><div class="s1-c"><span class="tl" id="s1t3b0" style="width:30px">N</span><span class="tl" id="s1t3b1" style="width:30px">O</span><span class="tl" id="s1t3b2" style="width:30px">V</span><span class="tl" id="s1t3b3" style="width:30px">A</span><span class="tl" id="s1t3b4" style="width:30px">&nbsp;</span><span class="tl" id="s1t3b5" style="width:30px">Y</span><span class="tl" id="s1t3b6" style="width:30px">O</span><span class="tl" id="s1t3b7" style="width:30px">R</span><span class="tl" id="s1t3b8" style="width:30px">K</span><span class="tl" id="s1t3b9" style="width:30px">&nbsp;</span><span class="tl" id="s1t3b10" style="width:30px">&nbsp;</span><span class="tl" id="s1t3b11" style="width:30px">&nbsp;</span><span class="tl" id="s1t3b12" style="width:30px">&nbsp;</span><span class="tl" id="s1t3b13" style="width:30px">&nbsp;</span></div><div class="s1-c s1-st"><span class="tl" id="s1t3c0" style="width:26px">E</span><span class="tl" id="s1t3c1" style="width:26px">M</span><span class="tl" id="s1t3c2" style="width:26px">B</span><span class="tl" id="s1t3c3" style="width:26px">A</span><span class="tl" id="s1t3c4" style="width:26px">R</span><span class="tl" id="s1t3c5" style="width:26px">Q</span><span class="tl" id="s1t3c6" style="width:26px">U</span><span class="tl" id="s1t3c7" style="width:26px">E</span><span class="tl" id="s1t3c8" style="width:26px">&nbsp;</span><span class="tl" id="s1t3c9" style="width:26px">&nbsp;</span></div></div>
+  </div>
+  <div id="s1-a" class="ln">Você vive com a</div>
+  <div id="s1-b" class="ln sa">mala pronta?</div>
+  <div id="s1-c" class="ln"><span class="w"><span class="wi" id="s1c0">entre</span></span> <span class="w"><span class="wi" id="s1c1">reuniões</span></span> <span class="w"><span class="wi" id="s1c2">em</span></span> <span class="w"><span class="wi" id="s1c3">outras</span></span> <span class="w"><span class="wi" id="s1c4">cidades</span></span></div>
+  <div id="s1-d" class="ln"><span class="w"><span class="wi" id="s1d0">e</span></span> <span class="w"><span class="wi" id="s1d1">voos</span></span> <span class="w"><span class="wi" id="s1d2">pro</span></span> <span class="w"><span class="wi" id="s1d3">exterior?</span></span></div>
+  <div id="s1-lg" class="legal">Consulte condições e elegibilidade. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s1t0c0",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.15);
+tl.fromTo("#s1t0c1",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.18);
+tl.fromTo("#s1t0c2",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.21);
+tl.fromTo("#s1t0c3",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.24);
+tl.fromTo("#s1t0c4",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.27);
+tl.fromTo("#s1t0c5",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.3);
+tl.fromTo("#s1t0c6",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.33);
+tl.fromTo("#s1t0c7",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.36);
+tl.fromTo("#s1t0c8",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.39);
+tl.fromTo("#s1t0c9",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.42);
+tl.fromTo("#s1t1c0",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.5);
+tl.fromTo("#s1t1c1",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.53);
+tl.fromTo("#s1t1c2",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.56);
+tl.fromTo("#s1t1c3",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.59);
+tl.fromTo("#s1t1c4",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.62);
+tl.fromTo("#s1t1c5",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.65);
+tl.fromTo("#s1t1c6",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.68);
+tl.fromTo("#s1t1c7",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.71);
+tl.fromTo("#s1t1c8",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.74);
+tl.fromTo("#s1t1c9",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.77);
+tl.fromTo("#s1t2c0",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.85);
+tl.fromTo("#s1t2c1",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.88);
+tl.fromTo("#s1t2c2",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.91);
+tl.fromTo("#s1t2c3",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.94);
+tl.fromTo("#s1t2c4",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},0.97);
+tl.fromTo("#s1t2c5",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1);
+tl.fromTo("#s1t2c6",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.03);
+tl.fromTo("#s1t2c7",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.06);
+tl.fromTo("#s1t2c8",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.09);
+tl.fromTo("#s1t2c9",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.12);
+tl.fromTo("#s1t3c0",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.2);
+tl.fromTo("#s1t3c1",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.23);
+tl.fromTo("#s1t3c2",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.26);
+tl.fromTo("#s1t3c3",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.29);
+tl.fromTo("#s1t3c4",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.32);
+tl.fromTo("#s1t3c5",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.35);
+tl.fromTo("#s1t3c6",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.38);
+tl.fromTo("#s1t3c7",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.41);
+tl.fromTo("#s1t3c8",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.44);
+tl.fromTo("#s1t3c9",{rotationX:-90},{rotationX:0,duration:0.18,ease:"power2.out"},1.47);
+tl.to("#s1-r3 .s1-st",{opacity:0.35,duration:0.3,repeat:7,yoyo:true,ease:"steps(1)"},1.8);
+tl.fromTo("#s1-b",{scale:1.06},{scale:1,duration:1.2,ease:"power3.out"},0);
+tl.fromTo("#s1c0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.931);
+tl.fromTo("#s1c1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.222);
+tl.fromTo("#s1c2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.695);
+tl.fromTo("#s1c3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.804);
+tl.fromTo("#s1c4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.215);
+tl.fromTo("#s1d0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.676);
+tl.fromTo("#s1d1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.822);
+tl.fromTo("#s1d2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.113);
+tl.fromTo("#s1d3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.258);
+window.__timelines["s1"] = tl;
+})();
+</script>
+</template>
