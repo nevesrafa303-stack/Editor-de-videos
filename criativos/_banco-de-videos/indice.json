@@ -1,0 +1,824 @@
+[
+ {
+  "arquivo": "vertical/quarto-cama.mp4",
+  "hospital": "não identificado",
+  "descricao": "quarto de internação: cama e mesa de cabeceira",
+  "origem": "01 Omint 4.0–4.9 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/quarto-sala-tv.mp4",
+  "hospital": "não identificado",
+  "descricao": "quarto/suíte com projeção na parede",
+  "origem": "01 Omint 4.9–5.7 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/einstein-logo-porta.mp4",
+  "hospital": "Einstein",
+  "descricao": "logo do Einstein numa porta de madeira",
+  "origem": "01 Omint 21.7–22.3 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/quarto-copa.mp4",
+  "hospital": "não identificado",
+  "descricao": "copa do quarto com máquina de café",
+  "origem": "01 Omint 22.3–23.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)",
+  "obs": "marca leve de reparo na faixa da legenda"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-entrada-robotica.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "entrada com o nome do hospital e robôs cirúrgicos",
+  "origem": "01 Omint 23.8–24.7 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-recepcao-01.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção principal (logo iluminado)",
+  "origem": "01 Omint 57.6–58.9 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/einstein-fachada-01.mp4",
+  "hospital": "Einstein",
+  "descricao": "totem e fachada do Hospital Israelita Albert Einstein",
+  "origem": "01 Omint 58.9–60.4 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)",
+  "obs": "marca leve de reparo na faixa da legenda"
+ },
+ {
+  "arquivo": "vertical/unimed-hospital-fachada.mp4",
+  "hospital": "Hospital Unimed",
+  "descricao": "prédio do Hospital Unimed ao entardecer",
+  "origem": "02 caso Sírio 7.5–8.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-recepcao-02.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção principal, câmera andando",
+  "origem": "02 caso Sírio 15.4–16.9 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/paciente-leito-soro.mp4",
+  "hospital": "não identificado",
+  "descricao": "paciente no leito com bomba de infusão",
+  "origem": "02 caso Sírio 31.3–32.8 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/medico-visita-leito.mp4",
+  "hospital": "não identificado",
+  "descricao": "médico com prancheta visitando paciente",
+  "origem": "02 caso Sírio 32.8–33.9 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)",
+  "obs": "marca leve de reparo na faixa da legenda"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-recepcao-03.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção com pessoas no balcão",
+  "origem": "03 check-up Sírio 1.0–3.5 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-predio.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "prédio com logo e palmeiras",
+  "origem": "03 check-up Sírio 6.1–7.3 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/sala-de-espera.mp4",
+  "hospital": "provável Sírio-Libanês (vídeo do check-up)",
+  "descricao": "sala de espera com poltronas",
+  "origem": "03 check-up Sírio 19.1–21.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/sala-exame-oftalmo.mp4",
+  "hospital": "provável Einstein (vídeo do check-up)",
+  "descricao": "sala de exame com equipamento de oftalmologia",
+  "origem": "04 check-up Einstein 7.5–9.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/einstein-marquise.mp4",
+  "hospital": "Einstein",
+  "descricao": "marquise de vidro da entrada, carro chegando",
+  "origem": "04 check-up Einstein 74.4–75.1 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)",
+  "obs": "marca leve de reparo na faixa da legenda"
+ },
+ {
+  "arquivo": "vertical/einstein-atrio.mp4",
+  "hospital": "Einstein",
+  "descricao": "átrio com teto de vidro e pessoas sentadas",
+  "origem": "04 check-up Einstein 75.1–76.7 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)",
+  "obs": "marca leve de reparo na faixa da legenda"
+ },
+ {
+  "arquivo": "faixa/omint-recepcao.mp4",
+  "hospital": "Omint (centro da operadora, não é hospital)",
+  "descricao": "recepção com o logo da Omint",
+  "origem": "01 Omint 0.0–0.7 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/recepcao-marmore.mp4",
+  "hospital": "não identificado (provável Omint)",
+  "descricao": "recepção com balcão de mármore",
+  "origem": "01 Omint 0.7–1.8 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/equipe-cirurgica.mp4",
+  "hospital": "não identificado",
+  "descricao": "equipe em centro cirúrgico",
+  "origem": "01 Omint 13.6–15.0 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-recepcao-faixa.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção principal (0,4 s)",
+  "origem": "01 Omint 15.5–16.0 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/vila-nova-star-fachada.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "fachada com o nome Vila Nova Star (0,5 s)",
+  "origem": "01 Omint 16.0–16.7 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sala-exame-maca.mp4",
+  "hospital": "não identificado",
+  "descricao": "profissional atendendo paciente na maca",
+  "origem": "01 Omint 46.7–48.9 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/quarto-equipamentos.mp4",
+  "hospital": "não identificado",
+  "descricao": "quarto com equipamentos e paciente",
+  "origem": "01 Omint 50.7–52.7 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/equipe-recepcao.mp4",
+  "hospital": "não identificado",
+  "descricao": "enfermeira, recepcionista e médico",
+  "origem": "01 Omint 69.1–71.2 s",
+  "formato": "720x392",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-fachada-01.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "fachada com o logo, de baixo para cima",
+  "origem": "02 caso Sírio 0.0–1.3 s",
+  "formato": "720x436",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-fachada-02.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "fachada com o nome e palmeiras",
+  "origem": "02 caso Sírio 19.3–23.2 s",
+  "formato": "720x436",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-placa.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "placa de madeira com o nome do hospital",
+  "origem": "02 caso Sírio 25.0–26.6 s",
+  "formato": "720x436",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-catracas.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "lobby com catracas",
+  "origem": "02 caso Sírio 57.4–58.8 s",
+  "formato": "720x436",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sala-de-espera-02.mp4",
+  "hospital": "não identificado",
+  "descricao": "sala de espera com poltronas",
+  "origem": "02 caso Sírio 58.8–59.9 s",
+  "formato": "720x436",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-fachada-03.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "fachada com o logo",
+  "origem": "02 caso Sírio 65.3–66.9 s",
+  "formato": "720x436",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/checkup-recepcao.mp4",
+  "hospital": "provável Sírio-Libanês (vídeo do check-up)",
+  "descricao": "recepção do check-up com equipe",
+  "origem": "03 check-up Sírio 24.4–26.6 s",
+  "formato": "720x258",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/checkup-cardio.mp4",
+  "hospital": "provável Sírio-Libanês (vídeo do check-up)",
+  "descricao": "equipe e paciente na avaliação cardiovascular",
+  "origem": "03 check-up Sírio 26.6–29.9 s",
+  "formato": "720x258",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-balcao.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "balcão com o logo Sírio-Libanês",
+  "origem": "03 check-up Sírio 37.4–42.6 s",
+  "formato": "720x258",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/medico-consulta.mp4",
+  "hospital": "não identificado",
+  "descricao": "mãos do médico com estetoscópio e prontuário",
+  "origem": "03 check-up Sírio 46.3–52.8 s",
+  "formato": "720x258",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-fachada-03.mp4",
+  "hospital": "Einstein",
+  "descricao": "totem e fachada do Einstein, câmera subindo",
+  "origem": "04 check-up Einstein 0.0–3.1 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-triagem.mp4",
+  "hospital": "Einstein",
+  "descricao": "placa Triagem / Bioimpedância",
+  "origem": "04 check-up Einstein 14.9–16.6 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-enfermeira.mp4",
+  "hospital": "Einstein",
+  "descricao": "enfermeira sorrindo no corredor",
+  "origem": "04 check-up Einstein 16.6–18.3 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-ultrassom.mp4",
+  "hospital": "Einstein",
+  "descricao": "sala de ultrassom",
+  "origem": "04 check-up Einstein 23.7–25.8 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-ergometria.mp4",
+  "hospital": "Einstein",
+  "descricao": "sala de ergometria (0,6 s)",
+  "origem": "04 check-up Einstein 25.8–26.5 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-tablet.mp4",
+  "hospital": "Einstein",
+  "descricao": "médico avaliando no tablet",
+  "origem": "04 check-up Einstein 26.5–28.1 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-placa-cardiologia.mp4",
+  "hospital": "Einstein",
+  "descricao": "placa Cardiologia / Mamografia",
+  "origem": "04 check-up Einstein 28.1–29.2 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-consultorio.mp4",
+  "hospital": "Einstein",
+  "descricao": "médica no computador do consultório",
+  "origem": "04 check-up Einstein 30.7–31.6 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-esteira.mp4",
+  "hospital": "Einstein",
+  "descricao": "paciente na esteira ergométrica",
+  "origem": "04 check-up Einstein 31.6–32.7 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-paciente.mp4",
+  "hospital": "Einstein",
+  "descricao": "paciente idoso sendo examinado",
+  "origem": "04 check-up Einstein 32.7–34.1 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-bioimpedancia.mp4",
+  "hospital": "Einstein",
+  "descricao": "balança de bioimpedância",
+  "origem": "04 check-up Einstein 34.8–35.6 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "faixa/einstein-checkup-medico-tablet.mp4",
+  "hospital": "Einstein",
+  "descricao": "médico mostrando resultados no tablet",
+  "origem": "04 check-up Einstein 48.9–53.0 s",
+  "formato": "720x556",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/quarto-cama.mp4",
+  "hospital": "não identificado",
+  "descricao": "quarto de internação: cama e mesa de cabeceira",
+  "origem": "01 Omint 4.0–4.9 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/quarto-sala-tv.mp4",
+  "hospital": "não identificado",
+  "descricao": "quarto/suíte com projeção na parede",
+  "origem": "01 Omint 4.9–5.7 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/einstein-logo-porta.mp4",
+  "hospital": "Einstein",
+  "descricao": "logo do Einstein numa porta de madeira",
+  "origem": "01 Omint 21.7–22.3 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/quarto-copa.mp4",
+  "hospital": "não identificado",
+  "descricao": "copa do quarto com máquina de café",
+  "origem": "01 Omint 22.3–23.2 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-entrada-robotica.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "entrada com o nome do hospital e robôs cirúrgicos",
+  "origem": "01 Omint 23.8–24.7 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-recepcao-01.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção principal (logo iluminado)",
+  "origem": "01 Omint 57.6–58.9 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/einstein-fachada-01.mp4",
+  "hospital": "Einstein",
+  "descricao": "totem e fachada do Hospital Israelita Albert Einstein",
+  "origem": "01 Omint 58.9–60.4 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/unimed-hospital-fachada.mp4",
+  "hospital": "Hospital Unimed",
+  "descricao": "prédio do Hospital Unimed ao entardecer",
+  "origem": "02 caso Sírio 7.5–8.2 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-recepcao-02.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção principal, câmera andando",
+  "origem": "02 caso Sírio 15.4–16.9 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/paciente-leito-soro.mp4",
+  "hospital": "não identificado",
+  "descricao": "paciente no leito com bomba de infusão",
+  "origem": "02 caso Sírio 31.3–32.8 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/medico-visita-leito.mp4",
+  "hospital": "não identificado",
+  "descricao": "médico com prancheta visitando paciente",
+  "origem": "02 caso Sírio 32.8–33.9 s",
+  "formato": "720x812",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-recepcao-03.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "recepção com pessoas no balcão",
+  "origem": "03 check-up Sírio 1.0–3.5 s",
+  "formato": "720x940",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-predio.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "prédio com logo e palmeiras",
+  "origem": "03 check-up Sírio 6.1–7.3 s",
+  "formato": "720x940",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sala-de-espera.mp4",
+  "hospital": "provável Sírio-Libanês (vídeo do check-up)",
+  "descricao": "sala de espera com poltronas",
+  "origem": "03 check-up Sírio 19.1–21.2 s",
+  "formato": "720x940",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/sala-exame-oftalmo.mp4",
+  "hospital": "provável Einstein (vídeo do check-up)",
+  "descricao": "sala de exame com equipamento de oftalmologia",
+  "origem": "04 check-up Einstein 7.5–9.2 s",
+  "formato": "720x784",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/einstein-marquise.mp4",
+  "hospital": "Einstein",
+  "descricao": "marquise de vidro da entrada, carro chegando",
+  "origem": "04 check-up Einstein 74.4–75.1 s",
+  "formato": "720x784",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "recorte-topo/einstein-atrio.mp4",
+  "hospital": "Einstein",
+  "descricao": "átrio com teto de vidro e pessoas sentadas",
+  "origem": "04 check-up Einstein 75.1–76.7 s",
+  "formato": "720x784",
+  "lote": "2026-11-07 lote 1 (Reels 01–04)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-fachada-02.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "fachada de vidro com o letreiro Vila Nova Star",
+  "origem": "05 tour Vila Nova Star 1.4–3.8 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-fachada-02.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "fachada de vidro com o letreiro Vila Nova Star",
+  "origem": "05 tour Vila Nova Star 1.4–3.8 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-lobby.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "lobby com pé-direito alto e recepção",
+  "origem": "05 tour Vila Nova Star 5.8–8.5 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-lobby.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "lobby com pé-direito alto e recepção",
+  "origem": "05 tour Vila Nova Star 5.8–8.5 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-quarto-01.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto amplo com cama e poltrona",
+  "origem": "05 tour Vila Nova Star 8.5–10.0 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-quarto-01.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto amplo com cama e poltrona",
+  "origem": "05 tour Vila Nova Star 8.5–10.0 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-amenities.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "amenities de banho (Trousseau)",
+  "origem": "05 tour Vila Nova Star 10.0–10.7 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-amenities.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "amenities de banho (Trousseau)",
+  "origem": "05 tour Vila Nova Star 10.0–10.7 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-enxoval.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "travesseiro e enxoval bordado",
+  "origem": "05 tour Vila Nova Star 10.7–11.6 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-enxoval.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "travesseiro e enxoval bordado",
+  "origem": "05 tour Vila Nova Star 10.7–11.6 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-corredor.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "corredor com enfermeira caminhando",
+  "origem": "05 tour Vila Nova Star 11.6–14.5 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-corredor.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "corredor com enfermeira caminhando",
+  "origem": "05 tour Vila Nova Star 11.6–14.5 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-restaurante.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "restaurante com mesas e pé-direito alto",
+  "origem": "05 tour Vila Nova Star 15.3–16.9 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-restaurante.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "restaurante com mesas e pé-direito alto",
+  "origem": "05 tour Vila Nova Star 15.3–16.9 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-quarto-vista.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto com janela para a cidade e tablet",
+  "origem": "05 tour Vila Nova Star 16.9–18.7 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-quarto-vista.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto com janela para a cidade e tablet",
+  "origem": "05 tour Vila Nova Star 16.9–18.7 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-suite-sala.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "sala da suíte com sofás e janelas",
+  "origem": "05 tour Vila Nova Star 25.5–26.1 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-suite-sala.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "sala da suíte com sofás e janelas",
+  "origem": "05 tour Vila Nova Star 25.5–26.1 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-quarto-02.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto com leito hospitalar e piso de madeira",
+  "origem": "05 tour Vila Nova Star 26.1–29.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-quarto-02.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto com leito hospitalar e piso de madeira",
+  "origem": "05 tour Vila Nova Star 26.1–29.2 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-medica.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "médica preparando equipamento",
+  "origem": "05 tour Vila Nova Star 29.2–30.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-medica.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "médica preparando equipamento",
+  "origem": "05 tour Vila Nova Star 29.2–30.2 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/cirurgia-robotica-01.mp4",
+  "hospital": "provável Vila Nova Star (vídeo do VNS)",
+  "descricao": "cirurgião no console do robô, luz azul",
+  "origem": "05 tour Vila Nova Star 36.5–38.2 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/cirurgia-robotica-01.mp4",
+  "hospital": "provável Vila Nova Star (vídeo do VNS)",
+  "descricao": "cirurgião no console do robô, luz azul",
+  "origem": "05 tour Vila Nova Star 36.5–38.2 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/cirurgia-robotica-02.mp4",
+  "hospital": "provável Vila Nova Star (vídeo do VNS)",
+  "descricao": "mãos no controle do robô cirúrgico",
+  "origem": "05 tour Vila Nova Star 38.2–39.3 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/cirurgia-robotica-02.mp4",
+  "hospital": "provável Vila Nova Star (vídeo do VNS)",
+  "descricao": "mãos no controle do robô cirúrgico",
+  "origem": "05 tour Vila Nova Star 38.2–39.3 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-quarto-03.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto com cama, poltrona e luz quente",
+  "origem": "05 tour Vila Nova Star 43.7–44.9 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-quarto-03.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "quarto com cama, poltrona e luz quente",
+  "origem": "05 tour Vila Nova Star 43.7–44.9 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-centro-diagnostico.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "entrada do centro diagnóstico",
+  "origem": "05 tour Vila Nova Star 71.4–72.8 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-centro-diagnostico.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "entrada do centro diagnóstico",
+  "origem": "05 tour Vila Nova Star 71.4–72.8 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/vila-nova-star-letreiro.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "parede com o letreiro Vila Nova Star",
+  "origem": "05 tour Vila Nova Star 72.8–74.3 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/vila-nova-star-letreiro.mp4",
+  "hospital": "Vila Nova Star",
+  "descricao": "parede com o letreiro Vila Nova Star",
+  "origem": "05 tour Vila Nova Star 72.8–74.3 s",
+  "formato": "720x912",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-predio-02.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "torre do hospital vista de baixo",
+  "origem": "07 Sírio-Libanês 4.1–5.7 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)",
+  "obs": "marca leve de reparo na faixa da legenda"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-predio-02.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "torre do hospital vista de baixo",
+  "origem": "07 Sírio-Libanês 4.1–5.7 s",
+  "formato": "720x944",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "vertical/sirio-libanes-predio-03.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "torre com o letreiro Hospital Sírio-Libanês",
+  "origem": "07 Sírio-Libanês 5.7–6.8 s",
+  "formato": "720x1280",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "recorte-topo/sirio-libanes-predio-03.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "torre com o letreiro Hospital Sírio-Libanês",
+  "origem": "07 Sírio-Libanês 5.7–6.8 s",
+  "formato": "720x944",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "faixa/einstein-vista-aerea.mp4",
+  "hospital": "Einstein",
+  "descricao": "vista aérea do Einstein Morumbi",
+  "origem": "09 ranking de planos 18.2–18.7 s",
+  "formato": "720x320",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ },
+ {
+  "arquivo": "faixa/sirio-libanes-predio-faixa.mp4",
+  "hospital": "Sírio-Libanês",
+  "descricao": "prédio do Sírio-Libanês",
+  "origem": "09 ranking de planos 18.7–19.2 s",
+  "formato": "720x320",
+  "lote": "2026-11-07 lote 2 (Reels 05–09)"
+ }
+]

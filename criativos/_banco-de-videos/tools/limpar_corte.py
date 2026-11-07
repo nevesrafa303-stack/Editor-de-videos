@@ -1,6 +1,6 @@
 """limpar_corte.py — recorta um trecho de vídeo, tira o áudio e apaga a legenda branca queimada (inpainting por quadro).
 
-  python -I limpar_corte.py SRC T0 T1 OUT [--cap Y0,Y1] [--crop x,y,w,h]
+  python -I limpar_corte.py SRC T0 T1 OUT [--cap Y0,Y1] [--crop x,y,w,h] [--grow 11]
 
 A legenda desses vídeos é branca, centralizada e fica sempre na mesma altura (--cap: faixa de linhas). Em cada
 quadro, dentro dessa faixa, acha a palavra a partir do centro da tela (colunas com traço de letra, com espaços de
@@ -14,6 +14,7 @@ import cv2
 ap = argparse.ArgumentParser()
 ap.add_argument("src"); ap.add_argument("t0", type=float); ap.add_argument("t1", type=float); ap.add_argument("out")
 ap.add_argument("--cap"); ap.add_argument("--crop")
+ap.add_argument("--grow", type=int, default=11, help="diâmetro (px) da área apagada em volta de cada letra; maior pega sombra")
 a = ap.parse_args()
 
 cap = cv2.VideoCapture(a.src)
@@ -53,7 +54,7 @@ def text_mask(f, r0, r1):
     x0, x1 = max(0, lo - 8), min(W, hi + 9)
     m = np.zeros((H, W), np.uint8)
     m[r0:r1, x0:x1] = strict[:, x0:x1].astype(np.uint8) * 255
-    return cv2.dilate(m, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11)), iterations=1)
+    return cv2.dilate(m, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (a.grow, a.grow)), iterations=1)
 
 hits = 0
 out = []

@@ -1,7 +1,8 @@
-# Transcrições — 4 Reels de consultora de planos (Instagram)
+# Transcrições — 9 Reels de consultora de planos (Instagram)
 
-Enviados pelo cliente em 07/11/2026 para treinar a copy. São Reels de outra consultora, baixados do
-Instagram. **Uso só para estudo:** não copiar o texto, as imagens, a marca, o contato nem os valores.
+Enviados pelo cliente em 07/11/2026 (lote 1: Reels 01–04; lote 2: Reels 05–09) para treinar a copy. São Reels de outra consultora, baixados do
+Instagram. **A copy é só estudo:** não copiar o texto, a marca, o contato nem os valores. As imagens de hospital, sem a
+apresentadora, estão limpas em `criativos/_banco-de-videos/` (uso autorizado, segundo o cliente).
 
 Transcrição automática (Whisper small), revisada à mão. Trechos com `[?]` não ficaram claros no áudio.
 Os quadros de cada vídeo, um a cada 3 s, estão em `0N-quadros.jpg`.
@@ -54,3 +55,56 @@ Os quadros de cada vídeo, um a cada 3 s, estão em `0N-quadros.jpg`.
 - [1:05] E talvez você não saiba que existem planos e seguros que oferecem esse tipo de check-up como benefício, sem você precisar pagar todo esse valor no particular.
 - [1:12] Então, no fim, o maior luxo desse check-up não é só fazer exames no Einstein: é poder descobrir um problema antes que ele descubra você.
 - [1:19] Você já fez check-up executivo alguma vez? Se sim, me conta sua experiência aqui nos comentários.
+
+---
+
+# Lote 2 (enviado em 07/11/2026)
+
+## 05 · "O que faz o Vila Nova Star ser tão luxuoso?" — tour do hospital (1:26)
+
+- [0:00] O que faz o Vila Nova Star ser um dos hospitais mais luxuosos do Brasil?
+- [0:03] Quando a gente olha para esse hospital pela primeira vez, ele parece mais um hotel de luxo do que um hospital. As suítes são enormes, tem serviço de concierge, os médicos mais renomados do Brasil atendem e operam lá, tem cardápio assinado por chef, tem tecnologia por todos os lados.
+- [0:18] Mas o que realmente diferencia esse hospital não são apenas essas coisas, e sim a experiência. Lá, quando você chega no pronto-socorro, você vai para uma suíte individual, onde a enfermeira e o médico vão até você; você não precisa ficar andando pelo hospital.
+- [0:32] E claro que lá reúne algumas das tecnologias médicas mais avançadas do mundo, como robôs cirúrgicos e equipamentos de altíssima precisão.
+- [0:39] Talvez seja exatamente por isso que muitas pessoas escolhem esse hospital: não só por ser bonito, mas por toda essa combinação de tecnologia, equipe médica e uma experiência pensada para que o paciente só se preocupe com a própria recuperação.
+- [0:52] E nem todo mundo que usa o Vila Nova Star está pagando tudo no particular. Existem vários planos de saúde que oferecem atendimento completo lá dentro, por muito menos do que você imagina.
+- [1:01] Por exemplo, para uma família de três pessoas na faixa de 30 anos, com uma criança, ficaria cerca de R$ 2.200 por mês — isso para ter acesso a um dos melhores hospitais do Brasil.
+- [1:11] Ou seja, o Vila Nova Star não é só um hospital de luxo: é uma experiência de medicina que algumas pessoas só conseguem acessar através do plano certo.
+- [1:20] E se você quer receber as opções que atendem lá no Vila Nova, é só comentar aqui "VILA" que eu vou te ajudar a fazer essa simulação.
+
+## 06 · "Reduzi R$ 2.000 por mês e a rede ficou melhor" — caso de cliente (1:18)
+
+- [0:00] Eu reduzi o valor do plano de saúde desse cliente em R$ 2.000 por mês, e a rede ficou melhor do que era antes.
+- [0:06] Ele tinha SulAmérica há muitos anos, um plano com CNPJ. Até estava satisfeito com a rede, mas o problema era o valor, que já não fazia tanto sentido para o produto que ele tinha.
+- [0:15] Pagava uma faixa de R$ 5.000 por mês. A gente sabe que os planos reajustam todos os anos, o que vai acumulando reajuste em cima de reajuste e vai ficando cada vez mais caro.
+- [0:24] Então eu avaliei o perfil dele. Ele queria manter um hospital, o Oswaldo Cruz, de que ele gostava muito. Encontrei uma opção de plano na Porto Saúde com o Oswaldo Cruz, com os mesmos laboratórios que ele e a família utilizavam, e ainda com o Sírio-Libanês na rede.
+- [0:38] Ele está levando um hospital de alto padrão nesse upgrade, pagando muito menos do que pagava na SulAmérica. O valor na Porto ficou R$ 3.000 por mês: uma diferença de R$ 2.000 por mês, mais de R$ 20.000 por ano de economia.
+- [0:52] A operadora do seu plano não vai ligar falando que você está pagando um preço muito caro e oferecer outro produto para reduzir o custo. Enquanto isso, o mercado está lançando planos novos com um custo bem mais atrativo do que o seu, e ainda com uma rede melhor.
+- [1:04] Se você nunca pediu uma revisão do seu plano empresarial, provavelmente também está deixando dinheiro na mesa.
+- [1:09] Então, se você tem CNPJ e tem mais de dois anos no seu plano, eu posso te ajudar: é só comentar aqui "ANÁLISE" que eu faço isso de graça para você.
+
+## 07 · "Os 3 planos com Sírio-Libanês de melhor custo-benefício" — lista (0:48)
+
+- [0:00] Esses são os 3 planos de saúde com Sírio-Libanês que têm o melhor custo-benefício do mercado.
+- [0:04] Todo mundo já sabe que o Sírio é um dos melhores hospitais do Brasil: 7 anos consecutivos no ranking mundial. A estrutura de lá é outro nível, mas a maioria das pessoas ainda acha que esse padrão é inacessível.
+- [0:14] E não é, porque existem planos que oferecem cobertura completa dentro do Sírio por um custo-benefício muito legal, e é o que eu vou mostrar aqui hoje.
+- [0:21] Então vamos para as opções. Todas são com CNPJ e para duas pessoas na faixa de 30 anos. Primeira opção: Amil Platinum, por R$ 1.500. Segunda opção: Alice [categoria ?], por R$ 1.900. Terceira opção: o plano da Porto — esse para 3 pessoas, incluindo uma criança —, R$ 1.700.
+- [0:37] Claro que cada um tem suas diferenças de reembolso e coparticipação, mas todos atendem no Sírio. Nem é tão caro assim ter acesso a um hospital de qualidade.
+- [0:44] Para você receber as opções para o seu perfil, é só comentar "SÍRIO" aqui que eu te mando.
+
+## 08 · "Ranking dos maiores reembolsos" — contagem regressiva (0:41)
+
+- [0:00] Ranqueando os planos de saúde com os maiores reembolsos do Brasil. Lembrando que quanto maior o reembolso, maior a sua mensalidade.
+- [0:06] Em quarto lugar, SulAmérica Prestige, com reembolso de 1.000 reais por consulta. Em terceiro, Bradesco [categoria ?], com 1.097 reais. Em segundo, Omint C23, com 1.258 reais.
+- [0:26] Em primeiríssimo lugar, o seguro-saúde internacional, que não é um plano, mas substitui um, com reembolso de 250 dólares por consulta, em torno de 1.300 reais.
+- [0:37] E se você quiser entender mais sobre planos e seguros, é só me seguir aqui.
+- (Na tela: lista "1º – 2º – 3º – 4º" no canto, preenchida com o logo de cada operadora conforme ela fala.)
+
+## 09 · "Se você é médico, os 3 melhores planos" — lista para um nicho (1:34)
+
+- [0:00] Se você é médico, esses são os três melhores planos de saúde do Brasil. E fica até o final, que eu vou te mostrar por que tantos estão saindo dos planos tradicionais.
+- [0:08] Em primeiríssimo lugar, a Omint: o plano mais completo e mais premium do Brasil, e os médicos escolhem pela alta qualidade. Acesso aos melhores hospitais — Einstein, Sírio, Vila Nova Star —, reembolsos altos em até 24 horas, boa cobertura internacional para viagens e mais de 4 mil procedimentos sem precisar de autorização.
+- [0:28] Em segundo lugar, Bradesco Saúde: a maior rede credenciada do país, várias categorias de acordo com o perfil, seguro-viagem, concierge, check-up e a opção de produto só hospitalar, que os médicos preferem e tem um custo ainda melhor.
+- [0:44] Em terceiro lugar, SulAmérica: rede excelente, faz parte da Rede D'Or São Luiz e tem uma categoria exclusiva para médicos, com cobertura hospitalar, check-up e seguro de vida. E o diferencial é que pode sair [até] 50% mais barato, e ainda tem categorias com Einstein e Sírio.
+- [1:01] E agora, o motivo pelo qual os médicos estão saindo dos planos tradicionais: o seguro-saúde internacional. Pode contratar morando no Brasil, tem 20% de desconto para médicos, opção só hospitalar que reduz o custo, reembolso em dólar, coberturas aprovadas pelo FDA e acesso aos melhores hospitais do Brasil e do mundo. E o melhor: muitas vezes mais acessível do que os planos premium tradicionais.
+- [1:29] E para a gente saber qual desses é o ideal para você, é só comentar "PLANO" que eu vou te ajudar.
