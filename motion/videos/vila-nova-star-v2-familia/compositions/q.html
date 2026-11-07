@@ -1,0 +1,79 @@
+<template>
+<style>@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#q-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.q-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#q-root{font-family:"Poppins",Arial,sans-serif;color:#F4EFE6;background:#0E1A2B;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.mt{font-family:"Mont",Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.22em;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(244,239,230,.92);}
+.arch{position:absolute;left:260px;top:520px;width:560px;height:600px;border-radius:280px 280px 26px 26px;overflow:hidden;border:3px solid #8E6E33;box-shadow:0 24px 60px rgba(14,26,43,.22);}
+.archo{position:absolute;left:244px;top:504px;width:592px;height:632px;border-radius:296px 296px 34px 34px;border:1.5px solid rgba(142,110,51,.45);}
+.num{position:absolute;left:76px;top:960px;font-size:190px;color:#8E6E33;line-height:1;}
+.kick{top:1146px;font-size:26px;color:#8E6E33;}
+.ttl{top:1186px;font-size:66px;}
+.sub{top:1262px;font-size:40px;color:#8E6E33;}
+.pills{position:absolute;left:0;width:1080px;top:1330px;display:flex;justify-content:center;gap:14px;}
+.pill{display:flex;align-items:center;gap:8px;padding:8px 20px;border-radius:30px;border:2px solid #0E1A2B;background:#fff;font-family:"Poppins";font-weight:600;font-size:28px;white-space:nowrap;}
+
+#q-k{top:560px;font-size:30px;color:#D9BC82;}
+#q-a{top:636px;font-size:74px;}
+#q-b{top:716px;font-size:74px;}
+#q-n{top:800px;font-size:118px;color:#D9BC82;}
+#q-c{top:934px;font-size:74px;}
+#q-box{position:absolute;left:110px;top:1080px;width:860px;height:118px;border-radius:24px;background:#F4EFE6;color:#0E1A2B;display:flex;align-items:center;gap:20px;padding:0 30px;box-shadow:0 20px 50px rgba(0,0,0,.35);}
+#q-lbl{position:absolute;left:110px;top:1040px;font-family:"Poppins";font-weight:600;font-size:26px;color:#D9BC82;}
+#q-tx{font-family:"Poppins";font-weight:600;font-size:46px;white-space:nowrap;}
+#q-cur{display:inline-block;width:4px;height:52px;background:#8E6E33;margin-left:4px;vertical-align:middle;}
+#q-qm{margin-left:auto;width:78px;height:78px;border-radius:50%;background:#8E6E33;color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Mont";font-weight:900;font-size:50px;}
+#q-lg{top:1452px;}
+</style>
+<div id="q-root" data-composition-id="q" data-start="0" data-duration="4.709" data-width="1080" data-height="1920">
+  <div id="q-k" class="ln mt">A PERGUNTA QUE IMPORTA</div>
+  <div id="q-a" class="ln se"><span class="w"><span class="wi" id="qa0">O</span></span> <span class="w"><span class="wi" id="qa1">seu</span></span> <span class="w"><span class="wi" id="qa2">plano</span></span> <span class="w"><span class="wi" id="qa3">de</span></span> <span class="w"><span class="wi" id="qa4">saúde</span></span></div>
+  <div id="q-b" class="ln se"><span class="w"><span class="wi" id="qb0">tem</span></span> <span class="w"><span class="wi" id="qb1">o</span></span></div>
+  <div id="q-n" class="ln se">Vila Nova Star</div>
+  <div id="q-c" class="ln se"><span class="w"><span class="wi" id="qc0">na</span></span> <span class="w"><span class="wi" id="qc1">rede?</span></span></div>
+  <div id="q-lbl">Rede do seu plano</div>
+  <div id="q-box"><svg viewBox="0 0 48 48" width="50" height="50" fill="none" stroke="#0E1A2B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="21" cy="21" r="13"/><path d="M31 31l11 11"/></svg><span id="q-tx">Vila Nova Star</span><span id="q-cur"></span><div id="q-qm">?</div></div>
+  <div id="q-lg" class="legal">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#q-k",{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.1);
+tl.fromTo("#qa0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.919);
+tl.fromTo("#qa1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},1.992);
+tl.fromTo("#qa2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.174);
+tl.fromTo("#qa3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.392);
+tl.fromTo("#qa4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.538);
+tl.fromTo("#qb0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},2.974);
+tl.fromTo("#qb1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.156);
+tl.fromTo("#q-n",{scale:1.2,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"power3.out"},3.265);
+tl.fromTo("#qc0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.883);
+tl.fromTo("#qc1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},3.992);
+tl.fromTo("#q-lbl",{y:10,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},1.361);
+tl.fromTo("#q-box",{y:40,opacity:0},{y:0,opacity:1,duration:0.45,ease:"power3.out"},1.311);
+tl.fromTo("#q-tx",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:0.8,ease:"steps(14)"},3.225);
+tl.fromTo("#q-cur",{opacity:1},{opacity:0,duration:0.25,repeat:11,yoyo:true,ease:"steps(1)"},1.361);
+tl.fromTo("#q-qm",{scale:0.7,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},4.002);
+tl.to("#q-qm",{scale:1.15,duration:0.25,yoyo:true,repeat:3,ease:"sine.inOut"},4.452);
+window.__timelines["q"] = tl;
+})();
+</script>
+</template>

@@ -1,0 +1,64 @@
+<template>
+<style>@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#i2-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.i2-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#i2-root{font-family:"Poppins",Arial,sans-serif;color:#0E1A2B;background:#F4EFE6;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.mt{font-family:"Mont",Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.22em;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:#0E1A2B;}
+.arch{position:absolute;left:260px;top:520px;width:560px;height:600px;border-radius:280px 280px 26px 26px;overflow:hidden;border:3px solid #8E6E33;box-shadow:0 24px 60px rgba(14,26,43,.22);}
+.archo{position:absolute;left:244px;top:504px;width:592px;height:632px;border-radius:296px 296px 34px 34px;border:1.5px solid rgba(142,110,51,.45);}
+.num{position:absolute;left:76px;top:960px;font-size:190px;color:#8E6E33;line-height:1;}
+.kick{top:1146px;font-size:26px;color:#8E6E33;}
+.ttl{top:1186px;font-size:66px;}
+.sub{top:1262px;font-size:40px;color:#8E6E33;}
+.pills{position:absolute;left:0;width:1080px;top:1330px;display:flex;justify-content:center;gap:14px;}
+.pill{display:flex;align-items:center;gap:8px;padding:8px 20px;border-radius:30px;border:2px solid #0E1A2B;background:#fff;font-family:"Poppins";font-weight:600;font-size:28px;white-space:nowrap;}
+
+#i2-arch .vw{position:absolute;inset:0;}
+.i2-in{position:absolute;inset:0;}
+</style>
+<div id="i2-root" data-composition-id="i2" data-start="0" data-duration="5.883" data-width="1080" data-height="1920">
+  <div class="archo" id="i2-ao"></div>
+  <div class="arch" id="i2-arch"><div class="vw i2-in" id="i2-v0w" data-layout-allow-overflow><video id="i2-v0" class="clip" src="assets/video/a_quarto02.mp4" muted playsinline data-start="0" data-duration="4.063"></video></div><div class="vw i2-in" id="i2-v1w" data-layout-allow-overflow><video id="i2-v1" class="clip" src="assets/video/a_medica.mp4" muted playsinline data-start="4.023" data-duration="1.87"></video></div></div>
+  <div class="num se" id="i2-n">02</div>
+  <div class="ln mt kick" id="i2-k">UTI · 40 LEITOS</div>
+  <div class="ln se ttl" id="i2-t"><span class="w"><span class="wi" id="i2t0">Banheiro</span></span> <span class="w"><span class="wi" id="i2t1">privativo</span></span></div>
+  <div class="ln se sub" id="i2-s">e acompanhante o tempo todo</div>
+  <div class="pills" id="i2-pl"><div class="pill" id="i2-p0"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="#8E6E33" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>Todos os leitos da UTI</span></div></div>
+  <div class="legal" id="i2-lg" style="top:1410px">UTI com 40 leitos, todos com banheiro privativo e acomodação para acompanhante em tempo integral, segundo o site oficial. Consulte a disponibilidade da rede hospitalar. Cobertura e rede sujeitas à modalidade contratada. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#i2-v0w",{scale:1},{scale:1.1,duration:4.063,ease:"none"},0);
+tl.fromTo("#i2-v1w",{scale:1},{scale:1.08,duration:1.9,ease:"none"},4.023);
+tl.fromTo("#i2-arch",{x:-120,opacity:0},{x:0,opacity:1,duration:0.6,ease:"power3.out"},0);
+tl.fromTo("#i2-ao",{opacity:0,scale:0.96},{opacity:1,scale:1,duration:0.8,ease:"power2.out"},0.15);
+tl.fromTo("#i2-n",{y:60,opacity:0},{y:0,opacity:1,duration:0.6,ease:"power3.out"},0.2);
+tl.fromTo("#i2-k",{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.3);
+tl.fromTo("#i2t0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.367);
+tl.fromTo("#i2t1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.42,ease:"power3.out"},2.658);
+tl.fromTo("#i2-s",{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},4.014);
+tl.fromTo("#i2-p0",{scale:0.7,opacity:0},{scale:1,opacity:1,duration:0.38,ease:"back.out(2)"},1.011);
+tl.fromTo("#i2-lg",{y:0,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.5);
+window.__timelines["i2"] = tl;
+})();
+</script>
+</template>

@@ -1,0 +1,89 @@
+<template>
+<style>@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#c-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.c-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#c-root{font-family:"Poppins",Arial,sans-serif;color:#0E1A2B;background:#F4EFE6;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.mt{font-family:"Mont",Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.22em;}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:#0E1A2B;}
+.arch{position:absolute;left:260px;top:520px;width:560px;height:600px;border-radius:280px 280px 26px 26px;overflow:hidden;border:3px solid #8E6E33;box-shadow:0 24px 60px rgba(14,26,43,.22);}
+.archo{position:absolute;left:244px;top:504px;width:592px;height:632px;border-radius:296px 296px 34px 34px;border:1.5px solid rgba(142,110,51,.45);}
+.num{position:absolute;left:76px;top:960px;font-size:190px;color:#8E6E33;line-height:1;}
+.kick{top:1146px;font-size:26px;color:#8E6E33;}
+.ttl{top:1186px;font-size:66px;}
+.sub{top:1262px;font-size:40px;color:#8E6E33;}
+.pills{position:absolute;left:0;width:1080px;top:1330px;display:flex;justify-content:center;gap:14px;}
+.pill{display:flex;align-items:center;gap:8px;padding:8px 20px;border-radius:30px;border:2px solid #0E1A2B;background:#fff;font-family:"Poppins";font-weight:600;font-size:28px;white-space:nowrap;}
+
+#c-a{top:540px;font-size:62px;}
+.c-tag{position:absolute;left:0;width:1080px;display:flex;justify-content:center;}
+.c-tag>div{display:flex;align-items:center;gap:16px;padding:14px 34px;border-radius:60px;background:#0E1A2B;color:#F4EFE6;font-family:"Mont";font-weight:900;font-size:50px;white-space:nowrap;}
+#c-t0{top:626px;}#c-t1{top:746px;}
+#c-fam{position:absolute;left:0;width:1080px;top:888px;display:flex;justify-content:center;align-items:flex-end;gap:22px;}
+.c-pe{width:118px;height:118px;border-radius:50%;background:#fff;border:3px solid #8E6E33;display:flex;align-items:center;justify-content:center;}
+#c-p2{width:96px;height:96px;}
+#c-fl{top:1024px;font-size:54px;}
+#c-card{position:absolute;left:110px;top:1104px;width:860px;height:160px;border-radius:26px;background:#0E1A2B;color:#F4EFE6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 20px 50px rgba(14,26,43,.25);}
+#c-card .k{font-family:"Mont";font-weight:800;font-size:26px;letter-spacing:.2em;color:#D9BC82;}
+#c-card .n{font-family:"InstSerif";font-style:italic;font-size:66px;line-height:1;}
+#c-cmp{top:1290px;font-size:52px;color:#8E6E33;}
+#c-ul{position:absolute;left:240px;top:1356px;width:600px;height:4px;background:#8E6E33;transform-origin:0 50%;}
+#c-lg{top:1392px;}
+</style>
+<div id="c-root" data-composition-id="c" data-start="0" data-duration="9.931" data-width="1080" data-height="1920">
+  <div id="c-a" class="ln se"><span class="w"><span class="wi" id="ca0">Se</span></span> <span class="w"><span class="wi" id="ca1">você</span></span> <span class="w"><span class="wi" id="ca2">tem</span></span></div>
+  <div class="c-tag" id="c-t0"><div><svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="#D9BC82" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>CNPJ ou MEI</span></div></div>
+  <div class="c-tag" id="c-t1"><div><svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="#D9BC82" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>3 vidas ou mais</span></div></div>
+  <div id="c-fam"><div class="c-pe" id="c-p0"><svg viewBox="0 0 48 48" width="70" height="70" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="15" r="8"/><path d="M8 44c0-9 7-16 16-16s16 7 16 16"/></svg></div><div class="c-pe" id="c-p1"><svg viewBox="0 0 48 48" width="70" height="70" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="15" r="8"/><path d="M8 44c0-9 7-16 16-16s16 7 16 16"/></svg></div><div class="c-pe" id="c-p2"><svg viewBox="0 0 48 48" width="60" height="60" fill="none" stroke="#0E1A2B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="19" r="6.5"/><path d="M12 44c0-7.5 5.5-13 12-13s12 5.5 12 13"/></svg></div></div>
+  <div id="c-fl" class="ln se"><span class="w"><span class="wi" id="cf0">você</span></span> <span class="w"><span class="wi" id="cf1">e</span></span> <span class="w"><span class="wi" id="cf2">a</span></span> <span class="w"><span class="wi" id="cf3">sua</span></span> <span class="w"><span class="wi" id="cf4">família</span></span></div>
+  <div id="c-card"><div class="k">PLANO EMPRESARIAL · PELO CNPJ</div><div class="n">Vila Nova Star na rede</div></div>
+  <div id="c-cmp" class="ln se"><span class="w"><span class="wi" id="cc0">a</span></span> <span class="w"><span class="wi" id="cc1">gente</span></span> <span class="w"><span class="wi" id="cc2">compara</span></span> <span class="w"><span class="wi" id="cc3">as</span></span> <span class="w"><span class="wi" id="cc4">operadoras</span></span> <span class="w"><span class="wi" id="cc5">pra</span></span> <span class="w"><span class="wi" id="cc6">você</span></span></div>
+  <div id="c-ul"></div>
+  <div id="c-lg" class="legal">Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores sujeitos à faixa etária e região. Os valores podem variar conforme perfil do beneficiário. A rede credenciada pode variar conforme plano contratado. Cobertura e rede sujeitas à modalidade contratada.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#ca0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.04);
+tl.fromTo("#ca1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.123);
+tl.fromTo("#ca2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.414);
+tl.fromTo("#c-t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.42,ease:"back.out(1.6)"},0.572);
+tl.fromTo("#c-t1",{x:-90,opacity:0},{x:0,opacity:1,duration:0.42,ease:"back.out(1.6)"},2.245);
+tl.fromTo("#c-p0",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(2.2)"},3.892);
+tl.fromTo("#c-p1",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(2.2)"},4.032);
+tl.fromTo("#c-p2",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(2.2)"},4.172);
+tl.fromTo("#cf0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.487);
+tl.fromTo("#cf1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.887);
+tl.fromTo("#cf2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},4.96);
+tl.fromTo("#cf3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.032);
+tl.fromTo("#cf4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},5.214);
+tl.fromTo("#c-card",{y:40,opacity:0,scale:0.95},{y:0,opacity:1,scale:1,duration:0.5,ease:"back.out(1.5)"},5.824);
+tl.fromTo("#c-card",{boxShadow:"0 20px 50px rgba(14,26,43,.25)"},{boxShadow:"0 20px 70px rgba(142,110,51,.55)",duration:0.35,yoyo:true,repeat:1},7.238);
+tl.fromTo("#cc0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.832);
+tl.fromTo("#cc1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},7.905);
+tl.fromTo("#cc2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.232);
+tl.fromTo("#cc3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.596);
+tl.fromTo("#cc4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},8.741);
+tl.fromTo("#cc5",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.178);
+tl.fromTo("#cc6",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.4,ease:"power3.out"},9.287);
+tl.fromTo("#c-ul",{scaleX:0},{scaleX:1,duration:0.6,ease:"power3.inOut"},8.592);
+window.__timelines["c"] = tl;
+})();
+</script>
+</template>
