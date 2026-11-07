@@ -1,0 +1,62 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s1-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.s1-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#s1-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:#07090E;}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.gd{color:#D4B06A;}
+.ts{text-shadow:0 4px 24px rgba(0,0,0,.55);}
+.dim{background:rgba(7,9,14,.2);}
+.grad{background:linear-gradient(180deg,rgba(7,9,14,.5) 0%,rgba(7,9,14,.08) 30%,rgba(7,9,14,.14) 44%,rgba(7,9,14,.84) 64%,rgba(7,9,14,.95) 100%);}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.chip{position:absolute;left:150px;width:780px;height:96px;border-radius:20px;background:rgba(7,9,14,.74);border:2px solid rgba(212,176,106,.55);display:flex;align-items:center;gap:22px;padding:0 28px;}
+.chip .ic{width:58px;height:58px;border-radius:50%;background:#D4B06A;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip span{font-family:"Saira";font-weight:700;font-size:44px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;}
+
+#s1-a{top:980px;font-size:60px;}
+#s1-b{top:1052px;font-size:60px;}
+#s1-c{top:1128px;font-size:116px;color:#D4B06A;letter-spacing:.01em;}
+#s1-d{top:1262px;font-size:60px;}
+#s1-lg{top:1452px;}
+</style>
+<div id="s1-root" data-composition-id="s1" data-start="0" data-duration="4.246" data-width="1080" data-height="1920">
+  <div class="vw s1-full" id="s1-v0w" data-layout-allow-overflow><video id="s1-v0" class="clip" src="assets/video/fachada.mp4" muted playsinline data-start="0" data-duration="2.14"></video></div><div class="vw s1-full" id="s1-v1w" data-layout-allow-overflow><video id="s1-v1" class="clip" src="assets/video/letreiro.mp4" muted playsinline data-start="2.1" data-duration="2.186"></video></div>
+  <div class="s1-full dim"></div><div class="s1-full grad"></div>
+  <div id="s1-a" class="ln se ts">Por que tanta gente em São Paulo</div>
+  <div id="s1-b" class="ln se ts">quer o</div>
+  <div id="s1-c" class="ln sa ts">Vila Nova Star</div>
+  <div id="s1-d" class="ln se ts">no plano de saúde?</div>
+  <div id="s1-lg" class="legal">Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s1-v0w",{scale:1},{scale:1.06,duration:2.14,ease:"none"},0);
+tl.fromTo("#s1-v1w",{scale:1.04},{scale:1,duration:2.186,ease:"none"},2.1);
+tl.fromTo("#s1-a,#s1-b,#s1-d",{opacity:0.85},{opacity:1,duration:0.6},0);
+tl.fromTo("#s1-c",{scale:1.08},{scale:1,duration:1.4,ease:"power3.out"},0);
+tl.fromTo("#s1-c",{textShadow:"0 0 0 rgba(212,176,106,0)"},{textShadow:"0 0 40px rgba(212,176,106,.45)",duration:0.5,yoyo:true,repeat:1},2.05);
+window.__timelines["s1"] = tl;
+})();
+</script>
+</template>

@@ -1,0 +1,34 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}#hd-root{position:absolute;inset:0;width:1080px;height:1920px;pointer-events:none;}
+#hd-band{position:absolute;left:0;width:1080px;top:250px;display:flex;justify-content:center;}
+#hd-band>div{position:relative;padding:12px 40px 14px;border-radius:12px;background:#D4B06A;color:#07090E;font-family:"Mont";font-weight:900;font-size:56px;line-height:1;letter-spacing:.02em;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+#hd-sw{position:absolute;inset:0;overflow:hidden;border-radius:12px;}
+#hd-shine{position:absolute;top:0;left:-160px;width:120px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));transform:skewX(-20deg);}
+#hd-seal{position:absolute;left:0;width:1080px;top:350px;display:flex;justify-content:center;}
+#hd-seal>div{display:flex;align-items:center;gap:14px;padding:10px 30px 10px 12px;border-radius:60px;background:#fff;color:#07090E;font-family:"Mont";font-weight:900;font-size:38px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+#hd-seal .sh{width:56px;height:56px;border-radius:50%;background:#07090E;display:flex;align-items:center;justify-content:center;}
+#hd-sub{position:absolute;left:0;width:1080px;top:442px;display:flex;justify-content:center;}
+#hd-sub>div{padding:6px 22px;border-radius:26px;background:rgba(7,9,14,.82);border:2px solid rgba(212,176,106,.6);font-family:"Poppins";font-weight:600;font-size:26px;color:#F0D9A8;white-space:nowrap;}</style>
+<div id="hd-root" data-composition-id="hd" data-start="0" data-duration="42.44" data-width="1080" data-height="1920"><div id="hd-band"><div><span>PLANOS DE SAÚDE</span><div id="hd-sw" data-layout-allow-overflow aria-hidden="true"><div id="hd-shine" data-layout-allow-overflow></div></div></div></div>
+  <div id="hd-seal"><div><div class="sh"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#D4B06A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10"/></svg></div><span>EXCLUSIVO PARA CNPJ/MEI</span></div></div>
+  <div id="hd-sub"><div>a partir de 3 vidas · capital de São Paulo</div></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#hd-shine",{x:0},{x:900,duration:0.9,ease:"power2.inOut",immediateRender:false},0.4);
+tl.fromTo("#hd-shine",{x:0},{x:900,duration:0.9,ease:"power2.inOut",immediateRender:false},4.306);
+tl.fromTo("#hd-shine",{x:0},{x:900,duration:0.9,ease:"power2.inOut",immediateRender:false},27.082);
+tl.fromTo("#hd-seal",{scale:1},{scale:1.06,duration:0.18,yoyo:true,repeat:1,ease:"power2.out"},27.664);
+window.__timelines["hd"] = tl;
+})();
+</script>
+</template>

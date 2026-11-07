@@ -1,0 +1,85 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#en-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.en-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#en-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:#07090E;}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.gd{color:#D4B06A;}
+.ts{text-shadow:0 4px 24px rgba(0,0,0,.55);}
+.dim{background:rgba(7,9,14,.2);}
+.grad{background:linear-gradient(180deg,rgba(7,9,14,.5) 0%,rgba(7,9,14,.08) 30%,rgba(7,9,14,.14) 44%,rgba(7,9,14,.84) 64%,rgba(7,9,14,.95) 100%);}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.chip{position:absolute;left:150px;width:780px;height:96px;border-radius:20px;background:rgba(7,9,14,.74);border:2px solid rgba(212,176,106,.55);display:flex;align-items:center;gap:22px;padding:0 28px;}
+.chip .ic{width:58px;height:58px;border-radius:50%;background:#D4B06A;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip span{font-family:"Saira";font-weight:700;font-size:44px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;}
+
+#en-bg{position:absolute;inset:0;}
+#en-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;}
+#en-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,14,.7),rgba(7,9,14,.82) 40%,rgba(7,9,14,.94));}
+#en-band{position:absolute;left:0;width:1080px;top:250px;display:flex;justify-content:center;}
+#en-band>div{padding:14px 44px 16px;border-radius:12px;background:#D4B06A;color:#07090E;font-family:"Mont";font-weight:900;font-size:66px;line-height:1;letter-spacing:.02em;white-space:nowrap;}
+#en-seal{position:absolute;left:0;width:1080px;top:364px;display:flex;justify-content:center;}
+#en-seal>div{display:flex;align-items:center;gap:16px;padding:12px 34px 12px 16px;border-radius:60px;background:#fff;color:#07090E;font-family:"Mont";font-weight:900;font-size:44px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+#en-seal .sh{width:64px;height:64px;border-radius:50%;background:#07090E;display:flex;align-items:center;justify-content:center;}
+#en-sub{position:absolute;left:0;width:1080px;top:474px;display:flex;justify-content:center;}
+#en-sub>div{padding:8px 26px;border-radius:30px;background:rgba(7,9,14,.8);border:2px solid rgba(212,176,106,.6);font-family:"Poppins";font-weight:600;font-size:30px;color:#F0D9A8;white-space:nowrap;}
+#en-t{top:572px;font-size:58px;}
+#en-n{top:640px;font-size:110px;color:#D4B06A;}
+#en-btn{position:absolute;left:110px;top:792px;width:860px;height:150px;border-radius:80px;background:linear-gradient(180deg,#F0D9A8,#D4B06A);color:#07090E;display:flex;align-items:center;justify-content:center;gap:24px;box-shadow:0 18px 50px rgba(212,176,106,.35);}
+#en-bt{font-family:"Mont";font-weight:900;font-size:54px;line-height:1.05;}
+#en-bt small{display:block;font-family:"Poppins";font-weight:600;font-size:27px;}
+#en-ar{position:absolute;left:0;width:1080px;top:968px;display:flex;justify-content:center;align-items:center;gap:14px;font-family:"Mont";font-weight:800;font-size:36px;}
+#en-lg{top:1046px;font-size:19px;line-height:1.38;}
+</style>
+<div id="en-root" data-composition-id="en" data-start="0" data-duration="8" data-width="1080" data-height="1920">
+  <div id="en-bg"><img src="assets/img/fachada-blur.jpg" alt="" /></div><div id="en-ov"></div>
+  <div id="en-band"><div>PLANOS DE SAÚDE</div></div>
+  <div id="en-seal"><div><div class="sh"><svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="#D4B06A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10"/></svg></div><span>EXCLUSIVO PARA CNPJ/MEI</span></div></div>
+  <div id="en-sub"><div>a partir de 3 vidas · capital de São Paulo</div></div>
+  <div id="en-t" class="ln se">Atendimento no</div>
+  <div id="en-n" class="ln sa">Vila Nova Star</div>
+  <div id="en-btn"><svg viewBox="0 0 48 48" width="76" height="76" fill="none" stroke="#07090E" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="8" width="28" height="36" rx="4"/><path d="M18 8V5h12v3M16 20h16M16 28h16M16 36h10"/></svg><div id="en-bt">Solicite sua cotação<small>Preencha o formulário</small></div></div>
+  <div id="en-ar"><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#D4B06A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10l12 12 12-12M12 24l12 12 12-12"/></svg><span>Clique no link abaixo</span><svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="#D4B06A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10l12 12 12-12M12 24l12 12 12-12"/></svg></div>
+  <div id="en-lg" class="legal">Hospital Vila Nova Star (Rede D'Or), Vila Nova Conceição, São Paulo, citado como exemplo de rede de planos empresariais; a disponibilidade varia conforme operadora, plano e acomodação. Exclusivo para CNPJ/MEI, a partir de 3 vidas, na capital de São Paulo. Pronto-socorro adulto em suítes individuais, hotelaria (apartamentos com vista, concierge, enxoval e amenities) e cardápio assinado pelo chef Roland: informações do site oficial do Hospital Vila Nova Star (rededorsaoluiz.com.br/star/vilanovastar), consultado em 07/11/2026. Consulte a disponibilidade da rede hospitalar. A rede credenciada pode variar conforme plano contratado. Cobertura e rede sujeitas à modalidade contratada. Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores sujeitos à faixa etária e região. Os valores podem variar conforme perfil do beneficiário. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#en-bg img",{scale:1.06},{scale:1,duration:8,ease:"none"},0);
+tl.fromTo("#en-band",{y:20,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.02);
+tl.fromTo("#en-seal",{y:20,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.1);
+tl.fromTo("#en-sub",{y:16,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},0.18);
+tl.fromTo("#en-t",{y:24,opacity:0},{y:0,opacity:1,duration:0.45,ease:"power3.out"},0.26);
+tl.fromTo("#en-n",{scale:1.2,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"power3.out"},0.34);
+tl.fromTo("#en-btn",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"back.out(2)"},0.795);
+tl.to("#en-btn",{scale:1.05,duration:0.22,yoyo:true,repeat:1,ease:"sine.inOut"},1.859);
+tl.to("#en-btn",{scale:1.05,duration:0.22,yoyo:true,repeat:1,ease:"sine.inOut"},3.159);
+tl.to("#en-btn",{scale:1.05,duration:0.22,yoyo:true,repeat:1,ease:"sine.inOut"},4.459);
+tl.to("#en-btn",{scale:1.05,duration:0.22,yoyo:true,repeat:1,ease:"sine.inOut"},5.759);
+tl.fromTo("#en-ar",{y:20,opacity:0},{y:0,opacity:1,duration:0.4},1.509);
+tl.fromTo("#en-ar svg",{y:-8},{y:8,duration:0.45,yoyo:true,repeat:9,ease:"sine.inOut"},1.909);
+tl.fromTo("#en-lg",{opacity:0},{opacity:1,duration:0.5},0.4);
+window.__timelines["en"] = tl;
+})();
+</script>
+</template>

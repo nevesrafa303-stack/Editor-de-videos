@@ -1,0 +1,123 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"InstSerif";font-weight:400;font-style:italic;font-display:block;src:url("assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#s5-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.s5-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#s5-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:#07090E;}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.se{font-family:"InstSerif",Georgia,serif;font-style:italic;font-weight:400;line-height:1.05;}
+.gd{color:#D4B06A;}
+.ts{text-shadow:0 4px 24px rgba(0,0,0,.55);}
+.dim{background:rgba(7,9,14,.2);}
+.grad{background:linear-gradient(180deg,rgba(7,9,14,.5) 0%,rgba(7,9,14,.08) 30%,rgba(7,9,14,.14) 44%,rgba(7,9,14,.84) 64%,rgba(7,9,14,.95) 100%);}
+.legal{position:absolute;left:80px;width:920px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.chip{position:absolute;left:150px;width:780px;height:96px;border-radius:20px;background:rgba(7,9,14,.74);border:2px solid rgba(212,176,106,.55);display:flex;align-items:center;gap:22px;padding:0 28px;}
+.chip .ic{width:58px;height:58px;border-radius:50%;background:#D4B06A;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip span{font-family:"Saira";font-weight:700;font-size:44px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;}
+
+#s5-bg{position:absolute;inset:0;}
+#s5-bg img{width:100%;height:100%;object-fit:cover;opacity:.32;}
+#s5-glow{position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 55%,rgba(212,176,106,.16),rgba(7,9,14,0) 70%),linear-gradient(180deg,rgba(7,9,14,.55),rgba(7,9,14,.86));}
+#s5-a{top:540px;font-size:62px;}
+.s5-row{position:absolute;left:130px;width:820px;height:118px;border-radius:24px;background:rgba(255,255,255,.06);border:2px solid rgba(212,176,106,.5);display:flex;align-items:center;gap:24px;padding:0 32px;}
+.s5-ck{width:66px;height:66px;border-radius:50%;background:#D4B06A;display:flex;align-items:center;justify-content:center;flex:none;}
+.s5-row span{font-family:"Saira";font-weight:800;font-size:62px;text-transform:uppercase;white-space:nowrap;}
+#s5-r0{top:636px;}#s5-r1{top:774px;}
+#s5-b{top:930px;font-size:56px;}
+#s5-card{position:absolute;left:110px;top:1012px;width:860px;height:240px;border-radius:28px;background:linear-gradient(180deg,rgba(212,176,106,.18),rgba(212,176,106,.06));border:3px solid #D4B06A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+#s5-card .k{font-family:"Saira";font-weight:700;font-size:30px;letter-spacing:.2em;color:#F0D9A8;}
+#s5-card .n{font-family:"Saira";font-weight:800;font-size:92px;line-height:1;text-transform:uppercase;color:#D4B06A;}
+#s5-card .r{font-family:"Poppins";font-weight:600;font-size:34px;}
+#s5-pb{position:absolute;inset:0;}
+#s5-t{top:560px;font-size:72px;}
+#s5-t2{top:648px;font-size:58px;color:#F0D9A8;}
+.s5-op{position:absolute;left:110px;width:860px;height:150px;border-radius:24px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.22);padding:22px 30px;}
+.s5-op .nm{font-family:"Mont";font-weight:800;font-size:40px;}
+.s5-op .bars{display:flex;gap:18px;margin-top:18px;}
+.s5-op .bar{flex:1;}
+.s5-op .lb{font-family:"Poppins";font-weight:500;font-size:22px;color:rgba(255,255,255,.85);}
+.s5-op .tr{height:12px;border-radius:6px;background:rgba(255,255,255,.16);margin-top:6px;overflow:hidden;}
+.s5-op .fl{height:100%;border-radius:6px;background:#E9EDF3;transform-origin:0 50%;}
+#s5-o0{top:760px;}#s5-o1{top:930px;}#s5-o2{top:1100px;}
+#s5-badge{position:absolute;right:130px;top:906px;padding:8px 20px;border-radius:30px;background:#D4B06A;color:#07090E;font-family:"Mont";font-weight:900;font-size:26px;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+#s5-lg{top:1400px;font-size:20px;}
+</style>
+<div id="s5-root" data-composition-id="s5" data-start="0" data-duration="10.367" data-width="1080" data-height="1920">
+  <div id="s5-bg"><img src="assets/img/lobby-blur.jpg" alt="" /></div><div id="s5-glow"></div>
+  <div id="s5-pa">
+    <div id="s5-a" class="ln se"><span class="w"><span class="wi" id="s5a0">Se</span></span> <span class="w"><span class="wi" id="s5a1">você</span></span> <span class="w"><span class="wi" id="s5a2">tem</span></span></div>
+    <div class="s5-row" id="s5-r0"><div class="s5-ck"><svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="#07090E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div><span>CNPJ ou MEI</span></div>
+    <div class="s5-row" id="s5-r1"><div class="s5-ck"><svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="#07090E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg></div><span>3 vidas ou mais</span></div>
+    <div id="s5-b" class="ln se"><span class="w"><span class="wi" id="s5b0">existem</span></span> <span class="w"><span class="wi" id="s5b1">planos</span></span> <span class="w"><span class="wi" id="s5b2">empresariais</span></span> <span class="w"><span class="wi" id="s5b3">com</span></span> <span class="w"><span class="wi" id="s5b4">o</span></span></div>
+    <div id="s5-card"><div class="k">NA REDE</div><div class="n">Vila Nova Star</div><div class="r">pelo CNPJ da sua empresa</div></div>
+  </div>
+  <div id="s5-pb">
+    <div id="s5-t" class="ln sa">A gente compara</div>
+    <div id="s5-t2" class="ln se">as operadoras pra você</div>
+    <div class="s5-op" id="s5-o0"><div class="nm">Operadora A</div><div class="bars"><div class="bar"><div class="lb">Rede</div><div class="tr"><div class="fl" id="s5-f00"></div></div></div><div class="bar"><div class="lb">Cobertura</div><div class="tr"><div class="fl" id="s5-f01"></div></div></div><div class="bar"><div class="lb">Valor</div><div class="tr"><div class="fl" id="s5-f02"></div></div></div></div></div><div class="s5-op" id="s5-o1"><div class="nm">Operadora B</div><div class="bars"><div class="bar"><div class="lb">Rede</div><div class="tr"><div class="fl" id="s5-f10"></div></div></div><div class="bar"><div class="lb">Cobertura</div><div class="tr"><div class="fl" id="s5-f11"></div></div></div><div class="bar"><div class="lb">Valor</div><div class="tr"><div class="fl" id="s5-f12"></div></div></div></div></div><div class="s5-op" id="s5-o2"><div class="nm">Operadora C</div><div class="bars"><div class="bar"><div class="lb">Rede</div><div class="tr"><div class="fl" id="s5-f20"></div></div></div><div class="bar"><div class="lb">Cobertura</div><div class="tr"><div class="fl" id="s5-f21"></div></div></div><div class="bar"><div class="lb">Valor</div><div class="tr"><div class="fl" id="s5-f22"></div></div></div></div></div>
+    <div id="s5-badge"><svg viewBox="0 0 48 48" width="26" height="26" fill="none" stroke="#07090E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 25l8 8 16-18"/></svg><span>Melhor pro seu perfil</span></div>
+  </div>
+  <div id="s5-lg" class="legal">Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores sujeitos à faixa etária e região. Os valores podem variar conforme perfil do beneficiário. A rede credenciada pode variar conforme plano contratado. Cobertura e rede sujeitas à modalidade contratada. Operadoras ilustrativas.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#s5-bg img",{scale:1.08},{scale:1,duration:10.367,ease:"none"},0);
+tl.fromTo("#s5a0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.04);
+tl.fromTo("#s5a1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.149);
+tl.fromTo("#s5a2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},0.403);
+tl.fromTo("#s5-r0",{x:-80,opacity:0},{x:0,opacity:1,duration:0.42,ease:"back.out(1.6)"},0.562);
+tl.fromTo("#s5-r1",{x:-80,opacity:0},{x:0,opacity:1,duration:0.42,ease:"back.out(1.6)"},2.234);
+tl.fromTo("#s5b0",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},3.676);
+tl.fromTo("#s5b1",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},4.076);
+tl.fromTo("#s5b2",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},4.331);
+tl.fromTo("#s5b3",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},5.058);
+tl.fromTo("#s5b4",{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:0.38,ease:"power3.out"},5.167);
+tl.fromTo("#s5-card",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"back.out(1.7)"},5.136);
+tl.fromTo("#s5-card",{boxShadow:"0 0 0 rgba(212,176,106,0)"},{boxShadow:"0 0 60px rgba(212,176,106,.45)",duration:0.4,yoyo:true,repeat:1},6.318);
+tl.to("#s5-pa",{opacity:0,y:-40,duration:0.3,ease:"power2.in"},6.55);
+tl.set("#s5-pb",{opacity:0},0);
+tl.set("#s5-pb",{opacity:1},6.84);
+tl.fromTo("#s5-t",{scale:1.3,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"power4.out"},6.84);
+tl.fromTo("#s5-t2",{y:20,opacity:0},{y:0,opacity:1,duration:0.4,ease:"power3.out"},7.427);
+tl.fromTo("#s5-o0",{x:80,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},7.577);
+tl.fromTo("#s5-f00",{scaleX:0},{scaleX:0.55,duration:0.6,ease:"power2.out"},7.777);
+tl.fromTo("#s5-f01",{scaleX:0},{scaleX:0.7,duration:0.6,ease:"power2.out"},7.857);
+tl.fromTo("#s5-f02",{scaleX:0},{scaleX:0.62,duration:0.6,ease:"power2.out"},7.937);
+tl.fromTo("#s5-o1",{x:80,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},7.797);
+tl.fromTo("#s5-f10",{scaleX:0},{scaleX:0.92,duration:0.6,ease:"power2.out"},7.997);
+tl.fromTo("#s5-f11",{scaleX:0},{scaleX:0.88,duration:0.6,ease:"power2.out"},8.077);
+tl.fromTo("#s5-f12",{scaleX:0},{scaleX:0.8,duration:0.6,ease:"power2.out"},8.157);
+tl.fromTo("#s5-o2",{x:80,opacity:0},{x:0,opacity:1,duration:0.4,ease:"power3.out"},8.017);
+tl.fromTo("#s5-f20",{scaleX:0},{scaleX:0.68,duration:0.6,ease:"power2.out"},8.217);
+tl.fromTo("#s5-f21",{scaleX:0},{scaleX:0.6,duration:0.6,ease:"power2.out"},8.297);
+tl.fromTo("#s5-f22",{scaleX:0},{scaleX:0.74,duration:0.6,ease:"power2.out"},8.377);
+tl.to("#s5-o0,#s5-o2",{opacity:0.4,duration:0.3},8.909);
+tl.to("#s5-o1",{scale:1.04,duration:0.3,ease:"back.out(2)"},8.909);
+tl.to("#s5-o1",{borderColor:"#D4B06A",duration:0.25},8.909);
+tl.to("#s5-f10",{backgroundColor:"#D4B06A",duration:0.25},8.959);
+tl.to("#s5-f11",{backgroundColor:"#D4B06A",duration:0.25},8.959);
+tl.to("#s5-f12",{backgroundColor:"#D4B06A",duration:0.25},8.959);
+tl.fromTo("#s5-badge",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"back.out(2.2)"},9.009);
+window.__timelines["s5"] = tl;
+})();
+</script>
+</template>

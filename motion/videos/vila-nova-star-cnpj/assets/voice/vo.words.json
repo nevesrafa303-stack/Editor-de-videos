@@ -1,0 +1,737 @@
+[
+ {
+  "word": "Por",
+  "start": 0.221,
+  "end": 0.245
+ },
+ {
+  "word": "que",
+  "start": 0.282,
+  "end": 0.318
+ },
+ {
+  "word": "tanta",
+  "start": 0.536,
+  "end": 0.827
+ },
+ {
+  "word": "gente",
+  "start": 0.9,
+  "end": 1.118
+ },
+ {
+  "word": "em",
+  "start": 1.155,
+  "end": 1.191
+ },
+ {
+  "word": "São",
+  "start": 1.264,
+  "end": 1.336
+ },
+ {
+  "word": "Paulo",
+  "start": 1.482,
+  "end": 1.773
+ },
+ {
+  "word": "quer",
+  "start": 1.845,
+  "end": 1.991
+ },
+ {
+  "word": "o",
+  "start": 2.027,
+  "end": 2.064
+ },
+ {
+  "word": "Vila",
+  "start": 2.1,
+  "end": 2.282
+ },
+ {
+  "word": "Nova",
+  "start": 2.391,
+  "end": 2.5
+ },
+ {
+  "word": "Star",
+  "start": 2.573,
+  "end": 2.864
+ },
+ {
+  "word": "no",
+  "start": 2.936,
+  "end": 3.009
+ },
+ {
+  "word": "plano",
+  "start": 3.045,
+  "end": 3.227
+ },
+ {
+  "word": "de",
+  "start": 3.3,
+  "end": 3.373
+ },
+ {
+  "word": "saúde?",
+  "start": 3.445,
+  "end": 4.064
+ },
+ {
+  "word": "Quando",
+  "start": 4.306,
+  "end": 4.464
+ },
+ {
+  "word": "você",
+  "start": 4.5,
+  "end": 4.755
+ },
+ {
+  "word": "entra,",
+  "start": 4.9,
+  "end": 5.264
+ },
+ {
+  "word": "ele",
+  "start": 5.373,
+  "end": 5.482
+ },
+ {
+  "word": "parece",
+  "start": 5.555,
+  "end": 5.845
+ },
+ {
+  "word": "mais",
+  "start": 5.918,
+  "end": 6.064
+ },
+ {
+  "word": "um",
+  "start": 6.136,
+  "end": 6.209
+ },
+ {
+  "word": "hotel",
+  "start": 6.355,
+  "end": 6.5
+ },
+ {
+  "word": "de",
+  "start": 6.573,
+  "end": 6.718
+ },
+ {
+  "word": "alto",
+  "start": 6.791,
+  "end": 7.009
+ },
+ {
+  "word": "padrão",
+  "start": 7.118,
+  "end": 7.373
+ },
+ {
+  "word": "do",
+  "start": 7.445,
+  "end": 7.518
+ },
+ {
+  "word": "que",
+  "start": 7.555,
+  "end": 7.591
+ },
+ {
+  "word": "um",
+  "start": 7.627,
+  "end": 7.664
+ },
+ {
+  "word": "hospital.",
+  "start": 7.918,
+  "end": 8.536
+ },
+ {
+  "word": "Apartamentos",
+  "start": 8.682,
+  "end": 9.191
+ },
+ {
+  "word": "amplos",
+  "start": 9.264,
+  "end": 9.7
+ },
+ {
+  "word": "com",
+  "start": 9.773,
+  "end": 9.845
+ },
+ {
+  "word": "vista",
+  "start": 9.918,
+  "end": 10.209
+ },
+ {
+  "word": "pra",
+  "start": 10.282,
+  "end": 10.355
+ },
+ {
+  "word": "cidade…",
+  "start": 10.682,
+  "end": 11.3
+ },
+ {
+  "word": "concierge…",
+  "start": 11.445,
+  "end": 12.391
+ },
+ {
+  "word": "e",
+  "start": 12.427,
+  "end": 12.464
+ },
+ {
+  "word": "cardápio",
+  "start": 12.536,
+  "end": 12.973
+ },
+ {
+  "word": "assinado",
+  "start": 13.118,
+  "end": 13.482
+ },
+ {
+  "word": "por",
+  "start": 13.555,
+  "end": 13.627
+ },
+ {
+  "word": "chef.",
+  "start": 13.7,
+  "end": 14.209
+ },
+ {
+  "word": "Mas",
+  "start": 14.475,
+  "end": 14.5
+ },
+ {
+  "word": "o",
+  "start": 14.536,
+  "end": 14.573
+ },
+ {
+  "word": "que",
+  "start": 14.682,
+  "end": 14.791
+ },
+ {
+  "word": "mais",
+  "start": 14.864,
+  "end": 15.009
+ },
+ {
+  "word": "impressiona",
+  "start": 15.082,
+  "end": 15.736
+ },
+ {
+  "word": "é",
+  "start": 15.809,
+  "end": 15.857
+ },
+ {
+  "word": "o",
+  "start": 15.906,
+  "end": 15.955
+ },
+ {
+  "word": "pronto-socorro:",
+  "start": 16.027,
+  "end": 17.045
+ },
+ {
+  "word": "você",
+  "start": 17.082,
+  "end": 17.264
+ },
+ {
+  "word": "é",
+  "start": 17.288,
+  "end": 17.312
+ },
+ {
+  "word": "atendido",
+  "start": 17.336,
+  "end": 17.773
+ },
+ {
+  "word": "numa",
+  "start": 17.845,
+  "end": 17.991
+ },
+ {
+  "word": "suíte",
+  "start": 18.064,
+  "end": 18.355
+ },
+ {
+  "word": "individual,",
+  "start": 18.427,
+  "end": 19.373
+ },
+ {
+  "word": "e",
+  "start": 19.409,
+  "end": 19.445
+ },
+ {
+  "word": "a",
+  "start": 19.482,
+  "end": 19.518
+ },
+ {
+  "word": "consulta",
+  "start": 19.773,
+  "end": 20.027
+ },
+ {
+  "word": "e",
+  "start": 20.064,
+  "end": 20.1
+ },
+ {
+  "word": "os",
+  "start": 20.136,
+  "end": 20.173
+ },
+ {
+  "word": "exames",
+  "start": 20.245,
+  "end": 20.682
+ },
+ {
+  "word": "acontecem",
+  "start": 20.791,
+  "end": 21.191
+ },
+ {
+  "word": "ali",
+  "start": 21.3,
+  "end": 21.409
+ },
+ {
+  "word": "dentro.",
+  "start": 21.482,
+  "end": 22.064
+ },
+ {
+  "word": "É",
+  "start": 22.136,
+  "end": 22.209
+ },
+ {
+  "word": "a",
+  "start": 22.234,
+  "end": 22.257
+ },
+ {
+  "word": "equipe",
+  "start": 22.282,
+  "end": 22.718
+ },
+ {
+  "word": "que",
+  "start": 22.791,
+  "end": 22.864
+ },
+ {
+  "word": "vai",
+  "start": 22.912,
+  "end": 23.009
+ },
+ {
+  "word": "até",
+  "start": 23.082,
+  "end": 23.191
+ },
+ {
+  "word": "você.",
+  "start": 23.227,
+  "end": 23.882
+ },
+ {
+  "word": "E",
+  "start": 24.006,
+  "end": 24.027
+ },
+ {
+  "word": "nem",
+  "start": 24.064,
+  "end": 24.245
+ },
+ {
+  "word": "todo",
+  "start": 24.318,
+  "end": 24.391
+ },
+ {
+  "word": "mundo",
+  "start": 24.464,
+  "end": 24.682
+ },
+ {
+  "word": "que",
+  "start": 24.718,
+  "end": 24.755
+ },
+ {
+  "word": "é",
+  "start": 24.791,
+  "end": 24.827
+ },
+ {
+  "word": "atendido",
+  "start": 24.864,
+  "end": 25.264
+ },
+ {
+  "word": "lá",
+  "start": 25.373,
+  "end": 25.482
+ },
+ {
+  "word": "paga",
+  "start": 25.555,
+  "end": 25.845
+ },
+ {
+  "word": "tudo",
+  "start": 25.918,
+  "end": 26.064
+ },
+ {
+  "word": "no",
+  "start": 26.1,
+  "end": 26.136
+ },
+ {
+  "word": "particular.",
+  "start": 26.245,
+  "end": 27.009
+ },
+ {
+  "word": "Se",
+  "start": 27.082,
+  "end": 27.155
+ },
+ {
+  "word": "você",
+  "start": 27.191,
+  "end": 27.373
+ },
+ {
+  "word": "tem",
+  "start": 27.445,
+  "end": 27.591
+ },
+ {
+  "word": "CNPJ",
+  "start": 27.664,
+  "end": 28.464
+ },
+ {
+  "word": "ou",
+  "start": 28.536,
+  "end": 28.609
+ },
+ {
+  "word": "MEI",
+  "start": 28.755,
+  "end": 29.045
+ },
+ {
+  "word": "e",
+  "start": 29.155,
+  "end": 29.264
+ },
+ {
+  "word": "três",
+  "start": 29.336,
+  "end": 29.555
+ },
+ {
+  "word": "vidas",
+  "start": 29.627,
+  "end": 29.845
+ },
+ {
+  "word": "ou",
+  "start": 29.918,
+  "end": 29.991
+ },
+ {
+  "word": "mais,",
+  "start": 30.064,
+  "end": 30.573
+ },
+ {
+  "word": "existem",
+  "start": 30.718,
+  "end": 31.009
+ },
+ {
+  "word": "planos",
+  "start": 31.118,
+  "end": 31.3
+ },
+ {
+  "word": "empresariais",
+  "start": 31.373,
+  "end": 32.027
+ },
+ {
+  "word": "com",
+  "start": 32.1,
+  "end": 32.173
+ },
+ {
+  "word": "o",
+  "start": 32.209,
+  "end": 32.245
+ },
+ {
+  "word": "Vila",
+  "start": 32.318,
+  "end": 32.464
+ },
+ {
+  "word": "Nova",
+  "start": 32.536,
+  "end": 32.682
+ },
+ {
+  "word": "Star",
+  "start": 32.755,
+  "end": 32.973
+ },
+ {
+  "word": "na",
+  "start": 33.045,
+  "end": 33.118
+ },
+ {
+  "word": "rede…",
+  "start": 33.3,
+  "end": 33.7
+ },
+ {
+  "word": "e",
+  "start": 33.736,
+  "end": 33.773
+ },
+ {
+  "word": "a",
+  "start": 33.809,
+  "end": 33.845
+ },
+ {
+  "word": "gente",
+  "start": 33.882,
+  "end": 34.064
+ },
+ {
+  "word": "compara",
+  "start": 34.209,
+  "end": 34.5
+ },
+ {
+  "word": "as",
+  "start": 34.573,
+  "end": 34.645
+ },
+ {
+  "word": "operadoras",
+  "start": 34.755,
+  "end": 35.227
+ },
+ {
+  "word": "pra",
+  "start": 35.3,
+  "end": 35.373
+ },
+ {
+  "word": "encontrar",
+  "start": 35.409,
+  "end": 35.736
+ },
+ {
+  "word": "o",
+  "start": 35.809,
+  "end": 35.882
+ },
+ {
+  "word": "melhor",
+  "start": 35.991,
+  "end": 36.245
+ },
+ {
+  "word": "pro",
+  "start": 36.318,
+  "end": 36.464
+ },
+ {
+  "word": "seu",
+  "start": 36.5,
+  "end": 36.609
+ },
+ {
+  "word": "perfil.",
+  "start": 36.827,
+  "end": 37.336
+ },
+ {
+  "word": "Não",
+  "start": 37.409,
+  "end": 37.555
+ },
+ {
+  "word": "é",
+  "start": 37.627,
+  "end": 37.7
+ },
+ {
+  "word": "só",
+  "start": 37.736,
+  "end": 37.809
+ },
+ {
+  "word": "um",
+  "start": 37.845,
+  "end": 37.918
+ },
+ {
+  "word": "hospital",
+  "start": 38.1,
+  "end": 38.282
+ },
+ {
+  "word": "bonito.",
+  "start": 38.391,
+  "end": 39.009
+ },
+ {
+  "word": "É",
+  "start": 39.082,
+  "end": 39.118
+ },
+ {
+  "word": "um",
+  "start": 39.155,
+  "end": 39.227
+ },
+ {
+  "word": "padrão",
+  "start": 39.373,
+  "end": 39.664
+ },
+ {
+  "word": "de",
+  "start": 39.7,
+  "end": 39.736
+ },
+ {
+  "word": "atendimento",
+  "start": 39.809,
+  "end": 40.391
+ },
+ {
+  "word": "que",
+  "start": 40.427,
+  "end": 40.464
+ },
+ {
+  "word": "você",
+  "start": 40.536,
+  "end": 40.755
+ },
+ {
+  "word": "acessa",
+  "start": 40.864,
+  "end": 41.264
+ },
+ {
+  "word": "com",
+  "start": 41.3,
+  "end": 41.336
+ },
+ {
+  "word": "o",
+  "start": 41.409,
+  "end": 41.445
+ },
+ {
+  "word": "plano",
+  "start": 41.482,
+  "end": 41.7
+ },
+ {
+  "word": "certo.",
+  "start": 41.773,
+  "end": 42.427
+ },
+ {
+  "word": "Clica",
+  "start": 42.5,
+  "end": 42.718
+ },
+ {
+  "word": "no",
+  "start": 42.791,
+  "end": 42.864
+ },
+ {
+  "word": "link,",
+  "start": 43.009,
+  "end": 43.373
+ },
+ {
+  "word": "preenche",
+  "start": 43.445,
+  "end": 43.736
+ },
+ {
+  "word": "o",
+  "start": 43.761,
+  "end": 43.785
+ },
+ {
+  "word": "formulário",
+  "start": 43.809,
+  "end": 44.318
+ },
+ {
+  "word": "e",
+  "start": 44.464,
+  "end": 44.536
+ },
+ {
+  "word": "receba",
+  "start": 44.682,
+  "end": 44.9
+ },
+ {
+  "word": "sua",
+  "start": 44.973,
+  "end": 45.118
+ },
+ {
+  "word": "cotação.",
+  "start": 45.215,
+  "end": 45.845
+ }
+]
