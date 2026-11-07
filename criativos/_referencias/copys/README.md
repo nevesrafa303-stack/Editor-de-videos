@@ -10,8 +10,9 @@ estiverem na rede.
 |---|---|---|
 | `ugc-consultora-instagram/` | 4 Reels de uma consultora de planos premium falando para a câmera (Omint, caso do Sírio-Libanês, check-up no Sírio, check-up no Einstein). Transcrições em `transcricoes.md` e quadros a cada 3 s em `0N-quadros.jpg`. | 07/11/2026 |
 
-São conteúdos de terceiros: **só estudo**. Não copiar o texto, as imagens, a marca, o contato nem os valores. Cortes
-desses vídeos só entram no banco com autorização da autora.
+São conteúdos de terceiros: a copy é **só estudo** (não copiar o texto, a marca, o contato nem os valores). As imagens
+de hospital desses vídeos, sem a apresentadora, estão limpas em `criativos/_banco-de-videos/` (o cliente informou
+autorização de uso em 07/11/2026).
 
 ## Como esses vídeos são feitos
 

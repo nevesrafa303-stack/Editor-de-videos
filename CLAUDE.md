@@ -108,6 +108,12 @@ Fotos para os criativos de plano de saúde ficam em `criativos/_banco-de-imagens
 direcionado a empresas (CNPJ, PME, MEI, sócios, colaboradores). Usar sempre a versão em alta de `hd/` e
 incluir "Imagem meramente ilustrativa.".
 
+### Banco de vídeos (hospitais)
+
+Cortes limpos de hospitais (sem apresentadora, sem áudio, sem legenda) em `criativos/_banco-de-videos/` — índice no
+`README.md` e painel em `_painel.jpg`. Corte com nome ou fachada de hospital só entra em peça de plano que tenha esse
+hospital na rede (regra acima); sempre com "Imagem meramente ilustrativa.".
+
 ## Clientes — regras específicas
 
 - **Ana Claudia Clicks (estúdio de fotografia):** as fotos do estúdio entram **exatamente como enviadas**.
