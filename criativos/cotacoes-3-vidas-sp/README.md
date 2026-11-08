@@ -2,6 +2,9 @@
 
 Nove criativos estáticos, três para cada cotação enviada em 04/11/2026. Esta é a **versão 3**.
 
+> **Versão 4 (08/11/2026), no estilo das referências 10, 14 e 16 aprovado pelo cliente:** SulAmérica e Bradesco em
+> `criativos/cotacoes-sulamerica-bradesco-sp/`, com a rede de cada cotação conferida de novo (enfermaria, capital).
+
 - **Formato:** um só, Story 1080×1920, com todo o texto entre y=290 e y=1536. Essa faixa fica livre das barras do Story
   e cabe no recorte 4:5 que o Meta faz para o Feed (y 285–1635).
 - **Arquivos:** PNG em 2x (2160×3840) em `final/`; visão geral em `final/_visao-geral.jpg`.

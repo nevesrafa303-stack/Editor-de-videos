@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>S3 · SulAmérica Direto Nacional · estilo da referência 16</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* S3 — referência 16 (linha premium preto + dourado): fachada real da BP no topo, aba branca com o logo, título
+     "Seu plano de saúde com a BP na rede", cartão escuro "3 VIDAS A PARTIR DE" + preço e caixa dourada "SEM
+     COPARTICIPAÇÃO", benefícios separados por barras e faixa dourada de CTA. */
+  body { background: #0b0b0c; color: #fff; }
+  .sq { --fh: 450px; --pos: 50% 18%; }
+  .foto-topo .veu { background: linear-gradient(180deg, rgba(11,11,12,0) 0%, rgba(11,11,12,0) 46%, rgba(11,11,12,.78) 76%, #0b0b0c 100%); }
+  .credito.f { left: 24px; top: 24px; }
+  .aba { right: 0; top: 0; width: 330px; height: 112px; border-radius: 0 0 0 26px; background: #fff; display: flex; align-items: center; justify-content: center; }
+  .aba .logo { width: 240px; }
+
+  .tit { left: 0; right: 0; top: 346px; text-align: center; font-weight: 700; font-size: 54px; line-height: 1.14; }
+  .tit b { font-family: var(--mont); font-weight: 900; color: #e9c97f; }
+
+  .oferta { left: 60px; top: 496px; width: 960px; height: 168px; }
+  .oferta .esc { position: absolute; left: 0; top: 0; width: 620px; height: 168px; border-radius: 26px; background: #1c1c1f; border: 2px solid #3a3426;
+    z-index: 2; padding: 20px 32px; }
+  .oferta .esc .rot { font-family: var(--mont); font-weight: 800; font-size: 30px; letter-spacing: .05em; text-transform: uppercase; color: #e9c97f; }
+  .oferta .esc .preco { margin-top: 6px; font-size: 90px; }
+  .oferta .ouro { position: absolute; left: 570px; top: 20px; width: 390px; height: 128px; border-radius: 0 20px 20px 0;
+    background: linear-gradient(110deg, #b8913f 0%, #e6c77e 55%, #c9a352 100%); color: #0b0b0c; padding: 0 20px 0 84px; display: flex;
+    flex-direction: column; justify-content: center; font-family: var(--mont); font-weight: 900; font-size: 40px; line-height: 1; text-transform: uppercase; }
+  .oferta .ouro small { font-size: 25px; margin-top: 6px; }
+  .nota-preco { left: 0; right: 0; top: 676px; text-align: center; color: #d8d2c4; }
+
+  .bex { left: 0; right: 0; top: 712px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 30px; text-transform: uppercase; }
+  .lista { left: 60px; right: 60px; top: 752px; text-align: center; font-weight: 600; font-size: 23px; line-height: 1.4; text-transform: uppercase; color: #ece6d6; }
+  .lista span { white-space: nowrap; }
+  .lista i { font-style: normal; color: #e2c27a; padding: 0 2px; }
+
+  .legal { color: rgba(255,255,255,.78); }
+  .faixa { background: linear-gradient(90deg, #a8822f 0%, #d9b866 50%, #b8913f 100%); }
+  .faixa .txt { color: #0b0b0c; }
+</style>
+</head>
+<body data-operadora="sula">
+  <div class="sq">
+    <div class="ext"><img src="../assets/fotos/bp-possi-a.jpg" alt=""></div>
+    <div class="foto-topo"><img src="../assets/fotos/bp-possi-a.jpg" alt=""><div class="veu"></div></div>
+    <p class="credito f">Foto da BP: Alexandre Possi · CC BY 3.0</p>
+    <div class="aba"><div class="logo" data-marca="sula"></div></div>
+
+    <p class="tit">Seu plano de saúde<br>com a <b>BP</b> na rede</p>
+
+    <div class="oferta">
+      <div class="esc"><p class="rot">3 vidas a partir de</p><p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p></div>
+      <p class="ouro">Sem<small>coparticipação</small></p>
+    </div>
+    <p class="nota-preco"></p>
+
+    <p class="bex">Benefícios do plano</p>
+    <p class="lista"><span>Enfermaria</span> <i>|</i> <span>Abrangência nacional</span> <i>|</i> <span>São Luiz Jabaquara na rede</span> <i>|</i> <span>Exclusivo para CNPJ/MEI</span></p>
+
+    <p class="legal"></p>
+    <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+  </div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

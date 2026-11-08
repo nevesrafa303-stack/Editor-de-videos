@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>B2 · Bradesco Saúde Efetivo Plus · estilo da referência 14</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* B2 — referência 14 nas cores da Bradesco Saúde: fundo claro, arco vermelho com o logo, "PLANOS DE SAÚDE" em tarja
+     vinho + "COM CNPJ/MEI", "3 VIDAS POR APENAS" e o preço gigante em vermelho, tarja "VALOR EXCLUSIVO PARA CNPJ/MEI",
+     caixa vermelha de benefícios (material oficial) e a fachada real da BP em cartão. */
+  body { background: #f3eff0; color: #5c0016; }
+  .arco { left: -310px; top: -1250px; width: 1700px; height: 1408px; border-radius: 50%; background: #cc092f; }
+  .logo.topo { left: 430px; top: 34px; width: 220px; color: #fff; }
+
+  .ps { left: 50%; top: 178px; transform: translateX(-50%); padding: 8px 26px 4px; border-radius: 8px; background: #5c0016; color: #fff;
+    font-family: var(--mont); font-weight: 900; font-size: 62px; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+  .com { left: 0; right: 0; top: 256px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 50px; line-height: 1;
+    text-transform: uppercase; }
+  .sub { left: 0; right: 0; top: 318px; text-align: center; font-weight: 500; font-size: 26px; color: #4a2a30; }
+  .sub b { font-weight: 700; color: #5c0016; }
+
+  .oferta { left: 56px; top: 372px; width: 520px; }
+  .oferta .rot { font-family: var(--mont); font-weight: 800; font-size: 27px; letter-spacing: .12em; text-transform: uppercase; padding-left: 4px; }
+  .oferta .rot b { color: #cc092f; }
+  .oferta .preco { margin-top: 2px; font-size: 118px; color: #cc092f; }
+  .oferta .tarja { display: inline-flex; align-items: center; gap: 10px; margin-top: 6px; padding: 9px 18px; border-radius: 10px; background: #8a0018;
+    color: #fff; font-family: var(--mont); font-weight: 900; font-size: 22px; white-space: nowrap; }
+  .oferta .tarja .icone { width: 24px; height: 24px; }
+  .oferta .nota-preco { margin-top: 8px; padding-left: 4px; color: #4a2a30; }
+
+  .ben { left: 600px; top: 366px; width: 420px; padding: 20px 24px 22px; border-radius: 22px; background: #cc092f; color: #fff;
+    box-shadow: 0 16px 34px rgba(204,9,47,.28); }
+  .ben h3 { font-weight: 700; font-size: 27px; line-height: 1.15; }
+  .ben ul { list-style: none; margin-top: 8px; }
+  .ben li { position: relative; padding-left: 20px; font-weight: 600; font-size: 23px; line-height: 1.32; }
+  .ben li::before { content: ''; position: absolute; left: 2px; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+
+  .cartao-foto { left: 60px; top: 594px; width: 960px; height: 200px; border-radius: 34px; box-shadow: 0 18px 40px rgba(92,0,22,.25); }
+  .cartao-foto img { object-position: 50% 52%; }
+  .cartao-foto .credito { position: absolute; right: 16px; bottom: 14px; }
+  .cartao-foto .nome { position: absolute; left: 18px; bottom: 16px; padding: 6px 16px; border-radius: 10px; background: #fff; color: #5c0016;
+    font-family: var(--mont); font-weight: 900; font-size: 28px; }
+  .legal { color: #4a2a30; }
+  .faixa { background: #5c0016; }
+  .faixa .txt { color: #fff; text-transform: none; font-weight: 800; font-size: 38px; letter-spacing: 0; }
+</style>
+</head>
+<body data-operadora="bradesco">
+  <div class="sq">
+    <div class="arco"></div>
+    <div class="logo topo" data-marca="bradesco"></div>
+
+    <p class="ps">Planos de Saúde</p>
+    <p class="com">com CNPJ/MEI</p>
+    <p class="sub">Atendimento no <b>Samaritano</b>, na <b>BP</b>, no <b>InCor</b> e no <b>São Camilo</b></p>
+
+    <div class="oferta">
+      <p class="rot"><b>3 vidas</b> por apenas</p>
+      <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span></p>
+      <p class="tarja"><span data-icone="maleta"></span>Valor exclusivo para CNPJ/MEI</p>
+      <p class="nota-preco"></p>
+    </div>
+
+    <div class="ben">
+      <h3>Benefícios do plano</h3>
+      <ul>
+        <li>Sem coparticipação</li>
+        <li>Enfermaria</li>
+        <li>Cobertura nacional</li>
+        <li>Telemedicina 24 horas</li>
+      </ul>
+    </div>
+
+    <div class="cartao-foto"><img src="../assets/fotos/bp-melozi.jpg" alt=""><p class="nome">BP · Beneficência Portuguesa</p><p class="credito">Foto: Cecilia Melozi · CC BY-SA 4.0</p></div>
+
+    <p class="legal"></p>
+    <div class="faixa"><p class="txt">Solicite sua cotação!</p></div>
+  </div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>
