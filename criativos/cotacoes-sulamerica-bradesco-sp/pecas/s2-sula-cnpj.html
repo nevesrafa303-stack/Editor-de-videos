@@ -2,47 +2,43 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>S2 · SulAmérica Direto Nacional · estilo da referência 14</title>
+<title>S2 · SulAmérica Direto Nacional · referência 14 em Story centralizado</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* S2 — referência 14 (SulAmérica, "plano de saúde com CNPJ"): fundo claro, arco laranja com o logo, "PLANOS DE SAÚDE"
-     em tarja azul + "COM CNPJ/MEI", "3 VIDAS POR APENAS" e o preço gigante em laranja com centavos sobrescritos, tarja
-     "VALOR EXCLUSIVO PARA CNPJ/MEI", caixa laranja de benefícios e a fachada real da BP em cartão arredondado. */
-  body { background: #eef0f3; color: #0b2354; }
-  .arco { left: -310px; top: -1250px; width: 1700px; height: 1408px; border-radius: 50%; background: #e05a1b; }
-  .logo.topo { left: 405px; top: 44px; width: 270px; }
+  /* S2 — referência 14 medida por medida: fundo cinza-claro, arco laranja com o logo branco (no Story o arco ocupa todo o
+     topo da tela), título grafite "PLANOS DE SAÚDE / COM CNPJ/MEI", subtítulo, "3 VIDAS POR APENAS" espaçado, preço com o
+     número gigante em laranja, tarja "VALOR EXCLUSIVO PARA CNPJ/MEI", caixa laranja de benefícios e a foto real da BP em
+     cartão grande de cantos redondos; faixa azul-marinho "Solicite sua cotação!". Cores amostradas da ref 14. */
+  body { background: #f2f2f2; color: #3a3a3a; }
+  .arco { left: -340px; top: -1700px; width: 1760px; height: 1850px; border-radius: 50%; background: #df5e23; box-shadow: 0 11px 0 #c0422b; }
+  .logo.topo { left: 405px; top: 52px; width: 270px; }
 
-  .ps { left: 50%; top: 178px; transform: translateX(-50%); padding: 8px 26px 4px; border-radius: 8px; background: #0b2354; color: #fff;
-    font-family: var(--mont); font-weight: 900; font-size: 62px; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-  .com { left: 0; right: 0; top: 256px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 50px; line-height: 1;
-    text-transform: uppercase; }
-  .sub { left: 0; right: 0; top: 318px; text-align: center; font-weight: 500; font-size: 26px; color: #26305a; }
-  .sub b { font-weight: 700; color: #0b2354; }
+  .tit { left: 0; right: 0; top: 186px; text-align: center; font-weight: 700; font-size: 62px; line-height: 1.05; text-transform: uppercase; }
+  .sub { left: 0; right: 0; top: 330px; text-align: center; font-weight: 400; font-size: 28px; line-height: 1.2; color: #4a4a4a; }
+  .sub b { font-weight: 700; color: #3a3a3a; }
 
-  .oferta { left: 56px; top: 372px; width: 520px; }
-  .oferta .rot { font-family: var(--mont); font-weight: 800; font-size: 27px; letter-spacing: .12em; text-transform: uppercase; padding-left: 4px; }
-  .oferta .rot b { color: #e0521b; }
-  .oferta .preco { margin-top: 2px; font-size: 118px; color: #e0521b; }
-  .oferta .tarja { display: inline-flex; align-items: center; gap: 10px; margin-top: 6px; padding: 9px 18px; border-radius: 10px; background: #b8320f;
-    color: #fff; font-family: var(--mont); font-weight: 900; font-size: 22px; white-space: nowrap; }
-  .oferta .tarja .icone { width: 24px; height: 24px; }
-  .oferta .nota-preco { margin-top: 8px; padding-left: 4px; color: #26305a; }
+  .rot { left: 104px; top: 428px; font-weight: 500; font-size: 30px; letter-spacing: .16em; text-transform: uppercase; }
+  .preco.big { left: 96px; top: 464px; font-size: 118px; color: #df5e23; line-height: 1; }
+  .preco.big .rs { font-size: 31px; color: #3a3a3a; vertical-align: .95em; margin-right: 6px; }
+  .preco.big .cent { font-size: 40px; color: #3a3a3a; vertical-align: 1.05em; margin-left: 4px; }
+  .pilula { left: 112px; top: 590px; width: 410px; height: 48px; border-radius: 10px; background: #c0422b; color: #fff; display: flex;
+    align-items: center; justify-content: center; font-weight: 700; font-size: 20px; text-transform: uppercase; white-space: nowrap; box-shadow: 0 8px 18px rgba(0,0,0,.18); z-index: 3; }
 
-  .ben { left: 600px; top: 366px; width: 420px; padding: 20px 24px 22px; border-radius: 22px; background: #f6751b; color: #0b2354;
-    box-shadow: 0 16px 34px rgba(224,82,27,.3); }
-  .ben h3 { font-weight: 700; font-size: 27px; line-height: 1.15; color: #0b2354; }
-  .ben ul { list-style: none; margin-top: 8px; }
-  .ben li { position: relative; padding-left: 20px; font-weight: 600; font-size: 23px; line-height: 1.32; }
-  .ben li::before { content: ''; position: absolute; left: 2px; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #0b2354; }
+  .ben { left: 566px; top: 424px; width: 432px; height: 218px; border-radius: 20px; background: #df5e23; color: #fff; padding: 24px 30px; z-index: 3;
+    box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+  .ben h3 { font-weight: 700; font-size: 27px; line-height: 1.1; }
+  .ben ul { list-style: none; margin-top: 12px; }
+  .ben li { position: relative; padding-left: 22px; font-weight: 500; font-size: 25px; line-height: 1.28; }
+  .ben li::before { content: ''; position: absolute; left: 3px; top: 14px; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
 
-  .cartao-foto { left: 60px; top: 594px; width: 960px; height: 200px; border-radius: 34px; box-shadow: 0 18px 40px rgba(11,35,84,.25); }
-  .cartao-foto img { object-position: 50% 40%; }
-  .cartao-foto .credito { position: absolute; right: 16px; bottom: 14px; }
-  .cartao-foto .nome { position: absolute; left: 18px; bottom: 16px; padding: 6px 16px; border-radius: 10px; background: #fff; color: #0b2354;
-    font-family: var(--mont); font-weight: 900; font-size: 28px; }
-  .legal { color: #26305a; }
+  .cartao-foto { left: 92px; top: 620px; width: 906px; height: 292px; border-radius: 0 0 44px 44px; z-index: 1; }
+  .cartao-foto img { object-position: 50% 42%; }
+  .cartao-foto .credito { position: absolute; right: 14px; bottom: 12px; }
+  .nota-preco { left: 104px; top: 650px; z-index: 3; padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,.92); color: #3a3a3a; }
+
+  .nota { color: #3a3a3a; }
   .faixa { background: #0b2354; }
-  .faixa .txt { color: #fff; text-transform: none; font-weight: 800; font-size: 38px; letter-spacing: 0; }
+  .faixa .txt { color: #fff; font-size: 33px; }
 </style>
 </head>
 <body data-operadora="sula">
@@ -50,30 +46,26 @@
     <div class="arco"></div>
     <div class="logo topo" data-marca="sula-branco"></div>
 
-    <p class="ps">Planos de Saúde</p>
-    <p class="com">com CNPJ/MEI</p>
-    <p class="sub">Atendimento na <b>BP</b> e no <b>São Luiz Jabaquara</b></p>
+    <p class="tit">Planos de Saúde<br>com CNPJ/MEI</p>
+    <p class="sub">Atendimento na <b>BP</b> e no<br><b>São Luiz Jabaquara</b></p>
 
-    <div class="oferta">
-      <p class="rot"><b>3 vidas</b> por apenas</p>
-      <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p>
-      <p class="tarja"><span data-icone="maleta"></span>Valor exclusivo para CNPJ/MEI</p>
-      <p class="nota-preco"></p>
-    </div>
+    <p class="rot">3 vidas por apenas</p>
+    <p class="preco big"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p>
+    <p class="pilula">Valor exclusivo para CNPJ/MEI</p>
 
     <div class="ben">
       <h3>Benefícios do plano</h3>
       <ul>
         <li>Sem coparticipação</li>
-        <li>Enfermaria</li>
+        <li>Pronto-socorro na BP</li>
         <li>Abrangência nacional</li>
-        <li>BP e São Luiz na rede</li>
       </ul>
     </div>
 
-    <div class="cartao-foto"><img src="../assets/fotos/bp-possi-b.jpg" alt=""><p class="nome">BP · Beneficência Portuguesa</p><p class="credito">Foto: Alexandre Possi · CC BY 3.0</p></div>
+    <div class="cartao-foto"><img src="../assets/fotos/bp-possi-b.jpg" alt=""><p class="credito">Foto: Alexandre Possi · CC BY 3.0</p></div>
+    <p class="nota-preco"></p>
 
-    <p class="legal"></p>
+    <p class="nota"></p>
     <div class="faixa"><p class="txt">Solicite sua cotação!</p></div>
   </div>
 

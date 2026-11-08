@@ -1,4 +1,4 @@
-// Renderiza cada peça (pecas/[sb]*.html) em Feed 1:1 e Story, em 2x (Feed 2160x2160, Story 2160x3840), para final/.
+// Renderiza cada peça (pecas/[sb]*.html) em Story 2x (2160x3840), para final/. O mesmo arquivo serve no Feed (recorte central).
 // Uso: node render.mjs [filtro]   ex.: node render.mjs v1
 import { createRequire } from 'node:module';
 import { execSync } from 'node:child_process';
@@ -11,7 +11,7 @@ const { chromium } = require(path.join(execSync('npm root -g').toString().trim()
 
 const ROOT = path.dirname(new URL(import.meta.url).pathname);
 const OUT = path.join(ROOT, 'final');
-const FORMATS = { feed: [1080, 1080], story: [1080, 1920] };
+const FORMATS = { story: [1080, 1920] };
 const ESCALA = 2;
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.jpg': 'image/jpeg', '.png': 'image/png', '.ttf': 'font/ttf', '.woff2': 'font/woff2' };

@@ -2,76 +2,74 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>B1 · Bradesco Saúde Efetivo Plus · estilo da referência 10</title>
+<title>B1 · Bradesco Saúde Efetivo Plus · referência 10 em Story centralizado</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* B1 — referência 10 nas cores da Bradesco Saúde: fachada real do Samaritano (na rede do Efetivo Plus em enfermaria)
-     no topo com degradê para o vinho, chamada "para sócios e diretores", tarja vermelha "PLANOS DE SAÚDE", texto com as
-     palavras-chave em destaque, cartão branco com aba "EXCLUSIVO PARA CNPJ/MEI" e o preço, fila dos hospitais da rede
-     em enfermaria e faixa vermelha de CTA com a aba branca do logo. */
-  body { background: #4a0012; color: #fff; }
-  .sq { --fh: 470px; --pos: 50% 34%; }
-  .foto-topo .veu { background: linear-gradient(180deg, rgba(74,0,18,0) 0%, rgba(74,0,18,0) 40%, rgba(74,0,18,.84) 72%, #4a0012 100%); }
-  .credito.f { right: 24px; top: 24px; }
+  /* B1 — referência 10 medida por medida, nas cores do logo da Bradesco Saúde (vermelho #cc092f e branco): fachada real
+     do Samaritano (na rede do Efetivo Plus em enfermaria) em cima, degradê para o vermelho-escuro, chamada "para sócios e
+     diretores", tarja branca "PLANOS DE SAÚDE" em vermelho, texto de 3 linhas, cartão branco com aba vermelha "EXCLUSIVO
+     PARA CNPJ/MEI" e o preço, fila dos hospitais da rede em branco e faixa vermelha com a aba branca do logo. */
+  body { background: #7a0019; color: #fff; }
+  .sq { --fh: 470px; --pos: 62% 40%; }
+  .foto-topo .veu { background: linear-gradient(180deg, rgba(122,0,25,0) 0%, rgba(122,0,25,0) 74%, rgba(122,0,25,.86) 88%, #7a0019 100%); }
+  .credito.f { right: 18px; top: 18px; }
 
-  .chamada { left: 0; right: 0; top: 330px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 26px; letter-spacing: .05em;
-    text-transform: uppercase; }
-  .ps { left: 50%; top: 372px; transform: translateX(-50%); padding: 8px 28px 4px; border-radius: 6px; background: #e3163f; color: #fff;
-    font-family: var(--mont); font-weight: 900; font-size: 78px; line-height: 1; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap; }
+  .chamada { left: 0; right: 0; top: 396px; text-align: center; font-weight: 500; font-size: 29px; letter-spacing: .01em; text-transform: uppercase; }
+  .ps { left: 50%; top: 448px; transform: translateX(-50%); height: 84px; padding: 0 26px; display: flex; align-items: center; background: #fff;
+    color: #cc092f; font-weight: 700; font-size: 66px; line-height: 1; letter-spacing: .005em; text-transform: uppercase; white-space: nowrap;
+    box-shadow: 0 0 0 3px rgba(255,255,255,.18); }
 
-  .esq { left: 60px; top: 506px; width: 430px; font-weight: 600; font-size: 31px; line-height: 1.26; }
-  .esq b { font-family: var(--mont); font-weight: 900; color: #ffb3c0; }
+  .esq { left: 96px; top: 640px; width: 420px; font-weight: 400; font-size: 31px; line-height: 1.18; }
+  .esq b { font-weight: 700; }
 
-  .card { left: 520px; top: 516px; width: 500px; height: 178px; border-radius: 20px; background: #fff; color: #5c0016; box-shadow: 0 22px 44px rgba(0,0,0,.4); }
-  .card .aba { position: absolute; left: 50%; top: -27px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 9px 20px;
-    border-radius: 10px; background: #cc092f; color: #fff; font-family: var(--mont); font-weight: 900; font-size: 24px; white-space: nowrap; }
-  .card .aba .icone { width: 27px; height: 27px; }
-  .card .l1 { position: absolute; left: 0; right: 0; top: 30px; text-align: center; font-weight: 600; font-size: 28px; }
-  .card .l1 b { font-family: var(--mont); font-weight: 900; color: #cc092f; }
-  .card .preco { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 82px; }
-  .card .nota-preco { position: absolute; left: 0; right: 0; top: 146px; text-align: center; color: #6b4a50; }
+  .card { left: 520px; top: 610px; width: 440px; height: 200px; border-radius: 24px; background: #fff; color: #7a0019;
+    box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+  .card .aba-cnpj { position: absolute; left: 50%; top: -24px; transform: translateX(-50%); background: #cc092f; color: #fff; }
+  .card .l1 { position: absolute; left: 0; right: 0; top: 38px; text-align: center; font-weight: 400; font-size: 31px; line-height: 1; }
+  .card .l1 b { font-weight: 700; color: #cc092f; }
+  .card .preco { position: absolute; left: 0; right: 0; top: 84px; text-align: center; font-size: 70px; }
+  .card .nota-preco { position: absolute; left: 0; right: 0; top: 162px; text-align: center; color: #6b4a50; }
 
-  .fila { left: 30px; right: 30px; top: 716px; display: flex; justify-content: center; align-items: center; gap: 20px; text-align: center; }
-  .fila p b { display: block; font-family: var(--mont); font-weight: 900; font-size: 27px; line-height: 1.05; text-transform: uppercase; }
-  .fila p small { display: block; font-weight: 600; font-size: 19px; color: #ffd2d8; margin-top: 3px; }
-  .fila i { width: 3px; height: 50px; background: #e3163f; border-radius: 2px; }
+  .marcas { left: 0; right: 0; top: 828px; color: #fff; gap: 20px; }
+  .marcas .marca-h b { font-size: 28px; }
+  .marcas .marca-h span { letter-spacing: .12em; }
+  .marcas i { background: rgba(255,255,255,.4); }
 
-  .legal { color: rgba(255,255,255,.86); }
-  .faixa { background: linear-gradient(90deg, #b8072a 0%, #d40f37 100%); }
-  .faixa .txt { justify-content: flex-start; padding-left: 50px; color: #fff; }
-  .aba-faixa { right: 0; top: calc(var(--h) - 100px); width: 330px; height: 100px; border-radius: 22px 0 0 0; background: #fff;
-    display: flex; align-items: center; justify-content: center; }
-  .aba-faixa .logo { width: 210px; color: #cc092f; }
+  .nota { color: rgba(255,255,255,.82); }
+  .faixa { background: linear-gradient(90deg, #b8062a 0%, #cc092f 55%, #d81a3e 100%); }
+  .faixa .txt { justify-content: flex-start; padding-left: 56px; color: #fff; text-transform: uppercase; }
+  .aba-logo { right: 0; top: calc(var(--h) - 92px); width: 250px; height: 92px; border-radius: 22px 0 0 0; background: #fff;
+    display: flex; align-items: center; justify-content: center; box-shadow: -6px -6px 18px rgba(0,0,0,.12); }
+  .aba-logo .logo { width: 170px; color: #cc092f; }
 </style>
 </head>
 <body data-operadora="bradesco">
   <div class="sq">
-    <div class="ext"><img src="../assets/fotos/samaritano-hsama.jpg" alt=""></div>
     <div class="foto-topo"><img src="../assets/fotos/samaritano-hsama.jpg" alt=""><div class="veu"></div></div>
-    <p class="credito f">Foto do Samaritano: Hsama · CC BY 3.0</p>
+    <p class="credito f">Foto: Hsama · CC BY 3.0</p>
 
     <p class="chamada">Para sócios e diretores da sua empresa</p>
     <p class="ps">Planos de Saúde</p>
 
-    <p class="esq"><b>Sem coparticipação</b>, com o <b>Samaritano</b> e a <b>BP</b> na rede.</p>
+    <p class="esq">Tenha um plano <b>sem coparticipação</b> e acesso ao <b>Samaritano</b> e à <b>BP</b>.</p>
 
     <div class="card">
-      <p class="aba"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+      <p class="aba-cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
       <p class="l1"><b>3 VIDAS</b> por apenas</p>
-      <p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span></p>
+      <p class="preco"><span class="rs">R$</span>2.362,01<span class="cent">*</span></p>
       <p class="nota-preco"></p>
     </div>
 
-    <div class="fila">
-      <p><b>Samaritano</b><small>Higienópolis</small></p><i></i>
-      <p><b>BP</b><small>Beneficência Port.</small></p><i></i>
-      <p><b>InCor</b><small>Instituto do Coração</small></p><i></i>
-      <p><b>São Camilo</b><small>Ipiranga e Santana</small></p>
+    <div class="marcas">
+      <p class="marca-h"><b>Samaritano</b><span>Hospital</span></p><i></i>
+      <p class="marca-h"><b>BP</b><span>Hospital</span></p><i></i>
+      <p class="marca-h"><b>InCor</b><span>Instituto do Coração</span></p><i></i>
+      <p class="marca-h"><b>São Camilo</b><span>Ipiranga · Santana</span></p>
     </div>
 
-    <p class="legal"></p>
+    <p class="nota"></p>
     <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
-    <div class="aba-faixa"><div class="logo" data-marca="bradesco"></div></div>
+    <div class="aba-logo"><div class="logo" data-marca="bradesco"></div></div>
   </div>
 
   <script type="module">

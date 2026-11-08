@@ -1,73 +1,74 @@
-/* Cotações SulAmérica Direto Nacional e Bradesco Efetivo Plus (3 vidas, SP) — estáticos na linguagem das referências 10, 14 e 16
-   do cliente (criativos/_referencias/planos-de-saude), com o mesmo sistema de criativos/hospitais-referencia-sp. Só fotos
-   reais de hospitais que estão na rede da cotação, em enfermaria (BP e Samaritano).
+/* Cotações SulAmérica Direto Nacional e Bradesco Efetivo Plus (3 vidas, SP) — versão 2 (08/11/2026).
+   Pedidos do cliente: copiar de perto as referências 10, 14 e 16 (criativos/_referencias/planos-de-saude), com pouca
+   informação (só a nota do * e as observações essenciais), a paleta do logo de cada operadora, a foto real do hospital
+   em destaque e UM formato só: Story 1080x1920 com as informações centralizadas, para usar também no Feed.
+   Medidas tiradas das referências (640 px) multiplicadas por 1,6875 para 1080 px.
 
-   Dois formatos com o mesmo desenho:
-   - feed (1:1, 1080x1080): o quadro .sq ocupa a tela toda;
-   - story (1080x1920): o quadro começa em y=300 e ganha 120 px de altura; a foto do topo sobe até o alto da tela e a
-     faixa de CTA desce até o pé, sem texto fora da faixa y 290–1536. */
+   Todo texto fica no quadro central .sq (y 420–1500 = recorte 1:1 do Feed, dentro do recorte 4:5 y 285–1635 e da
+   zona livre do Story y 230–1536). Fora dele só imagem e cor: a foto do hospital sobe até o alto da tela e a faixa de
+   CTA desce até o pé. */
 
-@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
-@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
 @font-face { font-family: 'Poppins'; font-weight: 400; src: url('../assets/fonts/Poppins-400.ttf'); }
 @font-face { font-family: 'Poppins'; font-weight: 500; src: url('../assets/fonts/Poppins-500.ttf'); }
 @font-face { font-family: 'Poppins'; font-weight: 600; src: url('../assets/fonts/Poppins-600.ttf'); }
 @font-face { font-family: 'Poppins'; font-weight: 700; src: url('../assets/fonts/Poppins-700.ttf'); }
 @font-face { font-family: 'Poppins'; font-weight: 800; src: url('../assets/fonts/Poppins-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
 
-:root { --mont: 'Mont', 'Poppins', sans-serif; --h: 1080px; --y0: 0px; }
-body.story { --h: 1200px; --y0: 300px; }
+:root { --h: 1080px; --y0: 420px; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 1080px; height: 1080px; overflow: hidden; }
-body.story, html:has(body.story) { height: 1920px; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
 body { position: relative; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
 
 .sq { position: absolute; left: 0; top: var(--y0); width: 1080px; height: var(--h); }
 .sq > * { position: absolute; }
 
-/* foto do topo: mesmo recorte no feed e no story. No story, a faixa de cima (y 0–300, coberta pela interface) mostra a
-   mesma foto desfocada e escurecida, e a foto nítida entra por um degradê. */
-.foto-topo { left: 0; top: 0; width: 1080px; height: var(--fh); overflow: hidden; }
+/* foto do topo (refs 10 e 16): começa no alto da tela e termina dentro do quadro central, em y0 + --fh */
+.foto-topo { left: 0; top: calc(-1 * var(--y0)); width: 1080px; height: calc(var(--y0) + var(--fh)); overflow: hidden; }
 .foto-topo img { position: absolute; left: var(--fl, 0px); top: var(--ft, 0px); width: var(--fw, 100%); height: var(--fhi, 100%);
   object-fit: cover; object-position: var(--pos, 50% 50%); display: block; }
 .foto-topo .veu { position: absolute; left: 0; right: 0; top: 0; height: 100%; }
-.ext { display: none; }
-body.story .ext { display: block; left: 0; top: -300px; width: 1080px; height: calc(300px + var(--fh)); overflow: hidden; }
-body.story .ext img { width: 100%; height: 100%; object-fit: cover; filter: blur(26px) brightness(.62) saturate(1.1); transform: scale(1.18); }
-body.story .foto-topo { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 150px); mask-image: linear-gradient(180deg, transparent 0, #000 150px); }
 
-/* foto em cartão */
+/* foto em cartão (ref 14) */
 .cartao-foto { overflow: hidden; }
 .cartao-foto img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* faixa de CTA no pé (refs 10, 14, 16); no story ela desce até o fim da tela */
-.faixa { left: 0; right: 0; top: calc(var(--h) - 84px); height: 84px; }
-body.story .faixa { height: 984px; }
-.faixa .txt { position: absolute; left: 0; right: 0; top: 0; height: 84px; display: flex; align-items: center; justify-content: center; gap: 14px;
-  font-family: var(--mont); font-weight: 900; font-size: 34px; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
-.faixa .txt .icone { width: 34px; height: 34px; }
+/* faixa de CTA no pé do quadro central; a cor desce até o fim da tela */
+.faixa { left: 0; right: 0; top: calc(var(--h) - 74px); height: 494px; }
+.faixa .txt { position: absolute; left: 0; right: 0; top: 0; height: 74px; display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-weight: 700; font-size: 31px; white-space: nowrap; }
+.faixa .txt .icone { width: 30px; height: 30px; }
 
-/* texto legal logo acima da faixa: 16 px no feed, 19 px no story (mínimos do CLAUDE.md) */
-.legal { left: 56px; right: 56px; bottom: 112px; text-align: center; font-weight: 500; font-size: 16px; line-height: 1.25; }
-body.story .legal { font-size: 19px; }
+/* nota do * (como nas refs 14 e 16): curta, centralizada, logo acima da faixa; 19 px (mínimo do Story) */
+.nota { left: 60px; right: 60px; bottom: 88px; text-align: center; font-weight: 500; font-size: 19px; line-height: 1.3; }
+.nota-preco { font-weight: 500; font-size: 19px; white-space: nowrap; }
 
-.mk { padding: 0 .14em; border-radius: .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-.icone { display: inline-flex; flex: none; }
-.icone svg { width: 100%; height: 100%; display: block; }
-
-/* preço: "R$" pequeno, inteiro grande e centavos sobrescritos (refs 10, 14 e 16) */
-.preco { font-family: var(--mont); font-weight: 900; line-height: .9; letter-spacing: -.035em; white-space: nowrap; }
-.preco .rs { font-size: .36em; letter-spacing: 0; margin-right: .1em; vertical-align: .95em; }
-.preco .cent { font-size: .42em; letter-spacing: -.01em; vertical-align: .88em; }
-.preco .mes { font-family: 'Poppins'; font-weight: 600; font-size: .24em; letter-spacing: 0; margin-left: .1em; }
-.nota-preco { font-weight: 500; font-size: 16px; }
-body.story .nota-preco { font-size: 19px; }
+/* preço: "R$" pequeno, número grande, centavos sobrescritos */
+.preco { font-weight: 700; line-height: .95; letter-spacing: -.02em; white-space: nowrap; }
+.preco .rs { font-size: .42em; letter-spacing: 0; margin-right: .12em; }
+.preco .cent { font-size: .5em; letter-spacing: 0; vertical-align: .62em; }
 
 .logo { display: block; line-height: 0; }
 .logo svg, .logo img { width: 100%; height: auto; display: block; }
 
-/* crédito da foto (licenças CC BY / CC BY-SA) */
-.credito { padding: 4px 10px; border-radius: 7px; background: rgba(0,0,0,.66); color: #fff; font-size: 16px; font-weight: 500; line-height: 1.15;
+/* crédito exigido pela licença da foto (CC BY / CC BY-SA), discreto no canto da foto */
+.credito { padding: 3px 9px; border-radius: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 19px; font-weight: 500; line-height: 1.15;
   white-space: nowrap; }
-body.story .credito { font-size: 19px; }
+
+/* selo "EXCLUSIVO PARA CNPJ/MEI" em aba (ref 10) */
+.aba-cnpj { display: inline-flex; align-items: center; gap: 8px; padding: 7px 22px 6px; border-radius: 999px; font-weight: 700; font-size: 20px;
+  letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+.aba-cnpj .icone { width: 22px; height: 22px; }
+
+/* "logos" dos hospitais em texto, no jeito das refs 09 e 10: nome + filete + "HOSPITAL" espaçado */
+.marcas { display: flex; justify-content: center; align-items: center; gap: 46px; }
+.marca-h { display: flex; flex-direction: column; align-items: center; text-align: center; white-space: nowrap; }
+.marca-h b { font-family: 'Mont'; font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: .02em; text-transform: uppercase; }
+.marca-h span { margin-top: 6px; padding-top: 5px; border-top: 2px solid currentColor; font-weight: 600; font-size: 19px; letter-spacing: .24em;
+  text-transform: uppercase; }
+.marcas i { width: 2px; height: 70px; background: rgba(255,255,255,.35); }
+
+.icone { display: inline-flex; flex: none; }
+.icone svg { width: 100%; height: 100%; display: block; }

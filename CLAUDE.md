@@ -88,6 +88,24 @@ Pedido do cliente em 06/11/2026: "sempre vamos trabalhar com os melhores". Quand
   Einstein, Sírio ou Oswaldo Cruz, pedir ao cliente a cotação de um plano que tenha esses hospitais.
 - Citar no README a fonte da rede de cada hospital.
 
+### Criativos estáticos (pedido do cliente em 08/11/2026)
+
+- **Modelo:** seguir de perto as referências 10, 14 e 16 de `criativos/_referencias/planos-de-saude/` (layout, proporções,
+  tipografia Poppins, faixa de CTA no pé). Base pronta em `criativos/cotacoes-sulamerica-bradesco-sp/`.
+- **Pouca informação, como nas referências:**
+  - a nota do \* curta (a quem o preço se refere: vidas e idades, plano, acomodação);
+  - "Valores sujeitos à faixa etária e região." logo abaixo do preço;
+  - "Consulte condições e elegibilidade.", "A rede credenciada pode variar conforme plano contratado." e "Imagem
+    meramente ilustrativa.".
+  - Nada de bloco legal longo com todas as observações (isso fica para o cartão final dos vídeos).
+- **Cores:** sempre a paleta do logo da operadora.
+  - SulAmérica: azul-marinho #0b2354 + laranja #df5e23.
+  - Bradesco Saúde: vermelho #cc092f + branco.
+  - Nada de preto e dourado em operadora que não usa essas cores.
+- **Foto real do hospital em destaque, grande:** só hospital que está na rede da cotação.
+- **Formato:** um só, Story 1080×1920, com todo texto no quadro central y 420–1500. O mesmo arquivo serve no Feed:
+  recorte 1:1, e o 4:5 também cabe.
+
 ### Referências visuais (inspiração obrigatória)
 
 Antes de criar qualquer criativo de plano de saúde (estático ou vídeo), abrir

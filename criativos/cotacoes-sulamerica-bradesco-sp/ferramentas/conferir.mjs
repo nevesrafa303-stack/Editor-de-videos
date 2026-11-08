@@ -1,5 +1,5 @@
 // Confere as regras do CLAUDE.md em cada peça (pecas/b*.html), nos dois formatos:
-//  - Story: todo texto entre y=290 e y=1536 (zonas cobertas pela interface ficam livres); Feed 1:1: texto a 16 px do alto e do pé e a 24 px das laterais;
+//  - todo texto no quadro central y 420–1500 (recorte 1:1 do Feed, dentro do 4:5 e da zona livre do Story); 24 px das laterais;
 //  - tamanho mínimo do texto: 19 px no Story, 16 px no Feed;
 //  - contraste (WCAG): 4,5:1 para texto comum e 3:1 para texto grande (≥24 px, ou ≥18,7 px em negrito),
 //    medido contra o fundo real renderizado (pior caso dentro da caixa do texto).
@@ -29,7 +29,7 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'conferir-'));
 const browser = await chromium.launch();
 let falhas = 0;
 for (const peca of pecas) {
-  for (const [fmt, h] of [['feed', 1080], ['story', 1920]]) {
+  for (const [fmt, h] of [['story', 1920]]) {
     const page = await browser.newPage({ viewport: { width: 1080, height: h } });
     await page.goto(`http://localhost:${server.address().port}/pecas/${peca}#${fmt}`);
     await page.waitForFunction(() => window.__ready === true);
@@ -66,9 +66,8 @@ for (const peca of pecas) {
     const topo = Math.min(...textos.map(t => t.y)), base = Math.max(...textos.map(t => t.y + t.h));
     const menor = Math.min(...textos.map(t => t.fs));
     const erros = [];
-    if (fmt === 'story' && (topo < 290 || base > 1536)) erros.push(`texto fora da zona segura do Story (y ${Math.round(topo)}–${Math.round(base)})`);
-    if (fmt === 'feed' && (topo < 16 || base > 1064)) erros.push(`texto colado na borda do Feed (y ${Math.round(topo)}–${Math.round(base)})`);
-    const esq = Math.min(...textos.map(t => t.x)), dir = Math.max(...textos.map(t => t.x + t.w));
+    if (topo < 420 || base > 1500) erros.push(`texto fora do quadro central y 420–1500 (recorte 1:1 do Feed e zona livre do Story): y ${Math.round(topo)}–${Math.round(base)}`);
+        const esq = Math.min(...textos.map(t => t.x)), dir = Math.max(...textos.map(t => t.x + t.w));
     if (esq < 24 || dir > 1056) erros.push(`texto colado na borda lateral (x ${Math.round(esq)}–${Math.round(dir)})`);
     if (menor < (fmt === 'story' ? 19 : 16)) erros.push(`fonte de ${menor}px abaixo do mínimo`);
     const vistos = new Set();

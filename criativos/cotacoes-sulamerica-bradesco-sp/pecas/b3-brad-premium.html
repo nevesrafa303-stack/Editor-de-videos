@@ -2,63 +2,67 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>B3 · Bradesco Saúde Efetivo Plus · estilo da referência 16</title>
+<title>B3 · Bradesco Saúde Efetivo Plus · referência 16 em Story centralizado</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* B3 — referência 16 (linha premium preto + dourado): fachada real do Samaritano no topo, aba branca com o logo da
-     Bradesco Saúde, título "Seu plano de saúde com o Samaritano na rede", cartão escuro "3 VIDAS A PARTIR DE" + preço e
-     caixa dourada "SEM COPARTICIPAÇÃO", os outros hospitais da rede em enfermaria separados por barras e faixa dourada. */
-  body { background: #0b0b0c; color: #fff; }
-  .sq { --fh: 450px; --pos: 50% 26%; }
-  .foto-topo .veu { background: linear-gradient(180deg, rgba(11,11,12,0) 0%, rgba(11,11,12,0) 46%, rgba(11,11,12,.78) 76%, #0b0b0c 100%); }
-  .credito.f { left: 24px; top: 24px; }
-  .aba { right: 0; top: 0; width: 330px; height: 112px; border-radius: 0 0 0 26px; background: #fff; display: flex; align-items: center; justify-content: center; }
-  .aba .logo { width: 200px; color: #cc092f; }
+  /* B3 — referência 16 medida por medida, nas cores do logo da Bradesco Saúde (vermelho-escuro e vermelho no lugar do
+     preto e dourado): fachada real do Samaritano no alto, aba branca com o logo, título "Seu plano de saúde com o
+     Samaritano na rede", cartão com "3 VIDAS A PARTIR DE" e o preço, caixa vermelha "SEM COPARTICIPAÇÃO", os outros
+     hospitais da rede em enfermaria separados por barras e faixa vermelha de CTA. */
+  body { background: #2b0009; color: #fff; }
+  .sq { --fh: 500px; --pos: 60% 40%; }
+  .foto-topo .veu { background: linear-gradient(180deg, rgba(43,0,9,0) 0%, rgba(43,0,9,0) 72%, rgba(43,0,9,.82) 88%, #2b0009 100%); }
+  .credito.f { left: 18px; top: 18px; }
+  .aba-logo { right: 0; top: 0; width: 250px; height: 112px; border-radius: 0 0 0 24px; background: #fff; display: flex; align-items: center;
+    justify-content: center; box-shadow: 0 8px 22px rgba(0,0,0,.25); }
+  .aba-logo .logo { width: 170px; color: #cc092f; }
 
-  .tit { left: 0; right: 0; top: 346px; text-align: center; font-weight: 700; font-size: 54px; line-height: 1.14; }
-  .tit b { font-family: var(--mont); font-weight: 900; color: #e9c97f; }
+  .tit { left: 0; right: 0; top: 404px; text-align: center; font-weight: 700; font-size: 48px; line-height: 1.18; }
+  .tit b { color: #ff8a9e; }
 
-  .oferta { left: 60px; top: 496px; width: 960px; height: 168px; }
-  .oferta .esc { position: absolute; left: 0; top: 0; width: 620px; height: 168px; border-radius: 26px; background: #1c1c1f; border: 2px solid #3a3426;
-    z-index: 2; padding: 20px 32px; }
-  .oferta .esc .rot { font-family: var(--mont); font-weight: 800; font-size: 30px; letter-spacing: .05em; text-transform: uppercase; color: #e9c97f; }
-  .oferta .esc .preco { margin-top: 6px; font-size: 90px; }
-  .oferta .ouro { position: absolute; left: 570px; top: 20px; width: 390px; height: 128px; border-radius: 0 20px 20px 0;
-    background: linear-gradient(110deg, #b8913f 0%, #e6c77e 55%, #c9a352 100%); color: #0b0b0c; padding: 0 20px 0 84px; display: flex;
-    flex-direction: column; justify-content: center; font-family: var(--mont); font-weight: 900; font-size: 40px; line-height: 1; text-transform: uppercase; }
-  .oferta .ouro small { font-size: 25px; margin-top: 6px; }
-  .nota-preco { left: 0; right: 0; top: 676px; text-align: center; color: #d8d2c4; }
+  .card { left: 84px; top: 556px; width: 610px; height: 186px; border-radius: 36px 92px 36px 36px; background: #5a0016; z-index: 2;
+    box-shadow: 0 16px 36px rgba(0,0,0,.35); }
+  .card .aba-cnpj { position: absolute; left: 40px; top: -22px; background: #fff; color: #a1001f; }
+  .card .aba-cnpj .icone { color: #cc092f; }
+  .card .rot { position: absolute; left: 0; right: 0; top: 40px; text-align: center; font-weight: 600; font-size: 33px; text-transform: uppercase;
+    color: #ff9bad; }
+  .card .preco { position: absolute; left: 0; right: 0; top: 86px; text-align: center; font-size: 74px; }
+  .laranja { left: 640px; top: 578px; width: 356px; height: 143px; border-radius: 0 22px 22px 0; z-index: 1;
+    background: linear-gradient(100deg, #a8062a 0%, #cc092f 55%, #b8062a 100%); display: flex; flex-direction: column; justify-content: center;
+    padding-left: 74px; font-weight: 700; font-size: 28px; line-height: 1.15; text-transform: uppercase; }
+  .nota-preco { left: 0; right: 0; top: 754px; text-align: center; color: #f3d3d9; }
 
-  .bex { left: 0; right: 0; top: 712px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 30px; text-transform: uppercase; }
-  .lista { left: 60px; right: 60px; top: 752px; text-align: center; font-weight: 600; font-size: 23px; line-height: 1.4; text-transform: uppercase; color: #ece6d6; }
+  .bex { left: 0; right: 0; top: 798px; text-align: center; font-weight: 700; font-size: 27px; text-transform: uppercase; }
+  .lista { left: 70px; right: 70px; top: 838px; text-align: center; font-weight: 500; font-size: 22px; line-height: 1.38; text-transform: uppercase; }
   .lista span { white-space: nowrap; }
-  .lista i { font-style: normal; color: #e2c27a; padding: 0 2px; }
+  .lista i { font-style: normal; color: #ff5470; padding: 0 4px; }
 
-  .legal { color: rgba(255,255,255,.78); }
-  .faixa { background: linear-gradient(90deg, #a8822f 0%, #d9b866 50%, #b8913f 100%); }
-  .faixa .txt { color: #0b0b0c; }
+  .nota { color: rgba(255,255,255,.78); font-style: italic; }
+  .faixa { background: linear-gradient(90deg, #b8062a 0%, #cc092f 50%, #b8062a 100%); }
+  .faixa .txt { color: #fff; text-transform: uppercase; font-size: 29px; }
 </style>
 </head>
 <body data-operadora="bradesco">
   <div class="sq">
-    <div class="ext"><img src="../assets/fotos/samaritano-hsama.jpg" alt=""></div>
     <div class="foto-topo"><img src="../assets/fotos/samaritano-hsama.jpg" alt=""><div class="veu"></div></div>
-    <p class="credito f">Foto do Samaritano: Hsama · CC BY 3.0</p>
-    <div class="aba"><div class="logo" data-marca="bradesco"></div></div>
+    <p class="credito f">Foto: Hsama · CC BY 3.0</p>
+    <div class="aba-logo"><div class="logo" data-marca="bradesco"></div></div>
 
     <p class="tit">Seu plano de saúde<br>com o <b>Samaritano</b> na rede</p>
 
-    <div class="oferta">
-      <div class="esc"><p class="rot">3 vidas a partir de</p><p class="preco"><span class="rs">R$</span>2.362<span class="cent">,01*</span></p></div>
-      <p class="ouro">Sem<small>coparticipação</small></p>
+    <div class="card">
+      <p class="aba-cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+      <p class="rot">3 vidas a partir de</p>
+      <p class="preco"><span class="rs">R$</span>2.362,01<span class="cent">*</span></p>
     </div>
+    <p class="laranja">Sem<br>coparticipação</p>
     <p class="nota-preco"></p>
 
     <p class="bex">Também na rede, em enfermaria</p>
     <p class="lista"><span>BP – Beneficência Portuguesa</span> <i>|</i> <span>InCor</span> <i>|</i> <span>São Camilo Ipiranga</span> <i>|</i> <span>São Camilo Santana</span></p>
 
-    <p class="legal"></p>
-    <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+    <p class="nota"></p>
+    <div class="faixa"><p class="txt">Solicite sua cotação online<span data-icone="seta"></span></p></div>
   </div>
 
   <script type="module">

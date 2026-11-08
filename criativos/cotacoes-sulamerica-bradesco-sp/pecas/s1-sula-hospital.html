@@ -2,75 +2,69 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>S1 · SulAmérica Direto Nacional · estilo da referência 10</title>
+<title>S1 · SulAmérica Direto Nacional · referência 10 em Story centralizado</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  /* S1 — referência 10 (SulAmérica, hospital no topo): fachada real da BP com o logo (na rede do Direto Nacional,
-     internação e pronto-socorro), chamada em caixa alta, tarja laranja "PLANOS DE SAÚDE", texto com as palavras-chave em
-     laranja, cartão branco com aba "EXCLUSIVO PARA CNPJ/MEI", "3 VIDAS por apenas" e o preço, fila de hospitais da rede
-     e faixa laranja de CTA com a aba branca do logo. */
+  /* S1 — referência 10 medida por medida: fachada real da BP (com o logo) em cima, degradê para o azul-marinho da
+     SulAmérica, chamada em caixa alta, tarja laranja "PLANOS DE SAÚDE", texto de 3 linhas à esquerda, cartão branco com
+     aba laranja "EXCLUSIVO PARA CNPJ/MEI", "3 VIDAS por apenas" e o preço, fila de hospitais da rede em branco e faixa
+     laranja em degradê com a aba branca do logo. Cores: #0b2354 e #e16025→#f1743a (amostradas da ref 10). */
   body { background: #0b2354; color: #fff; }
-  .sq { --fh: 470px; --fw: 1300px; --fhi: 731px; --fl: -110px; --ft: -262px; }
-  .foto-topo .veu { background: linear-gradient(180deg, rgba(11,35,84,0) 0%, rgba(11,35,84,0) 40%, rgba(11,35,84,.82) 72%, #0b2354 100%); }
-  .credito.f { right: 24px; top: 24px; }
+  .sq { --fh: 470px; --pos: 46% 50%; }
+  .foto-topo .veu { background: linear-gradient(180deg, rgba(11,35,84,0) 0%, rgba(11,35,84,0) 76%, rgba(11,35,84,.86) 89%, #0b2354 100%); }
+  .credito.f { right: 18px; top: 18px; }
 
-  .chamada { left: 0; right: 0; top: 330px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 26px; letter-spacing: .05em;
-    text-transform: uppercase; }
-  .ps { left: 50%; top: 372px; transform: translateX(-50%); padding: 8px 28px 4px; border-radius: 6px; background: #f6751b; color: #0b2354;
-    font-family: var(--mont); font-weight: 900; font-size: 78px; line-height: 1; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap; }
+  .chamada { left: 0; right: 0; top: 396px; text-align: center; font-weight: 500; font-size: 29px; letter-spacing: .01em; text-transform: uppercase; }
+  .ps { left: 50%; top: 448px; transform: translateX(-50%); height: 84px; padding: 0 26px; display: flex; align-items: center; background: #ef6a2c;
+    color: #0b2354; font-weight: 700; font-size: 66px; line-height: 1; letter-spacing: .005em; text-transform: uppercase; white-space: nowrap;
+    box-shadow: 0 0 0 3px rgba(255,255,255,.18); }
 
-  .esq { left: 60px; top: 506px; width: 430px; font-weight: 600; font-size: 31px; line-height: 1.26; }
-  .esq b { font-family: var(--mont); font-weight: 900; color: #ff9a3d; }
+  .esq { left: 96px; top: 640px; width: 420px; font-weight: 400; font-size: 31px; line-height: 1.18; }
+  .esq b { font-weight: 700; }
 
-  .card { left: 520px; top: 516px; width: 500px; height: 178px; border-radius: 20px; background: #fff; color: #0b2354; box-shadow: 0 22px 44px rgba(0,0,0,.4); }
-  .card .aba { position: absolute; left: 50%; top: -27px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 9px 20px;
-    border-radius: 10px; background: #e0521b; color: #fff; font-family: var(--mont); font-weight: 900; font-size: 24px; white-space: nowrap; }
-  .card .aba .icone { width: 27px; height: 27px; }
-  .card .l1 { position: absolute; left: 0; right: 0; top: 30px; text-align: center; font-weight: 600; font-size: 28px; }
-  .card .l1 b { font-family: var(--mont); font-weight: 900; color: #e0521b; }
-  .card .preco { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 82px; }
-  .card .nota-preco { position: absolute; left: 0; right: 0; top: 146px; text-align: center; color: #3b4470; }
+  .card { left: 520px; top: 610px; width: 440px; height: 200px; border-radius: 24px; background: #fff; color: #0b2354;
+    box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+  .card .aba-cnpj { position: absolute; left: 50%; top: -24px; transform: translateX(-50%); background: #e7662b; color: #fff; }
+  .card .l1 { position: absolute; left: 0; right: 0; top: 38px; text-align: center; font-weight: 400; font-size: 31px; line-height: 1; }
+  .card .l1 b { font-weight: 700; color: #e7662b; }
+  .card .preco { position: absolute; left: 0; right: 0; top: 84px; text-align: center; font-size: 70px; }
+  .card .nota-preco { position: absolute; left: 0; right: 0; top: 162px; text-align: center; color: #4b5578; }
 
-  .fila { left: 40px; right: 40px; top: 716px; display: flex; justify-content: center; align-items: center; gap: 26px; text-align: center; }
-  .fila p b { display: block; font-family: var(--mont); font-weight: 900; font-size: 29px; line-height: 1.05; text-transform: uppercase; }
-  .fila p small { display: block; font-weight: 600; font-size: 19px; color: #c9d0ea; margin-top: 3px; }
-  .fila i { width: 3px; height: 50px; background: #f6751b; border-radius: 2px; }
+  .marcas { left: 0; right: 0; top: 828px; color: #fff; }
 
-  .legal { color: rgba(255,255,255,.86); }
-  .faixa { background: linear-gradient(90deg, #d4451a 0%, #e2601b 100%); }
-  .faixa .txt { justify-content: flex-start; padding-left: 50px; color: #fff; }
-  .aba-faixa { right: 0; top: calc(var(--h) - 100px); width: 330px; height: 100px; border-radius: 22px 0 0 0; background: #fff;
-    display: flex; align-items: center; justify-content: center; }
-  .aba-faixa .logo { width: 230px; }
+  .nota { color: rgba(255,255,255,.82); }
+  .faixa { background: linear-gradient(90deg, #d9561d 0%, #e46a2a 60%, #ee7a3a 100%); }
+  .faixa .txt { justify-content: flex-start; padding-left: 56px; color: #fff; text-transform: uppercase; }
+  .aba-logo { right: 0; top: calc(var(--h) - 92px); width: 250px; height: 92px; border-radius: 22px 0 0 0; background: #fff;
+    display: flex; align-items: center; justify-content: center; box-shadow: -6px -6px 18px rgba(0,0,0,.12); }
+  .aba-logo .logo { width: 190px; }
 </style>
 </head>
 <body data-operadora="sula">
   <div class="sq">
-    <div class="ext"><img src="../assets/fotos/bp-melozi.jpg" alt=""></div>
     <div class="foto-topo"><img src="../assets/fotos/bp-melozi.jpg" alt=""><div class="veu"></div></div>
-    <p class="credito f">Foto da BP: Cecilia Melozi · CC BY-SA 4.0</p>
+    <p class="credito f">Foto: Cecilia Melozi · CC BY-SA 4.0</p>
 
-    <p class="chamada">Sua empresa protegida com a SulAmérica</p>
+    <p class="chamada">Sua empresa protegida com SulAmérica</p>
     <p class="ps">Planos de Saúde</p>
 
-    <p class="esq">Plano <b>sem coparticipação</b>, com a <b>BP</b> e o <b>São Luiz</b> na rede.</p>
+    <p class="esq">Tenha um plano <b>sem coparticipação</b> e acesso à <b>BP</b> e ao <b>São Luiz</b>.</p>
 
     <div class="card">
-      <p class="aba"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+      <p class="aba-cnpj"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
       <p class="l1"><b>3 VIDAS</b> por apenas</p>
-      <p class="preco"><span class="rs">R$</span>1.593<span class="cent">,54*</span></p>
+      <p class="preco"><span class="rs">R$</span>1.593,54<span class="cent">*</span></p>
       <p class="nota-preco"></p>
     </div>
 
-    <div class="fila">
-      <p><b>BP</b><small>Beneficência Portuguesa</small></p><i></i>
-      <p><b>São Luiz</b><small>Jabaquara · Rede D'Or</small></p><i></i>
-      <p><b>Enfermaria</b><small>Direto Nacional</small></p>
+    <div class="marcas">
+      <p class="marca-h"><b>BP</b><span>Beneficência Portuguesa</span></p><i></i>
+      <p class="marca-h"><b>São Luiz</b><span>Jabaquara</span></p>
     </div>
 
-    <p class="legal"></p>
+    <p class="nota"></p>
     <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
-    <div class="aba-faixa"><div class="logo" data-marca="sula"></div></div>
+    <div class="aba-logo"><div class="logo" data-marca="sula"></div></div>
   </div>
 
   <script type="module">
