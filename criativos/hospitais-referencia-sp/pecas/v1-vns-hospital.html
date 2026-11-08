@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>V1 · Vila Nova Star · estilo da referência 10</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* V1 — referência 10 (SulAmérica, hospital no topo): fachada real do Vila Nova Star (quadro do vídeo do banco) no
+     topo com degradê para o azul-marinho, chamada em caixa alta, tarja laranja "PLANOS DE SAÚDE", texto à esquerda
+     com o hospital em destaque, cartão branco com a aba "EXCLUSIVO PARA CNPJ/MEI" e "3 VIDAS" gigante, fila de
+     diferenciais no lugar dos logos e faixa laranja de CTA com aba branca. */
+  body { background: #0b2354; color: #fff; }
+  .sq { --fh: 500px; --fw: 1400px; --fhi: 788px; --fl: -320px; --ft: -40px; }
+  .foto-topo .veu { top: 0; height: 100%; background: linear-gradient(180deg, rgba(11,35,84,0) 0%, rgba(11,35,84,0) 42%, rgba(11,35,84,.8) 72%, #0b2354 100%); }
+
+  .chamada { left: 0; right: 0; top: 344px; text-align: center; font-family: var(--mont); font-weight: 800; font-size: 27px; letter-spacing: .05em;
+    text-transform: uppercase; }
+  .ps { left: 50%; top: 388px; transform: translateX(-50%); padding: 8px 28px 4px; border-radius: 6px; background: #f6751b; color: #0b2354;
+    font-family: var(--mont); font-weight: 900; font-size: 80px; line-height: 1; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap; }
+
+  .esq { left: 60px; top: 532px; width: 430px; font-weight: 600; font-size: 34px; line-height: 1.24; }
+  .esq b { font-family: var(--mont); font-weight: 900; color: #ff9a3d; }
+
+  .card { left: 530px; top: 544px; width: 490px; height: 178px; border-radius: 20px; background: #fff; color: #0b2354; box-shadow: 0 22px 44px rgba(0,0,0,.4); }
+  .card .aba { position: absolute; left: 50%; top: -28px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 9px 20px;
+    border-radius: 10px; background: #eb622a; color: #fff; font-family: var(--mont); font-weight: 900; font-size: 25px; white-space: nowrap; }
+  .card .aba .icone { width: 28px; height: 28px; }
+  .card .l1 { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font-weight: 600; font-size: 28px; }
+  .card .l2 { position: absolute; left: 0; right: 0; top: 66px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 96px;
+    line-height: 1; letter-spacing: -.02em; color: #e0521b; }
+
+  .fila { left: 40px; right: 40px; top: 744px; display: flex; justify-content: center; align-items: center; gap: 26px; text-align: center; }
+  .fila p b { display: block; font-family: var(--mont); font-weight: 900; font-size: 29px; line-height: 1.05; text-transform: uppercase; }
+  .fila p small { display: block; font-weight: 600; font-size: 19px; color: #c9d0ea; margin-top: 3px; }
+  .fila i { width: 3px; height: 50px; background: #f6751b; border-radius: 2px; }
+
+  .legal { color: rgba(255,255,255,.86); }
+  .faixa { background: linear-gradient(90deg, #d4451a 0%, #e2601b 100%); }
+  .faixa .txt { justify-content: flex-start; padding-left: 50px; color: #fff; }
+  .aba-faixa { right: 0; top: calc(var(--h) - 102px); width: 330px; height: 102px; border-radius: 22px 0 0 0; background: #fff; color: #0b2354;
+    padding: 18px 0 0 34px; font-family: var(--mont); font-weight: 900; font-size: 25px; line-height: 1.08; }
+</style>
+</head>
+<body data-hosp="vns">
+  <div class="sq">
+    <div class="ext"><img src="../assets/fotos/vns-fachada.jpg" alt=""></div>
+    <div class="foto-topo"><img src="../assets/fotos/vns-fachada.jpg" alt=""><div class="veu"></div></div>
+
+    <p class="chamada">Para empresários da capital de São Paulo</p>
+    <p class="ps">Planos de Saúde</p>
+
+    <p class="esq">Tenha um plano empresarial com o <b>Vila Nova Star</b> na rede.</p>
+
+    <div class="card">
+      <p class="aba"><span data-icone="maleta"></span>Exclusivo para CNPJ/MEI</p>
+      <p class="l1">a partir de</p>
+      <p class="l2">3 vidas</p>
+    </div>
+
+    <div class="fila">
+      <p><b>Pronto-socorro</b><small>em suítes individuais</small></p><i></i>
+      <p><b>Concierge</b><small>e cardápio de chef</small></p><i></i>
+      <p><b>UTI</b><small>com acompanhante</small></p>
+    </div>
+
+    <p class="legal"></p>
+    <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+    <p class="aba-faixa">Plano empresarial<br>pelo CNPJ</p>
+  </div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>

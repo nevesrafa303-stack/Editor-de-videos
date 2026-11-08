@@ -1,0 +1,57 @@
+/* Hospitais de referência em SP (Vila Nova Star e São Luiz Itaim) — estáticos na linguagem das referências 10, 14 e 16
+   do cliente (criativos/_referencias/planos-de-saude). Só fotos reais: quadros dos vídeos de hospital do banco e fotos
+   de fachada enviadas pelo cliente.
+
+   Dois formatos com o mesmo desenho:
+   - feed (1:1, 1080x1080): o quadro .sq ocupa a tela toda;
+   - story (1080x1920): o quadro começa em y=300 e ganha 70 px de altura; a foto do topo sobe até o alto da tela e a
+     faixa de CTA desce até o pé, sem texto fora da faixa y 290–1536. */
+
+@font-face { font-family: 'Mont'; font-weight: 800; src: url('../assets/fonts/Montserrat-800.ttf'); }
+@font-face { font-family: 'Mont'; font-weight: 900; src: url('../assets/fonts/Montserrat-900.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 400; src: url('../assets/fonts/Poppins-400.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; src: url('../assets/fonts/Poppins-500.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; src: url('../assets/fonts/Poppins-600.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; src: url('../assets/fonts/Poppins-700.ttf'); }
+@font-face { font-family: 'Poppins'; font-weight: 800; src: url('../assets/fonts/Poppins-800.ttf'); }
+
+:root { --mont: 'Mont', 'Poppins', sans-serif; --h: 1080px; --y0: 0px; }
+body.story { --h: 1150px; --y0: 300px; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; }
+body.story, html:has(body.story) { height: 1920px; }
+body { position: relative; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+.sq { position: absolute; left: 0; top: var(--y0); width: 1080px; height: var(--h); }
+.sq > * { position: absolute; }
+
+/* foto do topo: mesmo recorte no feed e no story. No story, a faixa de cima (y 0–300, coberta pela interface) mostra a
+   mesma foto desfocada e escurecida, e a foto nítida entra por um degradê. */
+.foto-topo { left: 0; top: 0; width: 1080px; height: var(--fh); overflow: hidden; }
+.foto-topo img { position: absolute; left: var(--fl, 0px); top: var(--ft, 0px); width: var(--fw, 100%); height: var(--fhi, 100%);
+  object-fit: cover; object-position: var(--pos, 50% 50%); display: block; }
+.foto-topo .veu { position: absolute; left: 0; right: 0; top: 0; height: 100%; }
+.ext { display: none; }
+body.story .ext { display: block; left: 0; top: -300px; width: 1080px; height: calc(300px + var(--fh)); overflow: hidden; }
+body.story .ext img { width: 100%; height: 100%; object-fit: cover; filter: blur(26px) brightness(.62) saturate(1.1); transform: scale(1.18); }
+body.story .foto-topo { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 150px); mask-image: linear-gradient(180deg, transparent 0, #000 150px); }
+
+/* foto em cartão */
+.cartao-foto { overflow: hidden; }
+.cartao-foto img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* faixa de CTA no pé (refs 10, 14, 16); no story ela desce até o fim da tela */
+.faixa { left: 0; right: 0; top: calc(var(--h) - 84px); height: 84px; }
+body.story .faixa { height: 984px; }
+.faixa .txt { position: absolute; left: 0; right: 0; top: 0; height: 84px; display: flex; align-items: center; justify-content: center; gap: 14px;
+  font-family: var(--mont); font-weight: 900; font-size: 34px; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+.faixa .txt .icone { width: 34px; height: 34px; }
+
+/* texto legal logo acima da faixa: 16 px no feed, 19 px no story (mínimos do CLAUDE.md) */
+.legal { left: 56px; right: 56px; bottom: 112px; text-align: center; font-weight: 500; font-size: 16px; line-height: 1.25; }
+body.story .legal { font-size: 19px; }
+
+.mk { padding: 0 .14em; border-radius: .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.icone { display: inline-flex; flex: none; }
+.icone svg { width: 100%; height: 100%; display: block; }

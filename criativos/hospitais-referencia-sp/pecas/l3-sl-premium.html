@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>L3 · São Luiz Itaim · estilo da referência 16</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* L3 — referência 16 (Amil Premium, Sírio-Libanês): linha premium preto + dourado. Fachada real do São Luiz Itaim com
+     o logo e o letreiro no topo (foto enviada pelo cliente), aba branca com o selo "EXCLUSIVO PARA CNPJ/MEI", título branco
+     "Seu plano de saúde com o São Luiz Itaim", cartão escuro "A PARTIR DE 3 VIDAS" + caixa dourada "PLANOS DE SAÚDE",
+     motivos separados por barras e faixa dourada de CTA. */
+  body { background: #0b0b0c; color: #fff; }
+  .sq { --fh: 450px; --pos: 50% 5%; }
+  .foto-topo .veu { background: linear-gradient(180deg, rgba(11,11,12,0) 0%, rgba(11,11,12,0) 48%, rgba(11,11,12,.75) 76%, #0b0b0c 100%); }
+  .aba { right: 0; top: 0; width: 372px; height: 118px; border-radius: 0 0 0 26px; background: #fff; color: #0b0b0c; display: flex; align-items: center;
+    gap: 12px; padding: 0 30px 0 26px; font-family: var(--mont); font-weight: 900; font-size: 25px; line-height: 1.05; text-transform: uppercase; }
+  .aba .icone { width: 46px; height: 46px; padding: 9px; border-radius: 50%; background: #0b0b0c; color: #e2c27a; }
+  body.story .aba { top: 0; }
+
+  .tit { left: 0; right: 0; top: 372px; text-align: center; font-weight: 700; font-size: 54px; line-height: 1.14; }
+  .tit b { font-family: var(--mont); font-weight: 900; color: #e9c97f; }
+
+  .oferta { left: 70px; top: 516px; width: 940px; height: 160px; }
+  .oferta .esc { position: absolute; left: 0; top: 0; width: 590px; height: 160px; border-radius: 26px; background: #1c1c1f; border: 2px solid #3a3426;
+    z-index: 2; padding: 22px 34px; }
+  .oferta .esc p:first-child { font-family: var(--mont); font-weight: 800; font-size: 30px; letter-spacing: .06em; text-transform: uppercase; color: #e9c97f; }
+  .oferta .esc p:last-child { font-family: var(--mont); font-weight: 900; font-size: 64px; line-height: 1.05; letter-spacing: -.01em; text-transform: uppercase; }
+  .oferta .ouro { position: absolute; left: 520px; top: 18px; width: 420px; height: 124px; border-radius: 0 20px 20px 0;
+    background: linear-gradient(110deg, #b8913f 0%, #e6c77e 55%, #c9a352 100%); color: #0b0b0c; padding: 0 20px 0 92px; display: flex;
+    flex-direction: column; justify-content: center; font-family: var(--mont); font-weight: 900; font-size: 28px; line-height: 1; text-transform: uppercase; }
+  .oferta .ouro small { font-size: 22px; letter-spacing: .04em; margin-top: 6px; }
+
+  .bex { left: 0; right: 0; top: 696px; text-align: center; font-family: var(--mont); font-weight: 900; font-size: 30px; text-transform: uppercase; letter-spacing: .02em; }
+  .lista { left: 70px; right: 70px; top: 738px; text-align: center; font-weight: 600; font-size: 24px; line-height: 1.4; text-transform: uppercase; color: #ece6d6; }
+  .lista i { font-style: normal; color: #e2c27a; padding: 0 2px; }
+  .lista span { white-space: nowrap; }
+
+  .legal { color: rgba(255,255,255,.78); }
+  .faixa { background: linear-gradient(90deg, #a8822f 0%, #d9b866 50%, #b8913f 100%); }
+  .faixa .txt { color: #0b0b0c; }
+</style>
+</head>
+<body data-hosp="sl">
+  <div class="sq">
+    <div class="ext"><img src="../assets/fotos/sao-luiz-itaim.jpg" alt=""></div>
+    <div class="foto-topo"><img src="../assets/fotos/sao-luiz-itaim.jpg" alt=""><div class="veu"></div></div>
+    <p class="aba"><span data-icone="maleta"></span>Exclusivo<br>para CNPJ/MEI</p>
+
+    <p class="tit">Seu plano de saúde<br>com o <b>São Luiz Itaim</b></p>
+
+    <div class="oferta">
+      <div class="esc"><p>A partir de 3 vidas</p><p>pelo CNPJ</p></div>
+      <p class="ouro">Planos de saúde<small>empresariais</small></p>
+    </div>
+
+    <p class="bex">Por que o São Luiz</p>
+    <p class="lista"><span>Pronto-socorro eleito o melhor de SP¹</span> <i>|</i> <span>Rede D'Or</span> <i>|</i> <span>Itaim, zona sul</span> <i>|</i> <span>Você, sócios e família</span></p>
+
+    <p class="legal"></p>
+    <div class="faixa"><p class="txt">Solicite sua cotação<span data-icone="seta"></span></p></div>
+  </div>
+
+  <script type="module">
+    import { montar } from './base.js';
+    await montar();
+  </script>
+</body>
+</html>
