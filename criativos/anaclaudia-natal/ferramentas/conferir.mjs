@@ -1,6 +1,7 @@
 // Confere cada peça (pecas/dados.js) nos dois formatos:
 //  - nenhuma foto ampliada: escala de exportação ≤ 1 px por px da foto (as fotos só são cortadas/reduzidas);
 //  - quanto de cada foto aparece (largura × altura), para o cenário não ser cortado demais (pedido da cliente);
+//  - contraste medido contra a foto atrás das letras, com a sombra suave da própria letra;
 //  - Story: todo texto entre y=230 e y=1536; fonte mínima 19 px (Story) e 16 px (Feed);
 //  - contraste WCAG de cada texto contra o fundo real atrás das letras (ferramentas/contraste.py).
 // Uso (na pasta do projeto): node ferramentas/conferir.mjs [filtro]
@@ -53,7 +54,8 @@ for (const p of PECAS.filter(x => x.id.includes(filtro))) {
     });
     const comTexto = path.join(tmp, `${p.id}-${fmt}-texto.png`);
     await page.screenshot({ path: comTexto });
-    await page.addStyleTag({ content: '*{color:transparent!important;text-shadow:none!important}' });
+    // a sombra suave faz parte da letra: fica no fundo medido (só a cor da letra some)
+    await page.addStyleTag({ content: '*{color:transparent!important}' });
     const fundo = path.join(tmp, `${p.id}-${fmt}.png`);
     await page.screenshot({ path: fundo });
     await page.close();

@@ -1,74 +1,41 @@
-/* Ana Claudia Clicks — Ensaio de Natal 2026.
-   Fontes escolhidas em 09/11/2026 (opção 1 da prancha): Great Vibes (caligrafia) + Cinzel (capitais romanas);
-   Montserrat só no botão. Cores de Natal: vinho, verde-escuro, marfim e dourado.
+/* Ana Claudia Clicks — Ensaio de Natal 2026 (versão 2: foto em tela cheia, faixa dourada em destaque).
+   Fontes escolhidas em 09/11/2026 (opção 1 da prancha): Great Vibes (caligrafia) + Cinzel (capitais romanas).
    REGRA DA CLIENTE: as fotos entram exatamente como enviadas. Só enquadrar (cortar) e reduzir; nada de
-   recorte, troca de fundo, IA, nitidez, filtro, retoque, degradê ou texto por cima das fotos. */
+   recorte, troca de fundo, IA, nitidez, filtro, retoque ou degradê. O texto fica só sobre o cenário, nunca
+   sobre as pessoas, e a sombra suave é da própria letra (não escurece a foto). */
 
 @font-face { font-family: 'Great Vibes'; src: url('../assets/fonts/GreatVibes-400.ttf'); }
 @font-face { font-family: 'Cinzel'; font-weight: 500; src: url('../assets/fonts/Cinzel-500.ttf'); }
 @font-face { font-family: 'Cinzel'; font-weight: 600; src: url('../assets/fonts/Cinzel-600.ttf'); }
 @font-face { font-family: 'Cinzel'; font-weight: 700; src: url('../assets/fonts/Cinzel-700.ttf'); }
-@font-face { font-family: 'Montserrat'; font-weight: 600; src: url('../assets/fonts/Montserrat-600.ttf'); }
-@font-face { font-family: 'Montserrat'; font-weight: 700; src: url('../assets/fonts/Montserrat-700.ttf'); }
 
-:root {
-  --script: 'Great Vibes', cursive;
-  --romana: 'Cinzel', serif;
-  --sans: 'Montserrat', sans-serif;
-  --ouro: #c9a45c;
-  --ouro-claro: #f1d38f;
-  --marfim: #fbf3e4;
-  --vinho: #7a010f;
-}
+:root { --script: 'Great Vibes', cursive; --romana: 'Cinzel', serif; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 1080px; overflow: hidden; }
-body { position: relative; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+/* o fundo só aparece no filete entre as fotos empilhadas */
+body { position: relative; background: #f8f2e7; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
 body.story { height: 1920px; }
 body.feed { height: 1350px; }
 
-/* ── Temas ─────────────────────────────────────────────────────────────── */
-body.vinho { background: radial-gradient(130% 75% at 50% 32%, #8e0f1c 0%, #6a0712 55%, #4a040c 100%);
-  --texto: var(--marfim); --titulo: var(--ouro-claro); --selo: var(--ouro); --linha: rgba(201,164,92,.8);
-  --cta-fundo: linear-gradient(180deg, #dcbb74 0%, #c29b50 100%); --cta-texto: #3b0208; }
-body.verde { background: radial-gradient(130% 75% at 50% 32%, #1f4a35 0%, #133325 58%, #0c2318 100%);
-  --texto: var(--marfim); --titulo: var(--ouro-claro); --selo: var(--ouro); --linha: rgba(201,164,92,.8);
-  --cta-fundo: linear-gradient(180deg, #dcbb74 0%, #c29b50 100%); --cta-texto: #0c2318; }
-body.marfim { background: radial-gradient(120% 80% at 50% 30%, #fdf9f1 0%, #f8f2e7 60%, #f0e6d3 100%);
-  --texto: #4a0710; --titulo: var(--vinho); --selo: #8a6423; --linha: rgba(160,122,53,.75);
-  --cta-fundo: var(--vinho); --cta-texto: var(--marfim); }
+.painel { position: absolute; overflow: hidden; }
+.painel img { position: absolute; display: block; max-width: none; }
 
-/* moldura fina dourada da peça inteira (nunca passa por cima das fotos: elas ficam por dentro) */
-.moldura-geral { position: absolute; inset: 22px; border: 1.5px solid var(--linha); border-radius: 18px; pointer-events: none; }
+/* ── Textos sobre o cenário ─────────────────────────────────────────────── */
+.bloco { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.escuro { --texto: #fff8ec; --titulo: #f6dc9c; --selo: #f1d38f;
+  --sombra: 0 2px 4px rgba(25,0,5,.75), 0 0 18px rgba(25,0,5,.65), 0 0 42px rgba(25,0,5,.45); }
+.claro { --texto: #5a0610; --titulo: #7a010f; --selo: #5a0610;
+  --sombra: 0 0 3px rgba(255,255,255,.95), 0 0 14px rgba(255,255,255,.9), 0 0 34px rgba(255,255,255,.7); }
+.bloco p { text-shadow: var(--sombra); }
 
-/* ── Fotos ─────────────────────────────────────────────────────────────── */
-.quadro { position: absolute; }
-.quadro .janela { position: absolute; inset: 0; overflow: hidden; }
-.quadro img { position: absolute; display: block; max-width: none; }
-.quadro.ret .janela { border-radius: 14px; }
-.quadro.ret, .quadro.arco { outline: 1.5px solid var(--linha); outline-offset: 10px; }
-.quadro.ret { border-radius: 14px; }
-.quadro.arco, .quadro.arco .janela { border-radius: var(--raio) var(--raio) 14px 14px; }
-/* foto impressa: borda branca de papel, como um porta-retrato */
-.quadro.impresso { background: #fffdf8; box-shadow: 0 20px 40px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2); }
-.quadro.impresso .janela { inset: var(--borda); }
-
-/* ── Textos ────────────────────────────────────────────────────────────── */
-.bloco { position: absolute; left: 60px; right: 60px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.selo { display: flex; align-items: center; gap: .7em; font-family: var(--romana); font-weight: 600; text-transform: uppercase;
-  letter-spacing: .32em; color: var(--selo); white-space: nowrap; }
-.selo span { padding-left: .32em; }
-.selo svg { width: .9em; height: .9em; fill: var(--selo); flex: none; }
-.caps { font-family: var(--romana); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; line-height: 1.12; color: var(--texto); }
-.script { font-family: var(--script); font-weight: 400; line-height: 1.02; color: var(--titulo); padding: 0 .12em; }
-.apoio { font-family: var(--romana); font-weight: 600; line-height: 1.3; color: var(--texto); }
-.divisor { display: block; color: var(--selo); }
-.cta { display: inline-flex; align-items: center; gap: .6em; border-radius: 999px; background: var(--cta-fundo); color: var(--cta-texto);
-  font-family: var(--sans); font-weight: 700; text-transform: uppercase; letter-spacing: .14em; white-space: nowrap; }
-.cta svg { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-
-/* rótulos embaixo das fotos (peça "Dois cenários") */
-.rotulos { position: absolute; display: flex; align-items: center; }
-.rotulos .rot { font-family: var(--romana); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--texto);
-  text-align: center; line-height: 1.2; }
-.rotulos .ou { font-family: var(--script); color: var(--titulo); text-align: center; line-height: 1; }
+/* Faixa "Ensaio de Natal 2026": fita dourada com as pontas recortadas, letra vinho (o destaque da peça) */
+.faixa { position: absolute; display: flex; justify-content: center; filter: drop-shadow(0 6px 14px rgba(30,0,6,.45)); }
+.faixa p { display: block; padding: .52em 1.75em .46em; white-space: nowrap;
+  font-family: var(--romana); font-weight: 700; text-transform: uppercase; letter-spacing: .14em; line-height: 1; color: #4a040c;
+  background: linear-gradient(180deg, #f3dc9f 0%, #dcb769 48%, #c29545 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - .8em) 50%, 100% 100%, 0 100%, .8em 50%); }
+.faixa span { padding-left: .14em; }
+.caps { font-family: var(--romana); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; line-height: 1.1; color: var(--texto); }
+.script { font-family: var(--script); font-weight: 400; line-height: 1.04; color: var(--titulo); padding: 0 .14em; }
+.rot { font-family: var(--romana); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--texto); white-space: nowrap; }

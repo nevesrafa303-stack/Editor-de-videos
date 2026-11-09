@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="base.css">
 </head>
 <body>
-  <div class="moldura-geral"></div>
   <script type="module">
     // Monta a peça ?p=<id> no formato #story ou #feed a partir de dados.js e avisa o render (window.__ready).
     // Conteúdo fixo do projeto (sem entrada externa).
@@ -16,83 +15,54 @@
     const id = new URLSearchParams(location.search).get('p');
     const p = PECAS.find(x => x.id === id) || PECAS[0];
     const L = p[fmt], T = TAMANHOS[fmt];
-    document.body.classList.add(fmt, p.tema);
+    document.body.classList.add(fmt);
 
-    const estrela = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0C10.9 6.2 13.8 9.1 20 10C13.8 10.9 10.9 13.8 10 20C9.1 13.8 6.2 10.9 0 10C6.2 9.1 9.1 6.2 10 0Z"/></svg>';
-    const seta = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
-    const divisor = w => `<svg class="divisor" width="${w}" height="${w * .07}" viewBox="0 0 300 21" aria-hidden="true">
-      <path d="M0 10.5H125M175 10.5H300" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M150 0C151.2 7.6 152.9 9.3 160.5 10.5C152.9 11.7 151.2 13.4 150 21C148.8 13.4 147.1 11.7 139.5 10.5C147.1 9.3 148.8 7.6 150 0Z" fill="currentColor"/>
-      <circle cx="132" cy="10.5" r="2" fill="currentColor"/><circle cx="168" cy="10.5" r="2" fill="currentColor"/></svg>`;
+    // fotos: só corte e redução (nunca amplia)
+    window.__escalas = [];
+    const X = 2; // fator de exportação
+    for (const q of L.paineis) {
+      const m = document.createElement('div');
+      m.className = 'painel';
+      Object.assign(m.style, { left: `${q.x}px`, top: `${q.y}px`, width: `${q.w}px`, height: `${q.h}px` });
+      const img = new Image(); img.alt = ''; img.src = `../assets/fotos/${q.foto}.jpg`;
+      m.appendChild(img); document.body.appendChild(m);
+      await img.decode();
+      const nw = img.naturalWidth, nh = img.naturalHeight;
+      const escala = Math.max(q.w * X / nw, q.h * X / nh) * (q.z ?? 1);  // menor escala que cobre a janela (z: aproximar)
+      const w = nw * escala / X, h = nh * escala / X;
+      const left = Math.min(0, Math.max(q.w - w, q.w / 2 - (q.fx ?? .5) * w));
+      const top = Math.min(0, Math.max(q.h - h, q.h / 2 - (q.fy ?? .5) * h));
+      Object.assign(img.style, { width: `${w}px`, height: `${h}px`, left: `${left}px`, top: `${top}px` });
+      // quanto da foto aparece (para conferir que o cenário não foi cortado demais)
+      window.__escalas.push({ foto: q.foto, escala: +escala.toFixed(3), mostra: [+(q.w / w).toFixed(2), +(q.h / h).toFixed(2)] });
+    }
 
-    // textos
-    for (const b of L.blocos) {
+    // faixa dourada "Ensaio de Natal 2026" (em destaque, pedido de 09/11/2026)
+    if (L.faixa) {
+      const f = L.faixa, el = document.createElement('div');
+      el.className = 'faixa';
+      Object.assign(el.style, { left: `${f.x ?? 0}px`, width: `${f.w ?? 1080}px`, top: `${f.top}px` });
+      el.innerHTML = `<p style="font-size:${f.fs ?? T.faixa}px"><span>${SELO}</span></p>`;
+      document.body.appendChild(el);
+    }
+
+    // textos (por cima do cenário, nunca das pessoas)
+    for (const b of L.textos) {
       const el = document.createElement('div');
-      el.className = 'bloco'; el.style.top = `${b.top}px`;
+      el.className = `bloco ${b.tom}`;
+      Object.assign(el.style, { left: `${b.x}px`, width: `${b.w}px`, top: `${b.top}px` });
       for (const [tipo, texto = '', o = {}] of b.itens) {
-        const fs = o.fs ?? T[tipo];
-        let html;
-        if (tipo === 'selo') html = `<p class="selo">${estrela}<span>${SELO}</span>${estrela}</p>`;
-        else if (tipo === 'divisor') html = divisor(fmt === 'story' ? 300 : 240);
-        else if (tipo === 'cta') html = `<p class="cta">${texto}${seta}</p>`;
-        else html = `<p class="${tipo}">${texto}</p>`;
-        const t = document.createElement('template'); t.innerHTML = html.trim();
+        const t = document.createElement('template');
+        t.innerHTML = `<p class="${tipo}">${texto}</p>`;
         const n = t.content.firstElementChild;
-        if (fs) n.style.fontSize = `${fs}px`;
-        if (tipo === 'cta') n.style.padding = fmt === 'story' ? '20px 36px' : '16px 30px';
+        n.style.fontSize = `${o.fs ?? T[tipo]}px`;
         if (o.mt !== undefined) n.style.marginTop = `${o.mt}px`;
-        else if (n !== null && el.children.length) n.style.marginTop = '14px';
         el.appendChild(n);
       }
       document.body.appendChild(el);
     }
 
-    // rótulos embaixo das fotos ("Veludo vermelho" ou "Casinha do Papai Noel")
-    if (L.rotulos) {
-      const r = L.rotulos, el = document.createElement('div');
-      el.className = 'rotulos';
-      Object.assign(el.style, { left: `${r.x}px`, top: `${r.top}px`, width: `${r.w}px` });
-      el.innerHTML = `<p class="rot" style="width:${r.col}px;font-size:${r.fs}px">${r.itens[0]}</p>`
-        + `<p class="ou" style="width:${r.gap}px;font-size:${r.ou}px">ou</p>`
-        + `<p class="rot" style="width:${r.col}px;font-size:${r.fs}px">${r.itens[1]}</p>`;
-      document.body.appendChild(el);
-    }
-
-    // enfeite dourado na faixa de baixo do Story (fica sob o botão do anúncio; não leva texto)
-    if (L.ornamento) {
-      const t = document.createElement('template'); t.innerHTML = divisor(420).trim();
-      const o = t.content.firstElementChild;
-      Object.assign(o.style, { position: 'absolute', left: '330px', top: `${L.ornamento}px`, opacity: .8 });
-      document.body.appendChild(o);
-    }
-
-    // fotos: só corte e redução (nunca amplia)
-    window.__escalas = [];
-    const X = 2; // fator de exportação
-    for (const q of L.fotos) {
-      const m = document.createElement('div');
-      m.className = `quadro ${q.forma}`;
-      Object.assign(m.style, { left: `${q.x}px`, top: `${q.y}px`, width: `${q.w}px`, height: `${q.h}px` });
-      const b = q.forma === 'impresso' ? (q.borda ?? 16) : 0;
-      m.style.setProperty('--borda', `${b}px`);
-      if (q.forma === 'arco') m.style.setProperty('--raio', `${q.w / 2}px`);
-      const jan = document.createElement('div'); jan.className = 'janela';
-      const img = new Image(); img.alt = ''; img.src = `../assets/fotos/${q.foto}.jpg`;
-      jan.appendChild(img); m.appendChild(jan); document.body.appendChild(m);
-      await img.decode();
-      const jw = q.w - 2 * b, jh = q.h - 2 * b, nw = img.naturalWidth, nh = img.naturalHeight;
-      const escala = Math.max(jw * X / nw, jh * X / nh);        // menor escala que cobre a janela
-      const w = nw * escala / X, h = nh * escala / X;
-      const left = Math.min(0, Math.max(jw - w, jw / 2 - (q.fx ?? .5) * w));
-      const top = Math.min(0, Math.max(jh - h, jh / 2 - (q.fy ?? .5) * h));
-      Object.assign(img.style, { width: `${w}px`, height: `${h}px`, left: `${left}px`, top: `${top}px` });
-      // quanto da foto aparece (para conferir que o cenário não foi cortado demais)
-      window.__escalas.push({ foto: q.foto, escala: +escala.toFixed(3),
-        mostra: [+(jw / w).toFixed(2), +(jh / h).toFixed(2)] });
-    }
-
-    await Promise.all(['400 40px "Great Vibes"', '500 20px Cinzel', '600 20px Cinzel', '700 20px Cinzel',
-      '600 20px Montserrat', '700 20px Montserrat'].map(f => document.fonts.load(f)));
+    await Promise.all(['400 40px "Great Vibes"', '700 20px Cinzel'].map(f => document.fonts.load(f)));
     await document.fonts.ready;
     window.__ready = true;
   </script>
