@@ -1,0 +1,68 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+#b2-root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;}
+.b2-full{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0.1em 0.04em 0.06em;margin:-0.1em -0.04em -0.06em;}
+.wi{display:inline-block;}
+.ln{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;}
+.vw{position:absolute;overflow:hidden;}
+.vw video,.vw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block;}
+.roll{display:inline-flex;overflow:hidden;vertical-align:top;font-variant-numeric:tabular-nums;}
+.rd{display:inline-block;overflow:hidden;}
+.rs{display:flex;flex-direction:column;text-align:center;}
+.rs span{display:block;}
+.rc{display:inline-block;}
+
+#b2-root{font-family:"Poppins",Arial,sans-serif;color:#fff;background:radial-gradient(90% 55% at 50% 46%,#0E1F3E,#050A16 72%);}
+.sa{font-family:"Saira",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1;}
+.am{color:#FFC23D;}
+.cy{color:#3AD0FF;}
+.legal{position:absolute;left:80px;width:920px;top:1450px;text-align:center;font-size:20px;line-height:1.4;color:rgba(255,255,255,.9);}
+.stage{position:absolute;left:0;top:0;width:1080px;height:1920px;perspective:1500px;perspective-origin:50% 46%;}
+.p3{position:absolute;transform-style:preserve-3d;}
+.floor{position:absolute;left:-1100px;top:1180px;width:3280px;height:2600px;transform-origin:50% 0;transform:rotateX(80deg);
+  background-image:linear-gradient(rgba(58,208,255,.55) 3px,transparent 3px),linear-gradient(90deg,rgba(58,208,255,.55) 3px,transparent 3px);
+  background-size:130px 130px;-webkit-mask-image:radial-gradient(60% 55% at 50% 0%,#000 0%,transparent 100%);mask-image:radial-gradient(60% 55% at 50% 0%,#000 0%,transparent 100%);opacity:.5;}
+.halo{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(58,208,255,.35),rgba(58,208,255,0));}
+.x3{position:relative;display:inline-block;transform-style:preserve-3d;white-space:nowrap;}
+.x3 .ly{position:absolute;left:0;top:0;white-space:nowrap;}
+.x3 .fr{position:relative;display:inline-block;text-shadow:0 0 30px rgba(58,208,255,.35);}
+.panel{position:absolute;border-radius:30px;overflow:hidden;border:6px solid rgba(255,255,255,.95);box-shadow:0 40px 90px rgba(0,0,0,.6);background:#000;}
+.panel .vw{position:absolute;inset:0;}
+.panel .nm{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;}
+.panel .nm span{padding:8px 22px;border-radius:30px;background:#fff;color:#0B1E3D;font-family:"Saira";font-weight:800;font-size:36px;text-transform:uppercase;white-space:nowrap;box-shadow:0 10px 24px rgba(0,0,0,.45);}
+.tag{display:inline-flex;align-items:center;gap:12px;padding:10px 26px 10px 14px;border-radius:44px;background:#fff;color:#0B1E3D;font-family:"Saira";font-weight:800;font-size:40px;text-transform:uppercase;white-space:nowrap;box-shadow:0 14px 30px rgba(0,0,0,.45);}
+.tag .ck{width:52px;height:52px;border-radius:50%;background:#0B1E3D;display:flex;align-items:center;justify-content:center;}
+
+#b2-g{left:0;top:0;width:1080px;height:1920px;}
+#b2-pa{left:80px;top:560px;width:920px;height:520px;}
+#b2-pb{left:560px;top:930px;width:440px;height:290px;}
+#b2-t{top:1262px;font-size:86px;}
+#b2-lg{top:1452px;}</style>
+<div id="b2-root" data-composition-id="b2" data-start="0" data-duration="1.343" data-width="1080" data-height="1920"><div class="stage" id="b2-st"><div class="floor" id="b2-fl" data-layout-allow-overflow aria-hidden="true"></div>
+    <div class="p3" id="b2-g">
+      <div class="panel" id="b2-pa"><div class="vw" data-layout-allow-overflow><video id="b2-va" class="clip" src="assets/video/a_ultrassom.mp4" muted playsinline data-start="0" data-duration="1.343"></video></div></div>
+      <div class="panel" id="b2-pb"><div class="vw" data-layout-allow-overflow><video id="b2-vb" class="clip" src="assets/video/a_esteira.mp4" muted playsinline data-start="0" data-duration="1.343"></video></div></div>
+    </div>
+  </div>
+  <div id="b2-t" class="ln sa"><span class="w"><span class="wi" id="b2a0">check-up</span></span> <span class="w"><span class="wi" id="b2a1">e</span></span> <span class="w"><span class="wi" id="b2a2">exames</span></span></div>
+  <div id="b2-lg" class="legal">Cobertura e rede sujeitas à modalidade contratada. Imagem meramente ilustrativa.</div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#b2-fl",{backgroundPosition:"0px 0px"},{backgroundPosition:"0px 1040px",duration:1.343,ease:"none"},0);
+tl.fromTo("#b2-pa",{x:700,z:-500,rotationY:-55,rotationX:10,opacity:0},{x:0,z:0,rotationY:-14,rotationX:8,opacity:1,duration:0.45,ease:"power3.out"},0);
+tl.to("#b2-pa",{rotationY:-6,duration:0.893,ease:"sine.inOut"},0.45);
+tl.fromTo("#b2-pb",{x:600,z:300,rotationY:-40,opacity:0},{x:0,z:160,rotationY:-18,opacity:1,duration:0.42,ease:"back.out(1.4)"},0.18);
+tl.fromTo("#b2-t",{scale:0.7,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},0.1);
+window.__timelines["b2"] = tl;
+})();
+</script>
+</template>

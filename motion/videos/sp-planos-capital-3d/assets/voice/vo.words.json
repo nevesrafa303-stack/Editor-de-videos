@@ -1,0 +1,587 @@
+[
+ {
+  "word": "Com",
+  "start": 0.225,
+  "end": 0.245
+ },
+ {
+  "word": "CNPJ",
+  "start": 0.391,
+  "end": 1.264
+ },
+ {
+  "word": "ou",
+  "start": 1.336,
+  "end": 1.409
+ },
+ {
+  "word": "MEI,",
+  "start": 1.555,
+  "end": 1.991
+ },
+ {
+  "word": "você",
+  "start": 2.064,
+  "end": 2.209
+ },
+ {
+  "word": "pode",
+  "start": 2.245,
+  "end": 2.427
+ },
+ {
+  "word": "ter",
+  "start": 2.5,
+  "end": 2.718
+ },
+ {
+  "word": "Einstein,",
+  "start": 2.791,
+  "end": 3.373
+ },
+ {
+  "word": "Sírio-Libanês",
+  "start": 3.409,
+  "end": 4.173
+ },
+ {
+  "word": "e",
+  "start": 4.209,
+  "end": 4.245
+ },
+ {
+  "word": "Vila",
+  "start": 4.391,
+  "end": 4.609
+ },
+ {
+  "word": "Nova",
+  "start": 4.718,
+  "end": 4.827
+ },
+ {
+  "word": "Star",
+  "start": 4.9,
+  "end": 5.191
+ },
+ {
+  "word": "no",
+  "start": 5.227,
+  "end": 5.264
+ },
+ {
+  "word": "seu",
+  "start": 5.336,
+  "end": 5.482
+ },
+ {
+  "word": "plano",
+  "start": 5.518,
+  "end": 5.7
+ },
+ {
+  "word": "de",
+  "start": 5.773,
+  "end": 5.845
+ },
+ {
+  "word": "saúde.",
+  "start": 5.918,
+  "end": 6.427
+ },
+ {
+  "word": "E",
+  "start": 6.694,
+  "end": 6.718
+ },
+ {
+  "word": "não,",
+  "start": 6.791,
+  "end": 7.155
+ },
+ {
+  "word": "isso",
+  "start": 7.227,
+  "end": 7.445
+ },
+ {
+  "word": "não",
+  "start": 7.518,
+  "end": 7.736
+ },
+ {
+  "word": "é",
+  "start": 7.809,
+  "end": 7.882
+ },
+ {
+  "word": "só",
+  "start": 7.918,
+  "end": 8.027
+ },
+ {
+  "word": "pra",
+  "start": 8.1,
+  "end": 8.173
+ },
+ {
+  "word": "milionário:",
+  "start": 8.209,
+  "end": 8.973
+ },
+ {
+  "word": "a",
+  "start": 9.009,
+  "end": 9.045
+ },
+ {
+  "word": "partir",
+  "start": 9.118,
+  "end": 9.336
+ },
+ {
+  "word": "de",
+  "start": 9.409,
+  "end": 9.555
+ },
+ {
+  "word": "três",
+  "start": 9.627,
+  "end": 9.845
+ },
+ {
+  "word": "vidas,",
+  "start": 9.918,
+  "end": 10.355
+ },
+ {
+  "word": "empresário",
+  "start": 10.464,
+  "end": 11.009
+ },
+ {
+  "word": "e",
+  "start": 11.045,
+  "end": 11.082
+ },
+ {
+  "word": "MEI",
+  "start": 11.155,
+  "end": 11.373
+ },
+ {
+  "word": "já",
+  "start": 11.445,
+  "end": 11.591
+ },
+ {
+  "word": "podem",
+  "start": 11.664,
+  "end": 11.955
+ },
+ {
+  "word": "contratar.",
+  "start": 12.064,
+  "end": 12.609
+ },
+ {
+  "word": "A",
+  "start": 12.815,
+  "end": 12.827
+ },
+ {
+  "word": "gente",
+  "start": 12.9,
+  "end": 13.045
+ },
+ {
+  "word": "compara",
+  "start": 13.118,
+  "end": 13.482
+ },
+ {
+  "word": "as",
+  "start": 13.555,
+  "end": 13.627
+ },
+ {
+  "word": "principais",
+  "start": 13.664,
+  "end": 14.136
+ },
+ {
+  "word": "operadoras",
+  "start": 14.209,
+  "end": 14.718
+ },
+ {
+  "word": "de",
+  "start": 14.755,
+  "end": 14.791
+ },
+ {
+  "word": "São",
+  "start": 14.864,
+  "end": 14.936
+ },
+ {
+  "word": "Paulo:",
+  "start": 15.082,
+  "end": 15.664
+ },
+ {
+  "word": "Amil,",
+  "start": 15.773,
+  "end": 16.173
+ },
+ {
+  "word": "Bradesco",
+  "start": 16.209,
+  "end": 16.609
+ },
+ {
+  "word": "Saúde,",
+  "start": 16.682,
+  "end": 17.191
+ },
+ {
+  "word": "SulAmérica,",
+  "start": 17.264,
+  "end": 18.136
+ },
+ {
+  "word": "Porto,",
+  "start": 18.209,
+  "end": 18.718
+ },
+ {
+  "word": "Omint,",
+  "start": 18.791,
+  "end": 19.445
+ },
+ {
+  "word": "Alice…",
+  "start": 19.518,
+  "end": 20.245
+ },
+ {
+  "word": "e",
+  "start": 20.282,
+  "end": 20.318
+ },
+ {
+  "word": "muito",
+  "start": 20.464,
+  "end": 20.755
+ },
+ {
+  "word": "mais.",
+  "start": 20.827,
+  "end": 21.264
+ },
+ {
+  "word": "Com",
+  "start": 21.615,
+  "end": 21.627
+ },
+ {
+  "word": "um",
+  "start": 21.7,
+  "end": 21.736
+ },
+ {
+  "word": "plano",
+  "start": 21.773,
+  "end": 21.991
+ },
+ {
+  "word": "empresarial,",
+  "start": 22.064,
+  "end": 22.718
+ },
+ {
+  "word": "você",
+  "start": 22.791,
+  "end": 22.936
+ },
+ {
+  "word": "tem",
+  "start": 23.009,
+  "end": 23.082
+ },
+ {
+  "word": "acesso",
+  "start": 23.191,
+  "end": 23.445
+ },
+ {
+  "word": "aos",
+  "start": 23.518,
+  "end": 23.591
+ },
+ {
+  "word": "melhores",
+  "start": 23.664,
+  "end": 24.173
+ },
+ {
+  "word": "hospitais",
+  "start": 24.209,
+  "end": 24.609
+ },
+ {
+  "word": "da",
+  "start": 24.645,
+  "end": 24.682
+ },
+ {
+  "word": "cidade,",
+  "start": 24.755,
+  "end": 25.336
+ },
+ {
+  "word": "check-up",
+  "start": 25.409,
+  "end": 25.845
+ },
+ {
+  "word": "e",
+  "start": 25.882,
+  "end": 25.918
+ },
+ {
+  "word": "exames,",
+  "start": 26.027,
+  "end": 26.573
+ },
+ {
+  "word": "telemedicina",
+  "start": 26.682,
+  "end": 27.3
+ },
+ {
+  "word": "vinte",
+  "start": 27.445,
+  "end": 27.664
+ },
+ {
+  "word": "e",
+  "start": 27.7,
+  "end": 27.736
+ },
+ {
+  "word": "quatro",
+  "start": 27.773,
+  "end": 27.955
+ },
+ {
+  "word": "horas…",
+  "start": 28.1,
+  "end": 28.682
+ },
+ {
+  "word": "e,",
+  "start": 28.755,
+  "end": 28.973
+ },
+ {
+  "word": "pra",
+  "start": 29.009,
+  "end": 29.045
+ },
+ {
+  "word": "quem",
+  "start": 29.118,
+  "end": 29.264
+ },
+ {
+  "word": "vive",
+  "start": 29.336,
+  "end": 29.482
+ },
+ {
+  "word": "viajando",
+  "start": 29.555,
+  "end": 29.918
+ },
+ {
+  "word": "a",
+  "start": 29.943,
+  "end": 29.966
+ },
+ {
+  "word": "trabalho,",
+  "start": 29.991,
+  "end": 30.573
+ },
+ {
+  "word": "cobertura",
+  "start": 30.645,
+  "end": 31.009
+ },
+ {
+  "word": "nacional",
+  "start": 31.155,
+  "end": 31.736
+ },
+ {
+  "word": "e",
+  "start": 31.809,
+  "end": 31.882
+ },
+ {
+  "word": "até",
+  "start": 31.991,
+  "end": 32.173
+ },
+ {
+  "word": "seguro",
+  "start": 32.245,
+  "end": 32.536
+ },
+ {
+  "word": "viagem,",
+  "start": 32.609,
+  "end": 33.009
+ },
+ {
+  "word": "dependendo",
+  "start": 33.045,
+  "end": 33.409
+ },
+ {
+  "word": "do",
+  "start": 33.482,
+  "end": 33.555
+ },
+ {
+  "word": "plano.",
+  "start": 33.627,
+  "end": 34.064
+ },
+ {
+  "word": "Pra",
+  "start": 34.27,
+  "end": 34.355
+ },
+ {
+  "word": "você,",
+  "start": 34.427,
+  "end": 34.936
+ },
+ {
+  "word": "seus",
+  "start": 35.009,
+  "end": 35.227
+ },
+ {
+  "word": "sócios",
+  "start": 35.3,
+  "end": 35.664
+ },
+ {
+  "word": "e",
+  "start": 35.736,
+  "end": 35.773
+ },
+ {
+  "word": "a",
+  "start": 35.809,
+  "end": 35.882
+ },
+ {
+  "word": "sua",
+  "start": 35.955,
+  "end": 36.1
+ },
+ {
+  "word": "família,",
+  "start": 36.173,
+  "end": 36.827
+ },
+ {
+  "word": "tudo",
+  "start": 36.9,
+  "end": 37.118
+ },
+ {
+  "word": "pelo",
+  "start": 37.191,
+  "end": 37.409
+ },
+ {
+  "word": "CNPJ.",
+  "start": 37.482,
+  "end": 38.355
+ },
+ {
+  "word": "Clica",
+  "start": 38.634,
+  "end": 38.791
+ },
+ {
+  "word": "no",
+  "start": 38.864,
+  "end": 38.936
+ },
+ {
+  "word": "link,",
+  "start": 39.009,
+  "end": 39.445
+ },
+ {
+  "word": "preenche",
+  "start": 39.518,
+  "end": 39.809
+ },
+ {
+  "word": "o",
+  "start": 39.834,
+  "end": 39.857
+ },
+ {
+  "word": "formulário",
+  "start": 39.882,
+  "end": 40.391
+ },
+ {
+  "word": "e",
+  "start": 40.464,
+  "end": 40.536
+ },
+ {
+  "word": "receba",
+  "start": 40.609,
+  "end": 40.864
+ },
+ {
+  "word": "as",
+  "start": 40.9,
+  "end": 40.973
+ },
+ {
+  "word": "melhores",
+  "start": 41.045,
+  "end": 41.482
+ },
+ {
+  "word": "opções",
+  "start": 41.555,
+  "end": 41.918
+ },
+ {
+  "word": "pro",
+  "start": 41.991,
+  "end": 42.064
+ },
+ {
+  "word": "seu",
+  "start": 42.1,
+  "end": 42.209
+ },
+ {
+  "word": "perfil.",
+  "start": 42.427,
+  "end": 42.864
+ }
+]

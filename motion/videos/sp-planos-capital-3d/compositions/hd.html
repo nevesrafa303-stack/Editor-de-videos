@@ -1,0 +1,29 @@
+<template>
+<style>@font-face{font-family:"Saira";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Mont";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}#hd-root{position:absolute;inset:0;width:1080px;height:1920px;pointer-events:none;}
+#hd-band{position:absolute;left:0;width:1080px;top:250px;display:flex;justify-content:center;}
+#hd-band>div{padding:12px 40px 14px;border-radius:12px;background:#FFC23D;color:#0B1E3D;font-family:"Mont";font-weight:900;font-size:54px;line-height:1;letter-spacing:.02em;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+#hd-seal{position:absolute;left:0;width:1080px;top:348px;display:flex;justify-content:center;}
+#hd-seal>div{display:flex;align-items:center;gap:14px;padding:10px 30px 10px 12px;border-radius:60px;background:#fff;color:#0B1E3D;font-family:"Mont";font-weight:900;font-size:38px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+#hd-seal .sh{width:56px;height:56px;border-radius:50%;background:#0B1E3D;display:flex;align-items:center;justify-content:center;}
+#hd-sub{position:absolute;left:0;width:1080px;top:438px;display:flex;justify-content:center;}
+#hd-sub>div{padding:6px 22px;border-radius:26px;background:rgba(5,9,15,.85);border:2px solid rgba(255,194,61,.6);font-family:"Poppins";font-weight:600;font-size:26px;color:#fff;white-space:nowrap;}</style>
+<div id="hd-root" data-composition-id="hd" data-start="0" data-duration="38.574" data-width="1080" data-height="1920"><div id="hd-band"><div>PLANOS DE SAÚDE</div></div>
+  <div id="hd-seal"><div><div class="sh"><svg viewBox="0 0 48 48" width="36" height="36" fill="none" stroke="#FFC23D" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10"/></svg></div><span>EXCLUSIVO PARA CNPJ/MEI</span></div></div>
+  <div id="hd-sub"><div>a partir de 3 vidas · capital de São Paulo</div></div>
+</div>
+<script>
+(function(){
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#hd-seal",{scale:1},{scale:1.08,duration:0.18,yoyo:true,repeat:1,ease:"power2.out"},0.391);
+tl.fromTo("#hd-seal",{scale:1},{scale:1.08,duration:0.18,yoyo:true,repeat:1,ease:"power2.out",immediateRender:false},11.155);
+tl.fromTo("#hd-seal",{scale:1},{scale:1.08,duration:0.18,yoyo:true,repeat:1,ease:"power2.out",immediateRender:false},37.482);
+window.__timelines["hd"] = tl;
+})();
+</script>
+</template>
