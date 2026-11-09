@@ -14,7 +14,7 @@ Pedidos da LAKS em 09/11/2026 sobre a versão 1 (fundo liso com as fotos em quad
 - **"Está muito genérico, use as imagens em destaque, em todo o criativo":**
   - a foto agora ocupa a peça inteira;
   - na Neve e nos Dois cenários, são 2 ou 3 fotos empilhadas, separadas por um filete marfim;
-  - o texto fica direto sobre o cenário (cortina, árvore, parede da casinha), nunca sobre as pessoas.
+  - o texto fica direto sobre o cenário (cortina, árvore, parede da Varanda de Natal), nunca sobre as pessoas.
 - **"Destaque mais a frase Ensaio de Natal 2026":** a frase virou uma faixa dourada grande, como uma fita com as
   pontas recortadas e letra vinho. É o primeiro elemento de todas as peças.
 - **Menos texto na imagem, para a foto aparecer mais:**
@@ -22,7 +22,8 @@ Pedidos da LAKS em 09/11/2026 sobre a versão 1 (fundo liso com as fotos em quad
   - a frase de apoio e o "Agende seu ensaio de Natal" foram para o texto do anúncio e para o botão "Enviar mensagem"
     do Meta, que aparece embaixo de toda peça.
 
-A versão 1 está no histórico do git (commit `56ff63a`).
+**Versão 1 (fundo liso com as fotos em quadros):** as 12 imagens estão em `final/_v1/`, já com o nome "Varanda de
+Natal". Foram geradas a partir do commit `56ff63a`, só com a troca do nome. O código dela está no histórico do git.
 
 ## Pedidos da cliente (WhatsApp, 09/11/2026)
 
@@ -30,6 +31,8 @@ A versão 1 está no histórico do git (commit `56ff63a`).
 - **Sem valores:** "Não quero valores / Porque estamos trocando os lotes". Nenhuma peça tem preço.
 - **Sem logo**, em Story e Feed (LAKS, 09/11/2026).
 - **Botão do anúncio:** "Enviar mensagem", para o WhatsApp.
+- **Nome do cenário:** "Varanda de Natal", como está no catálogo do estúdio, e não "Casinha do Papai Noel" (Carol,
+  09/11/2026). Trocado nas peças, nos rótulos e nos textos do Meta dos dois conjuntos.
 - **Autorização de imagem:** as famílias autorizaram o uso das fotos em anúncio (confirmado pela LAKS em 09/11/2026).
 
 ## Fotos: só corte e redução
@@ -61,18 +64,18 @@ quanto dela aparece. A tela cheia corta um pouco:
 | Peça | Título (*itálico* = Great Vibes) | Story | Feed |
 |---|---|---|---|
 | `n1-veludo` | O Natal da sua família, *eternizado* | ANA_9127; título na cortina, à direita, acima do pai | ANA_9127 |
-| `n2-casinha` | Bem-vindos à *Casinha do Papai Noel* | ANA_9214; título na parede da casinha, acima da família | ANA_9214 |
+| `n2-varanda` | Bem-vindos à *Varanda de Natal* | ANA_9214; título na parede da varanda, acima da família | ANA_9214 |
 | `n3-cartinha` | *A cartinha para o Papai Noel* vira lembrança para a vida toda | ANA_9178; título na árvore, acima da menina | ANA_9363 |
 | `n4-neve` | *Neve caindo* e sorrisos de verdade | ANA_9209, ANA_9265 e ANA_9215 empilhadas; título nas árvores nevadas, ao lado da menina | ANA_9265 + ANA_9209 |
 | `n5-familia` | O melhor presente *é estar na foto* | ANA_9320; título na cortina e na guirlanda | ANA_9320 |
-| `n6-cenarios` | *Dois cenários de Natal*: escolha o seu | ANA_9359 (rótulo "Veludo vermelho") + ANA_9390 (rótulo "Casinha do Papai Noel") | idem |
+| `n6-cenarios` | *Dois cenários de Natal*: escolha o seu | ANA_9359 (rótulo "Veludo vermelho") + ANA_9390 (rótulo "Varanda de Natal") | idem |
 
 ### Fotos usadas e deixadas de fora
 
 - **ANA_9390 no lugar do PNG "Retrato Familiar Natalino com Janela Iluminada":** o PNG parece uma versão editada
   dela (janela acesa), então entrou a original.
 - **`vss.png` ficou de fora:** tem só 1502×1047 px e precisaria ser ampliada.
-- **ANA_9214 na Casinha:** tem parede livre acima da família, onde o título cabe sem cobrir ninguém.
+- **ANA_9214 na Varanda de Natal:** tem parede livre acima da família, onde o título cabe sem cobrir ninguém.
 - **Não usadas nesta versão:** ANA_9135, ANA_9355, ANA_9405, ANA_9464 e ANA_9466. Nelas não sobra cenário livre
   para o texto em tela cheia.
 

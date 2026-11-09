@@ -4,7 +4,7 @@
 // Pedidos de 09/11/2026:
 //   "está muito genérico, use as imagens em destaque, em todo o criativo": a foto ocupa a peça inteira (ou 2–3 fotos
 //     empilhadas, separadas por um filete marfim) e o texto fica direto sobre o CENÁRIO (cortina, árvore, parede da
-//     casinha), nunca sobre as pessoas. Na imagem: selo + título; o "Agende" vai no botão do anúncio (Enviar mensagem).
+//     Varanda de Natal), nunca sobre as pessoas. Na imagem: selo + título; o "Agende" vai no botão do anúncio (Enviar mensagem).
 //   "Destaque mais a frase Ensaio de Natal 2026": o selo virou uma faixa dourada (fita com as pontas recortadas).
 //
 // paineis: janela de cada foto em px da peça (exportada em 2x). A foto só é cortada e reduzida: preenche a janela
@@ -40,19 +40,20 @@ export const PECAS = [
         ['caps', 'O Natal da<br>sua família,', { fs: 48 }], ['script', 'eternizado', { fs: 118, mt: -6 }]] }],
     } },
 
-  // 2 · Casinha do Papai Noel — faixa e título na parede da casinha, acima da família.
-  { id: 'n2-casinha', fotos: ['ANA_9214'],
+  // 2 · Varanda de Natal — faixa e título na parede da varanda, acima da família.
+  //   Nome do cenário no catálogo do estúdio (Carol, 09/11/2026): "Varanda de Natal", e não "Casinha do Papai Noel".
+  { id: 'n2-varanda', fotos: ['ANA_9214'],
     story: {
       paineis: [tela('ANA_9214')],
       faixa: { top: 248 },
       textos: [{ x: 60, w: 960, top: 346, tom: 'claro', itens: [
-        ['caps', 'Bem-vindos à', { fs: 48 }], ['script', 'Casinha do Papai Noel', { fs: 96, mt: -2 }]] }],
+        ['caps', 'Bem-vindos à', { fs: 48 }], ['script', 'Varanda de Natal', { fs: 120, mt: -4 }]] }],
     },
     feed: {
       paineis: [tela('ANA_9214', { h: 1350, fy: .5 })],
       faixa: { top: 40 },
       textos: [{ x: 60, w: 960, top: 120, tom: 'claro', itens: [
-        ['caps', 'Bem-vindos à', { fs: 42 }], ['script', 'Casinha do Papai Noel', { fs: 88, mt: -2 }]] }],
+        ['caps', 'Bem-vindos à', { fs: 42 }], ['script', 'Varanda de Natal', { fs: 106, mt: -4 }]] }],
     } },
 
   // 3 · A cartinha para o Papai Noel — faixa e título na árvore e na cortina, acima da menina.
@@ -100,7 +101,7 @@ export const PECAS = [
         ['caps', 'O melhor presente', { fs: 48 }], ['script', 'é estar na foto', { fs: 118, mt: -12 }]] }],
     } },
 
-  // 6 · Dois cenários de Natal: escolha o seu — veludo em cima, casinha embaixo, cada um com o seu nome.
+  // 6 · Dois cenários de Natal: escolha o seu — veludo em cima, Varanda de Natal embaixo, cada um com o seu nome.
   { id: 'n6-cenarios', fotos: ['ANA_9359', 'ANA_9390'],
     story: {
       paineis: [tela('ANA_9359', { h: 957 }), tela('ANA_9390', { y: 963, h: 957 })],
@@ -109,7 +110,7 @@ export const PECAS = [
         { x: 60, w: 960, top: 306, tom: 'escuro', itens: [
           ['script', 'Dois cenários de Natal', { fs: 84 }], ['caps', 'escolha o seu', { fs: 28, mt: -8 }]] },
         { x: 40, w: 420, top: 862, tom: 'escuro', itens: [['rot', 'Veludo vermelho']] },
-        { x: 60, w: 960, top: 990, tom: 'claro', itens: [['rot', 'Casinha do Papai Noel']] }],
+        { x: 60, w: 960, top: 990, tom: 'claro', itens: [['rot', 'Varanda de Natal']] }],
     },
     feed: {
       paineis: [tela('ANA_9359', { h: 672, fy: .5 }), tela('ANA_9390', { y: 678, h: 672, fy: .42 })],
@@ -118,6 +119,6 @@ export const PECAS = [
         { x: 60, w: 960, top: 84, tom: 'escuro', itens: [
           ['script', 'Dois cenários de Natal', { fs: 80 }], ['caps', 'escolha o seu', { fs: 28, mt: -8 }]] },
         { x: 30, w: 400, top: 600, tom: 'escuro', itens: [['rot', 'Veludo vermelho', { fs: 24 }]] },
-        { x: 60, w: 960, top: 688, tom: 'claro', itens: [['rot', 'Casinha do Papai Noel', { fs: 24 }]] }],
+        { x: 60, w: 960, top: 688, tom: 'claro', itens: [['rot', 'Varanda de Natal', { fs: 24 }]] }],
     } },
 ];

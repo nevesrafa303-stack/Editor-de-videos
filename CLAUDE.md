@@ -138,6 +138,9 @@ hospital na rede (regra acima); sempre com "Imagem meramente ilustrativa.".
   Só enquadrar (cortar) e reduzir; nada de recorte/troca de fundo, ampliação por IA, nitidez, filtro, retoque
   ou texto/degradê por cima da pessoa, e nunca ampliar a foto na exportação. Pedido da cliente em 03/11/2026.
   Detalhes em `criativos/anaclaudia-gestante-black-friday/README.md`.
+  - **Nomes dos cenários:** usar o nome do catálogo do estúdio. O cenário da porta vermelha, janela e neve se chama
+    **"Varanda de Natal"**, nunca "Casinha do Papai Noel" (pedido da cliente em 09/11/2026). Na dúvida, perguntar o
+    nome antes de escrever.
 
 ## Vozes padrão da locução (ElevenLabs, modelo Eleven v4)
 

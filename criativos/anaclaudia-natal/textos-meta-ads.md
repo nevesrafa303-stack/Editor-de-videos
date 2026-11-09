@@ -5,7 +5,10 @@ Copy aprovada pela LAKS em 09/11/2026. Um conjunto de textos para cada criativo,
 - **Chamada para ação (botão do Meta):** **Enviar mensagem**, para o WhatsApp do estúdio.
 - **Sem valores:** a cliente está trocando os lotes.
 - **Título:** até 40 caracteres. **Descrição do link:** até 30 caracteres.
-- **Arquivos:** `final/<peça>-story.png` para Stories e Reels, `final/<peça>-feed.png` para o Feed.
+- **Arquivos:** `final/<peça>-story.png` para Stories e Reels, `final/<peça>-feed.png` para o Feed. Os mesmos
+  textos servem para o primeiro conjunto (`final/_v1/`).
+- **Nome do cenário:** "Varanda de Natal", como está no catálogo do estúdio (Carol, 09/11/2026). Nunca "Casinha do
+  Papai Noel".
 
 ---
 
@@ -23,15 +26,15 @@ Cortina de veludo, árvore iluminada e todo mundo junto na mesma foto. 🎄 O En
 
 ---
 
-## 2 — Casinha do Papai Noel (`n2-casinha`)
+## 2 — Varanda de Natal (`n2-varanda`)
 
 **Texto principal**
 
 ```
-Porta vermelha, árvore com neve e a caixinha de cartas do Papai Noel: a Casinha do Papai Noel está montada no estúdio esperando a sua família. 🎅 Agende o seu Ensaio de Natal.
+Porta vermelha, árvore com neve e a caixinha de cartas do Papai Noel: a Varanda de Natal está montada no estúdio esperando a sua família. 🎅 Agende o seu Ensaio de Natal.
 ```
 
-**Título:** Casinha do Papai Noel
+**Título:** Varanda de Natal
 **Descrição do link:** Ensaio de Natal em família
 **Chamada para ação:** Enviar mensagem
 
@@ -84,7 +87,7 @@ Todo ano alguém fica de fora da foto de Natal: quem está segurando o celular. 
 **Texto principal**
 
 ```
-Cortina de veludo vermelho ou a Casinha do Papai Noel com neve? 🎄 Os dois cenários de Natal estão montados no estúdio. Escolha o seu e agende o Ensaio de Natal da sua família.
+Cortina de veludo vermelho ou a Varanda de Natal com neve? 🎄 Os dois cenários de Natal estão montados no estúdio. Escolha o seu e agende o Ensaio de Natal da sua família.
 ```
 
 **Título:** Escolha seu cenário de Natal
