@@ -234,3 +234,12 @@ lista de comandos e CTA. Não precisa de gravação real nem do Whisper.
 
 É assim que se checa uma mudança no motor de decupagem sem esperar um render de
 vídeo real.
+
+---
+
+## Outros diretórios deste repositório
+
+| Pasta | O que é |
+|---|---|
+| `crm/` | CRM para clínicas de odontologia e estética (Next.js + Prisma) |
+| `site/` | Site institucional da Dra. Consuelo Vasconcelos — HTML/CSS/JS estático, sem build. Veja [`site/README.md`](site/README.md) |
