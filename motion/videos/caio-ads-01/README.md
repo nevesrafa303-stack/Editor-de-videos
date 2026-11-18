@@ -108,6 +108,7 @@ até 0,45 s perto das pausas.
 ## Gerar de novo
 
 ```bash
+bash tools/prep_video.sh <original.mp4>         # assets/video/caio.mp4 (SDR BT.709, 1080×1920, H.264 24 fps)
 python3 -I tools/clean_words.py                 # tools/words.json a partir de tools/transcript-medium.json
 bash tools/prep_voice.sh                        # assets/audio/voice.wav
 <venv>/python -I tools/synth_audio.py           # trilha e efeitos (numpy, scipy, soundfile)
@@ -117,4 +118,14 @@ npx hyperframes check
 npx hyperframes render --quality high --fps 30 --output renders/caio-ads-01.mp4
 ```
 
-`assets/video/caio.mp4` é o vídeo original convertido para 1080×1920, H.264, 24 fps, com um quadro-chave por segundo.
+## Cor (HDR → SDR)
+
+O original do iPhone é HDR (HLG, BT.2020, 10 bits).
+
+- **Problema:** com ele, o render saía em HEVC 10 bits BT.2020. Em alguns celulares e no Meta, as cores dos gráficos
+  podem estourar.
+- **Correção:** `tools/prep_video.sh` converte para SDR BT.709 com tone-mapping mobius, escolhido entre quatro opções
+  comparadas lado a lado por manter a pele e a parede mais naturais.
+- **Resultado:** o render sai em H.264 SDR comum, como os outros anúncios.
+
+`assets/video/caio.mp4` fica em 1080×1920, H.264, 24 fps, com um quadro-chave por segundo.
