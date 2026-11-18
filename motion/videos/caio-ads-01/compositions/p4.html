@@ -1,0 +1,60 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#FFC23D;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.88);}
+
+#p4-lab{top:452px;}
+#p4-t{top:494px;font-size:62px;}
+#p4-num{position:absolute;left:40px;width:560px;top:566px;text-align:center;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:206px;line-height:1;color:#FFC23D;text-shadow:0 0 40px rgba(255,194,61,.45);}
+#p4-sub{position:absolute;left:40px;width:560px;top:790px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:48px;text-transform:uppercase;line-height:1;}
+#p4-ch{position:absolute;left:640px;top:584px;width:380px;height:280px;}
+.p4-b{position:absolute;bottom:40px;width:120px;border-radius:16px 16px 6px 6px;transform-origin:50% 100%;}
+#p4-bA{left:20px;height:230px;background:linear-gradient(180deg,#8fa3c7,#5b6f96);}
+#p4-bB{left:190px;height:230px;background:linear-gradient(180deg,#ffd36e,#FFC23D);box-shadow:0 0 30px rgba(255,194,61,.5);}
+.p4-x{position:absolute;bottom:0;width:120px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:24px;color:rgba(255,255,255,.9);}
+#p4-arrow{position:absolute;left:218px;top:10px;width:64px;height:64px;color:#FFC23D;}
+#p4-lg{top:888px;}
+  </style>
+  <div id="root" data-composition-id="p4" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <div id="p4-lab" class="lab">Muitas vezes conseguimos</div>
+    <div id="p4-t" class="pt">reduções de</div>
+    <div id="p4-num"><span id="p4-v">10</span>%</div>
+    <div id="p4-sub">de desconto*</div>
+    <div id="p4-ch" data-layout-allow-overflow>
+      <div class="p4-b" id="p4-bA"></div><div class="p4-b" id="p4-bB"></div>
+      <div class="p4-x" style="left:20px">antes</div><div class="p4-x" style="left:190px">depois</div>
+      <span id="p4-arrow" class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    </div>
+    <div id="p4-lg" class="legal">*Percentual varia conforme o contrato atual e a análise. Valores referenciais sujeitos às regras da operadora. Os valores podem variar conforme perfil do beneficiário.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p4-lab",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.25);
+    tl.fromTo("#p4-t",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},1.387);
+    tl.fromTo("#p4-ch",{opacity:0,x:80},{opacity:1,x:0,duration:0.45,ease:"power3.out"},1.667);
+    tl.fromTo("#p4-num",{opacity:0,scale:0.5},{opacity:1,scale:1,duration:0.42,ease:"back.out(1.9)"},3.035);
+    const cnt={v:10};
+    tl.fromTo(cnt,{v:10},{v:50,duration:0.34,ease:"power1.in",onUpdate:()=>{document.getElementById("p4-v").textContent=Math.round(cnt.v);}},3.267);
+    tl.fromTo("#p4-num",{scale:1},{scale:1.18,duration:0.12,ease:"power2.out",yoyo:true,repeat:1,immediateRender:false},3.607);
+    tl.fromTo("#p4-bB",{scaleY:1},{scaleY:0.5,duration:0.5,ease:"power3.inOut"},3.267);
+    tl.fromTo("#p4-arrow",{opacity:0,y:-20},{opacity:1,y:55,duration:0.5,ease:"power2.out"},3.367);
+    tl.fromTo("#p4-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},4.127);
+    tl.fromTo("#p4-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#p4-lab,#p4-t,#p4-num,#p4-sub,#p4-ch,#p4-lg",{opacity:0,y:-36,duration:0.24,ease:"power2.in"},5.011);
+    window.__timelines["p4"] = tl;
+  </script>
+</template>

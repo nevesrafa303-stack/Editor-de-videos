@@ -1,0 +1,45 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#FFC23D;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.88);}
+
+#p6-lab{top:452px;}
+#p6-t{top:498px;font-size:58px;}
+#p6-st{position:absolute;left:0;width:1080px;top:574px;display:flex;justify-content:center;}
+#p6-sti{padding:4px 56px 14px;border:9px solid #FFC23D;border-radius:28px;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:200px;line-height:1;color:#fff;text-shadow:0 10px 30px rgba(0,0,0,.4);box-shadow:0 0 50px rgba(255,194,61,.35),inset 0 0 30px rgba(255,194,61,.2);}
+#p6-sub{position:absolute;left:0;width:1080px;top:818px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:34px;color:rgba(255,255,255,.92);}
+#p6-lg{top:888px;}
+  </style>
+  <div id="root" data-composition-id="p6" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <div id="p6-lab" class="lab">Lembrando:</div>
+    <div id="p6-t" class="pt">é necessário ter</div>
+    <div id="p6-st"><div id="p6-sti">CNPJ</div></div>
+    <div id="p6-sub">para ter acesso aos benefícios</div>
+    <div id="p6-lg" class="legal">Consulte condições e elegibilidade. Condições sujeitas à análise comercial.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p6-lab",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.1);
+    tl.fromTo("#p6-t",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.781);
+    tl.fromTo("#p6-sti",{opacity:0,scale:2.6,rotation:-16},{opacity:1,scale:1,rotation:-4,duration:0.2,ease:"power4.in"},1.55);
+    tl.fromTo("#p6-st",{x:0,y:0},{keyframes:[{x:-12,y:6,duration:0.04},{x:10,y:-5,duration:0.04},{x:-6,y:3,duration:0.04},{x:0,y:0,duration:0.05}]},1.75);
+    tl.fromTo("#p6-sub",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},1.834);
+    tl.fromTo("#p6-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#p6-lab,#p6-t,#p6-st,#p6-sub,#p6-lg",{opacity:0,y:-36,duration:0.22,ease:"power2.in"},3.74);
+    window.__timelines["p6"] = tl;
+  </script>
+</template>

@@ -1,0 +1,35 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#FFC23D;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.88);}
+
+.lf{position:absolute;left:0;width:1080px;top:1340px;display:flex;justify-content:center;}
+.lf>div{max-width:900px;padding:8px 20px;border-radius:14px;background:rgba(6,14,32,.78);text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:#fff;}
+  </style>
+  <div id="root" data-composition-id="lf" data-width="1080" data-height="1920">
+
+    <div class="lf clip" id="lf-a" data-start="0.3" data-duration="6.092" data-track-index="0"><div id="lf-ai">A rede credenciada pode variar conforme plano contratado. Consulte a disponibilidade da rede hospitalar.</div></div>
+    <div class="lf clip" id="lf-b" data-start="33.098" data-duration="1.858" data-track-index="0"><div id="lf-bi">Consulte condições e elegibilidade. Condições sujeitas à análise comercial.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#lf-ai",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#lf-ai",{opacity:0,duration:0.2},6.172);
+    tl.fromTo("#lf-bi",{opacity:0},{opacity:1,duration:0.3},33.098);
+    tl.to("#lf-bi",{opacity:0,duration:0.2},34.736);
+    window.__timelines["lf"] = tl;
+  </script>
+</template>

@@ -1,0 +1,562 @@
+[
+{
+"word": "Você",
+"start": 0.816,
+"end": 1.095
+},
+{
+"word": "gostaria",
+"start": 1.095,
+"end": 1.373
+},
+{
+"word": "de",
+"start": 1.373,
+"end": 1.513
+},
+{
+"word": "ter",
+"start": 1.513,
+"end": 1.691
+},
+{
+"word": "acesso",
+"start": 1.753,
+"end": 2.163
+},
+{
+"word": "às",
+"start": 2.163,
+"end": 2.488
+},
+{
+"word": "melhores",
+"start": 2.488,
+"end": 2.658
+},
+{
+"word": "redes",
+"start": 2.658,
+"end": 2.859
+},
+{
+"word": "de",
+"start": 2.859,
+"end": 2.937
+},
+{
+"word": "hospitais",
+"start": 2.937,
+"end": 3.324
+},
+{
+"word": "de",
+"start": 3.324,
+"end": 3.432
+},
+{
+"word": "São",
+"start": 3.432,
+"end": 3.603
+},
+{
+"word": "Paulo?",
+"start": 3.603,
+"end": 4.129
+},
+{
+"word": "Se",
+"start": 4.7,
+"end": 4.799
+},
+{
+"word": "você",
+"start": 4.799,
+"end": 5.065
+},
+{
+"word": "está",
+"start": 5.065,
+"end": 5.193
+},
+{
+"word": "buscando",
+"start": 5.489,
+"end": 5.597
+},
+{
+"word": "uma",
+"start": 5.597,
+"end": 5.745
+},
+{
+"word": "rede",
+"start": 5.745,
+"end": 5.942
+},
+{
+"word": "de",
+"start": 5.942,
+"end": 6.04
+},
+{
+"word": "qualidade,",
+"start": 6.04,
+"end": 6.592
+},
+{
+"word": "como",
+"start": 6.592,
+"end": 6.681
+},
+{
+"word": "os",
+"start": 6.681,
+"end": 6.75
+},
+{
+"word": "hospitais",
+"start": 6.75,
+"end": 7.025
+},
+{
+"word": "Einstein,",
+"start": 7.025,
+"end": 7.676
+},
+{
+"word": "Sírio,",
+"start": 7.676,
+"end": 8.621
+},
+{
+"word": "laboratórios",
+"start": 8.621,
+"end": 9.271
+},
+{
+"word": "Fleury,",
+"start": 9.271,
+"end": 9.764
+},
+{
+"word": "saiba",
+"start": 9.764,
+"end": 10.079
+},
+{
+"word": "que",
+"start": 10.079,
+"end": 10.266
+},
+{
+"word": "trabalhamos",
+"start": 10.266,
+"end": 10.956
+},
+{
+"word": "com",
+"start": 10.956,
+"end": 11.143
+},
+{
+"word": "todas",
+"start": 11.143,
+"end": 11.409
+},
+{
+"word": "as",
+"start": 11.459,
+"end": 11.587
+},
+{
+"word": "seguradoras",
+"start": 11.587,
+"end": 12.345
+},
+{
+"word": "e",
+"start": 12.345,
+"end": 12.385
+},
+{
+"word": "operadoras",
+"start": 12.385,
+"end": 12.828
+},
+{
+"word": "que",
+"start": 12.828,
+"end": 12.966
+},
+{
+"word": "possuem",
+"start": 12.966,
+"end": 13.271
+},
+{
+"word": "cobertura",
+"start": 13.271,
+"end": 13.695
+},
+{
+"word": "nessa",
+"start": 14.089,
+"end": 14.109
+},
+{
+"word": "rede.",
+"start": 14.109,
+"end": 14.31
+},
+{
+"word": "e",
+"start": 14.83,
+"end": 15.005
+},
+{
+"word": "caso",
+"start": 15.005,
+"end": 15.245
+},
+{
+"word": "já",
+"start": 15.245,
+"end": 15.374
+},
+{
+"word": "possua",
+"start": 15.374,
+"end": 15.768
+},
+{
+"word": "um",
+"start": 15.768,
+"end": 15.819
+},
+{
+"word": "plano",
+"start": 15.922,
+"end": 16.23
+},
+{
+"word": "ativo",
+"start": 16.23,
+"end": 16.556
+},
+{
+"word": "há",
+"start": 16.556,
+"end": 16.667
+},
+{
+"word": "mais",
+"start": 16.685,
+"end": 16.95
+},
+{
+"word": "de",
+"start": 16.95,
+"end": 17.079
+},
+{
+"word": "um",
+"start": 17.079,
+"end": 17.173
+},
+{
+"word": "ano,",
+"start": 17.284,
+"end": 17.533
+},
+{
+"word": "nós",
+"start": 17.533,
+"end": 17.73
+},
+{
+"word": "revisamos",
+"start": 17.73,
+"end": 18.33
+},
+{
+"word": "o",
+"start": 18.338,
+"end": 18.39
+},
+{
+"word": "seu",
+"start": 18.39,
+"end": 18.741
+},
+{
+"word": "contrato",
+"start": 18.741,
+"end": 19.392
+},
+{
+"word": "e",
+"start": 19.799,
+"end": 19.862
+},
+{
+"word": "muitas",
+"start": 20.134,
+"end": 20.251
+},
+{
+"word": "vezes",
+"start": 20.523,
+"end": 20.577
+},
+{
+"word": "conseguimos",
+"start": 20.64,
+"end": 21.301
+},
+{
+"word": "reduções",
+"start": 21.301,
+"end": 21.825
+},
+{
+"word": "que",
+"start": 21.825,
+"end": 22.015
+},
+{
+"word": "podem",
+"start": 22.024,
+"end": 22.277
+},
+{
+"word": "chegar",
+"start": 22.359,
+"end": 22.739
+},
+{
+"word": "de",
+"start": 22.739,
+"end": 22.802
+},
+{
+"word": "10%",
+"start": 22.929,
+"end": 23.318
+},
+{
+"word": "a",
+"start": 23.345,
+"end": 23.381
+},
+{
+"word": "50%",
+"start": 23.381,
+"end": 23.833
+},
+{
+"word": "de",
+"start": 23.833,
+"end": 24.041
+},
+{
+"word": "desconto,",
+"start": 24.041,
+"end": 24.611
+},
+{
+"word": "sem",
+"start": 25.225,
+"end": 25.486
+},
+{
+"word": "perder",
+"start": 25.486,
+"end": 25.86
+},
+{
+"word": "os",
+"start": 25.86,
+"end": 25.982
+},
+{
+"word": "benefícios",
+"start": 26.161,
+"end": 26.584
+},
+{
+"word": "e",
+"start": 26.584,
+"end": 26.641
+},
+{
+"word": "acesso",
+"start": 26.641,
+"end": 26.991
+},
+{
+"word": "à",
+"start": 26.999,
+"end": 27.056
+},
+{
+"word": "sua",
+"start": 27.056,
+"end": 27.235
+},
+{
+"word": "rede",
+"start": 27.235,
+"end": 27.472
+},
+{
+"word": "de",
+"start": 27.472,
+"end": 27.594
+},
+{
+"word": "preferência.",
+"start": 27.594,
+"end": 28.481
+},
+{
+"word": "Lembrando",
+"start": 29.108,
+"end": 29.547
+},
+{
+"word": "que",
+"start": 29.797,
+"end": 29.84
+},
+{
+"word": "é",
+"start": 29.84,
+"end": 29.9
+},
+{
+"word": "necessário",
+"start": 29.909,
+"end": 30.52
+},
+{
+"word": "ter",
+"start": 30.52,
+"end": 30.615
+},
+{
+"word": "CNPJ",
+"start": 30.718,
+"end": 30.942
+},
+{
+"word": "para",
+"start": 30.942,
+"end": 31.192
+},
+{
+"word": "ter",
+"start": 31.192,
+"end": 31.373
+},
+{
+"word": "acesso",
+"start": 31.373,
+"end": 31.734
+},
+{
+"word": "aos",
+"start": 31.743,
+"end": 31.924
+},
+{
+"word": "benefícios.",
+"start": 31.924,
+"end": 32.639
+},
+{
+"word": "Quer",
+"start": 33.218,
+"end": 33.443
+},
+{
+"word": "fazer",
+"start": 33.443,
+"end": 33.667
+},
+{
+"word": "uma",
+"start": 33.667,
+"end": 33.767
+},
+{
+"word": "simulação?",
+"start": 33.767,
+"end": 34.317
+},
+{
+"word": "Clique",
+"start": 35.206,
+"end": 35.531
+},
+{
+"word": "no",
+"start": 35.57,
+"end": 35.639
+},
+{
+"word": "link",
+"start": 35.639,
+"end": 35.707
+},
+{
+"word": "abaixo,",
+"start": 35.992,
+"end": 36.278
+},
+{
+"word": "preencha",
+"start": 36.386,
+"end": 36.671
+},
+{
+"word": "o",
+"start": 36.671,
+"end": 36.759
+},
+{
+"word": "formulário,",
+"start": 36.759,
+"end": 37.398
+},
+{
+"word": "nossa",
+"start": 37.398,
+"end": 37.673
+},
+{
+"word": "equipe",
+"start": 37.673,
+"end": 37.899
+},
+{
+"word": "está",
+"start": 37.988,
+"end": 38.194
+},
+{
+"word": "ansiosa",
+"start": 38.204,
+"end": 38.459
+},
+{
+"word": "para",
+"start": 38.607,
+"end": 38.774
+},
+{
+"word": "atendê-lo.",
+"start": 38.803,
+"end": 39.393
+}
+]

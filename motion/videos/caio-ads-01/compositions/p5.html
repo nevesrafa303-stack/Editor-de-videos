@@ -1,0 +1,45 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#FFC23D;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.88);}
+
+#p5-t{top:452px;font-size:78px;color:#FFC23D;}
+.p5-c{position:absolute;left:84px;width:912px;height:128px;border-radius:26px;background:#fff;color:#0B1E3D;display:flex;align-items:center;gap:24px;padding:0 30px;box-shadow:0 18px 40px rgba(0,0,0,.4);}
+.p5-c .ok{width:78px;height:78px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;flex:none;}
+.p5-c b{font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:48px;text-transform:uppercase;line-height:1;}
+#p5-c1{top:580px;}
+#p5-c2{top:730px;}
+#p5-lg{top:888px;}
+  </style>
+  <div id="root" data-composition-id="p5" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <div id="p5-t" class="pt">Sem perder</div>
+    <div class="p5-c" id="p5-c1"><span class="ok" id="p5-k1"><span class="ic" style="width:48px;height:48px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>os seus benefícios</b></div>
+    <div class="p5-c" id="p5-c2"><span class="ok" id="p5-k2"><span class="ic" style="width:48px;height:48px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><b>a sua rede de preferência</b></div>
+    <div id="p5-lg" class="legal">Cobertura e rede sujeitas à modalidade contratada. A rede credenciada pode variar conforme plano contratado.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p5-t",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.36,ease:"back.out(1.9)"},0.1);
+    tl.fromTo("#p5-c1",{opacity:0,y:50},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.856);
+    tl.fromTo("#p5-k1",{opacity:0,scale:0.2},{opacity:1,scale:1,duration:0.34,ease:"back.out(1.9)"},1.076);
+    tl.fromTo("#p5-c2",{opacity:0,y:50},{opacity:1,y:0,duration:0.4,ease:"power3.out"},1.93);
+    tl.fromTo("#p5-k2",{opacity:0,scale:0.2},{opacity:1,scale:1,duration:0.34,ease:"back.out(1.9)"},2.15);
+    tl.fromTo("#p5-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#p5-t,.p5-c,#p5-lg",{opacity:0,y:-36,duration:0.24,ease:"power2.in"},3.643);
+    window.__timelines["p5"] = tl;
+  </script>
+</template>
