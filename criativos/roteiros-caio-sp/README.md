@@ -9,8 +9,8 @@ câmera, com legenda palavra a palavra e painel de infográficos editados depois
 - **Do Ads 01:** a revisão de contrato, Einstein, Sírio e Fleury, CNPJ e o CTA do formulário.
 
 **Tamanho**
-- O Caio fala cerca de 2,8 palavras por segundo.
-- Cada roteiro tem de 125 a 140 palavras, o que dá de 45 a 50 s com as pausas.
+- O Caio fala cerca de 2,8 palavras por segundo (Ads 01: 112 palavras em 41 s).
+- Cada roteiro tem de 120 a 136 palavras, o que dá de 45 a 50 s com as pausas.
 
 **Estrutura de todos**
 1. Gancho (0–4 s).
@@ -42,12 +42,12 @@ câmera, com legenda palavra a palavra e painel de infográficos editados depois
 
 | Tempo | Fala | Na tela |
 |---|---|---|
-| 0–4 s | A operadora do seu plano de saúde nunca vai te ligar pra avisar que você está pagando caro. | Rosto em tela cheia, punch-in no "caro" |
-| 4–9 s | E se você tem CNPJ ou MEI e já está no mesmo plano há mais de um ano, fica até o final, porque isso é com você. | Selo CNPJ/MEI pulsa · cartão "+1 ano no mesmo plano?" |
-| 9–22 s | Todo ano chega o reajuste, você aceita e segue a vida. Só que, enquanto isso, o mercado muda: as operadoras lançam planos novos, com outras regras de preço, e muitas vezes com a mesma rede que você usa hoje, como Einstein, Sírio e Fleury. | Seta de reajuste subindo ano a ano · cartões Einstein, Sírio e Fleury |
-| 22–34 s | O que a gente faz é simples: pega o seu contrato atual, compara com as principais seguradoras e mostra se existe uma opção que mantém os seus benefícios e a sua rede de preferência pagando menos. | Lupa no contrato · logos das operadoras · ✓ benefícios ✓ rede |
-| 34–39 s | Não é trocar por trocar. É parar de pagar a mais sem saber. | Frase grande |
-| 39–48 s | Se você tem CNPJ ou MEI e três vidas ou mais, clica no link abaixo, preenche o formulário e a nossa equipe faz essa análise pra você. | Botão "Solicite sua cotação / Preencha o formulário" |
+| 0–4 s | A operadora do seu plano nunca vai te ligar pra avisar que você está pagando caro. | Rosto em tela cheia, punch-in no "caro" |
+| 4–8 s | Se você tem CNPJ ou MEI e está no mesmo plano há mais de um ano, isso é com você. | Selo CNPJ/MEI pulsa · cartão "+1 ano no mesmo plano?" |
+| 8–19 s | Todo ano chega o reajuste e você aceita. Enquanto isso, as operadoras lançam planos novos, muitas vezes com a mesma rede que você usa hoje, como Einstein, Sírio e Fleury. | Seta de reajuste subindo ano a ano · cartões Einstein, Sírio e Fleury |
+| 19–31 s | A gente pega o seu contrato, compara com as principais seguradoras e mostra se dá pra manter os seus benefícios e a sua rede de preferência pagando menos. | Lupa no contrato · logos das operadoras · ✓ benefícios ✓ rede |
+| 31–36 s | Não é trocar por trocar. É parar de pagar a mais sem saber. | Frase grande |
+| 36–47 s | Se você tem CNPJ ou MEI e três vidas ou mais, clica no link abaixo, preenche o formulário e a nossa equipe faz essa análise pra você. | Botão "Solicite sua cotação / Preencha o formulário" |
 
 **Observações:**
 - Consulte condições e elegibilidade.
@@ -66,12 +66,12 @@ pelo CNPJ."
 
 | Tempo | Fala | Na tela |
 |---|---|---|
-| 0–5 s | Os dois melhores hospitais do Brasil ficam aqui em São Paulo. E pouca gente sabe que dá pra ter os dois no plano pelo CNPJ. | Rosto + "Os 2 melhores do Brasil" |
-| 5–10 s | No ranking da Newsweek de 2026, o Einstein ficou em primeiro lugar no Brasil e o Sírio-Libanês em segundo. | Pódio 1º Einstein, 2º Sírio, com fachadas do banco de vídeos · "Newsweek 2026" |
-| 10–21 s | E a maioria das pessoas acha que ter esses hospitais no plano é coisa de milionário. Não é. Pelo CNPJ ou MEI, a partir de três vidas, existem planos empresariais com esse padrão de rede por um valor que muita gente nem imagina. | Carimbo "NÃO É SÓ PRA MILIONÁRIO" · selo CNPJ/MEI · "a partir de 3 vidas" |
-| 21–33 s | Mas tem um detalhe que pouca gente olha: cada operadora tem um preço e uma regra diferente pra esses mesmos hospitais. Em um plano o hospital atende em enfermaria; em outro, só em apartamento. Por isso a gente compara todas antes. | Duas colunas "Operadora A / B" com enfermaria × apartamento (ilustrativo) |
-| 33–38 s | Hospital de referência não precisa ser um sonho distante. Precisa da escolha certa. | Frase grande |
-| 38–48 s | Se você tem CNPJ ou MEI, clica no link abaixo, preenche o formulário e receba as opções com Einstein e Sírio pra você, seus sócios e sua família. | Botão do formulário · "tudo pelo CNPJ" |
+| 0–5 s | Os dois melhores hospitais do Brasil ficam em São Paulo. E pouca gente sabe que dá pra ter os dois no plano pelo CNPJ. | Rosto + "Os 2 melhores do Brasil" |
+| 5–10 s | No ranking da Newsweek de 2026, o Einstein ficou em primeiro no Brasil e o Sírio-Libanês em segundo. | Pódio 1º Einstein, 2º Sírio, com fachadas do banco de vídeos · "Newsweek 2026" |
+| 10–20 s | Muita gente acha que isso é coisa de milionário. Não é. Pelo CNPJ ou MEI, a partir de três vidas, existem planos empresariais com esse padrão de rede. | Carimbo "NÃO É SÓ PRA MILIONÁRIO" · selo CNPJ/MEI · "a partir de 3 vidas" |
+| 20–32 s | Mas cada operadora tem um preço e uma regra pra esses hospitais: em um plano eles atendem em enfermaria, em outro só em apartamento. Por isso a gente compara antes. | Duas colunas "Operadora A / B" com enfermaria × apartamento (ilustrativo) |
+| 32–37 s | Hospital de referência não é sonho distante. É escolha certa. | Frase grande |
+| 37–48 s | Se você tem CNPJ ou MEI, clica no link abaixo, preenche o formulário e receba as opções com Einstein e Sírio pra sua família, tudo pelo CNPJ. | Botão do formulário · "tudo pelo CNPJ" |
 
 **Fonte do ranking:** Newsweek/Statista World's Best Hospitals 2026, posição no Brasil, conforme o `CLAUDE.md`.
 
@@ -92,12 +92,12 @@ pelo CNPJ."
 
 | Tempo | Fala | Na tela |
 |---|---|---|
-| 0–5 s | Se você tem CNPJ ou MEI e ainda paga plano de saúde no CPF, presta atenção nos próximos quarenta segundos. | "CPF" riscado → "CNPJ" (carimbo) |
-| 5–13 s | Muita gente não sabe, mas quem tem empresa, até MEI, pode contratar um plano empresarial e colocar a família junto, a partir de três vidas. | Cartões Você / Sócios / Família · "a partir de 3 vidas" |
-| 13–25 s | E o plano empresarial tem outras regras de preço. Em muitos casos, dá pra ter uma rede melhor pagando menos do que no CPF, com hospitais como Einstein, Sírio-Libanês e Oswaldo Cruz, e laboratórios como o Fleury, dependendo do plano. | Balança CPF × CNPJ · cartões dos hospitais + logo do Fleury |
-| 25–35 s | Eu vejo isso toda semana: o cliente chega pagando caro como pessoa física, a gente compara as operadoras pelo CNPJ e ele descobre que estava deixando dinheiro na mesa. | Logos das operadoras · ícone de comparação |
-| 35–39 s | O seu CNPJ pode valer mais do que você imagina. | Frase grande |
-| 39–48 s | Clica no link abaixo, preenche o formulário e a nossa equipe compara as melhores opções pra sua família, tudo pelo CNPJ. | Botão do formulário |
+| 0–5 s | Se você tem CNPJ ou MEI e ainda paga plano de saúde no CPF, presta atenção nos próximos segundos. | "CPF" riscado → "CNPJ" (carimbo) |
+| 5–12 s | Quem tem empresa, até MEI, pode contratar um plano empresarial e colocar a família junto, a partir de três vidas. | Cartões Você / Sócios / Família · "a partir de 3 vidas" |
+| 12–24 s | E o plano empresarial tem outras regras de preço. Em muitos casos, dá pra ter uma rede melhor pagando menos que no CPF, com Einstein, Sírio, Oswaldo Cruz e Fleury, dependendo do plano. | Balança CPF × CNPJ · cartões dos hospitais + logo do Fleury |
+| 24–33 s | Eu vejo isso toda semana: o cliente compara as operadoras pelo CNPJ e descobre que estava deixando dinheiro na mesa. | Logos das operadoras · ícone de comparação |
+| 33–37 s | O seu CNPJ pode valer mais do que você imagina. | Frase grande |
+| 37–46 s | Clica no link abaixo, preenche o formulário e a nossa equipe compara as opções pra sua família, tudo pelo CNPJ. | Botão do formulário |
 
 **Confirmar com o Caio:** a frase "eu vejo isso toda semana" é depoimento dele. Só fica se for verdade. Se não for, trocar por
 "Muita gente descobre, comparando, que estava deixando dinheiro na mesa."
@@ -118,13 +118,13 @@ pelo CNPJ."
 
 | Tempo | Fala | Na tela |
 |---|---|---|
-| 0–5 s | Antes de contratar um plano de saúde em São Paulo, confere essas três coisas. A terceira quase ninguém olha. | Lista 1 · 2 · 3 vazia, o 3 com "?" |
-| 5–9 s | E se você tem CNPJ ou MEI, a partir de três vidas, isso vale ainda mais pra você. | Selo CNPJ/MEI |
-| 9–19 s | Primeira: a coparticipação. Sem coparticipação, a mensalidade é maior, mas você não paga nada a mais quando usa. Com coparticipação, a mensalidade cai, mas cada consulta e exame tem uma parte por sua conta. | Item 1 preenche · balança mensalidade × uso |
-| 19–27 s | Segunda: a abrangência. Se você viaja a trabalho, um plano nacional faz diferença na hora que você precisa de atendimento fora de São Paulo. | Item 2 · mapa do Brasil com pin |
-| 27–39 s | E a terceira: a acomodação do hospital que você quer. Tem plano em que o hospital está na rede, mas só em apartamento. Se você contratou enfermaria, ele não vale pra você. E muita gente só descobre isso na hora que precisa. | Item 3 · "Enfermaria ✗ / Apartamento ✓" |
-| 39–42 s | Plano bom é o que funciona no dia que você precisa. | Frase grande |
-| 42–49 s | Clica no link abaixo, preenche o formulário e a gente compara as operadoras olhando essas três coisas pra você. | Botão do formulário |
+| 0–5 s | Antes de contratar um plano de saúde em São Paulo, confere três coisas. A terceira quase ninguém olha. | Lista 1 · 2 · 3 vazia, o 3 com "?" |
+| 5–8 s | Se você tem CNPJ ou MEI, a partir de três vidas, isso é pra você. | Selo CNPJ/MEI |
+| 8–18 s | Primeira: coparticipação. Sem ela, a mensalidade é maior, mas você não paga nada a mais quando usa. Com ela, a mensalidade cai e cada consulta tem uma parte por sua conta. | Item 1 preenche · balança mensalidade × uso |
+| 18–24 s | Segunda: abrangência. Se você viaja a trabalho, um plano nacional faz toda a diferença. | Item 2 · mapa do Brasil com pin |
+| 24–35 s | E a terceira: a acomodação. Tem plano em que o hospital está na rede, mas só em apartamento. Se você contratou enfermaria, ele não vale pra você. | Item 3 · "Enfermaria ✗ / Apartamento ✓" |
+| 35–39 s | Plano bom é o que funciona no dia que você precisa. | Frase grande |
+| 39–48 s | Clica no link abaixo, preenche o formulário e a gente compara as operadoras olhando essas três coisas pra você. | Botão do formulário |
 
 **O fato do item 3 está no material oficial da Bradesco Saúde:** no Efetivo Plus, A.C. Camargo, HCor, Santa Catarina e
 outros hospitais só atendem em quarto. Ver `criativos/cotacoes-sulamerica-bradesco-sp/README.md`.
@@ -148,11 +148,11 @@ numa tabela de rede; senão, ficar com o gancho principal.
 | Tempo | Fala | Na tela |
 |---|---|---|
 | 0–4 s | Se o seu filho tiver febre alta às duas da manhã, você já sabe pra qual hospital vai levar ele? | Relógio "02:00" · rosto sério |
-| 4–9 s | Porque nessa hora não dá pra descobrir que o seu plano não cobre o hospital que você queria. | Frase "não dá pra descobrir na hora" |
-| 9–20 s | Quem tem CNPJ ou MEI pode colocar a família num plano empresarial, a partir de três vidas, com pronto-socorro em hospitais de referência de São Paulo, como Einstein e Sírio-Libanês, dependendo do plano. | Selo CNPJ/MEI · cartões Einstein e Sírio com "pronto-socorro 24 h" |
-| 20–32 s | E o que pouca gente sabe: a diferença de preço entre as operadoras pra ter esse padrão de rede pode ser grande. Por isso, antes de fechar, a gente compara as principais seguradoras e mostra qual faz sentido pro seu perfil. | Logos das operadoras · barras de preço diferentes (ilustrativo) |
-| 32–38 s | Plano de saúde a gente contrata pensando no dia que torce pra nunca chegar. | Frase grande |
-| 38–47 s | Clica no link abaixo, preenche o formulário e receba as opções pra sua família, tudo pelo CNPJ. | Botão do formulário |
+| 4–8 s | Porque nessa hora não dá pra descobrir que o plano não cobre o hospital que você queria. | Frase "não dá pra descobrir na hora" |
+| 8–19 s | Quem tem CNPJ ou MEI pode colocar a família num plano empresarial, a partir de três vidas, com pronto-socorro em hospitais como Einstein e Sírio-Libanês, dependendo do plano. | Selo CNPJ/MEI · cartões Einstein e Sírio com "pronto-socorro 24 h" |
+| 19–31 s | E o que pouca gente sabe: a diferença de preço entre as operadoras pra esse padrão de rede pode ser grande. Por isso a gente compara as principais e mostra qual faz sentido pra você. | Logos das operadoras · barras de preço diferentes (ilustrativo) |
+| 31–36 s | Plano de saúde a gente contrata pensando no dia que torce pra nunca chegar. | Frase grande |
+| 36–46 s | Clica no link abaixo, preenche o formulário e receba as opções pra sua família, tudo pelo CNPJ. | Botão do formulário |
 
 **Rede:** na rede de referência SulAmérica SP, Einstein (Morumbi) tem pronto-socorro no Executivo e no Prestige e o Sírio
 também. Ver `motion/videos/sp-planos-capital-3d/README.md`.
