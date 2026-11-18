@@ -32,7 +32,7 @@ const en = (w, after) => find(w, after).end;
 const T = {};
 T.voce = at("voce"); T.melhores = at("melhores"); T.hospitais = at("hospitais"); T.sao = at("sao");
 T.qualidade = at("qualidade"); T.como = at("como"); T.einstein = at("einstein"); T.sirio = at("sirio");
-T.fleury = at("fleury"); T.saiba = at("saiba"); T.trabalhamos = at("trabalhamos"); T.todas = at("todas");
+T.fleury = at("fleury"); T.laboratorios = at("laboratorios"); T.saiba = at("saiba"); T.trabalhamos = at("trabalhamos"); T.todas = at("todas");
 T.operadoras = at("operadoras"); T.cobertura = at("cobertura"); T.caso = at("caso"); T.plano = at("plano");
 T.ano = at("ano"); T.revisamos = at("revisamos"); T.contrato = at("contrato"); T.muitas = at("muitas");
 T.reducoes = at("reducoes"); T.n10 = at("10%"); T.n50 = at("50%"); T.desconto = at("desconto");
@@ -52,8 +52,8 @@ const split = (t) => (t >= S1 + 0.25 && t < S2 + 0.25) || t >= S3 + 0.25;
 
 // trechos do painel
 const PANELS = {
-  p1: [S1, r3(T.saiba - 0.05)],
-  p2: [r3(T.saiba - 0.05), r3(T.caso - 0.12)],
+  p1: [S1, r3(T.trabalhamos - 0.3)],
+  p2: [r3(T.trabalhamos - 0.3), r3(T.caso - 0.12)],
   p3: [r3(T.caso - 0.12), r3(T.muitas - 0.3)],
   p4: [r3(T.muitas - 0.3), r3(T.sem - 0.12)],
   p5: [r3(T.sem - 0.12), r3(T.lembrando - 0.1)],
@@ -173,24 +173,23 @@ mkdirSync(join(ROOT, "compositions"), { recursive: true });
   const [st, et] = PANELS[id];
   const L = (t) => r3(t - st);
   const d = et - st;
-  const tE = T.einstein - 0.1, tS = T.sirio - 0.1, tF = T.fleury - 0.1;
-  const vE = Math.min(2.6 / 0.88, d - L(tE)), vS = Math.min(2.43, d - L(tS)); // Einstein a 0,88× para cobrir o trecho todo
+  const tE = T.einstein - 0.1, tS = T.sirio - 0.1, tF = T.laboratorios - 0.1; // Fleury entra no "laboratórios"
+  const vE = Math.min(2.6 / 0.85, d - L(tE)), vS = Math.min(2.43, d - L(tS)); // Einstein a 0,85× para cobrir o trecho todo
   const css = `
 #p1-lab{top:452px;}
 .p1-c{position:absolute;top:506px;width:296px;height:330px;border-radius:26px;overflow:hidden;border:5px solid #fff;background:#0b1428;box-shadow:0 22px 50px rgba(0,0,0,.5);}
 .p1-c video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .p1-c .nm{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;}
 .p1-c .nm span{padding:7px 16px;border-radius:22px;background:#fff;color:${INK};font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:27px;text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 18px rgba(0,0,0,.35);}
-#p1-cF{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:${INK};}
-#p1-cF .ci{width:118px;height:118px;border-radius:50%;background:${INK};display:flex;align-items:center;justify-content:center;}
-#p1-cF b{font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:58px;line-height:1;}
-#p1-cF i{font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:25px;color:#4a5874;}
+#p1-cF{background:#fff;display:flex;align-items:center;justify-content:center;}
+#p1-cF img{width:270px;margin-top:-34px;}
+#p1-cF .nm span{background:${INK};color:#fff;}
 #p1-lg{top:888px;}`;
   const body = `
     <div id="p1-lab" class="lab">Uma rede de qualidade, como:</div>
-    <div class="p1-c" id="p1-cE" style="left:72px" data-layout-allow-overflow><video id="p1-vE" class="clip" data-start="${L(tE)}" data-duration="${r3(vE)}" data-track-index="0" data-playback-rate="0.88" muted playsinline src="assets/video/f_einstein.mp4"></video><div class="nm"><span>Einstein</span></div></div>
+    <div class="p1-c" id="p1-cE" style="left:72px" data-layout-allow-overflow><video id="p1-vE" class="clip" data-start="${L(tE)}" data-duration="${r3(vE)}" data-track-index="0" data-playback-rate="0.85" muted playsinline src="assets/video/f_einstein.mp4"></video><div class="nm"><span>Einstein</span></div></div>
     <div class="p1-c" id="p1-cS" style="left:392px" data-layout-allow-overflow><video id="p1-vS" class="clip" data-start="${L(tS)}" data-duration="${r3(vS)}" data-track-index="1" muted playsinline src="assets/video/f_sirio_torre.mp4"></video><div class="nm"><span>Sírio-Libanês</span></div></div>
-    <div class="p1-c" id="p1-cF" style="left:712px"><span class="ci">${icon("lab", 64, AMB)}</span><b>FLEURY</b><i>laboratórios</i></div>
+    <div class="p1-c" id="p1-cF" style="left:712px"><img src="assets/logos/fleury.png" alt="Fleury"><div class="nm"><span>Laboratórios</span></div></div>
     <div id="p1-lg" class="legal">${OBS.rede} ${OBS.disp} ${OBS.img}</div>`;
   const card = (sel, t) => `    tl.fromTo("${sel}",{opacity:0,y:80,rotationY:-70,scale:0.85,transformPerspective:900},{opacity:1,y:0,rotationY:0,scale:1,duration:0.5,ease:"back.out(1.5)"},${L(t)});`;
   const js = [
@@ -501,7 +500,7 @@ const durOf = (k) => (HITS[k.replace(/2$/, "")] || { dur: 1 }).dur;
 const S = (k, t, vol = 0.5, dur) => sfx.push({ k, t: r3(t + 1 / 30 - hitOf(k)), vol, dur: dur || durOf(k) });
 S("pop2", T.sao, 0.42);
 S("whoosh", S1 + 0.25, 0.4);
-S("pop", T.einstein + 0.05, 0.45); S("pop2", T.sirio + 0.05, 0.45); S("pop", T.fleury + 0.05, 0.45);
+S("pop", T.einstein + 0.05, 0.45); S("pop2", T.sirio + 0.05, 0.45); S("pop", T.laboratorios + 0.05, 0.45);
 S("whoosh2", PANELS.p2[0], 0.3);
 PANELS.p2.logoTimes.forEach((t, i) => S(i % 2 ? "pop2" : "pop", t + 0.12, 0.3));
 S("whoosh", PANELS.p3[0], 0.3);

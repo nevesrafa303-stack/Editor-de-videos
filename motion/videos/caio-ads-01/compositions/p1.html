@@ -21,18 +21,17 @@
 .p1-c video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .p1-c .nm{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;}
 .p1-c .nm span{padding:7px 16px;border-radius:22px;background:#fff;color:#0B1E3D;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:27px;text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 18px rgba(0,0,0,.35);}
-#p1-cF{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#0B1E3D;}
-#p1-cF .ci{width:118px;height:118px;border-radius:50%;background:#0B1E3D;display:flex;align-items:center;justify-content:center;}
-#p1-cF b{font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:58px;line-height:1;}
-#p1-cF i{font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:25px;color:#4a5874;}
+#p1-cF{background:#fff;display:flex;align-items:center;justify-content:center;}
+#p1-cF img{width:270px;margin-top:-34px;}
+#p1-cF .nm span{background:#0B1E3D;color:#fff;}
 #p1-lg{top:888px;}
   </style>
   <div id="root" data-composition-id="p1" data-width="1080" data-height="1920">
 <div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
     <div id="p1-lab" class="lab">Uma rede de qualidade, como:</div>
-    <div class="p1-c" id="p1-cE" style="left:72px" data-layout-allow-overflow><video id="p1-vE" class="clip" data-start="0.633" data-duration="2.789" data-track-index="0" data-playback-rate="0.88" muted playsinline src="assets/video/f_einstein.mp4"></video><div class="nm"><span>Einstein</span></div></div>
-    <div class="p1-c" id="p1-cS" style="left:392px" data-layout-allow-overflow><video id="p1-vS" class="clip" data-start="1.284" data-duration="2.138" data-track-index="1" muted playsinline src="assets/video/f_sirio_torre.mp4"></video><div class="nm"><span>Sírio-Libanês</span></div></div>
-    <div class="p1-c" id="p1-cF" style="left:712px"><span class="ci"><span class="ic" style="width:64px;height:64px;color:#FFC23D"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.8 18.2A2 2 0 0 0 6.5 21h11a2 2 0 0 0 1.7-2.8L14 9.5V3"/><path d="M7.5 15h9"/></svg></span></span><b>FLEURY</b><i>laboratórios</i></div>
+    <div class="p1-c" id="p1-cE" style="left:72px" data-layout-allow-overflow><video id="p1-vE" class="clip" data-start="0.633" data-duration="3.041" data-track-index="0" data-playback-rate="0.85" muted playsinline src="assets/video/f_einstein.mp4"></video><div class="nm"><span>Einstein</span></div></div>
+    <div class="p1-c" id="p1-cS" style="left:392px" data-layout-allow-overflow><video id="p1-vS" class="clip" data-start="1.284" data-duration="2.39" data-track-index="1" muted playsinline src="assets/video/f_sirio_torre.mp4"></video><div class="nm"><span>Sírio-Libanês</span></div></div>
+    <div class="p1-c" id="p1-cF" style="left:712px"><img src="assets/logos/fleury.png" alt="Fleury"><div class="nm"><span>Laboratórios</span></div></div>
     <div id="p1-lg" class="legal">A rede credenciada pode variar conforme plano contratado. Consulte a disponibilidade da rede hospitalar. Imagem meramente ilustrativa.</div></div>
   </div>
   <script>
@@ -40,9 +39,9 @@
     tl.fromTo("#p1-lab",{opacity:0,y:40},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.3);
     tl.fromTo("#p1-cE",{opacity:0,y:80,rotationY:-70,scale:0.85,transformPerspective:900},{opacity:1,y:0,rotationY:0,scale:1,duration:0.5,ease:"back.out(1.5)"},0.633);
     tl.fromTo("#p1-cS",{opacity:0,y:80,rotationY:-70,scale:0.85,transformPerspective:900},{opacity:1,y:0,rotationY:0,scale:1,duration:0.5,ease:"back.out(1.5)"},1.284);
-    tl.fromTo("#p1-cF",{opacity:0,y:80,rotationY:-70,scale:0.85,transformPerspective:900},{opacity:1,y:0,rotationY:0,scale:1,duration:0.5,ease:"back.out(1.5)"},2.879);
+    tl.fromTo("#p1-cF",{opacity:0,y:80,rotationY:-70,scale:0.85,transformPerspective:900},{opacity:1,y:0,rotationY:0,scale:1,duration:0.5,ease:"back.out(1.5)"},2.229);
     tl.fromTo("#p1-lg",{opacity:0},{opacity:1,duration:0.3},0.35);
-    tl.to("#p1-lab,#p1-cE,#p1-cS,#p1-cF,#p1-lg",{opacity:0,y:-36,duration:0.24,ease:"power2.in"},3.162);
+    tl.to("#p1-lab,#p1-cE,#p1-cS,#p1-cF,#p1-lg",{opacity:0,y:-36,duration:0.24,ease:"power2.in"},3.414);
     window.__timelines["p1"] = tl;
   </script>
 </template>
