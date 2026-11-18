@@ -8,3 +8,5 @@ assets/voice/*.raw.wav
 __pycache__/
 node_modules
 .cache/
+.hyperframes/
+.transcode-cache/
