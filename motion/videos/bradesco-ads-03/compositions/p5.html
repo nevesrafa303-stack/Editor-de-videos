@@ -1,0 +1,59 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#FFD3DC;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+.wcard{background:#fff;color:#2A0710;border-radius:26px;box-shadow:0 18px 40px rgba(40,0,10,.35);}
+.rdot{border-radius:50%;background:#CC092F;display:flex;align-items:center;justify-content:center;flex:none;}
+.lgsv{color:#CC092F;}
+.lgsv svg{display:block;}
+
+#p5-lab{top:452px;}
+#p5-g{position:absolute;left:340px;top:500px;width:400px;height:220px;}
+#p5-g svg{width:100%;height:100%;overflow:visible;}
+#p5-nd{position:absolute;left:196px;top:30px;width:8px;height:176px;border-radius:4px;background:#fff;transform-origin:50% 100%;box-shadow:0 0 12px rgba(255,255,255,.6);}
+#p5-hub{position:absolute;left:180px;top:186px;width:40px;height:40px;border-radius:50%;background:#fff;}
+.p5-x{position:absolute;top:226px;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:26px;}
+#p5-t{top:770px;font-size:56px;}
+#p5-t2{top:830px;font-size:44px;color:#FFD3DC;}
+#p5-lg{top:900px;}
+  </style>
+  <div id="root" data-composition-id="p5" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <div id="p5-lab" class="lab">E olha…</div>
+    <div id="p5-g" data-layout-allow-overflow>
+      <svg viewBox="0 0 400 220"><path d="M30 200 A170 170 0 0 1 370 200" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="26" stroke-linecap="round"/><path id="p5-arc" d="M30 200 A170 170 0 0 1 370 200" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="butt" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg>
+      <span id="p5-nd"></span><span id="p5-hub"></span>
+      <span class="p5-x" style="left:0">baixo</span><span class="p5-x" style="right:0">alto</span>
+    </div>
+    <div id="p5-t" class="pt">Um custo que vai</div>
+    <div id="p5-t2" class="pt">surpreender você</div>
+    <div id="p5-lg" class="legal">Valores referenciais sujeitos às regras da operadora. Valores sujeitos à faixa etária e região.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p5-lab",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.16);
+    tl.fromTo("#p5-g",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},0.52);
+    tl.fromTo("#p5-nd",{rotation:70},{rotation:70,duration:0.01},0.52);
+    tl.fromTo("#p5-arc",{attr:{"stroke-dashoffset":100}},{attr:{"stroke-dashoffset":12},duration:0.6,ease:"power2.out"},0.72);
+    tl.to("#p5-nd",{rotation:-45,duration:0.7,ease:"back.out(1.4)"},2.96);
+    tl.to("#p5-arc",{attr:{"stroke-dashoffset":78},duration:0.7,ease:"power2.out"},2.96);
+    tl.fromTo("#p5-t",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.82);
+    tl.fromTo("#p5-t2",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},3.06);
+    tl.fromTo("#p5-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#p5-lab,#p5-g,#p5-t,#p5-t2,#p5-lg",{opacity:0,y:-36,duration:0.22,ease:"power2.in"},4.5);
+    window.__timelines["p5"] = tl;
+  </script>
+</template>

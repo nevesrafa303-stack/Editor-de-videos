@@ -1,0 +1,617 @@
+[
+{
+"word": "Ei,",
+"start": 0.13,
+"end": 0.14
+},
+{
+"word": "deixa",
+"start": 0.32,
+"end": 0.55
+},
+{
+"word": "eu",
+"start": 0.63,
+"end": 0.72
+},
+{
+"word": "te",
+"start": 0.72,
+"end": 0.85
+},
+{
+"word": "contar",
+"start": 0.85,
+"end": 1.24
+},
+{
+"word": "uma",
+"start": 1.24,
+"end": 1.38
+},
+{
+"word": "coisa,",
+"start": 1.43,
+"end": 1.93
+},
+{
+"word": "você",
+"start": 1.94,
+"end": 2.21
+},
+{
+"word": "já",
+"start": 2.21,
+"end": 2.35
+},
+{
+"word": "deve",
+"start": 2.35,
+"end": 2.64
+},
+{
+"word": "ter",
+"start": 2.64,
+"end": 2.74
+},
+{
+"word": "ouvido",
+"start": 2.74,
+"end": 2.93
+},
+{
+"word": "falar",
+"start": 3.01,
+"end": 3.2
+},
+{
+"word": "da",
+"start": 3.2,
+"end": 3.25
+},
+{
+"word": "Bradesco",
+"start": 3.26,
+"end": 3.84
+},
+{
+"word": "Saúde,",
+"start": 3.84,
+"end": 4.35
+},
+{
+"word": "né?",
+"start": 4.35,
+"end": 4.42
+},
+{
+"word": "Ah,",
+"start": 4.58,
+"end": 4.7
+},
+{
+"word": "João,",
+"start": 4.78,
+"end": 4.99
+},
+{
+"word": "mas",
+"start": 5.09,
+"end": 5.25
+},
+{
+"word": "é",
+"start": 5.25,
+"end": 5.31
+},
+{
+"word": "um",
+"start": 5.31,
+"end": 5.39
+},
+{
+"word": "plano",
+"start": 5.47,
+"end": 5.74
+},
+{
+"word": "de",
+"start": 5.74,
+"end": 5.84
+},
+{
+"word": "saúde",
+"start": 5.9,
+"end": 6.16
+},
+{
+"word": "top",
+"start": 6.16,
+"end": 6.2
+},
+{
+"word": "demais,",
+"start": 6.4,
+"end": 6.9
+},
+{
+"word": "mas",
+"start": 6.9,
+"end": 7.15
+},
+{
+"word": "é",
+"start": 7.15,
+"end": 7.22
+},
+{
+"word": "muito",
+"start": 7.22,
+"end": 7.65
+},
+{
+"word": "caro.",
+"start": 7.65,
+"end": 8
+},
+{
+"word": "Então",
+"start": 8,
+"end": 8.32
+},
+{
+"word": "se",
+"start": 8.32,
+"end": 8.42
+},
+{
+"word": "prepara,",
+"start": 8.42,
+"end": 8.93
+},
+{
+"word": "porque",
+"start": 8.93,
+"end": 9.28
+},
+{
+"word": "talvez",
+"start": 9.28,
+"end": 9.63
+},
+{
+"word": "você",
+"start": 9.63,
+"end": 9.74
+},
+{
+"word": "ainda",
+"start": 9.94,
+"end": 10.17
+},
+{
+"word": "não",
+"start": 10.17,
+"end": 10.35
+},
+{
+"word": "saiba",
+"start": 10.35,
+"end": 10.64
+},
+{
+"word": "disso.",
+"start": 10.64,
+"end": 11.18
+},
+{
+"word": "A",
+"start": 11.18,
+"end": 11.32
+},
+{
+"word": "Bradesco",
+"start": 11.32,
+"end": 11.71
+},
+{
+"word": "Saúde",
+"start": 11.81,
+"end": 12.1
+},
+{
+"word": "trouxe",
+"start": 12.1,
+"end": 12.5
+},
+{
+"word": "aqui",
+"start": 12.5,
+"end": 12.77
+},
+{
+"word": "para",
+"start": 12.77,
+"end": 12.91
+},
+{
+"word": "a",
+"start": 12.91,
+"end": 13.12
+},
+{
+"word": "nossa",
+"start": 13.12,
+"end": 13.44
+},
+{
+"word": "região",
+"start": 13.44,
+"end": 13.92
+},
+{
+"word": "uma",
+"start": 13.92,
+"end": 14.24
+},
+{
+"word": "nova",
+"start": 14.24,
+"end": 14.68
+},
+{
+"word": "opção",
+"start": 14.68,
+"end": 14.79
+},
+{
+"word": "de",
+"start": 15,
+"end": 15.06
+},
+{
+"word": "plano",
+"start": 15.06,
+"end": 15.36
+},
+{
+"word": "de",
+"start": 15.36,
+"end": 15.44
+},
+{
+"word": "saúde",
+"start": 15.44,
+"end": 15.6
+},
+{
+"word": "para",
+"start": 15.78,
+"end": 15.92
+},
+{
+"word": "empresas,",
+"start": 15.92,
+"end": 16.52
+},
+{
+"word": "de",
+"start": 16.66,
+"end": 16.7
+},
+{
+"word": "3",
+"start": 16.83,
+"end": 16.98
+},
+{
+"word": "até",
+"start": 16.98,
+"end": 17.26
+},
+{
+"word": "199",
+"start": 17.26,
+"end": 18.1
+},
+{
+"word": "pessoas.",
+"start": 18.1,
+"end": 19.02
+},
+{
+"word": "Um",
+"start": 19.02,
+"end": 19.37
+},
+{
+"word": "plano",
+"start": 19.37,
+"end": 19.49
+},
+{
+"word": "com",
+"start": 19.49,
+"end": 19.59
+},
+{
+"word": "abrangência",
+"start": 19.69,
+"end": 20.34
+},
+{
+"word": "nacional,",
+"start": 20.34,
+"end": 21
+},
+{
+"word": "excelentes",
+"start": 21,
+"end": 21.9
+},
+{
+"word": "hospitais",
+"start": 21.9,
+"end": 22.66
+},
+{
+"word": "e",
+"start": 22.66,
+"end": 22.88
+},
+{
+"word": "aquela",
+"start": 22.88,
+"end": 23.12
+},
+{
+"word": "qualidade",
+"start": 23.12,
+"end": 23.98
+},
+{
+"word": "de",
+"start": 23.98,
+"end": 24.08
+},
+{
+"word": "tratamento",
+"start": 24.08,
+"end": 24.58
+},
+{
+"word": "de",
+"start": 24.58,
+"end": 24.74
+},
+{
+"word": "alto",
+"start": 24.74,
+"end": 25.12
+},
+{
+"word": "custo",
+"start": 25.12,
+"end": 25.64
+},
+{
+"word": "que",
+"start": 25.78,
+"end": 25.8
+},
+{
+"word": "somente",
+"start": 25.95,
+"end": 26.18
+},
+{
+"word": "clientes",
+"start": 26.18,
+"end": 26.57
+},
+{
+"word": "Bradesco",
+"start": 26.65,
+"end": 27.02
+},
+{
+"word": "têm",
+"start": 27.08,
+"end": 27.22
+},
+{
+"word": "essa",
+"start": 27.22,
+"end": 27.38
+},
+{
+"word": "segurança.",
+"start": 27.58,
+"end": 28.12
+},
+{
+"word": "E",
+"start": 28.21,
+"end": 28.32
+},
+{
+"word": "olha,",
+"start": 28.32,
+"end": 28.65
+},
+{
+"word": "um",
+"start": 28.75,
+"end": 28.93
+},
+{
+"word": "custo",
+"start": 28.93,
+"end": 29.38
+},
+{
+"word": "que",
+"start": 29.38,
+"end": 29.65
+},
+{
+"word": "tenho",
+"start": 29.65,
+"end": 30.1
+},
+{
+"word": "certeza",
+"start": 30.1,
+"end": 30.73
+},
+{
+"word": "que",
+"start": 30.73,
+"end": 31
+},
+{
+"word": "vai",
+"start": 31,
+"end": 31.27
+},
+{
+"word": "surpreender",
+"start": 31.27,
+"end": 32.25
+},
+{
+"word": "você.",
+"start": 32.25,
+"end": 32.94
+},
+{
+"word": "Talvez",
+"start": 33.08,
+"end": 33.3
+},
+{
+"word": "a",
+"start": 33.3,
+"end": 33.36
+},
+{
+"word": "sua",
+"start": 33.36,
+"end": 33.47
+},
+{
+"word": "empresa",
+"start": 33.57,
+"end": 33.97
+},
+{
+"word": "esteja",
+"start": 33.97,
+"end": 34.32
+},
+{
+"word": "aí",
+"start": 34.38,
+"end": 34.46
+},
+{
+"word": "pagando",
+"start": 34.46,
+"end": 34.89
+},
+{
+"word": "mais",
+"start": 34.89,
+"end": 35.14
+},
+{
+"word": "do",
+"start": 35.14,
+"end": 35.26
+},
+{
+"word": "que",
+"start": 35.26,
+"end": 35.44
+},
+{
+"word": "precisa.",
+"start": 35.44,
+"end": 36.14
+},
+{
+"word": "Clica",
+"start": 36.2,
+"end": 36.43
+},
+{
+"word": "aqui",
+"start": 36.46,
+"end": 36.68
+},
+{
+"word": "no",
+"start": 36.69,
+"end": 36.81
+},
+{
+"word": "botão",
+"start": 36.81,
+"end": 37.07
+},
+{
+"word": "abaixo,",
+"start": 37.15,
+"end": 37.64
+},
+{
+"word": "faça",
+"start": 37.64,
+"end": 37.88
+},
+{
+"word": "a",
+"start": 37.88,
+"end": 38.08
+},
+{
+"word": "sua",
+"start": 38.08,
+"end": 38.32
+},
+{
+"word": "cotação",
+"start": 38.32,
+"end": 38.94
+},
+{
+"word": "e",
+"start": 38.94,
+"end": 39.01
+},
+{
+"word": "descubra",
+"start": 39.01,
+"end": 39.59
+},
+{
+"word": "quanto",
+"start": 39.59,
+"end": 40.03
+},
+{
+"word": "você",
+"start": 40.03,
+"end": 40.32
+},
+{
+"word": "pode",
+"start": 40.32,
+"end": 40.56
+},
+{
+"word": "economizar.",
+"start": 40.74,
+"end": 41.4
+}
+]
