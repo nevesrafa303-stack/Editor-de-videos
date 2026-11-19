@@ -1,0 +1,51 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#FFD3DC;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+.wcard{background:#fff;color:#2A0710;border-radius:26px;box-shadow:0 18px 40px rgba(40,0,10,.35);}
+.rdot{border-radius:50%;background:#CC092F;display:flex;align-items:center;justify-content:center;flex:none;}
+.lgsv{color:#CC092F;}
+.lgsv svg{display:block;}
+
+#p1-lab{top:452px;}
+#p1-q{position:absolute;left:0;width:1080px;top:490px;text-align:center;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:70px;line-height:1;color:rgba(255,255,255,.95);}
+.p1-c{position:absolute;left:90px;width:900px;height:140px;border-radius:28px;background:rgba(58,4,16,.55);border:3px solid rgba(255,255,255,.75);display:flex;align-items:center;gap:26px;padding:0 30px;box-shadow:0 18px 40px rgba(40,0,10,.35);}
+.p1-c .ci{width:88px;height:88px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;}
+.p1-c span.tx{font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:38px;line-height:1.15;}
+.p1-c span.tx b{font-weight:800;color:#FFD3DC;}
+#p1-lg{top:900px;}
+  </style>
+  <div id="root" data-composition-id="p1" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <div id="p1-lab" class="lab">Eu sei que…</div>
+    <div id="p1-q">?</div>
+    <div class="p1-c" id="p1-c0" style="top:574px"><span class="ci" id="p1-i0"><span class="ic" style="width:54px;height:54px;color:#CC092F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10v-6z"/><path d="M9.8 9.5a2.3 2.3 0 1 1 3.4 2c-.8.4-1.2 1-1.2 1.8M12 16.3h.01"/></svg></span></span><span class="tx">Trocar de plano gera <b>insegurança</b></span></div>
+    <div class="p1-c" id="p1-c1" style="top:728px"><span class="ci" id="p1-i1"><span class="ic" style="width:54px;height:54px;color:#CC092F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span></span><span class="tx">O <b>preço</b> das operadoras <b>assusta</b></span></div>
+    <div id="p1-lg" class="legal">Valores referenciais sujeitos às regras da operadora. Os valores podem variar conforme perfil do beneficiário.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p1-lab",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.25);
+    tl.fromTo("#p1-q",{opacity:0,scale:0.4},{opacity:1,scale:1,duration:0.36,ease:"back.out(1.9)"},0.35);
+    tl.fromTo("#p1-c0",{opacity:0,x:-140},{opacity:1,x:0,duration:0.42,ease:"power3.out"},0.74);
+    tl.fromTo("#p1-i0",{rotation:0},{keyframes:[{rotation:-12,duration:0.06},{rotation:10,duration:0.06},{rotation:-6,duration:0.06},{rotation:0,duration:0.06}],immediateRender:false},3.06);
+    tl.fromTo("#p1-c1",{opacity:0,x:140},{opacity:1,x:0,duration:0.42,ease:"power3.out"},4.01);
+    tl.fromTo("#p1-i1",{rotation:0},{keyframes:[{rotation:-12,duration:0.06},{rotation:10,duration:0.06},{rotation:-6,duration:0.06},{rotation:0,duration:0.06}],immediateRender:false},7.13);
+    tl.fromTo("#p1-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#p1-lab,#p1-q,.p1-c,#p1-lg",{opacity:0,y:-36,duration:0.22,ease:"power2.in"},9.1);
+    window.__timelines["p1"] = tl;
+  </script>
+</template>

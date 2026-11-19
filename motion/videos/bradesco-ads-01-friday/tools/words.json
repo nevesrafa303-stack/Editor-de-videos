@@ -1,0 +1,592 @@
+[
+{
+"word": "Você",
+"start": 0.08,
+"end": 0.42
+},
+{
+"word": "possui",
+"start": 0.42,
+"end": 1.04
+},
+{
+"word": "um",
+"start": 1.04,
+"end": 1.25
+},
+{
+"word": "CNPJ",
+"start": 1.25,
+"end": 1.63
+},
+{
+"word": "e",
+"start": 1.63,
+"end": 1.81
+},
+{
+"word": "está",
+"start": 1.81,
+"end": 2.01
+},
+{
+"word": "buscando",
+"start": 2.01,
+"end": 2.56
+},
+{
+"word": "um",
+"start": 2.56,
+"end": 2.62
+},
+{
+"word": "plano",
+"start": 2.72,
+"end": 2.94
+},
+{
+"word": "de",
+"start": 2.94,
+"end": 3.02
+},
+{
+"word": "saúde",
+"start": 3.09,
+"end": 3.44
+},
+{
+"word": "com",
+"start": 3.44,
+"end": 3.78
+},
+{
+"word": "economia",
+"start": 3.78,
+"end": 4.57
+},
+{
+"word": "e",
+"start": 4.83,
+"end": 4.92
+},
+{
+"word": "acesso",
+"start": 4.92,
+"end": 5.52
+},
+{
+"word": "aos",
+"start": 5.52,
+"end": 5.65
+},
+{
+"word": "melhores",
+"start": 5.68,
+"end": 6.16
+},
+{
+"word": "hospitais",
+"start": 6.24,
+"end": 6.77
+},
+{
+"word": "da",
+"start": 6.77,
+"end": 6.91
+},
+{
+"word": "região?",
+"start": 6.91,
+"end": 7.56
+},
+{
+"word": "Vem",
+"start": 7.64,
+"end": 7.78
+},
+{
+"word": "comigo.",
+"start": 7.8,
+"end": 8.55
+},
+{
+"word": "É",
+"start": 8.55,
+"end": 8.64
+},
+{
+"word": "o",
+"start": 8.64,
+"end": 8.66
+},
+{
+"word": "Friday",
+"start": 8.66,
+"end": 8.97
+},
+{
+"word": "da",
+"start": 8.97,
+"end": 9.06
+},
+{
+"word": "Bradesco.",
+"start": 9.12,
+"end": 9.68
+},
+{
+"word": "Somente",
+"start": 9.76,
+"end": 10.1
+},
+{
+"word": "nesse",
+"start": 10.1,
+"end": 10.4
+},
+{
+"word": "mês,",
+"start": 10.4,
+"end": 10.67
+},
+{
+"word": "contratando",
+"start": 10.7,
+"end": 11.3
+},
+{
+"word": "o",
+"start": 11.3,
+"end": 11.49
+},
+{
+"word": "plano",
+"start": 11.49,
+"end": 11.73
+},
+{
+"word": "de",
+"start": 11.73,
+"end": 11.85
+},
+{
+"word": "saúde",
+"start": 11.85,
+"end": 12.15
+},
+{
+"word": "Bradesco",
+"start": 12.15,
+"end": 12.63
+},
+{
+"word": "Empresarial",
+"start": 12.63,
+"end": 13.29
+},
+{
+"word": "a",
+"start": 13.29,
+"end": 13.35
+},
+{
+"word": "partir",
+"start": 13.35,
+"end": 13.72
+},
+{
+"word": "de",
+"start": 13.72,
+"end": 13.84
+},
+{
+"word": "três",
+"start": 13.84,
+"end": 14.2
+},
+{
+"word": "pessoas.",
+"start": 14.29,
+"end": 15.19
+},
+{
+"word": "Por",
+"start": 15.28,
+"end": 15.36
+},
+{
+"word": "exemplo,",
+"start": 15.36,
+"end": 15.86
+},
+{
+"word": "você",
+"start": 15.86,
+"end": 16.08
+},
+{
+"word": "como",
+"start": 16.08,
+"end": 16.3
+},
+{
+"word": "sócio",
+"start": 16.3,
+"end": 16.57
+},
+{
+"word": "ou",
+"start": 16.57,
+"end": 16.68
+},
+{
+"word": "sócia",
+"start": 16.68,
+"end": 16.83
+},
+{
+"word": "e",
+"start": 16.83,
+"end": 17.01
+},
+{
+"word": "mais",
+"start": 17.01,
+"end": 17.32
+},
+{
+"word": "duas",
+"start": 17.33,
+"end": 17.55
+},
+{
+"word": "pessoas,",
+"start": 17.55,
+"end": 18.05
+},
+{
+"word": "você",
+"start": 18.05,
+"end": 18.21
+},
+{
+"word": "já",
+"start": 18.32,
+"end": 18.38
+},
+{
+"word": "ganha",
+"start": 18.38,
+"end": 18.65
+},
+{
+"word": "uma",
+"start": 18.65,
+"end": 18.92
+},
+{
+"word": "condição",
+"start": 19,
+"end": 19.54
+},
+{
+"word": "especial,",
+"start": 19.54,
+"end": 20.32
+},
+{
+"word": "50%",
+"start": 20.32,
+"end": 20.85
+},
+{
+"word": "de",
+"start": 20.93,
+"end": 21.01
+},
+{
+"word": "desconto",
+"start": 21.01,
+"end": 21.53
+},
+{
+"word": "na",
+"start": 21.64,
+"end": 21.78
+},
+{
+"word": "segunda",
+"start": 21.78,
+"end": 22.32
+},
+{
+"word": "mensalidade.",
+"start": 22.33,
+"end": 23.48
+},
+{
+"word": "Além",
+"start": 23.6,
+"end": 23.8
+},
+{
+"word": "da",
+"start": 23.8,
+"end": 23.94
+},
+{
+"word": "economia,",
+"start": 23.94,
+"end": 24.65
+},
+{
+"word": "você",
+"start": 24.65,
+"end": 24.92
+},
+{
+"word": "terá",
+"start": 24.92,
+"end": 25.16
+},
+{
+"word": "um",
+"start": 25.33,
+"end": 25.35
+},
+{
+"word": "plano",
+"start": 25.35,
+"end": 25.71
+},
+{
+"word": "top,",
+"start": 25.71,
+"end": 26.06
+},
+{
+"word": "com",
+"start": 26.06,
+"end": 26.27
+},
+{
+"word": "excelentes",
+"start": 26.27,
+"end": 26.97
+},
+{
+"word": "hospitais,",
+"start": 26.98,
+"end": 27.75
+},
+{
+"word": "laboratórios",
+"start": 27.75,
+"end": 28.6
+},
+{
+"word": "e",
+"start": 28.61,
+"end": 28.78
+},
+{
+"word": "reembolso",
+"start": 28.86,
+"end": 29.28
+},
+{
+"word": "para",
+"start": 29.28,
+"end": 29.51
+},
+{
+"word": "consultas",
+"start": 29.51,
+"end": 30.02
+},
+{
+"word": "médicas.",
+"start": 30.02,
+"end": 30.64
+},
+{
+"word": "Mas",
+"start": 30.72,
+"end": 30.89
+},
+{
+"word": "atenção,",
+"start": 30.89,
+"end": 31.62
+},
+{
+"word": "essa",
+"start": 31.63,
+"end": 31.96
+},
+{
+"word": "condição",
+"start": 31.96,
+"end": 32.57
+},
+{
+"word": "dos",
+"start": 32.65,
+"end": 32.87
+},
+{
+"word": "50%",
+"start": 32.87,
+"end": 33.45
+},
+{
+"word": "é",
+"start": 33.45,
+"end": 33.53
+},
+{
+"word": "válida",
+"start": 33.53,
+"end": 34.02
+},
+{
+"word": "somente",
+"start": 34.02,
+"end": 34.52
+},
+{
+"word": "até",
+"start": 34.64,
+"end": 34.85
+},
+{
+"word": "o",
+"start": 34.85,
+"end": 34.93
+},
+{
+"word": "final",
+"start": 34.93,
+"end": 35.21
+},
+{
+"word": "deste",
+"start": 35.47,
+"end": 35.75
+},
+{
+"word": "mês.",
+"start": 35.75,
+"end": 36.28
+},
+{
+"word": "Quer",
+"start": 36.4,
+"end": 36.57
+},
+{
+"word": "conhecer",
+"start": 36.57,
+"end": 37.2
+},
+{
+"word": "as",
+"start": 37.2,
+"end": 37.31
+},
+{
+"word": "opções",
+"start": 37.35,
+"end": 37.69
+},
+{
+"word": "disponíveis",
+"start": 37.69,
+"end": 38.38
+},
+{
+"word": "para",
+"start": 38.38,
+"end": 38.58
+},
+{
+"word": "sua",
+"start": 38.66,
+"end": 38.82
+},
+{
+"word": "empresa?",
+"start": 38.82,
+"end": 39.52
+},
+{
+"word": "Clique",
+"start": 39.6,
+"end": 39.88
+},
+{
+"word": "no",
+"start": 39.88,
+"end": 40
+},
+{
+"word": "botão",
+"start": 40,
+"end": 40.27
+},
+{
+"word": "abaixo,",
+"start": 40.35,
+"end": 40.78
+},
+{
+"word": "preencha",
+"start": 40.78,
+"end": 41.15
+},
+{
+"word": "o",
+"start": 41.15,
+"end": 41.33
+},
+{
+"word": "formulário",
+"start": 41.33,
+"end": 41.93
+},
+{
+"word": "e",
+"start": 41.93,
+"end": 41.99
+},
+{
+"word": "fale",
+"start": 41.99,
+"end": 42.12
+},
+{
+"word": "agora",
+"start": 42.24,
+"end": 42.54
+},
+{
+"word": "mesmo",
+"start": 42.64,
+"end": 42.85
+},
+{
+"word": "com",
+"start": 42.85,
+"end": 42.98
+},
+{
+"word": "a",
+"start": 42.98,
+"end": 43.12
+},
+{
+"word": "gente.",
+"start": 43.12,
+"end": 43.68
+}
+]

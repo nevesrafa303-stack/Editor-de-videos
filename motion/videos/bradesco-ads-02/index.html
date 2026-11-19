@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #7A0019; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: linear-gradient(180deg, #CC092F 0%, #7A0019 22%, #4A0010 100%); }
+      #vw { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 1; }
+      #v-src { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #pbg { position: absolute; left: 0; top: 0; width: 1080px; height: 1168px; z-index: 2; border-radius: 0 0 56px 56px; overflow: hidden;
+        background: radial-gradient(120% 70% at 50% 30%, #DA1840 0%, #B30A2C 42%, #7A0019 100%); box-shadow: 0 30px 70px rgba(40,0,10,.55); }
+      #pbg-grid { position: absolute; inset: 0; opacity: .6;
+        background-image: linear-gradient(rgba(255,255,255,.06) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.06) 2px, transparent 2px);
+        background-size: 60px 60px; }
+      #pbg-line { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: linear-gradient(90deg, rgba(255,255,255,0), #fff, rgba(255,255,255,0)); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="35.9" data-width="1080" data-height="1920">
+      <div id="vw">
+        <video id="v-src" class="clip" data-start="0" data-duration="35.9" data-track-index="0" muted playsinline src="assets/video/src.mp4"></video>
+      </div>
+      <div id="pbg"><div id="pbg-grid"></div><div id="pbg-line"></div></div>
+      <div id="hd" data-composition-id="hd" data-composition-src="compositions/hd.html" data-start="0" data-duration="35.9" data-track-index="5" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:5"></div>
+      <div id="p1" data-composition-id="p1" data-composition-src="compositions/p1.html" data-start="6.05" data-duration="9.34" data-track-index="3" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:3"></div>
+      <div id="p2" data-composition-id="p2" data-composition-src="compositions/p2.html" data-start="15.39" data-duration="12.34" data-track-index="3" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:3"></div>
+      <div id="p3" data-composition-id="p3" data-composition-src="compositions/p3.html" data-start="31.34" data-duration="4.56" data-track-index="3" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:3"></div>
+      <div id="lf" data-composition-id="lf" data-composition-src="compositions/lf.html" data-start="0" data-duration="35.9" data-track-index="7" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:6"></div>
+      <div id="cap" data-composition-id="cap" data-composition-src="compositions/cap.html" data-start="0" data-duration="35.9" data-track-index="6" data-track-kind="captions" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:7"></div>
+      <audio id="a-voice" class="clip" data-start="0" data-duration="35.9" data-track-index="10" data-volume="1" src="assets/audio/voice.wav"></audio>
+      <audio id="a-bgm" class="clip" data-start="0" data-duration="35.9" data-track-index="11" data-volume="1.4" src="assets/audio/bgm_duck.wav"></audio>
+      <audio id="sfx-0-pop2" class="clip" data-start="2.812" data-duration="0.235" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_pop2.wav"></audio>
+      <audio id="sfx-1-shimmer" class="clip" data-start="4.851" data-duration="1.545" data-track-index="12" data-volume="0.3" src="assets/audio/sfx_shimmer.wav"></audio>
+      <audio id="sfx-2-whoosh" class="clip" data-start="6.11" data-duration="1.132" data-track-index="13" data-volume="0.4" src="assets/audio/sfx_whoosh.wav"></audio>
+      <audio id="sfx-3-card" class="clip" data-start="6.85" data-duration="0.581" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_card.wav"></audio>
+      <audio id="sfx-4-card" class="clip" data-start="10.12" data-duration="0.581" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_card.wav"></audio>
+      <audio id="sfx-5-riser" class="clip" data-start="14.875" data-duration="1.124" data-track-index="12" data-volume="0.4" src="assets/audio/sfx_riser.wav"></audio>
+      <audio id="sfx-6-whoosh2" class="clip" data-start="15.2" data-duration="1.132" data-track-index="13" data-volume="0.3" src="assets/audio/sfx_whoosh2.wav"></audio>
+      <audio id="sfx-7-impact" class="clip" data-start="15.793" data-duration="1.7" data-track-index="14" data-volume="0.55" src="assets/audio/sfx_impact.wav"></audio>
+      <audio id="sfx-8-pop" class="clip" data-start="17.032" data-duration="0.235" data-track-index="12" data-volume="0.4" src="assets/audio/sfx_pop.wav"></audio>
+      <audio id="sfx-9-pop2" class="clip" data-start="19.362" data-duration="0.235" data-track-index="12" data-volume="0.4" src="assets/audio/sfx_pop2.wav"></audio>
+      <audio id="sfx-10-whoosh2" class="clip" data-start="20.39" data-duration="1.132" data-track-index="12" data-volume="0.25" src="assets/audio/sfx_whoosh2.wav"></audio>
+      <audio id="sfx-11-pop" class="clip" data-start="21.312" data-duration="0.235" data-track-index="13" data-volume="0.35" src="assets/audio/sfx_pop.wav"></audio>
+      <audio id="sfx-12-pop2" class="clip" data-start="22.902" data-duration="0.235" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_pop2.wav"></audio>
+      <audio id="sfx-13-pop" class="clip" data-start="24.072" data-duration="0.235" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_pop.wav"></audio>
+      <audio id="sfx-14-pop2" class="clip" data-start="26.032" data-duration="0.235" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_pop2.wav"></audio>
+      <audio id="sfx-15-whoosh" class="clip" data-start="27.24" data-duration="1.132" data-track-index="12" data-volume="0.4" src="assets/audio/sfx_whoosh.wav"></audio>
+      <audio id="sfx-16-pop2" class="clip" data-start="28.572" data-duration="0.235" data-track-index="12" data-volume="0.35" src="assets/audio/sfx_pop2.wav"></audio>
+      <audio id="sfx-17-whoosh2" class="clip" data-start="31.4" data-duration="1.132" data-track-index="12" data-volume="0.4" src="assets/audio/sfx_whoosh2.wav"></audio>
+      <audio id="sfx-18-pop" class="clip" data-start="32.222" data-duration="0.235" data-track-index="13" data-volume="0.4" src="assets/audio/sfx_pop.wav"></audio>
+      <audio id="sfx-19-tap" class="clip" data-start="33.419" data-duration="0.172" data-track-index="12" data-volume="0.55" src="assets/audio/sfx_tap.wav"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#pbg",{y:-1260},0);
+      tl.set("#vw",{y:230,scale:1,transformOrigin:"50% 33%"},0);
+      tl.fromTo("#vw",{scale:1},{scale:1.035,duration:1.27,ease:"none"},0);
+      tl.to("#vw",{scale:1.07,duration:0.18,ease:"power3.out"},1.27);
+      tl.to("#vw",{scale:1.1,duration:0.18,ease:"power3.out"},2.73);
+      tl.to("#vw",{scale:1.12,duration:0.18,ease:"power3.out"},4.89);
+      tl.to("#vw",{y:880,scale:1,duration:0.5,ease:"power3.inOut"},6.05);
+      tl.to("#pbg",{y:0,duration:0.5,ease:"power3.inOut"},6.05);
+      tl.to("#vw",{scale:1.05,duration:20.68,ease:"none"},6.55);
+      tl.to("#vw",{y:230,scale:1.04,duration:0.5,ease:"power3.inOut"},27.23);
+      tl.to("#pbg",{y:-1260,duration:0.5,ease:"power3.inOut"},27.23);
+      tl.to("#vw",{scale:1.1,duration:0.18,ease:"power3.out"},28.49);
+      tl.to("#vw",{y:880,scale:1,duration:0.5,ease:"power3.inOut"},31.34);
+      tl.to("#pbg",{y:0,duration:0.5,ease:"power3.inOut"},31.34);
+      tl.to("#vw",{scale:1.04,duration:4.06,ease:"none"},31.84);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

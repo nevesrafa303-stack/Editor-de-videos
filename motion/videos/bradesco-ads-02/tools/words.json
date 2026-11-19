@@ -1,0 +1,562 @@
+[
+{
+"word": "Você",
+"start": 0.14,
+"end": 0.44
+},
+{
+"word": "que",
+"start": 0.44,
+"end": 0.77
+},
+{
+"word": "tem",
+"start": 0.77,
+"end": 1.09
+},
+{
+"word": "um",
+"start": 1.1,
+"end": 1.31
+},
+{
+"word": "CNPJ",
+"start": 1.32,
+"end": 1.77
+},
+{
+"word": "e",
+"start": 1.87,
+"end": 1.88
+},
+{
+"word": "está",
+"start": 1.88,
+"end": 2.2
+},
+{
+"word": "pagando",
+"start": 2.2,
+"end": 2.58
+},
+{
+"word": "caro",
+"start": 2.78,
+"end": 3.08
+},
+{
+"word": "no",
+"start": 3.08,
+"end": 3.35
+},
+{
+"word": "seu",
+"start": 3.36,
+"end": 3.7
+},
+{
+"word": "plano",
+"start": 3.84,
+"end": 3.97
+},
+{
+"word": "de",
+"start": 3.97,
+"end": 4.04
+},
+{
+"word": "saúde,",
+"start": 4.04,
+"end": 4.23
+},
+{
+"word": "eu",
+"start": 4.23,
+"end": 4.46
+},
+{
+"word": "tenho",
+"start": 4.46,
+"end": 4.74
+},
+{
+"word": "uma",
+"start": 4.74,
+"end": 4.88
+},
+{
+"word": "boa",
+"start": 4.94,
+"end": 5.12
+},
+{
+"word": "notícia",
+"start": 5.12,
+"end": 5.56
+},
+{
+"word": "para",
+"start": 5.56,
+"end": 5.81
+},
+{
+"word": "você.",
+"start": 5.81,
+"end": 6.3
+},
+{
+"word": "Eu",
+"start": 6.3,
+"end": 6.46
+},
+{
+"word": "sei",
+"start": 6.46,
+"end": 6.68
+},
+{
+"word": "que",
+"start": 6.68,
+"end": 6.88
+},
+{
+"word": "trocar",
+"start": 6.94,
+"end": 7.37
+},
+{
+"word": "de",
+"start": 7.37,
+"end": 7.52
+},
+{
+"word": "plano",
+"start": 7.52,
+"end": 7.9
+},
+{
+"word": "de",
+"start": 7.9,
+"end": 8.05
+},
+{
+"word": "saúde",
+"start": 8.05,
+"end": 8.48
+},
+{
+"word": "pode",
+"start": 8.48,
+"end": 8.76
+},
+{
+"word": "gerar",
+"start": 8.76,
+"end": 9.11
+},
+{
+"word": "insegurança",
+"start": 9.11,
+"end": 9.9
+},
+{
+"word": "e",
+"start": 9.9,
+"end": 10.06
+},
+{
+"word": "contratar",
+"start": 10.06,
+"end": 10.7
+},
+{
+"word": "um",
+"start": 10.7,
+"end": 10.86
+},
+{
+"word": "novo",
+"start": 10.86,
+"end": 11.18
+},
+{
+"word": "plano",
+"start": 11.18,
+"end": 11.58
+},
+{
+"word": "de",
+"start": 11.58,
+"end": 11.69
+},
+{
+"word": "saúde",
+"start": 11.8,
+"end": 12.18
+},
+{
+"word": "muitas",
+"start": 12.18,
+"end": 12.7
+},
+{
+"word": "vezes",
+"start": 12.71,
+"end": 13.15
+},
+{
+"word": "assusta",
+"start": 13.18,
+"end": 13.82
+},
+{
+"word": "pelos",
+"start": 13.82,
+"end": 14.13
+},
+{
+"word": "preços",
+"start": 14.13,
+"end": 14.54
+},
+{
+"word": "das",
+"start": 14.54,
+"end": 14.68
+},
+{
+"word": "operadoras.",
+"start": 14.72,
+"end": 15.34
+},
+{
+"word": "Mas",
+"start": 15.49,
+"end": 15.6
+},
+{
+"word": "a",
+"start": 15.6,
+"end": 15.7
+},
+{
+"word": "boa",
+"start": 15.7,
+"end": 15.92
+},
+{
+"word": "notícia",
+"start": 15.98,
+"end": 16.56
+},
+{
+"word": "é",
+"start": 16.56,
+"end": 16.65
+},
+{
+"word": "que",
+"start": 16.65,
+"end": 16.9
+},
+{
+"word": "a",
+"start": 16.9,
+"end": 17
+},
+{
+"word": "Bradesco",
+"start": 17,
+"end": 17.69
+},
+{
+"word": "Saúde",
+"start": 17.69,
+"end": 18.2
+},
+{
+"word": "trouxe",
+"start": 18.2,
+"end": 18.52
+},
+{
+"word": "aqui",
+"start": 18.59,
+"end": 18.72
+},
+{
+"word": "para",
+"start": 18.79,
+"end": 19
+},
+{
+"word": "a",
+"start": 19,
+"end": 19.05
+},
+{
+"word": "nossa",
+"start": 19.05,
+"end": 19.33
+},
+{
+"word": "região",
+"start": 19.33,
+"end": 19.57
+},
+{
+"word": "uma",
+"start": 19.83,
+"end": 19.89
+},
+{
+"word": "opção",
+"start": 19.89,
+"end": 20.24
+},
+{
+"word": "de",
+"start": 20.24,
+"end": 20.38
+},
+{
+"word": "plano",
+"start": 20.38,
+"end": 20.74
+},
+{
+"word": "de",
+"start": 20.74,
+"end": 20.85
+},
+{
+"word": "saúde",
+"start": 20.89,
+"end": 21.23
+},
+{
+"word": "empresarial",
+"start": 21.23,
+"end": 22.06
+},
+{
+"word": "com",
+"start": 22.06,
+"end": 22.25
+},
+{
+"word": "o",
+"start": 22.25,
+"end": 22.29
+},
+{
+"word": "mínimo",
+"start": 22.48,
+"end": 22.7
+},
+{
+"word": "de",
+"start": 22.7,
+"end": 22.82
+},
+{
+"word": "três",
+"start": 22.82,
+"end": 23.06
+},
+{
+"word": "pessoas",
+"start": 23.13,
+"end": 23.58
+},
+{
+"word": "com",
+"start": 23.73,
+"end": 23.77
+},
+{
+"word": "o",
+"start": 23.77,
+"end": 23.83
+},
+{
+"word": "custo",
+"start": 23.83,
+"end": 24.14
+},
+{
+"word": "equilibrado,",
+"start": 24.14,
+"end": 24.98
+},
+{
+"word": "mantendo",
+"start": 24.98,
+"end": 25.53
+},
+{
+"word": "a",
+"start": 25.53,
+"end": 25.59
+},
+{
+"word": "mesma",
+"start": 25.69,
+"end": 25.95
+},
+{
+"word": "abrangência",
+"start": 25.95,
+"end": 26.7
+},
+{
+"word": "nacional.",
+"start": 26.7,
+"end": 27.5
+},
+{
+"word": "Quer",
+"start": 27.65,
+"end": 27.78
+},
+{
+"word": "saber",
+"start": 27.86,
+"end": 28.08
+},
+{
+"word": "quanto",
+"start": 28.14,
+"end": 28.54
+},
+{
+"word": "custaria",
+"start": 28.54,
+"end": 29.08
+},
+{
+"word": "um",
+"start": 29.08,
+"end": 29.21
+},
+{
+"word": "plano",
+"start": 29.21,
+"end": 29.51
+},
+{
+"word": "desses",
+"start": 29.61,
+"end": 29.96
+},
+{
+"word": "para",
+"start": 29.96,
+"end": 30.11
+},
+{
+"word": "você",
+"start": 30.3,
+"end": 30.56
+},
+{
+"word": "ou",
+"start": 30.56,
+"end": 30.65
+},
+{
+"word": "para",
+"start": 30.65,
+"end": 30.84
+},
+{
+"word": "a",
+"start": 30.84,
+"end": 30.88
+},
+{
+"word": "sua",
+"start": 30.88,
+"end": 31.02
+},
+{
+"word": "empresa?",
+"start": 31.02,
+"end": 31.52
+},
+{
+"word": "Clique",
+"start": 31.64,
+"end": 31.89
+},
+{
+"word": "no",
+"start": 31.89,
+"end": 32
+},
+{
+"word": "botão",
+"start": 32.01,
+"end": 32.31
+},
+{
+"word": "abaixo,",
+"start": 32.31,
+"end": 32.79
+},
+{
+"word": "preencha",
+"start": 32.79,
+"end": 33.27
+},
+{
+"word": "o",
+"start": 33.27,
+"end": 33.31
+},
+{
+"word": "formulário",
+"start": 33.42,
+"end": 34.04
+},
+{
+"word": "e",
+"start": 34.04,
+"end": 34.09
+},
+{
+"word": "fale",
+"start": 34.09,
+"end": 34.12
+},
+{
+"word": "agora",
+"start": 34.32,
+"end": 34.54
+},
+{
+"word": "mesmo",
+"start": 34.54,
+"end": 34.77
+},
+{
+"word": "com",
+"start": 34.8,
+"end": 34.9
+},
+{
+"word": "a",
+"start": 34.97,
+"end": 34.99
+},
+{
+"word": "nossa",
+"start": 34.99,
+"end": 35.24
+},
+{
+"word": "equipe.",
+"start": 35.24,
+"end": 35.74
+}
+]
