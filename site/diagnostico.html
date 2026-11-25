@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Diagnóstico — site Dra. Consuelo</title>
+<!--
+  Esta página não faz parte do site. Ela existe porque o site é conferido num
+  iPhone que eu não consigo alcançar daqui: o domínio é bloqueado pela rede
+  deste ambiente, e não há WebKit instalado para reproduzir o Safari.
+
+  Ela abre o index.html num quadro invisível, espera ele viver, e mede o que
+  vinha sendo relatado como "não funciona": se o JavaScript chegou ao fim, se
+  o card de atendimento aparece, se a foto se move ao rolar, se os
+  comparadores estão ligados, se o formulário monta o link do WhatsApp, se o
+  mapa entrou e se as fontes reais carregaram.
+
+  Um print desta página vale mais que qualquer suposição minha.
+-->
+<style>
+  :root{
+    --ok:#1B7F4B; --falha:#B3261E; --aviso:#8A6100;
+    --fundo:#FBFAF7; --texto:#1A1A1A; --fraco:#5B5B5B; --linha:#E2DED4;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;padding:20px 16px 48px;background:var(--fundo);color:var(--texto);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  h1{font-size:1.25rem;margin:0 0 4px}
+  .sub{color:var(--fraco);font-size:.85rem;margin:0 0 20px}
+  #resumo{
+    padding:14px 16px;border-radius:10px;font-weight:600;margin-bottom:18px;
+    background:#EFEFEF;
+  }
+  #resumo.tudo-ok{background:#E3F3EA;color:var(--ok)}
+  #resumo.tem-falha{background:#FBE9E7;color:var(--falha)}
+  ul{list-style:none;margin:0;padding:0}
+  li{
+    display:grid;grid-template-columns:26px 1fr;gap:10px;
+    padding:11px 0;border-bottom:1px solid var(--linha);align-items:start;
+  }
+  .marca{font-weight:700;font-size:1.05rem;line-height:1.35}
+  .ok .marca{color:var(--ok)} .falha .marca{color:var(--falha)} .aviso .marca{color:var(--aviso)}
+  .nome{font-weight:600}
+  .detalhe{color:var(--fraco);font-size:.82rem;word-break:break-word}
+  #quadro{position:absolute;left:-9999px;top:0;width:390px;height:780px;border:0}
+  .rodape{margin-top:22px;color:var(--fraco);font-size:.78rem}
+  code{background:#EDEAE1;padding:1px 5px;border-radius:4px;font-size:.8em}
+</style>
+</head>
+<body>
+
+<h1>Diagnóstico do site</h1>
+<p class="sub">Tire um print desta tela inteira e mande. Ela mede o site de verdade, neste aparelho.</p>
+
+<div id="resumo">Rodando os testes…</div>
+<ul id="lista"></ul>
+
+<p class="rodape">
+  Esta página abre o <code>index.html</code> num quadro oculto e o inspeciona.
+  Ela não altera nada no site.
+</p>
+
+<iframe id="quadro" src="index.html" title="site em teste"></iframe>
+
+<script>
+(function () {
+  'use strict';
+
+  var lista = document.getElementById('lista');
+  var resumo = document.getElementById('resumo');
+  var quadro = document.getElementById('quadro');
+  var falhas = 0, avisos = 0;
+
+  function anota(estado, nome, detalhe) {
+    if (estado === 'falha') falhas++;
+    if (estado === 'aviso') avisos++;
+    var li = document.createElement('li');
+    li.className = estado;
+    li.innerHTML = '<span class="marca">' +
+      (estado === 'ok' ? '✓' : estado === 'aviso' ? '!' : '✗') + '</span><span>' +
+      '<span class="nome"></span><br><span class="detalhe"></span></span>';
+    li.querySelector('.nome').textContent = nome;
+    li.querySelector('.detalhe').textContent = detalhe;
+    lista.appendChild(li);
+  }
+
+  function esperar(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  // erros de JavaScript do site em teste
+  var errosDoSite = [];
+  try {
+    quadro.contentWindow.addEventListener('error', function (e) {
+      errosDoSite.push(String(e.message || e.type));
+    });
+  } catch (e) { /* ainda não navegou; recapturado abaixo */ }
+
+  function rodar() {
+    var jan, doc;
+    try {
+      jan = quadro.contentWindow;
+      doc = quadro.contentDocument;
+      if (!doc) throw new Error('sem acesso ao documento');
+    } catch (e) {
+      anota('falha', 'Não consegui inspecionar o site',
+        'O quadro não abriu: ' + e.message + '. Isso costuma significar que index.html não está na mesma pasta que esta página.');
+      return terminar();
+    }
+
+    jan.addEventListener('error', function (e) { errosDoSite.push(String(e.message || e.type)); });
+
+    // --- ambiente -----------------------------------------------------------
+    anota('ok', 'Aparelho e tela',
+      jan.innerWidth + '×' + jan.innerHeight + ' · proporção ' + (jan.devicePixelRatio || 1) + '× · ' +
+      (navigator.userAgent.length > 120 ? navigator.userAgent.slice(0, 120) + '…' : navigator.userAgent));
+
+    var svh = CSS && CSS.supports && CSS.supports('height', '100svh');
+    anota(svh ? 'ok' : 'aviso', 'Unidade svh (altura de tela estável)',
+      svh ? 'suportada' : 'não suportada — o site usa vh como reserva, o que é aceitável');
+
+    // --- versão publicada ---------------------------------------------------
+    var meta = doc.querySelector('meta[name="versao-do-site"]');
+    var versaoMeta = meta ? meta.getAttribute('content') : null;
+    // o primeiro <link rel=stylesheet> é o das fontes do Google, que não tem
+    // ?v= — o que interessa é a folha local
+    var css = doc.querySelector('link[rel=stylesheet][href*="style.css"]');
+    var versaoCss = css ? (String(css.getAttribute('href')).split('?v=')[1] || '—') : '—';
+
+    return fetch('versao.txt', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .catch(function () { return null; })
+      .then(function (txt) {
+        var versaoArquivo = txt ? (/versao\s+(\d+)/i.exec(txt) || [])[1] : null;
+        if (!versaoArquivo) {
+          anota('falha', 'Versão publicada',
+            'versao.txt não foi encontrado no servidor. Os arquivos novos não subiram, ou subiram em outra pasta.');
+        } else if (versaoMeta && versaoArquivo !== versaoMeta) {
+          anota('falha', 'Versão publicada',
+            'versao.txt diz ' + versaoArquivo + ' mas o index.html diz ' + versaoMeta +
+            '. O envio substituiu uns arquivos e não outros.');
+        } else {
+          anota('ok', 'Versão publicada',
+            'versão ' + versaoArquivo + ' · CSS e JS em ?v=' + versaoCss);
+        }
+        return medir(jan, doc);
+      });
+  }
+
+  function medir(jan, doc) {
+    var raiz = doc.documentElement;
+
+    // --- o JavaScript chegou ao fim? ---------------------------------------
+    if (raiz.classList.contains('js-pronto')) {
+      anota('ok', 'JavaScript do site', 'carregou e terminou a inicialização');
+    } else if (raiz.classList.contains('js')) {
+      anota('falha', 'JavaScript do site',
+        'o arquivo principal não terminou de iniciar. Ou não baixou, ou parou no meio.');
+    } else {
+      anota('falha', 'JavaScript do site',
+        'não está rodando neste navegador. O conteúdo aparece, mas nada se move e nada é interativo.');
+    }
+
+    // --- fontes reais -------------------------------------------------------
+    try {
+      var temMont = doc.fonts && doc.fonts.check('300 16px Montserrat');
+      var temPlay = doc.fonts && doc.fonts.check('italic 400 16px "Playfair Display"');
+      anota(temMont && temPlay ? 'ok' : 'aviso', 'Fontes da marca',
+        (temMont ? 'Montserrat ok' : 'Montserrat NÃO carregou') + ' · ' +
+        (temPlay ? 'Playfair Display ok' : 'Playfair Display NÃO carregou') +
+        (temMont && temPlay ? '' : ' — o site cai em fontes do sistema e o desenho muda'));
+    } catch (e) {
+      anota('aviso', 'Fontes da marca', 'não consegui verificar: ' + e.message);
+    }
+
+    // --- card de atendimento ------------------------------------------------
+    var card = doc.querySelector('.selo');
+    if (!card) {
+      anota('falha', 'Card de atendimento', 'não existe no HTML publicado');
+    } else {
+      var rc = card.getBoundingClientRect();
+      var oc = parseFloat(jan.getComputedStyle(card).opacity);
+      var larguraOk = rc.width > 40 && rc.height > 20;
+      if (!larguraOk) {
+        anota('falha', 'Card de atendimento', 'existe mas não tem tamanho: ' +
+          Math.round(rc.width) + '×' + Math.round(rc.height));
+      } else if (oc < 0.85) {
+        anota('falha', 'Card de atendimento',
+          'está com opacidade ' + oc.toFixed(2) + ' — some na tela');
+      } else {
+        anota('ok', 'Card de atendimento',
+          Math.round(rc.width) + '×' + Math.round(rc.height) + ' · opacidade ' + oc.toFixed(2));
+      }
+    }
+
+    // --- a foto do hero se move ao rolar? -----------------------------------
+    var retrato = doc.querySelector('[data-hero-movel]') || doc.querySelector('.hero__foto');
+    var img = doc.querySelector('.hero__foto img');
+    var antes = img ? img.getBoundingClientRect().top + jan.scrollY : 0;
+    jan.scrollTo(0, Math.round((doc.querySelector('.hero') || {}).offsetHeight * 0.45) || 400);
+
+    return esperar(450).then(function () {
+      var depois = img ? img.getBoundingClientRect().top + jan.scrollY : 0;
+      var andou = Math.abs(depois - antes);
+      if (!img) {
+        anota('falha', 'Foto da primeira dobra', 'a imagem não existe no HTML');
+      } else if (andou < 8) {
+        anota('falha', 'Deslize da foto', 'a foto não se moveu ao rolar (andou ' + andou.toFixed(0) + 'px)');
+      } else {
+        anota('ok', 'Deslize da foto', 'a foto acompanha a rolagem · andou ' + andou.toFixed(0) + 'px');
+      }
+
+      var opFoto = retrato ? parseFloat(jan.getComputedStyle(retrato).opacity) : 1;
+      if (opFoto < 0.85) {
+        anota('falha', 'Foto da primeira dobra',
+          'aparece com opacidade ' + opFoto.toFixed(2) + ' no meio da rolagem — fica apagada');
+      } else {
+        anota('ok', 'Foto da primeira dobra', 'opacidade ' + opFoto.toFixed(2) + ' ao rolar');
+      }
+
+      // --- comparadores antes/depois ---------------------------------------
+      var comps = doc.querySelectorAll('[data-comparador]');
+      if (!comps.length) {
+        anota('aviso', 'Comparadores antes/depois', 'não há comparadores nesta página');
+      } else {
+        // `--pos` já vem escrito no HTML, então conferi-lo dava aprovado mesmo
+        // com o JavaScript morto. `aria-valuetext` só existe se o módulo do
+        // comparador rodou de verdade — é esse o sinal honesto.
+        var ligados = 0, det = [];
+        for (var i = 0; i < comps.length; i++) {
+          var ctrl = comps[i].querySelector('[data-comparador-controle]');
+          var vivo = ctrl && ctrl.getAttribute('aria-valuetext');
+          if (vivo) ligados++;
+          det.push((comps[i].dataset.eixo || 'horizontal') + ': ' + (vivo ? 'ligado' : 'NÃO ligado'));
+        }
+        anota(ligados === comps.length ? 'ok' : 'falha', 'Comparadores antes/depois',
+          ligados + ' de ' + comps.length + ' ligados · ' + det.join(' · '));
+      }
+
+      // --- formulário do WhatsApp -------------------------------------------
+      var form = doc.querySelector('[data-form]');
+      var botoesWa = doc.querySelectorAll('[data-wa]');
+      var comLink = 0;
+      for (var j = 0; j < botoesWa.length; j++) {
+        if (/wa\.me|whatsapp/i.test(botoesWa[j].getAttribute('href') || '')) comLink++;
+      }
+      if (!form) {
+        anota('falha', 'Formulário', 'não existe no HTML publicado');
+      } else if (botoesWa.length && comLink === 0) {
+        anota('falha', 'Botões de WhatsApp',
+          botoesWa.length + ' botões, nenhum com link montado — o config.js não foi aplicado');
+      } else {
+        anota('ok', 'Formulário e WhatsApp',
+          'formulário presente · ' + comLink + ' de ' + botoesWa.length + ' botões com link do WhatsApp');
+      }
+
+      // --- mapa --------------------------------------------------------------
+      var mapa = doc.querySelector('#mapa iframe, [data-mapa-tela] iframe, .mapa iframe');
+      if (mapa) {
+        var rm = mapa.getBoundingClientRect();
+        anota(rm.height > 100 ? 'ok' : 'falha', 'Mapa',
+          'moldura de ' + Math.round(rm.width) + '×' + Math.round(rm.height));
+      } else {
+        anota('aviso', 'Mapa',
+          'o iframe do mapa não foi inserido — pode ser o Google bloqueado nesta rede');
+      }
+
+      // --- conteúdo escondido -------------------------------------------------
+      var titulos = doc.querySelectorAll('.titulo');
+      var invisiveis = 0;
+      for (var k = 0; k < titulos.length; k++) {
+        var r = titulos[k].getBoundingClientRect();
+        if (r.height === 0 || parseFloat(jan.getComputedStyle(titulos[k]).opacity) === 0) {
+          // só conta se já passou pela tela
+          if (r.top < jan.innerHeight) invisiveis++;
+        }
+      }
+      anota(invisiveis === 0 ? 'ok' : 'aviso', 'Títulos das seções',
+        titulos.length + ' títulos · ' + invisiveis + ' invisível(is) já tendo passado pela tela');
+
+      // --- rolagem lateral ----------------------------------------------------
+      var sobra = doc.documentElement.scrollWidth - jan.innerWidth;
+      anota(sobra <= 1 ? 'ok' : 'falha', 'Rolagem lateral',
+        sobra <= 1 ? 'a página não vaza para o lado' : 'a página vaza ' + sobra + 'px para o lado');
+
+      // --- erros de JavaScript ------------------------------------------------
+      anota(errosDoSite.length === 0 ? 'ok' : 'falha', 'Erros de JavaScript',
+        errosDoSite.length === 0 ? 'nenhum' : errosDoSite.slice(0, 3).join(' | '));
+
+      jan.scrollTo(0, 0);
+      terminar();
+    });
+  }
+
+  function terminar() {
+    if (falhas) {
+      resumo.className = 'tem-falha';
+      resumo.textContent = falhas + (falhas === 1 ? ' falha encontrada' : ' falhas encontradas') +
+        (avisos ? ' e ' + avisos + ' aviso(s)' : '') + '. Mande o print desta tela.';
+    } else {
+      resumo.className = 'tudo-ok';
+      resumo.textContent = 'Nenhuma falha' + (avisos ? ', ' + avisos + ' aviso(s)' : '') +
+        '. O que está publicado está funcionando neste aparelho.';
+    }
+  }
+
+  if (quadro.contentDocument && quadro.contentDocument.readyState === 'complete') {
+    esperar(2200).then(rodar);
+  } else {
+    quadro.addEventListener('load', function () { esperar(2200).then(rodar); });
+  }
+  // rede de segurança: se o quadro nunca carregar, dizer isso em vez de girar
+  setTimeout(function () {
+    if (!lista.children.length) {
+      anota('falha', 'O site não abriu', 'index.html não respondeu em 15 segundos nesta pasta.');
+      terminar();
+    }
+  }, 15000);
+})();
+</script>
+</body>
+</html>
