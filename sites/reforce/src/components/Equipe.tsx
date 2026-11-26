@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { areasEquipe, equipe, lideranca } from "@/content/site";
 import { imagens } from "@/lib/imagens";
+import { TextoFundo } from "./TextoFundo";
 import { Kicker, TituloSecao } from "./ui";
 
 export function Equipe() {
@@ -8,13 +9,14 @@ export function Equipe() {
     <section id="equipe" className="relative overflow-hidden bg-abismo py-24 md:py-32">
       {/* Arcos em degradê, como nas páginas de equipe da apresentação. */}
       <span aria-hidden="true" className="bg-degrade pointer-events-none absolute -right-40 -top-40 size-[26rem] rounded-full opacity-[0.12] blur-2xl" />
+      <TextoFundo texto="Pessoas · Método · Presença" direcao="direita" className="top-[38%]" />
       <div className="container-site relative">
         <Kicker>Liderança Reforce</Kicker>
         <TituloSecao className="mt-6 max-w-3xl">Gente que já esteve na parada, no canteiro e na mesa de decisão</TituloSecao>
 
-        <ul data-reveal="stagger" className="mt-14 grid gap-6 md:grid-cols-3">
+        <ul className="mt-14 grid gap-6 md:grid-cols-3">
           {lideranca.map((p) => (
-            <li key={p.id} className="cartao group overflow-hidden">
+            <li key={p.id} data-lider className="cartao group overflow-hidden">
               <div className="relative aspect-[5/4] overflow-hidden">
                 <Image
                   src={imagens[p.id]}
@@ -60,9 +62,9 @@ export function Equipe() {
             </div>
           </div>
 
-          <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6" aria-live="polite">
+          <ul data-equipe-grade className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6" aria-live="polite">
             {equipe.map((p) => (
-              <li key={p.id} data-area={p.area} className="pessoa group">
+              <li key={p.id} data-area={p.area} data-pessoa className="pessoa group">
                 <div className="relative aspect-square overflow-hidden rounded-[1.4rem] bg-petroleo">
                   <Image
                     src={imagens[p.id]}

@@ -20,9 +20,9 @@ const ativos = new Set(presenca.estados.map((e) => e.uf));
 
 export function Presenca() {
   return (
-    <section id="presenca" data-presenca className="relative overflow-hidden bg-abismo py-24 md:py-32">
+    <section id="presenca" data-presenca className="relative overflow-hidden bg-abismo py-24 md:py-32 lg:flex lg:min-h-[100svh] lg:items-center lg:py-12">
       <span className="pointer-events-none absolute right-[-10%] top-1/4 size-[40rem] rounded-full bg-verde/[0.07] blur-3xl" aria-hidden="true" />
-      <div className="container-site relative grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="container-site relative grid w-full items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <Kicker>{presenca.kicker}</Kicker>
           <TituloSecao className="mt-6">{presenca.titulo}</TituloSecao>
@@ -46,14 +46,14 @@ export function Presenca() {
           </ul>
 
           <dl className="mt-10 grid gap-4 sm:grid-cols-3">
-            <div className="cartao flex flex-col p-5">
+            <div data-presenca-dado className="cartao flex flex-col p-5">
               <dt className="order-2 mt-1 text-sm text-mute">consultores especializados</dt>
               <dd className="font-display text-4xl font-semibold text-white">
                 +<span data-count="25">25</span>
               </dd>
             </div>
             {ESCRITORIOS.map((o) => (
-              <div key={o.id} className="cartao flex flex-col p-5">
+              <div key={o.id} data-presenca-dado className="cartao flex flex-col p-5">
                 <dt className="order-2 mt-1 text-sm text-mute">{o.tipo === "Sede" ? "Escritório sede" : "Escritório filial"}</dt>
                 <dd className="font-display text-xl font-semibold leading-tight text-white">
                   {o.cidade}
@@ -64,7 +64,7 @@ export function Presenca() {
           </dl>
         </div>
 
-        <figure className="relative mx-auto w-full max-w-[38rem]">
+        <figure className="relative mx-auto w-full max-w-[38rem] [perspective:1200px] lg:max-w-[min(38rem,74svh)]">
           <svg viewBox={MAPA_VIEWBOX} className="h-auto w-full overflow-visible" role="img" aria-labelledby="mapa-titulo">
             <title id="mapa-titulo">
               Mapa do Brasil com atuação em Rio Grande do Sul, São Paulo, Rio de Janeiro, Minas Gerais e Amazonas, e escritórios
@@ -95,7 +95,8 @@ export function Presenca() {
             <g aria-hidden="true">
               {ESCRITORIOS.map((o) => (
                 <g key={o.id} transform={`translate(${o.x} ${o.y})`} className="text-laranja">
-                  <circle r="16" fill="#f7852a" fillOpacity="0.18" className="pino-onda" />
+                  <g data-pino>
+                  <circle r="16" fill="#f7852a" fillOpacity="0.18" />
                   <circle r="7" fill="#f7852a" stroke="#011417" strokeWidth="2.5" />
                   <text
                     x={o.id === "sapucaia" ? -14 : 14}
@@ -112,6 +113,7 @@ export function Presenca() {
                       · {o.tipo}
                     </tspan>
                   </text>
+                  </g>
                 </g>
               ))}
             </g>

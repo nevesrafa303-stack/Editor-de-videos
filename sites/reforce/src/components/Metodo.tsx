@@ -1,30 +1,47 @@
 import { metodo } from "@/content/site";
+import { TextoFundo } from "./TextoFundo";
 import { Kicker, TituloSecao, vars } from "./ui";
 
-// Jornada da execução: a linha em degradê avança com a rolagem e acende cada fase ao passar por ela.
+// Jornada da execução. No desktop a seção fixa: a linha em degradê atravessa a tela e cada fase sobe
+// girando quando a linha chega nela; o número grande acompanha a fase. No celular, a linha desce.
 export function Metodo() {
   return (
-    <section id="metodo" data-metodo className="relative overflow-hidden bg-papel py-24 text-tinta md:py-32">
-      <div className="container-site">
-        <div className="max-w-3xl">
-          <Kicker className="!text-[#066b5b]">{metodo.kicker}</Kicker>
-          <TituloSecao className="mt-6 !text-tinta">{metodo.titulo}</TituloSecao>
+    <section id="metodo" data-metodo className="relative overflow-hidden bg-papel py-24 text-tinta lg:flex lg:min-h-[100svh] lg:items-center lg:py-16">
+      <TextoFundo texto="Jornada da execução" direcao="direita" escuro className="top-6" />
+      <div className="container-site relative w-full">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <Kicker className="!text-[#066b5b]">{metodo.kicker}</Kicker>
+            <TituloSecao className="mt-6 !text-tinta">{metodo.titulo}</TituloSecao>
+          </div>
+          <p className="font-display hidden items-baseline gap-2 text-tinta/75 lg:flex" aria-hidden="true">
+            Fase
+            <span data-metodo-numero className="texto-degrade text-[clamp(4rem,8vw,7rem)] font-bold leading-none tabular-nums">
+              01
+            </span>
+            <span className="text-2xl">/ 04</span>
+          </p>
         </div>
 
-        <ol className="relative mt-16 grid gap-10 pl-10 md:grid-cols-4 md:gap-6 md:pl-0 md:pt-16">
-          {/* Linha da jornada: vertical no celular, horizontal no desktop. */}
-          <span aria-hidden="true" className="absolute bottom-2 left-3 top-2 w-0.5 bg-tinta/10 md:inset-x-0 md:bottom-auto md:left-0 md:top-5 md:h-0.5 md:w-auto">
-            <span data-metodo-linha className="bg-degrade absolute inset-0 origin-top md:origin-left" />
+        <ol className="relative mt-14 grid gap-10 pl-10 [perspective:1000px] lg:grid-cols-4 lg:gap-6 lg:pl-0 lg:pt-16">
+          <span aria-hidden="true" className="absolute bottom-2 left-3 top-2 w-0.5 bg-tinta/10 lg:inset-x-0 lg:bottom-auto lg:left-0 lg:top-5 lg:h-0.5 lg:w-auto">
+            <span data-metodo-linha className="bg-degrade absolute inset-0 origin-top lg:origin-left" />
           </span>
           {metodo.fases.map((f, i) => (
             <li key={f.titulo} data-fase className="group relative" style={vars({ "--i": i })}>
               <span
                 aria-hidden="true"
-                className="absolute -left-10 top-0 grid size-7 place-items-center rounded-full border-2 border-tinta/15 bg-papel transition-colors duration-500 group-data-[ativa=true]:border-verde group-data-[ativa=true]:bg-verde md:-top-[3.75rem] md:left-0 md:size-8"
+                className="absolute -left-10 top-0 grid size-7 place-items-center rounded-full border-2 border-tinta/15 bg-papel transition-[background-color,border-color,scale] duration-500 group-data-[ativa=true]:scale-125 group-data-[ativa=true]:border-verde group-data-[ativa=true]:bg-verde lg:-top-[3.75rem] lg:left-0 lg:size-8"
               >
                 <span className="size-2 rounded-full bg-tinta/30 transition-colors duration-500 group-data-[ativa=true]:bg-white" />
               </span>
-              <div className="rounded-[1.75rem] bg-tinta p-6 text-nevoa shadow-[0_30px_60px_-35px_rgb(4_37_42/0.6)] transition-transform duration-700 ease-out-expo md:min-h-[15rem] md:flex md:flex-col group-data-[ativa=true]:md:-translate-y-2">
+              <div
+                data-fase-cartao
+                className="relative overflow-hidden rounded-[1.75rem] bg-tinta p-6 text-nevoa shadow-[0_30px_60px_-35px_rgb(4_37_42/0.6)] transition-shadow duration-700 lg:flex lg:min-h-[15rem] lg:flex-col group-data-[ativa=true]:shadow-[0_40px_80px_-30px_rgb(0_189_161/0.45)]"
+              >
+                <span className="font-display pointer-events-none absolute -right-2 -top-4 text-[6rem] font-bold leading-none text-white/[0.05]" aria-hidden="true">
+                  {i + 1}
+                </span>
                 <p className="font-display text-lg font-semibold">
                   <span className="texto-degrade">Fase {i + 1}</span>
                 </p>
@@ -36,7 +53,7 @@ export function Metodo() {
                     </li>
                   ))}
                 </ul>
-                <span className="barra-marca mt-6 block md:mt-auto" aria-hidden="true" />
+                <span className="barra-marca mt-auto block origin-left scale-x-[0.3] transition-transform duration-700 group-data-[ativa=true]:scale-x-100" aria-hidden="true" />
               </div>
             </li>
           ))}

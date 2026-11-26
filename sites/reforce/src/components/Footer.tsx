@@ -3,7 +3,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.07] bg-abismo pt-16 pb-10">
+    <footer className="relative border-t border-white/[0.07] bg-abismo pb-6 pt-16">
       <div className="container-site">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
           <div>
@@ -62,6 +62,12 @@ export function Footer() {
             </span>
             <span>Imagens de setores meramente ilustrativas.</span>
           </p>
+        </div>
+      </div>
+      {/* Logo gigante que sobe no fim da página. */}
+      <div className="container-site mt-12 overflow-hidden" aria-hidden="true">
+        <div data-rodape-logo>
+          <Logo className="h-auto w-full text-white/[0.06]" decorativo monocromatico />
         </div>
       </div>
     </footer>

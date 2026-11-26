@@ -68,10 +68,6 @@ export default function Home() {
       <Footer />
       <Interacoes />
       <MotionLazy />
-      {/* Sem JavaScript, todas as abas ficam abertas. */}
-      <noscript>
-        <style>{`.painel-aba[hidden]{display:block!important}[role="tablist"]{display:none!important}`}</style>
-      </noscript>
       <script
         type="application/ld+json"
         // JSON estático gerado no build; "<" escapado para não fechar a tag.

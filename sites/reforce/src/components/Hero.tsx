@@ -2,9 +2,12 @@ import { hero, setores } from "@/content/site";
 import { MARCA_BLOCO, MARCA_R, MARCA_VIEWBOX } from "@/lib/logo-paths";
 import { BotaoMarca, SetaDiagonal, vars } from "./ui";
 
-// Curva S ilustrativa (avanço físico previsto x realizado) do painel flutuante da abertura.
+// Curva S ilustrativa (avanço físico previsto x realizado). O realizado vai até "hoje" na entrada;
+// ao rolar a página, a parte futura se desenha e o marcador "hoje" anda até o fim do plano.
 const PREVISTO = "M0 150 C 40 149, 70 146, 100 136 S 160 92, 190 64 S 250 18, 300 12";
 const REALIZADO = "M0 150 C 40 149.5, 72 147, 102 138 S 158 96, 186 70";
+const FUTURO = "M186 70 C 214 44, 246 22, 300 14";
+const AREA = `${REALIZADO} C 214 44, 246 22, 300 14 L300 150 L0 150 Z`;
 
 export function Hero() {
   return (
@@ -44,8 +47,8 @@ export function Hero() {
       </div>
 
       <div className="container-site relative grid flex-1 items-center gap-12 pb-16 lg:grid-cols-[1.15fr_0.85fr]">
-        <div data-hero-conteudo>
-          <p className="hero-sobe relative inline-flex rounded-full bg-white/[0.04] p-1.5 ring-1 ring-white/10" style={vars({ "--i": 0 })}>
+        <div>
+          <p data-hero-sub className="hero-sobe relative inline-flex rounded-full bg-white/[0.04] p-1.5 ring-1 ring-white/10" style={vars({ "--i": 0 })}>
             <span className="pilula-enche bg-degrade font-display inline-flex items-center gap-3 rounded-full py-2 pl-2.5 pr-5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-abismo sm:text-xs">
               <SetaDiagonal className="size-4" />
               {hero.etiqueta}
@@ -54,7 +57,7 @@ export function Hero() {
 
           <h1 className="font-display mt-8 text-[clamp(2.6rem,6vw,5.5rem)] font-bold leading-[1] tracking-[-0.035em] text-white">
             {hero.titulo.map((linha, i) => (
-              <span key={linha} className="mascara-linha">
+              <span key={linha} data-hero-linha className="mascara-linha">
                 <span className="hero-palavra texto-metal" style={vars({ "--i": i })}>
                   {linha}
                 </span>
@@ -62,19 +65,17 @@ export function Hero() {
             ))}
           </h1>
 
-          <p
-            className="hero-sobe mt-7 max-w-[34rem] text-lg leading-relaxed tracking-wide text-mute md:text-xl"
-            style={vars({ "--i": 3 })}
-          >
-            {hero.texto}
-          </p>
-
-          <div className="hero-sobe mt-10 flex flex-wrap items-center gap-4" style={vars({ "--i": 4 })}>
-            <BotaoMarca />
-            <a href="#cases" className="botao-contorno">
-              {hero.secundario}
-              <SetaDiagonal className="size-3.5 text-menta" />
-            </a>
+          <div data-hero-sub>
+            <p className="hero-sobe mt-7 max-w-[34rem] text-lg leading-relaxed tracking-wide text-mute md:text-xl" style={vars({ "--i": 3 })}>
+              {hero.texto}
+            </p>
+            <div className="hero-sobe mt-10 flex flex-wrap items-center gap-4" style={vars({ "--i": 4 })}>
+              <BotaoMarca />
+              <a href="#cases" className="botao-contorno">
+                {hero.secundario}
+                <SetaDiagonal className="size-3.5 text-menta" />
+              </a>
+            </div>
           </div>
         </div>
 
@@ -85,7 +86,7 @@ export function Hero() {
               <span className="font-display font-semibold uppercase tracking-[0.14em] text-nevoa">Curva S · avanço físico</span>
               <span className="flex items-center gap-3">
                 <span className="pulso relative size-2 rounded-full bg-menta text-menta" />
-                ao vivo
+                role para avançar
               </span>
             </div>
             <svg viewBox="-8 0 316 162" className="mt-5 w-full overflow-visible">
@@ -98,11 +99,14 @@ export function Hero() {
                   <stop offset="0" stopColor="#4fd1a5" stopOpacity="0.28" />
                   <stop offset="1" stopColor="#4fd1a5" stopOpacity="0" />
                 </linearGradient>
+                <clipPath id="curva-clip">
+                  <rect data-curva-clip x="-8" y="0" width="194" height="160" />
+                </clipPath>
               </defs>
               {[12, 47, 82, 117, 150].map((y) => (
                 <line key={y} x1="0" x2="300" y1={y} y2={y} stroke="rgb(255 255 255 / 0.07)" />
               ))}
-              <path d={`${REALIZADO} L186 150 Z`} fill="url(#curva-area)" className="hero-sobe" style={vars({ "--i": 9 })} />
+              <path d={AREA} fill="url(#curva-area)" clipPath="url(#curva-clip)" className="hero-sobe" style={vars({ "--i": 9 })} />
               <path
                 d={PREVISTO}
                 pathLength={1}
@@ -110,7 +114,6 @@ export function Hero() {
                 fill="none"
                 stroke="rgb(230 239 238 / 0.55)"
                 strokeWidth="1.6"
-                strokeDasharray="4 5"
                 style={vars({ "--atraso": "0.8s" })}
               />
               <path
@@ -123,15 +126,18 @@ export function Hero() {
                 strokeLinecap="round"
                 style={vars({ "--atraso": "1.3s" })}
               />
-              <line x1="186" x2="186" y1="0" y2="150" stroke="#f7852a" strokeOpacity="0.6" strokeDasharray="2 4" />
-              <circle cx="186" cy="70" r="5" fill="#f7852a" className="hero-sobe" style={vars({ "--i": 14 })} />
-              <text x="192" y="10" fill="#f7852a" fontSize="9" fontFamily="var(--font-dm)">
-                hoje
-              </text>
+              <path data-curva-futuro d={FUTURO} fill="none" stroke="#f7852a" strokeWidth="3" strokeLinecap="round" style={{ strokeDasharray: 200, strokeDashoffset: 200 }} />
+              <g data-curva-marco transform="translate(186 70)">
+                <line x1="0" x2="0" y1="-70" y2="80" stroke="#f7852a" strokeOpacity="0.6" strokeDasharray="2 4" />
+                <circle r="5" fill="#f7852a" className="hero-sobe" style={vars({ "--i": 14 })} />
+                <text x="6" y="-60" fill="#f7852a" fontSize="9" fontFamily="var(--font-dm)">
+                  hoje
+                </text>
+              </g>
             </svg>
             <div className="mt-4 flex gap-5 text-xs text-mute">
               <span className="flex items-center gap-2">
-                <span className="h-0.5 w-5 border-t-2 border-dashed border-nevoa/60" /> Previsto
+                <span className="h-0.5 w-5 bg-nevoa/60" /> Previsto
               </span>
               <span className="flex items-center gap-2">
                 <span className="bg-degrade h-1 w-5 rounded" /> Realizado
@@ -140,30 +146,34 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="hero-sobe cartao absolute -left-6 top-[62%] flex items-center gap-4 px-5 py-4 backdrop-blur-md" style={vars({ "--i": 8 })}>
-            <span className="font-display text-3xl font-semibold text-white">95,87%</span>
-            <span className="text-xs leading-snug text-mute">
-              das restrições
-              <br />
-              concluídas na parada
-            </span>
+          <div data-hero-chip="140" className="absolute -left-6 top-[62%]">
+            <div className="hero-sobe cartao flex items-center gap-4 px-5 py-4 backdrop-blur-md" style={vars({ "--i": 8 })}>
+              <span className="font-display text-3xl font-semibold text-white">95,87%</span>
+              <span className="text-xs leading-snug text-mute">
+                das restrições
+                <br />
+                concluídas na parada
+              </span>
+            </div>
           </div>
-          <div className="hero-sobe cartao absolute -top-8 right-6 flex items-center gap-3 px-4 py-3 backdrop-blur-md" style={vars({ "--i": 10 })}>
-            <span className="selo-seta size-8">
-              <SetaDiagonal className="size-3.5" />
-            </span>
-            <span className="text-xs leading-snug text-nevoa">
-              Parada entregue
-              <br />
-              <strong className="font-semibold text-menta">antes do prazo previsto</strong>
-            </span>
+          <div data-hero-chip="60" className="absolute -top-8 right-6">
+            <div className="hero-sobe cartao flex items-center gap-3 px-4 py-3 backdrop-blur-md" style={vars({ "--i": 10 })}>
+              <span className="selo-seta size-8">
+                <SetaDiagonal className="size-3.5" />
+              </span>
+              <span className="text-xs leading-snug text-nevoa">
+                Parada entregue
+                <br />
+                <strong className="font-semibold text-menta">antes do prazo previsto</strong>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Setores atendidos: faixa que anda com a rolagem. */}
-      <div className="relative border-y border-white/[0.07] bg-abismo/60 py-5 backdrop-blur-sm" aria-label="Setores atendidos">
-        <div data-kinetic="esquerda" data-forca="0.12" className="flex w-max items-center gap-10 whitespace-nowrap">
+      {/* Setores atendidos: faixa que anda com a rolagem e inclina com a velocidade. */}
+      <div className="relative overflow-hidden border-y border-white/[0.07] bg-abismo/60 py-5 backdrop-blur-sm" aria-label="Setores atendidos">
+        <div data-kinetic="esquerda" data-forca="0.6" className="flex w-max items-center gap-10 whitespace-nowrap">
           {[0, 1, 2].flatMap((rep) =>
             setores.lista.map((s) => (
               <span

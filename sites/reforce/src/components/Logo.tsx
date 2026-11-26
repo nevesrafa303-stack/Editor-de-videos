@@ -1,9 +1,9 @@
 import { LOGO_BLOCO, LOGO_LETRAS, LOGO_VIEWBOX, MARCA_BLOCO, MARCA_R, MARCA_VIEWBOX } from "@/lib/logo-paths";
 
-type Props = { className?: string; decorativo?: boolean };
+type Props = { className?: string; decorativo?: boolean; monocromatico?: boolean };
 
 /** Logo REFORCE (vetorizado da apresentação). As letras usam a cor do texto; o bloco é verde-água. */
-export function Logo({ className = "h-6 w-auto", decorativo = false }: Props) {
+export function Logo({ className = "h-6 w-auto", decorativo = false, monocromatico = false }: Props) {
   return (
     <svg
       viewBox={LOGO_VIEWBOX}
@@ -13,7 +13,7 @@ export function Logo({ className = "h-6 w-auto", decorativo = false }: Props) {
       aria-label={decorativo ? undefined : "Reforce"}
     >
       <path fill="currentColor" fillRule="evenodd" d={LOGO_LETRAS} />
-      <path fill="#00bda1" d={LOGO_BLOCO} />
+      <path fill={monocromatico ? "currentColor" : "#00bda1"} d={LOGO_BLOCO} />
     </svg>
   );
 }

@@ -445,29 +445,64 @@
   opacity: 1;
 }
 
-/* ---------- Abas das atuações ---------- */
-.aba[aria-selected="true"] {
+/* ---------- Carrossel das atuações ---------- */
+.aba[aria-current="true"] {
   background: linear-gradient(90deg, rgb(0 189 161 / 0.16), transparent);
   border-color: rgb(79 209 165 / 0.45);
   color: #fff;
 }
-.aba[aria-selected="true"] .aba-numero {
+.aba[aria-current="true"] .aba-numero {
   background: var(--color-verde);
   color: var(--color-abismo);
 }
-.aba[aria-selected="true"] .aba-barra {
+.aba[aria-current="true"] .aba-barra {
   transform: scaleX(1);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .painel-aba:not([hidden]) {
-    animation: painel-aba 0.7s var(--ease-out-expo) both;
+/* Com a animação ligada, o conteúdo de cada atuação entra quando o cartão fica ativo. */
+[data-fluxo-item] {
+  transition:
+    opacity 0.6s ease,
+    translate 0.7s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+.js-motion [data-slide]:not(.is-ativo) [data-fluxo-item] {
+  opacity: 0;
+  translate: 0 26px;
+  transition-delay: 0ms;
+}
+
+/* Passos da abordagem: o que não está na tela fica apagado. */
+.js-motion .estado-card[aria-current="false"] {
+  opacity: 0.42;
+  scale: 0.97;
+}
+
+/* Palavras gigantes de fundo, só com contorno. */
+.texto-contorno {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.07);
+}
+.texto-contorno-escuro {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(4 37 42 / 0.1);
+}
+
+/* Trilhos que se arrastam com o mouse. */
+@media (hover: hover) and (pointer: fine) {
+  [data-arrastar] {
+    cursor: grab;
+  }
+  [data-arrastar][data-arrastando] {
+    cursor: grabbing;
+    user-select: none;
   }
 }
-@keyframes painel-aba {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
-  }
+
+/* Mapa: estado da lista aceso quando acende no mapa. */
+[data-estado-mapa].is-aceso {
+  border-color: rgb(79 209 165 / 0.6);
+  background: rgb(0 189 161 / 0.14);
+  color: #fff;
 }
 
 /* ---------- Setores (galeria horizontal) ---------- */

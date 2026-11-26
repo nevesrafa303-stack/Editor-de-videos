@@ -15,9 +15,9 @@ export function Diferenciais() {
           <BotaoMarca className="mt-10">Quero uma proposta</BotaoMarca>
         </div>
       </div>
-      <ul data-reveal="stagger" className="grid content-center gap-4 px-5 py-20 md:px-9 lg:py-32 lg:pr-[max(2.25rem,calc((100vw-84rem)/2+2.25rem))] lg:pl-14">
+      <ul className="grid content-center gap-4 overflow-x-clip px-5 py-20 md:px-9 lg:py-32 lg:pr-[max(2.25rem,calc((100vw-84rem)/2+2.25rem))] lg:pl-14">
         {diferenciais.lista.map((d) => (
-          <li key={d.titulo} className="cartao lanterna group flex items-center gap-6 p-6 sm:p-8">
+          <li key={d.titulo} data-diferencial className="cartao lanterna group flex items-center gap-6 p-6 sm:p-8">
             <SeloSeta className="size-16 transition-transform duration-500 ease-out-expo group-hover:-rotate-45 sm:size-20" />
             <p className="text-[1.05rem] leading-relaxed text-nevoa/90">
               <strong className="font-display block text-xl font-semibold text-white">{d.titulo}</strong>

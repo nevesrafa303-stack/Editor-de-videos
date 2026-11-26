@@ -1,4 +1,5 @@
 import { cases } from "@/content/site";
+import { TextoFundo } from "./TextoFundo";
 import { Kicker, SeloSeta, TituloSecao, vars } from "./ui";
 
 const fmt = (v: number, d = 1) => v.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -8,8 +9,9 @@ export function Cases() {
   const { valor, projetos } = cases;
   const totalProjetos = projetos.lista.reduce((s, p) => s + p.valor, 0);
   return (
-    <section id="cases" className="relative bg-abismo py-24 md:py-32">
-      <div className="container-site">
+    <section id="cases" className="relative overflow-x-clip bg-abismo py-24 md:py-32">
+      <TextoFundo texto="Resultados" className="top-8" />
+      <div className="container-site relative">
         <Kicker>{cases.kicker}</Kicker>
         <TituloSecao className="mt-6 max-w-3xl">{cases.titulo}</TituloSecao>
 
@@ -18,9 +20,11 @@ export function Cases() {
             <li
               key={c.id}
               id={c.id}
-              className="grid overflow-hidden rounded-[2rem] lg:sticky border border-white/[0.08] shadow-[0_-30px_80px_-30px_rgb(0_0_0/0.7)] lg:grid-cols-[0.9fr_1.1fr]"
+              data-case
+              className="relative grid overflow-hidden rounded-[2rem] border border-white/[0.08] shadow-[0_-30px_80px_-30px_rgb(0_0_0/0.7)] lg:sticky lg:grid-cols-[0.9fr_1.1fr]"
               style={{ top: `calc(5.5rem + ${i * 1.25}rem)` }}
             >
+              <span data-case-sombra className="pointer-events-none absolute inset-0 z-10 bg-abismo opacity-0" aria-hidden="true" />
               <div className="relative bg-papel p-7 text-tinta sm:p-10">
                 <div className="flex items-center gap-4">
                   <SeloSeta className="size-12" />
@@ -41,7 +45,7 @@ export function Cases() {
                 {"metricas" in c && c.metricas ? (
                   <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-7 sm:grid-cols-3">
                     {c.metricas.map((m, j) => (
-                      <div key={m.rotulo} className={`flex flex-col ${j === c.metricas.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}>
+                      <div key={m.rotulo} data-case-item className={`flex flex-col ${j === c.metricas.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}>
                         <dt className="order-2 mt-1.5 text-sm leading-snug text-mute">{m.rotulo}</dt>
                         <dd className="font-display text-[clamp(2rem,3.4vw,2.8rem)] font-semibold leading-none text-white">
                           <span data-count={m.valor}>{m.valor.toLocaleString("pt-BR")}</span>
@@ -54,7 +58,7 @@ export function Cases() {
                 {"itens" in c && c.itens ? (
                   <ul className="mt-8 grid gap-5">
                     {c.itens.map((it, j) => (
-                      <li key={it.valor} className="flex gap-5 border-t border-white/[0.08] pt-5">
+                      <li key={it.valor} data-case-item className="flex gap-5 border-t border-white/[0.08] pt-5">
                         <span className="font-display grid size-10 shrink-0 place-items-center rounded-xl bg-verde text-sm font-semibold text-abismo">
                           {j + 1}
                         </span>
@@ -67,7 +71,7 @@ export function Cases() {
                   </ul>
                 ) : null}
                 {"registro" in c && c.registro ? (
-                  <blockquote className="mt-8 rounded-2xl bg-abismo/60 p-5 ring-1 ring-white/[0.06]">
+                  <blockquote data-case-item className="mt-8 rounded-2xl bg-abismo/60 p-5 ring-1 ring-white/[0.06]">
                     <p className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-menta">Registro gerencial</p>
                     <p className="mt-2 text-[0.95rem] leading-relaxed text-nevoa/90">{c.registro}</p>
                   </blockquote>
@@ -85,7 +89,7 @@ export function Cases() {
               <h3 className="font-display text-[clamp(1.7rem,3.4vw,2.6rem)] font-light leading-tight text-white">{valor.titulo}</h3>
               <p className="mt-3 text-mute">{valor.periodo}</p>
             </div>
-            <p className="font-display text-right text-[clamp(3.6rem,10vw,7.5rem)] font-semibold leading-none tracking-tight text-white lg:text-right">
+            <p data-valor-total className="font-display text-right text-[clamp(3.6rem,10vw,7.5rem)] font-semibold leading-none tracking-tight text-white lg:text-right">
               R$ <span data-count={valor.total} data-decimais="1">{fmt(valor.total)}</span>
               <span className="texto-degrade"> mi</span>
             </p>
@@ -120,9 +124,9 @@ export function Cases() {
               Total em projetos de capital <strong className="block text-4xl font-semibold text-white">R$ {totalProjetos} mi</strong>
             </p>
           </div>
-          <ul data-reveal="stagger" className="mt-10 grid gap-5 md:grid-cols-3">
+          <ul className="mt-10 grid gap-5 md:grid-cols-3">
             {projetos.lista.map((p) => (
-              <li key={p.nome} className="cartao lanterna relative overflow-hidden p-7">
+              <li key={p.nome} data-projeto className="cartao lanterna relative overflow-hidden p-7">
                 <div className="flex items-center justify-between">
                   <SeloSeta className="size-11" />
                   <span className="bg-degrade font-display rounded-full px-4 py-1.5 text-sm font-bold text-abismo">R$ {p.valor} mi</span>

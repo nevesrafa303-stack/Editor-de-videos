@@ -31,34 +31,43 @@ cd sites/reforce && npm run build && npm start          # em outro terminal
 cd sites/_fontes/reforce && npm install && node preview/build-preview.mjs http://localhost:3000
 ```
 
-## Seções e experiências
-- **Abertura:** o R da marca se desenha em linha (como um traço de projeto), a pílula em degradê enche como
-  barra de avanço, o título sobe linha a linha e um painel flutuante mostra a curva S (previsto x realizado,
-  marcada como ilustração) com dois números reais da apresentação (95,87% das restrições concluídas; parada
-  entregue antes do prazo). Faixa dos 5 setores anda com a rolagem.
-- **Números:** +25 consultores, 5 estados, R$ 6,1 mi capturados em 16 meses, R$ 520 mi em projetos de capital.
-- **Abordagem (o "uau" principal):** cronograma de uma parada em três estados. No modelo tradicional as tarefas
-  escorregam e estouram o prazo (+9 dias); com a abordagem da Reforce ficam no plano; no resultado aparecem as
-  rotinas diárias. No desktop a seção fica fixa e a rolagem troca os estados; os botões também trocam.
-- **Setores:** galeria que corre na horizontal com a rolagem (no celular, carrossel de arrastar).
-- **Atuações:** abas acessíveis (teclado) com as 5 atuações, entregas e o fluxo de cada uma (jornada da
-  execução, ciclo de paradas, fluxo de materiais, riscos contratuais, rotinas de campo).
-- **Método:** linha da jornada (4 fases) que avança e acende cada fase.
-- **Tecnologia:** os dois painéis reais (SKIDS PBT e restrições) numa moldura que inclina com o mouse; clique amplia.
-- **Campo:** mosaico das 6 fotos de campo com paralaxe; clique amplia com a legenda.
-- **Cases:** 3 cases empilhados (o próximo cartão sobe por cima), contadores, barra do valor capturado
-  (R$ 3,5 mi + R$ 2,6 mi = R$ 6,1 mi) e os 3 projetos em andamento com a fatia de cada um em R$ 520 mi.
-- **Presença nacional:** mapa do Brasil com RS, SP, RJ, MG e AM acesos, escritórios de Sapucaia (sede) e Ouro
-  Branco (filial) e rotas de mobilização que se desenham. Passar o mouse num estado da lista acende o estado.
-- **Diferenciais, liderança (3), equipe (12, com filtro por área) e valores (5).**
-- **Contato:** "Diagnóstico rápido" — a pessoa marca a demanda, o segmento e o momento do projeto, preenche os
-  dados e a mensagem sai pronta para o WhatsApp ou o e-mail comercial. O site não guarda dados (não há
-  servidor de formulário). Validação só depois da interação (`:user-invalid`), com `aria-invalid` sincronizado.
-- **Geral:** barra de "avanço da leitura" em degradê no cabeçalho, link da seção atual marcado no menu.
+## Seções e experiências (tudo preso à rolagem: ao descer acontece, ao subir se desfaz)
+- **Abertura:** o R da marca se desenha em linha; a pílula enche como barra de avanço; o título sobe linha a
+  linha. Ao rolar, as três linhas do título se separam para lados diferentes, o R gira e se afasta e, no painel
+  da curva S (ilustração), o "realizado" continua se desenhando e o marcador "hoje" anda até o fim do plano.
+  A faixa dos setores corre de lado e inclina com a velocidade da rolagem.
+- **Números:** cada número vira de baixo para cima (3D), a barra lateral cresce e o valor conta.
+- **Abordagem:** o cronograma fica fixo ao lado (no celular, no topo) e os três passos rolam: cada passo que
+  chega troca o estado (tradicional com atraso de +9 dias → no prazo → rotinas diárias). Os passos também são botões.
+- **Setores:** a seção fixa e os cartões passam da direita para a esquerda **em qualquer tela**, girando em 3D ao
+  cruzar o centro, com a foto andando ao contrário (profundidade). Contador, barra e setas.
+- **Atuações:** a seção fixa (no celular, o carrossel) e cada atuação fica parada um trecho e desliza para a
+  próxima; o conteúdo do cartão entra em cascata. Botões, setas e teclado (← →, Home, End) pulam para a atuação.
+- **Método:** no desktop a seção fixa, a linha atravessa a tela e cada fase sobe girando quando a linha chega;
+  o número grande acompanha a fase. No celular e no tablet, a linha desce na vertical.
+- **Tecnologia:** as telas reais saem deitadas em 3D e levantam; os números voam dos lados até as bordas da tela;
+  os quatro recursos chegam de lado, como numa esteira. Clicar amplia a tela.
+- **Campo:** duas fileiras de fotos andam em sentidos opostos; cada foto abre de um recorte com zoom. Clique amplia.
+- **Cases:** no desktop, os cases se empilham (o de baixo cobre o de cima, que encolhe e escurece); no celular
+  entram de lados alternados. Números contam, a barra do valor capturado cresce e os 3 projetos se abrem em leque.
+- **Presença:** o mapa levanta em 3D, os estados acendem um a um (RS, SP, RJ, MG, AM) junto com a lista, os
+  escritórios aparecem e as rotas se desenham (no desktop a seção fixa durante a sequência).
+- **Diferenciais:** os cartões entram pela direita e a seta gira até apontar.
+- **Equipe:** os cartões da liderança abrem de um recorte com zoom na foto; as colunas da equipe sobem em
+  velocidades diferentes (paralaxe). Filtro por área.
+- **Valores:** a linha em degradê se desenha, o número entra pela esquerda e o texto pela direita; o R gigante gira ao fundo.
+- **Contato e rodapé:** o formulário levanta em 3D, a rede do Brasil gira ao fundo; no fim, o logo gigante sobe.
+- **Palavras gigantes de contorno** ("Resultados", "No campo", "Jornada da execução"…) correm atrás das seções.
+- **Carrosséis sem animação** (reduzir movimento ligado): trilhos de rolagem lateral com dedo, **arrastar com o
+  mouse** e setas.
+- **Diagnóstico rápido:** a mensagem sai pronta para o WhatsApp ou o e-mail comercial. O site não guarda dados.
+- **Geral:** rolagem suave (Lenis), barra de "avanço da leitura" no cabeçalho, link da seção atual marcado.
+  As animações (GSAP) carregam na primeira interação ou quando o navegador fica ocioso, para não atrasar a abertura.
 
-## Qualidade (Lighthouse 12, `next start` local)
-- Celular: Desempenho 92 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 2,9 s · TBT 190 ms · CLS 0)
+## Qualidade (Lighthouse 12, `next start` local, sem compressão)
+- Celular: Desempenho 85 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 3,4 s · TBT 300 ms · CLS 0)
 - Desktop: Desempenho 100 · Acessibilidade 100 · Boas práticas 100 · SEO 100 (LCP 0,8 s · CLS 0)
+- Na Vercel o HTML vai comprimido (brotli), o que costuma subir a nota do celular.
 
 ## Confirmar com a Reforce antes de publicar
 1. **Cliente citado:** a apresentação cita a **Gerdau** nos cases e nos projetos em andamento (Blendagem R$ 380 mi,
@@ -70,8 +79,8 @@ cd sites/_fontes/reforce && npm install && node preview/build-preview.mjs http:/
 4. **Domínio:** o padrão é `reforceconsultoria.com.br` (do e-mail comercial). Ajuste em `NEXT_PUBLIC_SITE_URL`.
 5. **Cidade da sede:** está "Sapucaia – RS", como no PDF (provavelmente Sapucaia do Sul).
 6. **Textos de apoio escritos para o site** (não estão no PDF): frases das seções (ex.: "O plano acontece no campo",
-   "Gente que já esteve na parada, no canteiro e na mesa de decisão"), a linha de cada setor e o cronograma
-   ilustrativo da seção Abordagem (marcado como "ilustração").
+   "Gente que já esteve na parada, no canteiro e na mesa de decisão"), a linha de cada setor, os três tópicos de
+   cada passo da Abordagem e o cronograma ilustrativo dessa seção (marcado como "ilustração").
 
 ## Imagens
 - Extraídas do PDF: `sites/_fontes/reforce/originais/` (JPG de alta qualidade). O site usa WebP gerado por

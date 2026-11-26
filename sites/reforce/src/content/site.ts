@@ -49,18 +49,21 @@ export const abordagem = {
       rotulo: "Modelo tradicional",
       texto: "Informações fragmentadas, sem rotinas",
       resultado: "Reação tardia",
+      detalhes: ["Cada área com a sua informação", "Sem rotina de acompanhamento", "O desvio aparece quando já custou caro"],
     },
     {
       id: "reforce",
       rotulo: "Nossa abordagem",
       texto: "Planejamento integrado à ação em campo e rotinas diárias",
       resultado: "Alta previsibilidade",
+      detalhes: ["Planejamento integrado à ação em campo", "Rotinas diárias com as equipes", "Restrições tratadas antes de travar o cronograma"],
     },
     {
       id: "resultado",
       rotulo: "Resultado",
       texto: "Conectar, antecipar, comunicar",
       resultado: "Gestão contínua",
+      detalhes: ["Conectar planejamento e campo", "Antecipar riscos e desvios", "Comunicar com clareza a cada turno"],
     },
   ],
   // Cronograma ilustrativo de uma parada (dias). "atraso" = dias que a tarefa escorrega no modelo tradicional.

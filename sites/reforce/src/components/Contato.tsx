@@ -9,13 +9,9 @@ export function Contato() {
   const telefone = marca.telefone;
   return (
     <section id="contato" className="relative overflow-hidden bg-[radial-gradient(110%_80%_at_80%_0%,#06363d_0%,#021c20_50%,#011417_85%)] py-24 md:py-32">
-      <Image
-        src={imagens["rede-brasil"]}
-        alt=""
-        aria-hidden="true"
-        sizes="50vw"
-        className="pointer-events-none absolute -right-20 top-0 w-[44rem] max-w-none opacity-25"
-      />
+      <div data-contato-rede className="pointer-events-none absolute -right-20 top-0 w-[44rem] max-w-none opacity-25" aria-hidden="true">
+        <Image src={imagens["rede-brasil"]} alt="" sizes="50vw" className="h-auto w-full" />
+      </div>
       <div className="container-site relative grid gap-14 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="min-w-0">
           <Kicker>{contato.kicker}</Kicker>
@@ -28,7 +24,7 @@ export function Contato() {
 
           <ul className="mt-10 grid gap-3">
             <li>
-              <a href={`mailto:${marca.email}`} className="cartao group flex items-center gap-4 p-4 transition hover:border-menta/50">
+              <a href={`mailto:${marca.email}`} data-contato-canal className="cartao group flex items-center gap-4 p-4 transition hover:border-menta/50">
                 <span className="selo-seta size-11">
                   <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                     <rect x="3" y="5" width="18" height="14" rx="2.5" />
@@ -46,6 +42,7 @@ export function Contato() {
                 href={`https://wa.me/${marca.whatsapp}`}
                 target="_blank"
                 rel="noopener"
+                data-contato-canal
                 className="cartao group flex items-center gap-4 p-4 transition hover:border-menta/50"
               >
                 <span className="selo-seta size-11">
@@ -60,7 +57,7 @@ export function Contato() {
                 </span>
               </a>
             </li>
-            <li className="cartao flex items-center gap-4 p-4">
+            <li data-contato-canal className="cartao flex items-center gap-4 p-4">
               <span className="selo-seta size-11">
                 <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                   <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" />
@@ -77,7 +74,7 @@ export function Contato() {
           </ul>
         </div>
 
-        <form data-diagnostico className="cartao relative min-w-0 p-6 sm:p-9" aria-labelledby="form-titulo">
+        <form data-diagnostico data-form-cartao className="cartao relative min-w-0 p-6 sm:p-9" aria-labelledby="form-titulo">
           <div className="flex items-center justify-between gap-4">
             <h3 id="form-titulo" className="font-display text-2xl font-medium text-white">
               Diagnóstico rápido
