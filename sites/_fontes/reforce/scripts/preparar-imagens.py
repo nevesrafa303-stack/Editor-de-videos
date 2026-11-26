@@ -13,6 +13,10 @@ destino = sys.argv[1]
 os.makedirs(destino, exist_ok=True)
 
 
+# Quanto descer o recorte quadrado nos retratos verticais (px da foto original).
+DESCER = {"equipe-elias-mota": 30}
+
+
 def salvar(im, nome, q=80):
     im.save(os.path.join(destino, nome + ".webp"), "WEBP", quality=q, method=6)
 
@@ -31,10 +35,11 @@ for f in sorted(glob.glob(os.path.join(origem, "*.jpg"))):
     if nome.startswith("setor-"):
         salvar(ampliar(im, 1100), nome, 78)
     elif nome.startswith("equipe-"):
-        # quadrado centrado no rosto (os retratos já vêm enquadrados)
+        # quadrado centrado no rosto (os retratos já vêm enquadrados); nos verticais, desce um pouco
+        # o recorte quando a foto tem espaço acima da cabeça (ex.: Elias), para pegar rosto e ombros.
         lado = min(im.size)
         x = (im.width - lado) // 2
-        y = 0 if im.height > im.width else (im.height - lado) // 2
+        y = DESCER.get(nome, 0) if im.height > im.width else (im.height - lado) // 2
         im = im.crop((x, y, x + lado, y + lado))
         salvar(ampliar(im, 720), nome, 80)
     elif nome == "campo-construtibilidade":

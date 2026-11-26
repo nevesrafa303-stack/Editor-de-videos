@@ -17,16 +17,17 @@ export function Equipe() {
         <ul className="mt-14 grid gap-6 md:grid-cols-3">
           {lideranca.map((p) => (
             <li key={p.id} data-lider className="cartao group overflow-hidden">
-              <div className="relative aspect-[5/4] overflow-hidden">
+              {/* Quadrado: rosto e ombros inteiros; a sombra fica só no pé da foto, abaixo do queixo. */}
+              <div className="relative aspect-square overflow-hidden">
                 <Image
                   src={imagens[p.id]}
                   alt={`${p.nome}, ${p.cargo}`}
                   fill
                   sizes="(min-width: 768px) 30vw, 92vw"
                   quality={80}
-                  className="object-cover object-top transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
+                  className="object-cover object-center transition-transform duration-[1.2s] ease-out-expo group-hover:scale-105"
                 />
-                <span className="absolute inset-0 bg-gradient-to-t from-[#04272c] via-transparent to-transparent" aria-hidden="true" />
+                <span className="absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-[#04272c] to-transparent" aria-hidden="true" />
                 <span className="font-display absolute right-4 top-4 rounded-full bg-abismo/80 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
                   +{p.anos} anos de experiência
                 </span>

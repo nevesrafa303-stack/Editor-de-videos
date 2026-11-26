@@ -479,7 +479,7 @@ function equipe(limpezas: Limpezas) {
   $$("[data-lider]").forEach((l, i) => {
     gsap.fromTo(l, { clipPath: "inset(40% 0% 0% 0% round 1.75rem)", y: 120 + i * 40 }, { clipPath: "inset(0% 0% 0% 0% round 1.75rem)", y: 0, ease: "power2.out", scrollTrigger: entrada(l, "top 100%", "top 55%") });
     const img = $("img", l);
-    if (img) gsap.fromTo(img, { scale: 1.4 }, { scale: 1, ease: "none", scrollTrigger: { trigger: l, start: "top bottom", end: "bottom 40%", scrub: true } });
+    if (img) gsap.fromTo(img, { scale: 1.12, transformOrigin: "50% 35%" }, { scale: 1, ease: "none", scrollTrigger: { trigger: l, start: "top bottom", end: "bottom 40%", scrub: true } });
   });
   // Colunas da equipe em velocidades diferentes (paralaxe por coluna).
   const grade = $("[data-equipe-grade]");
