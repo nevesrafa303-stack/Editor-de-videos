@@ -1,0 +1,612 @@
+[
+{
+"word": "Se",
+"start": 0.122,
+"end": 0.14
+},
+{
+"word": "o",
+"start": 0.14,
+"end": 0.205
+},
+{
+"word": "plano",
+"start": 0.205,
+"end": 0.528
+},
+{
+"word": "de",
+"start": 0.528,
+"end": 0.657
+},
+{
+"word": "saúde",
+"start": 0.657,
+"end": 0.981
+},
+{
+"word": "subiu",
+"start": 0.981,
+"end": 1.304
+},
+{
+"word": "de",
+"start": 1.304,
+"end": 1.433
+},
+{
+"word": "novo",
+"start": 1.433,
+"end": 1.692
+},
+{
+"word": "esse",
+"start": 1.692,
+"end": 1.951
+},
+{
+"word": "ano,",
+"start": 1.951,
+"end": 2.274
+},
+{
+"word": "então",
+"start": 2.463,
+"end": 2.716
+},
+{
+"word": "presta",
+"start": 2.716,
+"end": 3.062
+},
+{
+"word": "atenção",
+"start": 3.062,
+"end": 3.61
+},
+{
+"word": "nos",
+"start": 3.61,
+"end": 3.915
+},
+{
+"word": "próximos",
+"start": 4.067,
+"end": 4.524
+},
+{
+"word": "segundos.",
+"start": 4.524,
+"end": 5.164
+},
+{
+"word": "Todo",
+"start": 5.243,
+"end": 5.444
+},
+{
+"word": "ano",
+"start": 5.518,
+"end": 5.697
+},
+{
+"word": "chega",
+"start": 5.697,
+"end": 6.12
+},
+{
+"word": "o",
+"start": 6.12,
+"end": 6.194
+},
+{
+"word": "reajuste",
+"start": 6.194,
+"end": 6.903
+},
+{
+"word": "e",
+"start": 6.903,
+"end": 6.966
+},
+{
+"word": "a",
+"start": 6.966,
+"end": 7.029
+},
+{
+"word": "mensalidade",
+"start": 7.029,
+"end": 7.78
+},
+{
+"word": "pesa",
+"start": 7.875,
+"end": 8.019
+},
+{
+"word": "no",
+"start": 8.144,
+"end": 8.154
+},
+{
+"word": "orçamento",
+"start": 8.154,
+"end": 8.739
+},
+{
+"word": "e",
+"start": 8.758,
+"end": 8.826
+},
+{
+"word": "você",
+"start": 8.826,
+"end": 9.075
+},
+{
+"word": "continua",
+"start": 9.104,
+"end": 9.641
+},
+{
+"word": "com",
+"start": 9.641,
+"end": 9.833
+},
+{
+"word": "a",
+"start": 9.833,
+"end": 9.862
+},
+{
+"word": "mesma",
+"start": 9.872,
+"end": 10.236
+},
+{
+"word": "rede",
+"start": 10.399,
+"end": 10.755
+},
+{
+"word": "ou",
+"start": 10.861,
+"end": 11.024
+},
+{
+"word": "pior.",
+"start": 11.024,
+"end": 11.438
+},
+{
+"word": "Se",
+"start": 11.632,
+"end": 11.685
+},
+{
+"word": "você",
+"start": 11.685,
+"end": 12.119
+},
+{
+"word": "tem",
+"start": 12.119,
+"end": 12.435
+},
+{
+"word": "CNPJ,",
+"start": 12.488,
+"end": 13.08
+},
+{
+"word": "dá",
+"start": 13.159,
+"end": 13.271
+},
+{
+"word": "pra",
+"start": 13.271,
+"end": 13.448
+},
+{
+"word": "sair",
+"start": 13.448,
+"end": 13.681
+},
+{
+"word": "dessa.",
+"start": 13.681,
+"end": 14.189
+},
+{
+"word": "O",
+"start": 14.26,
+"end": 14.393
+},
+{
+"word": "plano",
+"start": 14.393,
+"end": 14.669
+},
+{
+"word": "empresarial",
+"start": 14.669,
+"end": 15.419
+},
+{
+"word": "tem",
+"start": 15.419,
+"end": 15.628
+},
+{
+"word": "outras",
+"start": 15.628,
+"end": 16.008
+},
+{
+"word": "regras",
+"start": 16.037,
+"end": 16.369
+},
+{
+"word": "e",
+"start": 16.369,
+"end": 16.597
+},
+{
+"word": "preços.",
+"start": 16.597,
+"end": 16.977
+},
+{
+"word": "Em",
+"start": 17.198,
+"end": 17.26
+},
+{
+"word": "muitos",
+"start": 17.26,
+"end": 17.905
+},
+{
+"word": "casos,",
+"start": 17.905,
+"end": 18.649
+},
+{
+"word": "uma",
+"start": 18.649,
+"end": 18.971
+},
+{
+"word": "rede",
+"start": 18.971,
+"end": 19.38
+},
+{
+"word": "melhor",
+"start": 19.38,
+"end": 19.802
+},
+{
+"word": "como",
+"start": 19.884,
+"end": 20.05
+},
+{
+"word": "hospitais",
+"start": 20.05,
+"end": 20.539
+},
+{
+"word": "São",
+"start": 20.723,
+"end": 20.976
+},
+{
+"word": "Luiz,",
+"start": 21.0,
+"end": 21.506
+},
+{
+"word": "São",
+"start": 21.76,
+"end": 21.955
+},
+{
+"word": "Camilo,",
+"start": 22.029,
+"end": 22.561
+},
+{
+"word": "BP,",
+"start": 22.819,
+"end": 23.367
+},
+{
+"word": "dependendo",
+"start": 23.484,
+"end": 23.878
+},
+{
+"word": "do",
+"start": 24.001,
+"end": 24.079
+},
+{
+"word": "plano.",
+"start": 24.079,
+"end": 24.465
+},
+{
+"word": "E",
+"start": 24.687,
+"end": 24.748
+},
+{
+"word": "os",
+"start": 24.748,
+"end": 24.808
+},
+{
+"word": "benefícios",
+"start": 24.816,
+"end": 25.422
+},
+{
+"word": "vêm",
+"start": 25.422,
+"end": 25.599
+},
+{
+"word": "junto.",
+"start": 25.607,
+"end": 26.035
+},
+{
+"word": "Telemedicina",
+"start": 26.228,
+"end": 27.183
+},
+{
+"word": "24",
+"start": 27.183,
+"end": 27.655
+},
+{
+"word": "horas,",
+"start": 27.729,
+"end": 28.222
+},
+{
+"word": "cobertura",
+"start": 28.222,
+"end": 28.936
+},
+{
+"word": "nacional",
+"start": 28.936,
+"end": 29.503
+},
+{
+"word": "e,",
+"start": 29.593,
+"end": 29.615
+},
+{
+"word": "em",
+"start": 29.615,
+"end": 29.637
+},
+{
+"word": "vários",
+"start": 29.858,
+"end": 30.132
+},
+{
+"word": "planos,",
+"start": 30.132,
+"end": 30.769
+},
+{
+"word": "reembolso",
+"start": 30.769,
+"end": 31.158
+},
+{
+"word": "de",
+"start": 31.158,
+"end": 31.308
+},
+{
+"word": "consultas.",
+"start": 31.335,
+"end": 32.095
+},
+{
+"word": "Não",
+"start": 32.502,
+"end": 32.576
+},
+{
+"word": "é",
+"start": 32.576,
+"end": 32.633
+},
+{
+"word": "trocar",
+"start": 32.633,
+"end": 32.978
+},
+{
+"word": "por",
+"start": 32.978,
+"end": 33.151
+},
+{
+"word": "trocar,",
+"start": 33.151,
+"end": 33.652
+},
+{
+"word": "é",
+"start": 34.066,
+"end": 34.146
+},
+{
+"word": "parar",
+"start": 34.146,
+"end": 34.556
+},
+{
+"word": "de",
+"start": 34.556,
+"end": 34.69
+},
+{
+"word": "pagar",
+"start": 34.913,
+"end": 35.127
+},
+{
+"word": "mais",
+"start": 35.127,
+"end": 35.448
+},
+{
+"word": "sem",
+"start": 35.448,
+"end": 35.688
+},
+{
+"word": "necessidade.",
+"start": 35.688,
+"end": 36.633
+},
+{
+"word": "Nosso",
+"start": 36.793,
+"end": 36.975
+},
+{
+"word": "time",
+"start": 37.052,
+"end": 37.34
+},
+{
+"word": "de",
+"start": 37.34,
+"end": 37.484
+},
+{
+"word": "especialistas",
+"start": 37.484,
+"end": 38.386
+},
+{
+"word": "compara",
+"start": 38.486,
+"end": 38.891
+},
+{
+"word": "as",
+"start": 39.112,
+"end": 39.121
+},
+{
+"word": "principais",
+"start": 39.121,
+"end": 39.783
+},
+{
+"word": "operadoras",
+"start": 39.875,
+"end": 40.463
+},
+{
+"word": "pra",
+"start": 40.573,
+"end": 40.757
+},
+{
+"word": "você",
+"start": 40.757,
+"end": 41.042
+},
+{
+"word": "ou",
+"start": 41.315,
+"end": 41.448
+},
+{
+"word": "sua",
+"start": 41.448,
+"end": 41.6
+},
+{
+"word": "empresa.",
+"start": 41.971,
+"end": 42.304
+},
+{
+"word": "É",
+"start": 42.435,
+"end": 42.564
+},
+{
+"word": "exclusivo",
+"start": 42.564,
+"end": 43.583
+},
+{
+"word": "pra",
+"start": 43.593,
+"end": 43.941
+},
+{
+"word": "CNPJ.",
+"start": 43.941,
+"end": 44.437
+},
+{
+"word": "Clica",
+"start": 44.587,
+"end": 44.794
+},
+{
+"word": "no",
+"start": 44.794,
+"end": 44.843
+},
+{
+"word": "link",
+"start": 44.922,
+"end": 45.1
+},
+{
+"word": "abaixo",
+"start": 45.1,
+"end": 45.415
+},
+{
+"word": "e",
+"start": 45.415,
+"end": 45.445
+},
+{
+"word": "preenche",
+"start": 45.464,
+"end": 45.878
+},
+{
+"word": "o",
+"start": 45.878,
+"end": 45.928
+},
+{
+"word": "formulário.",
+"start": 45.928,
+"end": 46.509
+}
+]

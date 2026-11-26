@@ -1,0 +1,42 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#99F6E4;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+.wcard{background:#fff;color:#0B1F3A;border-radius:26px;box-shadow:0 18px 40px rgba(2,8,20,.4);}
+.tdot{border-radius:50%;background:#0F766E;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip{display:flex;align-items:center;gap:12px;padding:8px 26px 8px 10px;border-radius:40px;background:rgba(3,10,23,.82);border:2px solid rgba(153,246,228,.75);font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;white-space:nowrap;}
+.chip .ci{width:48px;height:48px;border-radius:50%;background:#14B8A6;display:flex;align-items:center;justify-content:center;flex:none;}
+
+.lf{position:absolute;left:0;width:1080px;top:496px;display:flex;justify-content:center;}
+.lf>div{max-width:900px;padding:8px 20px;border-radius:14px;background:rgba(3,10,23,.8);text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:#fff;}
+  </style>
+  <div id="root" data-composition-id="lf" data-width="1080" data-height="1920">
+
+    <div class="lf clip" id="lf-0" data-start="0.4" data-duration="4.683" data-track-index="0"><div id="lf-0i">Consulte condições e elegibilidade. Condições sujeitas à análise comercial.</div></div>
+    <div class="lf clip" id="lf-1" data-start="11.733" data-duration="2.334" data-track-index="0"><div id="lf-1i">Consulte condições e elegibilidade. Condições sujeitas à análise comercial.</div></div>
+    <div class="lf clip" id="lf-2" data-start="32.583" data-duration="4.117" data-track-index="0"><div id="lf-2i">Valores referenciais sujeitos às regras da operadora. Os valores podem variar conforme perfil do beneficiário.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#lf-0i",{opacity:0},{opacity:1,duration:0.3},0.4);
+    tl.to("#lf-0i",{opacity:0,duration:0.2},4.863);
+    tl.fromTo("#lf-1i",{opacity:0},{opacity:1,duration:0.3},11.733);
+    tl.to("#lf-1i",{opacity:0,duration:0.2},13.847);
+    tl.fromTo("#lf-2i",{opacity:0},{opacity:1,duration:0.3},32.583);
+    tl.to("#lf-2i",{opacity:0,duration:0.2},36.48);
+    window.__timelines["lf"] = tl;
+  </script>
+</template>

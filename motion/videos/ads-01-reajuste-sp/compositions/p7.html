@@ -1,0 +1,70 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#99F6E4;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+.wcard{background:#fff;color:#0B1F3A;border-radius:26px;box-shadow:0 18px 40px rgba(2,8,20,.4);}
+.tdot{border-radius:50%;background:#0F766E;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip{display:flex;align-items:center;gap:12px;padding:8px 26px 8px 10px;border-radius:40px;background:rgba(3,10,23,.82);border:2px solid rgba(153,246,228,.75);font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;white-space:nowrap;}
+.chip .ci{width:48px;height:48px;border-radius:50%;background:#14B8A6;display:flex;align-items:center;justify-content:center;flex:none;}
+
+#p7-t{top:452px;font-size:58px;}
+.p7-ch{position:absolute;top:452px;width:58px;height:58px;color:#fff;}
+#p7-bt{position:absolute;left:100px;width:880px;top:542px;height:156px;border-radius:40px;background:#fff;color:#0B1F3A;display:flex;align-items:center;gap:26px;padding:0 40px;box-shadow:0 20px 44px rgba(2,8,20,.5),0 0 0 6px rgba(20,184,166,.45);}
+#p7-bt .tdot{width:92px;height:92px;}
+#p7-bt b{display:block;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:50px;line-height:1.02;color:#0F766E;}
+#p7-bt i{display:block;font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;opacity:.85;margin-top:6px;}
+#p7-rip{position:absolute;left:452px;top:582px;width:80px;height:80px;border-radius:50%;border:5px solid #14B8A6;opacity:0;}
+#p7-req{position:absolute;left:0;width:1080px;top:726px;display:flex;justify-content:center;}
+#p7-req .ci{background:#16A34A;}
+#p7-lg{top:800px;}
+#p7-rt{top:1046px;font-size:40px;color:#99F6E4;}
+.p7-rc{position:absolute;top:1108px;width:300px;height:196px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:0 12px;}
+.p7-rc .tdot{width:76px;height:76px;}
+.p7-rc b{font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:30px;text-transform:uppercase;line-height:1.02;text-align:center;color:#0B1F3A;}
+#p7-nt{position:absolute;left:100px;width:880px;top:1330px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+  </style>
+  <div id="root" data-composition-id="p7" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <span id="p7-a1" class="p7-ch ic" style="left:50px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span><span id="p7-a2" class="p7-ch ic" style="left:972px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    <div id="p7-t" class="pt">Clique no link abaixo</div>
+    <div id="p7-bt"><span class="tdot"><span class="ic" style="width:54px;height:54px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span></span><div><b>SOLICITE SUA COTAÇÃO</b><i>Preencha o formulário</i></div></div>
+    <span id="p7-rip"></span>
+    <div id="p7-req"><div class="chip"><span class="ci"><span class="ic" style="width:28px;height:28px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span>Exclusivo para CNPJ/MEI · a partir de 3 vidas</div></div>
+    <div id="p7-lg" class="legal">Planos de saúde empresariais para CNPJ/MEI, a partir de 3 vidas. Hospitais citados como exemplos de rede, conforme o plano. Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores referenciais sujeitos às regras da operadora. Valores sujeitos à faixa etária e região. A rede credenciada pode variar conforme plano contratado. Cobertura e rede sujeitas à modalidade contratada.</div>
+    <div id="p7-rt" class="pt">Pelo CNPJ, com</div>
+    <div class="p7-rc wcard" id="p7-rc0" style="left:60px"><span class="tdot"><span class="ic" style="width:44px;height:44px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>Rede de<br>referência*</b></div>
+    <div class="p7-rc wcard" id="p7-rc1" style="left:390px"><span class="tdot"><span class="ic" style="width:44px;height:44px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/><path d="M12 7.5v5M9.5 10h5"/></svg></span></span><b>Telemedicina<br>24 h</b></div>
+    <div class="p7-rc wcard" id="p7-rc2" style="left:720px"><span class="tdot"><span class="ic" style="width:44px;height:44px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span></span><b>Cobertura<br>nacional</b></div>
+    <div id="p7-nt">*Rede conforme o plano contratado. Telemedicina e cobertura nacional conforme o plano.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p7-t",{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.04);
+    tl.fromTo("#p7-a1,#p7-a2",{opacity:0,y:-18},{opacity:1,y:10,duration:0.45,ease:"sine.inOut",yoyo:true,repeat:7},0.12);
+    tl.fromTo("#p7-bt",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.9)"},0.37);
+    tl.fromTo("#p7-bt",{scale:1},{scale:0.95,duration:0.1,ease:"power2.out",yoyo:true,repeat:1,immediateRender:false},1.411);
+    tl.fromTo("#p7-rip",{opacity:0.9,scale:0.4},{opacity:0,scale:4,duration:0.6,ease:"power2.out",immediateRender:false},1.441);
+    tl.fromTo("#p7-req",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},1.661);
+    tl.fromTo("#p7-lg",{opacity:0},{opacity:1,duration:0.4},0.5);
+    tl.fromTo("#p7-rt",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},2.312);
+    tl.fromTo("#p7-rc0",{opacity:0,y:60},{opacity:1,y:0,duration:0.4,ease:"back.out(1.6)"},2.412);
+    tl.fromTo("#p7-rc1",{opacity:0,y:60},{opacity:1,y:0,duration:0.4,ease:"back.out(1.6)"},2.532);
+    tl.fromTo("#p7-rc2",{opacity:0,y:60},{opacity:1,y:0,duration:0.4,ease:"back.out(1.6)"},2.652);
+    tl.fromTo("#p7-nt",{opacity:0},{opacity:1,duration:0.3},2.662);
+    tl.fromTo("#p7-bt",{scale:1},{scale:1.04,duration:0.35,ease:"sine.inOut",yoyo:true,repeat:1,immediateRender:false},2.762);
+    window.__timelines["p7"] = tl;
+  </script>
+</template>

@@ -1,0 +1,48 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.pt{position:absolute;left:0;width:1080px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;}
+.lab{position:absolute;left:0;width:1080px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em;text-transform:uppercase;color:#99F6E4;}
+.legal{position:absolute;left:100px;width:880px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+.wcard{background:#fff;color:#0B1F3A;border-radius:26px;box-shadow:0 18px 40px rgba(2,8,20,.4);}
+.tdot{border-radius:50%;background:#0F766E;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip{display:flex;align-items:center;gap:12px;padding:8px 26px 8px 10px;border-radius:40px;background:rgba(3,10,23,.82);border:2px solid rgba(153,246,228,.75);font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;white-space:nowrap;}
+.chip .ci{width:48px;height:48px;border-radius:50%;background:#14B8A6;display:flex;align-items:center;justify-content:center;flex:none;}
+
+#p6-lab{top:466px;}
+#p6-seal{position:absolute;left:110px;width:860px;top:520px;height:236px;border-radius:36px;background:#fff;color:#0B1F3A;display:flex;align-items:center;gap:30px;padding:0 44px;box-shadow:0 20px 44px rgba(2,8,20,.5),0 0 0 8px rgba(20,184,166,.45);}
+#p6-seal .tdot{width:132px;height:132px;}
+#p6-seal b{display:block;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:92px;line-height:.95;color:#0F766E;letter-spacing:-.01em;}
+#p6-seal i{display:block;font-style:normal;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;color:#0B1F3A;}
+#p6-v{position:absolute;left:0;width:1080px;top:790px;display:flex;justify-content:center;}
+#p6-lg{top:906px;}
+  </style>
+  <div id="root" data-composition-id="p6" data-width="1080" data-height="1920">
+<div class="pw" style="position:absolute;left:0;top:48px;width:1080px;height:1920px">
+    <div id="p6-lab" class="lab">É exclusivo</div>
+    <div id="p6-seal"><span class="tdot"><span class="ic" style="width:84px;height:84px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3v6c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10v-6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span></span><div><i>Exclusivo para</i><b>CNPJ/MEI</b></div></div>
+    <div id="p6-v"><div class="chip"><span class="ci"><span class="ic" style="width:30px;height:30px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.8"/><path d="M16 14.2c3 .2 5.5 2.3 5.5 5.3"/></svg></span></span>a partir de 3 vidas</div></div>
+    <div id="p6-lg" class="legal">Consulte condições e elegibilidade. Condições sujeitas à análise comercial.</div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#p6-lab",{opacity:0,y:24},{opacity:1,y:0,duration:0.4,ease:"power3.out"},0.247);
+    tl.fromTo("#p6-seal",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.22,ease:"power4.in"},0.347);
+    tl.fromTo("#p6-seal",{x:0},{keyframes:[{x:-10,duration:0.04},{x:8,duration:0.04},{x:-4,duration:0.04},{x:0,duration:0.05}],immediateRender:false},0.567);
+    tl.fromTo("#p6-v",{opacity:0,scale:0.6},{opacity:1,scale:1,duration:0.36,ease:"back.out(1.9)"},0.647);
+    tl.fromTo("#p6-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.to("#p6-lab,#p6-seal,#p6-v,#p6-lg",{opacity:0,y:-36,duration:0.22,ease:"power2.in"},2.06);
+    window.__timelines["p6"] = tl;
+  </script>
+</template>
