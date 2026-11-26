@@ -1,0 +1,12 @@
+{
+  "name": "reforce-fontes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node preview/build-preview.mjs",
+    "og": "node render-og.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
