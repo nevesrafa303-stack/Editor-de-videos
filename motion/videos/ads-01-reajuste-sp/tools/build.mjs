@@ -1,8 +1,9 @@
 // Gera index.html e compositions/*.html do anúncio "Ads 01 · reajuste" (v2: talking head 9:16, 56,5 s).
 //
 // v2, pedido do cliente: "corta só as pausas, destaca quem está falando e destaca melhor os hospitais".
-// - o apresentador fica em tela cheia o tempo todo (#vw), com correção de cor de retrato (tools/grade.json) e zoom
-//   alternado a cada corte de pausa (o corte some e o rosto ganha destaque), mais punch-ins nas palavras fortes;
+// - o apresentador fica em tela cheia o tempo todo (#vw), com a imagem original (sem correção de cor, pedido do
+//   cliente) e zoom alternado a cada corte de pausa (o corte some e o rosto ganha destaque), mais punch-ins nas
+//   palavras fortes;
 // - nada cobre o rosto: selos curtos no topo, logo abaixo do cabeçalho (tc), e cartões no terço inferior só nos
 //   planos abertos (lc); texto legal logo acima da legenda (lf); legenda palavra a palavra (cap);
 // - hospitais: cartões grandes em tela cheia, um por nome, com o apresentador num círculo (hi + #pip);
@@ -20,7 +21,6 @@ const W = 1080, H = 1920, D = 56.5;
 const WORDS = JSON.parse(readFileSync(join(ROOT, "tools/words.json"), "utf8"));
 const HITS = JSON.parse(readFileSync(join(ROOT, "assets/audio/sfx_hits.json"), "utf8"));
 const SEGS = JSON.parse(readFileSync(join(ROOT, "tools/timeline.json"), "utf8")).segments;
-const GRADE = JSON.stringify(JSON.parse(readFileSync(join(ROOT, "tools/grade.json"), "utf8"))).replace(/"/g, "&quot;");
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9%]/g, "");
 const find = (w, after = 0) => {
@@ -564,8 +564,6 @@ ${FONTS}
       #root { position: relative; width: ${W}px; height: ${H}px; overflow: hidden; background: ${NAVY_D}; }
       #vw { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; z-index: 1; }
       #v-src { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; object-fit: cover; }
-      #shade { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-        background: linear-gradient(180deg, rgba(3,10,23,.38) 0%, rgba(3,10,23,0) 30%, rgba(3,10,23,0) 58%, rgba(3,10,23,.5) 100%); }
       #pip { position: absolute; left: ${(W - PIP) / 2}px; top: 1040px; width: ${PIP}px; height: ${PIP}px; z-index: 5; }
       #pip-in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: ${NAVY_D}; box-shadow: 0 0 0 7px #fff, 0 18px 50px rgba(2,8,20,.6), 0 0 60px rgba(20,184,166,.55); }
       #v-pip1 { position: absolute; left: ${P1.x}px; top: ${P1.y}px; width: ${P1.w}px; height: ${P1.h}px; object-fit: cover; }
@@ -576,10 +574,9 @@ ${FONTS}
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="${D}" data-width="${W}" data-height="${H}">
       <div id="vw">
-        <video id="v-src" class="clip" data-start="0" data-duration="${D}" data-track-index="0" muted playsinline src="assets/video/src.mp4" data-color-grading="${GRADE}"></video>
+        <video id="v-src" class="clip" data-start="0" data-duration="${D}" data-track-index="0" muted playsinline src="assets/video/src.mp4"></video>
       </div>
-      <div id="shade"></div>
-      <div id="pip" data-layout-allow-overflow><div id="pip-ring" data-layout-ignore></div><div id="pip-in"><video id="v-pip1" class="clip" data-start="${HI[0]}" data-duration="${r3(HI[1] - HI[0])}" data-media-start="${HI[0]}" data-track-index="1" muted playsinline src="assets/video/src.mp4" data-color-grading="${GRADE}"></video><video id="v-pip2" class="clip" data-start="${ENDC}" data-duration="${r3(D - ENDC)}" data-media-start="${ENDC}" data-track-index="1" muted playsinline src="assets/video/src.mp4" data-color-grading="${GRADE}"></video></div></div>
+      <div id="pip" data-layout-allow-overflow><div id="pip-ring" data-layout-ignore></div><div id="pip-in"><video id="v-pip1" class="clip" data-start="${HI[0]}" data-duration="${r3(HI[1] - HI[0])}" data-media-start="${HI[0]}" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video><video id="v-pip2" class="clip" data-start="${ENDC}" data-duration="${r3(D - ENDC)}" data-media-start="${ENDC}" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
 ${hosts}
 ${audio}
     </div>

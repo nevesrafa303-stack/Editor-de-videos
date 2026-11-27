@@ -1,4 +1,4 @@
-# Ads 01 · reajuste (story 9:16, 56,5 s) · v2
+# Ads 01 · reajuste (story 9:16, 56,5 s) · v2, sem efeito de cor
 
 Edição do vídeo "Ads 01 vídeo", recebido pelo Google Drive em 26/11/2026. Um apresentador fala direto para a câmera
 sobre o reajuste do plano de saúde e o plano empresarial pelo CNPJ, com hospitais de São Paulo.
@@ -48,12 +48,9 @@ cliente escolheu manter a fala com "duas vidas" e escrever **"a partir de 2 vida
 
 **Tela e cor:**
 - **Tela cheia o tempo todo:** nenhum painel cobre o rosto.
-- **Correção de cor de retrato** (`tools/grade.json`, receita Natural Portrait do HyperFrames, `skin-soft` 0,6):
-  - realces −0,14, sombras +0,06, contraste +0,06 e brancos −0,06, porque o original vem muito claro do tone-mapping
-    do HDR;
-  - pele levemente mais quente;
-  - vinheta 0,05.
-- **Escurecimento suave no topo e no pé da tela:** o rosto fica no centro mais claro, e o texto ganha contraste.
+- **Imagem original:** sem correção de cor, vinheta ou escurecimento. A v2 tinha uma correção de retrato e um
+  escurecimento no topo e no pé; o cliente não gostou e pediu a imagem como foi gravada (27/11/2026). O vídeo só passa
+  pela conversão de HDR para SDR, necessária para o Meta.
 
 **Zoom:**
 - muda a cada corte de pausa: plano aberto 1,00 ↔ 1,07, selfie 1,00 ↔ 1,06;
