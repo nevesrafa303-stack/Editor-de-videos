@@ -1,0 +1,63 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.wcard{background:#fff;color:#0B1F3A;border-radius:28px;box-shadow:0 18px 44px rgba(2,8,20,.45);}
+.tdot{border-radius:50%;background:#0F766E;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip{display:flex;align-items:center;gap:14px;height:84px;padding:0 34px 0 12px;border-radius:44px;background:#fff;color:#0B1F3A;border:3px solid #fff;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:46px;line-height:1;text-transform:uppercase;white-space:nowrap;box-shadow:0 14px 34px rgba(2,8,20,.45);}
+.chip .cd{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;background:#0F766E;}
+.chip.or{background:#C2410C;color:#fff;} .chip.or .cd{background:#fff;}
+.chip.rd{background:#DC2626;color:#fff;} .chip.rd .cd{background:#fff;}
+.chip.gr{background:#16A34A;color:#fff;} .chip.gr .cd{background:#fff;}
+.chip.nv{background:#0B1F3A;color:#fff;border-color:rgba(153,246,228,.85);} .chip.nv .cd{background:#14B8A6;}
+
+#ec-all{position:absolute;inset:0;}
+#ec-bg{position:absolute;inset:0;background:radial-gradient(110% 60% at 50% 38%, #17406E 0%, #0B1F3A 45%, #030A17 100%);}
+#ec-grid{position:absolute;inset:0;opacity:.7;background-image:linear-gradient(rgba(153,246,228,.07) 2px, transparent 2px),linear-gradient(90deg, rgba(153,246,228,.07) 2px, transparent 2px);background-size:60px 60px;}
+#ec-bt{position:absolute;left:90px;width:900px;top:520px;height:160px;border-radius:40px;display:flex;align-items:center;gap:26px;padding:0 38px;box-shadow:0 20px 44px rgba(2,8,20,.5),0 0 0 7px rgba(20,184,166,.5);}
+#ec-bt .tdot{width:100px;height:100px;}
+#ec-bt b{display:block;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:52px;line-height:1.02;color:#0F766E;}
+#ec-bt i{display:block;font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;color:#475569;margin-top:6px;}
+#ec-req{position:absolute;left:0;width:1080px;top:706px;display:flex;justify-content:center;}
+#ec-req>div{display:flex;align-items:center;gap:12px;padding:8px 26px 8px 10px;border-radius:40px;background:rgba(3,10,23,.85);border:2px solid rgba(153,246,228,.75);font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;white-space:nowrap;}
+#ec-req .ok{width:48px;height:48px;border-radius:50%;background:#16A34A;display:flex;align-items:center;justify-content:center;}
+.ec-rc{position:absolute;top:796px;width:292px;height:168px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+.ec-rc .tdot{width:68px;height:68px;}
+.ec-rc b{font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:28px;line-height:1.02;text-transform:uppercase;text-align:center;color:#0B1F3A;}
+#ec-lg{position:absolute;left:100px;width:880px;top:1404px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+  </style>
+  <div id="root" data-composition-id="ec" data-width="1080" data-height="1920">
+
+    <div id="ec-all">
+    <div id="ec-bg"></div><div id="ec-grid"></div>
+    <div id="ec-bt" class="wcard"><span class="tdot"><span class="ic" style="width:58px;height:58px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span></span><div><b>SOLICITE SUA COTAÇÃO</b><i>Preencha o formulário</i></div></div>
+    <div id="ec-req"><div><span class="ok"><span class="ic" style="width:30px;height:30px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span>Exclusivo para CNPJ/MEI · a partir de 2 vidas</div></div>
+    <div class="ec-rc wcard" id="ec-rc0" style="left:76px"><span class="tdot"><span class="ic" style="width:40px;height:40px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>Rede de<br>referência*</b></div>
+    <div class="ec-rc wcard" id="ec-rc1" style="left:392px"><span class="tdot"><span class="ic" style="width:40px;height:40px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/><path d="M12 7.5v5M9.5 10h5"/></svg></span></span><b>Telemedicina<br>24 h</b></div>
+    <div class="ec-rc wcard" id="ec-rc2" style="left:708px"><span class="tdot"><span class="ic" style="width:40px;height:40px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span></span><b>Cobertura<br>nacional</b></div>
+    <div id="ec-lg">Planos de saúde empresariais para CNPJ/MEI, a partir de 2 vidas. Hospitais citados como exemplos de rede, conforme o plano. Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores referenciais sujeitos às regras da operadora. Valores sujeitos à faixa etária e região. A rede credenciada pode variar conforme plano contratado. Consulte a disponibilidade da rede hospitalar. Cobertura e rede sujeitas à modalidade contratada. *Rede, telemedicina e cobertura conforme o plano contratado.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ec-all",{clipPath:"circle(0% at 50% 62%)"},{clipPath:"circle(150% at 50% 62%)",duration:0.5,ease:"power3.inOut"},0);
+    tl.fromTo("#ec-bt",{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.45,ease:"back.out(1.9)"},0.25);
+    tl.fromTo("#ec-req",{opacity:0,y:24},{opacity:1,y:0,duration:0.38,ease:"power3.out"},0.45);
+    tl.fromTo("#ec-rc0",{opacity:0,y:50},{opacity:1,y:0,duration:0.36,ease:"back.out(1.6)"},0.55);
+    tl.fromTo("#ec-rc1",{opacity:0,y:50},{opacity:1,y:0,duration:0.36,ease:"back.out(1.6)"},0.65);
+    tl.fromTo("#ec-rc2",{opacity:0,y:50},{opacity:1,y:0,duration:0.36,ease:"back.out(1.6)"},0.75);
+    tl.fromTo("#ec-lg",{opacity:0},{opacity:1,duration:0.3},0.5);
+    tl.fromTo("#ec-bt",{scale:1},{scale:1.04,duration:0.35,ease:"sine.inOut",yoyo:true,repeat:1,immediateRender:false},1.2);
+    window.__timelines["ec"] = tl;
+  </script>
+</template>

@@ -1,0 +1,84 @@
+<template>
+  <style>
+@font-face{font-family:"Montserrat";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-700.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-800.woff2") format("woff2");}
+@font-face{font-family:"Montserrat";font-weight:900;font-style:normal;font-display:block;src:url("assets/fonts/Montserrat-900.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-400.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-500.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-normal-600.woff2") format("woff2");}
+@font-face{font-family:"Poppins";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/Poppins-800.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-700.woff2") format("woff2");}
+@font-face{font-family:"Saira Semi Condensed";font-weight:800;font-style:normal;font-display:block;src:url("assets/fonts/SairaSemiCondensed-normal-800.woff2") format("woff2");}
+#root{position:absolute;inset:0;overflow:visible;font-family:"Poppins",Arial,sans-serif;color:#fff;}
+.ic{display:inline-flex;}
+.ic svg{width:100%;height:100%;}
+.wcard{background:#fff;color:#0B1F3A;border-radius:28px;box-shadow:0 18px 44px rgba(2,8,20,.45);}
+.tdot{border-radius:50%;background:#0F766E;display:flex;align-items:center;justify-content:center;flex:none;}
+.chip{display:flex;align-items:center;gap:14px;height:84px;padding:0 34px 0 12px;border-radius:44px;background:#fff;color:#0B1F3A;border:3px solid #fff;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:46px;line-height:1;text-transform:uppercase;white-space:nowrap;box-shadow:0 14px 34px rgba(2,8,20,.45);}
+.chip .cd{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;background:#0F766E;}
+.chip.or{background:#C2410C;color:#fff;} .chip.or .cd{background:#fff;}
+.chip.rd{background:#DC2626;color:#fff;} .chip.rd .cd{background:#fff;}
+.chip.gr{background:#16A34A;color:#fff;} .chip.gr .cd{background:#fff;}
+.chip.nv{background:#0B1F3A;color:#fff;border-color:rgba(153,246,228,.85);} .chip.nv .cd{background:#14B8A6;}
+
+#hi-all{position:absolute;inset:0;}
+#hi-bg{position:absolute;inset:0;background:radial-gradient(110% 60% at 50% 38%, #17406E 0%, #0B1F3A 45%, #030A17 100%);}
+#hi-grid{position:absolute;inset:0;opacity:.7;background-image:linear-gradient(rgba(153,246,228,.07) 2px, transparent 2px),linear-gradient(90deg, rgba(153,246,228,.07) 2px, transparent 2px);background-size:60px 60px;}
+#hi-t{position:absolute;left:0;width:1080px;top:500px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:44px;letter-spacing:.06em;text-transform:uppercase;color:#99F6E4;}
+.hc{position:absolute;left:90px;width:900px;top:572px;height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden;}
+.hc .tdot{width:108px;height:108px;}
+.hc b{font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:112px;line-height:1;color:#0B1F3A;letter-spacing:-.01em;white-space:nowrap;}
+.hc i{font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:28px;color:#475569;letter-spacing:.04em;}
+.hc .sw{position:absolute;top:-40px;left:-200px;width:140px;height:420px;transform:rotate(18deg);background:linear-gradient(90deg,rgba(20,184,166,0),rgba(20,184,166,.28),rgba(20,184,166,0));}
+#hi-dots{position:absolute;left:0;width:1080px;top:922px;display:flex;justify-content:center;gap:14px;}
+#hi-dots span{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.3);}
+#hi-row{position:absolute;left:0;width:1080px;top:600px;display:flex;justify-content:center;gap:18px;}
+#hi-row>div{width:292px;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+#hi-row .tdot{width:74px;height:74px;}
+#hi-row b{font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:42px;color:#0B1F3A;white-space:nowrap;}
+#hi-dep{position:absolute;left:0;width:1080px;top:842px;display:flex;justify-content:center;}
+#hi-dep>div{display:flex;align-items:center;gap:12px;height:72px;padding:0 30px 0 10px;border-radius:40px;background:#C2410C;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:40px;text-transform:uppercase;white-space:nowrap;}
+#hi-dep .cd{width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;}
+#hi-lg{position:absolute;left:100px;width:880px;top:968px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}
+  </style>
+  <div id="root" data-composition-id="hi" data-width="1080" data-height="1920">
+
+    <div id="hi-all">
+    <div id="hi-bg"></div><div id="hi-grid"></div>
+    <div id="hi-t">Hospitais de referência em SP</div>
+    <div class="hc wcard" id="hc0"><span class="sw" id="hs0"></span><span class="tdot"><span class="ic" style="width:62px;height:62px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>São Luiz</b><i>HOSPITAL · SÃO PAULO</i></div>
+    <div class="hc wcard" id="hc1"><span class="sw" id="hs1"></span><span class="tdot"><span class="ic" style="width:62px;height:62px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>São Camilo</b><i>HOSPITAL · SÃO PAULO</i></div>
+    <div class="hc wcard" id="hc2"><span class="sw" id="hs2"></span><span class="tdot"><span class="ic" style="width:62px;height:62px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>BP</b><i>HOSPITAL · SÃO PAULO</i></div>
+    <div id="hi-dots"><span id="hd0"></span><span id="hd1"></span><span id="hd2"></span></div>
+    <div id="hi-row"><div class="wcard" id="hr0"><span class="tdot"><span class="ic" style="width:42px;height:42px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>São Luiz</b></div><div class="wcard" id="hr1"><span class="tdot"><span class="ic" style="width:42px;height:42px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>São Camilo</b></div><div class="wcard" id="hr2"><span class="tdot"><span class="ic" style="width:42px;height:42px;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 7v6M9 10h6M10 21v-4h4v4"/></svg></span></span><b>BP</b></div></div>
+    <div id="hi-dep"><div id="hi-depi"><span class="cd"><span class="ic" style="width:36px;height:36px;color:#C2410C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5h.01"/></svg></span></span>Dependendo do plano</div></div>
+    <div id="hi-lg">A rede credenciada pode variar conforme plano contratado. Consulte a disponibilidade da rede hospitalar.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#hi-all",{clipPath:"circle(0% at 50% 62%)"},{clipPath:"circle(150% at 50% 62%)",duration:0.45,ease:"power3.inOut"},0);
+    tl.fromTo("#hi-t",{opacity:0,y:24},{opacity:1,y:0,duration:0.38,ease:"power3.out"},0.2);
+    tl.fromTo("#hi-lg",{opacity:0},{opacity:1,duration:0.3},0.3);
+    tl.fromTo("#hc0",{opacity:0,x:0,rotationY:0,scale:0.6,transformPerspective:1200},{opacity:1,x:0,rotationY:0,scale:1,duration:0.38,ease:"back.out(1.4)"},1);
+    tl.fromTo("#hs0",{x:0},{x:1300,duration:0.7,ease:"power2.inOut"},1.25);
+    tl.to("#hd0",{backgroundColor:"#14B8A6",scale:1.3,duration:0.2},1);
+    tl.to("#hc0",{opacity:0,x:-420,rotationY:40,scale:0.9,duration:0.26,ease:"power2.in"},1.743);
+    tl.fromTo("#hc1",{opacity:0,x:420,rotationY:-40,scale:0.9,transformPerspective:1200},{opacity:1,x:0,rotationY:0,scale:1,duration:0.38,ease:"back.out(1.4)"},1.783);
+    tl.fromTo("#hs1",{x:0},{x:1300,duration:0.7,ease:"power2.inOut"},2.033);
+    tl.to("#hd1",{backgroundColor:"#14B8A6",scale:1.3,duration:0.2},1.783);
+    tl.to("#hc1",{opacity:0,x:-420,rotationY:40,scale:0.9,duration:0.26,ease:"power2.in"},2.428);
+    tl.fromTo("#hc2",{opacity:0,x:420,rotationY:-40,scale:0.9,transformPerspective:1200},{opacity:1,x:0,rotationY:0,scale:1,duration:0.38,ease:"back.out(1.4)"},2.468);
+    tl.fromTo("#hs2",{x:0},{x:1300,duration:0.7,ease:"power2.inOut"},2.718);
+    tl.to("#hd2",{backgroundColor:"#14B8A6",scale:1.3,duration:0.2},2.468);
+    tl.to("#hc2",{opacity:0,x:-420,rotationY:40,scale:0.9,duration:0.26,ease:"power2.in"},3.093);
+    tl.to("#hi-dots",{opacity:0,duration:0.2},3.093);
+    tl.fromTo("#hr0",{opacity:0,y:60},{opacity:1,y:0,duration:0.34,ease:"back.out(1.6)"},3.213);
+    tl.fromTo("#hr1",{opacity:0,y:60},{opacity:1,y:0,duration:0.34,ease:"back.out(1.6)"},3.283);
+    tl.fromTo("#hr2",{opacity:0,y:60},{opacity:1,y:0,duration:0.34,ease:"back.out(1.6)"},3.353);
+    tl.fromTo("#hi-depi",{opacity:0,scale:1.8},{opacity:1,scale:1,duration:0.2,ease:"power4.in"},3.513);
+    tl.fromTo("#hi-depi",{x:0},{keyframes:[{x:-9,duration:0.04},{x:7,duration:0.04},{x:-3,duration:0.04},{x:0,duration:0.05}],immediateRender:false},3.713);
+    tl.to("#hi-all",{clipPath:"circle(0% at 50% 62%)",duration:0.4,ease:"power3.inOut"},3.994);
+    window.__timelines["hi"] = tl;
+  </script>
+</template>

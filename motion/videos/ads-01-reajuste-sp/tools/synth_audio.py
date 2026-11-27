@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Trilha + tratamento dos efeitos do anúncio "Ads 01 · reajuste" (talking head 9:16, 49,4 s, com infográficos).
+Trilha + tratamento dos efeitos do anúncio "Ads 01 · reajuste" (talking head 9:16, 56,5 s, com infográficos).
 
   <venv>/python -I tools/synth_audio.py   -> assets/audio/bgm.wav e assets/audio/sfx_*.wav
 
@@ -11,8 +11,9 @@ o golpe.
 
 Trilha sintetizada, presa à fala (tools/words.json): piano no gancho e na dor do reajuste, subida no "Se você
 tem CNPJ, dá pra sair dessa", groove a partir de "O plano empresarial…", respiro de piano na frase-tese ("Não é
-trocar por trocar…"), nova subida no "É exclusivo pra CNPJ", refrão no "Clica no link" e acorde final no cartão
-final. Termina em 49,4 s, a duração do vídeo. A grade vai para tools/grid.json.
+trocar por trocar…"), nova subida no "É exclusivo para CNPJ ou MEI", refrão no "Clica no link", groove sob o "Nosso
+time…", refrão de novo no fecho ("…está em nossos planos") e acorde final no cartão final. Termina em 56,5 s, a
+duração do vídeo. A grade vai para tools/grid.json.
 """
 import json
 import math
@@ -235,10 +236,10 @@ def wat(text, after=0.0):
 
 VO_END = _WORDS[-1]['end']
 # DROP = "O plano empresarial…" (depois do "dá pra sair dessa") ; CTA = "Clica no link abaixo"
-DROP = wat('o', 14.0)
+DROP = wat('o', 15.0)
 CTA = wat('clica')
 N = max(4, round((CTA - DROP) / 2.4))                    # compassos entre DROP e CTA
-BREAK_FROM, BREAK_TO = wat('nao', 30.0) - 0.3, wat('time', 30.0)   # respiro de piano na frase-tese
+BREAK_FROM, BREAK_TO = wat('nao', 30.0) - 0.3, wat('exclusivo') - 0.3   # respiro de piano na frase-tese
 BAR = (CTA - DROP) / N
 BEAT = BAR / 4
 
@@ -249,7 +250,7 @@ def at_bar(b):
 
 PRE = -math.ceil(DROP / BAR - 1e-6)                     # o primeiro compasso já cobre o t = 0
 LAST = math.ceil((VO_END - 0.4 - DROP) / BAR)           # acorde final logo depois da última palavra
-TOTAL = 49.4                                            # duração do vídeo
+TOTAL = 56.5                                            # duração do vídeo
 while at_bar(LAST) > TOTAL - 1.0:                       # a fala vai quase até o fim: o acorde final cabe no vídeo
     LAST -= 1
 
@@ -261,6 +262,8 @@ for b in range(PRE, LAST + 1):
 for b in range(math.floor((BREAK_FROM - DROP) / BAR + 0.5), math.ceil((BREAK_TO - DROP) / BAR)):
     KIND[b] = 'intro'
 KIND[N - 1] = 'build'
+for b in range(N, LAST):                                 # depois do CTA: refrão, groove sob o "Nosso time", refrão no fecho
+    KIND[b] = 'chorus' if b < N + 2 or b >= LAST - 2 else 'groove'
 
 TR = 2  # transposição deste vídeo (semitons): Si menor
 CHORDS = {

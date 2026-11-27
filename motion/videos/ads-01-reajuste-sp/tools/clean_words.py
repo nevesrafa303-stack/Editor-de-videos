@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Palavras da legenda do "Ads 01 · reajuste": texto do whisper medium rodado no áudio JÁ CORTADO
+Palavras da legenda do "Ads 01 · reajuste" (v2, corte só nas pausas): texto do whisper medium rodado no áudio JÁ CORTADO
 (tools/transcript-medium.json), com as correções de grafia conferidas à mão e os tempos encaixados nas pausas
 reais da fala.
 
@@ -14,12 +14,13 @@ import json, os, re, subprocess, sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 W = json.load(open(os.path.join(ROOT, "tools", "transcript-medium.json")))
 W = W["words"] if isinstance(W, dict) else W
-FIX_AT = {61: "Luiz,", 70: "vêm", 71: "junto.", 72: "Telemedicina", 80: "reembolso", 98: "especialistas"}
-SPLIT = {68: ("E", "os"), 77: ("e,", "em")}          # "Eos" -> "E os" ; "e" -> "e, em" ("e, em vários planos")
-# (primeira palavra, última palavra) de cada trecho de fala, na ordem dos trechos medidos
-PHRASES = [(0, 9), (10, 15), (16, 23), (24, 33), (34, 35), (36, 39), (40, 43), (44, 51), (52, 57), (58, 59),
-           (60, 61), (62, 63), (64, 64), (65, 67), (68, 71), (72, 76), (77, 82), (83, 87), (88, 94), (95, 98),
-           (99, 104), (105, 107), (108, 111), (112, 119)]
+FIX_AT = {68: "Luiz,", 77: "vêm", 78: "junto.", 79: "Telemedicina", 125: "especialistas"}
+SPLIT = {75: ("E", "os"), 84: ("e,", "em"), 135: ("E", "não")}   # "Eos" ; "e" -> "e, em" (vários planos) ; "Enão"
+# (primeira palavra, última palavra) de cada trecho de fala, na ordem dos trechos medidos; as palavras 149-150
+# ("e aí") são alucinação do whisper no silêncio do fim e ficam de fora
+PHRASES = [(0, 9), (10, 15), (16, 23), (24, 33), (34, 35), (36, 43), (44, 46), (47, 50), (51, 65), (66, 66), (67, 68),
+           (69, 70), (71, 71), (72, 74), (75, 78), (79, 83), (84, 89), (90, 94), (95, 101), (102, 121), (122, 125),
+           (126, 129), (130, 131), (132, 134), (135, 138), (139, 144), (145, 148)]
 
 log = subprocess.run(["ffmpeg", "-i", sys.argv[1], "-af", "silencedetect=noise=-42dB:d=0.07", "-f", "null", "-"],
                      capture_output=True, text=True).stderr
