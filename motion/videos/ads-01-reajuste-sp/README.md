@@ -49,8 +49,15 @@ cliente escolheu manter a fala com "duas vidas" e escrever **"a partir de 2 vida
 **Tela e cor:**
 - **Tela cheia o tempo todo:** nenhum painel cobre o rosto.
 - **Imagem original:** sem correção de cor, vinheta ou escurecimento. A v2 tinha uma correção de retrato e um
-  escurecimento no topo e no pé; o cliente não gostou e pediu a imagem como foi gravada (27/11/2026). O vídeo só passa
-  pela conversão de HDR para SDR, necessária para o Meta.
+  escurecimento no topo e no pé, e o cliente pediu a cor original (27/11/2026).
+- **Conversão de HDR para SDR igual ao Drive:** o original é HDR (HLG) e precisa virar SDR para o Meta.
+  - **O problema:** a conversão usada até a v3 (mobius com pico nominal de 100 nits) deixava a imagem clara e lavada:
+    parede quase branca, camisa cinza.
+  - **A calibração:** a conversão nova foi ajustada contra a miniatura do próprio Google Drive, no mesmo quadro
+    (0,07 s), em cinco regiões: parede, rosto, camisa, ar-condicionado e cortina.
+  - **O valor:** mobius com 350 nits, saturação 0,9 e contraste 1,05, com erro médio de ~5 níveis em 255. Fica em
+    `tools/prep_video.sh`.
+  - **O resultado:** parede cinza, camisa preta e pele natural, como no Drive.
 
 **Zoom:**
 - muda a cada corte de pausa: plano aberto 1,00 ↔ 1,07, selfie 1,00 ↔ 1,06;
