@@ -6,8 +6,9 @@
 //   palavras fortes;
 // - nada cobre o rosto: selos curtos no topo, logo abaixo do cabeçalho (tc), e cartões no terço inferior só nos
 //   planos abertos (lc); texto legal logo acima da legenda (lf); legenda palavra a palavra (cap);
-// - hospitais: cartões grandes em tela cheia, um por nome, com o apresentador num círculo (hi + #pip);
-// - cartão final em tela cheia com o apresentador no círculo (ec);
+// - hospitais: fachada real de cada um (foto com movimento de câmera), um por nome, com o apresentador num
+//   círculo (hi + #pipA); só fotos do hospital certo;
+// - cartão final em tela cheia com o apresentador no círculo (ec + #pipB);
 // - cabeçalho fixo (hd): "PLANOS DE SAÚDE" + selo "EXCLUSIVO PARA CNPJ/MEI" + "a partir de 2 vidas · São Paulo";
 // - trilha, voz e efeitos sonoros na raiz.
 //
@@ -289,57 +290,83 @@ mkdirSync(join(ROOT, "compositions"), { recursive: true });
   addScene("lc", 0, D, css, body, js.join("\n"), { track: 3, z: 5 });
 }
 
-// ═════════════ hi · hospitais em tela cheia, um por nome, com o apresentador no círculo ═════════════
+// ═════════════ hi · hospitais: fachada real de cada um, no instante em que o nome é falado ═════════════
+// Só fotos do hospital certo: São Luiz Itaim (foto enviada pelo cliente, com o logo e o letreiro) e BP (Beneficência
+// Portuguesa, prédio com o logo "bp"; Cecilia Melozi, Wikimedia Commons, CC BY-SA 4.0). Não há foto ou vídeo de uso
+// livre do São Camilo de São Paulo: o cartão dele fica sem imagem até o cliente enviar uma (HOS[1].img).
+// As fotos ganham movimento de câmera (aproximação lenta + deslize), como um plano de vídeo.
+const HOS = [
+  { n: "São Luiz", t: T.luiz, img: "assets/img/sao-luiz-itaim.jpg", pos: "50% 35%", sub: "Unidade Itaim · São Paulo" },
+  { n: "São Camilo", t: T.camilo, img: null, pos: "50% 50%", sub: "Hospital · São Paulo" },
+  { n: "BP", t: T.bp, img: "assets/img/bp-melozi.jpg", pos: "42% 50%", sub: "Beneficência Portuguesa · São Paulo" },
+];
+const HI_CREDIT = "Foto do BP: Cecilia Melozi/Wikimedia Commons, CC BY-SA 4.0.";
 {
   const [st, et] = HI;
   const L = (t) => r3(t - st);
   const d = et - st;
-  const HOS = [["São Luiz", T.luiz], ["São Camilo", T.camilo], ["BP", T.bp]];
   const css = `
 #hi-all{position:absolute;inset:0;}
 #hi-bg{position:absolute;inset:0;background:radial-gradient(110% 60% at 50% 38%, #17406E 0%, ${NAVY} 45%, ${NAVY_DD} 100%);}
 #hi-grid{position:absolute;inset:0;opacity:.7;background-image:linear-gradient(rgba(153,246,228,.07) 2px, transparent 2px),linear-gradient(90deg, rgba(153,246,228,.07) 2px, transparent 2px);background-size:60px 60px;}
-#hi-t{position:absolute;left:0;width:${W}px;top:500px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:44px;letter-spacing:.06em;text-transform:uppercase;color:${MINT};}
-.hc{position:absolute;left:90px;width:900px;top:572px;height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden;}
-.hc .tdot{width:108px;height:108px;}
-.hc b{font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:112px;line-height:1;color:${INK};letter-spacing:-.01em;white-space:nowrap;}
-.hc i{font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:28px;color:#475569;letter-spacing:.04em;}
-.hc .sw{position:absolute;top:-40px;left:-200px;width:140px;height:420px;transform:rotate(18deg);background:linear-gradient(90deg,rgba(20,184,166,0),rgba(20,184,166,.28),rgba(20,184,166,0));}
-#hi-dots{position:absolute;left:0;width:${W}px;top:922px;display:flex;justify-content:center;gap:14px;}
-#hi-dots span{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.3);}
-#hi-row{position:absolute;left:0;width:${W}px;top:600px;display:flex;justify-content:center;gap:18px;}
-#hi-row>div{width:292px;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-#hi-row .tdot{width:74px;height:74px;}
-#hi-row b{font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:42px;color:${INK};white-space:nowrap;}
-#hi-dep{position:absolute;left:0;width:${W}px;top:842px;display:flex;justify-content:center;}
-#hi-dep>div{display:flex;align-items:center;gap:12px;height:72px;padding:0 30px 0 10px;border-radius:40px;background:${ORANGE_D};font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:40px;text-transform:uppercase;white-space:nowrap;}
-#hi-dep .cd{width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;}
-#hi-lg{position:absolute;left:100px;width:${W - 200}px;top:968px;text-align:center;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.32;color:rgba(255,255,255,.92);}`;
+#hi-t{position:absolute;left:0;width:${W}px;top:494px;text-align:center;font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:40px;letter-spacing:.06em;text-transform:uppercase;color:${MINT};}
+.hp{position:absolute;left:60px;top:558px;width:960px;height:712px;border-radius:32px;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(2,8,20,.6),0 0 0 6px #fff;}
+.hp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 45%;}
+.hp .gr{position:absolute;left:0;right:0;bottom:0;height:300px;background:linear-gradient(180deg,rgba(3,10,23,0),rgba(3,10,23,.86));}
+.hp .nm{position:absolute;left:40px;bottom:34px;width:680px;}
+.hp .nm b{display:block;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:96px;line-height:1;color:#fff;letter-spacing:-.01em;white-space:nowrap;text-shadow:0 6px 24px rgba(0,0,0,.45);}
+.hp .nm i{display:flex;align-items:center;gap:10px;margin-top:10px;font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:28px;color:${MINT};white-space:nowrap;}
+.hp .tag{position:absolute;left:40px;top:34px;display:flex;align-items:center;gap:10px;padding:8px 20px 8px 10px;border-radius:30px;background:${TEAL_D};font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:30px;text-transform:uppercase;}
+.hp .tag .cd{width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;}
+.hp.noimg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+.hp.noimg .tdot{width:120px;height:120px;}
+.hp.noimg b{font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:110px;line-height:1;color:${INK};white-space:nowrap;}
+.hp.noimg i{font-style:normal;font-family:"Poppins",Arial,sans-serif;font-weight:600;font-size:30px;color:#475569;}
+.hp .sw{position:absolute;top:-60px;left:-260px;width:160px;height:760px;transform:rotate(18deg);background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.35),rgba(255,255,255,0));}
+#hi-row{position:absolute;left:0;width:${W}px;top:560px;display:flex;justify-content:center;gap:18px;}
+#hi-row>div{position:relative;width:300px;height:300px;border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 18px 44px rgba(2,8,20,.5),0 0 0 5px #fff;}
+#hi-row img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+#hi-row .gr{position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(180deg,rgba(3,10,23,0),rgba(3,10,23,.85));}
+#hi-row b{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:40px;color:#fff;white-space:nowrap;}
+#hi-row .ni{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;height:100%;}
+#hi-row .ni .tdot{width:90px;height:90px;}
+#hi-row .ni b{position:static;color:${INK};}
+#hi-dep{position:absolute;left:0;width:${W}px;top:900px;display:flex;justify-content:center;}
+#hi-dep>div{display:flex;align-items:center;gap:12px;height:76px;padding:0 32px 0 10px;border-radius:40px;background:${ORANGE_D};font-family:"Saira Semi Condensed",Arial,sans-serif;font-weight:800;font-size:42px;text-transform:uppercase;white-space:nowrap;box-shadow:0 14px 34px rgba(2,8,20,.5);}
+#hi-dep .cd{width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;}
+#hi-lg{position:absolute;left:66px;width:680px;top:1292px;text-align:left;font-family:"Poppins",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.3;color:rgba(255,255,255,.92);}`;
+  const card = (h, i) => h.img
+    ? `<div class="hp" id="hc${i}"><img id="hm${i}" src="${h.img}" style="object-position:${h.pos}" alt=""><span class="gr"></span><span class="sw" id="hs${i}"></span>
+      <div class="nm"><b>${h.n}</b><i>${icon("info", 26, MINT)}${h.sub}</i></div></div>`
+    : `<div class="hp noimg" id="hc${i}"><span class="sw" id="hs${i}"></span><span class="tdot">${icon("hosp", 70, "#fff")}</span><b>${h.n}</b><i>${h.sub}</i></div>`;
   const body = `
     <div id="hi-all">
     <div id="hi-bg"></div><div id="hi-grid"></div>
     <div id="hi-t">Hospitais de referência em SP</div>
-    ${HOS.map(([n], i) => `<div class="hc wcard" id="hc${i}"><span class="sw" id="hs${i}"></span><span class="tdot">${icon("hosp", 62, "#fff")}</span><b>${n}</b><i>HOSPITAL · SÃO PAULO</i></div>`).join("\n    ")}
-    <div id="hi-dots">${HOS.map((_, i) => `<span id="hd${i}"></span>`).join("")}</div>
-    <div id="hi-row">${HOS.map(([n], i) => `<div class="wcard" id="hr${i}"><span class="tdot">${icon("hosp", 42, "#fff")}</span><b>${n}</b></div>`).join("")}</div>
-    <div id="hi-dep"><div id="hi-depi"><span class="cd">${icon("info", 36, ORANGE_D)}</span>Dependendo do plano</div></div>
-    <div id="hi-lg">${OBS.rede} ${OBS.disp}</div>
+    ${HOS.map(card).join("\n    ")}
+    <div id="hi-row">${HOS.map((h, i) => h.img
+      ? `<div id="hr${i}"><img src="${h.img}" style="object-position:${h.pos}" alt=""><span class="gr"></span><b>${h.n}</b></div>`
+      : `<div id="hr${i}"><div class="ni"><span class="tdot">${icon("hosp", 52, "#fff")}</span><b>${h.n}</b></div></div>`).join("")}</div>
+    <div id="hi-dep"><div id="hi-depi"><span class="cd">${icon("info", 38, ORANGE_D)}</span>Dependendo do plano</div></div>
+    <div id="hi-lg">${OBS.rede} ${OBS.disp} Imagem meramente ilustrativa. ${HI_CREDIT}</div>
     </div>`;
   const js = [
     `    tl.fromTo("#hi-all",{clipPath:"circle(0% at 50% 62%)"},{clipPath:"circle(150% at 50% 62%)",duration:0.45,ease:"power3.inOut"},0);`,
     fadeUp("#hi-t", 0.2, { y: 24 }),
     `    tl.fromTo("#hi-lg",{opacity:0},{opacity:1,duration:0.3},0.3);`,
-    ...HOS.flatMap(([, t], i) => {
-      const nx = HOS[i + 1] ? HOS[i + 1][1] : T.dependendo;
-      return [
-        `    tl.fromTo("#hc${i}",{opacity:0,x:${i ? 420 : 0},rotationY:${i ? -40 : 0},scale:${i ? 0.9 : 0.6},transformPerspective:1200},{opacity:1,x:0,rotationY:0,scale:1,duration:0.38,ease:"back.out(1.4)"},${L(t - 0.2)});`,
-        `    tl.fromTo("#hs${i}",{x:0},{x:1300,duration:0.7,ease:"power2.inOut"},${L(t + 0.05)});`,
-        `    tl.to("#hd${i}",{backgroundColor:"${TEAL}",scale:1.3,duration:0.2},${L(t - 0.2)});`,
-        `    tl.to("#hc${i}",{opacity:0,x:-420,rotationY:40,scale:0.9,duration:0.26,ease:"power2.in"},${L(nx - 0.24)});`,
+    ...HOS.flatMap((h, i) => {
+      const t0 = i ? L(h.t - 0.22) : L(T.hospitais + 0.15);
+      const nx = HOS[i + 1] ? HOS[i + 1].t : T.dependendo;
+      const t1 = L(nx - 0.24);
+      const out = [
+        `    tl.fromTo("#hc${i}",{opacity:0,x:${i ? 520 : 0},rotationY:${i ? -35 : 0},scale:${i ? 0.92 : 0.7},transformPerspective:1400},{opacity:1,x:0,rotationY:0,scale:1,duration:0.36,ease:"back.out(1.3)"},${t0});`,
+        `    tl.fromTo("#hs${i}",{x:0},{x:1500,duration:0.7,ease:"power2.inOut"},${r3(t0 + 0.25)});`,
+        `    tl.to("#hc${i}",{opacity:0,x:-520,rotationY:35,scale:0.92,duration:0.24,ease:"power2.in"},${t1});`,
       ];
+      if (h.img) out.push(`    tl.fromTo("#hm${i}",{scale:1.02,x:${i ? 26 : -18}},{scale:1.16,x:${i ? -26 : 18},duration:${r3(t1 - t0 + 0.24)},ease:"none"},${t0});`);
+      return out;
     }),
-    `    tl.to("#hi-dots",{opacity:0,duration:0.2},${L(T.dependendo - 0.24)});`,
-    ...HOS.map((_, i) => `    tl.fromTo("#hr${i}",{opacity:0,y:60},{opacity:1,y:0,duration:0.34,ease:"back.out(1.6)"},${L(T.dependendo - 0.12 + i * 0.07)});`),
+    ...HOS.map((_, i) => `    tl.fromTo("#hr${i}",{opacity:0,y:70},{opacity:1,y:0,duration:0.34,ease:"back.out(1.6)"},${L(T.dependendo - 0.12 + i * 0.07)});`),
     stamp("#hi-depi", L(T.dependendo + 0.18), 1.8),
     `    tl.to("#hi-all",{clipPath:"circle(0% at 50% 62%)",duration:0.4,ease:"power3.inOut"},${r3(d - 0.4)});`,
   ].join("\n");
@@ -533,16 +560,16 @@ for (let i = 0; i < bounds.length - 1; i++) {
   }
   if (b - t > 0.05) R.push(`      tl.to("#vw",{scale:${r3(Math.min(CAP[tk] + 0.01, s + 0.015))},duration:${r3(b - t)},ease:"none"},${r3(t)});`);
 }
-// círculo do apresentador nos hospitais (plano aberto: rosto em ~540, 930) e no cartão final (selfie: ~540, 960)
-const PIP = 340;
-const pipFrame = (k, fx, fy) => ({ w: W * k, h: H * k, x: r3(PIP / 2 - fx * k), y: r3(PIP / 2 - fy * k) });
-const P1 = pipFrame(0.66, 540, 930), P2 = pipFrame(0.42, 540, 960);
-R.push(`      tl.set("#pip",{opacity:0,scale:0.4},0);`);
-R.push(`      tl.to("#pip",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},${r3(HI[0] + 0.25)});`);
-R.push(`      tl.to("#pip",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},${r3(HI[1] - 0.45)});`);
-R.push(`      tl.to("#pip",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},${r3(ENDC + 0.35)});`);
-R.push(`      tl.fromTo("#pip-ring",{rotation:0},{rotation:360,duration:${r3(HI[1] - HI[0])},ease:"none"},${HI[0]});`);
-R.push(`      tl.fromTo("#pip-ring",{rotation:0},{rotation:240,duration:${r3(D - ENDC)},ease:"none",immediateRender:false},${ENDC});`);
+// círculo do apresentador: nos hospitais, menor, no canto do cartão da fachada; no cartão final, maior e no centro
+const pipFrame = (size, k, fx, fy) => ({ w: W * k, h: H * k, x: r3(size / 2 - fx * k), y: r3(size / 2 - fy * k) });
+const PIPA = { size: 270, left: 770, top: 1080 }, PIPB = { size: 340, left: (W - 340) / 2, top: 1040 };
+const P1 = pipFrame(PIPA.size, 0.52, 540, 930), P2 = pipFrame(PIPB.size, 0.42, 540, 960);
+R.push(`      tl.set("#pipA,#pipB",{opacity:0,scale:0.4},0);`);
+R.push(`      tl.to("#pipA",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},${r3(HI[0] + 0.25)});`);
+R.push(`      tl.to("#pipA",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},${r3(HI[1] - 0.45)});`);
+R.push(`      tl.to("#pipB",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},${r3(ENDC + 0.35)});`);
+R.push(`      tl.fromTo("#ringA",{rotation:0},{rotation:360,duration:${r3(HI[1] - HI[0])},ease:"none"},${HI[0]});`);
+R.push(`      tl.fromTo("#ringB",{rotation:0},{rotation:240,duration:${r3(D - ENDC)},ease:"none"},${ENDC});`);
 
 const hosts = scenes.map((s) => `      <div id="${s.id}" data-composition-id="${s.id}" data-composition-src="compositions/${s.id}.html" data-start="${s.st}" data-duration="${s.dur}" data-track-index="${s.track}" data-track-kind="${s.kind}" data-width="${W}" data-height="${H}" style="position:absolute;inset:0;z-index:${s.z}"></div>`).join("\n");
 const audio = [
@@ -564,11 +591,13 @@ ${FONTS}
       #root { position: relative; width: ${W}px; height: ${H}px; overflow: hidden; background: ${NAVY_D}; }
       #vw { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; z-index: 1; }
       #v-src { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; object-fit: cover; }
-      #pip { position: absolute; left: ${(W - PIP) / 2}px; top: 1040px; width: ${PIP}px; height: ${PIP}px; z-index: 5; }
-      #pip-in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: ${NAVY_D}; box-shadow: 0 0 0 7px #fff, 0 18px 50px rgba(2,8,20,.6), 0 0 60px rgba(20,184,166,.55); }
+      .pip { position: absolute; z-index: 5; }
+      #pipA { left: ${PIPA.left}px; top: ${PIPA.top}px; width: ${PIPA.size}px; height: ${PIPA.size}px; }
+      #pipB { left: ${PIPB.left}px; top: ${PIPB.top}px; width: ${PIPB.size}px; height: ${PIPB.size}px; }
+      .pip-in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: ${NAVY_D}; box-shadow: 0 0 0 7px #fff, 0 18px 50px rgba(2,8,20,.6), 0 0 60px rgba(20,184,166,.55); }
       #v-pip1 { position: absolute; left: ${P1.x}px; top: ${P1.y}px; width: ${P1.w}px; height: ${P1.h}px; object-fit: cover; }
       #v-pip2 { position: absolute; left: ${P2.x}px; top: ${P2.y}px; width: ${P2.w}px; height: ${P2.h}px; object-fit: cover; }
-      #pip-ring { position: absolute; inset: -22px; border-radius: 50%; border: 5px dashed rgba(153,246,228,.85); }
+      .pip-ring { position: absolute; inset: -20px; border-radius: 50%; border: 5px dashed rgba(153,246,228,.85); }
     </style>
   </head>
   <body>
@@ -576,7 +605,8 @@ ${FONTS}
       <div id="vw">
         <video id="v-src" class="clip" data-start="0" data-duration="${D}" data-track-index="0" muted playsinline src="assets/video/src.mp4"></video>
       </div>
-      <div id="pip" data-layout-allow-overflow><div id="pip-ring" data-layout-ignore></div><div id="pip-in"><video id="v-pip1" class="clip" data-start="${HI[0]}" data-duration="${r3(HI[1] - HI[0])}" data-media-start="${HI[0]}" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video><video id="v-pip2" class="clip" data-start="${ENDC}" data-duration="${r3(D - ENDC)}" data-media-start="${ENDC}" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
+      <div id="pipA" class="pip" data-layout-allow-overflow><div id="ringA" class="pip-ring" data-layout-ignore></div><div class="pip-in"><video id="v-pip1" class="clip" data-start="${HI[0]}" data-duration="${r3(HI[1] - HI[0])}" data-media-start="${HI[0]}" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
+      <div id="pipB" class="pip" data-layout-allow-overflow><div id="ringB" class="pip-ring" data-layout-ignore></div><div class="pip-in"><video id="v-pip2" class="clip" data-start="${ENDC}" data-duration="${r3(D - ENDC)}" data-media-start="${ENDC}" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
 ${hosts}
 ${audio}
     </div>

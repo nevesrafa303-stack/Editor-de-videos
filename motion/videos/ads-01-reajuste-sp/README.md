@@ -70,18 +70,43 @@ cliente escolheu manter a fala com "duas vidas" e escrever **"a partir de 2 vida
 - **Terço inferior:** cartões, só nos planos abertos, abaixo do queixo.
 - **Pé:** texto legal logo acima da legenda.
 
-## Hospitais em destaque
+## Hospitais em destaque: fachada real de cada um
 
-No "como hospitais São Luiz, São Camilo, BP, dependendo do plano" (21,7–26,0 s):
+Pedido do cliente em 27/11/2026: "no momento que cita os hospitais, usar vídeos das fachadas, mas tem que ser o
+hospital certo".
+
+**Sequência** (21,7–26,0 s), no "como hospitais São Luiz, São Camilo, BP, dependendo do plano":
 - **Tela cheia:** entra uma tela azul-marinho com "Hospitais de referência em SP".
-- **Um cartão por nome:** cada hospital tem um cartão grande (nome em 112 px, ícone de hospital, "Hospital · São
-  Paulo"). O cartão entra girando no instante em que o nome é falado, com impacto e brilho.
-- **Fecho:** no "dependendo do plano", os três se juntam numa fileira com o carimbo laranja "Dependendo do plano".
-- **Apresentador:** fica visível num círculo com anel verde-água o tempo todo.
+- **Fachada de cada hospital:** cada um aparece num cartão grande no instante em que o nome é falado.
+  - A foto ganha movimento de câmera (aproximação lenta e deslize lateral), como um plano de vídeo.
+  - Há um brilho que passa pelo cartão.
+  - Na parte de baixo aparecem o nome e a unidade.
+- **Apresentador:** continua visível num círculo no canto do cartão.
+- **Fecho:** no "dependendo do plano", os três se juntam numa fileira com o carimbo laranja.
 
-**Sem foto:** os três cartões não têm foto, porque não existe foto de uso livre do São Camilo de São Paulo. Os do São
-Luiz e do BP existem em `criativos/`. Se o cliente enviar uma foto do São Camilo, dá para pôr as fachadas reais nos
-três cartões.
+**Imagens usadas, todas do hospital certo:**
+
+| Hospital | Imagem | Origem e licença |
+|---|---|---|
+| São Luiz | Fachada da unidade Itaim, com o logo D'Or e o letreiro vertical "São Luiz Itaim" (`assets/img/sao-luiz-itaim.jpg`) | Enviada pelo cliente para o `sp-rede-premium-cnpj` (ver `criativos/hospitais-referencia-sp/README.md`) |
+| BP | Prédio da Beneficência Portuguesa com o logo "bp" (`assets/img/bp-melozi.jpg`) | Cecilia Melozi, Wikimedia Commons, CC BY-SA 4.0. O crédito vai no texto legal da cena. |
+| São Camilo | **Sem imagem:** cartão branco com o nome | Não existe foto nem vídeo de uso livre do São Camilo de São Paulo (Pompeia, Santana ou Ipiranga). |
+
+**Busca feita em 27/11/2026, sem nada utilizável dos três:**
+- **Adobe Stock:** nenhuma filmagem identificada; só prédios genéricos.
+- **Wikimedia Commons:** só São Camilo de Itu e de Coronel Fabriciano, de outras cidades.
+- **Pexels e Pixabay:** nada.
+- **Drive do cliente:** só um vídeo de IA do São Luiz.
+
+Nenhum prédio genérico, imagem de IA ou hospital de outra cidade foi usado.
+
+**Para trocar por vídeo de verdade:**
+- **Vídeo enviado pelo cliente:** dos três ou só do São Camilo.
+- **Onde trocar:** em `HOS` (`tools/build.mjs`), campo `img`.
+  - Um vídeo entra no lugar da foto como `<video>` no cartão.
+  - O cartão do São Camilo passa a ter imagem quando `img` deixa de ser `null`.
+
+Na cena entram "Imagem meramente ilustrativa." e o crédito da foto do BP.
 
 ## Roteiro e grafismos
 
@@ -92,7 +117,7 @@ três cartões.
 | 11,5–16,3 s | "Se você tem CNPJ ou MEI, e duas vidas ou mais, dá pra sair dessa." | "✓ CNPJ ou MEI" e "2 vidas ou +" → carimbo verde "Dá pra sair dessa". O selo do cabeçalho pulsa no "CNPJ"; o "a partir de 2 vidas" pulsa no "duas". |
 | 16,3–19,1 s | "O plano empresarial tem outras regras e preços." | Cartão "Plano empresarial" com ✓ "outras regras" e ✓ "outros preços". |
 | 19,1–21,7 s | "Em muitos casos, uma rede melhor, como" | Selos "Em muitos casos" → "Uma rede melhor". |
-| 21,7–26,0 s | "hospitais São Luiz, São Camilo, BP, dependendo do plano." | Hospitais em tela cheia (ver acima). |
+| 21,7–26,0 s | "hospitais São Luiz, São Camilo, BP, dependendo do plano." | Fachada real de cada hospital no instante do nome (São Luiz Itaim e BP; São Camilo sem imagem), com o apresentador no círculo (ver acima). |
 | 26,0–33,3 s | "E os benefícios vêm junto. Telemedicina 24 horas, cobertura nacional e, em vários planos, reembolso de consultas." | Selo "Os benefícios vêm junto". Três cartões entram um a um com ✓: Telemedicina 24 h, Cobertura nacional e Reembolso de consultas ("em vários planos"). |
 | 33,3–37,3 s | "Não é trocar por trocar, é parar de pagar mais sem necessidade." | Selos "Não é trocar por trocar" → carimbo laranja "É parar de pagar mais", com punch-ins. |
 | 37,3–41,3 s | "É exclusivo para CNPJ ou MEI, e a partir de duas vidas." | Cartão carimbado "Exclusivo para **CNPJ/MEI**" + "A partir de **2 vidas**". |
@@ -129,15 +154,16 @@ três cartões.
 | Reajuste e mensalidade | Valores referenciais sujeitos às regras da operadora. · Os valores podem variar conforme perfil do beneficiário. |
 | CNPJ/MEI e 2 vidas | Consulte condições e elegibilidade. · Valores sujeitos à faixa etária e região. |
 | Plano empresarial: regras e preços | Valores referenciais sujeitos às regras da operadora. · Valores sujeitos à faixa etária e região. |
-| Rede melhor e hospitais | A rede credenciada pode variar conforme plano contratado. · Consulte a disponibilidade da rede hospitalar. |
+| Rede melhor | A rede credenciada pode variar conforme plano contratado. · Consulte a disponibilidade da rede hospitalar. |
+| Hospitais (fachadas) | A rede credenciada pode variar conforme plano contratado. · Consulte a disponibilidade da rede hospitalar. · Imagem meramente ilustrativa. · Foto do BP: Cecilia Melozi/Wikimedia Commons, CC BY-SA 4.0. |
 | Benefícios | Cobertura e rede sujeitas à modalidade contratada. · A rede credenciada pode variar conforme plano contratado. |
 | "Pagar mais" | Valores referenciais sujeitos às regras da operadora. · Os valores podem variar conforme perfil do beneficiário. |
 | Exclusivo, CTA e operadoras | Consulte condições e elegibilidade. · Condições sujeitas à análise comercial. |
 | Fecho (família ou empresa) | Consulte condições e elegibilidade. · Cobertura e rede sujeitas à modalidade contratada. |
 | Cartão final | Planos de saúde empresariais para CNPJ/MEI, a partir de 2 vidas. Hospitais citados como exemplos de rede, conforme o plano. · Consulte condições e elegibilidade. · Condições sujeitas à análise comercial. · Valores referenciais sujeitos às regras da operadora. · Valores sujeitos à faixa etária e região. · A rede credenciada pode variar conforme plano contratado. · Consulte a disponibilidade da rede hospitalar. · Cobertura e rede sujeitas à modalidade contratada. |
 
-Não entra "Imagem meramente ilustrativa.": o vídeo só mostra o próprio apresentador e gráficos, sem foto de hospital,
-de outras pessoas ou imagem gerada.
+"Imagem meramente ilustrativa." entra na cena dos hospitais, a única com foto (as fachadas). No resto, o vídeo só
+mostra o próprio apresentador e gráficos.
 
 **Tamanho e posição:**
 - o texto legal tem 19 px e fica logo acima da legenda;

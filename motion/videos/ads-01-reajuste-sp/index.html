@@ -19,11 +19,13 @@
       #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #071429; }
       #vw { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 1; }
       #v-src { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
-      #pip { position: absolute; left: 370px; top: 1040px; width: 340px; height: 340px; z-index: 5; }
-      #pip-in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: #071429; box-shadow: 0 0 0 7px #fff, 0 18px 50px rgba(2,8,20,.6), 0 0 60px rgba(20,184,166,.55); }
-      #v-pip1 { position: absolute; left: -186.4px; top: -443.8px; width: 712.8000000000001px; height: 1267.2px; object-fit: cover; }
+      .pip { position: absolute; z-index: 5; }
+      #pipA { left: 770px; top: 1080px; width: 270px; height: 270px; }
+      #pipB { left: 370px; top: 1040px; width: 340px; height: 340px; }
+      .pip-in { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: #071429; box-shadow: 0 0 0 7px #fff, 0 18px 50px rgba(2,8,20,.6), 0 0 60px rgba(20,184,166,.55); }
+      #v-pip1 { position: absolute; left: -145.8px; top: -348.6px; width: 561.6px; height: 998.4000000000001px; object-fit: cover; }
       #v-pip2 { position: absolute; left: -56.8px; top: -233.2px; width: 453.59999999999997px; height: 806.4px; object-fit: cover; }
-      #pip-ring { position: absolute; inset: -22px; border-radius: 50%; border: 5px dashed rgba(153,246,228,.85); }
+      .pip-ring { position: absolute; inset: -20px; border-radius: 50%; border: 5px dashed rgba(153,246,228,.85); }
     </style>
   </head>
   <body>
@@ -31,7 +33,8 @@
       <div id="vw">
         <video id="v-src" class="clip" data-start="0" data-duration="56.5" data-track-index="0" muted playsinline src="assets/video/src.mp4"></video>
       </div>
-      <div id="pip" data-layout-allow-overflow><div id="pip-ring" data-layout-ignore></div><div id="pip-in"><video id="v-pip1" class="clip" data-start="21.651" data-duration="4.394" data-media-start="21.651" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video><video id="v-pip2" class="clip" data-start="53.82" data-duration="2.68" data-media-start="53.82" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
+      <div id="pipA" class="pip" data-layout-allow-overflow><div id="ringA" class="pip-ring" data-layout-ignore></div><div class="pip-in"><video id="v-pip1" class="clip" data-start="21.651" data-duration="4.394" data-media-start="21.651" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
+      <div id="pipB" class="pip" data-layout-allow-overflow><div id="ringB" class="pip-ring" data-layout-ignore></div><div class="pip-in"><video id="v-pip2" class="clip" data-start="53.82" data-duration="2.68" data-media-start="53.82" data-track-index="1" muted playsinline src="assets/video/src.mp4"></video></div></div>
       <div id="hd" data-composition-id="hd" data-composition-src="compositions/hd.html" data-start="0" data-duration="56.5" data-track-index="6" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:6"></div>
       <div id="tc" data-composition-id="tc" data-composition-src="compositions/tc.html" data-start="0" data-duration="56.5" data-track-index="4" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:5"></div>
       <div id="lc" data-composition-id="lc" data-composition-src="compositions/lc.html" data-start="0" data-duration="56.5" data-track-index="3" data-track-kind="graphics" data-width="1080" data-height="1920" style="position:absolute;inset:0;z-index:5"></div>
@@ -159,12 +162,12 @@
       tl.to("#vw",{scale:1.012,duration:0.456,ease:"none"},52.133);
       tl.to("#vw",{scale:1.052,duration:0.16,ease:"power3.out"},52.589);
       tl.to("#vw",{scale:1.067,duration:1.071,ease:"none"},52.749);
-      tl.set("#pip",{opacity:0,scale:0.4},0);
-      tl.to("#pip",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},21.901);
-      tl.to("#pip",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},25.595);
-      tl.to("#pip",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},54.17);
-      tl.fromTo("#pip-ring",{rotation:0},{rotation:360,duration:4.394,ease:"none"},21.651);
-      tl.fromTo("#pip-ring",{rotation:0},{rotation:240,duration:2.68,ease:"none",immediateRender:false},53.82);
+      tl.set("#pipA,#pipB",{opacity:0,scale:0.4},0);
+      tl.to("#pipA",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},21.901);
+      tl.to("#pipA",{opacity:0,scale:0.4,duration:0.25,ease:"power2.in"},25.595);
+      tl.to("#pipB",{opacity:1,scale:1,duration:0.4,ease:"back.out(1.6)"},54.17);
+      tl.fromTo("#ringA",{rotation:0},{rotation:360,duration:4.394,ease:"none"},21.651);
+      tl.fromTo("#ringB",{rotation:0},{rotation:240,duration:2.68,ease:"none"},53.82);
       window.__timelines["main"] = tl;
     </script>
   </body>
