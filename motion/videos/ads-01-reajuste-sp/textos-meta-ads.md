@@ -1,6 +1,6 @@
 # Textos do anúncio no Meta · Ads 01 · reajuste (`out/ads-01-reajuste-sp-v5-story-9x16.mp4`)
 
-Sete variações (A–G); C e G são curtas, para teste A/B.
+Onze variações: A–G completas (C e G curtas) e H–K resumidas, para teste A/B.
 
 **Regras do `CLAUDE.md` aplicadas em todas:**
 - botão **Obter cotação**;
@@ -143,6 +143,50 @@ condições e elegibilidade.
 
 - **Título:** Plano empresarial em SP
 - **Descrição:** Cotação pelo formulário
+
+---
+
+## Resumidas (28/11/2026)
+
+### H · Reajuste
+
+Plano de saúde subiu de novo? 😬 Com CNPJ ou MEI, a partir de 2 vidas, você pode ter um plano empresarial com outras
+regras e preços. Toque em "Obter cotação".
+
+Valores referenciais sujeitos às regras da operadora. Consulte condições e elegibilidade.
+
+- **Título:** Seu plano subiu de novo?
+- **Descrição:** CNPJ/MEI · a partir de 2 vidas
+
+### I · Hospitais
+
+São Luiz, São Camilo e BP no plano da sua empresa, dependendo do plano. 🏥 Exclusivo para CNPJ/MEI, a partir de 2
+vidas. Toque em "Obter cotação".
+
+A rede credenciada pode variar conforme plano contratado. Consulte condições e elegibilidade.
+
+- **Título:** Hospitais de referência em SP
+- **Descrição:** Exclusivo para CNPJ/MEI
+
+### J · Pagar mais
+
+Não é trocar por trocar. É parar de pagar mais sem necessidade. Plano empresarial para CNPJ/MEI, a partir de 2 vidas.
+Toque em "Obter cotação".
+
+Valores referenciais sujeitos às regras da operadora. Consulte condições e elegibilidade.
+
+- **Título:** Pare de pagar mais
+- **Descrição:** Cotação pelo formulário
+
+### K · Família
+
+Sua família no plano de saúde da sua empresa. 💙 CNPJ ou MEI, a partir de 2 vidas, com telemedicina 24 h e cobertura
+nacional. Toque em "Obter cotação".
+
+Consulte condições e elegibilidade. Cobertura e rede sujeitas à modalidade contratada.
+
+- **Título:** Sua família pelo CNPJ
+- **Descrição:** A partir de 2 vidas
 
 ---
 
