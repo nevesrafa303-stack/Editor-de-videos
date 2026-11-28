@@ -1,6 +1,6 @@
 # Textos do anúncio no Meta · Ads 01 · reajuste (`out/ads-01-reajuste-sp-v5-story-9x16.mp4`)
 
-Três variações, a última curta para teste A/B.
+Sete variações (A–G); C e G são curtas, para teste A/B.
 
 **Regras do `CLAUDE.md` aplicadas em todas:**
 - botão **Obter cotação**;
@@ -70,6 +70,78 @@ Valores referenciais sujeitos às regras da operadora. A rede credenciada pode v
 condições e elegibilidade.
 
 - **Título:** Pare de pagar mais sem necessidade
+- **Descrição:** Cotação pelo formulário
+
+---
+
+## Mais variações (28/11/2026)
+
+### D · Aceitar reajuste
+
+Você aceita o reajuste do plano de saúde todo ano sem comparar? Talvez esteja pagando mais do que precisa.
+
+A operadora não vai te avisar que existe outra opção. Mas quem tem CNPJ ou MEI pode contratar um plano empresarial, a
+partir de 2 vidas, com outras regras e preços.
+
+E sem abrir mão da rede: hospitais como São Luiz, São Camilo e BP, dependendo do plano.
+
+Nosso time de especialistas compara as principais operadoras para você. Toque em "Obter cotação" e preencha o
+formulário.
+
+Valores referenciais sujeitos às regras da operadora. Os valores podem variar conforme perfil do beneficiário. A rede
+credenciada pode variar conforme plano contratado. Condições sujeitas à análise comercial.
+
+- **Título:** Compare antes do próximo reajuste
+- **Descrição:** Exclusivo para CNPJ/MEI
+
+### E · Tem CNPJ?
+
+Tem CNPJ ou MEI e ainda paga plano de saúde como pessoa física? Então esse anúncio é pra você.
+
+Com o CNPJ, a partir de 2 vidas, você pode ter um plano empresarial para você, seus sócios e a sua família, com:
+
+✔️ Outras regras e preços
+✔️ Hospitais como São Luiz, São Camilo e BP, dependendo do plano
+✔️ Telemedicina 24 horas
+✔️ Cobertura nacional e, em vários planos, reembolso de consultas
+
+Toque em "Obter cotação" e receba as opções para o seu perfil.
+
+Consulte condições e elegibilidade. Condições sujeitas à análise comercial. Valores referenciais sujeitos às regras da
+operadora. A rede credenciada pode variar conforme plano contratado.
+
+- **Título:** Plano de saúde pelo CNPJ
+- **Descrição:** A partir de 2 vidas
+
+### F · Família
+
+A saúde da sua família pode entrar no plano da sua empresa. 💙
+
+Quem tem CNPJ ou MEI pode contratar um plano de saúde empresarial a partir de 2 vidas e incluir a família, conforme
+as regras da operadora.
+
+🏥 Hospitais de referência em São Paulo, como São Luiz, São Camilo e BP, dependendo do plano
+📱 Telemedicina 24 h para falar com médico de onde estiver
+🌎 Cobertura nacional
+
+Nosso time compara as principais operadoras e encontra a melhor opção para você ou sua empresa. Toque em "Obter
+cotação".
+
+Consulte condições e elegibilidade. Condições sujeitas à análise comercial. A rede credenciada pode variar conforme
+plano contratado. Cobertura e rede sujeitas à modalidade contratada.
+
+- **Título:** Sua família no plano da empresa
+- **Descrição:** Exclusivo para CNPJ/MEI
+
+### G · Direta (curta)
+
+Chega de reajuste pesando no orçamento. Plano de saúde empresarial para CNPJ/MEI, a partir de 2 vidas, com hospitais
+como São Luiz, São Camilo e BP, dependendo do plano. Toque em "Obter cotação".
+
+Valores referenciais sujeitos às regras da operadora. A rede credenciada pode variar conforme plano contratado. Consulte
+condições e elegibilidade.
+
+- **Título:** Plano empresarial em SP
 - **Descrição:** Cotação pelo formulário
 
 ---
